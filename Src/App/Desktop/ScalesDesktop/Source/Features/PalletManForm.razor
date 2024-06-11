@@ -17,7 +17,7 @@
       <SelectSingle
         TItem="PalletMan"
         @bind-SelectedItem="@FormModel.User"
-        ItemDisplayName="@(item => item.DisplayShortName)"
+        ItemDisplayName="@(item => item.Fio.DisplayShortName)"
         Items="@PalletMen"
         Placeholder="@Localizer["UserSelectPlaceholder"]"
       />
@@ -30,7 +30,7 @@
         Placeholder="@Localizer["PasswordInputPlaceholder"]"
       />
     </FormFieldWrapper>
-    <Button Type="ButtonType.Submit" Class="!mt-4">
+    <Button Type="@ButtonType.Submit" Class="!mt-4">
       @Localizer["BtnLogIn"]
     </Button>
   </EditForm>

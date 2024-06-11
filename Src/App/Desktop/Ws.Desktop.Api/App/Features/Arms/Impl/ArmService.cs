@@ -1,16 +1,15 @@
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Arms.Common;
-using Ws.Desktop.Models.Common;
 using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms.Impl;
 
 public class ArmService : IArmService
 {
-    public OutputDto<ArmValue>? GetByName(string armName)
+    public ArmValue? GetByName(string armName)
     {
         using var context = new WsDbContext();
-        ArmValue? arm = context.Lines
+        return context.Lines
             .Where(i => i.PcName == armName)
             .Select(i => new ArmValue
             {
@@ -28,7 +27,5 @@ public class ArmService : IArmService
                 }
             })
             .FirstOrDefault();
-
-        return arm is not null ? new (arm) : null;
     }
 }

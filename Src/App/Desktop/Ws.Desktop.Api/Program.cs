@@ -1,14 +1,14 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Arms.Common;
 using Ws.Desktop.Api.App.Features.Arms.Impl;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
 using Ws.Desktop.Api.App.Features.PalletMen.Impl;
+using Ws.Desktop.Api.App.Features.Pallets.Common;
+using Ws.Desktop.Api.App.Features.Pallets.Impl;
 using Ws.Desktop.Api.App.Features.Plu.Weight.Common;
 using Ws.Desktop.Api.App.Features.Plu.Weight.Impl;
 using Ws.Domain.Services;
-using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +20,7 @@ builder.Services.AddEfCore();
 builder.Services.AddScoped<IArmService, ArmService>();
 builder.Services.AddScoped<IPluWeightService, PluWeightService>();
 builder.Services.AddScoped<IPalletManService, PalletManService>();
+builder.Services.AddScoped<IPalletApiService, PalletApiService>();
 
 builder.Services.AddDomainServices();
 builder.Services.AddLabelsServices();

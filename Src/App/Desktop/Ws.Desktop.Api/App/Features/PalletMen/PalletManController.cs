@@ -2,7 +2,6 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
-using Ws.Desktop.Models.Common;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace Ws.Desktop.Api.App.Features.PalletMen;
@@ -15,5 +14,5 @@ public class PalletManController(IPalletManService palletManService) : Controlle
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public OutputDto<List<PalletMan>> GetAll() => palletManService.GetAll();
+    public List<PalletMan> GetAll() => palletManService.GetAll();
 }

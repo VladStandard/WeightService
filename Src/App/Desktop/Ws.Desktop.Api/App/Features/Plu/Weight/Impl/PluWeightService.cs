@@ -1,6 +1,5 @@
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Plu.Weight.Common;
-using Ws.Desktop.Models.Common;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Output;
@@ -17,7 +16,7 @@ public class PluWeightService(
     IArmService armService
     ) : IPluWeightService
 {
-    public OutputDto<List<PluWeight>> GetAllWeightByArm(Guid uid)
+    public List<PluWeight> GetAllWeightByArm(Guid uid)
     {
         using var context = new WsDbContext();
 
@@ -48,7 +47,7 @@ public class PluWeightService(
         return new (data);
     }
 
-    public OutputDto<WeightLabel> GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
+    public WeightLabel GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
     {
         var line = armService.GetItemByUid(armId);
 
@@ -65,6 +64,6 @@ public class PluWeightService(
         armService.Update(line);
 
         var label = printLabelService.GenerateWeightLabel(dtoToCreate);
-        return new(new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl });
+        return new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl };
     }
 }
