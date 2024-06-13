@@ -21,7 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\App\Domain\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+      <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+        <ProjectReference Include="..\..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+        <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
+        <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj"/>
+    </ItemGroup>
+
+</Project>

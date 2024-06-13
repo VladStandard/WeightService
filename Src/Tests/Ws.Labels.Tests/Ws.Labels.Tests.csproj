@@ -18,8 +18,4 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\App\Services\Ws.Labels.Service\Ws.Labels.Service.csproj"/>
-    </ItemGroup>
 </Project>
