@@ -2,6 +2,7 @@ using MassaK.Plugin.Abstractions.Enums;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Refit;
 using ScalesDesktop.Source.Shared.Services;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
@@ -94,6 +95,10 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         catch (PrinterConnectionException)
         {
             ToastService.ShowError("Printer connection error");
+        }
+        catch (ApiException)
+        {
+            ToastService.ShowError("Ошибка общения с сервером");
         }
         catch (Exception e)
         {

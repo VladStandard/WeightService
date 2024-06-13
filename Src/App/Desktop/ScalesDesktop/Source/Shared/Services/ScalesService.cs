@@ -24,7 +24,7 @@ public class ScalesService : IDisposable
         Setup();
     }
 
-    public void Setup(string comPort = DefaultComPort)
+    private void Setup(string comPort = DefaultComPort)
     {
         Scales.OnStatusChanged -= ScalesOnStatusChanged;
         Scales.OnWeightChanged -= ScalesOnWeightChanged;

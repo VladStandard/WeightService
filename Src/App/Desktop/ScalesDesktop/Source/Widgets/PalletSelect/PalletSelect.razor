@@ -1,48 +1,109 @@
-@* @using Blazor.Heroicons.Outline *@
-@* @using Ws.Domain.Models.Entities.Print *@
-@* <div class="h-full w-full overflow-hidden flex flex-col"> *@
-@*   <div class="h-full w-full grow flex flex-col overflow-hidden"> *@
-@*     <div class="h-14 border-b flex gap-2 w-full px-4 items-center shrink-0"> *@
-@*       <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9"> *@
-@*         <MagnifyingGlassIcon class="size-5 pb-[2px] text-gray-500"/> *@
-@*         <input *@
-@*           type="text" *@
-@*           @bind="InputSearchCounter" *@
-@*           @bind:event="oninput" *@
-@*           class="size-full border-none text-sm pl-1 focus:outline-none focus:ring-0" *@
-@*           placeholder="@Localizer["SearchByNumberPlaceholder"]" *@
-@*         /> *@
-@*       </div> *@
-@*       <Button *@
-@*         Variant="ButtonVariant.Outline" *@
-@*         Size="ButtonSize.Icon" *@
-@*         OnClick="@ReloadData" *@
-@*       > *@
-@*         <ArrowPathIcon class="size-5 mx-2"/> *@
-@*       </Button> *@
-@*       <Button *@
-@*         Size="ButtonSize.Icon" *@
-@*         OnClick="@ShowCreateFormDialog" *@
-@*       > *@
-@*         <PlusIcon class="size-5 mx-2" /> *@
-@*       </Button> *@
-@*     </div> *@
-@*     @if (!PalletContext.PalletEntities.Any()) *@
-@*     { *@
-@*       <div class="size-full flex items-center justify-center"> *@
-@*         @Localizer["PalletSelectEmpty"] *@
-@*       </div> *@
-@*     } *@
-@*     else *@
-@*     { *@
-@*       <ul class="w-full space-y-3 grow px-4 py-3 pr-px overflow-y-scroll"> *@
-@*         @foreach (ViewPallet item in GetFilteredPalletList()) *@
-@*         { *@
-@*           <li> *@
-@*             <PalletSelectItem Pallet="item"/> *@
-@*           </li> *@
-@*         } *@
-@*       </ul> *@
-@*     } *@
-@*   </div> *@
-@* </div> *@
+@using Blazor.Heroicons.Outline
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Phetch.Core
+@using ScalesDesktop.Source.Features.PalletCreate
+@using ScalesDesktop.Source.Shared.Services
+@using Ws.Desktop.Models.Features.Arms.Output
+@using Ws.Desktop.Models.Features.Pallets.Output
+
+
+<div class="size-full overflow-hidden flex flex-col">
+  <div class="size-full grow flex flex-col overflow-hidden">
+    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+      @if (armQuery.HasData)
+      {
+        <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="armQuery.Data.Id" Context="palletQuery">
+          <div class="h-14 border-b flex gap-2 w-full px-4 items-center shrink-0">
+            <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9">
+              <MagnifyingGlassIcon class="size-5 pb-[2px] text-gray-500"/>
+              <input
+                type="text"
+                @bind="InputSearchCounter"
+                @bind:event="oninput"
+                class="size-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
+                placeholder="@Localizer["SearchByNumberPlaceholder"]"/>
+            </div>
+            <Button
+              Variant="ButtonVariant.Outline"
+              Size="ButtonSize.Icon"
+              OnClick="@(() => palletQuery.Refetch())"
+            >
+              <ArrowPathIcon class="size-5 mx-2"/>
+            </Button>
+            <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
+              <PlusIcon class="size-5 mx-2"/>
+            </Button>
+          </div>
+          @if (palletQuery.HasData)
+          {
+            @if (palletQuery.Data.Length == 0)
+            {
+              <div class="size-full flex items-center justify-center">
+                @Localizer["PalletSelectEmpty"]
+              </div>
+            }
+            else
+            {
+              <ul class="w-full space-y-3 grow px-4 py-3 pr-px overflow-y-scroll">
+                @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
+                {
+                  <li>
+                    <PalletSelectItem Pallet="@item"/>
+                  </li>
+                }
+              </ul>
+            }
+          }
+          else
+          {
+            <ul class="w-full space-y-3 grow px-4 py-3">
+              <li>
+                <Skeleton Class="w-full h-18"/>
+              </li>
+              <li>
+                <Skeleton Class="w-full h-18"/>
+              </li>
+              <li>
+                <Skeleton Class="w-full h-18"/>
+              </li>
+            </ul>
+          }
+        </UseEndpoint>
+      }
+    </UseParameterlessEndpoint>
+  </div>
+</div>
+
+@code {
+
+  # region Injects
+
+  [Inject] private PalletApi PalletApi { get; set; } = default!;
+  [Inject] private ArmApi ArmApi { get; set; } = default!;
+  [Inject] private IDialogService DialogService { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private PalletContext PalletContext { get; set; } = default!;
+
+  # endregion
+
+  private string InputSearchCounter { get; set; } = string.Empty;
+
+  private IEnumerable<PalletInfo> GetFilteredPalletList(PalletInfo[] pallets)
+  {
+    IEnumerable<PalletInfo> filteredPallets = pallets.AsEnumerable();
+    if (!string.IsNullOrEmpty(InputSearchCounter))
+      filteredPallets = pallets.Where(x => x.Number.ToString().Contains(InputSearchCounter));
+    return filteredPallets.Take(100);
+  }
+
+  private async Task ShowCreateFormDialog(ArmValue arm)
+  {
+    IDialogReference dialog = await DialogService.ShowDialogAsync<PalletCreateDialog>(new());
+    DialogResult result = await dialog.Result;
+    if (result is { Cancelled: false, Data: PalletInfo newPallet })
+    {
+      PalletApi.InsertPiecePallet(arm.Id, newPallet);
+      PalletContext.ChangePallet(newPallet);
+    }
+  }
+}

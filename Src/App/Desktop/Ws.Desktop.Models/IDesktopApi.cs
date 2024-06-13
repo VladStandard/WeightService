@@ -3,6 +3,8 @@ using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.PalletMen;
+using Ws.Desktop.Models.Features.Pallets.Input;
+using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
@@ -26,6 +28,12 @@ public interface IDesktopApi
     [Get("/api/pallet-men")]
     Task<PalletMan[]> GetPalletMen();
 
+    [Get("/api/arms/{armUid}/pallets")]
+    Task<PalletInfo[]> GetPalletsByArm(Guid armUid);
+
     [Post("/api/arms/{armUid}/plu/weight/{pluUid}/label")]
     Task<WeightLabel> CreatePluWeightLabel(Guid armUid, Guid pluUid, [Body] CreateWeightLabelDto createDto);
+
+    [Post("/api/arms/{armUid}/pallets")]
+    Task<PalletInfo> CreatePiecePallet(Guid armUid, [Body] PalletPieceCreateDto createDto);
 }
