@@ -36,6 +36,7 @@ internal sealed class SqlCharacteristicsFkMap : ClassMapping<PluCharacteristic>
         {
             m.Column("BOX_UID");
             m.NotNullable(true);
+            m.Lazy(LazyRelation.NoLazy);
         });
 
         Property(x => x.PluUid, m =>
