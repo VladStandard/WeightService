@@ -18,17 +18,18 @@ public class PalletApiService(
     IArmService armService
     ): IPalletApiService
 {
-    public List<PalletInfo> GetAllByArm(Guid armId)
+    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
     {
         using var context = new WsDbContext();
 
         List<PalletInfo> pallets = context.Pallets
-            .Where(p => p.Arm.Id == armId)
+            .Where(p => p.Arm.Id == armId && p.CreateDt > startTime && p.CreateDt < endTime)
             .GroupJoin(
                 context.Labels,
                 pallet => pallet.Id,
                 label => label.PalletEntityId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
+            .OrderByDescending (result => result.Pallet.Number)
             .Select(result => new PalletInfo
             {
                 Id = result.Pallet.Id,
@@ -97,6 +98,39 @@ public class PalletApiService(
 
        return context.Pallets
             .Where(p => p.Id == palletId)
+            .GroupJoin(
+                context.Labels,
+                pallet => pallet.Id,
+                label => label.PalletEntityId,
+                (pallet, labels) => new { Pallet = pallet, Labels = labels })
+            .Select(result => new PalletInfo
+            {
+                Id = result.Pallet.Id,
+                Number = result.Pallet.Number,
+                PluName = result.Pallet.Plu.Name,
+                PluNumber = (ushort)result.Pallet.Plu.Number,
+                LabelCount = (uint)result.Labels.Count(),
+                WeightNet = result.Labels.Sum(label => label.WeightNet),
+                WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
+                PalletMan = new()
+                {
+                    Name = result.Pallet.PalletMan.Name,
+                    Surname = result.Pallet.PalletMan.Surname,
+                    Patronymic = result.Pallet.PalletMan.Patronymic
+                },
+                WeightTray = result.Pallet.TrayWeight,
+                Barcode = result.Pallet.Barcode,
+                ProdDt = result.Pallet.ProductDt,
+                CreateDt = result.Pallet.CreateDt,
+            })
+            .Single();
+    }
+
+    public PalletInfo GetByNumber(Guid armId, uint number)
+    {
+        using var context = new WsDbContext();
+        return context.Pallets
+            .Where(p => p.Arm.Id == armId && p.Number == number)
             .GroupJoin(
                 context.Labels,
                 pallet => pallet.Id,

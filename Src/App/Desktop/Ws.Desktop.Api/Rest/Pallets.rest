@@ -1,4 +1,4 @@
-GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets
+GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets?startDt=2024-06-13T08:35:26&EndDt=2024-06-13T08:39:26
 
 ####
 
