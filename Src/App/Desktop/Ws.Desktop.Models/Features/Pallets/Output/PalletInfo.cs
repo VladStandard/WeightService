@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Ws.Desktop.Models.ValueTypes;
 
-namespace Ws.Desktop.Models.Features.Pallets;
+namespace Ws.Desktop.Models.Features.Pallets.Output;
 
 [Serializable]
-public class PalletList
+public sealed record PalletInfo
 {
     [Required]
     [JsonPropertyName("Id")]
@@ -14,10 +14,6 @@ public class PalletList
     [Required]
     [JsonPropertyName("number")]
     public required uint Number { get; init; }
-
-    [Required]
-    [JsonPropertyName("armName")]
-    public required string ArmName { get; init; }
 
     [Required]
     [JsonPropertyName("pluName")]

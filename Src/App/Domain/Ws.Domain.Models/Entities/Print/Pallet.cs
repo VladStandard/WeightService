@@ -2,6 +2,8 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
+using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Domain.Models.Entities.Print;
@@ -10,8 +12,11 @@ namespace Ws.Domain.Models.Entities.Print;
 public class Pallet : EntityBase
 {
     public virtual PalletMan PalletMan { get; set; } = new();
+    public virtual Arm Arm { get; set; } = new();
+    public virtual Plu Plu { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;
-    public virtual int Counter { get; protected set; }
+    public virtual int Counter { get; set; }
+    public virtual int Number { get; set; }
     public virtual DateTime ProdDt { get; set; }
     public virtual decimal Weight { get; set; }
 

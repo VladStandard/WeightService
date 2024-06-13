@@ -39,6 +39,9 @@ public class Plu : EntityBase
 
     #endregion
 
+    public virtual decimal GetTareWeightByCharacteristic(PluCharacteristic pluCharacteristic) =>
+        (Bundle.Weight + Clip.Weight) * pluCharacteristic.BundleCount + pluCharacteristic.Box.Weight;
+
     public virtual decimal GetWeightByCharacteristic(PluCharacteristic pluCharacteristic) =>
         CalculateTotalWeight(pluCharacteristic.Box, pluCharacteristic.BundleCount);
 

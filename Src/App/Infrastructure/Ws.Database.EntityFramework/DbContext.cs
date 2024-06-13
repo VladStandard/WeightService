@@ -47,7 +47,7 @@ public class WsDbContext : DbContext
     public DbSet<NestingEntity> Nestings { get; set; }
     public DbSet<CharacteristicEntity> Characteristics { get; set; }
     public DbSet<LabelEntity> Labels { get; set; }
-
+    public DbSet<PalletEntity> Pallets { get; set; }
 
     #endregion
 
@@ -88,5 +88,17 @@ public class WsDbContext : DbContext
         SqlSettingsModels sqlSettingsModels = new();
         sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
         return sqlSettingsModels;
+    }
+
+    public override int SaveChanges()
+    {
+        foreach (var entry in ChangeTracker.Entries<PalletEntity>())
+        {
+            if (entry.State != EntityState.Added) continue;
+            uint maxCounter = Pallets.Max(p => (uint?)p.Counter) ?? 0;
+            entry.Entity.Counter = maxCounter+1;
+        }
+
+        return base.SaveChanges();
     }
 }

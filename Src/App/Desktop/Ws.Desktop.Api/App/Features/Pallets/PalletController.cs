@@ -2,7 +2,8 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
-using Ws.Desktop.Models.Features.Pallets;
+using Ws.Desktop.Models.Features.Pallets.Input;
+using Ws.Desktop.Models.Features.Pallets.Output;
 
 namespace Ws.Desktop.Api.App.Features.Pallets;
 
@@ -14,6 +15,11 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<List<PalletList>> GetAllByArm([FromRoute] Guid armId) =>
+    public ActionResult<List<PalletInfo>> GetAllByArm([FromRoute] Guid armId) =>
         Ok(palletApiService.GetAllByArm(armId));
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<PalletInfo> GetAllByArm([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
+        Ok(palletApiService.CreatePiecePallet(armId, dto));
 }

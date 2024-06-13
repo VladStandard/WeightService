@@ -17,6 +17,13 @@ internal sealed class SqlLabelMap : ClassMapping<Label>
             m.Generator(Generators.GuidComb);
         });
 
+        Property(x => x.PalletUid, m =>
+        {
+            m.Column("PALLET_UID");
+            m.Type(NHibernateUtil.Guid);
+            m.NotNullable(false);
+        });
+
         Property(x => x.CreateDt, m =>
         {
             m.Column("CREATE_DT");

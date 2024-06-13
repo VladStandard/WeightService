@@ -1,67 +1,71 @@
-using FluentValidation.Results;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service.Features.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Models;
 using Ws.Labels.Service.Features.Generate.Models;
+using Ws.Labels.Service.Features.Generate.Models.Cache;
+using Ws.Labels.Service.Features.Generate.Services;
 using LabelGeneratorUtils = Ws.Labels.Service.Features.Generate.Utils.LabelGeneratorUtils;
 
 namespace Ws.Labels.Service.Features.Generate.Features.Piece;
 
-internal class LabelPieceGenerator(IPalletService palletService)
+internal class LabelPieceGenerator(IPalletService palletService, CacheService cacheService)
 {
-    public void GeneratePiecePallet(GeneratePiecePalletDto generatePalletDto, int labelCount)
+    public Guid GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
     {
-        Template template = new();
-        string storageMethodBody = string.Empty;
+        if (dto.Plu.IsCheckWeight)
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
         if (labelCount > 240)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        // if (Guid.TryParse(generatePalletDto.Plu.TemplateUid.ToString(), out Guid templateUid))
-        //     template = templateService.GetTemplateByUidFromCacheOrDb(templateUid) ?? new();
+        XmlPieceLabel labelXml = dto.AdaptToXmlPieceLabel();
+        if (!new XmlLabelPiecePalletValidator().Validate(labelXml).IsValid)
+            throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        // if (storageMethodService.GetStorageByNameFromCacheOrDb(generatePalletDto.Plu.StorageMethod) is { } storageMethod)
-        //     storageMethodBody = storageMethod;
+        TemplateCache template = cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
+                                 throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        if (template.IsNew) throw new();
-        if (storageMethodBody == string.Empty) throw new();
-
-        XmlPieceLabel labelXml = generatePalletDto.AdaptToXmlPieceLabel();
-        ValidationResult result = new XmlLabelPiecePalletValidator().Validate(labelXml);
-
-        if (!result.IsValid)
-            throw new Exception();
+        string storageMethod = cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
+                               throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
 
         ZplPrintItems zplPrintItems = new()
         {
-            Resources = [],
+            Resources = cacheService.GetAllResourcesFromCacheOrDb(),
             Template = template.Body,
-            StorageMethod = storageMethodBody
+            StorageMethod = storageMethod
         };
 
         Pallet pallet = new()
         {
-            Barcode = string.Empty,
-            Weight = generatePalletDto.Weight,
-            ProdDt = generatePalletDto.ProductDt,
-            PalletMan = generatePalletDto.PalletMan
+            Barcode = new Random().Next(0, 1000001).ToString(),
+            Weight = dto.Weight,
+            ProdDt = dto.ProductDt,
+            PalletMan = dto.PalletMan,
+            Plu = dto.Plu,
+            Arm = dto.Line,
+            Counter = new Random().Next(0, 1000001),
+            Number = new Random().Next(0, 1000001),
         };
 
         IList<Label> labels = [];
         for (int i = 0 ; i < labelCount ; i++)
         {
-            labelXml = generatePalletDto.AdaptToXmlPieceLabel();
+            labelXml = dto.AdaptToXmlPieceLabel();
+            labelXml.BarcodeBottomTemplate = template.BarcodeBottomBody;
+            labelXml.BarcodeRightTemplate = template.BarcodeRightBody;
+            labelXml.BarcodeTopTemplate = template.BarcodeTopBody;
 
-            Label label = GenerateLabel(generatePalletDto, zplPrintItems, labelXml);
+            Label label = GenerateLabel(dto, zplPrintItems, labelXml);
 
             labels.Add(label);
 
-            generatePalletDto = generatePalletDto with { ProductDt = generatePalletDto.ProductDt.AddSeconds(1) };
+            dto = dto with { ProductDt = dto.ProductDt.AddSeconds(1) };
         }
         palletService.Create(pallet, labels);
+        return pallet.Uid;
     }
 
     private static Label GenerateLabel(GeneratePiecePalletDto generatePalletDto, ZplPrintItems zplPrintItems, XmlPieceLabel labelXml)
@@ -74,8 +78,8 @@ internal class LabelPieceGenerator(IPalletService palletService)
             BarcodeBottom = ready.BarcodeBottom,
             BarcodeRight = ready.BarcodeRight,
             BarcodeTop = ready.BarcodeTop,
-            WeightNet = 0,
-            WeightTare = generatePalletDto.Plu.GetWeightByCharacteristic(generatePalletDto.PluCharacteristic),
+            WeightNet = generatePalletDto.Plu.Weight,
+            WeightTare = generatePalletDto.Plu.GetTareWeightByCharacteristic(generatePalletDto.PluCharacteristic),
             Kneading = generatePalletDto.Kneading,
             ProductDt = generatePalletDto.ProductDt,
             ExpirationDt = generatePalletDto.ExpirationDt,

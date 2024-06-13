@@ -9,7 +9,7 @@ public class PalletManService : IPalletManService
     public List<PalletMan> GetAll()
     {
         using var context = new WsDbContext();
-        var palletMen = context.PalletMen
+        List<PalletMan> palletMen = context.PalletMen
             .Select(i => new PalletMan
             {
                 Id = i.Id,
@@ -22,6 +22,6 @@ public class PalletManService : IPalletManService
                 Password = i.Password
             })
             .ToList();
-        return new(palletMen);
+        return palletMen;
     }
 }

@@ -6,9 +6,10 @@ public static class LabelPiecePalletDtoMapper
 {
     public static XmlPieceLabel AdaptToXmlPieceLabel(this GeneratePiecePalletDto palletDto)
     {
-        return new XmlPieceLabel
+        return new()
         {
             Kneading = palletDto.Kneading,
+            BundleCount = palletDto.PluCharacteristic.BundleCount,
             ExpirationDt = palletDto.ExpirationDt,
             ProductDt = palletDto.ProductDt,
             LineNumber = palletDto.Line.Number,

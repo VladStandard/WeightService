@@ -7,6 +7,9 @@ namespace Ws.Database.EntityFramework.Entities.Print;
 [Index(nameof(BarcodeTop), Name = $"UQ_{SqlTables.Plus}_BARCODE_TOP", IsUnique = true)]
 public sealed class LabelEntity : EfEntityBase
 {
+    [ForeignKey("PALLET_UID"), Column("PALLET_UID")]
+    public Guid? PalletEntityId { get; set; }
+
     [Column("ZPL")]
     public string Zpl { get; set; } = string.Empty;
 

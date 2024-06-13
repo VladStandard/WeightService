@@ -53,7 +53,7 @@ public abstract partial class XmlLabelBaseModel
                         throw new NotImplementedException();
                 }
             }
-        } catch (Exception)
+        } catch (Exception ex)
         {
             throw new LabelGenerateException(LabelGenExceptions.BarcodeError);
         }
