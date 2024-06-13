@@ -19,7 +19,13 @@ public class PluPieceService(IArmService armService) : IPluPieceService
             FullName = plu.FullName,
             Bundle = plu.Bundle.Name,
             WeightNet = plu.Weight,
-            Nestings = plu.CharacteristicsWithNesting.Select(i => new Nesting { Id = i.Uid, BundleCount = (byte)i.BundleCount, Box = i.Box.Name }).ToList()
+            Nestings = plu.CharacteristicsWithNesting.Select(i => new Nesting
+            {
+                Id = i.Uid,
+                BundleCount = (byte)i.BundleCount,
+                Box = i.Box.Name,
+                Name = i.Name
+            }).ToList()
         }));
         return plusPiece;
     }

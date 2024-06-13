@@ -11,6 +11,10 @@ public record Nesting
     public required Guid Id { get; init; }
 
     [Required]
+    [JsonPropertyName("name")]
+    public required string Name { get; init; }
+
+    [Required]
     [JsonPropertyName("bundleCount")]
     public required byte BundleCount { get; init; }
 
