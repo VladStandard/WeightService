@@ -8,10 +8,10 @@ namespace Ws.Domain.Services.Features.Arms;
 
 internal partial class ArmService
 {
-    private static IList<Plu> GetPluListByArmAndSpec(Arm arm, Specification<Plu> spec)
+    private static IList<Plu> GetPluListByArmAndSpec(Guid uid, Specification<Plu> spec)
     {
         QueryOver<ArmPlu> queryOver =
-            QueryOver.Of<ArmPlu>().Where(i => i.Line == arm)
+            QueryOver.Of<ArmPlu>().Where(i => i.Line.Uid == uid)
                 .JoinQueryOver<Plu>(i => i.Plu).Where(spec);
         return new SqlPluLineRepository().GetListByQuery(queryOver).Select(pluLine => pluLine.Plu).ToList();
     }

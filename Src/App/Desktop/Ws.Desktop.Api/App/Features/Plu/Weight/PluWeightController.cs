@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.Plu.Weight.Common;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
-using Ws.Desktop.Models.Features.Plus.Output;
+using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Weight;
 

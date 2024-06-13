@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Ws.Desktop.Models.Features.Plus.Output;
+using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
 
 namespace ScalesDesktop.Source.Features.PluSelectDialog;

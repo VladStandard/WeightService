@@ -26,20 +26,20 @@ internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository
     #region List
 
     [Transactional]
+    public IList<ArmPlu> GetLinePlusFk(Arm arm) => pluLineRepo.GetListByLine(arm);
+
+    [Transactional]
+    public IList<Plu> GetArmWeightPlus(Arm line) => GetPluListByArmAndSpec(line.Uid, PluSpecs.GetWeight());
+
+    [Transactional]
     public IList<Arm> GetAllByProductionSite(ProductionSite site) =>
         armRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
-
-    [Transactional]
-    public IList<Plu> GetArmWeightPlus(Arm arm) => GetPluListByArmAndSpec(arm, PluSpecs.GetWeight());
-
-    [Transactional]
-    public IList<Plu> GetArmPiecePlus(Arm arm) => GetPluListByArmAndSpec(arm, PluSpecs.GetPiece());
 
     [Transactional]
     public IList<Plu> GetArmAllPlus(Arm arm) => pluLineRepo.GetListByLine(arm).Select(i => i.Plu).ToList();
 
     [Transactional]
-    public IList<ArmPlu> GetLinePlusFk(Arm arm) => pluLineRepo.GetListByLine(arm);
+    public IList<Plu> GetArmPiecePlus(Guid uid)  => GetPluListByArmAndSpec(uid, PluSpecs.GetPiece());
 
     #endregion
 
