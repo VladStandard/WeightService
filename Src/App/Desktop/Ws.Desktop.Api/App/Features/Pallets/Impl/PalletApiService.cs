@@ -54,6 +54,27 @@ public class PalletApiService(
         return pallets;
     }
 
+    public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId)
+    {
+        using var context = new WsDbContext();
+
+        List<LabelInfo> labels = context.Pallets
+            .Where(p => p.Arm.Id == armId && p.Id == palletId)
+            .GroupJoin(
+                context.Labels,
+                pallet => pallet.Id,
+                label => label.PalletEntityId,
+                (pallet, labels) => new { Pallet = pallet, Labels = labels })
+            .SelectMany(
+                result => result.Labels,
+                (result, label) => new LabelInfo
+                {
+                    Zpl = label.Zpl
+                })
+            .ToList();
+        return labels;
+    }
+
     public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
         using var context = new WsDbContext();

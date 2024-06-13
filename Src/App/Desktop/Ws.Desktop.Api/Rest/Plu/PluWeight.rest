@@ -6,7 +6,7 @@ POST {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/plu/weight/3b9692e2-7
 Content-Type: application/json
 
 {
-    "kneading": 1,
+    "kneading": 0,
     "weightNet": 1.00,
     "weightTare": 0.506,
     "productDt": "2024-05-30T09:30:32Z"

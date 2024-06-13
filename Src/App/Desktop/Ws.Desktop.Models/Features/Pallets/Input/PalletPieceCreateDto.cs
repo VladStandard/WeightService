@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Ws.Desktop.Models.Features.Pallets.Input;
 
-[Serializable]
 public sealed record PalletPieceCreateDto
 {
     [Required]

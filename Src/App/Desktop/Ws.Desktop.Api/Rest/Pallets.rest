@@ -2,15 +2,19 @@ GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets
 
 ####
 
-POST {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets
+GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets/aada7cdb-c04a-4a17-9124-b18e005c6784/labels
+
+####
+
+POST {{url}}/api/arms/e899a13c-9bbb-4e60-9023-b15500dfd051/pallets
 Content-Type: application/json
 
 {
-    "pluId": "dc7209f0-84ee-4d42-8128-12d680c174a2",
+    "pluId": "aef12ef3-e8fc-11ea-a221-a4bf0139eb1b",
     "characteristicId": "00000000-0000-0000-0000-000000000000",
-    "palletManId": "1db69f7d-c76b-4083-83d7-b155010e1afb",
-    "weightTray": 1.500,
-    "labelCount": 5,
-    "kneading": 5,
-    "prodDt": "2024-06-30T09:30:32Z"
+    "palletManId": "6b70b16a-ae0f-4f64-ace0-b155010e3030",
+    "weightTray": 12,
+    "labelCount": 12,
+    "kneading": 12,
+    "prodDt": "2024-06-15T12:11:32Z"
 }

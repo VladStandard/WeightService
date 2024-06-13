@@ -18,6 +18,11 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
     public ActionResult<List<PalletInfo>> GetAllByArm([FromRoute] Guid armId) =>
         Ok(palletApiService.GetAllByArm(armId));
 
+    [HttpGet("{palletId:guid}/labels")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public ActionResult<List<PalletInfo>> GetAllByArm([FromRoute] Guid armId, Guid palletId) =>
+        Ok(palletApiService.GetAllZplByArm(armId, palletId));
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public ActionResult<PalletInfo> GetAllByArm([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>

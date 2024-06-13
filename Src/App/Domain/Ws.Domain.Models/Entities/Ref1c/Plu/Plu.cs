@@ -30,8 +30,8 @@ public class Plu : EntityBase
 
     public virtual string Gtin => IsCheckWeight ? $"0{Ean13}" : $"{Itf14}";
 
-    public virtual IEnumerable<PluCharacteristic> CharacteristicsWithNesting =>
-        Characteristics.Prepend(PluNesting.ToCharacteristic());
+    public virtual List<PluCharacteristic> CharacteristicsWithNesting =>
+        Characteristics.Prepend(PluNesting.ToCharacteristic()).ToList();
 
     public virtual string DisplayName => $"{Number} | {Name}";
 

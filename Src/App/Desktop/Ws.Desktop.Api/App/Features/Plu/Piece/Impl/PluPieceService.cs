@@ -1,10 +1,11 @@
 using Ws.Desktop.Api.App.Features.Plu.Piece.Common;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.Plus;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Piece.Impl;
 
-public class PluPieceService(IArmService armService) : IPluPieceService
+public class PluPieceService(IArmService armService, IPluService pluService) : IPluPieceService
 {
     public List<PluPiece> GetAllPieceByArm(Guid uid)
     {

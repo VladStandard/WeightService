@@ -118,9 +118,9 @@ internal sealed class SqlPluMap : ClassMapping<Plu>
             c.Key(k => k.Column("PLU_UID"));
             c.Cascade(Cascade.All);
             c.Mutable(false);
-            c.Lazy(CollectionLazy.NoLazy);
             c.Inverse(true);
-            c.Fetch(CollectionFetchMode.Select);
+            c.Fetch(CollectionFetchMode.Join);
+            c.Lazy(CollectionLazy.NoLazy);
         }, r => r.OneToMany());
 
 
