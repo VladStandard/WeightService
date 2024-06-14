@@ -8,7 +8,7 @@ namespace ScalesDesktop.Source.Shared.Services;
 public class PalletApi(IDesktopApi desktopApi)
 {
     public ParameterlessEndpoint<PalletMan[]> PalletMenEndpoint { get; } = new(
-        desktopApi.GetPalletMen,
+        desktopApi.GetPalletMenByArm(value.ArmUid),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 
     public Endpoint<Guid, PalletInfo[]> PiecePalletsEndpoint { get; } = new(

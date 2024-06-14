@@ -17,6 +17,14 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletMan>
             m.Generator(Generators.GuidComb);
         });
 
+        Property(x => x.Uid1C, m =>
+        {
+            m.Column("UID_1C");
+            m.Type(NHibernateUtil.Guid);
+            m.NotNullable(true);
+            m.Unique(true);
+        });
+
         Property(x => x.CreateDt, m =>
         {
             m.Column("CREATE_DT");
@@ -56,6 +64,13 @@ internal sealed class SqlPalletManMap : ClassMapping<PalletMan>
         {
             m.Column("PASSWORD");
             m.Type(NHibernateUtil.String);
+        });
+
+        ManyToOne(x => x.Warehouse, m =>
+        {
+            m.Column("WAREHOUSE_UID");
+            m.Lazy(LazyRelation.NoLazy);
+            m.NotNullable(true);
         });
     }
 }

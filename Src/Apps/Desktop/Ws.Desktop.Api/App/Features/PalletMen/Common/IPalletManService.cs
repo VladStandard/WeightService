@@ -6,7 +6,7 @@ public interface IPalletManService
 {
     #region Queries
 
-    List<PalletMan> GetAll();
+    List<PalletMan> GetAllByArm(Guid armId);
 
     #endregion
 }

@@ -1,4 +1,5 @@
 using Ws.Database.Nhibernate.Entities.Ref.PalletMen;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.PalletMen.Validators;
@@ -17,7 +18,8 @@ internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletM
     #region List
 
     [Transactional]
-    public IList<PalletMan> GetAll() => palletManRepo.GetAll();
+    public List<PalletMan> GetAllByProductionSite(ProductionSite productionSite) =>
+        palletManRepo.GetAllByProductionSite(productionSite);
 
     #endregion
 

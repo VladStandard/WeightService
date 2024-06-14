@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240614100045_Add_Uid1C_Warehouse_to_PalletMenTable")]
+    partial class Add_Uid1C_Warehouse_to_PalletMenTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,7 +342,7 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("UID_1C");
 
-                    b.Property<Guid>("WAREHOUSE_UID")
+                    b.Property<Guid?>("WAREHOUSE_UID")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -347,9 +350,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex("WAREHOUSE_UID");
 
                     b.HasIndex(new[] { "Name", "Surname", "Patronymic" }, "UQ_PALLET_MEN_FIO")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_PALLET_MEN_UID_1C")
                         .IsUnique();
 
                     b.ToTable("PALLET_MEN", "REF");
@@ -1085,9 +1085,7 @@ namespace Ws.Database.EntityFramework.Migrations
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref.Warehouses.WarehouseEntity", "Warehouse")
                         .WithMany()
-                        .HasForeignKey("WAREHOUSE_UID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WAREHOUSE_UID");
 
                     b.Navigation("Warehouse");
                 });

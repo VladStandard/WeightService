@@ -5,13 +5,13 @@ using Ws.Desktop.Models.Features.PalletMen;
 namespace Ws.Desktop.Api.App.Features.PalletMen;
 
 [ApiController]
-[Route("api/pallet-men")]
+[Route("api/arms/{armId:guid}/pallet-men/")]
 public class PalletManController(IPalletManService palletManService) : ControllerBase
 {
     #region Queries
 
     [HttpGet]
-    public List<PalletMan> GetAll() => palletManService.GetAll();
+    public List<PalletMan> GetAllByArm([FromRoute] Guid armId) => palletManService.GetAllByArm(armId);
 
     #endregion
 }

@@ -8,9 +8,11 @@ public class PalletManService(WsDbContext dbContext) : IPalletManService
 {
     #region Queries
 
-    public List<PalletMan> GetAll()
+    public List<PalletMan> GetAllByArm(Guid armId)
     {
+        Guid warehouse = dbContext.Lines.Where(i => i.Id == armId).Select(i => i.Warehouse.Id).Single();
         List<PalletMan> palletMen = dbContext.PalletMen
+            .Where(i => i.Warehouse.Id == warehouse)
             .Select(i => new PalletMan
             {
                 Id = i.Id,

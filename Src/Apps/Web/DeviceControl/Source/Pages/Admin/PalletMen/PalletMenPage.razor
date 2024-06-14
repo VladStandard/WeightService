@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Shared.Auth.Policies
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref
 @using Ws.Domain.Models.Entities.Users
 @using Ws.Domain.Models.ValueTypes
 @inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.PalletMan>
@@ -11,10 +12,21 @@
 <PageTitle>DeviceControl - @Localizer["SectionPalletMen"]</PageTitle>
 
 <PageHeader>
-  <span>@Localizer["SectionPalletMen"]</span>
+  <span>@Localizer["SectionLines"]</span>
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+  <div class="w-64">
+    <SelectSingle
+      TItem="ProductionSite"
+      Items="ProductionSiteEntities"
+      @bind-SelectedItem="ProductionSite"
+      @bind-SelectedItem:after="@UpdateData"
+      ItemDisplayName="item => item.Name"
+      IsDisabled="@(!IsSeniorSupport)"
+      IsFilterable
+    />
+  </div>
 </PageHeader>
 
 <DataGridWrapper>
@@ -27,12 +39,17 @@
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
         Field="@nameof(PalletMan.ChangeDt)"
-        Width="40%"
+        Width="20%"
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColFIO"]"
         Field=@($"{nameof(PalletMan.Fio)}.{nameof(Fio.DisplayFull)}")
-        Width="60%"
+        Width="40%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWarehouse"]"
+        Field="@($"{nameof(PalletMan.Warehouse)}.{nameof(Warehouse.Name)}")"
+        Width="40%"
       />
     </ColumnsContent>
     <ContextMenuContent>

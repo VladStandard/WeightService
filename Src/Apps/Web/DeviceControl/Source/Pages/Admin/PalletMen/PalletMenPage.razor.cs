@@ -1,5 +1,11 @@
+using System.Security.Claims;
+using DeviceControl.Source.Widgets.Section.Dialogs;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMen;
+using Ws.Domain.Services.Features.ProductionSites;
+using Ws.Domain.Services.Features.Users;
+using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
@@ -7,23 +13,61 @@ namespace DeviceControl.Source.Pages.Admin.PalletMen;
 public sealed partial class PalletMenPage : SectionDataGridPageBase<PalletMan>
 {
     #region Inject
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
 
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IPalletManService PalletManService { get; set; } = default!;
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
+    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+    [Inject] private IUserService UserService { get; set; } = default!;
 
     #endregion
 
+    private User User { get; set; } = new();
+    private ProductionSite ProductionSite { get; set; } = new();
+    private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
+    private bool IsSeniorSupport { get; set; }
+    private bool IsDeveloper { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+
+        if (userPrincipal is { Identity.Name: not null })
+        {
+            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
+            ProductionSite = User.ProductionSite ?? new();
+            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior))
+                .Succeeded;
+            IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
+                          ProductionSite.Uid.IsMax();
+        }
+
+        if (IsSeniorSupport)
+            ProductionSiteEntities = ProductionSiteService.GetAll().ToList();
+
+        if (!IsDeveloper)
+            ProductionSiteEntities.RemoveAll(i => i.Uid.IsMax());
+
+        await base.OnInitializedAsync();
+    }
+
     protected override async Task OpenSectionCreateForm()
-        => await OpenSectionModal<PalletMenCreateDialog>(new());
+        => await DialogService.ShowDialogAsync<PalletMenCreateDialog>(
+            new SectionDialogContentWithProductionSite<PalletMan> { Item = new(), ProductionSite = ProductionSite }
+            , DialogParameters);
 
     protected override async Task OpenDataGridEntityModal(PalletMan item)
-        => await OpenSectionModal<PalletMenUpdateDialog>(item);
+        => await DialogService.ShowDialogAsync<PalletMenUpdateDialog>(
+            new SectionDialogContentWithProductionSite<PalletMan> { Item = item, ProductionSite = ProductionSite }
+            , DialogParameters);
 
     protected override async Task OpenItemInNewTab(PalletMan item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<PalletMan> SetSqlSectionCast() => PalletManService.GetAll();
+    protected override IEnumerable<PalletMan> SetSqlSectionCast() =>
+        ProductionSite.IsNew ? [] : PalletManService.GetAllByProductionSite(ProductionSite);
 
     protected override IEnumerable<PalletMan> SetSqlSearchingCast()
     {
