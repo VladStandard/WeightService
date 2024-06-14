@@ -14,14 +14,6 @@ public sealed partial class WarehousesUpdateForm : SectionFormBase<Warehouse>
 
     #endregion
 
-    private IEnumerable<ProductionSite> PlatformEntities { get; set; } = new List<ProductionSite>();
-
-    protected override void OnInitialized()
-    {
-        PlatformEntities = ProductionSiteService.GetAll();
-        base.OnInitialized();
-    }
-
     protected override Warehouse UpdateItemAction(Warehouse item) =>
         WarehouseService.Update(item);
 

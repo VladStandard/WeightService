@@ -15,12 +15,11 @@ public sealed partial class WarehousesCreateForm : SectionFormBase<Warehouse>
 
     #endregion
 
-    private IEnumerable<ProductionSite> PlatformEntities { get; set; } = new List<ProductionSite>();
+    [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
 
     protected override void OnInitialized()
     {
-        DialogItem.ProductionSite.Name = Localizer["FormProductionSiteDefaultPlaceholder"];
-        PlatformEntities = ProductionSiteService.GetAll();
+        DialogItem.ProductionSite = ProductionSite;
         base.OnInitialized();
     }
 

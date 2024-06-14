@@ -5,7 +5,7 @@
 @code {
   private string InputValue
   {
-    get => Value.ToString();
+    get => Value.ToString().ToUpper();
     set
     {
       bool result = Guid.TryParse(value, out Guid newGuid);

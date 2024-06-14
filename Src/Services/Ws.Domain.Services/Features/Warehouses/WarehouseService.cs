@@ -11,9 +11,6 @@ internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehou
     #region List
 
     [Transactional]
-    public IList<Warehouse> GetAll() => warehouseRepo.GetAll();
-
-    [Transactional]
     public IList<Warehouse> GetAllByProductionSite(ProductionSite productionSite) =>
         warehouseRepo.GetAllBySpec(WarehouseSpecs.GetByProductionSite(productionSite));
 

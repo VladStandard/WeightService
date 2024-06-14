@@ -10,11 +10,23 @@
 <PageTitle>DeviceControl - @Localizer["SectionWarehouses"]</PageTitle>
 
 <PageHeader>
-  <span>@Localizer["SectionWarehouses"]</span>
+  <span>@Localizer["SectionLines"]</span>
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
   <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+  <div class="w-64">
+    <SelectSingle
+      TItem="ProductionSite"
+      Items="ProductionSiteEntities"
+      @bind-SelectedItem="ProductionSite"
+      @bind-SelectedItem:after="@UpdateData"
+      ItemDisplayName="item => item.Name"
+      IsDisabled="@(!IsSeniorSupport)"
+      IsFilterable
+    />
+  </div>
 </PageHeader>
+
 
 <DataGridWrapper>
   <DataGridContainer

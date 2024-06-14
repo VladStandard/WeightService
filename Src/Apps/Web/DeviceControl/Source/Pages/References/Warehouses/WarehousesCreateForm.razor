@@ -15,14 +15,9 @@
       Label="@WsDataLocalizer["ColName"]"
       For="@(() => DialogItem.Name)"
     />
-    <SectionSelectSingleField
-      TItem="ProductionSite"
-      Items="PlatformEntities"
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      @bind-Value="@DialogItem.ProductionSite"
-      ItemDisplayName="item => item.Name"
-      For="@(() => DialogItem.ProductionSite)"
-      IsFilterable
+      Value="@DialogItem.ProductionSite.Name"
     />
   </FieldsContent>
 </SectionForm>
