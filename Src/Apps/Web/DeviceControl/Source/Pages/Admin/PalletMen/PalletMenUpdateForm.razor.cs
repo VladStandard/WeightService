@@ -61,6 +61,7 @@ public class PalletMenUpdateFormValidator : AbstractValidator<PalletMan>
 {
     public PalletMenUpdateFormValidator()
     {
+        RuleFor(item => item.Uid1C).NotEmpty();
         RuleFor(item => item.Fio.Name).NotEmpty();
         RuleFor(item => item.Fio.Surname).NotEmpty();
         RuleFor(item => item.Fio.Patronymic).NotEmpty();

@@ -29,6 +29,7 @@ public class WarehousesUpdateFormValidator : AbstractValidator<Warehouse>
     public WarehousesUpdateFormValidator()
     {
         RuleFor(item => item.Name).NotEmpty();
+        RuleFor(item => item.Uid1C).NotEmpty();
         RuleFor(item => item.ProductionSite).Custom((obj, context) =>
         {
             if (obj.IsNew)

@@ -17,6 +17,14 @@ internal class SqlWarehouseMap : ClassMapping<Warehouse>
             m.Generator(Generators.GuidComb);
         });
 
+        Property(x => x.Uid1C, m =>
+        {
+            m.Column("UID_1C");
+            m.Type(NHibernateUtil.Guid);
+            m.NotNullable(true);
+            m.Unique(true);
+        });
+
         Property(x => x.Name, m =>
         {
             m.Column("NAME");

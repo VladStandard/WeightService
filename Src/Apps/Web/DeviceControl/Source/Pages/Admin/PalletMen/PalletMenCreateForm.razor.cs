@@ -43,6 +43,7 @@ public class PalletMenCreateFormValidator : AbstractValidator<PalletMan>
         RuleFor(item => item.Fio.Surname).NotEmpty();
         RuleFor(item => item.Fio.Patronymic).NotEmpty();
         RuleFor(item => item.Password).NotEmpty();
+        RuleFor(item => item.Uid1C).NotEmpty();
         RuleFor(item => item.Warehouse).Custom((obj, context) =>
         {
             if (obj.IsNew)

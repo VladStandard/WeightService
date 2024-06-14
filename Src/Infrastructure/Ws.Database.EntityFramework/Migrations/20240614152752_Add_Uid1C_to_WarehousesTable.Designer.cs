@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.EntityFramework;
 
@@ -11,9 +12,11 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    partial class WsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240614152752_Add_Uid1C_to_WarehousesTable")]
+    partial class Add_Uid1C_to_WarehousesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -521,9 +524,6 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.HasIndex("PRODUCTION_SITE_UID");
 
                     b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_WAREHOUSES_UID_1C")
                         .IsUnique();
 
                     b.ToTable("WAREHOUSES", "REF");

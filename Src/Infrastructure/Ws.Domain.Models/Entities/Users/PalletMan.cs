@@ -10,7 +10,7 @@ namespace Ws.Domain.Models.Entities.Users;
 [DebuggerDisplay("{ToString()}")]
 public class PalletMan : EntityBase
 {
-    public virtual Guid Uid1C { get; set; } = new();
+    public virtual Guid Uid1C { get; set; }
     public virtual Warehouse Warehouse { get; set; } = new();
     public virtual Fio Fio { get; set; } = new();
     public virtual string Password { get; set; } = string.Empty;

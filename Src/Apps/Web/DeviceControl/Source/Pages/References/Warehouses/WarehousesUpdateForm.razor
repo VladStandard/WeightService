@@ -14,6 +14,12 @@
   <FieldsContent>
     <SectionAdminGuidField Value="@DialogItem.Uid" />
 
+    <SectionGuidField
+      Label="UID 1C"
+      @bind-Value="@DialogItem.Uid1C"
+      For="@(() => DialogItem.Uid1C)"
+    />
+
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
