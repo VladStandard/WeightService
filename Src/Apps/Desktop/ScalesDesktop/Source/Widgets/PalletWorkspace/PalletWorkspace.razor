@@ -6,7 +6,7 @@
     TabsList="TabsButtonList"
     @bind-CurrentTabId="@CurrentTabId"
   />
-  <div class="size-full flex flex-col grow overflow-hidden bg-secondary/[.3]">
+  <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
     <Tabs ActiveTabId="@CurrentTabId">
       <Tab Id="@typeof(PalletOverview).ToString()">
         <PalletOverview Pallet="Pallet" />

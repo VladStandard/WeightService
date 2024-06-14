@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace DeviceControl.Source.Shared.Utils;
+namespace Ws.Shared.Utils;
 
 public static class EnumHelper
 {

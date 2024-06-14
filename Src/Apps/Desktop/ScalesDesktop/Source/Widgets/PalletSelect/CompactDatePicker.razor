@@ -1,0 +1,8 @@
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<FluentDatePicker />
+
+@code {
+  [Parameter] public DateOnly Value { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+  [Parameter] public EventCallback<DateOnly> ValueChanged { get; set; }
+}

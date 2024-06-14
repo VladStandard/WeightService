@@ -57,6 +57,8 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     /// </summary>
     [Parameter] public string Class { get; set; } = string.Empty;
 
+    [Parameter] public RenderFragment<ButtonTriggerContext>? TriggerContent { get; set; }
+
     private const int ResizeTimeout = 10;
     private ElementReference DropdownWrapper { get; set; }
     private string Id { get; } = $"id-{Guid.NewGuid()}";
@@ -105,3 +107,5 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
         }
     }
 }
+
+public record ButtonTriggerContext(string DropdownAnchor, bool IsOpen, EventCallback<bool> SetIsOpen);

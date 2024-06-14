@@ -23,14 +23,8 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private List<LabelInfo> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
-    private IQueryable<DataItem> LabelData { get; set; } = Enumerable.Empty<DataItem>().AsQueryable();
-    private const int PrinterRequestDelay = 100;
-
-    private IQueryable<DataItem> FilteredLabelData
-    {
-        get => string.IsNullOrEmpty(SearchingNumber) ? LabelData : LabelData.Where(item => item.Id.ToString().Contains(SearchingNumber));
-        set => LabelData = value;
-    }
+    private LabelInfo? HoverItem { get; set; }
+    private const int PrinterRequestDelay = 150;
 
     private void ToggleItem(LabelInfo item)
     {
@@ -38,7 +32,7 @@ public sealed partial class LabelsGrid : ComponentBase
             SelectedItems.Add(item);
     }
 
-    private void SelectAllItems() => SelectedItems = LabelData.Select(item => item.Label).ToList();
+    private void SelectAllItems() => SelectedItems = [];
 
     private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels) =>
         labels.Select((label, index) => new DataItem { Id = index + 1, Label = label }).AsQueryable();
@@ -66,7 +60,7 @@ public sealed partial class LabelsGrid : ComponentBase
             {
                 ToastService.ShowError($"{errorIndex} не распечаталась");
             }
-            await Task.Delay(300);
+            await Task.Delay(PrinterRequestDelay);
         }
 
         await InvokeAsync(StateHasChanged);

@@ -5,26 +5,31 @@
 
 <button
   type="button"
-  disabled="@(PalletContext.Pallet != null && PalletContext.Pallet.Equals(Pallet))"
+  disabled="@IsSelected"
   @onclick="@(() => PalletContext.ChangePallet(Pallet))"
-  class="w-full h-18 pb-2.5 pt-2 gap-2 px-4 items-center flex shadow-sm transition-colors rounded-md border hover:bg-neutral-100
-                      @(PalletContext.Pallet != null && PalletContext.Pallet.Equals(Pallet) ? "bg-neutral-100 invert" : string.Empty)"
+  class="@Css.Class("w-full h-18 shrink-0 px-4 pb-2.5 pt-2 items-center flex shadow-sm transition-colors rounded-md border hover:bg-secondary/[.6]",
+           IsSelected ? "bg-secondary hover:bg-secondary" : string.Empty)"
 >
-  <div class="w-full h-full overflow-hidden grow flex flex-col">
+  <div class="size-full overflow-hidden grow flex gap-0.5 flex-col">
     <div class="flex w-full items-center gap-2 justify-between">
       <span class="truncate font-medium">
         @WsDataLocalizer["ColPallet"] №@Pallet.Number
       </span>
-      <span class="text-sm text-neutral-700 shrink-0">
+      <span class="text-sm text-muted-foreground shrink-0">
         @Pallet.CreateDt.ToString("dd.MM.yyyy HH:mm:ss")
       </span>
     </div>
     <div class="flex w-full items-center justify-between gap-2 overflow-hidden">
-      <Badge>
-        @Pallet.PluNumber
-      </Badge>
+      <div class="flex items-center gap-2">
+        <span class="truncate text-sm">
+          @Pallet.PalletMan.DisplayShortName
+        </span>
+        <Badge Class="shrink-0 py-px px-1.5">
+          @Pallet.PluNumber
+        </Badge>
+      </div>
       <Badge Variant="BadgeVariant.Secondary">
-        <CalculatorIcon class="h-3 w-3 mr-1"/>
+        <CalculatorIcon class="size-3 mr-1"/>
         <span class="text-xs pt-px">@Pallet.LabelCount</span>
       </Badge>
     </div>
@@ -41,6 +46,8 @@
   # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
+
+  private bool IsSelected => PalletContext.Pallet != null && PalletContext.Pallet.Equals(Pallet);
 
   protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
 

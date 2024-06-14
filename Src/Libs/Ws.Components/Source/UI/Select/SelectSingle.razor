@@ -1,15 +1,22 @@
 @typeparam TItem
 
 <div @ref="DropdownWrapper" class="w-full">
-  <SelectTrigger
-    id="@Id"
-    OnClick="@OpenDropdown"
-    IsDisabled="@IsDisabled"
-    IsActive="@IsOpen"
-    Class="@Css.Class("width-sub-element", Class)"
-  >
-    <span class="pointer-events-none line-clamp-1">@GetToggleText</span>
-  </SelectTrigger>
+  @if (TriggerContent == null)
+  {
+    <SelectTrigger
+      id="@Id"
+      OnClick="@OpenDropdown"
+      IsDisabled="@IsDisabled"
+      IsActive="@IsOpen"
+      Class="@Css.Class("width-sub-element", Class)"
+    >
+      <span class="pointer-events-none line-clamp-1">@GetToggleText</span>
+    </SelectTrigger>
+  }
+  else
+  {
+    @TriggerContent(new(Id, IsOpen, EventCallback.Factory.Create<bool>(this, value => IsOpen = value)))
+  }
   <Dropdown
     Anchor="@Id"
     @bind-IsOpen="IsOpen"
@@ -23,7 +30,7 @@
         Placeholder="@SearchPlaceholder"
       />
     }
-    <div class="w-full h-full overflow-x-hidden max-h-72 overflow-y-auto p-1">
+    <div class="size-full overflow-x-hidden max-h-72 overflow-y-auto p-1">
       <ul class="flex flex-col w-full">
         @if (!GetFilteredList.Any())
         {

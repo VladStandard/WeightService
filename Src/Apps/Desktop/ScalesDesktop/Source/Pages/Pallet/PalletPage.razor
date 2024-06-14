@@ -4,6 +4,7 @@
 @using ScalesDesktop.Source.Widgets.PalletSelect
 @using ScalesDesktop.Source.Widgets.PalletWorkspace
 @using ScalesDesktop.Source.Features.DeviceStatusIcons
+@using ScalesDesktop.Source.Widgets.FunctionalityDescription
 
 @attribute [Route(RouteUtils.Pallet)]
 @implements IDisposable
@@ -21,12 +22,14 @@
     }
     else
     {
-      <div class="size-full grid grid-rows-1 grid-cols-[24rem,2fr] rounded-lg shadow-sm bg-white border divide-x max-w-screen-2xl overflow-hidden">
+      <div class="size-full grid grid-rows-1 grid-cols-[24rem,2fr] rounded-lg shadow-sm bg-background border divide-x max-w-screen-2xl overflow-hidden">
         <PalletSelect />
         <div class="size-full overflow-hidden">
           @if (PalletContext.Pallet == null)
           {
-            <PalletWorkspaceIdle />
+          <div class="size-full flex items-center justify-center p-6 bg-secondary/[.6] overflow-hidden">
+            <FunctionalityDescription />
+          </div>
           }
           else
           {

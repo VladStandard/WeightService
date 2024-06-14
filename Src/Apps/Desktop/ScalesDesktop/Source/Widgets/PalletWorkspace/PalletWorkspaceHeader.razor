@@ -1,14 +1,14 @@
 @using Blazor.Heroicons.Outline
 @using ScalesDesktop.Source.Shared.Services
 
-<div class="h-14 shrink-0 w-full grid grid-cols-4 border-b px-4">
+<div class="h-14 shrink-0 bg-background w-full grid grid-cols-4 border-b px-4">
   <div class="flex h-full items-center">
     <Button
-      Variant="ButtonVariant.Outline"
+      Size="ButtonSize.Icon"
+      Variant="ButtonVariant.Ghost"
       OnClick="@CloseCurrentPallet"
     >
-      <ArrowLeftIcon class="size-4 mr-2"/>
-      @Localizer["BtnBack"]
+      <ArrowLeftIcon class="size-5 text-muted-foreground"/>
     </Button>
   </div>
   <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">

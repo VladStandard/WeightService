@@ -234,4 +234,16 @@
     <data name="ScalesStatusInitializing" xml:space="preserve">
         <value>Подготовка весов</value>
     </data>
+    <data name="PalletSortDate" xml:space="preserve">
+        <value>По дате</value>
+    </data>
+    <data name="PalletSortNumber" xml:space="preserve">
+        <value>По номеру</value>
+    </data>
+    <data name="PalletSortPlu" xml:space="preserve">
+        <value>По ПЛУ</value>
+    </data>
+    <data name="PalletSortLabelsCount" xml:space="preserve">
+        <value>По кол-во этикеток</value>
+    </data>
 </root>

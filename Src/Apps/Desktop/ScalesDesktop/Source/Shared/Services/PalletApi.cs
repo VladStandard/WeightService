@@ -23,7 +23,7 @@ public class PalletApi(IDesktopApi desktopApi)
         PiecePalletsEndpoint.UpdateQueryData(armUid, q =>
         {
             if (q.Data == null) return q.Data!;
-            IEnumerable<PalletInfo> newData = q.Data.Append(data);
+            IEnumerable<PalletInfo> newData = q.Data.Prepend(data);
             return newData.ToArray();
         });
 }

@@ -5,16 +5,47 @@
 @using ScalesDesktop.Source.Shared.Services
 @using Ws.Desktop.Models.Features.Arms.Output
 @using Ws.Desktop.Models.Features.Pallets.Output
+@using ScalesDesktop.Source.Features
+@using Ws.Shared.Utils
 
 
-<div class="size-full overflow-hidden flex flex-col">
+<div class="size-full bg-background overflow-hidden flex flex-col">
   <div class="size-full grow flex flex-col overflow-hidden">
     <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
         <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="armQuery.Data.Id" Context="palletQuery">
-          <div class="h-14 border-b flex gap-2 w-full px-4 items-center shrink-0">
-            <div class="border px-2 gap-1 flex shadow-sm items-center rounded-md overflow-hidden w-full h-9">
+          <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
+            <h2 class="font-semibold text-lg tracking-tight pb-px">Паллеты</h2>
+            <div class="flex items-center justify-center pt-px gap-1">
+              <FluentDatePicker
+                @bind-Value="@StartDate"
+                DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"
+                Class="[&::part(root)]:!bg-none [&::part(end)]:!hidden [&::part(control)]:!text-xs [&::part(control)]:!text-center [&::part(control)]:w-20 [&::part(control)]:rounded-lg [&::part(control)]:overflow-hidden [&::part(control)]:bg-secondary [&::part(control):hover]:bg-secondary/80 [&::part(control)]:font-semibold [&::part(control)]:p-0 [&::part(control)]:cursor-pointer"
+                />
+              <span>-</span>
+              <FluentDatePicker
+                @bind-Value="@EndDate"
+                @bind-Value:after="@(() => StartDate = EndDate?.AddDays(-1))"
+                DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today)"
+                Class="[&::part(root)]:!bg-none [&::part(end)]:!hidden [&::part(control)]:!text-xs [&::part(control)]:!text-center [&::part(control)]:w-20 [&::part(control)]:rounded-lg [&::part(control)]:overflow-hidden [&::part(control)]:bg-secondary [&::part(control):hover]:bg-secondary/80 [&::part(control)]:font-semibold [&::part(control)]:p-0 [&::part(control)]:cursor-pointer"
+              />
+            </div>
+            <div class="flex items-center gap-2">
+              <Button
+                Variant="ButtonVariant.Outline"
+                Size="ButtonSize.Icon"
+                OnClick="@(() => palletQuery.Refetch())"
+              >
+                <ArrowPathIcon class="size-5 mx-2" />
+              </Button>
+              <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
+                <PlusIcon class="size-5 mx-2"/>
+              </Button>
+            </div>
+          </div>
+          <div class="h-14 flex gap-2 w-full px-4 items-center shrink-0">
+            <div class="border px-2 gap-1 flex items-center rounded-md overflow-hidden w-full h-9">
               <MagnifyingGlassIcon class="size-5 pb-[2px] text-gray-500"/>
               <input
                 type="text"
@@ -23,16 +54,26 @@
                 class="size-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
                 placeholder="@Localizer["SearchByNumberPlaceholder"]"/>
             </div>
-            <Button
-              Variant="ButtonVariant.Outline"
-              Size="ButtonSize.Icon"
-              OnClick="@(() => palletQuery.Refetch())"
-            >
-              <ArrowPathIcon class="size-5 mx-2"/>
-            </Button>
-            <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
-              <PlusIcon class="size-5 mx-2"/>
-            </Button>
+            <div class="w-9">
+              <SelectSingle
+                TItem="PalletSortEnum"
+                Items="@(Enum.GetValues(typeof(PalletSortEnum)).Cast<PalletSortEnum>())"
+                @bind-SelectedItem="PalletSort"
+                ItemDisplayName="@(value => Localizer[EnumHelper.GetEnumDescription(value)])"
+              >
+                <TriggerContent Context="select">
+                  <Button
+                    Id="@select.DropdownAnchor"
+                    Variant="ButtonVariant.Outline"
+                    Size="ButtonSize.Icon"
+                    Class="shrink-0"
+                    OnClick="@(() => select.SetIsOpen.InvokeAsync(!select.IsOpen))"
+                  >
+                    <FunnelIcon class="size-5" />
+                  </Button>
+                </TriggerContent>
+              </SelectSingle>
+            </div>
           </div>
           @if (palletQuery.HasData)
           {
@@ -44,7 +85,7 @@
             }
             else
             {
-              <ul class="w-full space-y-3 grow px-4 py-3 pr-px overflow-y-scroll">
+              <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
                 @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
                 {
                   <li>
@@ -56,7 +97,7 @@
           }
           else
           {
-            <ul class="w-full space-y-3 grow px-4 py-3">
+            <ul class="w-full space-y-3 grow px-4 pb-3">
               <li>
                 <Skeleton Class="w-full h-18"/>
               </li>
@@ -70,6 +111,9 @@
           }
         </UseEndpoint>
       }
+      <div class="w-full border-t px-4 py-2">
+        <PalletManControl />
+      </div>
     </UseParameterlessEndpoint>
   </div>
 </div>
@@ -86,14 +130,29 @@
 
   # endregion
 
+  private PalletSortEnum PalletSort { get; set; } = PalletSortEnum.Date;
+  private DateTime? StartDate { get; set; } = DateTime.Today.AddDays(-1);
+  private DateTime? EndDate { get; set; } = DateTime.Today;
   private string InputSearchCounter { get; set; } = string.Empty;
+  private const ushort PalletsToDisplay = 100;
 
   private IEnumerable<PalletInfo> GetFilteredPalletList(PalletInfo[] pallets)
   {
     IEnumerable<PalletInfo> filteredPallets = pallets.AsEnumerable();
+
     if (!string.IsNullOrEmpty(InputSearchCounter))
       filteredPallets = pallets.Where(x => x.Number.ToString().Contains(InputSearchCounter));
-    return filteredPallets.Take(100);
+
+    filteredPallets = PalletSort switch
+    {
+      PalletSortEnum.Date => filteredPallets.OrderByDescending(x => x.CreateDt),
+      PalletSortEnum.Number => filteredPallets.OrderByDescending(x => x.Number),
+      PalletSortEnum.Plu => filteredPallets.OrderByDescending(x => x.PluNumber),
+      PalletSortEnum.LabelsCount => filteredPallets.OrderByDescending(x => x.LabelCount),
+      _ => filteredPallets
+    };
+
+    return filteredPallets.Take(PalletsToDisplay);
   }
 
   private async Task ShowCreateFormDialog(ArmValue arm)
