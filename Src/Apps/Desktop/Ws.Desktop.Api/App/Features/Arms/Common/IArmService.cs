@@ -4,5 +4,5 @@ namespace Ws.Desktop.Api.App.Features.Arms.Common;
 
 public interface IArmService
 {
-    public ArmValue? GetByName(string armName);
+    public ArmValue? GetByPcName(string armName);
 }

@@ -4,12 +4,11 @@ using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms.Impl;
 
-public class ArmService : IArmService
+public class ArmService(WsDbContext dbContext) : IArmService
 {
-    public ArmValue? GetByName(string armName)
+    public ArmValue? GetByPcName(string armName)
     {
-        using var context = new WsDbContext();
-        return context.Lines
+        return dbContext.Lines
             .Where(i => i.PcName == armName)
             .Select(i => new ArmValue
             {

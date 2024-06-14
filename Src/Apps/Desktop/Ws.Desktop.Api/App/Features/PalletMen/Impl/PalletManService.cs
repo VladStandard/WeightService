@@ -4,12 +4,11 @@ using Ws.Desktop.Models.Features.PalletMen;
 
 namespace Ws.Desktop.Api.App.Features.PalletMen.Impl;
 
-public class PalletManService : IPalletManService
+public class PalletManService(WsDbContext dbContext) : IPalletManService
 {
     public List<PalletMan> GetAll()
     {
-        using var context = new WsDbContext();
-        List<PalletMan> palletMen = context.PalletMen
+        List<PalletMan> palletMen = dbContext.PalletMen
             .Select(i => new PalletMan
             {
                 Id = i.Id,

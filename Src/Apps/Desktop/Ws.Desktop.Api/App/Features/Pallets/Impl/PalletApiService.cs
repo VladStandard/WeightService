@@ -3,33 +3,32 @@ using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
-using IArmService = Ws.Domain.Services.Features.Arms.IArmService;
-using IPalletManService = Ws.Domain.Services.Features.PalletMen.IPalletManService;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
 public class PalletApiService(
-    IPalletManService palletManService,
+    WsDbContext dbContext,
     IPluService pluService,
-    IPrintLabelService printLabelService,
-    IArmService armService
+    IArmService armService,
+    IPalletManService palletManService,
+    IPrintLabelService printLabelService
     ): IPalletApiService
 {
     public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
     {
-        using var context = new WsDbContext();
-
-        List<PalletInfo> pallets = context.Pallets
+        List<PalletInfo> pallets = dbContext.Pallets
             .Where(p => p.Arm.Id == armId && p.CreateDt > startTime && p.CreateDt < endTime)
             .GroupJoin(
-                context.Labels,
+                dbContext.Labels,
                 pallet => pallet.Id,
                 label => label.PalletEntityId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
-            .OrderByDescending (result => result.Pallet.Number)
+            .OrderByDescending (result => result.Pallet.CreateDt)
             .Select(result => new PalletInfo
             {
                 Id = result.Pallet.Id,
@@ -57,12 +56,10 @@ public class PalletApiService(
 
     public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId)
     {
-        using var context = new WsDbContext();
-
-        List<LabelInfo> labels = context.Pallets
+        List<LabelInfo> labels = dbContext.Pallets
             .Where(p => p.Arm.Id == armId && p.Id == palletId)
             .GroupJoin(
-                context.Labels,
+                dbContext.Labels,
                 pallet => pallet.Id,
                 label => label.PalletEntityId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
@@ -78,8 +75,6 @@ public class PalletApiService(
 
     public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
-        using var context = new WsDbContext();
-
         var plu = pluService.GetItemByUid(dto.PluId);
         List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
 
@@ -96,10 +91,10 @@ public class PalletApiService(
         };
         var palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
 
-       return context.Pallets
+       return dbContext.Pallets
             .Where(p => p.Id == palletId)
             .GroupJoin(
-                context.Labels,
+                dbContext.Labels,
                 pallet => pallet.Id,
                 label => label.PalletEntityId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
@@ -128,11 +123,10 @@ public class PalletApiService(
 
     public PalletInfo GetByNumber(Guid armId, uint number)
     {
-        using var context = new WsDbContext();
-        return context.Pallets
+        return dbContext.Pallets
             .Where(p => p.Arm.Id == armId && p.Number == number)
             .GroupJoin(
-                context.Labels,
+                dbContext.Labels,
                 pallet => pallet.Id,
                 label => label.PalletEntityId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })

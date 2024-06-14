@@ -1,5 +1,5 @@
 using Ws.Database.EntityFramework;
-using Ws.Desktop.Api.App.Features.Plu.Weight.Common;
+using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
@@ -8,27 +8,27 @@ using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
 
-namespace Ws.Desktop.Api.App.Features.Plu.Weight.Impl;
+namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
 public class PluWeightService(
     IPrintLabelService printLabelService,
     IPluService pluService,
-    IArmService armService
+    IArmService armService,
+    WsDbContext dbContext
     ) : IPluWeightService
 {
     public List<PluWeight> GetAllWeightByArm(Guid uid)
     {
-        using var context = new WsDbContext();
-
-        List<Guid> pluUidList = context.Lines
+        List<Guid> pluUidList = dbContext.Lines
             .Where(i => i.Id == uid)
             .SelectMany(i => i.Plus.Where(p => p.IsWeight == true).Select(p => p.Id))
             .DefaultIfEmpty()
             .ToList();
 
-        List<PluWeight> data = context.Plus
+        List<PluWeight> data = dbContext.Plus
             .Where(p => pluUidList.Contains(p.Id))
-            .Join(context.Nestings,
+            .OrderBy(result => result.Number)
+            .Join(dbContext.Nestings,
                 plu => plu.Id,
                 nesting => nesting.Id,
                 (plu, nesting) => new PluWeight
@@ -44,7 +44,7 @@ public class PluWeightService(
                 })
             .ToList();
 
-        return new (data);
+        return data;
     }
 
     public WeightLabel GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
@@ -59,11 +59,11 @@ public class PluWeightService(
             Kneading = (short)dto.Kneading,
             ProductDt = dto.ProductDt
         };
+        var label = printLabelService.GenerateWeightLabel(dtoToCreate);
 
         line.Counter += 1;
         armService.Update(line);
 
-        var label = printLabelService.GenerateWeightLabel(dtoToCreate);
         return new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl };
     }
 }

@@ -1,11 +1,11 @@
-using Ws.Desktop.Api.App.Features.Plu.Piece.Common;
+using Ws.Database.EntityFramework;
+using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Domain.Services.Features.Arms;
-using Ws.Domain.Services.Features.Plus;
 
-namespace Ws.Desktop.Api.App.Features.Plu.Piece.Impl;
+namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
-public class PluPieceService(IArmService armService, IPluService pluService) : IPluPieceService
+public class PluPieceService(IArmService armService, WsDbContext dbContext) : IPluPieceService
 {
     public List<PluPiece> GetAllPieceByArm(Guid uid)
     {
