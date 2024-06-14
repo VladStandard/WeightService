@@ -5,8 +5,17 @@ namespace Ws.Desktop.Api.App.Features.Pallets.Common;
 
 public interface IPalletApiService
 {
-    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime);
+    #region Queries
+
+    public PalletInfo? GetByNumber(Guid armId, uint number);
     public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId);
+    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime);
+
+    #endregion
+
+    #region Commands
+
     public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto);
-    public PalletInfo GetByNumber(Guid armId, uint number);
+
+    #endregion
 }

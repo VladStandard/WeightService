@@ -12,16 +12,23 @@ namespace Ws.Desktop.Api.App.Features.Plu;
 [Route("api/arms/{armId:guid}/plu")]
 public class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
 {
+    #region Queries
 
     [HttpGet("piece")]
-    public ActionResult<List<PluPiece>> GetAllPieceByArm([FromRoute] Guid armId)
-        => Ok(pluPieceService.GetAllPieceByArm(armId));
+    public List<PluPiece> GetAllPieceByArm([FromRoute] Guid armId)
+        => pluPieceService.GetAllPieceByArm(armId);
 
     [HttpGet("weight")]
-    public ActionResult<List<PluWeight>> GetAllWeightByArm([FromRoute] Guid armId)
-        => Ok(pluWeightService.GetAllWeightByArm(armId));
+    public List<PluWeight> GetAllWeightByArm([FromRoute] Guid armId)
+        => pluWeightService.GetAllWeightByArm(armId);
+
+    #endregion
+
+    #region Commands
 
     [HttpPost("weight/{pluId:guid}/label")]
-    public ActionResult<WeightLabel> GenerateLabel([FromRoute] Guid armId, Guid pluId, [FromBody] CreateWeightLabelDto dto)
-        => Ok(pluWeightService.GenerateLabel(armId, pluId, dto));
+    public WeightLabel GenerateLabel([FromRoute] Guid armId, Guid pluId, [FromBody] CreateWeightLabelDto dto)
+        => pluWeightService.GenerateLabel(armId, pluId, dto);
+
+    #endregion
 }

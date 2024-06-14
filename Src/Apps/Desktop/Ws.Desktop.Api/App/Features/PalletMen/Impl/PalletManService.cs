@@ -6,6 +6,8 @@ namespace Ws.Desktop.Api.App.Features.PalletMen.Impl;
 
 public class PalletManService(WsDbContext dbContext) : IPalletManService
 {
+    #region Queries
+
     public List<PalletMan> GetAll()
     {
         List<PalletMan> palletMen = dbContext.PalletMen
@@ -23,4 +25,6 @@ public class PalletManService(WsDbContext dbContext) : IPalletManService
             .ToList();
         return palletMen;
     }
+
+    #endregion
 }

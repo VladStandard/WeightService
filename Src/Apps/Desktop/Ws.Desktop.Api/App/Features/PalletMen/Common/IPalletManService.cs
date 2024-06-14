@@ -4,5 +4,9 @@ namespace Ws.Desktop.Api.App.Features.PalletMen.Common;
 
 public interface IPalletManService
 {
+    #region Queries
+
     List<PalletMan> GetAll();
+
+    #endregion
 }

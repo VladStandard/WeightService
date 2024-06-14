@@ -10,8 +10,10 @@ namespace Ws.Desktop.Api.App.Features.Pallets;
 [Route("api/arms/{armId:guid}/pallets")]
 public class PalletController(IPalletApiService palletApiService) : ControllerBase
 {
+    #region Queries
+
     [HttpGet]
-    public ActionResult<List<PalletInfo>> GetByDate(
+    public List<PalletInfo> GetByDate(
         [FromRoute] Guid armId,
         [FromQuery, DefaultValue(typeof(DateTime), "0001-01-01T00:00:00")] DateTime startDt,
         [FromQuery, DefaultValue(typeof(DateTime), "9999-12-31T23:59:59")] DateTime endDt
@@ -22,10 +24,16 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
         palletApiService.GetByNumber(armId, number) is { } arm ? Ok(arm) : NotFound();
 
     [HttpGet("{palletId:guid}/labels")]
-    public ActionResult<List<PalletInfo>> GetLabelsByPallet([FromRoute] Guid armId, Guid palletId) =>
-        Ok(palletApiService.GetAllZplByArm(armId, palletId));
+    public List<LabelInfo> GetLabelsByPallet([FromRoute] Guid armId, Guid palletId) =>
+        palletApiService.GetAllZplByArm(armId, palletId);
+
+    #endregion
+
+    #region Commands
 
     [HttpPost]
-    public ActionResult<PalletInfo> Create([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
-        Ok(palletApiService.CreatePiecePallet(armId, dto));
+    public PalletInfo Create([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
+        palletApiService.CreatePiecePallet(armId, dto);
+
+    #endregion
 }

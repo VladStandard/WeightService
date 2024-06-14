@@ -1,5 +1,6 @@
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
+using Ws.Desktop.Api.App.Features.Pallets.Extensions;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
@@ -8,6 +9,7 @@ using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Features.Generate;
 using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
+using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
@@ -19,56 +21,13 @@ public class PalletApiService(
     IPrintLabelService printLabelService
     ): IPalletApiService
 {
-    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
-    {
-        List<PalletInfo> pallets = dbContext.Pallets
-            .Where(p => p.Arm.Id == armId && p.CreateDt > startTime && p.CreateDt < endTime)
-            .GroupJoin(
-                dbContext.Labels,
-                pallet => pallet.Id,
-                label => label.PalletEntityId,
-                (pallet, labels) => new { Pallet = pallet, Labels = labels })
-            .OrderByDescending (result => result.Pallet.CreateDt)
-            .Select(result => new PalletInfo
-            {
-                Id = result.Pallet.Id,
-                Number = result.Pallet.Number,
-                PluName = result.Pallet.Plu.Name,
-                PluNumber = (ushort)result.Pallet.Plu.Number,
-                LabelCount = (uint)result.Labels.Count(),
-                WeightNet = result.Labels.Sum(label => label.WeightNet),
-                WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
-                PalletMan = new()
-                {
-                    Name = result.Pallet.PalletMan.Name,
-                    Surname = result.Pallet.PalletMan.Surname,
-                    Patronymic = result.Pallet.PalletMan.Patronymic
-                },
-                WeightTray = result.Pallet.TrayWeight,
-                Barcode = result.Pallet.Barcode,
-                ProdDt = result.Pallet.ProductDt,
-                CreateDt = result.Pallet.CreateDt,
-            })
-            .ToList();
-
-        return pallets;
-    }
+    #region Quieries
 
     public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId)
     {
         List<LabelInfo> labels = dbContext.Pallets
             .Where(p => p.Arm.Id == armId && p.Id == palletId)
-            .GroupJoin(
-                dbContext.Labels,
-                pallet => pallet.Id,
-                label => label.PalletEntityId,
-                (pallet, labels) => new { Pallet = pallet, Labels = labels })
-            .SelectMany(
-                result => result.Labels,
-                (result, label) => new LabelInfo
-                {
-                    Zpl = label.Zpl
-                })
+            .ToLabelInfo(dbContext.Labels)
             .ToList();
         return labels;
     }
@@ -93,63 +52,35 @@ public class PalletApiService(
 
        return dbContext.Pallets
             .Where(p => p.Id == palletId)
-            .GroupJoin(
-                dbContext.Labels,
-                pallet => pallet.Id,
-                label => label.PalletEntityId,
-                (pallet, labels) => new { Pallet = pallet, Labels = labels })
-            .Select(result => new PalletInfo
-            {
-                Id = result.Pallet.Id,
-                Number = result.Pallet.Number,
-                PluName = result.Pallet.Plu.Name,
-                PluNumber = (ushort)result.Pallet.Plu.Number,
-                LabelCount = (uint)result.Labels.Count(),
-                WeightNet = result.Labels.Sum(label => label.WeightNet),
-                WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
-                PalletMan = new()
-                {
-                    Name = result.Pallet.PalletMan.Name,
-                    Surname = result.Pallet.PalletMan.Surname,
-                    Patronymic = result.Pallet.PalletMan.Patronymic
-                },
-                WeightTray = result.Pallet.TrayWeight,
-                Barcode = result.Pallet.Barcode,
-                ProdDt = result.Pallet.ProductDt,
-                CreateDt = result.Pallet.CreateDt,
-            })
+            .ToPalletInfo(dbContext.Labels)
             .Single();
     }
 
-    public PalletInfo GetByNumber(Guid armId, uint number)
+    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
+    {
+        bool dateCondition =
+            startTime != DateTime.MinValue &&
+            endTime != DateTime.MaxValue &&
+            startTime < endTime;
+
+        return dbContext.Pallets
+            .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
+            .Where(p => p.Arm.Id == armId)
+            .OrderByDescending(p => p.CreateDt)
+            .ToPalletInfo(dbContext.Labels).ToList();
+    }
+
+    #endregion
+
+    #region Commands
+
+    public PalletInfo? GetByNumber(Guid armId, uint number)
     {
         return dbContext.Pallets
             .Where(p => p.Arm.Id == armId && p.Number == number)
-            .GroupJoin(
-                dbContext.Labels,
-                pallet => pallet.Id,
-                label => label.PalletEntityId,
-                (pallet, labels) => new { Pallet = pallet, Labels = labels })
-            .Select(result => new PalletInfo
-            {
-                Id = result.Pallet.Id,
-                Number = result.Pallet.Number,
-                PluName = result.Pallet.Plu.Name,
-                PluNumber = (ushort)result.Pallet.Plu.Number,
-                LabelCount = (uint)result.Labels.Count(),
-                WeightNet = result.Labels.Sum(label => label.WeightNet),
-                WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
-                PalletMan = new()
-                {
-                    Name = result.Pallet.PalletMan.Name,
-                    Surname = result.Pallet.PalletMan.Surname,
-                    Patronymic = result.Pallet.PalletMan.Patronymic
-                },
-                WeightTray = result.Pallet.TrayWeight,
-                Barcode = result.Pallet.Barcode,
-                ProdDt = result.Pallet.ProductDt,
-                CreateDt = result.Pallet.CreateDt,
-            })
-            .Single();
+            .ToPalletInfo(dbContext.Labels)
+            .SingleOrDefault();
     }
+
+    #endregion
 }

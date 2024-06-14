@@ -8,6 +8,10 @@ namespace Ws.Desktop.Api.App.Features.PalletMen;
 [Route("api/pallet-men")]
 public class PalletManController(IPalletManService palletManService) : ControllerBase
 {
+    #region Queries
+
     [HttpGet]
     public List<PalletMan> GetAll() => palletManService.GetAll();
+
+    #endregion
 }

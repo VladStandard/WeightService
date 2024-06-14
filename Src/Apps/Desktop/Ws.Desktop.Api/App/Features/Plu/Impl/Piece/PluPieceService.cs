@@ -7,6 +7,8 @@ namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
 public class PluPieceService(IArmService armService, WsDbContext dbContext) : IPluPieceService
 {
+    #region Queries
+
     public List<PluPiece> GetAllPieceByArm(Guid uid)
     {
         List<Domain.Models.Entities.Ref1c.Plu.Plu> plus = armService.GetArmPiecePlus(uid).ToList();
@@ -30,4 +32,6 @@ public class PluPieceService(IArmService armService, WsDbContext dbContext) : IP
         }));
         return plusPiece;
     }
+
+    #endregion
 }

@@ -6,6 +6,8 @@ namespace Ws.Desktop.Api.App.Features.Arms.Impl;
 
 public class ArmService(WsDbContext dbContext) : IArmService
 {
+    #region Queries
+
     public ArmValue? GetByPcName(string armName)
     {
         return dbContext.Lines
@@ -27,4 +29,6 @@ public class ArmService(WsDbContext dbContext) : IArmService
             })
             .FirstOrDefault();
     }
+
+    #endregion
 }
