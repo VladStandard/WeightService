@@ -1,5 +1,6 @@
 @using Blazor.Heroicons.Outline
 @using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Phetch.Core
 @using ScalesDesktop.Source.Features.PalletCreate
 @using ScalesDesktop.Source.Shared.Services
@@ -14,28 +15,24 @@
     <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
-        <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="armQuery.Data.Id" Context="palletQuery">
+        <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
           <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
             <h2 class="font-semibold text-lg tracking-tight pb-px">Паллеты</h2>
             <div class="flex items-center justify-center pt-px gap-1">
-              <FluentDatePicker
+              <CompactDatePicker
                 @bind-Value="@StartDate"
-                DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"
-                Class="[&::part(root)]:!bg-none [&::part(end)]:!hidden [&::part(control)]:!text-xs [&::part(control)]:!text-center [&::part(control)]:w-20 [&::part(control)]:rounded-lg [&::part(control)]:overflow-hidden [&::part(control)]:bg-secondary [&::part(control):hover]:bg-secondary/80 [&::part(control)]:font-semibold [&::part(control)]:p-0 [&::part(control)]:cursor-pointer"
-                />
+                DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"/>
               <span>-</span>
-              <FluentDatePicker
+              <CompactDatePicker
                 @bind-Value="@EndDate"
                 @bind-Value:after="@(() => StartDate = EndDate?.AddDays(-1))"
-                DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today)"
-                Class="[&::part(root)]:!bg-none [&::part(end)]:!hidden [&::part(control)]:!text-xs [&::part(control)]:!text-center [&::part(control)]:w-20 [&::part(control)]:rounded-lg [&::part(control)]:overflow-hidden [&::part(control)]:bg-secondary [&::part(control):hover]:bg-secondary/80 [&::part(control)]:font-semibold [&::part(control)]:p-0 [&::part(control)]:cursor-pointer"
-              />
+                DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today.AddDays(1))"/>
             </div>
             <div class="flex items-center gap-2">
               <Button
                 Variant="ButtonVariant.Outline"
                 Size="ButtonSize.Icon"
-                OnClick="@(() => palletQuery.Refetch())"
+                OnClick="@(() => { palletQuery.Refetch(); ResetSortsAndFilters(); })"
               >
                 <ArrowPathIcon class="size-5 mx-2" />
               </Button>
@@ -131,8 +128,8 @@
   # endregion
 
   private PalletSortEnum PalletSort { get; set; } = PalletSortEnum.Date;
-  private DateTime? StartDate { get; set; } = DateTime.Today.AddDays(-1);
-  private DateTime? EndDate { get; set; } = DateTime.Today;
+  private DateTime? StartDate { get; set; } = GetStartOfWorkingShift();
+  private DateTime? EndDate { get; set; } = GetEndOfWorkingShift();
   private string InputSearchCounter { get; set; } = string.Empty;
   private const ushort PalletsToDisplay = 100;
 
@@ -155,13 +152,35 @@
     return filteredPallets.Take(PalletsToDisplay);
   }
 
+  private void ResetSortsAndFilters()
+  {
+    StartDate = GetStartOfWorkingShift();
+    EndDate = GetEndOfWorkingShift();
+    PalletSort = PalletSortEnum.Date;
+    InputSearchCounter = string.Empty;
+  }
+
+  private static DateTime GetStartOfWorkingShift()
+  {
+    DateTime dateNow = DateTime.Now;
+    if (dateNow.Hour < 8) dateNow = dateNow.AddDays(-1);
+    return new(dateNow.Year, dateNow.Month, dateNow.Day, 8, 0, 0);
+  }
+
+  private static DateTime GetEndOfWorkingShift()
+  {
+    DateTime dateNow = DateTime.Now;
+    if (dateNow.Hour >= 8) dateNow = dateNow.AddDays(1);
+    return new(dateNow.Year, dateNow.Month, dateNow.Day, 8, 0, 0);
+  }
+
   private async Task ShowCreateFormDialog(ArmValue arm)
   {
     IDialogReference dialog = await DialogService.ShowDialogAsync<PalletCreateDialog>(new());
     DialogResult result = await dialog.Result;
     if (result is { Cancelled: false, Data: PalletInfo newPallet })
     {
-      PalletApi.InsertPiecePallet(arm.Id, newPallet);
+      PalletApi.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
       PalletContext.ChangePallet(newPallet);
     }
   }

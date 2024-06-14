@@ -15,7 +15,7 @@ public interface IDesktopApi
     #region Pallet
 
     [Get("/api/arms/{armUid}/pallets")]
-    Task<PalletInfo[]> GetPalletsByArm(Guid armUid);
+    Task<PalletInfo[]> GetPalletsByArm(Guid armUid, DateTime? startDt, DateTime? endDt);
 
     [Get("/api/arms/{armUid}/pallets/{palletId}/labels")]
     Task<LabelInfo[]> GetPalletLabels(Guid armUid, Guid palletId);
@@ -51,7 +51,7 @@ public interface IDesktopApi
 
     #region PalletMan
 
-    [Get("api/arms/{armUid}/pallet-men")]
+    [Get("/api/arms/{armUid}/pallet-men")]
     Task<PalletMan[]> GetPalletMenByArm(Guid armUid);
 
     #endregion

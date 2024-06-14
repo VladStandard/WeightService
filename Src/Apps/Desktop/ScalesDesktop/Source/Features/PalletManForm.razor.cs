@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
-using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Features;
@@ -15,10 +14,10 @@ public sealed partial class PalletManForm : ComponentBase
 
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private PalletContext PalletContext { get; set; } = default!;
-    [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private PalletApi PalletApi { get; set; } = default!;
+    [Inject] private ArmApi ArmApi { get; set; } = default!;
 
     # endregion
 
