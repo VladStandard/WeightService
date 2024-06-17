@@ -24,10 +24,10 @@ internal static class PalletExtensions
                     .GroupBy(label => label.Plu!.Id)
                     .Select(group => new PluPalletInfo
                     {
-                        Name = group.First().Plu!.Name, // Получаем имя из первого элемента группы
-                        Number = (ushort)group.First().Plu!.Number, // Получаем номер из первого элемента группы
+                        Name = group.First().Plu!.Name,
+                        Number = (ushort)group.First().Plu!.Number,
                         BoxCount = (ushort)group.Count(),
-                        PieceCount = 0,
+                        BundleCount = (ushort)group.Sum(label => label.BundleCount),
                         WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
                         WeightNet = group.Sum(label => label.WeightNet),
                     })

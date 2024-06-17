@@ -133,7 +133,7 @@ public abstract class PalletCard
         pluTable.AddCell(new Paragraph("Всего").SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightNet.ToString(CultureInfo.InvariantCulture)).SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture)).SetBold());
-        pluTable.AddCell(new Paragraph(palletView.PieceCount.ToString()).SetBold());
+        pluTable.AddCell(new Paragraph(palletView.BundleCount.ToString()).SetBold());
         pluTable.AddCell(new Paragraph(palletView.BoxCount.ToString()).SetBold());
     }
 
@@ -142,7 +142,7 @@ public abstract class PalletCard
         pluTable.AddCell(new Paragraph(plu.Name).SetBold().SetFontSize(30));
         pluTable.AddCell(plu.WeightNet.ToString(CultureInfo.InvariantCulture));
         pluTable.AddCell(plu.WeightBrutto.ToString(CultureInfo.InvariantCulture));
-        pluTable.AddCell(plu.PieceCount.ToString());
+        pluTable.AddCell(plu.BundleCount.ToString());
         pluTable.AddCell(plu.BoxCount.ToString());
     }
 

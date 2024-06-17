@@ -13,8 +13,8 @@ public record PluPalletInfo
     [JsonPropertyName("boxCount")]
     public required ushort BoxCount { get; init; }
 
-    [JsonPropertyName("pieceCount")]
-    public required ushort PieceCount { get; init; }
+    [JsonPropertyName("bundleCount")]
+    public required ushort BundleCount { get; init; }
 
     [JsonPropertyName("weightBrutto")]
     public required decimal WeightBrutto { get; init; }

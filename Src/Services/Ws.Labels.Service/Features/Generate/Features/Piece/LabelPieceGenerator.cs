@@ -84,7 +84,8 @@ internal class LabelPieceGenerator(IPalletService palletService, CacheService ca
             ProductDt = generatePalletDto.ProductDt,
             ExpirationDt = generatePalletDto.ExpirationDt,
             Line = generatePalletDto.Line,
-            Plu = generatePalletDto.Plu
+            Plu = generatePalletDto.Plu,
+            BundleCount = (ushort)generatePalletDto.PluCharacteristic.BundleCount
         };
     }
 }

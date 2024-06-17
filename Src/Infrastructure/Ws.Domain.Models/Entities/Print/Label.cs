@@ -14,6 +14,7 @@ public class Label : EntityBase
     public virtual string BarcodeTop { get; set; } = string.Empty;
     public virtual string BarcodeRight { get; set; } = string.Empty;
     public virtual string BarcodeBottom { get; set; } = string.Empty;
+    public virtual ushort BundleCount { get; set; }
     public virtual decimal WeightNet { get; set; }
     public virtual decimal WeightTare { get; set; }
     public virtual short Kneading { get; set; }
@@ -40,6 +41,7 @@ public class Label : EntityBase
                Equals(Kneading, item.Kneading) &&
                Equals(Plu, item.Plu) &&
                Equals(Line, item.Line) &&
+               Equals(BundleCount, item.BundleCount) &&
                Equals(PalletUid, item.PalletUid);
     }
 }

@@ -38,6 +38,8 @@ public sealed record PalletInfo
     [JsonPropertyName("weightTray")]
     public required decimal WeightTray { get; init; }
 
+    #region JsonIgnore
+
     [JsonIgnore]
     public decimal WeightNet => Plus.Sum(i => i.WeightNet);
 
@@ -45,8 +47,10 @@ public sealed record PalletInfo
     public decimal WeightBrutto => Plus.Sum(i => i.WeightBrutto);
 
     [JsonIgnore]
-    public ushort PieceCount => (ushort)Plus.Sum(i => i.PieceCount);
+    public ushort BundleCount => (ushort)Plus.Sum(i => i.BundleCount);
 
     [JsonIgnore]
     public ushort BoxCount => (ushort)Plus.Sum(i => i.BoxCount);
+
+    #endregion
 }

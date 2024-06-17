@@ -40,12 +40,6 @@ public class PalletApiService(
             endTime != DateTime.MaxValue &&
             startTime < endTime;
 
-        var data = dbContext.Pallets
-            .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
-            .Where(p => p.Arm.Id == armId)
-            .OrderByDescending(p => p.CreateDt)
-            .ToPalletInfo(dbContext.Labels).ToQueryString();
-
         return dbContext.Pallets
             .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
             .Where(p => p.Arm.Id == armId)
@@ -84,7 +78,7 @@ public class PalletApiService(
             ProductDt = dto.ProdDt,
             ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
         };
-        var palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
+        Guid palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
 
         return dbContext.Pallets
             .Where(p => p.Id == palletId)
