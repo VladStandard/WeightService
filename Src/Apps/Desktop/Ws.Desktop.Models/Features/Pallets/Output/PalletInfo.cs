@@ -11,15 +11,6 @@ public sealed record PalletInfo
     [JsonPropertyName("number")]
     public required uint Number { get; init; }
 
-    [JsonPropertyName("pluName")]
-    public required string PluName { get; init; }
-
-    [JsonPropertyName("pluNumber")]
-    public required ushort PluNumber { get; init; }
-
-    [JsonPropertyName("labelCount")]
-    public required uint LabelCount { get; init; }
-
     [JsonPropertyName("palletMan")]
     public required Fio PalletMan { get; init; }
 
@@ -29,16 +20,13 @@ public sealed record PalletInfo
     [JsonPropertyName("warehouse")]
     public required string Warehouse { get; init; }
 
-    [JsonPropertyName("weightTray")]
-    public required decimal WeightTray { get; init; }
+    [JsonPropertyName("plus")]
+    public required HashSet<PluPalletInfo> Plus { get; init; }
 
-    [JsonPropertyName("weightBrutto")]
-    public required decimal WeightBrutto { get; init; }
+    [JsonPropertyName("kneadings")]
+    public required HashSet<ushort> Kneadings { get; init; }
 
-    [JsonPropertyName("weightNet")]
-    public required decimal WeightNet { get; init; }
-
-    [JsonPropertyName("Barcode")]
+    [JsonPropertyName("barcode")]
     public required string Barcode { get; init; }
 
     [JsonPropertyName("prodDt")]
@@ -47,6 +35,15 @@ public sealed record PalletInfo
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; init; }
 
-    [JsonPropertyName("kneadings")]
-    public required HashSet<ushort> Kneadings { get; init; }
+    [JsonPropertyName("weightTray")]
+    public required decimal WeightTray { get; init; }
+
+    [JsonIgnore]
+    public decimal WeightNet => Plus.Sum(i => i.WeightBrutto);
+
+    [JsonIgnore]
+    public decimal WeightBrutto => Plus.Sum(i => i.WeightBrutto);
+
+    [JsonIgnore]
+    public ushort BoxCount => (ushort)Plus.Sum(i => i.BoxCount);
 }

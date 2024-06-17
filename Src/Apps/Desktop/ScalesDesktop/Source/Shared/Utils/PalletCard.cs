@@ -86,7 +86,7 @@ public abstract class PalletCard
         AddInfoTableRow(infoTable, "Вес нетто", palletView.WeightNet.ToString(CultureInfo.InvariantCulture));
         AddInfoTableRow(infoTable, "Вес брутто + Вес паллеты", palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture));
         AddInfoTableRow(infoTable, "Вес паллеты", "0");
-        AddInfoTableRow(infoTable, "Количество коробок", palletView.LabelCount.ToString());
+        AddInfoTableRow(infoTable, "Количество коробок", palletView.BoxCount.ToString());
         AddInfoTableRow(infoTable, "Склад", "пусто");
         AddInfoTableRow(infoTable, "Линия", "пусто");
         AddInfoTableRow(infoTable, "Замес", "пусто");
@@ -128,13 +128,13 @@ public abstract class PalletCard
         pluTable.AddCell(palletView.WeightNet.ToString(CultureInfo.InvariantCulture));
         pluTable.AddCell(palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture));
         pluTable.AddCell("840");
-        pluTable.AddCell(palletView.LabelCount.ToString());
+        pluTable.AddCell(palletView.BoxCount.ToString());
 
         pluTable.AddCell(new Paragraph("Всего").SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightNet.ToString(CultureInfo.InvariantCulture)).SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture)).SetBold());
         pluTable.AddCell(new Paragraph("840").SetBold());
-        pluTable.AddCell(new Paragraph(palletView.LabelCount.ToString()).SetBold());
+        pluTable.AddCell(new Paragraph(palletView.BoxCount.ToString()).SetBold());
     }
 
     private static void AddBarcodeImage(Document doc, PdfDocument pdf, string barcodeCode)

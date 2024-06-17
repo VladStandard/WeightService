@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Extensions;
@@ -62,6 +63,12 @@ public class PalletApiService(
             startTime != DateTime.MinValue &&
             endTime != DateTime.MaxValue &&
             startTime < endTime;
+
+        var data = dbContext.Pallets
+            .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
+            .Where(p => p.Arm.Id == armId)
+            .OrderByDescending(p => p.CreateDt)
+            .ToPalletInfo(dbContext.Labels).ToQueryString();
 
         return dbContext.Pallets
             .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)

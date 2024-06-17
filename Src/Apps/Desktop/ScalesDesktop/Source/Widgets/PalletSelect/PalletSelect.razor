@@ -145,7 +145,7 @@
       PalletSortEnum.Date => filteredPallets.OrderByDescending(x => x.CreateDt),
       PalletSortEnum.Number => filteredPallets.OrderByDescending(x => x.Number),
       PalletSortEnum.Plu => filteredPallets.OrderByDescending(x => x.PluNumber),
-      PalletSortEnum.LabelsCount => filteredPallets.OrderByDescending(x => x.LabelCount),
+      PalletSortEnum.LabelsCount => filteredPallets.OrderByDescending(x => x.BoxCount),
       _ => filteredPallets
     };
 

@@ -29,4 +29,12 @@ public class StrExtensionsTests
     {
         input.IsDateFormat().Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData("александров даниил дмитриевич", "Александров Даниил Дмитриевич")]
+    [InlineData("Власов артем", "Власов Артем")]
+    public void Test_Capitalize(string input, string expected)
+    {
+        input.Capitalize().Should().Be(expected);
+    }
 }

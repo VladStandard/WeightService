@@ -20,11 +20,18 @@ internal static class PalletExtensions
                 Arm = result.Pallet.Arm.Name,
                 Warehouse = result.Pallet.Arm.Warehouse.Name,
                 Number = result.Pallet.Number,
-                PluName = result.Pallet.Plu.Name,
-                PluNumber = (ushort)result.Pallet.Plu.Number,
-                LabelCount = (uint)result.Labels.Count(),
-                WeightNet = result.Labels.Sum(label => label.WeightNet),
-                WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
+                Plus = result.Labels
+                    .GroupBy(label => label.Plu!.Id)
+                    .Select(group => new PluPalletInfo
+                    {
+                        Name = group.First().Plu!.Name, // Получаем имя из первого элемента группы
+                        Number = (ushort)group.First().Plu!.Number, // Получаем номер из первого элемента группы
+                        BoxCount = (ushort)group.Count(),
+                        PieceCount = 0,
+                        WeightBrutto = result.Labels.Sum(label => label.WeightTare + label.WeightNet),
+                        WeightNet = group.Sum(label => label.WeightNet),
+                    })
+                    .ToHashSet(),
                 PalletMan = new()
                 {
                     Name = result.Pallet.PalletMan.Name,
@@ -35,8 +42,7 @@ internal static class PalletExtensions
                 Barcode = result.Pallet.Barcode,
                 ProdDt = result.Pallet.ProductDt,
                 CreateDt = result.Pallet.CreateDt,
-                Kneadings = result.Labels.Select(i => (ushort)i.Kneading)
-                    .ToHashSet(),
+                Kneadings = result.Labels.Select(i => (ushort)i.Kneading).ToHashSet(),
             });
     }
 

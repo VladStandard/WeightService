@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Models.ValueTypes;
 
@@ -14,7 +15,14 @@ public sealed record Fio
     public required string Patronymic { get; init; }
 
     [JsonIgnore]
-    public string DisplayShortName =>
-        $"{Surname} {(string.IsNullOrEmpty(Name) ? "" : Name[..1].ToUpper())}." +
-        $"{(string.IsNullOrEmpty(Patronymic) ? "" : Patronymic[..1].ToUpper())}.";
+    public string DisplayShortName => $"{Surname} {GetInitialChar(Name)}{GetInitialChar(Patronymic)}";
+
+    [JsonIgnore]
+    public string DisplayFullName => $"{Surname} {Name} {Patronymic}".Capitalize();
+
+    #region Private
+
+    private static string GetInitialChar(string s) => string.IsNullOrEmpty(s) ? "" : $"{char.ToUpper(s[0])}.";
+
+    #endregion
 }

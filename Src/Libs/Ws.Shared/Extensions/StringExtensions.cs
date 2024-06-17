@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Ws.Shared.Extensions;
@@ -12,4 +13,5 @@ public static partial class StringExtensions
 
     public static bool IsDigitsOnly(this string str) => DigitsOnlyRegex().IsMatch(str);
     public static bool IsDateFormat(this string str) => DateFormatRegex().IsMatch(str);
+    public static string Capitalize(this string str) => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
 }
