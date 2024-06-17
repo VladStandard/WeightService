@@ -9,6 +9,7 @@
         <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground" />
         <input
           @bind="SearchingNumber"
+          @bind:event="oninput"
           placeholder="@Localizer["SearchByNumberPlaceholder"]"
           class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
         />
@@ -41,36 +42,34 @@
         @if (armQuery.HasData)
         {
           <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
-            @if (labelsQuery.HasData)
-            {
-              <FluentDataGrid
-                TGridItem="DataItem"
-                GridTemplateColumns="5rem 1fr 4fr"
-                Items="@GetOrderedLabels(labelsQuery.Data)"
-                RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
-                Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
-                Virtualize
-              >
-                <TemplateColumn>
-                  <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex justify-center items-center px-3">
-                    @if (SelectedItems.Contains(context.Label))
-                    {
-                      <CheckIcon class="size-4"/>
-                    }
-                  </button>
-                </TemplateColumn>
-                <TemplateColumn Title="Index">
-                  <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
-                    @context.Id
-                  </button>
-                </TemplateColumn>
-                <TemplateColumn Title="Barcode">
-                  <div @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
-                    @Pallet.Barcode
-                  </div>
-                </TemplateColumn>
-              </FluentDataGrid>
-            }
+            <FluentDataGrid
+              TGridItem="DataItem"
+              GridTemplateColumns="5rem 1fr 4fr"
+              Items="@GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : [])"
+              RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
+              Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
+              Loading="@labelsQuery.IsLoading"
+              Virtualize
+            >
+              <TemplateColumn>
+                <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex justify-center items-center px-3">
+                  @if (SelectedItems.Contains(context.Label))
+                  {
+                    <CheckIcon class="size-4"/>
+                  }
+                </button>
+              </TemplateColumn>
+              <TemplateColumn Title="@WsDataLocalizer["ColNumber"]">
+                <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
+                  @context.Id
+                </button>
+              </TemplateColumn>
+              <TemplateColumn Title="@WsDataLocalizer["ColBarcode"]">
+                <div @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
+                  @Pallet.Barcode
+                </div>
+              </TemplateColumn>
+            </FluentDataGrid>
           </UseEndpoint>
         }
       </div>

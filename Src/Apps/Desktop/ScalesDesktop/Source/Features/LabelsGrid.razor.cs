@@ -38,8 +38,7 @@ public sealed partial class LabelsGrid : ComponentBase
     {
         IEnumerable<DataItem> indexedLabels = labels.Select((label, index) => new DataItem { Id = index + 1, Label = label });
         if (string.IsNullOrEmpty(SearchingNumber)) return indexedLabels.AsQueryable();
-        int.TryParse(SearchingNumber, out int number);
-        indexedLabels = indexedLabels.Where(x => x.Id == number);
+        indexedLabels = indexedLabels.Where(x => x.Id.ToString().Contains(SearchingNumber));
         return indexedLabels.AsQueryable();
     }
 
@@ -74,7 +73,7 @@ public sealed partial class LabelsGrid : ComponentBase
     private void PrintPrinterStatusMessage(PrinterStatus printerStatus) =>
         ToastService.ShowWarning(printerStatus switch
         {
-            PrinterStatus.Disconnected => Localizer["PrinterStatusDisabled"],
+            PrinterStatus.Disconnected => Localizer["PrinterStatusDisconnected"],
             PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
             PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
             PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],
