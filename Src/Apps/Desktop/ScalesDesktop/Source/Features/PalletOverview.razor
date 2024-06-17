@@ -20,12 +20,32 @@
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="delivery">@WsDataLocalizer["ColPalletMan"]</FieldLabel>
+      <FieldLabel for="pallet-man">@WsDataLocalizer["ColPalletMan"]</FieldLabel>
       <InputTextField
-        id="delivery"
+        id="pallet-man"
         Value="@Pallet.PalletMan.DisplayShortName"
         ReadOnly/>
     </div>
+    <FormDivider>ПЛУ</FormDivider>
+    @foreach (PluPalletInfo item in Pallet.Plus)
+    {
+      <div class="space-y-2">
+        <FieldLabel for="@($"plu-name-{item.Number}")">@WsDataLocalizer["ColNumber"]</FieldLabel>
+        <InputTextField
+          id="@($"plu-name-{item.Number}")"
+          Value="@item.Number.ToString()"
+          ReadOnly
+        />
+      </div>
+      <div class="space-y-2">
+        <FieldLabel for="@($"plu-number-{item.Number}")">@WsDataLocalizer["ColName"]</FieldLabel>
+        <InputTextField
+          id="@($"plu-number-{item.Number}")"
+          Value="@item.Name"
+          ReadOnly
+        />
+      </div>
+    }
     <FormDivider>Этикетка</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
@@ -35,9 +55,9 @@
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="count">@WsDataLocalizer["ColCount"]</FieldLabel>
+      <FieldLabel for="box-count">@WsDataLocalizer["ColCount"]</FieldLabel>
       <InputTextField
-        id="count"
+        id="box-count"
         Value="@Pallet.BoxCount.ToString()"
         ReadOnly/>
     </div>
@@ -53,15 +73,9 @@
       <InputTextField
         id="brutto"
         Value="@Pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture)"
-        ReadOnly/>
+        ReadOnly
+      />
     </div>
-    @* <div class="space-y-2"> *@
-    @*   <FieldLabel for="plu">@WsDataLocalizer["ColPlu"]</FieldLabel> *@
-    @*   <InputTextField *@
-    @*     id="plu" *@
-    @*     Value="@($"{Pallet.PluNumber} {Pallet.PluName}")" *@
-    @*     ReadOnly/> *@
-    @* </div> *@
   </div>
 </div>
 

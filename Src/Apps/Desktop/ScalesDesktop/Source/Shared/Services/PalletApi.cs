@@ -19,6 +19,11 @@ public class PalletApi(IDesktopApi desktopApi)
         value => desktopApi.GetPalletLabels(value.ArmUid, value.PalletUid),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(30) });
 
+    public Endpoint<PiecePalletsNumberArgs, PalletInfo> PiecePalletsNumberEndpoint { get; } = new(
+        value => desktopApi.GetPalletByNumber(value.ArmUid, value.Number),
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) }
+    );
+
     public void InsertPiecePallet(PiecePalletsArgs args, PalletInfo data) =>
         PiecePalletsEndpoint.UpdateQueryData(args, q =>
         {
@@ -31,3 +36,5 @@ public class PalletApi(IDesktopApi desktopApi)
 public record LabelEndpointArgs(Guid ArmUid, Guid PalletUid);
 
 public record PiecePalletsArgs(Guid ArmUid, DateTime? StartDt, DateTime? EndDt);
+
+public record PiecePalletsNumberArgs(Guid ArmUid, uint Number);
