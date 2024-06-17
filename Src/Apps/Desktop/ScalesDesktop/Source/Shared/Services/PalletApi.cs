@@ -19,7 +19,7 @@ public class PalletApi(IDesktopApi desktopApi)
         value => desktopApi.GetPalletLabels(value.ArmUid, value.PalletUid),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(30) });
 
-    public Endpoint<PiecePalletsNumberArgs, PalletInfo> PiecePalletsNumberEndpoint { get; } = new(
+    public Endpoint<PiecePalletsNumberArgs, PalletInfo[]> PiecePalletsNumberEndpoint { get; } = new(
         value => desktopApi.GetPalletByNumber(value.ArmUid, value.Number),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) }
     );

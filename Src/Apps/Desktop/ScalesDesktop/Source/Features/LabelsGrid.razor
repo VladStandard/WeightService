@@ -1,65 +1,67 @@
 @using Blazor.Heroicons.Outline
 @using Microsoft.FluentUI.AspNetCore.Components
+@using ScalesDesktop.Source.Features.ErrorBoundaries
 
-<div class="py-3 w-full flex shrink-0 items-center gap-2 px-4">
-  <div class="w-1/2 border bg-background rounded-md px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
-    <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground" />
-    <input
-      @bind="SearchingNumber"
-      placeholder="@Localizer["SearchByNumberPlaceholder"]"
-      class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
-    />
+<PrinterErrorBoundary>
+  <div class="py-3 w-full flex shrink-0 items-center gap-2 px-4">
+    <div class="w-1/2 border bg-background rounded-md px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
+      <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground" />
+      <input
+        @bind="SearchingNumber"
+        placeholder="@Localizer["SearchByNumberPlaceholder"]"
+        class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
+      />
+    </div>
+    <div class="w-1/2 flex gap-2 h-full items-center overflow-hidden">
+
+      <Button Variant="ButtonVariant.Outline" Class="w-1/2" OnClick="@SelectAllItems">
+        @Localizer["BtnSelectAllLabels"]
+      </Button>
+      <Button Class="w-1/2" OnClick="@PrintLabelsAsync">
+        @Localizer["BtnSelectedLabelsPrinting"]
+      </Button>
+    </div>
   </div>
-  <div class="w-1/2 flex gap-2 h-full items-center overflow-hidden">
 
-    <Button Variant="ButtonVariant.Outline" Class="w-1/2" OnClick="@SelectAllItems">
-      @Localizer["BtnSelectAllLabels"]
-    </Button>
-    <Button Class="w-1/2" OnClick="@PrintLabelsAsync">
-      @Localizer["BtnSelectedLabelsPrinting"]
-    </Button>
-  </div>
-</div>
-
-<div class="size-full flex grow overflow-hidden p-4 pt-0">
-  <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
-    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
-      @if (armQuery.HasData)
-      {
+  <div class="size-full flex grow overflow-hidden p-4 pt-0">
+    <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
+      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+        @if (armQuery.HasData)
+        {
         <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
           @if (labelsQuery.HasData)
           {
-            <FluentDataGrid
-              TGridItem="DataItem"
-              GridTemplateColumns="5rem 1fr 4fr"
-              Items="@GetOrderedLabels(labelsQuery.Data)"
-              RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer")"
-              Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
-              Virtualize
-            >
-              <TemplateColumn Align="Align.Center">
-                <div @onclick="@(() => ToggleItem(context.Label))" class="size-full">
-                  @if (SelectedItems.Contains(context.Label))
-                  {
-                    <CheckIcon class="size-4"/>
-                  }
-                </div>
-              </TemplateColumn>
-              <PropertyColumn
-                Property="@(p => p.Id)"
-                Title="Index"
-                Sortable="true"
-              />
-              <TemplateColumn Align="Align.Center">
-                <div @onclick="@(() => ToggleItem(context.Label))" class="size-full">
-                  @Pallet.Barcode
-                </div>
-              </TemplateColumn>
-            </FluentDataGrid>
+          <FluentDataGrid
+            TGridItem="DataItem"
+            GridTemplateColumns="5rem 1fr 4fr"
+            Items="@GetOrderedLabels(labelsQuery.Data)"
+            RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer")"
+            Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
+            Virtualize
+          >
+            <TemplateColumn Align="Align.Center">
+              <div @onclick="@(() => ToggleItem(context.Label))" class="size-full">
+                @if (SelectedItems.Contains(context.Label))
+                {
+                  <CheckIcon class="size-4"/>
+                }
+              </div>
+            </TemplateColumn>
+            <PropertyColumn
+              Property="@(p => p.Id)"
+              Title="Index"
+              Sortable="true"
+            />
+            <TemplateColumn>
+              <div @onclick="@(() => ToggleItem(context.Label))" class="size-full">
+                @Pallet.Barcode
+              </div>
+            </TemplateColumn>
+          </FluentDataGrid>
           }
         </UseEndpoint>
-      }
-    </UseParameterlessEndpoint>
+        }
+      </UseParameterlessEndpoint>
+    </div>
   </div>
-</div>
-
+</PrinterErrorBoundary>

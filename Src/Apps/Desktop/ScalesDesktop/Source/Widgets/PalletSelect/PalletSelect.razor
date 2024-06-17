@@ -54,11 +54,11 @@
           <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
             @if (palletQuery.IsLoading)
             {
-              <PalletSelectStub/>
+              <PalletSelectStub />
             }
             else if (!palletQuery.HasData || palletQuery.Data.Length == 0)
             {
-              <PalletSelectNotFound/>
+              <PalletSelectNotFound />
             }
             else
             {
@@ -80,17 +80,20 @@
             {
               <PalletSelectStub />
             }
-            else if (!palletQuery.HasData)
+            else if (!palletQuery.HasData || palletQuery.Data.Length == 0)
             {
               <PalletSelectNotFound />
             }
             else
             {
-              <ul class ="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll" >
-                <li>
-                  <PalletSelectItem Pallet="@palletQuery.Data"/>
-                </li>
-              </ul>
+            <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
+              @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
+              {
+              <li>
+                <PalletSelectItem Pallet="@item"/>
+              </li>
+              }
+            </ul>
             }
           </UseEndpoint>
         }

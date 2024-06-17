@@ -92,7 +92,7 @@ public abstract class PalletCard
         AddInfoTableRow(infoTable, "Количество коробок", palletView.BoxCount.ToString());
         AddInfoTableRow(infoTable, "Склад", palletView.Warehouse);
         AddInfoTableRow(infoTable, "Линия", palletView.Arm);
-        AddInfoTableRow(infoTable, "Сдатчик", palletView.PalletMan.DisplayShortName);
+        AddInfoTableRow(infoTable, "Сдатчик", palletView.PalletMan.DisplayFullName);
         AddInfoTableRow(infoTable, "Замес", string.Join(",", palletView.Kneadings.Select(k => k.ToString()).ToArray()));
 
         doc.Add(infoTable);

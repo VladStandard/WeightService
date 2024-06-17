@@ -1,0 +1,31 @@
+@using Blazor.Heroicons.Outline
+@using MassaK.Plugin.Abstractions.Enums
+@using ScalesDesktop.Source.Shared.Services
+
+@implements IDisposable
+
+@if (ScalesService.Status is MassaKStatus.Detached or MassaKStatus.Disabled)
+{
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
+      @Localizer["ScalesStatusDetached"]
+    </span>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private ScalesService ScalesService { get; set; } = default!;
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  protected override void OnInitialized() => ScalesService.StatusChanged += StateHasChanged;
+
+  public void Dispose() => ScalesService.StatusChanged -= StateHasChanged;
+}

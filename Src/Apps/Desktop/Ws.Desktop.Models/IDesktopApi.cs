@@ -18,7 +18,7 @@ public interface IDesktopApi
     Task<PalletInfo[]> GetPalletsByArm(Guid armUid, DateTime? startDt, DateTime? endDt);
 
     [Get("/api/arms/{armUid}/pallets/{number}")]
-    Task<PalletInfo> GetPalletByNumber(Guid armUid, uint number);
+    Task<PalletInfo[]> GetPalletByNumber(Guid armUid, uint number);
 
     [Get("/api/arms/{armUid}/pallets/{palletId}/labels")]
     Task<LabelInfo[]> GetPalletLabels(Guid armUid, Guid palletId);
