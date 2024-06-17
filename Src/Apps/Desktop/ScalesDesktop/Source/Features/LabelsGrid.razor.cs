@@ -32,11 +32,16 @@ public sealed partial class LabelsGrid : ComponentBase
             SelectedItems.Add(item);
     }
 
-    private void SelectAllItems() => SelectedItems = [];
+    private void SelectAllItems(List<LabelInfo> labels) => SelectedItems = labels;
 
-    private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels) =>
-        labels.Select((label, index) => new DataItem { Id = index + 1, Label = label }).AsQueryable();
-
+    private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels)
+    {
+        IEnumerable<DataItem> indexedLabels = labels.Select((label, index) => new DataItem { Id = index + 1, Label = label });
+        if (string.IsNullOrEmpty(SearchingNumber)) return indexedLabels.AsQueryable();
+        int.TryParse(SearchingNumber, out int number);
+        indexedLabels = indexedLabels.Where(x => x.Id == number);
+        return indexedLabels.AsQueryable();
+    }
 
     private async Task PrintLabelsAsync()
     {

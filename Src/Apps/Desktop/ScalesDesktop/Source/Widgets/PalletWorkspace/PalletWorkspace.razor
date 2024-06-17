@@ -26,9 +26,21 @@
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-  protected override void OnInitialized() =>
+  private PalletInfo PreviousPallet { get; set; } = default!;
+
+  protected override void OnInitialized()
+  {
+    PreviousPallet = Pallet;
     TabsButtonList = [
       new(typeof(PalletOverview).ToString(), WsDataLocalizer["ColData"]),
       new(typeof(LabelsGrid).ToString(), WsDataLocalizer["ColLabel"])
     ];
+  }
+
+  protected override void OnParametersSet()
+  {
+    if (PreviousPallet == Pallet) return;
+    PreviousPallet = Pallet;
+    CurrentTabId = typeof(PalletOverview).ToString();
+  }
 }

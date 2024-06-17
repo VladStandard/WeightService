@@ -183,6 +183,7 @@
     {
       PalletApi.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
       PalletContext.ChangePallet(newPallet);
+      ResetSortsAndFilters();
     }
   }
 }
