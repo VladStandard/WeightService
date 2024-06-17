@@ -26,6 +26,9 @@ public sealed record PalletInfo
     [JsonPropertyName("arm")]
     public required string Arm { get; init; }
 
+    [JsonPropertyName("warehouse")]
+    public required string Warehouse { get; init; }
+
     [JsonPropertyName("weightTray")]
     public required decimal WeightTray { get; init; }
 

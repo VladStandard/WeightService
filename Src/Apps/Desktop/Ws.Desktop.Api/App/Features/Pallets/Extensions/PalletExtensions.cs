@@ -18,6 +18,7 @@ internal static class PalletExtensions
             {
                 Id = result.Pallet.Id,
                 Arm = result.Pallet.Arm.Name,
+                Warehouse = result.Pallet.Arm.Warehouse.Name,
                 Number = result.Pallet.Number,
                 PluName = result.Pallet.Plu.Name,
                 PluNumber = (ushort)result.Pallet.Plu.Number,
@@ -34,7 +35,8 @@ internal static class PalletExtensions
                 Barcode = result.Pallet.Barcode,
                 ProdDt = result.Pallet.ProductDt,
                 CreateDt = result.Pallet.CreateDt,
-                Kneadings = result.Labels.Select(i => (ushort)i.Kneading).ToHashSet(),
+                Kneadings = result.Labels.Select(i => (ushort)i.Kneading)
+                    .ToHashSet(),
             });
     }
 
