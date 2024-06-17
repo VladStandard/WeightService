@@ -33,30 +33,6 @@ public class PalletApiService(
         return labels;
     }
 
-    public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
-    {
-        var plu = pluService.GetItemByUid(dto.PluId);
-        List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
-
-        var data = new GeneratePiecePalletDto
-        {
-            Plu = pluService.GetItemByUid(dto.PluId),
-            Line = armService.GetItemByUid(armId),
-            PalletMan = palletManService.GetItemByUid(dto.PalletManId),
-            PluCharacteristic = characteristic.Single(i => i.Uid == dto.CharacteristicId),
-            Kneading = (short)dto.Kneading,
-            Weight = dto.WeightTray,
-            ProductDt = dto.ProdDt,
-            ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
-        };
-        var palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
-
-       return dbContext.Pallets
-            .Where(p => p.Id == palletId)
-            .ToPalletInfo(dbContext.Labels)
-            .Single();
-    }
-
     public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
     {
         bool dateCondition =
@@ -77,16 +53,43 @@ public class PalletApiService(
             .ToPalletInfo(dbContext.Labels).ToList();
     }
 
+    public List<PalletInfo> GetByNumber(Guid armId, uint number)
+    {
+        string numberStr = $"{number}";
+        return dbContext.Pallets
+            .Where(p => p.Arm.Id == armId && p.Number.ToString().Contains(numberStr))
+            .ToPalletInfo(dbContext.Labels)
+            .Take(10)
+            .ToList();
+    }
+
+
     #endregion
 
     #region Commands
 
-    public PalletInfo? GetByNumber(Guid armId, uint number)
+    public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
+        var plu = pluService.GetItemByUid(dto.PluId);
+        List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
+
+        var data = new GeneratePiecePalletDto
+        {
+            Plu = pluService.GetItemByUid(dto.PluId),
+            Line = armService.GetItemByUid(armId),
+            PalletMan = palletManService.GetItemByUid(dto.PalletManId),
+            PluCharacteristic = characteristic.Single(i => i.Uid == dto.CharacteristicId),
+            Kneading = (short)dto.Kneading,
+            Weight = dto.WeightTray,
+            ProductDt = dto.ProdDt,
+            ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
+        };
+        var palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
+
         return dbContext.Pallets
-            .Where(p => p.Arm.Id == armId && p.Number == number)
+            .Where(p => p.Id == palletId)
             .ToPalletInfo(dbContext.Labels)
-            .SingleOrDefault();
+            .Single();
     }
 
     #endregion
