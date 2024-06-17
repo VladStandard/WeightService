@@ -58,7 +58,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     protected override Arm CreateItemAction(Arm item) =>
         ArmService.Create(new(_createCommand));
 
-    private void GenerateLineNumber() => DialogItem.Number = new Random().Next(10001, 100000);
+    private void GenerateLineNumber() => _createCommand.Number = new Random().Next(10001, 100000);
 }
 
 public class LinesCreateFormValidator : AbstractValidator<CreateArmBySite>

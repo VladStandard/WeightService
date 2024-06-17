@@ -255,4 +255,13 @@
     <data name="BarcodeEditorMaskPlaceholder" xml:space="preserve">
         <value>Введите маску...</value>
     </data>
+    <data name="ArmTypeEnumPc" xml:space="preserve">
+        <value>Компьютер</value>
+    </data>
+    <data name="ArmTypeEnumTablet" xml:space="preserve">
+        <value>Моноблок</value>
+    </data>
+    <data name="ArmTypeEnumUniversal" xml:space="preserve">
+        <value>Универсальный</value>
+    </data>
 </root>

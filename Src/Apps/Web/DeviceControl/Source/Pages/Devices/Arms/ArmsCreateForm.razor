@@ -41,7 +41,7 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="LineTypes"
       @bind-Value="@_createCommand.Type"
-      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
       For="@(() => _createCommand.Type)"
     />
 

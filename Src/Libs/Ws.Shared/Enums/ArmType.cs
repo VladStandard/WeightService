@@ -4,10 +4,10 @@ namespace Ws.Shared.Enums;
 
 public enum ArmType
 {
-    [Description("ArmPc")]
+    [Description("ArmTypeEnumPc")]
     Pc,
-    [Description("ArmTablet")]
+    [Description("ArmTypeEnumTablet")]
     Tablet,
-    [Description("ArmUniversal")]
+    [Description("ArmTypeEnumUniversal")]
     Universal
 }

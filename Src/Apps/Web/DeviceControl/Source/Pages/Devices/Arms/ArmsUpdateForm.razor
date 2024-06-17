@@ -53,7 +53,7 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="LineTypes"
       @bind-Value="@DialogItem.Type"
-      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
       For="@(() => DialogItem.Type)"
       Disabled="IsOnlyView"
     />
