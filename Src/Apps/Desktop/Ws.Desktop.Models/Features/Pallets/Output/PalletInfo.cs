@@ -39,10 +39,13 @@ public sealed record PalletInfo
     public required decimal WeightTray { get; init; }
 
     [JsonIgnore]
-    public decimal WeightNet => Plus.Sum(i => i.WeightBrutto);
+    public decimal WeightNet => Plus.Sum(i => i.WeightNet);
 
     [JsonIgnore]
     public decimal WeightBrutto => Plus.Sum(i => i.WeightBrutto);
+
+    [JsonIgnore]
+    public ushort PieceCount => (ushort)Plus.Sum(i => i.PieceCount);
 
     [JsonIgnore]
     public ushort BoxCount => (ushort)Plus.Sum(i => i.BoxCount);

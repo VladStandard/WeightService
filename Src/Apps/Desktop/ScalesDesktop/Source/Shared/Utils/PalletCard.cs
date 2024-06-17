@@ -7,6 +7,7 @@ using iText.Layout;
 using iText.Layout.Properties;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Border = iText.Layout.Borders.Border;
+using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using ICell = iText.Layout.Element.Cell;
 using IImage = iText.Layout.Element.Image;
 using ITable = iText.Layout.Element.Table;
@@ -18,6 +19,7 @@ namespace ScalesDesktop.Source.Shared.Utils;
 public abstract class PalletCard
 {
     private const string FontPath = "C:\\Windows\\Fonts\\arial.ttf";
+    private const ushort BarcodeHeight = 120;
 
     public static string CreateBase64(PalletInfo palletView)
     {
@@ -84,12 +86,14 @@ public abstract class PalletCard
             .SetMarginBottom(10);
 
         AddInfoTableRow(infoTable, "Вес нетто", palletView.WeightNet.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Вес брутто + Вес паллеты", palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Вес паллеты", "0");
+        AddInfoTableRow(infoTable, "Вес брутто", palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, "Вес паллеты", palletView.WeightTray.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, "Вес брутто + Вес паллеты", (palletView.WeightBrutto + palletView.WeightTray).ToString(CultureInfo.InvariantCulture));
         AddInfoTableRow(infoTable, "Количество коробок", palletView.BoxCount.ToString());
-        AddInfoTableRow(infoTable, "Склад", "пусто");
-        AddInfoTableRow(infoTable, "Линия", "пусто");
-        AddInfoTableRow(infoTable, "Замес", "пусто");
+        AddInfoTableRow(infoTable, "Склад", palletView.Warehouse);
+        AddInfoTableRow(infoTable, "Линия", palletView.Arm);
+        AddInfoTableRow(infoTable, "Сдатчик", palletView.PalletMan.DisplayShortName);
+        AddInfoTableRow(infoTable, "Замес", string.Join(",", palletView.Kneadings.Select(k => k.ToString()).ToArray()));
 
         doc.Add(infoTable);
     }
@@ -108,7 +112,9 @@ public abstract class PalletCard
             .SetMarginBottom(10);
 
         AddPluTableHeaders(pluTable);
-        AddPluTableData(pluTable, palletView);
+        foreach(PluPalletInfo plu in palletView.Plus)
+            AddPluTableData(pluTable, plu);
+        AddTableFooter(pluTable, palletView);
 
         doc.Add(pluTable);
     }
@@ -122,19 +128,22 @@ public abstract class PalletCard
         pluTable.AddCell("Коробки шт.");
     }
 
-    private static void AddPluTableData(ITable pluTable, PalletInfo palletView)
+    private static void AddTableFooter(ITable pluTable, PalletInfo palletView)
     {
-        pluTable.AddCell(new Paragraph(palletView.PluName).SetBold().SetFontSize(30));
-        pluTable.AddCell(palletView.WeightNet.ToString(CultureInfo.InvariantCulture));
-        pluTable.AddCell(palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture));
-        pluTable.AddCell("840");
-        pluTable.AddCell(palletView.BoxCount.ToString());
-
         pluTable.AddCell(new Paragraph("Всего").SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightNet.ToString(CultureInfo.InvariantCulture)).SetBold());
         pluTable.AddCell(new Paragraph(palletView.WeightBrutto.ToString(CultureInfo.InvariantCulture)).SetBold());
-        pluTable.AddCell(new Paragraph("840").SetBold());
+        pluTable.AddCell(new Paragraph(palletView.PieceCount.ToString()).SetBold());
         pluTable.AddCell(new Paragraph(palletView.BoxCount.ToString()).SetBold());
+    }
+
+    private static void AddPluTableData(ITable pluTable, PluPalletInfo plu)
+    {
+        pluTable.AddCell(new Paragraph(plu.Name).SetBold().SetFontSize(30));
+        pluTable.AddCell(plu.WeightNet.ToString(CultureInfo.InvariantCulture));
+        pluTable.AddCell(plu.WeightBrutto.ToString(CultureInfo.InvariantCulture));
+        pluTable.AddCell(plu.PieceCount.ToString());
+        pluTable.AddCell(plu.BoxCount.ToString());
     }
 
     private static void AddBarcodeImage(Document doc, PdfDocument pdf, string barcodeCode)
@@ -144,11 +153,11 @@ public abstract class PalletCard
         Rectangle? barcodeSize = barcode.GetBarcodeSize();
         IImage barcodeImage = new(barcode.CreateFormXObject(pdf));
         float scaleFactor = PageSize.A4.GetWidth() / barcodeSize.GetWidth();
-        float tooBigScaleFactor = barcodeSize.GetHeight() * scaleFactor / 150;
+        float tooBigScaleFactor = barcodeSize.GetHeight() * scaleFactor / BarcodeHeight;
         if (tooBigScaleFactor > 1) scaleFactor /= tooBigScaleFactor;
         barcodeImage.ScaleAbsolute(barcodeSize.GetWidth() * scaleFactor, barcodeSize.GetHeight() * scaleFactor);
-        barcodeImage.SetMarginTop(20);
-        barcodeImage.SetMarginLeft((PageSize.A4.GetWidth() - barcodeImage.GetImageScaledWidth() - 40) / 2);
+        barcodeImage.SetMarginTop(10);
+        barcodeImage.SetHorizontalAlignment(HorizontalAlignment.CENTER);
         doc.Add(barcodeImage);
     }
 }

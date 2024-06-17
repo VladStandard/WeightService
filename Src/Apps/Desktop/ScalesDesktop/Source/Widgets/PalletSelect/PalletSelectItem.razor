@@ -24,9 +24,12 @@
         <span class="truncate text-sm">
           @Pallet.PalletMan.DisplayShortName
         </span>
-        <Badge Class="shrink-0 py-px px-1.5">
-          @Pallet.PluNumber
-        </Badge>
+        @foreach (PluPalletInfo plu in Pallet.Plus)
+        {
+          <Badge Class="shrink-0 py-px px-1.5">
+            @plu.Number
+          </Badge>
+        }
       </div>
       <Badge Variant="BadgeVariant.Secondary">
         <CalculatorIcon class="size-3 mr-1"/>
