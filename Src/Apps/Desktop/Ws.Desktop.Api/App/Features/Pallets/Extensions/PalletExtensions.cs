@@ -17,6 +17,7 @@ internal static class PalletExtensions
             .Select(result => new PalletInfo
             {
                 Id = result.Pallet.Id,
+                Arm = result.Pallet.Arm.Name,
                 Number = result.Pallet.Number,
                 PluName = result.Pallet.Plu.Name,
                 PluNumber = (ushort)result.Pallet.Plu.Number,
@@ -33,8 +34,10 @@ internal static class PalletExtensions
                 Barcode = result.Pallet.Barcode,
                 ProdDt = result.Pallet.ProductDt,
                 CreateDt = result.Pallet.CreateDt,
+                Kneadings = result.Labels.Select(i => (ushort)i.Kneading).ToHashSet(),
             });
     }
+
     public static IQueryable<LabelInfo> ToLabelInfo(this IQueryable<PalletEntity> query, DbSet<LabelEntity> labelContext)
     {
         return query

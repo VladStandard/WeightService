@@ -23,6 +23,9 @@ public sealed record PalletInfo
     [JsonPropertyName("palletMan")]
     public required Fio PalletMan { get; init; }
 
+    [JsonPropertyName("arm")]
+    public required string Arm { get; init; }
+
     [JsonPropertyName("weightTray")]
     public required decimal WeightTray { get; init; }
 
@@ -40,4 +43,7 @@ public sealed record PalletInfo
 
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; init; }
+
+    [JsonPropertyName("kneadings")]
+    public required HashSet<ushort> Kneadings { get; init; }
 }
