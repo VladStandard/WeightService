@@ -1,11 +1,10 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Auth.Policies
-@using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices.Arms
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.Shared.Enums
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer

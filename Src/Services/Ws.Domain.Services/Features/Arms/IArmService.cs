@@ -10,12 +10,9 @@ public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, I
 {
     #region Queries
 
-    public Arm GetCurrentLine();
     public IList<Plu> GetArmAllPlus(Arm line);
     public IList<Plu> GetArmPiecePlus(Guid uid);
-    public IList<Plu> GetArmWeightPlus(Arm line);
     public IList<Arm> GetAllByProductionSite(ProductionSite site);
-
     public IList<ArmPlu> GetLinePlusFk(Arm line);
 
     #endregion

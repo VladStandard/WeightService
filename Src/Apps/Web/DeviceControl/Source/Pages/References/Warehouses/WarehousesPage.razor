@@ -1,8 +1,7 @@
-@using DeviceControl.Source.Shared.Auth.Policies
-@using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Ref
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.Warehouse>
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.Warehouse>
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

@@ -1,10 +1,10 @@
-@using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices.Arms
 @using Ws.Domain.Models.Entities.Print
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.Domain.Models.Entities.Ref1c.Plu
-@inherits DeviceControl.Source.Widgets.Section.SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Label>
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Label>
 @attribute [Route($"{RouteUtils.SectionLabels}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
 

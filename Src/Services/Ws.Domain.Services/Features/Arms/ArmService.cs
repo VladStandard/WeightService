@@ -29,9 +29,6 @@ internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository
     public IList<ArmPlu> GetLinePlusFk(Arm arm) => pluLineRepo.GetListByLine(arm);
 
     [Transactional]
-    public IList<Plu> GetArmWeightPlus(Arm line) => GetPluListByArmAndSpec(line.Uid, PluSpecs.GetWeight());
-
-    [Transactional]
     public IList<Arm> GetAllByProductionSite(ProductionSite site) =>
         armRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
 

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Extensions;

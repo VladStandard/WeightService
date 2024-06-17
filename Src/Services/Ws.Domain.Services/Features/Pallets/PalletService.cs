@@ -2,24 +2,12 @@ using Ws.Database.Nhibernate.Entities.Print.Labels;
 using Ws.Database.Nhibernate.Entities.Print.Pallets;
 using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Pallets;
 
 internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository labelRepo) : IPalletService
 {
-    #region List
-
-    [Transactional]
-    public IEnumerable<ViewPallet> GetAllViewByWarehouse(Warehouse warehouse) =>
-        palletRepo.GetAllViewByWarehouse(warehouse);
-
-    [Transactional]
-    public IEnumerable<Label> GetAllLabels(Guid palletUid) => palletRepo.GetAllLabels(palletUid);
-
-    #endregion
-
     #region Items
 
     [Transactional]

@@ -1,6 +1,6 @@
-@using ScalesDesktop.Source.Shared.Services
 @using Blazor.Heroicons.Outline
 @using Phetch.Core
+@using ScalesDesktop.Source.Shared.Services
 
 <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
   @if (query is { HasData: false, IsLoading: false })

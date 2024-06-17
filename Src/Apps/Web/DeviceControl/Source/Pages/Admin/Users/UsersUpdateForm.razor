@@ -1,9 +1,9 @@
-@using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.Domain.Models.Entities.Users
-@inherits DeviceControl.Source.Widgets.Section.SectionFormBase<User>
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Users.User>
 
 <SectionForm
   FormModel="@DialogItem"

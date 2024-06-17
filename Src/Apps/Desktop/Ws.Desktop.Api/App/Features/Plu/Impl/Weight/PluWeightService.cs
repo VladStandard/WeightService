@@ -4,6 +4,7 @@ using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Features.Generate;
@@ -66,7 +67,7 @@ public class PluWeightService(
             Kneading = (short)dto.Kneading,
             ProductDt = dto.ProductDt
         };
-        var label = printLabelService.GenerateWeightLabel(dtoToCreate);
+        Label label = printLabelService.GenerateWeightLabel(dtoToCreate);
 
         line.Counter += 1;
         armService.Update(line);
