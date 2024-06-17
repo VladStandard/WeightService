@@ -1,12 +1,11 @@
-@using Blazor.Heroicons.Outline
 @using Microsoft.FluentUI.AspNetCore.Components
-@using Phetch.Core
 @using ScalesDesktop.Source.Features.PalletCreate
 @using ScalesDesktop.Source.Shared.Services
 @using Ws.Desktop.Models.Features.Arms.Output
 @using Ws.Desktop.Models.Features.Pallets.Output
 @using ScalesDesktop.Source.Features
-@using Ws.Shared.Utils
+@using Blazor.Heroicons.Outline
+@using Phetch.Core
 
 
 <div class="size-full bg-background overflow-hidden flex flex-col">
@@ -14,70 +13,52 @@
     <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
-        <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
-          <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
-            <h2 class="font-semibold text-lg tracking-tight pb-px">Паллеты</h2>
-            <div class="flex items-center justify-center pt-px gap-1">
-              <CompactDatePicker
-                @bind-Value="@StartDate"
-                DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"/>
-              <span>-</span>
-              <CompactDatePicker
-                @bind-Value="@EndDate"
-                @bind-Value:after="@(() => StartDate = EndDate?.AddDays(-1))"
-                DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today.AddDays(1))"/>
-            </div>
-            <div class="flex items-center gap-2">
-              <Button
-                Variant="ButtonVariant.Outline"
-                Size="ButtonSize.Icon"
-                OnClick="@(() => { palletQuery.Refetch(); ResetSortsAndFilters(); })"
-              >
-                <ArrowPathIcon class="size-5 mx-2" />
-              </Button>
-              <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
-                <PlusIcon class="size-5 mx-2"/>
-              </Button>
-            </div>
-          </div>
-          <div class="h-14 flex gap-2 w-full px-4 items-center shrink-0">
-            <div class="border px-2 gap-1 flex items-center rounded-md overflow-hidden w-full h-9">
-              <MagnifyingGlassIcon class="size-5 pb-[2px] text-gray-500"/>
-              <input
-                type="text"
-                @bind="InputSearchCounter"
-                @bind:event="oninput"
-                class="size-full border-none text-sm pl-1 focus:outline-none focus:ring-0"
-                placeholder="@Localizer["SearchByNumberPlaceholder"]"/>
-            </div>
-            <div class="w-9">
-              <SelectSingle
-                TItem="PalletSortEnum"
-                Items="@(Enum.GetValues(typeof(PalletSortEnum)).Cast<PalletSortEnum>())"
-                @bind-SelectedItem="PalletSort"
-                ItemDisplayName="@(value => Localizer[EnumHelper.GetEnumDescription(value)])"
-              >
-                <TriggerContent Context="select">
-                  <Button
-                    Id="@select.DropdownAnchor"
-                    Variant="ButtonVariant.Outline"
-                    Size="ButtonSize.Icon"
-                    Class="shrink-0"
-                    OnClick="@(() => select.SetIsOpen.InvokeAsync(!select.IsOpen))"
-                  >
-                    <FunnelIcon class="size-5" />
-                  </Button>
-                </TriggerContent>
-              </SelectSingle>
-            </div>
-          </div>
-          @if (palletQuery.HasData)
-          {
-            @if (palletQuery.Data.Length == 0)
+      <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
+        <h2 class="font-semibold text-lg tracking-tight pb-px">Паллеты</h2>
+        <div class="flex items-center justify-center pt-px gap-1">
+          <CompactDatePicker
+            @bind-Value="@StartDate"
+            DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"
+            IsDisabled="@(!string.IsNullOrEmpty(InputSearchCounter))"
+          />
+          <span>-</span>
+          <CompactDatePicker
+            @bind-Value="@EndDate"
+            @bind-Value:after="@(() => StartDate = EndDate?.AddDays(-1))"
+            DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today.AddDays(1))"
+            IsDisabled="@(!string.IsNullOrEmpty(InputSearchCounter))"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
+            <Button
+              Variant="ButtonVariant.Outline"
+              Size="ButtonSize.Icon"
+              OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); })"
+              Disabled="@palletQuery.IsFetching"
+            >
+              <ArrowPathIcon class="size-5 mx-2"/>
+            </Button>
+          </UseEndpoint>
+          <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
+            <PlusIcon class="size-5 mx-2"/>
+          </Button>
+        </div>
+      </div>
+        <PalletSelectSearching
+          @bind-Sorting="PalletSort"
+          @bind-SearchingString="InputSearchCounter"
+        />
+        @if (string.IsNullOrEmpty(InputSearchCounter))
+        {
+          <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
+            @if (palletQuery.IsLoading)
             {
-              <div class="size-full flex items-center justify-center">
-                @Localizer["PalletSelectEmpty"]
-              </div>
+              <PalletSelectStub/>
+            }
+            else if (!palletQuery.HasData || palletQuery.Data.Length == 0)
+            {
+              <PalletSelectNotFound/>
             }
             else
             {
@@ -90,22 +71,29 @@
                 }
               </ul>
             }
-          }
-          else
-          {
-            <ul class="w-full space-y-3 grow px-4 pb-3">
-              <li>
-                <Skeleton Class="w-full h-18"/>
-              </li>
-              <li>
-                <Skeleton Class="w-full h-18"/>
-              </li>
-              <li>
-                <Skeleton Class="w-full h-18"/>
-              </li>
-            </ul>
-          }
-        </UseEndpoint>
+          </UseEndpoint>
+        }
+        else
+        {
+          <UseEndpoint Endpoint="@PalletApi.PiecePalletsNumberEndpoint" Arg="@new(armQuery.Data.Id, TryGetPalletNumber())" Context="palletQuery">
+            @if (palletQuery.IsLoading)
+            {
+              <PalletSelectStub />
+            }
+            else if (!palletQuery.HasData)
+            {
+              <PalletSelectNotFound />
+            }
+            else
+            {
+              <ul class ="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll" >
+                <li>
+                  <PalletSelectItem Pallet="@palletQuery.Data"/>
+                </li>
+              </ul>
+            }
+          </UseEndpoint>
+        }
       }
       <div class="w-full border-t px-4 py-2">
         <PalletManControl />
@@ -121,7 +109,6 @@
   [Inject] private PalletApi PalletApi { get; set; } = default!;
   [Inject] private ArmApi ArmApi { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
 
   # endregion
@@ -143,12 +130,24 @@
     {
       PalletSortEnum.Date => filteredPallets.OrderByDescending(x => x.CreateDt),
       PalletSortEnum.Number => filteredPallets.OrderByDescending(x => x.Number),
-      PalletSortEnum.Plu => filteredPallets.OrderByDescending(x => x.Plus),
+      PalletSortEnum.Plu => filteredPallets.OrderByDescending(x => x.Plus.Min(p => p.Number)),
       PalletSortEnum.LabelsCount => filteredPallets.OrderByDescending(x => x.BoxCount),
       _ => filteredPallets
     };
 
     return filteredPallets.Take(PalletsToDisplay);
+  }
+
+  private uint TryGetPalletNumber()
+  {
+    try
+    {
+      return uint.Parse(InputSearchCounter);
+    }
+    catch
+    {
+      return 0;
+    }
   }
 
   private void ResetSortsAndFilters()
