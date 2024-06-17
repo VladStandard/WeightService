@@ -1,6 +1,6 @@
-using Ws.Labels.Service.Features.Render.Exceptions;
+using DeviceControl.Source.Shared.RenderZpl.Exceptions;
 
-namespace Ws.Labels.Service.Features.Render;
+namespace DeviceControl.Source.Shared.RenderZpl;
 
 public interface IRenderLabelService
 {

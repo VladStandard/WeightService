@@ -1,10 +1,10 @@
 using BinaryKits.Zpl.Labelary;
+using SixLabors.ImageSharp.Processing;
+using DeviceControl.Source.Shared.RenderZpl.Exceptions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Processing;
-using Ws.Labels.Service.Features.Render.Exceptions;
 
-namespace Ws.Labels.Service.Features.Render;
+namespace DeviceControl.Source.Shared.RenderZpl;
 
 internal class RenderLabelService : IRenderLabelService
 {

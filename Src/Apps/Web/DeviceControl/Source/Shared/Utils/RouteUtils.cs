@@ -18,10 +18,10 @@ public static class RouteUtils
     # region References
 
     public const string SectionWarehouses = "/warehouses";
-    public const string SectionProductionSites = "/production_sites";
+    public const string SectionProductionSites = "/production-sites";
     public const string SectionTemplates = "/templates";
-    public const string SectionTemplateResources = "/templates_resources";
-    public const string SectionStorageMethods = "/storage_methods";
+    public const string SectionTemplateResources = "/templates-resources";
+    public const string SectionStorageMethods = "/storage-methods";
 
     # endregion
 
@@ -35,19 +35,12 @@ public static class RouteUtils
 
     # endregion
 
-    # region Dignostics
-
-    public const string Section1CLogs = "/1c_logs";
-    public const string SectionLogs = "/logs";
-
-    # endregion
-
     # region Admin
 
     public const string SectionDatabase = "/database";
     public const string SectionUsers = "/users";
     public const string SectionRoles = "/roles";
-    public const string SectionPalletMen = "/pallet_men";
+    public const string SectionPalletMen = "/pallet-men";
 
     # endregion
 

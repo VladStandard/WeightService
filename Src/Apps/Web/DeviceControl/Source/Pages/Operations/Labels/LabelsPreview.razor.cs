@@ -1,6 +1,6 @@
+using DeviceControl.Source.Shared.RenderZpl;
+using DeviceControl.Source.Shared.RenderZpl.Exceptions;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Ws.Labels.Service.Features.Render;
-using Ws.Labels.Service.Features.Render.Exceptions;
 
 namespace DeviceControl.Source.Pages.Operations.Labels;
 
