@@ -1,5 +1,4 @@
 @typeparam TItem
-@using Microsoft.Extensions.Localization
 @inherits SectionFieldBase<TItem>
 
 <SectionInputWrapper Path="@Path" Label="@Label" HtmlFor="@HtmlId">
@@ -35,5 +34,4 @@
     EmptyPlaceholder = string.IsNullOrEmpty(EmptyPlaceholder) ? Localizer["FormSelectEmptyDefaultPlaceholder"] : Placeholder;
     SearchPlaceholder = string.IsNullOrEmpty(SearchPlaceholder) ? Localizer["FormSelectSearchDefaultPlaceholder"] : Placeholder;
   }
-
 }

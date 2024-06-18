@@ -1,9 +1,7 @@
-@using DeviceControl.Source.Shared.Auth.Policies
-@using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Microsoft.FluentUI.AspNetCore.Components
 @using Ws.Domain.Models.Entities.Diag
-
+@using DeviceControl.Source.Widgets.Section
 @attribute [Route(RouteUtils.SectionDatabase)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

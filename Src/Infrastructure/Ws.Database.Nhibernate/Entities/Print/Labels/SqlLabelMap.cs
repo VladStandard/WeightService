@@ -101,7 +101,7 @@ internal sealed class SqlLabelMap : ClassMapping<Label>
         Property(x => x.BundleCount, m =>
         {
             m.Column("BUNDLE_COUNT");
-            m.Type(NHibernateUtil.UInt16);
+            m.Type(NHibernateUtil.Int32);
             m.NotNullable(true);
         });
 

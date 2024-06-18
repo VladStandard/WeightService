@@ -1,8 +1,8 @@
 using BinaryKits.Zpl.Labelary;
-using SixLabors.ImageSharp.Processing;
 using DeviceControl.Source.Shared.RenderZpl.Exceptions;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 
 namespace DeviceControl.Source.Shared.RenderZpl;
 
