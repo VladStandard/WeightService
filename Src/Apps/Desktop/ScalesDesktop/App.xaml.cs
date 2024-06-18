@@ -4,11 +4,11 @@ namespace ScalesDesktop;
 
 public partial class App : Application
 {
-    private static readonly Mutex _mutex = new(true, Assembly.GetEntryAssembly()?.GetName().Name);
+    private static readonly Mutex Mutex = new(true, Assembly.GetEntryAssembly()?.GetName().Name);
 
     public App()
     {
-        if (!_mutex.WaitOne(TimeSpan.Zero, true))
+        if (!Mutex.WaitOne(TimeSpan.Zero, true))
         {
             Current?.Quit();
             Environment.Exit(0);

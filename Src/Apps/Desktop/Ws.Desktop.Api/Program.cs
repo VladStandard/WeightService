@@ -15,36 +15,40 @@ using Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddEfCore();
+#region Internal services
 
 builder.Services.AddScoped<IArmService, ArmService>();
 builder.Services.AddScoped<IPluPieceService, PluPieceService>();
 builder.Services.AddScoped<IPluWeightService, PluWeightService>();
 builder.Services.AddScoped<IPalletManService, PalletManService>();
 builder.Services.AddScoped<IPalletApiService, PalletApiService>();
-builder.Services.AddDbContext<WsDbContext>();
 
+#endregion
+
+#region Ready services
+
+builder.Services.AddEfCore();
 builder.Services.AddDomainServices();
 builder.Services.AddLabelsServices();
 
-builder.Services.AddControllers(options =>
-    {
+#endregion
+
+builder.Services
+    .AddControllers(options => {
         options.Filters.Add(new AllowAnonymousFilter());
         options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
     })
-    .ConfigureApiBehaviorOptions(options =>
-    {
+    .ConfigureApiBehaviorOptions(options => {
         options.SuppressConsumesConstraintForFormFileParameters = true;
         options.SuppressInferBindingSourcesForParameters = true;
         options.SuppressModelStateInvalidFilter = true;
         options.SuppressMapClientErrors = true;
     })
-    .AddJsonOptions(options =>
-    {
+    .AddJsonOptions(options => {
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
