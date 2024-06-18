@@ -494,6 +494,33 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PalletCreateDialogProgressToastDescription {
+            get {
+                return ResourceManager.GetString("PalletCreateDialogProgressToastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletCreateDialogProgressToastTitle {
+            get {
+                return ResourceManager.GetString("PalletCreateDialogProgressToastTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletCreateDialogSuccess {
+            get {
+                return ResourceManager.GetString("PalletCreateDialogSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PalletCreateFinalTitle {
             get {
                 return ResourceManager.GetString("PalletCreateFinalTitle", resourceCulture);

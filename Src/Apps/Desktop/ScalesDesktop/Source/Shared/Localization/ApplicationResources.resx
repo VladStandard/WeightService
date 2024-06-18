@@ -279,4 +279,13 @@
     <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
         <value />
     </data>
+    <data name="PalletCreateDialogProgressToastTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletCreateDialogProgressToastDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletCreateDialogSuccess" xml:space="preserve">
+        <value />
+    </data>
 </root>
