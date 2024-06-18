@@ -32,6 +32,9 @@ public sealed partial class LabelsGrid : ComponentBase
             SelectedItems.Add(item);
     }
 
+    private void ToggleAllLabels(LabelInfo[] labels) =>
+        SelectedItems = SelectedItems.Count.Equals(labels.Length) ? [] : labels.ToList();
+
     private void SelectAllItems(List<LabelInfo> labels) => SelectedItems = labels;
 
     private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels)

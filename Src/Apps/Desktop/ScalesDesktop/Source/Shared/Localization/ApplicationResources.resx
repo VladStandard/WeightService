@@ -270,4 +270,13 @@
     <data name="IndexedLabelNotPrinted" xml:space="preserve">
         <value />
     </data>
+    <data name="BtnUnselectAllLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsDataGridHeaderTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
+        <value />
+    </data>
 </root>

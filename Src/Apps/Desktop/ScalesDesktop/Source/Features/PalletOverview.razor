@@ -4,15 +4,15 @@
 @using ScalesDesktop.Source.Shared.Services
 @using Ws.Desktop.Models.Features.Pallets.Output
 
-<div class="size-full flex flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-5">
-  <div class="w-full flex px-2 justify-between items-center">
+<div class="size-full flex flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-6">
+  <div class="w-full flex justify-between items-center">
     <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number</h2>
     <Button OnClick="@PrintPalletCard">
       @Localizer["BtnPrintPC"]
     </Button>
   </div>
-  <div class="w-full grid grid-cols-1 gap-x-10 gap-y-4 px-2 lg:grid-cols-2 items-start">
-    <FormDivider>@Localizer["PalletOverviewDividerCommon"]</FormDivider>
+  <div class="w-full grid grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-2 items-start">
+    <FormDivider Class="!pb-0">@Localizer["PalletOverviewDividerCommon"]</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="number">@WsDataLocalizer["ColNumber"]</FieldLabel>
       <InputTextField
@@ -27,7 +27,7 @@
         Value="@Pallet.PalletMan.DisplayShortName"
         ReadOnly/>
     </div>
-    <FormDivider>@WsDataLocalizer["ColPlu"]</FormDivider>
+    <FormDivider Class="!pb-0">@WsDataLocalizer["ColPlu"]</FormDivider>
     @foreach (PluPalletInfo item in Pallet.Plus)
     {
       <div class="space-y-2">
@@ -47,7 +47,7 @@
         />
       </div>
     }
-    <FormDivider>@WsDataLocalizer["ColLabels"]</FormDivider>
+    <FormDivider Class="!pb-0">@WsDataLocalizer["ColLabels"]</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
       <InputTextField
