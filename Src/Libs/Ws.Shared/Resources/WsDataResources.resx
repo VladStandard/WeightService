@@ -278,4 +278,34 @@
     <data name="MeasurePc" xml:space="preserve">
         <value />
     </data>
+    <data name="ColPallets" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColLabels" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColBoxCount" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColPalletCard" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColDate" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColCreateTime" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColBoxes" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColTotal" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColNomenclature" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ColProductUnitsCount" xml:space="preserve">
+        <value />
+    </data>
 </root>

@@ -14,14 +14,14 @@ using ITable = iText.Layout.Element.Table;
 using Paragraph = iText.Layout.Element.Paragraph;
 using TextAlignment = iText.Layout.Properties.TextAlignment;
 
-namespace ScalesDesktop.Source.Shared.Utils;
+namespace ScalesDesktop.Source.Shared.Services;
 
-public abstract class PalletDocumentGenerator
+public class PalletDocumentGenerator(IStringLocalizer<WsDataResources> wsDataLocalizer)
 {
     private const string FontPath = "C:\\Windows\\Fonts\\arial.ttf";
     private const ushort BarcodeHeight = 120;
 
-    public static string CreateBase64(PalletInfo pallet)
+    public string CreateBase64(PalletInfo pallet)
     {
         MemoryStream stream = new();
         PdfWriter writer = new(stream);
@@ -37,7 +37,7 @@ public abstract class PalletDocumentGenerator
 
     # region Generating card
 
-    private static void FillDocumentWithContent(Document doc, PdfDocument pdf, PalletInfo pallet)
+    private void FillDocumentWithContent(Document doc, PdfDocument pdf, PalletInfo pallet)
     {
         doc.Add(GenerateHeader(pallet));
         doc.Add(GenerateDateTimeTable(pallet));
@@ -46,35 +46,35 @@ public abstract class PalletDocumentGenerator
         doc.Add(GenerateBarcode(pdf, pallet.Barcode));
     }
 
-    private static Paragraph GenerateHeader(PalletInfo pallet) =>
-        new Paragraph($"Паллетная карта № {pallet.Number}")
+    private Paragraph GenerateHeader(PalletInfo pallet) =>
+        new Paragraph($"{wsDataLocalizer["ColPalletCard"]} №{pallet.Number}")
             .SetTextAlignment(TextAlignment.CENTER).SetBold().SetFontSize(16).SetMarginBottom(10);
 
-    private static ITable GenerateDateTimeTable(PalletInfo pallet)
+    private ITable GenerateDateTimeTable(PalletInfo pallet)
     {
         ITable dateTimeTable = CreateTable([60f, 40f]);
 
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph("Дата")).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph("Время формирования")).SetBorder(Border.NO_BORDER));
+        dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColDate"])).SetBorder(Border.NO_BORDER));
+        dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColCreateTime"])).SetBorder(Border.NO_BORDER));
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.ProdDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.ProdDt.ToString("HH:mm:ss")).SetFontSize(30)).SetBorder(Border.NO_BORDER));
 
         return dateTimeTable;
     }
 
-    private static ITable GenerateInfoTable(PalletInfo pallet)
+    private ITable GenerateInfoTable(PalletInfo pallet)
     {
         ITable infoTable = CreateTable([60f, 40f]).SetMarginBottom(20);
 
-        AddInfoTableRow(infoTable, "Вес нетто", pallet.WeightNet.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Вес брутто", pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Вес паллеты", pallet.WeightTray.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Вес брутто + Вес паллеты", (pallet.WeightBrutto + pallet.WeightTray).ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, "Количество коробок", pallet.BoxCount.ToString());
-        AddInfoTableRow(infoTable, "Склад", pallet.Warehouse);
-        AddInfoTableRow(infoTable, "Линия", pallet.Arm);
-        AddInfoTableRow(infoTable, "Сдатчик", pallet.PalletMan.DisplayFullName);
-        AddInfoTableRow(infoTable, "Замес", string.Join(",", pallet.Kneadings.Select(k => k.ToString()).ToArray()));
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColNetWeight"], pallet.WeightNet.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColGrossWeight"], pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColPalletWeight"], pallet.WeightTray.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, $"{wsDataLocalizer["ColGrossWeight"]} + {wsDataLocalizer["ColPalletWeight"]}", (pallet.WeightBrutto + pallet.WeightTray).ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColBoxCount"], pallet.BoxCount.ToString());
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColWarehouse"], pallet.Warehouse);
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColLine"], pallet.Arm);
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColPalletMan"], pallet.PalletMan.DisplayFullName);
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColKneading"], string.Join(",", pallet.Kneadings.Select(k => k.ToString()).ToArray()));
 
         return infoTable;
     }
@@ -85,7 +85,7 @@ public abstract class PalletDocumentGenerator
         table.AddCell(value);
     }
 
-    private static ITable GeneratePluTable(PalletInfo pallet)
+    private ITable GeneratePluTable(PalletInfo pallet)
     {
         ITable pluTable = CreateTable([60f, 10f, 10f, 10f, 10f]).SetMarginBottom(20);
 
@@ -97,18 +97,18 @@ public abstract class PalletDocumentGenerator
         return pluTable;
     }
 
-    private static void AddPluTableHeaders(ITable table)
+    private void AddPluTableHeaders(ITable table)
     {
-        table.AddCell("Номенклатура");
-        table.AddCell("Масса нетто кг.");
-        table.AddCell("Масса брутто кг.");
-        table.AddCell("Кол-во единиц товара шт.");
-        table.AddCell("Коробки шт.");
+        table.AddCell(wsDataLocalizer["ColNomenclature"]);
+        table.AddCell($"{wsDataLocalizer["ColNetWeight"]} {wsDataLocalizer["MeasureKg"]}");
+        table.AddCell($"{wsDataLocalizer["ColGrossWeight"]} {wsDataLocalizer["MeasureKg"]}");
+        table.AddCell($"{wsDataLocalizer["ColProductUnitsCount"]} {wsDataLocalizer["MeasurePc"]}");
+        table.AddCell($"{wsDataLocalizer["ColBoxes"]} {wsDataLocalizer["MeasurePc"]}");
     }
 
-    private static void AddPluTableFooter(ITable table, PalletInfo pallet)
+    private void AddPluTableFooter(ITable table, PalletInfo pallet)
     {
-        table.AddCell(new Paragraph("Всего").SetBold());
+        table.AddCell(new Paragraph(wsDataLocalizer["ColTotal"]).SetBold());
         table.AddCell(new Paragraph(pallet.WeightNet.ToString(CultureInfo.InvariantCulture)).SetBold());
         table.AddCell(new Paragraph(pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture)).SetBold());
         table.AddCell(new Paragraph(pallet.BundleCount.ToString()).SetBold());

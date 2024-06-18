@@ -246,4 +246,28 @@
     <data name="PalletSortLabelsCount" xml:space="preserve">
         <value>By labels count</value>
     </data>
+    <data name="PalletOverviewDividerCommon" xml:space="preserve">
+        <value>Common</value>
+    </data>
+    <data name="PalletCreateFinalTitle" xml:space="preserve">
+        <value>Result</value>
+    </data>
+    <data name="PalletManFormInvalidPassword" xml:space="preserve">
+        <value>Invalid password</value>
+    </data>
+    <data name="PalletDocumentGenerationError" xml:space="preserve">
+        <value>Failed to generate document</value>
+    </data>
+    <data name="ApiResponseError" xml:space="preserve">
+        <value>Server response error</value>
+    </data>
+    <data name="PrinterStatusCommonError" xml:space="preserve">
+        <value>Printer status error</value>
+    </data>
+    <data name="ZplCodeError" xml:space="preserve">
+        <value>Invalid zpl code</value>
+    </data>
+    <data name="IndexedLabelNotPrinted" xml:space="preserve">
+        <value>label is not printed</value>
+    </data>
 </root>

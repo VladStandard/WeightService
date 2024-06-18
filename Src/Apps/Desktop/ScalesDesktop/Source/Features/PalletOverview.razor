@@ -1,6 +1,7 @@
 @using System.Globalization
 @using Append.Blazor.Printing
 @using Microsoft.FluentUI.AspNetCore.Components
+@using ScalesDesktop.Source.Shared.Services
 @using Ws.Desktop.Models.Features.Pallets.Output
 
 <div class="size-full flex flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-5">
@@ -11,7 +12,7 @@
     </Button>
   </div>
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-4 px-2 lg:grid-cols-2 items-start">
-    <FormDivider>Общее</FormDivider>
+    <FormDivider>@Localizer["PalletOverviewDividerCommon"]</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="number">@WsDataLocalizer["ColNumber"]</FieldLabel>
       <InputTextField
@@ -26,7 +27,7 @@
         Value="@Pallet.PalletMan.DisplayShortName"
         ReadOnly/>
     </div>
-    <FormDivider>ПЛУ</FormDivider>
+    <FormDivider>@WsDataLocalizer["ColPlu"]</FormDivider>
     @foreach (PluPalletInfo item in Pallet.Plus)
     {
       <div class="space-y-2">
@@ -46,7 +47,7 @@
         />
       </div>
     }
-    <FormDivider>Этикетка</FormDivider>
+    <FormDivider>@WsDataLocalizer["ColLabels"]</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
       <InputTextField
@@ -76,6 +77,14 @@
         ReadOnly
       />
     </div>
+    <div class="space-y-2">
+      <FieldLabel for="tray">@WsDataLocalizer["ColPalletWeight"]</FieldLabel>
+      <InputTextField
+        id="tray"
+        Value="@Pallet.WeightTray.ToString(CultureInfo.InvariantCulture)"
+        ReadOnly
+      />
+    </div>
   </div>
 </div>
 
@@ -86,6 +95,7 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IPrintingService PrintingService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
 
   # endregion
 
@@ -100,7 +110,7 @@
     }
     catch
     {
-      ToastService.ShowError("Ошибка создания документа");
+      ToastService.ShowError(Localizer["PalletDocumentGenerationError"]);
     }
 
   }

@@ -13,11 +13,11 @@
       @if (armQuery.HasData)
       {
       <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
-        <h2 class="font-semibold text-lg tracking-tight pb-px">Паллеты</h2>
+        <h2 class="font-semibold text-lg tracking-tight pb-px">@WsDataLocalizer["ColPallets"]</h2>
         <div class="flex items-center justify-center pt-px gap-1">
           <CompactDatePicker
             @bind-Value="@StartDate"
-            DisabledDateFunc="@(date => date < EndDate?.AddDays(-3) || date >= EndDate)"
+            DisabledDateFunc="@(date => date < EndDate?.AddDays(-4) || date >= EndDate?.AddDays(-1))"
             IsDisabled="@(!string.IsNullOrEmpty(InputSearchCounter))"
           />
           <span>-</span>
@@ -112,6 +112,7 @@
   [Inject] private ArmApi ArmApi { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
   # endregion
 

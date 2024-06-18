@@ -246,4 +246,28 @@
     <data name="PalletSortLabelsCount" xml:space="preserve">
         <value>По кол-во этикеток</value>
     </data>
+    <data name="PalletOverviewDividerCommon" xml:space="preserve">
+        <value>Общее</value>
+    </data>
+    <data name="PalletCreateFinalTitle" xml:space="preserve">
+        <value>Итог</value>
+    </data>
+    <data name="PalletManFormInvalidPassword" xml:space="preserve">
+        <value>Неверный пароль</value>
+    </data>
+    <data name="PalletDocumentGenerationError" xml:space="preserve">
+        <value>Не удалось сформировать документ</value>
+    </data>
+    <data name="ApiResponseError" xml:space="preserve">
+        <value>Ошибка ответа сервера</value>
+    </data>
+    <data name="PrinterStatusCommonError" xml:space="preserve">
+        <value>Ошибка состояния принтера</value>
+    </data>
+    <data name="ZplCodeError" xml:space="preserve">
+        <value>Неверный zpl код</value>
+    </data>
+    <data name="IndexedLabelNotPrinted" xml:space="preserve">
+        <value>этикетка не распечатана</value>
+    </data>
 </root>

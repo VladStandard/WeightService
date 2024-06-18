@@ -237,7 +237,7 @@
         <value>Tare weight (Total) </value>
     </data>
     <data name="ColWeightGross" xml:space="preserve">
-        <value>Weight  Gross</value>
+        <value>Weight gross</value>
     </data>
     <data name="ColWidth" xml:space="preserve">
         <value>Width</value>
@@ -277,5 +277,35 @@
     </data>
     <data name="MeasurePc" xml:space="preserve">
         <value>pc</value>
+    </data>
+    <data name="ColPallets" xml:space="preserve">
+        <value>Pallets</value>
+    </data>
+    <data name="ColLabels" xml:space="preserve">
+        <value>Labels</value>
+    </data>
+    <data name="ColBoxCount" xml:space="preserve">
+        <value>Box count</value>
+    </data>
+    <data name="ColPalletCard" xml:space="preserve">
+        <value>Pallet сard</value>
+    </data>
+    <data name="ColDate" xml:space="preserve">
+        <value>Date</value>
+    </data>
+    <data name="ColCreateTime" xml:space="preserve">
+        <value>Create time</value>
+    </data>
+    <data name="ColBoxes" xml:space="preserve">
+        <value>Boxes</value>
+    </data>
+    <data name="ColTotal" xml:space="preserve">
+        <value>Total</value>
+    </data>
+    <data name="ColNomenclature" xml:space="preserve">
+        <value>Nomenclature</value>
+    </data>
+    <data name="ColProductUnitsCount" xml:space="preserve">
+        <value>Number of units of the product</value>
     </data>
 </root>

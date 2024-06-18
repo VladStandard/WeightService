@@ -237,7 +237,7 @@
         <value>Вес тары (Итого)</value>
     </data>
     <data name="ColWeightGross" xml:space="preserve">
-        <value>Вес Брутто</value>
+        <value>Вес брутто</value>
     </data>
     <data name="ColWidth" xml:space="preserve">
         <value>Ширина</value>
@@ -277,5 +277,35 @@
     </data>
     <data name="MeasurePc" xml:space="preserve">
         <value>шт</value>
+    </data>
+    <data name="ColPallets" xml:space="preserve">
+        <value>Паллеты</value>
+    </data>
+    <data name="ColLabels" xml:space="preserve">
+        <value>Этикетки</value>
+    </data>
+    <data name="ColBoxCount" xml:space="preserve">
+        <value>Кол-во коробок</value>
+    </data>
+    <data name="ColPalletCard" xml:space="preserve">
+        <value>Паллетная карта</value>
+    </data>
+    <data name="ColDate" xml:space="preserve">
+        <value>Дата</value>
+    </data>
+    <data name="ColCreateTime" xml:space="preserve">
+        <value>Время формирования</value>
+    </data>
+    <data name="ColBoxes" xml:space="preserve">
+        <value>Коробки</value>
+    </data>
+    <data name="ColTotal" xml:space="preserve">
+        <value>Всего</value>
+    </data>
+    <data name="ColNomenclature" xml:space="preserve">
+        <value>Номенклатура</value>
+    </data>
+    <data name="ColProductUnitsCount" xml:space="preserve">
+        <value>Кол-во единиц товара</value>
     </data>
 </root>

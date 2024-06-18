@@ -86,7 +86,7 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         }
         catch (PrinterCommandBodyException)
         {
-            ToastService.ShowError("Invalid zpl");
+            ToastService.ShowError(Localizer["ZplCodeError"]);
         }
         catch (PrinterStatusException)
         {
@@ -94,15 +94,15 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         }
         catch (PrinterConnectionException)
         {
-            ToastService.ShowError("Printer connection error");
+            ToastService.ShowError(Localizer["PrinterStatusCommonError"]);
         }
         catch (ApiException)
         {
-            ToastService.ShowError("Ошибка общения с сервером");
+            ToastService.ShowError(Localizer["ApiResponseError"]);
         }
-        catch (Exception e)
+        catch
         {
-            ToastService.ShowError($"{Localizer["UnknownError"]}: {e}");
+            ToastService.ShowError(Localizer["UnknownError"]);
         }
 
         await InvokeAsync(StateHasChanged);

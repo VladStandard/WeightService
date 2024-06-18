@@ -62,7 +62,7 @@ public sealed partial class LabelsGrid : ComponentBase
             }
             catch
             {
-                ToastService.ShowError($"{errorIndex} не распечаталась");
+                ToastService.ShowError($"{errorIndex} {Localizer["IndexedLabelNotPrinted"]}");
             }
             await Task.Delay(PrinterRequestDelay);
         }

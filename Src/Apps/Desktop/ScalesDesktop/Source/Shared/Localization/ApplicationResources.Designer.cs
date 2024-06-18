@@ -18,10 +18,10 @@ namespace ScalesDesktop.Source.Shared.Localization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApplicationResources {
+    public class ApplicationResources {
 
         private static global::System.Resources.ResourceManager resourceMan;
 
@@ -35,7 +35,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ScalesDesktop.Source.Shared.Localization.ApplicationResources", typeof(ApplicationResources).Assembly);
@@ -50,7 +50,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,16 +62,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnAllLabelsPrinting {
+        public static string ApiResponseError {
             get {
-                return ResourceManager.GetString("BtnAllLabelsPrinting", resourceCulture);
+                return ResourceManager.GetString("ApiResponseError", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnBack {
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnBack {
             get {
                 return ResourceManager.GetString("BtnBack", resourceCulture);
             }
@@ -80,7 +89,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnCooldown {
+        public static string BtnCancel {
+            get {
+                return ResourceManager.GetString("BtnCancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnCooldown {
             get {
                 return ResourceManager.GetString("BtnCooldown", resourceCulture);
             }
@@ -89,7 +107,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnCreate {
+        public static string BtnCreate {
             get {
                 return ResourceManager.GetString("BtnCreate", resourceCulture);
             }
@@ -98,7 +116,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnEnter {
+        public static string BtnEnter {
             get {
                 return ResourceManager.GetString("BtnEnter", resourceCulture);
             }
@@ -107,7 +125,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnLabelPrint {
+        public static string BtnExit {
+            get {
+                return ResourceManager.GetString("BtnExit", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnLabelPrint {
             get {
                 return ResourceManager.GetString("BtnLabelPrint", resourceCulture);
             }
@@ -116,7 +143,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnLogIn {
+        public static string BtnLogIn {
             get {
                 return ResourceManager.GetString("BtnLogIn", resourceCulture);
             }
@@ -125,7 +152,43 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnPrintPC {
+        public static string BtnMenu {
+            get {
+                return ResourceManager.GetString("BtnMenu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnNext {
+            get {
+                return ResourceManager.GetString("BtnNext", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnPaginationNext {
+            get {
+                return ResourceManager.GetString("BtnPaginationNext", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnPaginationPrev {
+            get {
+                return ResourceManager.GetString("BtnPaginationPrev", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnPrintPC {
             get {
                 return ResourceManager.GetString("BtnPrintPC", resourceCulture);
             }
@@ -134,7 +197,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnScaleCalibration {
+        public static string BtnReconnect {
+            get {
+                return ResourceManager.GetString("BtnReconnect", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnScaleCalibration {
             get {
                 return ResourceManager.GetString("BtnScaleCalibration", resourceCulture);
             }
@@ -143,7 +215,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string BtnSelectedLabelsPrinting {
+        public static string BtnSelect {
+            get {
+                return ResourceManager.GetString("BtnSelect", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnSelectAllLabels {
+            get {
+                return ResourceManager.GetString("BtnSelectAllLabels", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnSelectedLabelsPrinting {
             get {
                 return ResourceManager.GetString("BtnSelectedLabelsPrinting", resourceCulture);
             }
@@ -152,7 +242,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string CreatePalletFormHeader {
+        public static string BtnUpdate {
+            get {
+                return ResourceManager.GetString("BtnUpdate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string CreatePalletFormHeader {
             get {
                 return ResourceManager.GetString("CreatePalletFormHeader", resourceCulture);
             }
@@ -161,25 +260,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DisplayPluSelectWarning {
+        public static string ExitAppDialogDescription {
             get {
-                return ResourceManager.GetString("DisplayPluSelectWarning", resourceCulture);
+                return ResourceManager.GetString("ExitAppDialogDescription", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string DisplayScalesDisconnectedWarning {
+        public static string ExitAppDialogTitle {
             get {
-                return ResourceManager.GetString("DisplayScalesDisconnectedWarning", resourceCulture);
+                return ResourceManager.GetString("ExitAppDialogTitle", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardCreationDescription {
+        public static string FuncCardCreationDescription {
             get {
                 return ResourceManager.GetString("FuncCardCreationDescription", resourceCulture);
             }
@@ -188,7 +287,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardCreationTitle {
+        public static string FuncCardCreationTitle {
             get {
                 return ResourceManager.GetString("FuncCardCreationTitle", resourceCulture);
             }
@@ -197,7 +296,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardDescription {
+        public static string FuncCardDescription {
             get {
                 return ResourceManager.GetString("FuncCardDescription", resourceCulture);
             }
@@ -206,7 +305,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardHeader {
+        public static string FuncCardHeader {
             get {
                 return ResourceManager.GetString("FuncCardHeader", resourceCulture);
             }
@@ -215,7 +314,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardLabelPrintingDescription {
+        public static string FuncCardLabelPrintingDescription {
             get {
                 return ResourceManager.GetString("FuncCardLabelPrintingDescription", resourceCulture);
             }
@@ -224,7 +323,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardLabelPrintingTitle {
+        public static string FuncCardLabelPrintingTitle {
             get {
                 return ResourceManager.GetString("FuncCardLabelPrintingTitle", resourceCulture);
             }
@@ -233,7 +332,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardPCPrintingDescription {
+        public static string FuncCardPCPrintingDescription {
             get {
                 return ResourceManager.GetString("FuncCardPCPrintingDescription", resourceCulture);
             }
@@ -242,7 +341,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardPCPrintingTitle {
+        public static string FuncCardPCPrintingTitle {
             get {
                 return ResourceManager.GetString("FuncCardPCPrintingTitle", resourceCulture);
             }
@@ -251,7 +350,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardViewingDescription {
+        public static string FuncCardViewingDescription {
             get {
                 return ResourceManager.GetString("FuncCardViewingDescription", resourceCulture);
             }
@@ -260,7 +359,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string FuncCardViewingTitle {
+        public static string FuncCardViewingTitle {
             get {
                 return ResourceManager.GetString("FuncCardViewingTitle", resourceCulture);
             }
@@ -269,7 +368,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string KneadingInputPlaceholder {
+        public static string HomePageCardDescription {
+            get {
+                return ResourceManager.GetString("HomePageCardDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string IndexedLabelNotPrinted {
+            get {
+                return ResourceManager.GetString("IndexedLabelNotPrinted", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string KneadingInputPlaceholder {
             get {
                 return ResourceManager.GetString("KneadingInputPlaceholder", resourceCulture);
             }
@@ -278,7 +395,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string LabelConfigHeader {
+        public static string LabelConfigHeader {
             get {
                 return ResourceManager.GetString("LabelConfigHeader", resourceCulture);
             }
@@ -287,7 +404,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string LabelCountInputPlaceholder {
+        public static string LabelCountInputPlaceholder {
             get {
                 return ResourceManager.GetString("LabelCountInputPlaceholder", resourceCulture);
             }
@@ -296,7 +413,52 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string NestingSelectPlaceholder {
+        public static string LabelGenErrorInvalid {
+            get {
+                return ResourceManager.GetString("LabelGenErrorInvalid", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelGenErrorStorageMethodNotFound {
+            get {
+                return ResourceManager.GetString("LabelGenErrorStorageMethodNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelGenErrorTemplateNotFound {
+            get {
+                return ResourceManager.GetString("LabelGenErrorTemplateNotFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LineIsNewWarningDescription {
+            get {
+                return ResourceManager.GetString("LineIsNewWarningDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LineIsNewWarningTitle {
+            get {
+                return ResourceManager.GetString("LineIsNewWarningTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string NestingSelectPlaceholder {
             get {
                 return ResourceManager.GetString("NestingSelectPlaceholder", resourceCulture);
             }
@@ -305,7 +467,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PalletManFormHeader {
+        public static string PalletCreateFinalTitle {
+            get {
+                return ResourceManager.GetString("PalletCreateFinalTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletDocumentGenerationError {
+            get {
+                return ResourceManager.GetString("PalletDocumentGenerationError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletManFormHeader {
             get {
                 return ResourceManager.GetString("PalletManFormHeader", resourceCulture);
             }
@@ -314,7 +494,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PalletSelectEmpty {
+        public static string PalletManFormInvalidPassword {
+            get {
+                return ResourceManager.GetString("PalletManFormInvalidPassword", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletOverviewDividerCommon {
+            get {
+                return ResourceManager.GetString("PalletOverviewDividerCommon", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletSelectEmpty {
             get {
                 return ResourceManager.GetString("PalletSelectEmpty", resourceCulture);
             }
@@ -323,7 +521,43 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PalletWeightInputPlaceholder {
+        public static string PalletSortDate {
+            get {
+                return ResourceManager.GetString("PalletSortDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletSortLabelsCount {
+            get {
+                return ResourceManager.GetString("PalletSortLabelsCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletSortNumber {
+            get {
+                return ResourceManager.GetString("PalletSortNumber", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletSortPlu {
+            get {
+                return ResourceManager.GetString("PalletSortPlu", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletWeightInputPlaceholder {
             get {
                 return ResourceManager.GetString("PalletWeightInputPlaceholder", resourceCulture);
             }
@@ -332,7 +566,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PasswordInputPlaceholder {
+        public static string PasswordInputPlaceholder {
             get {
                 return ResourceManager.GetString("PasswordInputPlaceholder", resourceCulture);
             }
@@ -341,7 +575,52 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PluSelectHeader {
+        public static string PluDescriptionNoDataDescription {
+            get {
+                return ResourceManager.GetString("PluDescriptionNoDataDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PluDescriptionNoDataTitle {
+            get {
+                return ResourceManager.GetString("PluDescriptionNoDataTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PluDisplayUnselectedDescription {
+            get {
+                return ResourceManager.GetString("PluDisplayUnselectedDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PluDisplayUnselectedStatusesInfo {
+            get {
+                return ResourceManager.GetString("PluDisplayUnselectedStatusesInfo", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PluDisplayUnselectedTitle {
+            get {
+                return ResourceManager.GetString("PluDisplayUnselectedTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PluSelectHeader {
             get {
                 return ResourceManager.GetString("PluSelectHeader", resourceCulture);
             }
@@ -350,7 +629,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PluSelectPlaceholder {
+        public static string PluSelectPlaceholder {
             get {
                 return ResourceManager.GetString("PluSelectPlaceholder", resourceCulture);
             }
@@ -359,7 +638,25 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrinterStatusHeadOpen {
+        public static string PrinterStatusCommonError {
+            get {
+                return ResourceManager.GetString("PrinterStatusCommonError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PrinterStatusDisconnected {
+            get {
+                return ResourceManager.GetString("PrinterStatusDisconnected", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PrinterStatusHeadOpen {
             get {
                 return ResourceManager.GetString("PrinterStatusHeadOpen", resourceCulture);
             }
@@ -368,25 +665,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrinterStatusIsDisabled {
-            get {
-                return ResourceManager.GetString("PrinterStatusIsDisabled", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string PrinterStatusIsForceDisconnected {
-            get {
-                return ResourceManager.GetString("PrinterStatusIsForceDisconnected", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string PrinterStatusPaperJam {
+        public static string PrinterStatusPaperJam {
             get {
                 return ResourceManager.GetString("PrinterStatusPaperJam", resourceCulture);
             }
@@ -395,7 +674,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrinterStatusPaperOut {
+        public static string PrinterStatusPaperOut {
             get {
                 return ResourceManager.GetString("PrinterStatusPaperOut", resourceCulture);
             }
@@ -404,7 +683,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrinterStatusPaused {
+        public static string PrinterStatusPaused {
             get {
                 return ResourceManager.GetString("PrinterStatusPaused", resourceCulture);
             }
@@ -413,7 +692,16 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string PrinterStatusUnknown {
+        public static string PrinterStatusReady {
+            get {
+                return ResourceManager.GetString("PrinterStatusReady", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PrinterStatusUnknown {
             get {
                 return ResourceManager.GetString("PrinterStatusUnknown", resourceCulture);
             }
@@ -422,7 +710,43 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ScalesStatusTooLight {
+        public static string ScalesStatusDetached {
+            get {
+                return ResourceManager.GetString("ScalesStatusDetached", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ScalesStatusDisabled {
+            get {
+                return ResourceManager.GetString("ScalesStatusDisabled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ScalesStatusInitializing {
+            get {
+                return ResourceManager.GetString("ScalesStatusInitializing", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ScalesStatusReady {
+            get {
+                return ResourceManager.GetString("ScalesStatusReady", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ScalesStatusTooLight {
             get {
                 return ResourceManager.GetString("ScalesStatusTooLight", resourceCulture);
             }
@@ -431,7 +755,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string ScalesStatusUnstable {
+        public static string ScalesStatusUnstable {
             get {
                 return ResourceManager.GetString("ScalesStatusUnstable", resourceCulture);
             }
@@ -440,7 +764,7 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string SearchByNumberPlaceholder {
+        public static string SearchByNumberPlaceholder {
             get {
                 return ResourceManager.GetString("SearchByNumberPlaceholder", resourceCulture);
             }
@@ -449,9 +773,45 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string UserSelectPlaceholder {
+        public static string ToastErrorWhileGettingData {
+            get {
+                return ResourceManager.GetString("ToastErrorWhileGettingData", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToastPalletCreateError {
+            get {
+                return ResourceManager.GetString("ToastPalletCreateError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserSelectPlaceholder {
             get {
                 return ResourceManager.GetString("UserSelectPlaceholder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ZplCodeError {
+            get {
+                return ResourceManager.GetString("ZplCodeError", resourceCulture);
             }
         }
     }

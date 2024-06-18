@@ -25,13 +25,14 @@
     Variant="ButtonVariant.Secondary"
   >
     <ArrowLeftOnRectangleIcon class="size-4 mr-2" />
-    Выход
+    @Localizer["BtnExit"]
   </Button>
 </div>
 
 @code {
   # region Injects
 
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
   [Inject] private ArmApi ArmApi { get; set; } = default!;
 

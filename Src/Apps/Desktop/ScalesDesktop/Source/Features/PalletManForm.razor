@@ -1,4 +1,5 @@
 @using Ws.Desktop.Models.Features.PalletMen
+@using vNext.BlazorComponents.FluentValidation
 
 <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-background w-full">
   <div class="w-full pb-4 border-b">
@@ -9,10 +10,9 @@
   <EditForm
     Model="FormModel"
     OnValidSubmit="OnSubmit"
-    OnInvalidSubmit="HandleInvalidForm"
     class="space-y-4 pt-3"
   >
-    <DataAnnotationsValidator />
+    <FluentValidationValidator Validator="@(new PalletManFormValidator(Localizer))" />
     <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
       <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
         @if (armQuery.HasData)
@@ -25,7 +25,9 @@
                 @bind-SelectedItem="@FormModel.User"
                 ItemDisplayName="@(item => item.Fio.DisplayShortName)"
                 Items="@palletMenQuery.Data"
-                Placeholder="@Localizer["UserSelectPlaceholder"]"/>
+                Placeholder="@Localizer["UserSelectPlaceholder"]"
+              />
+              <FieldValidation For="@(() => FormModel.User)" />
             }
             else
             {
@@ -47,6 +49,7 @@
         Type="TextInputType.Password"
         Placeholder="@Localizer["PasswordInputPlaceholder"]"
       />
+      <FieldValidation For="@(() => FormModel.Password)" />
     </FormFieldWrapper>
     <Button Type="@ButtonType.Submit" Class="!mt-4">
       @Localizer["BtnLogIn"]

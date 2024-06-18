@@ -48,7 +48,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
             PalletInfo data = await DesktopApi.CreatePiecePallet(arm.Id, createDto);
             await OnSubmitAction.InvokeAsync(data);
         }
-        catch (Exception ex)
+        catch
         {
             ToastService.ShowError(Localizer["ToastPalletCreateError"]);
         }

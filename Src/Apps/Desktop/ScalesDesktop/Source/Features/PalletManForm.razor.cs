@@ -1,6 +1,5 @@
-using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Desktop.Models.Features.PalletMen;
@@ -23,29 +22,22 @@ public sealed partial class PalletManForm : ComponentBase
 
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
 
-    private void HandleInvalidForm(EditContext context)
-    {
-        foreach (string msg in context.GetValidationMessages())
-            ToastService.ShowError(msg);
-    }
-
-    private void OnSubmit()
-    {
-        if (FormModel.Password != FormModel.User!.Password)
-        {
-            ToastService.ShowError("Пароль неверный");
-            return;
-        }
-        PalletContext.SetPalletMan(FormModel.User!);
-    }
+    private void OnSubmit() => PalletContext.SetPalletMan(FormModel.User!);
 }
 
-public class PalletManFormModel
-{
-    [Required(ErrorMessage = "Пользователь обязателен для заполнения")]
+public class PalletManFormModel {
     public PalletMan? User { get; set; }
-
-    [Required(ErrorMessage = "Пароль обязателен для заполнения")]
-    [RegularExpression(@"\d{4}$", ErrorMessage = "Пароль должен состоять из 4 цифр")]
     public string Password { get; set; } = string.Empty;
+}
+
+public class PalletManFormValidator : AbstractValidator<PalletManFormModel>
+{
+    public PalletManFormValidator(IStringLocalizer<ApplicationResources> localizer)
+    {
+        RuleFor(item => item.User).NotNull();
+        RuleFor(item => item.Password).NotNull().Length(4);
+        RuleFor(item => item.Password)
+            .Must((item, password) => item.User != null && password == item.User.Password)
+            .WithMessage(localizer["PalletManFormInvalidPassword"]);
+    }
 }
