@@ -86,14 +86,14 @@
             }
             else
             {
-            <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
-              @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
-              {
-              <li>
-                <PalletSelectItem Pallet="@item"/>
-              </li>
-              }
-            </ul>
+              <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
+                @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
+                {
+                  <li>
+                    <PalletSelectItem Pallet="@item"/>
+                  </li>
+                }
+              </ul>
             }
           </UseEndpoint>
         }
@@ -177,7 +177,7 @@
 
   private async Task ShowCreateFormDialog(ArmValue arm)
   {
-    IDialogReference dialog = await DialogService.ShowDialogAsync<PalletCreateDialog>(new());
+    IDialogReference dialog = await DialogService.ShowDialogAsync<PalletCreateDialog>(new() { PreventDismissOnOverlayClick = true });
     DialogResult result = await dialog.Result;
     if (result is { Cancelled: false, Data: PalletInfo newPallet })
     {

@@ -95,7 +95,7 @@
   {
     try
     {
-      string palletCardBase64 = PalletCard.CreateBase64(Pallet);
+      string palletCardBase64 = PalletDocumentGenerator.CreateBase64(Pallet);
       await PrintingService.Print(new(palletCardBase64) { Base64 = true });
     }
     catch
