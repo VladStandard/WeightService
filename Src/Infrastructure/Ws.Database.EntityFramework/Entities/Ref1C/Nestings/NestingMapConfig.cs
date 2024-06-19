@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-internal class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
+internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
 {
     public void Configure(EntityTypeBuilder<NestingEntity> builder)
     {
