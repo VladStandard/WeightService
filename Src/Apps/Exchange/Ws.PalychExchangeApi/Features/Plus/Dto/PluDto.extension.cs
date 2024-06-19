@@ -16,9 +16,9 @@ internal static class PluDtoExtensions
             Description = dto.Description,
             Number = dto.Number,
             ShelfLifeDays = dto.ShelfLifeDays,
-            BrandEntityId = dto.BrandUid,
-            ClipEntityId = dto.ClipUid,
-            BundleEntityId = dto.BundleUid,
+            BrandId = dto.BrandUid,
+            ClipId = dto.ClipUid,
+            BundleId = dto.BundleUid,
             Weight = dto.Weight,
             StorageMethod = dto.StorageMethod
         };

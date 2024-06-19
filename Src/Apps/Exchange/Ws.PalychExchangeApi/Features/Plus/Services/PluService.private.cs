@@ -53,8 +53,8 @@ internal sealed partial class PluService
             DbContext.BulkMerge(plus, options =>
             {
                 options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt, c.TemplateEntityId };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt, c.TemplateEntityId };
+                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt, TemplateEntityId = c.TemplateId };
+                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt, TemplateEntityId = c.TemplateId };
             });
             transaction.Commit();
             SaveNestings(validDtos);
