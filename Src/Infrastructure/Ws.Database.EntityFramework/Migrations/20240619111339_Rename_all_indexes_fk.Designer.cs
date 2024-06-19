@@ -12,8 +12,8 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240619081030_Update_rework_ArmsTable")]
-    partial class Update_rework_ArmsTable
+    [Migration("20240619111339_Rename_all_indexes_fk")]
+    partial class Rename_all_indexes_fk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -320,25 +320,21 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("NAME");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(4)
                         .HasColumnType("varchar(4)")
                         .HasColumnName("PASSWORD");
 
                     b.Property<string>("Patronymic")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("PATRONYMIC");
 
                     b.Property<string>("Surname")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("SURNAME");
 
@@ -351,13 +347,15 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Uid1C")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PALLET_MEN__UID_1C");
+
                     b.HasIndex("WAREHOUSE_UID");
 
-                    b.HasIndex(new[] { "Name", "Surname", "Patronymic" }, "UQ_PALLET_MEN_FIO")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_PALLET_MEN_UID_1C")
-                        .IsUnique();
+                    b.HasIndex("Name", "Surname", "Patronymic")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PALLET_MEN__FIO");
 
                     b.ToTable("PALLET_MEN", "REF");
                 });
@@ -384,11 +382,10 @@ namespace Ws.Database.EntityFramework.Migrations
                     b.Property<string>("Ip")
                         .IsRequired()
                         .HasColumnType("nvarchar(15)")
-                        .HasColumnName("IP_V4");
+                        .HasColumnName("IP");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(16)
                         .HasColumnType("varchar(16)")
                         .HasColumnName("NAME");
 
@@ -402,13 +399,15 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Ip")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PALLET_MEN__IP");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PRINTERS__NAME");
+
                     b.HasIndex("PRODUCTION_SITE_UID");
-
-                    b.HasIndex(new[] { "Ip" }, "UQ_PRINTERS_IP_V4")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Name" }, "UQ_PRINTERS_NAME")
-                        .IsUnique();
 
                     b.ToTable("PRINTERS", "REF");
                 });
@@ -446,11 +445,13 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Address" }, "UQ_PRODUCTION_SITES_ADDRESS")
-                        .IsUnique();
+                    b.HasIndex("Address")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PRODUCTION_SITES__ADDRESS");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_PRODUCTION_SITES_NAME")
-                        .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PRODUCTION_SITES__NAME");
 
                     b.ToTable("PRODUCTION_SITES", "REF");
                 });
@@ -512,7 +513,6 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("NAME");
 
@@ -525,13 +525,15 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_WAREHOUSES__NAME");
+
                     b.HasIndex("PRODUCTION_SITE_UID");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_WAREHOUSES_NAME")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Uid1C" }, "UQ_WAREHOUSES_UID_1C")
-                        .IsUnique();
+                    b.HasIndex("Uid1C")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_WAREHOUSES__UID_1C");
 
                     b.ToTable("WAREHOUSES", "REF");
                 });
@@ -557,11 +559,11 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
                     b.Property<decimal>("Weight")
+                        .HasPrecision(4, 3)
                         .HasColumnType("decimal(4,3)")
                         .HasColumnName("WEIGHT");
 
@@ -597,8 +599,9 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_BRANDS_NAME")
-                        .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_BRANDS__NAME");
 
                     b.ToTable("BRANDS", "REF_1C");
                 });
@@ -624,11 +627,11 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
                     b.Property<decimal>("Weight")
+                        .HasPrecision(4, 3)
                         .HasColumnType("decimal(4,3)")
                         .HasColumnName("WEIGHT");
 
@@ -666,7 +669,6 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
@@ -678,8 +680,9 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("BoxId");
 
-                    b.HasIndex(new[] { "PluId", "BoxId", "BundleCount" }, "UQ_CHARACTERISTICS_UNIQ")
-                        .IsUnique();
+                    b.HasIndex("PluId", "BoxId", "BundleCount")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_CHARACTERISTICS__UNIQ");
 
                     b.ToTable("CHARACTERISTICS", "REF_1C");
                 });
@@ -705,11 +708,11 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
                     b.Property<decimal>("Weight")
+                        .HasPrecision(4, 3)
                         .HasColumnType("decimal(4,3)")
                         .HasColumnName("WEIGHT");
 
@@ -759,11 +762,11 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("UID");
 
-                    b.Property<Guid>("BrandEntityId")
+                    b.Property<Guid>("BrandId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("BRAND_UID");
 
-                    b.Property<Guid>("BundleEntityId")
+                    b.Property<Guid>("BundleId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("BUNDLE_UID");
 
@@ -773,7 +776,7 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnName("CHANGE_DT")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid>("ClipEntityId")
+                    b.Property<Guid>("ClipId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("CLIP_UID");
 
@@ -785,19 +788,16 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(200)
                         .HasColumnType("varchar(200)")
                         .HasColumnName("DESCRIPTION");
 
                     b.Property<string>("Ean13")
                         .IsRequired()
-                        .HasMaxLength(13)
                         .HasColumnType("varchar(13)")
                         .HasColumnName("EAN_13");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(200)
                         .HasColumnType("varchar(200)")
                         .HasColumnName("FULL_NAME");
 
@@ -807,13 +807,11 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Itf14")
                         .IsRequired()
-                        .HasMaxLength(14)
                         .HasColumnType("varchar(14)")
                         .HasColumnName("ITF_14");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("varchar(100)")
                         .HasColumnName("NAME");
 
@@ -827,28 +825,31 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("StorageMethod")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("STORAGE_METHOD");
 
-                    b.Property<Guid?>("TemplateEntityId")
+                    b.Property<Guid?>("TemplateId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TEMPLATE_UID");
 
                     b.Property<decimal>("Weight")
+                        .HasPrecision(4, 3)
                         .HasColumnType("decimal(4,3)")
                         .HasColumnName("WEIGHT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandEntityId");
+                    b.HasIndex("BrandId");
 
-                    b.HasIndex("BundleEntityId");
+                    b.HasIndex("BundleId");
 
-                    b.HasIndex("ClipEntityId");
+                    b.HasIndex("ClipId");
 
-                    b.HasIndex(new[] { "Number" }, "UQ_PLUS_NUMBER")
-                        .IsUnique();
+                    b.HasIndex("Number")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_PLUS__NUMBER");
+
+                    b.HasIndex("TemplateId");
 
                     b.ToTable("PLUS", "REF_1C");
                 });
@@ -874,23 +875,19 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
                         .HasColumnType("varchar(32)")
                         .HasColumnName("NAME");
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasMaxLength(1024)
                         .HasColumnType("varchar(1024)")
                         .HasColumnName("ZPL");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_STORAGE_METHODS_NAME")
-                        .IsUnique();
-
-                    b.HasIndex(new[] { "Zpl" }, "UQ_STORAGE_METHODS_ZPL")
-                        .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_STORAGE_METHODS__NAME");
 
                     b.ToTable("STORAGE_METHODS", "ZPL");
                 });
@@ -904,19 +901,16 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("BarcodeBottomBody")
                         .IsRequired()
-                        .HasMaxLength(2048)
                         .HasColumnType("varchar(2048)")
                         .HasColumnName("BARCODE_BOTTOM_BODY");
 
                     b.Property<string>("BarcodeRightBody")
                         .IsRequired()
-                        .HasMaxLength(2048)
                         .HasColumnType("varchar(2048)")
                         .HasColumnName("BARCODE_RIGHT_BODY");
 
                     b.Property<string>("BarcodeTopBody")
                         .IsRequired()
-                        .HasMaxLength(2048)
                         .HasColumnType("varchar(2048)")
                         .HasColumnName("BARCODE_TOP_BODY");
 
@@ -947,7 +941,6 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
@@ -957,8 +950,9 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Name", "IsWeight" }, "UQ_TEMPLATES_NAME_IS_WEIGHT")
-                        .IsUnique();
+                    b.HasIndex("Name", "IsWeight")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_TEMPLATES__NAME__IS_WEIGHT");
 
                     b.ToTable("TEMPLATES", "ZPL");
                 });
@@ -984,20 +978,19 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasMaxLength(2048)
                         .HasColumnType("varchar(2048)")
                         .HasColumnName("ZPL");
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "Name" }, "UQ_RESOURCES_NAME")
-                        .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_RESOURCES__NAME");
 
                     b.ToTable("RESOURCES", "ZPL");
                 });
@@ -1108,7 +1101,8 @@ namespace Ws.Database.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("WAREHOUSE_UID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_PALLET_MEN__WAREHOUSE");
 
                     b.Navigation("Warehouse");
                 });
@@ -1119,7 +1113,8 @@ namespace Ws.Database.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("PRODUCTION_SITE_UID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_PALLET_MEN__PRODUCTION_SITE");
 
                     b.Navigation("ProductionSite");
                 });
@@ -1139,7 +1134,8 @@ namespace Ws.Database.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("PRODUCTION_SITE_UID")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_WAREHOUSES__PRODUCTION_SITE");
 
                     b.Navigation("ProductionSite");
                 });
@@ -1150,14 +1146,15 @@ namespace Ws.Database.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("BoxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_CHARACTERISTICS__BOX");
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
                         .WithMany()
                         .HasForeignKey("PluId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("FK_CHARACTERISTICS_PLUS_PLU_UID");
+                        .HasConstraintName("FK_CHARACTERISTICS__PLU");
 
                     b.Navigation("Box");
                 });
@@ -1168,7 +1165,8 @@ namespace Ws.Database.EntityFramework.Migrations
                         .WithMany()
                         .HasForeignKey("BoxId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_NESTINGS__BOX");
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Plus.PluEntity", null)
                         .WithOne()
@@ -1183,21 +1181,29 @@ namespace Ws.Database.EntityFramework.Migrations
                 {
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Brands.BrandEntity", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandEntityId")
+                        .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_PLUS__BRAND");
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Bundles.BundleEntity", "Bundle")
                         .WithMany()
-                        .HasForeignKey("BundleEntityId")
+                        .HasForeignKey("BundleId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_PLUS__BUNDLE");
 
                     b.HasOne("Ws.Database.EntityFramework.Entities.Ref1C.Clips.ClipEntity", "Clip")
                         .WithMany()
-                        .HasForeignKey("ClipEntityId")
+                        .HasForeignKey("ClipId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_PLUS__CLIP");
+
+                    b.HasOne("Ws.Database.EntityFramework.Entities.Zpl.Templates.TemplateEntity", null)
+                        .WithMany()
+                        .HasForeignKey("TemplateId")
+                        .HasConstraintName("FK_PLUS__TEMPLATE");
 
                     b.Navigation("Brand");
 
