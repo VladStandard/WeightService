@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 
-internal class LineMapConfig : IEntityTypeConfiguration<LineEntity>
+internal sealed class LineMapConfig : IEntityTypeConfiguration<LineEntity>
 {
     public void Configure(EntityTypeBuilder<LineEntity> builder)
     {

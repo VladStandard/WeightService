@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ws.Database.EntityFramework.Entities.Print.Pallets;
 
-public class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
+internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 {
     public void Configure(EntityTypeBuilder<PalletEntity> builder)
     {

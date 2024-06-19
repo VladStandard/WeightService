@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Print.Pallets;
 
 namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 
-internal class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
+internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
 {
     public void Configure(EntityTypeBuilder<LabelEntity> builder)
     {
