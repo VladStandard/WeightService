@@ -1,7 +1,5 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
-[Table(SqlTables.Brands, Schema = SqlSchemas.Ref1C),
- Index(nameof(Name), Name = $"UQ_{SqlTables.Brands}_NAME", IsUnique = true)]
 public sealed class BrandEntity : EfEntityBase
 {
 
