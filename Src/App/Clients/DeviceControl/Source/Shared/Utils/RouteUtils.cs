@@ -53,4 +53,5 @@ public static class RouteUtils
 
     public const string SectionQrlQuery = "/{SearchingSectionItemId?}";
     public const string Home = "/";
+    public const string Authorization = "/auth";
 }

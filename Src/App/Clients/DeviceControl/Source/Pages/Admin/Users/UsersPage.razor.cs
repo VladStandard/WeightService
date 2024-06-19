@@ -1,4 +1,3 @@
-using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.User;
 
@@ -12,7 +11,6 @@ public sealed partial class UsersPage : SectionDataGridPageBase<User>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
-    [Inject] private IClaimsCacheProvider ClaimsCacheProvider { get; set; } = default!;
 
     #endregion
 
@@ -36,7 +34,7 @@ public sealed partial class UsersPage : SectionDataGridPageBase<User>
 
     protected override Task DeleteItemAction(User item)
     {
-        ClaimsCacheProvider.ClearCacheByUserName(item.Name);
+        // ClaimsCacheProvider.ClearCacheByUserName(item.Name); TODO: fix
         UserService.Delete(item);
         return Task.CompletedTask;
     }

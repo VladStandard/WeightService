@@ -32,12 +32,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
