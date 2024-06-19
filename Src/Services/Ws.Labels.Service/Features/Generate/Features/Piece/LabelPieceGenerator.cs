@@ -44,7 +44,6 @@ internal class LabelPieceGenerator(IPalletService palletService, CacheService ca
             Weight = dto.Weight,
             ProdDt = dto.ProductDt,
             PalletMan = dto.PalletMan,
-            Plu = dto.Plu,
             Arm = dto.Line,
             Counter = new Random().Next(0, 1000001),
             Number = new Random().Next(0, 1000001),

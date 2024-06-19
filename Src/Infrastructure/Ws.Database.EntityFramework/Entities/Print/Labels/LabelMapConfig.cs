@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Ws.Database.EntityFramework.Entities.Print.Pallets;
 
 namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 

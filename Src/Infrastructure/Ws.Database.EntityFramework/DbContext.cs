@@ -1,8 +1,8 @@
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Ws.Database.EntityFramework.Entities.Print;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;

@@ -8,13 +8,6 @@ namespace Ws.Domain.Services.Features.Pallets;
 
 internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository labelRepo) : IPalletService
 {
-    #region Items
-
-    [Transactional]
-    public ViewPallet GetViewByUid(Guid uid) => palletRepo.GetViewByUid(uid);
-
-    #endregion
-
     #region CRUD
 
     [Transactional]

@@ -53,7 +53,7 @@ internal sealed class SqlPalletMap : ClassMapping<Pallet>
 
         Property(x => x.Weight, m =>
         {
-            m.Column("TRAY_WEIGHT");
+            m.Column("WEIGHT_TRAY");
             m.Type(NHibernateUtil.Decimal);
             m.Precision(10);
             m.Scale(3);
@@ -70,13 +70,6 @@ internal sealed class SqlPalletMap : ClassMapping<Pallet>
         ManyToOne(x => x.Arm, m =>
         {
             m.Column("ARM_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
-        });
-
-        ManyToOne(x => x.Plu, m =>
-        {
-            m.Column("PLU_UID");
             m.NotNullable(true);
             m.Lazy(LazyRelation.NoLazy);
         });
