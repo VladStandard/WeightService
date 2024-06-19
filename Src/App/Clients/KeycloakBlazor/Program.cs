@@ -1,13 +1,12 @@
-using KeycloakBlazor.Source.Api.Keycloak;
 using KeycloakBlazor.Source.App;
 using KeycloakBlazor.Source.Utils;
+using KeycloakBlazor.Source.Utils.Api.Keycloak;
 using KeycloakBlazor.Source.Utils.Auth;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components.Authorization;
+using KeycloakBlazor.Source.Utils.Services;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Refit;
 
-const string OIDC_SCHEME = "KeycloakOidc";
+const string oidcScheme = "KeycloakOidc";
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -15,50 +14,15 @@ IConfigurationSection oidcConfiguration = builder.Configuration.GetSection("Oidc
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents();
+builder.Services.ConfigureKeycloakAuthorization(oidcConfiguration, oidcScheme);
 
-builder.Services.AddAuthentication(OIDC_SCHEME)
-    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
-    {
-        opt.Events.OnRedirectToAccessDenied  = context =>
-        {
-            context.Response.Redirect(RouteUtils.Home);
-            return Task.CompletedTask;
-        };
-    })
-    .AddOpenIdConnect(OIDC_SCHEME, options =>
-    {
-        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.SignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-        options.Authority = $"{oidcConfiguration.GetValue<string>("Authority")}/realms/{oidcConfiguration.GetValue<string>("Realm")}";
-        options.ClientId = oidcConfiguration.GetValue<string>("ClientId");
-        options.ClientSecret = oidcConfiguration.GetValue<string>("ClientSecret");
-        options.RequireHttpsMetadata = oidcConfiguration.GetValue<bool>("RequireHttpsMetadata");
-        options.ResponseType = OpenIdConnectResponseType.Code;
-        options.GetClaimsFromUserInfoEndpoint = true;
-        options.MapInboundClaims = false;
-
-        options.Events = new()
-        {
-            OnUserInformationReceived = context =>
-            {
-                RoleMapping.MapKeyCloakRolesToRoleClaims(context);
-                return Task.CompletedTask;
-            }
-        };
-    });
-
-builder.Services.ConfigureCookieOidcRefresh(CookieAuthenticationDefaults.AuthenticationScheme, OIDC_SCHEME);
-builder.Services.AddAuthorization();
-builder.Services.AddCascadingAuthenticationState();
-
-builder.Services.AddHttpContextAccessor();
+string keycloakAdminUrl = $"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}";
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
-builder.Services.AddHttpClient<IKeycloakApi, KeycloakApi>(client =>
-        client.BaseAddress = new($"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}/"))
+builder.Services.AddRefitClient<IKeycloakApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
     .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
-builder.Services.AddScoped<AuthenticationStateProvider, CustomRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<UserApi>();
 
 WebApplication app = builder.Build();
 
@@ -68,7 +32,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(OIDC_SCHEME);
+app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
 
 app.UseAuthentication();
 app.UseAuthorization();

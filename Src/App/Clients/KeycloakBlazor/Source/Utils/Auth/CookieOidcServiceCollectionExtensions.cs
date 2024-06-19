@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using KeycloakBlazor.Source.Utils.Auth;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace KeycloakBlazor.Source.Utils.Auth;
 
 internal static partial class CookieOidcServiceCollectionExtensions
 {

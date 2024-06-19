@@ -7,15 +7,15 @@ namespace KeycloakBlazor.Source.Utils.Auth;
 
 public class CustomRevalidatingAuthenticationStateProvider(ILoggerFactory logger, IHttpContextAccessor httpContextAccessor, CookieOidcRefresher cookieOidcRefresher) : RevalidatingServerAuthenticationStateProvider(logger)
 {
-    protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(1);
+    protected override TimeSpan RevalidationInterval => TimeSpan.FromSeconds(30);
 
     protected override async Task<bool> ValidateAuthenticationStateAsync(AuthenticationState authenticationState, CancellationToken cancellationToken)
     {
         HttpContext? httpContext = httpContextAccessor.HttpContext;
-        if (httpContext == null) return true;
+        if (httpContext == null) return false;
 
         AuthenticateResult authResult = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        if (authResult.Ticket == null) return true;
+        if (authResult.Ticket == null) return false;
 
         CookieValidatePrincipalContext context = new(
             httpContext,
@@ -25,6 +25,6 @@ public class CustomRevalidatingAuthenticationStateProvider(ILoggerFactory logger
         );
         await cookieOidcRefresher.ValidateOrRefreshCookieAsync(context, "KeycloakOidc");
 
-        return true;
+        return context.Principal != null;
     }
 }

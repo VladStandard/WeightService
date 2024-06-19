@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Microsoft.AspNetCore.Routing;
+namespace KeycloakBlazor.Source.Utils.Auth;
 
 internal static class LoginLogoutEndpointRouteBuilderExtensions
 {
