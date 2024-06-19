@@ -2,7 +2,7 @@
 @implements IDialogContentComponent
 
 <Dialog class="max-w-screen-md">
-  <DialogHeader>
+  <DialogHeader IsDisabled="@IsHeaderBlocked">
     <Button
       Variant="ButtonVariant.Secondary"
       Class="disabled:!opacity-100"
@@ -39,6 +39,7 @@
         FormModel="FormModel"
         OnCancelAction="@(() => CurrentStepIndex = 2)"
         OnSubmitAction="@(async value => await Dialog.CloseAsync(value))"
+        OnBlockAction="@(value => IsHeaderBlocked = value)"
       />
     }
   </div>
@@ -51,4 +52,5 @@
 
   private int CurrentStepIndex { get; set; } = 1;
   private PalletCreateModel FormModel { get; } = new();
+  private bool IsHeaderBlocked { get; set; }
 }

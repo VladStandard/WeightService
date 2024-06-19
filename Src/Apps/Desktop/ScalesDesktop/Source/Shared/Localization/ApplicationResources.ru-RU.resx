@@ -270,4 +270,22 @@
     <data name="IndexedLabelNotPrinted" xml:space="preserve">
         <value>этикетка не распечатана</value>
     </data>
+    <data name="BtnUnselectAllLabels" xml:space="preserve">
+        <value>Убрать все</value>
+    </data>
+    <data name="LabelsDataGridHeaderTitle" xml:space="preserve">
+        <value>Этикетки паллеты</value>
+    </data>
+    <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
+        <value>Выбрано {0} из {1}</value>
+    </data>
+    <data name="PalletCreateDialogProgressToastTitle" xml:space="preserve">
+        <value>Создание паллеты</value>
+    </data>
+    <data name="PalletCreateDialogProgressToastDescription" xml:space="preserve">
+        <value>Это может занять некоторое время</value>
+    </data>
+    <data name="PalletCreateDialogSuccess" xml:space="preserve">
+        <value>Паллета создана</value>
+    </data>
 </root>

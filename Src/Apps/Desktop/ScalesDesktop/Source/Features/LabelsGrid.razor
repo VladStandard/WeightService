@@ -4,40 +4,66 @@
 
 <PrinterErrorBoundary>
   <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
-    <div class="py-3 w-full flex shrink-0 items-center gap-2 px-4">
-      <div class="w-1/2 border bg-background rounded-md px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
-        <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground" />
-        <input
-          @bind="SearchingNumber"
-          @bind:event="oninput"
-          placeholder="@Localizer["SearchByNumberPlaceholder"]"
-          class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
-        />
+    <div class="w-full flex flex-col gap-2 shrink-0 items-center px-6 pt-6">
+      <div class="w-full flex items-center justify-between">
+        <h3 class="font-medium text-xl">@Localizer["LabelsDataGridHeaderTitle"]</h3>
+        <div class="flex gap-2 items-center">
+          @if (armQuery.HasData)
+          {
+            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+              <Button
+                Variant="ButtonVariant.Outline"
+                OnClick="@(() => ToggleAllLabels(labelsQuery.Data ?? []))"
+                Disabled="@(!labelsQuery.HasData)"
+              >
+                @if (SelectedItems.Count.Equals(labelsQuery.Data?.Length ?? 0))
+                {
+                  @Localizer["BtnUnselectAllLabels"]
+                }
+                else
+                {
+                  @Localizer["BtnSelectAllLabels"]
+                }
+              </Button>
+            </UseEndpoint>
+          }
+          else
+          {
+            <Skeleton Class="w-full h-9"/>
+          }
+          <Button
+            Variant="ButtonVariant.Outline"
+            OnClick="@PrintLabelsAsync"
+            Disabled="@(!SelectedItems.Any())"
+          >
+            <PrinterIcon class="size-4 mr-2" />
+            @Localizer["BtnSelectedLabelsPrinting"]
+          </Button>
+        </div>
       </div>
-      <div class="w-1/2 flex gap-2 h-full items-center overflow-hidden">
-        @if (armQuery.HasData)
-        {
-          <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
-            <Button
-              Variant="ButtonVariant.Outline"
-              Class="w-1/2"
-              OnClick="@(() => SelectAllItems(labelsQuery.Data?.ToList() ?? []))"
-              Disabled="@(!labelsQuery.HasData)"
-            >
-              @Localizer["BtnSelectAllLabels"]
-            </Button>
-          </UseEndpoint>
-        }
-        else
-        {
-          <Skeleton Class="w-full h-9" />
-        }
-        <Button Class="w-1/2" OnClick="@PrintLabelsAsync">
-          @Localizer["BtnSelectedLabelsPrinting"]
-        </Button>
+      <div class="flex w-full pb-2 justify-between items-end">
+        <div class="w-1/2 pb-2">
+          <div class="w-full border bg-background rounded-md pb-0.5 px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
+            <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground"/>
+            <input
+              @bind="SearchingNumber"
+              @bind:event="oninput"
+              placeholder="@Localizer["SearchByNumberPlaceholder"]"
+              class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
+            />
+          </div>
+        </div>
+        <span class="text-sm">
+          @if (armQuery.HasData)
+          {
+            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+              @(string.Format(Localizer["LabelsDataGridSelectedInfo"], SelectedItems.Count, labelsQuery.Data?.Length ?? 0))
+            </UseEndpoint>
+          }
+        </span>
       </div>
     </div>
-    <div class="size-full flex grow overflow-hidden p-4 pt-0">
+    <div class="size-full flex grow overflow-hidden px-6 pb-6 pt-0">
       <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
         @if (armQuery.HasData)
         {

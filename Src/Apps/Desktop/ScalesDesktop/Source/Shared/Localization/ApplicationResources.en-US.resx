@@ -31,7 +31,7 @@
         <value>Calibrate scale</value>
     </data>
     <data name="BtnSelectAllLabels" xml:space="preserve">
-        <value>Select all labels</value>
+        <value>Select all</value>
     </data>
     <data name="BtnBack" xml:space="preserve">
         <value>Back</value>
@@ -269,5 +269,23 @@
     </data>
     <data name="IndexedLabelNotPrinted" xml:space="preserve">
         <value>label is not printed</value>
+    </data>
+    <data name="BtnUnselectAllLabels" xml:space="preserve">
+        <value>Unselect all</value>
+    </data>
+    <data name="LabelsDataGridHeaderTitle" xml:space="preserve">
+        <value>Pallet's labels</value>
+    </data>
+    <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
+        <value>{0} of {1} selected</value>
+    </data>
+    <data name="PalletCreateDialogProgressToastTitle" xml:space="preserve">
+        <value>Creating a pallet</value>
+    </data>
+    <data name="PalletCreateDialogProgressToastDescription" xml:space="preserve">
+        <value>It may take some time</value>
+    </data>
+    <data name="PalletCreateDialogSuccess" xml:space="preserve">
+        <value>The pallet has been created</value>
     </data>
 </root>
