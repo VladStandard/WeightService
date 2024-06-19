@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
 
-public class StorageMethodMapConfig : IEntityTypeConfiguration<StorageMethodEntity>
+internal class StorageMethodMapConfig : IEntityTypeConfiguration<StorageMethodEntity>
 {
     public void Configure(EntityTypeBuilder<StorageMethodEntity> builder)
     {
