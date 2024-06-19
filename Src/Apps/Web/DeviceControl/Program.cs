@@ -1,11 +1,8 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using DeviceControl.Source.App;
-using DeviceControl.Source.Shared.Auth.ClaimsTransform;
-using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders;
-using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Negotiate;
+using DeviceControl.Source.Shared.Auth.Extensions;
+using DeviceControl.Source.Shared.RenderZpl;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
@@ -26,6 +23,7 @@ builder.Services.AddLabelsServices();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<Redirector>();
+builder.Services.AddScoped<IRenderLabelService, RenderLabelService>();
 
 WebApplication app = builder.Build();
 
