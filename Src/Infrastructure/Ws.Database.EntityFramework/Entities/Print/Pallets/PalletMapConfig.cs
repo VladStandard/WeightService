@@ -22,27 +22,15 @@ public class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 
         #region FK
 
-        const string armId = "ArmId";
-
-        builder.Property<Guid>(armId)
-            .HasColumnName("ARM_UID");
-
         builder.HasOne(e => e.Arm)
             .WithMany()
-            .HasForeignKey(armId)
+            .HasForeignKey("ARM_UID")
             .HasConstraintName($"FK_{SqlTables.Pallets}__ARM")
             .IsRequired();
 
-        //
-
-        const string palletManId = "PalletManId";
-
-        builder.Property<Guid>(palletManId)
-            .HasColumnName("PALLET_MAN_UID");
-
         builder.HasOne(e => e.PalletMan)
             .WithMany()
-            .HasForeignKey(palletManId)
+            .HasForeignKey("PALLET_MAN_UID")
             .HasConstraintName($"FK_{SqlTables.Pallets}__PALLET_MAN")
             .IsRequired();
 

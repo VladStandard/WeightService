@@ -12,7 +12,7 @@ internal class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
         builder.ToTable(SqlTables.Labels, SqlSchemas.Print);
 
         builder.HasIndex(e => e.BarcodeTop)
-            .HasDatabaseName($"UQ_{SqlTables.Plus}__BARCODE_TOP")
+            .HasDatabaseName($"UQ_{SqlTables.Labels}__BARCODE_TOP")
             .IsUnique();
 
         #endregion
@@ -26,34 +26,20 @@ internal class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
             .WithMany()
             .HasForeignKey(e => e.PalletEntityId)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName($"FK_{SqlTables.Plus}__PALLET")
+            .HasConstraintName($"FK_{SqlTables.Labels}__PALLET")
             .IsRequired(false);
-
-        //
-
-        const string pluId = "PluUid";
-
-        builder.Property<Guid?>(pluId)
-            .HasColumnName("PLU_UID");
 
         builder.HasOne(e => e.Plu)
             .WithMany()
-            .HasForeignKey(pluId)
+            .HasForeignKey("PLU_UID")
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName($"FK_{SqlTables.Plus}__PLU")
+            .HasConstraintName($"FK_{SqlTables.Labels}__PLU")
             .IsRequired(false);
-
-        //
-
-        const string armId = "ArmUid";
-
-        builder.Property<Guid>(armId)
-            .HasColumnName("ARM_UID");
 
         builder.HasOne(e => e.Line)
             .WithMany()
-            .HasForeignKey(armId)
-            .HasConstraintName($"FK_{SqlTables.Plus}__ARM")
+            .HasForeignKey("ARM_UID")
+            .HasConstraintName($"FK_{SqlTables.Labels}__ARM")
             .IsRequired();
 
         #endregion
