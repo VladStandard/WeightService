@@ -1,12 +1,8 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
-[Table(SqlTables.Clips, Schema = SqlSchemas.Ref1C)]
 public sealed class ClipEntity : EfEntityBase
 {
-    [Column(SqlColumns.Name), StringLength(64)]
     public string Name { get; set; } = string.Empty;
-
-    [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
 
     [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);

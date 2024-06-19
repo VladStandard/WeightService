@@ -1,6 +1,5 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
-[Table(SqlTables.Boxes, Schema = SqlSchemas.Ref1C)]
 public sealed class BoxEntity : EfEntityBase
 {
     public BoxEntity() { }
@@ -13,10 +12,7 @@ public sealed class BoxEntity : EfEntityBase
         ChangeDt = updateDate;
     }
 
-    [Column(SqlColumns.Name), StringLength(64)]
     public string Name { get; set; } = string.Empty;
-
-    [Column(SqlColumns.Weight, TypeName = "decimal(4,3)")]
     public decimal Weight { get; set; }
 
     #region Date
