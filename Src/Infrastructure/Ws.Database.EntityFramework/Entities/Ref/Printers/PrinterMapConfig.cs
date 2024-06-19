@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Printers;
 
-public class PrinterMapConfig : IEntityTypeConfiguration<PrinterEntity>
+internal sealed class PrinterMapConfig : IEntityTypeConfiguration<PrinterEntity>
 {
     public void Configure(EntityTypeBuilder<PrinterEntity> builder)
     {
