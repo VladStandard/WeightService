@@ -1,6 +1,8 @@
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Ws.Database.EntityFramework.Entities.Print;
+using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
@@ -72,11 +74,7 @@ public class WsDbContext : DbContext
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
 
-
-        modelBuilder.MapLine();
-        modelBuilder.MapUser();
-        modelBuilder.MapNesting();
-        modelBuilder.MapCharacteristic();
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     private static SqlSettingsModels LoadJsonConfig()

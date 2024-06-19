@@ -1,13 +1,13 @@
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-internal static class NestingMapExtension
+internal class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
 {
-    public static void MapNesting(this ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<NestingEntity> builder)
     {
-        modelBuilder.Entity<NestingEntity>()
-            .HasOne<PluEntity>()
+        builder.HasOne<PluEntity>()
             .WithOne()
             .HasForeignKey<NestingEntity>(n => n.Id)
             .HasPrincipalKey<PluEntity>(p => p.Id);

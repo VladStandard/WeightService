@@ -1,66 +1,46 @@
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
-namespace Ws.Database.EntityFramework.Entities.Print;
+namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 
-[Table(SqlTables.Labels, Schema = SqlSchemas.Print)]
-[Index(nameof(BarcodeTop), Name = $"UQ_{SqlTables.Plus}_BARCODE_TOP", IsUnique = true)]
 public sealed class LabelEntity : EfEntityBase
 {
     #region ForeignKeys
 
-    [ForeignKey("PALLET_UID"), Column("PALLET_UID")]
     public Guid? PalletEntityId { get; set; }
-
-    [ForeignKey("PLU_UID")]
     public PluEntity? Plu { get; set; }
-
-    [ForeignKey("ARM_UID")]
     public LineEntity Line { get; set; } = new();
 
     #endregion
 
     #region ProductDt
-
-    [Column("PRODUCT_DT")]
     public DateTime ProductDt { get; set; }
-
-    [Column("EXPIRATION_DT")]
     public DateTime ExpirationDt { get; set; }
 
     #endregion
 
     #region Barcodes
 
-    [Column("BARCODE_TOP"), StringLength(128)]
     public string BarcodeTop { get; set; } = string.Empty;
-
-    [Column("BARCODE_RIGHT"), StringLength(128)]
     public string BarcodeRight { get; set; } = string.Empty;
-
-    [Column("BARCODE_BOTTOM"), StringLength(128)]
     public string BarcodeBottom { get; set; } = string.Empty;
 
     #endregion
 
     #region Weight
 
-    [Column("WEIGHT_NET", TypeName = "decimal(5,3)")]
     public decimal WeightNet { get; set; }
-
-    [Column("WEIGHT_TARE", TypeName = "decimal(5,3)")]
     public decimal WeightTare { get; set; }
 
     #endregion
 
-    [Column("BUNDLE_COUNT")]
-    public ushort BundleCount { get; set; }
+    #region Other
 
-    [Column("ZPL")]
+    public ushort BundleCount { get; set; }
+    public short Kneading { get; set; }
     public string Zpl { get; set; } = string.Empty;
 
-    [Column("KNEADING")]
-    public short Kneading { get; set; }
+    #endregion
 
     #region Date
 

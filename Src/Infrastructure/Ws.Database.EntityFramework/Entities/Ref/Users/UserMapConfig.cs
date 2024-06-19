@@ -1,16 +1,15 @@
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ws.Database.EntityFramework.Entities.Ref.Claims;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Users;
 
-internal static class UserMapExtension
+internal class UserMapConfig : IEntityTypeConfiguration<UserEntity>
 {
-    public static void MapUser(this ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<UserEntity> builder)
     {
-        modelBuilder.Entity<UserEntity>(entity =>
-        {
-            entity.HasMany(e => e.Claims)
-                .WithMany(e => e.Users)
-                .UsingEntity(
+        builder.HasMany(e => e.Claims)
+            .WithMany(e => e.Users)
+            .UsingEntity(
                 "USERS_CLAIMS_FK",
                 l => l.HasOne(typeof(ClaimEntity))
                     .WithMany()
@@ -23,6 +22,5 @@ internal static class UserMapExtension
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasPrincipalKey(nameof(UserEntity.Id)),
                 j => j.HasKey("CLAIM_UID", "USER_UID"));
-        });
     }
 }

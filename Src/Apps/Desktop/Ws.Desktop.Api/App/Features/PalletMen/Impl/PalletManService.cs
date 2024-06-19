@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
 using Ws.Desktop.Models.Features.PalletMen;
@@ -12,6 +13,7 @@ public class PalletManService(WsDbContext dbContext) : IPalletManService
     {
         Guid warehouse = dbContext.Lines.Where(i => i.Id == armId).Select(i => i.Warehouse.Id).Single();
         List<PalletMan> palletMen = dbContext.PalletMen
+            .AsNoTracking()
             .Where(i => i.Warehouse.Id == warehouse)
             .Select(i => new PalletMan
             {

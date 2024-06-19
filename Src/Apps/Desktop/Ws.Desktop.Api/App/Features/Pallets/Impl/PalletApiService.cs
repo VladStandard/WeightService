@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Extensions;
@@ -26,6 +27,7 @@ public class PalletApiService(
     public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId)
     {
         List<LabelInfo> labels = dbContext.Pallets
+            .AsNoTracking()
             .Where(p => p.Arm.Id == armId && p.Id == palletId)
             .ToLabelInfo(dbContext.Labels)
             .ToList();
@@ -40,6 +42,7 @@ public class PalletApiService(
             startTime < endTime;
 
         return dbContext.Pallets
+            .AsNoTracking()
             .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
             .Where(p => p.Arm.Id == armId)
             .OrderByDescending(p => p.CreateDt)
@@ -50,6 +53,7 @@ public class PalletApiService(
     {
         string numberStr = $"{number}";
         return dbContext.Pallets
+            .AsNoTracking()
             .Where(p => p.Arm.Id == armId && p.Number.ToString().Contains(numberStr))
             .ToPalletInfo(dbContext.Labels)
             .Take(10)
@@ -80,9 +84,8 @@ public class PalletApiService(
         Guid palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
 
         return dbContext.Pallets
-            .Where(p => p.Id == palletId)
             .ToPalletInfo(dbContext.Labels)
-            .Single();
+            .Single(p => p.Id == palletId);
     }
 
     #endregion

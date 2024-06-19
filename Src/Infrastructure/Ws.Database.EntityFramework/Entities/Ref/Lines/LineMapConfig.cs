@@ -1,26 +1,25 @@
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 
-internal static class LineMapExtension
+internal class LineMapConfig : IEntityTypeConfiguration<LineEntity>
 {
-    public static void MapLine(this ModelBuilder modelBuilder)
+    public void Configure(EntityTypeBuilder<LineEntity> builder)
     {
-        modelBuilder.Entity<LineEntity>(entity =>
-        {
-            entity.HasOne(l => l.Warehouse)
-                .WithMany()
-                .HasForeignKey("WAREHOUSE_UID")
-                .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(l => l.Warehouse)
+            .WithMany()
+            .HasForeignKey("WAREHOUSE_UID")
+            .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasOne(l => l.Printer)
-                .WithMany()
-                .HasForeignKey("PRINTER_UID")
-                .OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(l => l.Printer)
+            .WithMany()
+            .HasForeignKey("PRINTER_UID")
+            .OnDelete(DeleteBehavior.Restrict);
 
-            entity.HasMany(e => e.Plus)
-                .WithMany()
-                .UsingEntity(
+        builder.HasMany(e => e.Plus)
+            .WithMany()
+            .UsingEntity(
                 "ARMS_PLUS_FK",
                 l => l.HasOne(typeof(PluEntity))
                     .WithMany()
@@ -33,6 +32,5 @@ internal static class LineMapExtension
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasPrincipalKey(nameof(LineEntity.Id)),
                 j => j.HasKey("PLU_UID", "ARM_UID"));
-        });
     }
 }
