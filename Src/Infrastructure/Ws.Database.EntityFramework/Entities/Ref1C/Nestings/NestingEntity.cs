@@ -2,15 +2,12 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
-[Table(SqlTables.Nestings, Schema = SqlSchemas.Ref1C)]
 public sealed class NestingEntity : EfEntityBase
 {
-    [Column("BUNDLE_COUNT")]
     public short BundleCount { get; set; }
 
     #region Box
 
-    [ForeignKey("BOX_UID"), Column("BOX_UID")]
     public Guid BoxId { get; set; }
     public BoxEntity Box { get; set; } = new();
 
@@ -23,7 +20,8 @@ public sealed class NestingEntity : EfEntityBase
 
     #endregion
 
-    [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
+    [NotMapped]
+    public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
 
     public NestingEntity() { }
 
