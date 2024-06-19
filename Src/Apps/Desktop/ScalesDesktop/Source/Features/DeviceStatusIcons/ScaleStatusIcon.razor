@@ -1,0 +1,63 @@
+@using Blazor.Heroicons.Outline
+@using MassaK.Plugin.Abstractions.Enums
+@using Microsoft.FluentUI.AspNetCore.Components
+@using ScalesDesktop.Source.Shared.Services
+@implements IDisposable
+
+<Button
+  Size="ButtonSize.Icon"
+  Variant="ButtonVariant.Outline"
+  Class="relative !size-10"
+  OnClick="@PrintStatusMessage"
+>
+  <div class="@Css.Class("size-3 rounded-full shadow-sm overflow-hidden absolute -top-1 -right-1", GetIndicatorStyle)"></div>
+  <ScaleIcon class="@Css.Class("size-6", GetIconStyle)"/>
+</Button>
+
+@code {
+  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override void OnInitialized() => ScalesService.StatusChanged += StateHasChanged;
+
+  private string GetIconStyle => ScalesService.Status switch
+  {
+    MassaKStatus.Disabled => "text-muted-foreground",
+    MassaKStatus.Detached => "text-red-500",
+    MassaKStatus.Initializing => "text-amber-500",
+    _ => "text-green-500"
+  };
+
+  private string GetIndicatorStyle => ScalesService.Status switch
+  {
+    MassaKStatus.Disabled => "bg-muted-foreground",
+    MassaKStatus.Detached => "bg-red-500 animate-ping",
+    MassaKStatus.Initializing => "bg-amber-500",
+    _ => "bg-green-500"
+  };
+
+  private void PrintStatusMessage()
+  {
+    MassaKStatus scalesStatus = ScalesService.Status;
+    switch (scalesStatus)
+    {
+      case MassaKStatus.Detached:
+        ToastService.ShowError(Localizer["ScalesStatusDetached"]);
+        break;
+      case MassaKStatus.Ready:
+        ToastService.ShowSuccess(Localizer["ScalesStatusReady"]);
+        break;
+      case MassaKStatus.Disabled:
+        ToastService.ShowWarning(Localizer["ScalesStatusDisabled"]);
+        break;
+      case MassaKStatus.Initializing:
+        ToastService.ShowWarning(Localizer["ScalesStatusInitializing"]);
+        break;
+      default:
+        throw new ArgumentOutOfRangeException();
+    }
+  }
+
+  public void Dispose() => ScalesService.StatusChanged -= StateHasChanged;
+}

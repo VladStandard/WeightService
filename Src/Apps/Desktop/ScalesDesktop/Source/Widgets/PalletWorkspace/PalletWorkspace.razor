@@ -1,0 +1,46 @@
+@using ScalesDesktop.Source.Features
+@using Ws.Desktop.Models.Features.Pallets.Output
+
+<div class="size-full flex flex-col overflow-hidden">
+  <PalletWorkspaceHeader
+    TabsList="TabsButtonList"
+    @bind-CurrentTabId="@CurrentTabId"
+  />
+  <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
+    <Tabs ActiveTabId="@CurrentTabId">
+      <Tab Id="@typeof(PalletOverview).ToString()">
+        <PalletOverview Pallet="Pallet" />
+      </Tab>
+      <Tab Id="@typeof(LabelsGrid).ToString()">
+        <LabelsGrid Pallet="Pallet" />
+      </Tab>
+    </Tabs>
+  </div>
+</div>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  private List<KeyValuePair<string, string>> TabsButtonList { get; set; } = [];
+  private string CurrentTabId { get; set; } = typeof(PalletOverview).ToString();
+
+  [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
+
+  private PalletInfo PreviousPallet { get; set; } = default!;
+
+  protected override void OnInitialized()
+  {
+    PreviousPallet = Pallet;
+    TabsButtonList = [
+      new(typeof(PalletOverview).ToString(), WsDataLocalizer["ColData"]),
+      new(typeof(LabelsGrid).ToString(), WsDataLocalizer["ColLabel"])
+    ];
+  }
+
+  protected override void OnParametersSet()
+  {
+    if (PreviousPallet == Pallet) return;
+    PreviousPallet = Pallet;
+    CurrentTabId = typeof(PalletOverview).ToString();
+  }
+}

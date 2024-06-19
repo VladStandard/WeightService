@@ -1,8 +1,0 @@
-<div class="@Css.Class("size-12 rounded-lg border overflow-hidden flex items-center justify-center", Class)">
-  @ChildContent
-</div>
-
-@code {
-  [Parameter] public string Class { get; set; } = string.Empty;
-  [Parameter] public RenderFragment? ChildContent { get; set; }
-}

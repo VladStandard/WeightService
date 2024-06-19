@@ -1,0 +1,56 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref1c
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Clip>
+@attribute [Route($"{RouteUtils.SectionClips}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+<PageTitle>DeviceControl - @Localizer["SectionClips"]</PageTitle>
+
+<PageHeader>
+  <span>@Localizer["SectionClips"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="Clip"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColStatus"]"
+        Width="5%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          @if (context.Name.StartsWith('я'))
+          {
+            <div class="w-full flex items-center justify-center">
+              <TrashIcon class="text-red-600 size-5"/>
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(Clip.ChangeDt)"
+        Width="20%"/>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(Clip.Name)"
+        Width="55%"/>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWeight"]"
+        Field="@nameof(Clip.Weight)"
+        Width="20%"/>
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

@@ -1,0 +1,18 @@
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Print.StorageMethod>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(StorageMethodsUpdateForm).ToString()">
+    <StorageMethodsUpdateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(StorageMethodsUpdateForm).ToString(), Localizer["SectionStorageMethods"])
+  ];
+}

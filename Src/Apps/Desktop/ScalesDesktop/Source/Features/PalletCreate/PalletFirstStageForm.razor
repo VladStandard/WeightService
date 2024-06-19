@@ -1,0 +1,58 @@
+@using vNext.BlazorComponents.FluentValidation
+@using Ws.Desktop.Models.Features.Plus.Piece.Output
+
+<EditForm
+  Model="FormModel"
+  OnValidSubmit="@OnValidSubmit"
+  class="max-w-md mx-auto w-full flex flex-col space-y-4"
+>
+  <FluentValidationValidator Validator="@(new PalletPluStageFormValidator())" />
+  <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
+    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+      @if (armQuery.HasData)
+      {
+        <UseEndpoint Endpoint="@PluApi.PiecePlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
+          @if (pluQuery.HasData)
+          {
+            <SelectSingle
+              TItem="PluPiece"
+              Items="@pluQuery.Data"
+              @bind-SelectedItem="@FormModel.Plu"
+              @bind-SelectedItem:after="OnPluSelected"
+              Placeholder="@Localizer["PluSelectPlaceholder"]"
+              ItemDisplayName="entity => entity.Name"
+              IsFilterable
+            />
+          }
+          else
+          {
+            <Skeleton Class="h-10 w-full" />
+          }
+        </UseEndpoint>
+      }
+    </UseParameterlessEndpoint>
+    <FieldValidation For="@(() => FormModel.Plu)"/>
+  </FormFieldWrapper>
+  <FormFieldWrapper Label="@WsDataLocalizer["ColNesting"]" HtmlId="nesting">
+    <SelectSingle
+      TItem="Nesting"
+      Items="@(FormModel.Plu?.Nestings ?? [])"
+      @bind-SelectedItem="FormModel.Nesting"
+      Placeholder="@Localizer["NestingSelectPlaceholder"]"
+      ItemDisplayName="@(item => item.Name)"
+      IsDisabled="@(FormModel.Plu == null || !FormModel.Plu.Nestings.Any())"
+    />
+    <FieldValidation For="@(() => FormModel.Nesting)" />
+  </FormFieldWrapper>
+  <div class="w-full flex justify-end gap-2 py-2">
+    <Button
+      OnClick="@OnCancelAction"
+      Variant="ButtonVariant.Outline"
+    >
+      @Localizer["BtnCancel"]
+    </Button>
+    <Button Type="ButtonType.Submit">
+      @Localizer["BtnNext"]
+    </Button>
+  </div>
+</EditForm>

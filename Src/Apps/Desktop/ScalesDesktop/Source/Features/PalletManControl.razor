@@ -1,0 +1,44 @@
+@using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Shared.Services
+@implements IDisposable
+
+<div class="flex justify-between items-center w-full">
+  <div class="size-12 shrink-0 rounded-full flex items-center justify-center bg-secondary">
+    <UserIcon class="size-6" />
+  </div>
+  <div class="flex w-full flex-col px-3 justify-start">
+    <span class="font-medium text-sm truncate">@PalletContext.PalletMan?.Fio.DisplayShortName</span>
+    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
+      @if (query.HasData)
+      {
+        <span class="truncate text-sm">@query.Data.Warehouse</span>
+      }
+      else
+      {
+        <Skeleton Class="w-28 h-4"/>
+      }
+    </UseParameterlessEndpoint>
+  </div>
+  <Button
+    Class="shrink-0 border"
+    OnClick="@PalletContext.ResetPalletMan"
+    Variant="ButtonVariant.Secondary"
+  >
+    <ArrowLeftOnRectangleIcon class="size-4 mr-2" />
+    @Localizer["BtnExit"]
+  </Button>
+</div>
+
+@code {
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private ArmApi ArmApi { get; set; } = default!;
+
+  # endregion
+
+  protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
+
+  public void Dispose() => PalletContext.StateChanged -= StateHasChanged;
+}

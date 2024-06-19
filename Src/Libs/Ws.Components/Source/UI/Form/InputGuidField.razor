@@ -1,0 +1,16 @@
+@inherits BasicInput<Guid>
+
+<InputTextField @bind-Value="InputValue" @attributes="@AdditionalAttributes" />
+
+@code {
+  private string InputValue
+  {
+    get => Value.ToString().ToUpper();
+    set
+    {
+      bool result = Guid.TryParse(value, out Guid newGuid);
+      Value = result ? newGuid : Value;
+      ValueChanged.InvokeAsync(Value);
+    }
+  }
+}

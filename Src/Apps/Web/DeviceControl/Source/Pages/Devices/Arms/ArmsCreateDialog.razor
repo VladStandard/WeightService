@@ -1,0 +1,18 @@
+@using DeviceControl.Source.Widgets.Section
+@inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(ArmsCreateForm).ToString()">
+    <ArmsCreateForm ProductionSite="Content.ProductionSite" />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(ArmsCreateForm).ToString(), Localizer["SectionLines"])
+  ];
+}

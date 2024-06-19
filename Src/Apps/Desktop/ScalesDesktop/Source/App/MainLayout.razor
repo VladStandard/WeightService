@@ -1,0 +1,14 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using ScalesDesktop.Source.Features.ErrorBoundaries
+@inherits LayoutComponentBase
+
+<ArmErrorBoundary>
+  <div class="w-screen h-screen overflow-hidden text-black bg-secondary/[.3] overscroll-none">
+    @Body
+  </div>
+</ArmErrorBoundary>
+
+
+<FluentDialogProvider />
+<FluentTooltipProvider />
+<FluentToastProvider Position="@ToastPosition.TopCenter" />

@@ -1,0 +1,18 @@
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.Clip>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(ClipsUpdateForm).ToString()">
+    <ClipsUpdateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+    [
+      new(typeof(ClipsUpdateForm).ToString(), Localizer["SectionClips"])
+    ];
+}

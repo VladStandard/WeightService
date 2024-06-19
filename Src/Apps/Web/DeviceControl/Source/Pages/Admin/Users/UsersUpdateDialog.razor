@@ -1,0 +1,18 @@
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Users.User>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(UsersUpdateForm).ToString()">
+    <UsersUpdateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(UsersUpdateForm).ToString(), Localizer["SectionUsers"])
+  ];
+}

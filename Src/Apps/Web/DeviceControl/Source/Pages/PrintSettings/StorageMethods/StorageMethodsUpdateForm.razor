@@ -1,0 +1,35 @@
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.StorageMethod>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new StorageMethodsUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColData"]"
+      @bind-Value="@DialogItem.Zpl"
+      For="@(() => DialogItem.Zpl)"
+      IsCopyable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionStorageMethods}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

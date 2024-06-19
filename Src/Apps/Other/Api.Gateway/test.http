@@ -1,0 +1,5 @@
+GET https://scales-api-dev.kolbasa-vs.local/desktop/arms?name=PC473
+
+###
+
+GET https://localhost:7197/desktop/arms?name=PC473

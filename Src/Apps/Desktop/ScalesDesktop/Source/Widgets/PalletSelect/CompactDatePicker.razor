@@ -1,0 +1,18 @@
+@using Microsoft.FluentUI.AspNetCore.Components
+
+<FluentDatePicker
+  @bind-Value="@Value"
+  @bind-Value:after="@OnValueChanged"
+  DisabledDateFunc="@DisabledDateFunc"
+  Disabled="@IsDisabled"
+  Class="[&::part(root)]:!bg-inherit [&::part(root)]:!bg-none [&::part(end)]:!hidden [&::part(control)]:!text-xs [&::part(control)]:!text-center [&::part(control)]:w-20 [&::part(control)]:rounded-lg [&::part(control)]:overflow-hidden [&::part(control)]:bg-secondary [&::part(control):hover]:bg-secondary/80 [&::part(control)]:font-semibold [&::part(control)]:p-0 [&::part(control)]:cursor-pointer"
+/>
+
+@code {
+  [Parameter] public DateTime? Value { get; set; }
+  [Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
+  [Parameter] public Func<DateTime,bool>? DisabledDateFunc { get; set; }
+  [Parameter] public bool IsDisabled { get; set; }
+
+  private async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
+}

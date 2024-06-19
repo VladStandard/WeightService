@@ -1,0 +1,90 @@
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Ref1c.Plu
+@using SortDirection=Blazorise.SortDirection
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plu.Plu>
+@attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
+@rendermode InteractiveServer
+
+<PageTitle>DeviceControl - @Localizer["SectionPLU"]</PageTitle>
+
+<PageHeader>
+  <span>@Localizer["SectionPLU"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="Plu"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColStatus"]"
+        Width="5%"
+        Sortable="false"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          @if (context.Name.StartsWith('я'))
+          {
+            <div class="w-full flex items-center justify-center">
+              <TrashIcon class="text-red-600 size-5"/>
+            </div>
+          }
+          else if (context.TemplateUid == Guid.Empty || context.TemplateUid == null)
+          {
+            <div class="w-full flex items-center justify-center">
+              <BookmarkSlashIcon class="text-purple-500 size-5 transition-colors hover:text-purple-700 dark:hover:text-purple-300"/>
+            </div>
+          }
+          else if (!PluValidator.Validate(context).IsValid)
+          {
+            <div class="w-full flex items-center justify-center">
+              <ExclamationTriangleIcon class="text-orange-400 size-5"/>
+            </div>
+          }
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColNumber"]"
+        Field="@nameof(Plu.Number)"
+        FilterMethod="DataGridColumnFilterMethod.StartsWith"
+        Width="10%"
+        SortDirection="SortDirection.Ascending"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(Plu.Name)"
+        FilterMethod="DataGridColumnFilterMethod.Contains"
+        Width="45%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(Plu.IsCheckWeight)"
+        Width="10%"
+        Filterable="false"
+      >
+        <DisplayTemplate>
+          <span>
+            @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
+          </span>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(Plu.ChangeDt)"
+        Width="15%"
+        Filterable="false"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

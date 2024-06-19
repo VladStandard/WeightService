@@ -1,0 +1,58 @@
+@using DeviceControl.Source.Widgets.Section.FormActions
+@using DeviceControl.Source.Widgets.Section.FormFields
+@using TscZebra.Plugin.Abstractions.Enums
+@using Ws.Shared.Utils
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Printer>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new PrintersUpdateFormValidator())"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionIpField
+      Label="@($"IP {Localizer["FormPrinterControl"]}")"
+      @bind-Value="@DialogItem.Ip"
+      For="@(() => DialogItem.Ip)"
+      Path="@($"http://{DialogItem.Ip}")"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterTypes"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="PrinterTypes"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
+      Disabled="IsOnlyView"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@DialogItem.ProductionSite.Name"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
+
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
+  </ActionsContent>
+</SectionForm>

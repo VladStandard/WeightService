@@ -1,0 +1,43 @@
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.Domain.Models.Entities.Diag
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Diag.TableSize>
+@rendermode InteractiveServer
+
+<PageHeader>
+  <span>@DbFile.FileName</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridFileSize CurrentSize="@DbFile.SizeMb" MaxSize="@DbFile.MaxSizeMb" />
+</PageHeader>
+
+<DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+  <DataGridContainer
+    TItem="TableSize"
+    Items="SectionItems"
+    ItemsPerPage="6"
+    IsForcePagination
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColScheme"]"
+        Field="@nameof(TableSize.Schema)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColTable"]"
+        Field="@nameof(TableSize.Table)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCount"]"
+        Field="@nameof(TableSize.RowsCount)"
+        Width="25%"
+      />
+      <DataGridColumn
+        Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
+        Field="@nameof(TableSize.UsedSpaceMb)"
+        Width="25%"
+      />
+    </ColumnsContent>
+  </DataGridContainer>
+</DataGridWrapper>

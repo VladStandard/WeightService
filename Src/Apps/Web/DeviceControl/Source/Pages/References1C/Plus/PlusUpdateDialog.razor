@@ -1,0 +1,30 @@
+@using DeviceControl.Source.Pages.References1C.Plus.Characteristics
+@using DeviceControl.Source.Widgets.Section
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.Plu.Plu>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(PlusUpdateForm).ToString()">
+    <PlusUpdateForm />
+  </Tab>
+  <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()">
+    @if (!DialogItem.IsCheckWeight)
+    {
+      <PieceCharacteristicsDataGrid/>
+    }
+    else
+    {
+      <WeightCharacteristicsDataGrid />
+    }
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(PlusUpdateForm).ToString(), Localizer["SectionPLU"]),
+    new(typeof(PieceCharacteristicsDataGrid).ToString(), Localizer["SectionPluCharacteristics"])
+  ];
+}
