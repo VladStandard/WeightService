@@ -42,7 +42,7 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
         if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
             User = UserService.GetItemByUid(userUid);
 
-        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
         IsOnlyView = !IsSeniorSupport && !User.ProductionSite.Equals(DialogItem.ProductionSite);
     }
 

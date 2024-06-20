@@ -4,7 +4,7 @@
 
 @inherits SectionDataGridPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
-@attribute [Authorize(Policy = PolicyEnum.SupportSenior)]
+@attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle>

@@ -35,7 +35,7 @@ public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
 
         if (userPrincipal.Identity?.Name != null)
         {
-            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior))
+            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport))
                 .Succeeded;
             IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
                           ProductionSite.Uid.IsMax();

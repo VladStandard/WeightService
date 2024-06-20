@@ -49,7 +49,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
         await base.OnInitializedAsync();
 
         IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
-        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
 
         DialogItem.Printer = Printers.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
         DialogItem.Warehouse = Warehouses.FirstOrDefault() ?? new();

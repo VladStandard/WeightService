@@ -45,7 +45,7 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
 
         ProductionSite productionSite = User.ProductionSite;
 
-        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
 
         IsOnlyView = !IsSeniorSupport && !productionSite.Equals(ProductionSite);
     }

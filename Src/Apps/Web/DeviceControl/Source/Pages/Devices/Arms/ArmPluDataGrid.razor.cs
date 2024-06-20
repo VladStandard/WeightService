@@ -41,7 +41,7 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
 
         if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
             User = UserService.GetItemByUid(userUid);
-        bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
         IsAllowToEdit = isSeniorSupport || (User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
 
         SelectPluEntities = [.. PluService.GetAll()];

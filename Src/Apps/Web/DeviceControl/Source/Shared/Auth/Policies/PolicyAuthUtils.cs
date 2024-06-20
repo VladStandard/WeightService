@@ -11,16 +11,16 @@ public static class PolicyAuthUtils
             builder.RequireRole(ClaimTypes.Role, RoleEnum.Admin)
         );
 
-        options.AddPolicy(PolicyEnum.SupportSenior, builder =>
+        options.AddPolicy(PolicyEnum.SeniorSupport, builder =>
             builder.RequireAssertion(x =>
-                x.User.HasRole(RoleEnum.Admin, RoleEnum.SupportSenior)
+                x.User.HasRole(RoleEnum.Admin, RoleEnum.SeniorSupport)
             )
         );
 
         options.AddPolicy(PolicyEnum.Support, builder =>
             builder.RequireAssertion(x =>
                 x.User.HasRole(
-                    RoleEnum.Support, RoleEnum.Admin, RoleEnum.SupportSenior
+                    RoleEnum.Support, RoleEnum.Admin, RoleEnum.SeniorSupport
                 )
             )
         );

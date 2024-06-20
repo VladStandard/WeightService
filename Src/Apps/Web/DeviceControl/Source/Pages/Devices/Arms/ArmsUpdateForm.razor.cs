@@ -54,7 +54,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
         ProductionSite productionSite = User.ProductionSite;
 
-        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
 
         IsOnlyView = !IsSeniorSupport && !productionSite.Equals(ProductionSite);
     }

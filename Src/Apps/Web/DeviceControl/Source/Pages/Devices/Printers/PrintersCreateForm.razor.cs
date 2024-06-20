@@ -45,7 +45,7 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
             User = UserService.GetItemByUid(userUid);
         DialogItem.ProductionSite = ProductionSite;
 
-        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior))
+        IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport))
             .Succeeded;
     }
 
