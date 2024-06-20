@@ -6,6 +6,7 @@ using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Domain.Services.Features.Users;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -19,11 +20,11 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
     [Inject] private IPluService PluService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-    [Inject] private AuthenticationStateProvider AuthProvider { get; set; } = default!;
 
     # endregion
 
     [CascadingParameter(Name = "DialogItem")] public Arm Arm { get; set; } = null!;
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
 
     private HashSet<Plu> SelectPluEntities { get; set; } = [];
     private HashSet<Plu> SelectedPluEntities { get; set; } = [];
@@ -35,11 +36,13 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
     {
         await base.OnInitializedAsync();
 
-        ClaimsPrincipal userPrincipal = (await AuthProvider.GetAuthenticationStateAsync()).User;
-        if (userPrincipal is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+        Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+            User = UserService.GetItemByUid(userUid);
         bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
-        IsAllowToEdit = isSeniorSupport || (User.ProductionSite != null && User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
+        IsAllowToEdit = isSeniorSupport || (User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
 
         SelectPluEntities = [.. PluService.GetAll()];
         SelectedPluEntities = [.. ArmService.GetArmAllPlus(Arm)];

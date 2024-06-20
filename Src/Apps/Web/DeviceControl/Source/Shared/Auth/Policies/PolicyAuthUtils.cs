@@ -6,6 +6,7 @@ public static class PolicyAuthUtils
 {
     public static void RegisterAuthorization(AuthorizationOptions options)
     {
+
         options.AddPolicy(PolicyEnum.Admin, builder =>
             builder.RequireRole(ClaimTypes.Role, RoleEnum.Admin)
         );

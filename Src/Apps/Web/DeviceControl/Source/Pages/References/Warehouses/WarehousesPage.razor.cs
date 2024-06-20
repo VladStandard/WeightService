@@ -6,6 +6,7 @@ using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
 using Ws.Shared.Extensions;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.References.Warehouses;
 
@@ -34,11 +35,12 @@ public sealed partial class WarehousesPage : SectionDataGridPageBase<Warehouse>
     protected override async Task OnInitializedAsync()
     {
         ClaimsPrincipal userPrincipal = (await AuthState).User;
+        Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
-        if (userPrincipal is { Identity.Name: not null })
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
         {
-            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
-            ProductionSite = User.ProductionSite ?? new();
+            User = UserService.GetItemByUid(userUid);
+            ProductionSite = User.ProductionSite;
             IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior))
                 .Succeeded;
             IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||

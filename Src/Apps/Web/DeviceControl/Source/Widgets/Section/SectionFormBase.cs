@@ -9,9 +9,9 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private AuthenticationStateProvider AuthProvider { get; set; } = default!;
 
     [CascadingParameter(Name = "DialogItem")] protected TItem DialogItem { get; set; } = new();
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
 
     protected ClaimsPrincipal UserPrincipal { get; private set; } = new();
@@ -20,8 +20,8 @@ public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
 
     protected override void OnInitialized() => DialogItemCopy = DialogItem.DeepClone();
 
-    protected override async Task OnInitializedAsync() =>
-        UserPrincipal = (await AuthProvider.GetAuthenticationStateAsync()).User;
+    protected override async Task OnInitializedAsync()
+        => UserPrincipal = (await AuthState).User;
 
     protected virtual Task DeleteItemAction(TItem item) =>
         throw new NotImplementedException();

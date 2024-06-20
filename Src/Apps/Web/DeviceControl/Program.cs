@@ -1,9 +1,12 @@
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using DeviceControl.Source.App;
+using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.RenderZpl;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Refit;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 
@@ -24,6 +27,14 @@ builder.Services.AddLabelsServices();
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<Redirector>();
 builder.Services.AddScoped<IRenderLabelService, RenderLabelService>();
+
+string keycloakAdminUrl = $"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}";
+builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
+builder.Services.AddRefitClient<IKeycloakApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
+    .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
+
+builder.Services.AddScoped<UserApi>();
 
 WebApplication app = builder.Build();
 

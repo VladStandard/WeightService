@@ -10,7 +10,8 @@ public abstract class ClaimsMapping
         { ClaimTypes.Name, "preferred_username" },
         { ClaimTypes.Surname, "family_name" },
         { ClaimTypes.GivenName, "given_name" },
-        { ClaimTypes.Email, "email" }
+        { ClaimTypes.Email, "email" },
+        { ClaimTypes.NameIdentifier, "sub" }
     };
 
     public static void MapJwtClaims(Dictionary<string, string> claimsDict, ClaimsIdentity claimsIdentity, string clientId)

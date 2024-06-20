@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
@@ -7,6 +8,7 @@ using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
 using Ws.Shared.Enums;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -45,10 +47,12 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
     {
         await base.OnInitializedAsync();
 
-        if (UserPrincipal is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
+        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
-        ProductionSite productionSite = User.ProductionSite ?? new();
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+            User = UserService.GetItemByUid(userUid);
+
+        ProductionSite productionSite = User.ProductionSite;
 
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
 

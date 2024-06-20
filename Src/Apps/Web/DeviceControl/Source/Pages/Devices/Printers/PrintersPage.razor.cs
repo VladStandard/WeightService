@@ -7,6 +7,7 @@ using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
 using Ws.Shared.Extensions;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -33,11 +34,12 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         ClaimsPrincipal userPrincipal = (await AuthState).User;
+        Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
-        if (userPrincipal is { Identity.Name: not null })
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
         {
-            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
-            ProductionSite = User.ProductionSite ?? new();
+            User = UserService.GetItemByUid(userUid);
+            ProductionSite = User.ProductionSite;
             IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
             IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded || ProductionSite.Uid.IsMax();
         }

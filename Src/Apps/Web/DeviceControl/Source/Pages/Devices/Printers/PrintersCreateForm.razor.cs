@@ -1,4 +1,5 @@
 using System.Net;
+using System.Security.Claims;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
@@ -6,6 +7,7 @@ using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -37,8 +39,10 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        if (UserPrincipal is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
+
+        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+            User = UserService.GetItemByUid(userUid);
         DialogItem.ProductionSite = ProductionSite;
 
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior))

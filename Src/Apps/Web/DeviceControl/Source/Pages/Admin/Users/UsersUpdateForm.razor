@@ -1,48 +1,48 @@
-@using DeviceControl.Source.Widgets.Section.FormActions
-@using DeviceControl.Source.Widgets.Section.FormFields
-@using Ws.Domain.Models.Entities.Ref
-@using Ws.Domain.Models.Entities.Users
-@using DeviceControl.Source.Widgets.Section
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Users.User>
-
-<SectionForm
-  FormModel="@DialogItem"
-  CreateDate="@DialogItem.CreateDt"
-  Validator="@(new UsersUpdateFormValidator())"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@UpdateItem"
->
-  <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid" />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColName"]"
-      Value="@DialogItem.Name"
-    />
-
-    <SectionSelectMultipleField
-      TItem="Claim"
-      Items="RolesEntities"
-      Label="@WsDataLocalizer["ColRoles"]"
-      @bind-Value="@DialogItem.Claims"
-      ItemDisplayName="item => item.Name"
-    />
-
-    <SectionSelectSingleField
-      TItem="ProductionSite"
-      Items="ProductionSite"
-      Label="@WsDataLocalizer["ColProductionSite"]"
-      Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"
-      @bind-Value="@DialogItem.ProductionSite"
-      ItemDisplayName="@(item => item.Name)"
-      For="@(() => DialogItem.ProductionSite!)"
-      IsFilterable
-    />
-  </FieldsContent>
-  <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionUsers}/{DialogItem.Uid}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
-    <SectionFormActionRelogin User="DialogItem" />
-  </ActionsContent>
-</SectionForm>
+@* @using DeviceControl.Source.Widgets.Section.FormActions *@
+@* @using DeviceControl.Source.Widgets.Section.FormFields *@
+@* @using Ws.Domain.Models.Entities.Ref *@
+@* @using Ws.Domain.Models.Entities.Users *@
+@* @using DeviceControl.Source.Widgets.Section *@
+@* @inherits SectionFormBase<Ws.Domain.Models.Entities.Users.User> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@DialogItem" *@
+@*   CreateDate="@DialogItem.CreateDt" *@
+@*   Validator="@(new UsersUpdateFormValidator())" *@
+@*   OnCancelAction="@OnCancelAction" *@
+@*   OnSubmitAction="@UpdateItem" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionAdminGuidField Value="@DialogItem.Uid" /> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@WsDataLocalizer["ColName"]" *@
+@*       Value="@DialogItem.Name" *@
+@*     /> *@
+@* *@
+@*     <SectionSelectMultipleField *@
+@*       TItem="Claim" *@
+@*       Items="RolesEntities" *@
+@*       Label="@WsDataLocalizer["ColRoles"]" *@
+@*       @bind-Value="@DialogItem.Claims" *@
+@*       ItemDisplayName="item => item.Name" *@
+@*     /> *@
+@* *@
+@*     <SectionSelectSingleField *@
+@*       TItem="ProductionSite" *@
+@*       Items="ProductionSite" *@
+@*       Label="@WsDataLocalizer["ColProductionSite"]" *@
+@*       Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)" *@
+@*       @bind-Value="@DialogItem.ProductionSite" *@
+@*       ItemDisplayName="@(item => item.Name)" *@
+@*       For="@(() => DialogItem.ProductionSite!)" *@
+@*       IsFilterable *@
+@*     /> *@
+@*   </FieldsContent> *@
+@*   <ActionsContent> *@
+@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionUsers}/{DialogItem.Uid}")" /> *@
+@*     <SectionFormActionReset OnClick="@ResetAction" /> *@
+@*     <SectionFormActionDelete OnClick="@DeleteItem" /> *@
+@*     <SectionFormActionRelogin User="DialogItem" /> *@
+@*   </ActionsContent> *@
+@* </SectionForm> *@

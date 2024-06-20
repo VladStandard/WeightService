@@ -1,10 +1,9 @@
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
-using Ws.Domain.Models.Common;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem : EntityBase, new()
+public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem : new()
 {
     #region Inject
 
@@ -28,7 +27,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
         {
             OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
                 await JsRuntime.InvokeVoidAsync("animateDialogClosing", instance.Id)
-
             ),
             OnDialogOpened = EventCallback.Factory.Create<DialogInstance>(this, async instance =>
                 await JsRuntime.InvokeVoidAsync("animateDialogOpening", instance.Id)
@@ -82,10 +80,10 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
         switch (dialogResult.DataAction)
         {
             case SectionDialogResultEnum.Delete:
-                SectionItems = SectionItems.Where(entity => entity.Uid != item.Uid);
+                SectionItems = SectionItems.Where(entity => entity != null && entity.Equals(item));
                 break;
             case SectionDialogResultEnum.Update:
-                SectionItems = SectionItems.Where(entity => entity.Uid != item.Uid).Concat(new[] { item });
+                SectionItems = SectionItems.Where(entity => entity != null && entity.Equals(item)).Concat(new[] { item });
                 break;
             case SectionDialogResultEnum.Create:
                 SectionItems = SectionItems.Concat(new[] { item });
@@ -117,7 +115,7 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
         try
         {
             await DeleteItemAction(item);
-            SectionItems = SectionItems.Where(entity => !entity.Equals(item));
+            SectionItems = SectionItems.Where(entity => entity != null && !entity.Equals(item));
             ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
             StateHasChanged();
         }
@@ -133,7 +131,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
         {
             SectionItems = await GetItemsAsync(SetSqlSearchingCast);
             IsFirstLoading = false;
-            SectionItems = SectionItems.Where(i => !i.IsNew);
             TItem? firstItem = SectionItems.FirstOrDefault();
             if (firstItem != null) await OpenDataGridEntityModal(firstItem);
             return;

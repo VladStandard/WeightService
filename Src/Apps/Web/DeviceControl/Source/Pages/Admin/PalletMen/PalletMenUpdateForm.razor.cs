@@ -1,9 +1,11 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
+using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
@@ -37,10 +39,11 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
     {
         await base.OnInitializedAsync();
 
-        if (UserPrincipal is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(UserPrincipal.Identity.Name);
+        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+            User = UserService.GetItemByUid(userUid);
 
-        ProductionSite productionSite = User.ProductionSite ?? new();
+        ProductionSite productionSite = User.ProductionSite;
 
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SupportSenior)).Succeeded;
 

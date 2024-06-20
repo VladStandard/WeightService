@@ -1,58 +1,80 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
-@using Ws.Domain.Models.Entities.Users
 @using DeviceControl.Source.Widgets.Section
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.User>
+@using Blazor.Heroicons.Outline
+
+@inherits SectionDataGridPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.SupportSenior)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle>
 
-<PageHeader>
-  <span>@Localizer["SectionUsers"]</span>
-  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-</PageHeader>
+<UseParameterlessEndpoint Endpoint="@UserApi.UsersEndpoint" Context="usersQuery">
+  <PageHeader>
+    <span>@Localizer["SectionUsers"]</span>
+    <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+    <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+    <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+  </PageHeader>
 
-<DataGridWrapper>
-  <DataGridContainer
-    TItem="User"
-    Items="SectionItems"
-    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-  >
-    <ColumnsContent>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColActive"]"
-        Field="@nameof(User.LoginDt)"
-        Width="8%"
-      >
-        <DisplayTemplate>
-          <div class="flex items-center justify-center size-full">
-            <div class="size-3 rounded-full overflow-hidden @((DateTime.Now - context.LoginDt).TotalMinutes <= 5 ? "bg-green-400" : "bg-gray-600")"></div>
-          </div>
-        </DisplayTemplate>
-      </DataGridColumn>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColLoginDt"]"
-        Field="@nameof(User.LoginDt)"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(User.Name)"
-        Width="40%"
-      />
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColProductionSite"]"
-        Field="ProductionSite.Name"
-        Width="40%"
-      />
-    </ColumnsContent>
-    <ContextMenuContent>
-      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
-      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
-    </ContextMenuContent>
-  </DataGridContainer>
-</DataGridWrapper>
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="UserWithProductionSite"
+      Items="@(usersQuery.HasData ? GetAllUsers(usersQuery.Data) : [])"
+      OnItemSelect="@(item => OpenDataGridEntityModal(item))">
+      <ColumnsContent>
+        @* <DataGridColumn *@
+        @*   Caption="@WsDataLocalizer["ColActive"]" *@
+        @*   Field="@nameof(UserWithWarehouse.User.)" *@
+        @*   Width="8%" *@
+        @* > *@
+        @*   <DisplayTemplate> *@
+        @*     <div class="flex items-center justify-center size-full"> *@
+        @*       <div class="size-3 rounded-full overflow-hidden @((DateTime.Now - context.LoginDt).TotalMinutes <= 5 ? "bg-green-400" : "bg-gray-600")"></div> *@
+        @*     </div> *@
+        @*   </DisplayTemplate> *@
+        @* </DataGridColumn> *@
+        @* <DataGridColumn *@
+        @*   Caption="@WsDataLocalizer["ColLoginDt"]" *@
+        @*   Field="@nameof(User.LoginDt)" *@
+        @*   Width="20%" *@
+        @* /> *@
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="KeycloakUser.Username"
+          Width="20%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="KeycloakUser.FirstName"
+          Width="20%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="KeycloakUser.LastName"
+          Width="20%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColProductionSite"]"
+          Field="ProductionSite.Name"
+          Width="35%"/>
+        <DataGridColumn Width="5%">
+          <DisplayTemplate>
+            <div class="size-full flex items-center justify-center">
+              <Button
+                Variant="ButtonVariant.Outline"
+                Size="ButtonSize.Icon"
+                OnClick="@(() => LogoutUser(context.KeycloakUser.Id))"
+              >
+                <ArrowLeftOnRectangleIcon class="size-5" />
+              </Button>
+            </div>
+          </DisplayTemplate>
+        </DataGridColumn>
+      </ColumnsContent>
+      @* <ContextMenuContent> *@
+      @*   <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" /> *@
+      @*   <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" /> *@
+      @*   <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
+      @* </ContextMenuContent> *@
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseParameterlessEndpoint>
+
