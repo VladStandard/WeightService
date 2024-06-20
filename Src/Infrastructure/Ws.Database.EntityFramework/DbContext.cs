@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;
-using Ws.Database.EntityFramework.Entities.Ref.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 using Ws.Database.EntityFramework.Entities.Ref.Printers;
@@ -36,7 +35,6 @@ public class WsDbContext : DbContext
     public DbSet<BrandEntity> Brands { get; set; }
     public DbSet<ProductionSiteEntity> ProductionSites { get; set; }
     public DbSet<StorageMethodEntity> StorageMethods { get; set; }
-    public DbSet<ClaimEntity> Claims { get; set; }
     public DbSet<TemplateEntity> Templates { get; set; }
     public DbSet<BoxEntity> Boxes { get; set; }
     public DbSet<ClipEntity> Clips { get; set; }

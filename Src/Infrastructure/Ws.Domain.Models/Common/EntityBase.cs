@@ -7,7 +7,7 @@ namespace Ws.Domain.Models.Common;
 [DebuggerDisplay("{ToString()}")]
 public abstract class EntityBase
 {
-    public virtual Guid Uid { get; protected set; } = Guid.Empty;
+    public virtual Guid Uid { get; set; } = Guid.Empty;
     public virtual DateTime CreateDt { get; set; } = DateTime.MinValue;
     public virtual DateTime ChangeDt { get; set; } = DateTime.MinValue;
     public virtual bool IsExists => !IsNew;

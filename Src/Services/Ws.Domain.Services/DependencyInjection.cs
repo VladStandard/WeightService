@@ -4,7 +4,6 @@ using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Boxes;
 using Ws.Domain.Services.Features.Brands;
 using Ws.Domain.Services.Features.Bundles;
-using Ws.Domain.Services.Features.Claims;
 using Ws.Domain.Services.Features.Clips;
 using Ws.Domain.Services.Features.DatabaseFiles;
 using Ws.Domain.Services.Features.Labels;
@@ -37,7 +36,6 @@ public static class DependencyInjection
         services.AddScoped<IBoxService, BoxService>();
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();
-        services.AddScoped<IClaimService, ClaimService>();
         services.AddScoped<IClipService, ClipService>();
         services.AddScoped<IDatabaseFileService, DatabaseFileService>();
         services.AddScoped<ILabelService, LabelService>();
