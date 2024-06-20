@@ -14,7 +14,7 @@ internal sealed class SqlUserMap : ClassMapping<User>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.GuidComb);
+            m.Generator(Generators.Assigned);
         });
 
         ManyToOne(x => x.ProductionSite, m =>

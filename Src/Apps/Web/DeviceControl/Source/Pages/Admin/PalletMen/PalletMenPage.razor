@@ -3,6 +3,7 @@
 @using Ws.Domain.Models.Entities.Users
 @using Ws.Domain.Models.ValueTypes
 @using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Features
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Users.PalletMan>
 @attribute [Route($"{RouteUtils.SectionPalletMen}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -10,51 +11,53 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionPalletMen"]</PageTitle>
 
-<PageHeader>
-  <span>@Localizer["SectionLines"]</span>
-  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-  <div class="w-64">
-    <SelectSingle
-      TItem="ProductionSite"
-      Items="ProductionSiteEntities"
-      @bind-SelectedItem="ProductionSite"
-      @bind-SelectedItem:after="@UpdateData"
-      ItemDisplayName="item => item.Name"
-      IsDisabled="@(!IsSeniorSupport)"
-      IsFilterable
-    />
-  </div>
-</PageHeader>
+<UserProductionSiteErrorSuspense>
+  <PageHeader>
+    <span>@Localizer["SectionPalletMen"]</span>
+    <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+    <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+    <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+    <div class="w-64">
+      <SelectSingle
+        TItem="ProductionSite"
+        Items="ProductionSiteEntities"
+        @bind-SelectedItem="ProductionSite"
+        @bind-SelectedItem:after="@UpdateData"
+        ItemDisplayName="item => item.Name"
+        IsDisabled="@(!IsSeniorSupport)"
+        IsFilterable
+      />
+    </div>
+  </PageHeader>
 
-<DataGridWrapper>
-  <DataGridContainer
-    TItem="PalletMan"
-    Items="SectionItems"
-    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-  >
-    <ColumnsContent>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(PalletMan.ChangeDt)"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColFIO"]"
-        Field=@($"{nameof(PalletMan.Fio)}.{nameof(Fio.DisplayFull)}")
-        Width="40%"
-      />
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColWarehouse"]"
-        Field="@($"{nameof(PalletMan.Warehouse)}.{nameof(Warehouse.Name)}")"
-        Width="40%"
-      />
-    </ColumnsContent>
-    <ContextMenuContent>
-      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
-      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
-    </ContextMenuContent>
-  </DataGridContainer>
-</DataGridWrapper>
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="PalletMan"
+      Items="SectionItems"
+      OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColChangeDt"]"
+          Field="@nameof(PalletMan.ChangeDt)"
+          Width="20%"
+        />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColFIO"]"
+          Field=@($"{nameof(PalletMan.Fio)}.{nameof(Fio.DisplayFull)}")
+          Width="40%"
+        />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColWarehouse"]"
+          Field="@($"{nameof(PalletMan.Warehouse)}.{nameof(Warehouse.Name)}")"
+          Width="40%"
+        />
+      </ColumnsContent>
+      <ContextMenuContent>
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+      </ContextMenuContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UserProductionSiteErrorSuspense>

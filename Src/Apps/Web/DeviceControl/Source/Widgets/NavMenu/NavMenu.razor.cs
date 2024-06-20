@@ -9,7 +9,6 @@ namespace DeviceControl.Source.Widgets.NavMenu;
 public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IUserService UserService { get; set; } = default!;
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
 
     private bool IsProduction { get; set; }
@@ -92,7 +91,6 @@ public sealed partial class NavMenu : ComponentBase
             [
                 new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyEnum.Support),
                 new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyEnum.SupportSenior),
-                new(Localizer["SectionRoles"], RouteUtils.SectionRoles, PolicyEnum.Admin)
             ]
         }
         // new()

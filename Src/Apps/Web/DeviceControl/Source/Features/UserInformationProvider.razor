@@ -1,0 +1,29 @@
+@using System.Security.Claims
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.Domain.Models.Entities.Users
+@using Ws.Domain.Services.Features.Users
+@using Claim = System.Security.Claims.Claim
+
+<CascadingValue TValue="ProductionSite" Value="UserProductionSite">
+  @ChildContent
+</CascadingValue>
+
+
+@code {
+  [Inject] private IUserService UserService { get; set; } = default!;
+  [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  public ProductionSite UserProductionSite { get; set; } = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    ClaimsPrincipal userPrincipal = (await AuthState).User;
+    Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+    if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+    {
+      User user = UserService.GetItemByUid(userUid);
+      UserProductionSite = user.ProductionSite;
+    }
+  }
+}

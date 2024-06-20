@@ -21,6 +21,9 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
 
     private IEnumerable<User> UsersRelations { get; set; } = [];
 
+    protected override async Task OpenDataGridEntityModal(UserWithProductionSite item)
+        => await OpenSectionModal<UsersUpdateDialog>(item);
+
     protected override IEnumerable<UserWithProductionSite> SetSqlSectionCast()
     {
         UsersRelations = UserService.GetAll();
@@ -37,18 +40,5 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
             KeycloakUser = keycloakUser,
             ProductionSite = userDictionary.TryGetValue(keycloakUser.Id, out User? user) ? user.ProductionSite : null
         }).ToList();
-    }
-
-    private async Task LogoutUser(Guid userId)
-    {
-        try
-        {
-            await KeycloakApi.LogoutUser(userId);
-            ToastService.ShowSuccess("User logged out");
-        }
-        catch (Exception e)
-        {
-            ToastService.ShowError($"Failed to log out user {e.Message}");
-        }
     }
 }

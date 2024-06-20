@@ -15,17 +15,17 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<Printer>
 {
     #region Inject
 
-    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
-    [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 
     #endregion
 
-    private User User { get; set; } = new();
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
     private ProductionSite ProductionSite { get; set; } = new();
     private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
     private bool IsSeniorSupport { get; set; }
@@ -34,12 +34,10 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         ClaimsPrincipal userPrincipal = (await AuthState).User;
-        Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        ProductionSite = UserProductionSite;
 
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
+        if (userPrincipal.Identity?.Name != null)
         {
-            User = UserService.GetItemByUid(userUid);
-            ProductionSite = User.ProductionSite;
             IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SupportSenior)).Succeeded;
             IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded || ProductionSite.Uid.IsMax();
         }

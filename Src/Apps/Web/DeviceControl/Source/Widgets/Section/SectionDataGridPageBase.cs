@@ -72,18 +72,18 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
         await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem> { Item = sectionEntity },
             DialogParameters);
 
-    private Task HandleDialogCallback(DialogResult result)
+    private async Task HandleDialogCallback(DialogResult result)
     {
-        if (result.Cancelled || result.Data is not SectionDialogContent<TItem> dialogResult) return Task.CompletedTask;
+        if (result.Cancelled || result.Data is not SectionDialogContent<TItem> dialogResult) return;
         TItem item = dialogResult.Item;
 
         switch (dialogResult.DataAction)
         {
             case SectionDialogResultEnum.Delete:
-                SectionItems = SectionItems.Where(entity => entity != null && entity.Equals(item));
+                SectionItems = SectionItems.Where(entity => entity != null && !entity.Equals(item));
                 break;
             case SectionDialogResultEnum.Update:
-                SectionItems = SectionItems.Where(entity => entity != null && entity.Equals(item)).Concat(new[] { item });
+                await UpdateData();
                 break;
             case SectionDialogResultEnum.Create:
                 SectionItems = SectionItems.Concat(new[] { item });
@@ -93,8 +93,6 @@ public abstract class SectionDataGridPageBase<TItem> : ComponentBase where TItem
             default:
                 throw new ArgumentOutOfRangeException();
         }
-
-        return Task.CompletedTask;
     }
 
     protected async Task UpdateData()

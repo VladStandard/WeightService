@@ -1,0 +1,21 @@
+@using Ws.Domain.Models.Entities.Ref
+
+@if (UserProductionSite.IsNew)
+{
+  <div class="size-full flex items-center justify-center p-6">
+    <div>
+      Площадка не настроена для данного аккаунта. Чтобы воспользоваться данной страницей необходимо настроить аккаунт. Обратитесь к поддержке.
+    </div>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+
+@code {
+  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+}

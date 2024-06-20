@@ -38,7 +38,7 @@
             </div>
             <div class="flex flex-col w-full text-xs truncate">
               <span>@GetUserShortName()</span>
-              <span>@User.Identity.Name</span>
+              <span>@User.Identity?.Name</span>
             </div>
           </div>
           <form method="post" action="@($"{RouteUtils.Authorization}/logout")" class="shrink-0">
