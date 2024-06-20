@@ -1,4 +1,3 @@
-using DeviceControl.Source.Shared.Auth.ClaimsTransform.CacheProviders.Common;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Claims;
@@ -16,7 +15,6 @@ public sealed partial class UsersUpdateForm : SectionFormBase<User>
     [Inject] private IClaimService ClaimService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
-    [Inject] private IClaimsCacheProvider ClaimsCacheProvider { get; set; } = default!;
 
     #endregion
 
@@ -33,13 +31,13 @@ public sealed partial class UsersUpdateForm : SectionFormBase<User>
     protected override User UpdateItemAction(User item)
     {
         UserService.Update(item);
-        ClaimsCacheProvider.ClearCacheByUserName(item.Name);
+        // ClaimsCacheProvider.ClearCacheByUserName(item.Name); TODO: fix
         return item;
     }
 
     protected override Task DeleteItemAction(User item)
     {
-        ClaimsCacheProvider.ClearCacheByUserName(item.Name);
+        // ClaimsCacheProvider.ClearCacheByUserName(item.Name); TODO: fix
         UserService.Delete(item);
         return Task.CompletedTask;
     }

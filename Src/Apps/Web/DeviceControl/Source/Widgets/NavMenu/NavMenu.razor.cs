@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
-using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Users;
+using Ws.Shared.Extensions;
 using Ws.Shared.Utils;
 
 namespace DeviceControl.Source.Widgets.NavMenu;
@@ -10,13 +10,11 @@ public sealed partial class NavMenu : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
-
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
-
 
     private bool IsProduction { get; set; }
     private IEnumerable<MenuSection> MenuSections { get; set; } = [];
-    private User User { get; set; } = new();
+    private ClaimsPrincipal User { get; set; } = default!;
 
     protected override void OnInitialized()
     {
@@ -24,12 +22,7 @@ public sealed partial class NavMenu : ComponentBase
         MenuSections = CreateNavMenus();
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        ClaimsPrincipal userPrincipal = (await AuthState).User;
-        if (userPrincipal is { Identity.Name: not null })
-            User = UserService.GetItemByNameOrCreate(userPrincipal.Identity.Name);
-    }
+    protected override async Task OnInitializedAsync() => User = (await AuthState).User;
 
     private IEnumerable<MenuSection> CreateNavMenus() =>
     [
@@ -114,6 +107,14 @@ public sealed partial class NavMenu : ComponentBase
         //     ]
         // }
     ];
+
+    private string GetUserShortName()
+    {
+        string fullName = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value ?? "";
+        string[] nameParts = fullName.Split(" ");
+        IEnumerable<string> initialChar = nameParts.Skip(1).Select(s => string.IsNullOrEmpty(s) ? "" : $"{char.ToUpper(s[0])}.");
+        return $"{nameParts[0]} {string.Join("", initialChar)}".Capitalize();
+    }
 }
 
 public class MenuSection
