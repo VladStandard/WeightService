@@ -39,6 +39,24 @@
       <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.eot" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.woff" />
+      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.woff2" />
+    </ItemGroup>
+
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
         <Exec Command="npm -v" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />

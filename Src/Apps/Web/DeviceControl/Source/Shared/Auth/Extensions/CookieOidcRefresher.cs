@@ -77,7 +77,8 @@ public sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oi
         });
 
         ClaimsIdentity claimsIdentity = new(validationResult.ClaimsIdentity);
-        MapKeyCloakRolesToRoleClaims(validatedIdToken, claimsIdentity);
+        Dictionary<string, string> claimsDict = validatedIdToken.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
+        ClaimsMapping.MapJwtClaims(claimsDict, claimsIdentity, oidcOptions.ClientId ?? "");
 
         validateContext.ShouldRenew = true;
         validateContext.ReplacePrincipal(new(claimsIdentity));
@@ -91,24 +92,5 @@ public sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oi
             new() { Name = "token_type", Value = message.TokenType },
             new() { Name = "expires_at", Value = expiresAt.ToString("o", CultureInfo.InvariantCulture) },
         ]);
-    }
-
-    private static void MapKeyCloakRolesToRoleClaims(JwtSecurityToken token, ClaimsIdentity claimsIdentity)
-    {
-        string? userName = token.Claims.FirstOrDefault(x => x.Type == "preferred_username")?.Value;
-        if (userName != null && !string.IsNullOrEmpty(userName)) claimsIdentity.AddClaim(new(ClaimTypes.Name, userName));
-
-        string? resourceAccess = token.Claims.FirstOrDefault(x => x.Type == "resource_access")?.Value;
-        if (resourceAccess == null) return;
-
-        JObject jsonObject = JObject.Parse(resourceAccess);
-
-        foreach (JProperty property in jsonObject.Properties())
-        {
-            JToken? roles = property.Value["roles"];
-            if (roles == null) continue;
-            foreach (string role in roles.ToObject<List<string>>()!)
-                claimsIdentity.AddClaim(new(ClaimTypes.Role, role));
-        }
     }
 }

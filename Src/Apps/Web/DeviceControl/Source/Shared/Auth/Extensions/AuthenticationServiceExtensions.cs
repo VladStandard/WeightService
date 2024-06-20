@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
@@ -33,7 +34,13 @@ public static class AuthenticationServiceExtensions
                 {
                     OnUserInformationReceived = context =>
                     {
-                        RoleMapping.MapKeyCloakRolesToRoleClaims(context);
+                        ClaimsIdentity? claimsIdentity = context.Principal?.Identity as ClaimsIdentity;
+                        string clientId = context.Options.ClientId ?? "";
+                        Dictionary<string, string> claimsDict = context.User.RootElement.EnumerateObject()
+                            .ToDictionary(claim => claim.Name, claim => claim.Value.ToString());
+                        if (string.IsNullOrEmpty(clientId) || claimsIdentity == null) return Task.CompletedTask;
+
+                        ClaimsMapping.MapJwtClaims(claimsDict, claimsIdentity, clientId);
                         return Task.CompletedTask;
                     }
                 };
