@@ -8,8 +8,8 @@ using Ws.Domain.Models.Entities.Ref1c.Plu;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Plus;
-using Ws.Labels.Service.Features.Generate;
-using Ws.Labels.Service.Features.Generate.Features.Piece.Dto;
+using Ws.Labels.Service.Generate;
+using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;

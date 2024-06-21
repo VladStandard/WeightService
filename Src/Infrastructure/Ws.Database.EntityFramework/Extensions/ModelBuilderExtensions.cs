@@ -16,7 +16,6 @@ internal static class ModelBuilderExtensions
             int? maxValue = property.GetMaxLength();
             property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
         }
-
     }
 
     public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
@@ -27,10 +26,8 @@ internal static class ModelBuilderExtensions
                 .Where(p => p.PropertyType == typeof(IPAddress));
 
             foreach (PropertyInfo property in ipAddressProperties)
-            {
                 modelBuilder.Entity(entityType.Name).Property(property.Name)
                     .HasConversion(new IpAddressToIPv4StringConverter());
-            }
         }
     }
 

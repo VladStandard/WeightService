@@ -3,6 +3,7 @@
     <ItemGroup>
         <PackageReference Include="BinaryKits.Zpl.Labelary" Version="1.0.2" />
         <PackageReference Include="FluentValidation" Version="11.9.2" />
+        <PackageReference Include="Scriban" Version="5.10.0" />
         <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4"/>
     </ItemGroup>
 
@@ -18,10 +19,6 @@
     <ItemGroup>
         <Generated Remove="obj\**"/>
         <EmbeddedResource Remove="obj\**"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Features\Generate\Features\" />
     </ItemGroup>
 
 </Project>

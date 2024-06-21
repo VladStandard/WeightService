@@ -38,11 +38,7 @@ internal class TemplateService(
     public Template Update(Template item)
     {
         Template template = templateRepo.Update(item);
-
-        string zplKey = $"TEMPLATES:{template.Uid}";
-        if (provider.KeyExists(zplKey))
-            provider.StringSet(zplKey, template.Body, TimeSpan.FromHours(1));
-
+        provider.HDel($"TEMPLATES:{item.Uid}");
         return template;
     }
 

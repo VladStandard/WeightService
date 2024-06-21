@@ -1,0 +1,163 @@
+^XA  ^CI28  ^LH0,0  ^FWB
+
+{* Полное наименование номенклатуры *}
+^FO200,440 ^CF0,34,34 ^FB1320,3,0,J,0 ^FH^FD
+{{ plu_full_name }}
+^FS
+
+
+{* Вложенность заголовок *}
+^FO295,1505 ^CF0,26,26 ^FB250,1,0,L,0 ^FH^FD
+Вложенность:
+^FS
+
+
+{* Вложенность значение *}
+^FO275,1395 ^CF0,59,59 ^FB200,1,0,L,0 ^FH^FD
+{{ bundle_count }} шт
+^FS
+
+
+{* Замес *}
+^FO295,1200 ^CF0,26,26 ^FB200,1,0,L,0 ^FH^FD
+Замес: {{ kneading_str }}
+^FS
+
+
+{* Цех/линия *}
+^FO295,680 ^CF0,26,26 ^FB500,1,0,L,0 ^FH^FD
+Цех/Линия: {{ line_name }}
+^FS
+
+
+{* ПЛУ *}
+^FO295,480  ^CF0,26,26  ^FB200,1,0,L,0 ^FH^FD
+ПЛУ: {{ plu_number }} / {{ line_number }}
+^FS
+
+
+{* Дата изготовления *}
+^FO350,1355  ^CF0,26,26  ^FB400,1,0,L,0 ^FH^FD
+Дата изготовления:
+^FS
+
+
+{* Дата изготовления Значение *}
+^FO335,1030  ^CF0,59,59  ^FB500,1,0,L,0 ^FH^FD
+{{ product_date_str }}
+^FS
+
+
+{* Срок годности *}
+^FO350,815  ^CF0,26,26  ^FB400,1,0,L,0 ^FH^FD
+Годен до:
+^FS
+
+{* Срок годности Значение *}
+^FO335,595  ^CF0,59,59  ^FB500,1,0,L,0 ^FH^FD
+{{ expiration_date_str }}
+^FS
+
+{* Изготовитель - Ресурсы шаблонов - MANUFACTURER_TITLE *}
+^FO390,435  ^CF0,26,26  ^FB1320,1,0,J,0 ^FH^FD
+{{ manufacturer_title_sql }}
+^FS
+
+
+{* Изготовитель - Адрес *}
+^FO430,435  ^CF0,26,26  ^FB1320,1,0,J,0 ^FH^FD
+{{ line_address }}
+^FS
+
+
+{* Описание номенклатуры*}
+^FO470,435  ^CF0,26,26  ^FB1320,2,0,J,0 ^FH^FD
+{{ plu_description }}
+^FS
+
+
+{* ШК сверху ^B2 - Interleaved 2 of 5 Bar Code *}
+^FO30,735  ^BY3,2.7,10 ^B2B,120,Y,N,Y ^FD
+{{ bar_code_top }}
+^FS
+
+
+{* ШК снизу - GS1-128 *}
+^FO530,440  ^BY5,3.0,10  ^BCB,110,N,N,D ^FD
+>;>8
+{{ bar_code_bottom }}
+^FS
+
+
+{*  Текст к ШК снизу *}
+^FO645,340  ^CF0,35,35  ^FB1500,1,0,C,0 ^FH^FD
+{{ bar_code_bottom }}
+^FS
+
+
+{* ШК справа - GS1-128 *}
+^FO050,180  ^BY4,2.0,10  ^BCI,90,Y,Y,N ^FD
+>;
+{{ bar_code_right }}
+^FS
+
+
+{* Ресурсы шаблонов - EAC *}
+^FO50,350 ^FD
+{{ eac_sql }}
+^FS
+
+
+{* Ресурсы шаблонов - Рюмка и вилка *}
+^FO150,350 ^FD
+{{ glass_with_fork_sql }}
+^FS
+
+
+{* Ресурсы шаблонов - Переработка *}
+^FO250,350 ^FD
+{{ recycling_7_sql }}
+^FS
+
+
+{* Ресурсы шаблонов - Скоропорт *}
+^FO340,350 ^FD
+{{ soon_to_be_spoiled_sql }}
+^FS
+
+
+{* Ресурсы шаблонов - Градусник *}
+^FO450,350 ^FD
+{{ plus_storage_methods_fk_sql }}
+^FS
+
+
+{* Линия ШАПКА *}
+^FO 0,160 ^GB750,0,4 ^FD^FS
+
+
+{* Изготовитель ШАПКА *}
+^FO 20,5 ^FWN ^CF0,33,33 ^FB680,1,0,C,0 ^FD
+{{ manufacturer_title_sql }}
+^FS^FWB ^FS
+
+
+{* Адрес - ШАПКА *}
+^FO 20,38 ^FWN ^CF0,25,25  ^FB680,2,0,C,0 ^FD
+{{ manufacturer_address_sql }}
+^FS^FWB ^FS
+
+
+{* Телефон - ШАПКА *}
+^FO 20,95 ^FWN ^CF0,25,25  ^FB680,2,0,C,0 ^FD
+{{ manufacturer_phone_sql }}
+^FS^FWB ^FS
+
+
+{* Сайт - ШАПКА *}
+^FO 20,130 ^FWN ^CF0,25,25  ^FB680,2,0,C,0 ^FD
+{{ manufacturer_site_sql }}
+^FS^FWB ^FS
+
+^PQ1
+^XZ

@@ -7,8 +7,8 @@ using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Plus;
-using Ws.Labels.Service.Features.Generate;
-using Ws.Labels.Service.Features.Generate.Features.Weight.Dto;
+using Ws.Labels.Service.Generate;
+using Ws.Labels.Service.Generate.Features.Weight.Dto;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
