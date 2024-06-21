@@ -264,4 +264,7 @@
     <data name="ArmTypeEnumUniversal" xml:space="preserve">
         <value>Универсальный</value>
     </data>
+    <data name="ProductionSiteSuspenseDescription" xml:space="preserve">
+        <value>Площадка не настроена для данного аккаунта. Обратитесь к поддержке.</value>
+    </data>
 </root>
