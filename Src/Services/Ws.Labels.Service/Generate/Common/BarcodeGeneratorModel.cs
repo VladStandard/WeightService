@@ -8,36 +8,16 @@ using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Common;
 
-public abstract class BarcodeGeneratorModel : IBarcodeLabel
+public abstract record BarcodeGeneratorModel : IBarcodeLabel
 {
-    #region Line
 
-    public required int LineNumber { get; init; }
-    public required int LineCounter { get; init; }
-
-    #endregion
-
-    #region Plu
-
-    public required short PluNumber { get; init; }
-    public required string PluGtin { get; init; }
-
-    #endregion
-
-    #region BarcodeTemplates
-
-    public required short Kneading { get; init; }
-    public required DateTime ProductDt { get; init; } = DateTime.MinValue;
-
-    #endregion
-
-    public string GenerateBarcode(List<BarcodeItemCache> barcodeTemplate)
+    public string GenerateBarcode(List<BarcodeItemTemplateFromCache> barcodeTemplate)
     {
         StringBuilder barcodeBuilder = new();
         bool firstSpecialConst = true;
         try
         {
-            foreach (BarcodeItemCache item in barcodeTemplate)
+            foreach (BarcodeItemTemplateFromCache item in barcodeTemplate)
             {
                 PropertyInfo? propertyInfo = GetType().GetProperty(item.Property);
                 object? value = propertyInfo?.GetValue(this);
@@ -70,10 +50,33 @@ public abstract class BarcodeGeneratorModel : IBarcodeLabel
                         throw new NotImplementedException();
                 }
             }
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             throw new LabelGenerateException(LabelGenExceptions.BarcodeError);
         }
+
         return barcodeBuilder.ToString();
     }
+
+    #region Line
+
+    public required int LineNumber { get; init; }
+    public required int LineCounter { get; init; }
+
+    #endregion
+
+    #region Plu
+
+    public required short PluNumber { get; init; }
+    public required string PluGtin { get; init; }
+
+    #endregion
+
+    #region BarcodeTemplates
+
+    public required short Kneading { get; init; }
+    public required DateTime ProductDt { get; init; } = DateTime.MinValue;
+
+    #endregion
 }

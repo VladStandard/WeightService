@@ -8,23 +8,23 @@ namespace Ws.Labels.Service.Generate.Models.Cache;
 public class TemplateFromCache
 {
     [ProtoMember(1)]
-    public string Body { get; set; } = string.Empty;
+    public string Template { get; set; } = string.Empty;
 
     [ProtoMember(2)]
-    public List<BarcodeItemCache> BarcodeTopBody { get; set; } = [];
+    public List<BarcodeItemTemplateFromCache> BarcodeTopTemplate { get; set; } = [];
 
     [ProtoMember(3)]
-    public List<BarcodeItemCache> BarcodeRightBody { get; set; } = [];
+    public List<BarcodeItemTemplateFromCache> BarcodeRightTemplate { get; set; } = [];
 
     [ProtoMember(4)]
-    public List<BarcodeItemCache> BarcodeBottomBody { get; set; } = [];
+    public List<BarcodeItemTemplateFromCache> BarcodeBottomTemplate { get; set; } = [];
 
     public TemplateFromCache(Template template)
     {
-        Body = template.Body;
-        BarcodeTopBody.AddRange(template.BarcodeTopBody.Select(data => new BarcodeItemCache(data)));
-        BarcodeRightBody.AddRange(template.BarcodeRightBody.Select(data => new BarcodeItemCache(data)));
-        BarcodeBottomBody.AddRange(template.BarcodeBottomBody.Select(data => new BarcodeItemCache(data)));
+        Template = template.Body;
+        BarcodeTopTemplate.AddRange(template.BarcodeTopTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeRightTemplate.AddRange(template.BarcodeRightTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeBottomTemplate.AddRange(template.BarcodeBottomTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
     }
 
     // FOR PROTOBUF

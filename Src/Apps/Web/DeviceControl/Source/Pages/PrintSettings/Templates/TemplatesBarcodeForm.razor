@@ -10,19 +10,19 @@
 <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
   <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
     <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeTopBody"
+      @bind-BarcodeDictionary="DialogItem.BarcodeTopTemplate"
       BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
   <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
     <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeBottomBody"
+      @bind-BarcodeDictionary="DialogItem.BarcodeBottomTemplate"
       BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
   <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
     <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeRightBody"
+      @bind-BarcodeDictionary="DialogItem.BarcodeRightTemplate"
       BarcodeVariables="BarcodeVariables"
     />
   </Accordion>
@@ -69,9 +69,9 @@
     BarcodeItemValidator validator = new(BarcodeVariables);
     List<BarcodeError> validationErrors = [];
 
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopBody, WsDataLocalizer["ColBarcodeTop"], validator));
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomBody, WsDataLocalizer["ColBarcodeBottom"], validator));
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightBody, WsDataLocalizer["ColBarcodeBottom"], validator));
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopTemplate, WsDataLocalizer["ColBarcodeTop"], validator));
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
+    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
 
     if (!validationErrors.Any()) return true;
 

@@ -64,21 +64,21 @@ internal sealed class SqlTemplateMap : ClassMapping<Template>
             m.NotNullable(true);
         });
 
-        Property(x => x.BarcodeTopBody, m =>
+        Property(x => x.BarcodeTopTemplate, m =>
         {
             m.Column("BARCODE_TOP_BODY");
             m.Type<BarcodeItemSqlType>();
             m.NotNullable(true);
         });
 
-        Property(x => x.BarcodeBottomBody, m =>
+        Property(x => x.BarcodeBottomTemplate, m =>
         {
             m.Column("BARCODE_BOTTOM_BODY");
             m.Type<BarcodeItemSqlType>();
             m.NotNullable(true);
         });
 
-        Property(x => x.BarcodeRightBody, m =>
+        Property(x => x.BarcodeRightTemplate, m =>
         {
             m.Column("BARCODE_RIGHT_BODY");
             m.Type<BarcodeItemSqlType>();

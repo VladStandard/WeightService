@@ -14,9 +14,9 @@ public class Template : EntityBase
     public virtual bool IsWeight { get; set; }
     public virtual string Body { get; set; } = string.Empty;
     public virtual string Name { get; set; } = string.Empty;
-    public virtual IList<BarcodeItem> BarcodeTopBody { get; set; } = [];
-    public virtual IList<BarcodeItem> BarcodeRightBody { get; set; } = [];
-    public virtual IList<BarcodeItem> BarcodeBottomBody { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeTopTemplate { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeRightTemplate { get; set; } = [];
+    public virtual IList<BarcodeItem> BarcodeBottomTemplate { get; set; } = [];
 
     public virtual string SizeView => $"{Width}x{Height}";
 
@@ -28,8 +28,8 @@ public class Template : EntityBase
                Equals(IsWeight, item.IsWeight) &&
                Equals(Width, item.Width) &&
                Equals(Height, item.Height) &&
-               Equals(BarcodeTopBody, item.BarcodeTopBody) &&
-               Equals(BarcodeRightBody, item.BarcodeRightBody) &&
-               Equals(BarcodeBottomBody, item.BarcodeBottomBody);
+               Equals(BarcodeTopTemplate, item.BarcodeTopTemplate) &&
+               Equals(BarcodeRightTemplate, item.BarcodeRightTemplate) &&
+               Equals(BarcodeBottomTemplate, item.BarcodeBottomTemplate);
     }
 }

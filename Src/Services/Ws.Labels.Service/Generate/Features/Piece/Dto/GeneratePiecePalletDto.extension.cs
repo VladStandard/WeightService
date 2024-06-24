@@ -4,7 +4,7 @@ namespace Ws.Labels.Service.Generate.Features.Piece.Dto;
 
 public static class LabelPiecePalletDtoMapper
 {
-    public static PieceGeneratorModel AdaptToBarcodeModel(this GeneratePiecePalletDto palletDto)
+    public static BarcodePieceModel ToBarcodeModel(this GeneratePiecePalletDto palletDto, DateTime productDt)
     {
         return new()
         {

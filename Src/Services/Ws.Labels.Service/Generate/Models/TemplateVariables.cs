@@ -1,15 +1,15 @@
 using Ws.Shared.Extensions;
 
-namespace Ws.Labels.Service.Generate.Models.Print;
+namespace Ws.Labels.Service.Generate.Models;
 
 /// <summary>
 /// DON'T TOUCH (THIS IS VARIABLES FOR TEMPLATES) BE CAREFUL
 /// </summary>
-public class PrintLabelModel(
+public class TemplateVariables(
     string pluName, ushort pluNumber, string pluDescription,
     int lineNumber, string lineName, string lineAddress,
     string barcodeTop, string barcodeRight, string barcodeBottom,
-    ushort bundleCount, ushort kneading, decimal weight,
+    ushort bundleCount, ushort kneading, decimal weight, string storageMethod,
     DateTime productDt, DateTime expirationDt)
 {
     #region Plu
@@ -38,6 +38,7 @@ public class PrintLabelModel(
 
     #region Other
 
+    public readonly string StorageMethod = storageMethod;
     public readonly ushort BundleCount = bundleCount;
     public readonly string Kneading = $"{kneading:D3}";
     public readonly string Weight =  weight.ToSepStr(",");

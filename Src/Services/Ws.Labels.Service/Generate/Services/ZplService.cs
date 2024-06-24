@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using Scriban;
 using Scriban.Runtime;
-using Ws.Labels.Service.Generate.Models.Print;
+using Ws.Labels.Service.Generate.Models;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -15,7 +15,7 @@ public partial class ZplService(CacheService cacheService)
     [GeneratedRegex(@"\{\{ ([a-zA-Z0-9_]+)_sql \}\}")]
     private static partial Regex ResourcesRegex();
 
-    public string GenerateZpl(string template,  PrintLabelModel model, Dictionary<string, string> variables)
+    public string GenerateZpl(string template,  TemplateVariables model)
     {
         if (_cachedResourcesVars.Count <= 0)
         {
@@ -30,7 +30,6 @@ public partial class ZplService(CacheService cacheService)
         TemplateContext context = new() { StrictVariables = true };
 
         ScriptObject scriptObject1 = new();
-        scriptObject1.Import(variables);
         scriptObject1.Import(_cachedResourcesVars);
         scriptObject1.Import(model);
 
