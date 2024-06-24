@@ -4,7 +4,7 @@ namespace Ws.Labels.Service.Generate.Features.Weight.Dto;
 
 internal static class GenerateWeightPluDtoExtension
 {
-    internal static BarcodeWeightLabel ToXmlWeightLabel(this GenerateWeightLabelDto dto) =>
+    internal static BarcodeWeightLabel ToBarcodeModel(this GenerateWeightLabelDto dto) =>
         new()
         {
             LineNumber = dto.Line.Number,
@@ -13,6 +13,6 @@ internal static class GenerateWeightPluDtoExtension
             PluGtin = dto.Plu.Gtin,
             PluNumber = dto.Plu.Number,
             Weight = dto.Weight,
-            Kneading = dto.Kneading,
+            Kneading = dto.Kneading
         };
 }

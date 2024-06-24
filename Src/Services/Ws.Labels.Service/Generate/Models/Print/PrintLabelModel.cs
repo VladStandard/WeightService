@@ -2,7 +2,11 @@ using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Models.Print;
 
-public class PrintLabelModel(string pluName, ushort pluNumber, string pluDescription,
+/// <summary>
+/// DON'T TOUCH (THIS IS VARIABLES FOR TEMPLATES) BE CAREFUL
+/// </summary>
+public class PrintLabelModel(
+    string pluName, ushort pluNumber, string pluDescription,
     int lineNumber, string lineName, string lineAddress,
     string barcodeTop, string barcodeRight, string barcodeBottom,
     ushort bundleCount, ushort kneading, decimal weight,

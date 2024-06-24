@@ -2,27 +2,31 @@ using System.Linq.Expressions;
 
 namespace Ws.Labels.Service.Generate.Models;
 
-public class BarcodeVariable(MemberExpression memberExpr, short length, bool isRepeatable) {
-    public short Length { get; } = length;
-    public bool IsRepeatable { get; } = isRepeatable;
-    private MemberExpression MemberExpr { get; } = memberExpr;
+public record BarcodeVariable
+{
+    public Type Type { get; }
+    public string Name { get; }
+    public short Length { get; }
+    public bool IsRepeatable { get; }
 
-    public Type Type => MemberExpr.Type;
-    public string Name => MemberExpr.Member.Name;
-
-    public override bool Equals(object? obj)
+    public BarcodeVariable(Expression<Func<object>> expr, short length, bool isRepeatable = false)
     {
-        if (obj is BarcodeVariable other)
-            return Name == other.Name;
-        return false;
-    }
-
-    public override int GetHashCode() => Name.GetHashCode();
-
-    internal static BarcodeVariable Build<T>(Expression<Func<T>> expr, short length, bool isRepeatable=false)
-    {
-        if (expr.Body is MemberExpression memberExpression)
-            return new(memberExpression, length, isRepeatable);
-        throw new ArgumentException("Expression must be a member expression.");
+        switch (expr.Body)
+        {
+            case MemberExpression memberExpression:
+                Type = memberExpression.Type;
+                Name = memberExpression.Member.Name;
+                Length = length;
+                IsRepeatable = isRepeatable;
+                break;
+            case UnaryExpression { Operand: MemberExpression nestedMemberExpr }:
+                Type = nestedMemberExpr.Type;
+                Name = nestedMemberExpr.Member.Name;
+                Length = length;
+                IsRepeatable = isRepeatable;
+                break;
+            default:
+                throw new ArgumentException("Expression must be a member expression.");
+        }
     }
 }

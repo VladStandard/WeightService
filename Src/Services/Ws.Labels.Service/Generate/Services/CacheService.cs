@@ -28,20 +28,20 @@ public class CacheService(
         redisCachingProvider.StringSet(key, temp.Zpl, TimeSpan.FromHours(1));
         return temp.Zpl;
     }
-    public TemplateCache? GetTemplateByUidFromCacheOrDb(Guid templateUid)
+    public TemplateFromCache? GetTemplateByUidFromCacheOrDb(Guid templateUid)
     {
         string zplKey = $"TEMPLATES:{templateUid}";
 
         if (easyCachingProvider.Exists(zplKey))
-            return easyCachingProvider.Get<TemplateCache>(zplKey).Value;
+            return easyCachingProvider.Get<TemplateFromCache>(zplKey).Value;
 
         Template temp = templateService.GetItemByUid(templateUid);
         if (!temp.IsExists || temp.Body == string.Empty) return null;
 
-        TemplateCache tempCache = new(temp);
+        TemplateFromCache tempFromCache = new(temp);
 
-        easyCachingProvider.Set($"{zplKey}", tempCache, TimeSpan.FromHours(1));
-        return tempCache;
+        easyCachingProvider.Set($"{zplKey}", tempFromCache, TimeSpan.FromHours(1));
+        return tempFromCache;
     }
     public Dictionary<string, string> GetResourcesFromCacheOrDb(List<string> resourcesName)
     {

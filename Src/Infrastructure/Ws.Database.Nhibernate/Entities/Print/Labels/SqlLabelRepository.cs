@@ -12,5 +12,5 @@ public sealed class SqlLabelRepository : BaseRepository, IGetItemByUid<Label>, I
     public IList<Label> GetAll() => Session.Query<Label>()
         .OrderByDescending(i => i.CreateDt).ToList();
 
-    public Label Save(Label item) { Session.Merge(item); return item; }
+    public Label Save(Label item) { Session.Save(item); return item; }
 }

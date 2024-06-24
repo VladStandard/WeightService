@@ -1,9 +1,9 @@
+using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Common.BarcodeLabel;
-using Ws.Labels.Service.Generate.Models.XmlLabelBase;
 
 namespace Ws.Labels.Service.Generate.Features.Weight.Models;
 
-public class BarcodeWeightLabel : BarcodeLabelLabel, IBarcodeWeightLabel
+public class BarcodeWeightLabel : BarcodeGeneratorModel, IBarcodeWeightLabel
 {
-    public required decimal Weight { get; set; }
+    public required decimal Weight { get; init; }
 }

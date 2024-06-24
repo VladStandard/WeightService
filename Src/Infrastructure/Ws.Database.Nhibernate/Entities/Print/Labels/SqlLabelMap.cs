@@ -94,7 +94,7 @@ internal sealed class SqlLabelMap : ClassMapping<Label>
         Property(x => x.Kneading, m =>
         {
             m.Column("KNEADING");
-            m.Type(NHibernateUtil.Int32);
+            m.Type(NHibernateUtil.Int16);
             m.NotNullable(true);
         });
 

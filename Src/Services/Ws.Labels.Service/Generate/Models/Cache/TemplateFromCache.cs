@@ -5,7 +5,7 @@ namespace Ws.Labels.Service.Generate.Models.Cache;
 
 
 [ProtoContract]
-public class TemplateCache
+public class TemplateFromCache
 {
     [ProtoMember(1)]
     public string Body { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ public class TemplateCache
     [ProtoMember(4)]
     public List<BarcodeItemCache> BarcodeBottomBody { get; set; } = [];
 
-    public TemplateCache(Template template)
+    public TemplateFromCache(Template template)
     {
         Body = template.Body;
         BarcodeTopBody.AddRange(template.BarcodeTopBody.Select(data => new BarcodeItemCache(data)));
@@ -28,5 +28,5 @@ public class TemplateCache
     }
 
     // FOR PROTOBUF
-    public TemplateCache() { }
+    public TemplateFromCache() { }
 }

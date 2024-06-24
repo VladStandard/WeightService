@@ -5,7 +5,6 @@ using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Piece.Models;
-using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Services;
 using Template = Scriban.Template;
@@ -22,9 +21,9 @@ internal class LabelPieceGenerator(IPalletService palletService, CacheService ca
         if (labelCount > 240)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        PieceLabelLabel labelLabel = dto.AdaptToXmlPieceLabel();
+        PieceGeneratorModel generatorModel = dto.AdaptToBarcodeModel();
 
-        TemplateCache template = cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
+        TemplateFromCache templateFrom = cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
                                  throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
         string storageMethod = cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
@@ -56,25 +55,26 @@ internal class LabelPieceGenerator(IPalletService palletService, CacheService ca
 
         #endregion
 
-        for (int i = 0 ; i < labelCount ; i++)
-        {
-            labelLabel = dto.AdaptToXmlPieceLabel();
-            labelLabel.BarcodeTopTemplate = template.BarcodeTopBody;
-            labelLabel.BarcodeRightTemplate = template.BarcodeRightBody;
-            labelLabel.BarcodeBottomTemplate = template.BarcodeBottomBody;
-
-
-            Label label = GenerateLabel(dto, labelLabel, template.Body, dataDict);
-
-            labels.Add(label);
-
-            dto = dto with { ProductDt = dto.ProductDt.AddSeconds(1) };
-        }
-        palletService.Create(pallet, labels);
-        return pallet.Uid;
+        // for (int i = 0 ; i < labelCount ; i++)
+        // {
+        //     generatorModel = dto.AdaptToXmlPieceLabel();
+        //     generatorModel.BarcodeTopTemplate = templateFrom.BarcodeTopBody;
+        //     generatorModel.BarcodeRightTemplate = templateFrom.BarcodeRightBody;
+        //     generatorModel.BarcodeBottomTemplate = templateFrom.BarcodeBottomBody;
+        //
+        //
+        //     Label label = GenerateLabel(dto, generatorModel, templateFrom.Body, dataDict);
+        //
+        //     labels.Add(label);
+        //
+        //     dto = dto with { ProductDt = dto.ProductDt.AddSeconds(1) };
+        // }
+        // palletService.Create(pallet, labels);
+        // return pallet.Uid;
+        return Guid.Empty;
     }
 
-    private static Label GenerateLabel(GeneratePiecePalletDto generatePalletDto,  PieceLabelLabel labelLabel, string template,  Dictionary<string, string> dataDict)
+    private static Label GenerateLabel(GeneratePiecePalletDto generatePalletDto,  PieceGeneratorModel generatorModel, string template,  Dictionary<string, string> dataDict)
     {
         TemplateContext context = new()
         {
@@ -82,28 +82,29 @@ internal class LabelPieceGenerator(IPalletService palletService, CacheService ca
         };
 
         ScriptObject scriptObject1 = new();
-        scriptObject1.Import(labelLabel);
+        scriptObject1.Import(generatorModel);
         scriptObject1.Import(dataDict);
 
         context.PushGlobal(scriptObject1);
 
         Template? labelTemp = Template.Parse(template);
-        ZplInfo ready = new(labelTemp.Render(context), labelLabel);
-
-        return new()
-        {
-            Zpl = ready.Zpl,
-            BarcodeBottom = ready.BarcodeBottom,
-            BarcodeRight = ready.BarcodeRight,
-            BarcodeTop = ready.BarcodeTop,
-            WeightNet = generatePalletDto.Plu.Weight,
-            WeightTare = generatePalletDto.Plu.GetTareWeightByCharacteristic(generatePalletDto.PluCharacteristic),
-            Kneading = generatePalletDto.Kneading,
-            ProductDt = generatePalletDto.ProductDt,
-            ExpirationDt = generatePalletDto.ExpirationDt,
-            Line = generatePalletDto.Line,
-            Plu = generatePalletDto.Plu,
-            BundleCount = (ushort)generatePalletDto.PluCharacteristic.BundleCount
-        };
+        // ZplInfo ready = new(labelTemp.Render(context), labelLabel);
+        //
+        // return new()
+        // {
+        //     Zpl = ready.Zpl,
+        //     BarcodeBottom = ready.BarcodeBottom,
+        //     BarcodeRight = ready.BarcodeRight,
+        //     BarcodeTop = ready.BarcodeTop,
+        //     WeightNet = generatePalletDto.Plu.Weight,
+        //     WeightTare = generatePalletDto.Plu.GetTareWeightByCharacteristic(generatePalletDto.PluCharacteristic),
+        //     Kneading = generatePalletDto.Kneading,
+        //     ProductDt = generatePalletDto.ProductDt,
+        //     ExpirationDt = generatePalletDto.ExpirationDt,
+        //     Line = generatePalletDto.Line,
+        //     Plu = generatePalletDto.Plu,
+        //     BundleCount = (ushort)generatePalletDto.PluCharacteristic.BundleCount
+        // };
+        return new();
     }
 }

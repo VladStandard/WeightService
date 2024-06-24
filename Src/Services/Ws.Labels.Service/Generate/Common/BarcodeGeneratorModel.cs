@@ -1,30 +1,40 @@
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Text;
-using System.Xml.Serialization;
 using Ws.Labels.Service.Extensions;
+using Ws.Labels.Service.Generate.Common.BarcodeLabel;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Shared.Extensions;
 
-namespace Ws.Labels.Service.Generate.Models.XmlLabelBase;
+namespace Ws.Labels.Service.Generate.Common;
 
-public abstract partial class BarcodeLabelLabel
+public abstract class BarcodeGeneratorModel : IBarcodeLabel
 {
-    private string? _barCodeTop;
-    private string? _barCodeRight;
-    private string? _barCodeBottom;
+    #region Line
 
-    public required short Kneading { get; set; }
-    public required DateTime ProductDt { get; set; } = DateTime.MinValue;
+    public required int LineNumber { get; init; }
+    public required int LineCounter { get; init; }
 
-    public List<BarcodeItemCache> BarcodeRightTemplate { get; set; } = [];
-    public List<BarcodeItemCache> BarcodeBottomTemplate { get; set; } = [];
-    public List<BarcodeItemCache> BarcodeTopTemplate { get; set; } = [];
+    #endregion
 
-    protected string GenerateBarcode(List<BarcodeItemCache> barcodeTemplate)
+    #region Plu
+
+    public required short PluNumber { get; init; }
+    public required string PluGtin { get; init; }
+
+    #endregion
+
+    #region BarcodeTemplates
+
+    public required short Kneading { get; init; }
+    public required DateTime ProductDt { get; init; } = DateTime.MinValue;
+
+    #endregion
+
+    public string GenerateBarcode(List<BarcodeItemCache> barcodeTemplate)
     {
         StringBuilder barcodeBuilder = new();
+        bool firstSpecialConst = true;
         try
         {
             foreach (BarcodeItemCache item in barcodeTemplate)
@@ -34,7 +44,11 @@ public abstract partial class BarcodeLabelLabel
 
                 if (item.IsConst)
                 {
+                    if (item.Property.StartsWith('(') && firstSpecialConst == false)
+                        item.Property = $">8{item.Property}";
+
                     barcodeBuilder.Append(item.Property);
+                    firstSpecialConst = false;
                     continue;
                 }
 
@@ -61,10 +75,5 @@ public abstract partial class BarcodeLabelLabel
             throw new LabelGenerateException(LabelGenExceptions.BarcodeError);
         }
         return barcodeBuilder.ToString();
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        throw new NotImplementedException();
     }
 }

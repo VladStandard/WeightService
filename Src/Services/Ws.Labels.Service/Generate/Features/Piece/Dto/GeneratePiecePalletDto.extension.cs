@@ -4,7 +4,7 @@ namespace Ws.Labels.Service.Generate.Features.Piece.Dto;
 
 public static class LabelPiecePalletDtoMapper
 {
-    public static PieceLabelLabel AdaptToXmlPieceLabel(this GeneratePiecePalletDto palletDto)
+    public static PieceGeneratorModel AdaptToBarcodeModel(this GeneratePiecePalletDto palletDto)
     {
         return new()
         {
@@ -14,7 +14,7 @@ public static class LabelPiecePalletDtoMapper
             LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,
             PluNumber = palletDto.Plu.Number,
-            PluGtin = palletDto.Plu.Gtin,
+            PluGtin = palletDto.Plu.Gtin
         };
     }
 }

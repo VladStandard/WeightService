@@ -1,11 +1,11 @@
-namespace Ws.Labels.Service.Generate.Common.XmlBarcode;
+namespace Ws.Labels.Service.Generate.Common.BarcodeLabel;
 
 internal interface IBarcodeLabel
 {
-    public int LineNumber { get; set; }
-    public int LineCounter { get; set; }
-    public short Kneading { get; set; }
-    public short PluNumber { get; set; }
-    public string PluGtin { get; set; }
-    public DateTime ProductDt { get; set; }
+    public int LineNumber { get; init; }
+    public int LineCounter { get; init; }
+    public short Kneading { get; init; }
+    public short PluNumber { get; init; }
+    public string PluGtin { get; init; }
+    public DateTime ProductDt { get; init; }
 }

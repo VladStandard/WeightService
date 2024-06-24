@@ -2,5 +2,5 @@ namespace Ws.Labels.Service.Generate.Common.BarcodeLabel;
 
 internal interface IBarcodeWeightLabel
 {
-    public decimal Weight { get; set; }
+    public decimal Weight { get; init; }
 }
