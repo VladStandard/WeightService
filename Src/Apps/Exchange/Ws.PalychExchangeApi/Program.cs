@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging.EventLog;
 using Ws.Database.EntityFramework;
 using Ws.PalychExchangeApi.Extensions;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
@@ -29,18 +30,19 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IPluService, PluService>();
 builder.Services.AddScoped<ICharacteristicService, CharacteristicService>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+#pragma warning disable CA1416
+
+builder.Logging.AddEventLog(eventLogSetting =>
+{
+    eventLogSetting.SourceName = "Ws.Palych.ExchangeApi";
+});
+
+#pragma warning restore CA1416
+
+
 
 WebApplication app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
