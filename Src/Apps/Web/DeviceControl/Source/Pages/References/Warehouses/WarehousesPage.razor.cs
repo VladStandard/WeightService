@@ -59,7 +59,8 @@ public sealed partial class WarehousesPage : SectionDataGridPageBase<Warehouse>
     protected override async Task OpenItemInNewTab(Warehouse item)
         => await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<Warehouse> SetSqlSectionCast() => WarehouseService.GetAllByProductionSite(ProductionSite);
+    protected override IEnumerable<Warehouse> SetSqlSectionCast() =>
+        ProductionSite.IsNew ? [] : WarehouseService.GetAllByProductionSite(ProductionSite);
 
     protected override IEnumerable<Warehouse> SetSqlSearchingCast()
     {
