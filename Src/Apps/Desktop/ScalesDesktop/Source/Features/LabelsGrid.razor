@@ -72,7 +72,7 @@
               TGridItem="DataItem"
               GridTemplateColumns="5rem 1fr 4fr"
               Items="@GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : [])"
-              RowClass="@(_ => "border-b hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
+              RowClass="@(_ => "border-b shrink-0 hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
               Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
               Loading="@labelsQuery.IsLoading"
               Virtualize
