@@ -1,6 +1,6 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using DeviceControl.Source.Widgets.Section
-@using Blazor.Heroicons.Outline
+@using Ws.Domain.Models.Entities.Ref
 
 @inherits SectionDataGridPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
@@ -12,9 +12,19 @@
 <UseParameterlessEndpoint Endpoint="@UserApi.UsersEndpoint" Context="usersQuery">
   <PageHeader>
     <span>@Localizer["SectionUsers"]</span>
-    <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+    <div class="w-64">
+      <SelectSingle
+        TItem="ProductionSite"
+        Items="ProductionSiteEntities"
+        @bind-SelectedItem="ProductionSite"
+        @bind-SelectedItem:after="@UpdateData"
+        ItemDisplayName="@(item => item.IsNew ? "Без площадки" : item.Name)"
+        IsDisabled="@(!IsAdmin)"
+        IsFilterable
+      />
+    </div>
   </PageHeader>
 
   <DataGridWrapper>

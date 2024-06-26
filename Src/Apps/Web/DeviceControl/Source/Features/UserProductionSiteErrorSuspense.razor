@@ -15,7 +15,6 @@ else
   @ChildContent
 }
 
-
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;

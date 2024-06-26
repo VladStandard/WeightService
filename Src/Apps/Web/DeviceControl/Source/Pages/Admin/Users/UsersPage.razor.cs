@@ -1,6 +1,9 @@
+using System.Security.Claims;
+using Blazorise.Extensions;
 using DeviceControl.Source.Shared.Api;
-using Microsoft.FluentUI.AspNetCore.Components;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
+using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
@@ -14,12 +17,25 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private UserApi UserApi { get; set; } = default!;
-    [Inject] private IKeycloakApi KeycloakApi { get; set; } = default!;
-    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
 
     #endregion
 
+    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+
     private IEnumerable<User> UsersRelations { get; set; } = [];
+    private bool IsAdmin { get; set; }
+    private ProductionSite ProductionSite { get; set; } = new();
+    private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        ClaimsPrincipal userPrincipal = (await AuthState).User;
+        IsAdmin = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Admin)).Succeeded;
+        ProductionSiteEntities = ProductionSiteService.GetAll().Append(new()).ToList();
+        await base.OnInitializedAsync();
+    }
 
     protected override async Task OpenDataGridEntityModal(UserWithProductionSite item)
         => await OpenSectionModal<UsersUpdateDialog>(item);
@@ -30,15 +46,15 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
         return [];
     }
 
-    protected override IEnumerable<UserWithProductionSite> SetSqlSearchingCast() => [];
-
     private IEnumerable<UserWithProductionSite> GetAllUsers(IEnumerable<KeycloakUser> users)
     {
         Dictionary<Guid, User> userDictionary = UsersRelations.ToDictionary(user => user.Uid);
-        return users.Select(keycloakUser => new UserWithProductionSite
+        List<UserWithProductionSite> usersWithProductionSite = users.Select(keycloakUser => new UserWithProductionSite
         {
             KeycloakUser = keycloakUser,
             ProductionSite = userDictionary.TryGetValue(keycloakUser.Id, out User? user) ? user.ProductionSite : null
         }).ToList();
+        return ProductionSite.IsNew ? usersWithProductionSite.Where(x => x.ProductionSite == null) :
+            usersWithProductionSite.Where(x => x.ProductionSite.IsEqual(ProductionSite));
     }
 }
