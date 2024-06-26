@@ -6,8 +6,8 @@
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
   novalidate="true"
 >
-  <FluentValidationValidator Validator="@(new PalletSecondStageFormValidator())" />
-  <FormFieldWrapper Label="@WsDataLocalizer["ColPalletWeight"]" HtmlId="pallet-weight">
+  <FluentValidationValidator Validator="@(new PalletSecondStageFormValidator(WsDataLocalizer))" />
+  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColPalletWeight"]} ({WsDataLocalizer["MeasureKg"]})")" HtmlId="pallet-weight">
     <InputNumberField
       TValue="decimal"
       id="pallet-weight"
@@ -21,7 +21,7 @@
     <InputDateField @bind-Value="FormModel.CreateDt"/>
     <FieldValidation For="@(() => FormModel.CreateDt)" />
   </FormFieldWrapper>
-  <FormFieldWrapper Label="@WsDataLocalizer["ColCount"]" HtmlId="count">
+  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColCount"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="count">
     <InputNumberField
       TValue="int"
       id="count"

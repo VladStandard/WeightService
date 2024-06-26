@@ -32,10 +32,10 @@ public class PalletManFormModel {
 
 public class PalletManFormValidator : AbstractValidator<PalletManFormModel>
 {
-    public PalletManFormValidator(IStringLocalizer<ApplicationResources> localizer)
+    public PalletManFormValidator(IStringLocalizer<ApplicationResources> localizer, IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.User).NotNull();
-        RuleFor(item => item.Password).NotNull().Length(4);
+        RuleFor(item => item.User).NotNull().WithName(wsDataLocalizer["ColUser"]);
+        RuleFor(item => item.Password).NotNull().Length(4).WithName(wsDataLocalizer["ColPassword"]);
         RuleFor(item => item.Password)
             .Must((item, password) => item.User != null && password == item.User.Password)
             .WithMessage(localizer["PalletManFormInvalidPassword"]);

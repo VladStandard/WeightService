@@ -19,10 +19,10 @@ public sealed partial class PalletSecondStageForm : ComponentBase
 
 public class PalletSecondStageFormValidator : AbstractValidator<PalletCreateModel>
 {
-    public PalletSecondStageFormValidator()
+    public PalletSecondStageFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.PalletWeight).GreaterThan(0).LessThanOrEqualTo(999);
-        RuleFor(item => item.Count).GreaterThanOrEqualTo(1).LessThanOrEqualTo(240);
-        RuleFor(item => item.Kneading).GreaterThanOrEqualTo((short)1).LessThanOrEqualTo((short)999);
+        RuleFor(item => item.PalletWeight).GreaterThan(0).LessThanOrEqualTo(999).WithName(wsDataLocalizer["ColPalletWeight"]);
+        RuleFor(item => item.Count).GreaterThanOrEqualTo(1).LessThanOrEqualTo(240).WithName(wsDataLocalizer["ColCount"]);
+        RuleFor(item => item.Kneading).GreaterThanOrEqualTo((short)1).LessThanOrEqualTo((short)999).WithName(wsDataLocalizer["ColKneading"]);
     }
 }
