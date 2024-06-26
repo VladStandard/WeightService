@@ -60,7 +60,7 @@ public static class TemplateTypesUtils
         BarcodeLabelBaseTemp data = new();
         return [
             new(() => data.LineNumber,5),
-            new(() => data.LineCounter,7),
+            new(() => data.LineCounter,6),
             new(() => data.PluNumber,3),
             new(() => data.PluGtin,14),
             new(() => data.Kneading,3),
