@@ -1,13 +1,11 @@
-using System.Security.Claims;
 using DeviceControl.Source.Widgets.Section.Dialogs;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Arms;
-using Ws.Domain.Services.Features.ProductionSites;
-using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
+// ReSharper disable ClassNeverInstantiated.Global
 public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
 {
     #region Inject
@@ -15,45 +13,23 @@ public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IArmService ArmService { get; set; } = default!;
-    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
-    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 
     #endregion
 
-    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
 
     private ProductionSite ProductionSite { get; set; } = new();
-    private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
-    private bool IsSeniorSupport { get; set; }
-    private bool IsDeveloper { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        ClaimsPrincipal userPrincipal = (await AuthState).User;
         ProductionSite = UserProductionSite;
-
-        if (userPrincipal.Identity?.Name != null)
-        {
-            IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport))
-                .Succeeded;
-            IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
-                          ProductionSite.Uid.IsMax();
-        }
-
-        if (IsSeniorSupport)
-            ProductionSiteEntities = ProductionSiteService.GetAll().ToList();
-
-        if (!IsDeveloper)
-            ProductionSiteEntities.RemoveAll(i => i.Uid.IsMax());
-
-        await base.OnInitializedAsync();
+        base.OnInitialized();
     }
 
     protected override async Task OpenSectionCreateForm()
         => await DialogService.ShowDialogAsync<ArmsCreateDialog>(
-            new SectionDialogContentWithProductionSite<Arm> { Item = new(), ProductionSite = ProductionSite }
-            , DialogParameters);
+            new SectionDialogContentWithProductionSite<Arm> { Item = new(), ProductionSite = ProductionSite },
+            DialogParameters);
 
     protected override async Task OpenDataGridEntityModal(Arm item)
         => await OpenSectionModal<ArmsUpdateDialog>(item);

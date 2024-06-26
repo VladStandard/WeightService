@@ -1,9 +1,7 @@
-using System.Security.Claims;
 using Blazorise.Extensions;
 using DeviceControl.Source.Shared.Api;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
@@ -17,24 +15,18 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private UserApi UserApi { get; set; } = default!;
-    [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
 
     #endregion
 
-    [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
 
     private IEnumerable<User> UsersRelations { get; set; } = [];
-    private bool IsAdmin { get; set; }
     private ProductionSite ProductionSite { get; set; } = new();
-    private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        ClaimsPrincipal userPrincipal = (await AuthState).User;
-        IsAdmin = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Admin)).Succeeded;
-        ProductionSiteEntities = ProductionSiteService.GetAll().Append(new()).ToList();
-        await base.OnInitializedAsync();
+        ProductionSite = UserProductionSite;
+        base.OnInitialized();
     }
 
     protected override async Task OpenDataGridEntityModal(UserWithProductionSite item)

@@ -1,8 +1,8 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices
-@using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Features
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -16,17 +16,10 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <div class="w-64">
-      <SelectSingle
-        TItem="ProductionSite"
-        Items="ProductionSiteEntities"
-        @bind-SelectedItem="ProductionSite"
-        @bind-SelectedItem:after="@UpdateData"
-        ItemDisplayName="item => item.Name"
-        IsDisabled="@(!IsSeniorSupport)"
-        IsFilterable
-      />
-    </div>
+    <ProductionSiteSelect
+      @bind-Value="ProductionSite"
+      @bind-Value:after="UpdateData"
+    />
   </PageHeader>
 
   <DataGridWrapper>

@@ -1,10 +1,10 @@
 @using Blazor.Heroicons.Outline
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Devices.Arms
-@using Ws.Domain.Models.Entities.Ref
 @using Ws.Shared.Enums
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Features
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -18,17 +18,7 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <div class="w-64">
-      <SelectSingle
-        TItem="ProductionSite"
-        Items="ProductionSiteEntities"
-        @bind-SelectedItem="ProductionSite"
-        @bind-SelectedItem:after="@UpdateData"
-        ItemDisplayName="item => item.Name"
-        IsDisabled="@(!IsSeniorSupport)"
-        IsFilterable
-      />
-    </div>
+    <ProductionSiteSelect @bind-Value="ProductionSite" @bind-Value:after="UpdateData" />
   </PageHeader>
 
   <DataGridWrapper>
@@ -47,18 +37,18 @@
             <div class="size-full flex items-center justify-center">
               @switch (context.Type)
               {
-              case ArmType.Pc:
-              <ComputerDesktopIcon class="size-5"/>
-              break;
-              case ArmType.Tablet:
-              <DeviceTabletIcon class="size-5"/>
-              break;
-              case ArmType.Universal:
-              <ServerIcon class="size-5"/>
-              break;
-              default:
-              <ExclamationTriangleIcon class="size-5 text-destructive"/>
-              break;
+                case ArmType.Pc:
+                  <ComputerDesktopIcon class="size-5"/>
+                  break;
+                case ArmType.Tablet:
+                  <DeviceTabletIcon class="size-5"/>
+                  break;
+                case ArmType.Universal:
+                  <ServerIcon class="size-5"/>
+                  break;
+                default:
+                  <ExclamationTriangleIcon class="size-5 text-destructive"/>
+                  break;
               }
             </div>
           </DisplayTemplate>

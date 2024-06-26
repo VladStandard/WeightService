@@ -1,6 +1,6 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using DeviceControl.Source.Widgets.Section
-@using Ws.Domain.Models.Entities.Ref
+@using DeviceControl.Source.Features
 
 @inherits SectionDataGridPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
@@ -14,17 +14,11 @@
     <span>@Localizer["SectionUsers"]</span>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <div class="w-64">
-      <SelectSingle
-        TItem="ProductionSite"
-        Items="ProductionSiteEntities"
-        @bind-SelectedItem="ProductionSite"
-        @bind-SelectedItem:after="@UpdateData"
-        ItemDisplayName="@(item => item.IsNew ? "Без площадки" : item.Name)"
-        IsDisabled="@(!IsAdmin)"
-        IsFilterable
-      />
-    </div>
+    <ProductionSiteSelect
+      @bind-Value="ProductionSite"
+      @bind-Value:after="UpdateData"
+      AllowIsNew
+    />
   </PageHeader>
 
   <DataGridWrapper>
@@ -38,22 +32,12 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColUser"]"
           Field="KeycloakUser.Username"
-          Width="20%"
+          Width="40%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColFullName"]"
           Field="KeycloakUser.FirstName"
-          Width="20%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColSurname"]"
-          Field="KeycloakUser.LastName"
-          Width="20%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColProductionSite"]"
-          Field="ProductionSite.Name"
-          Width="40%"
+          Width="60%"
         />
       </ColumnsContent>
       <ContextMenuContent>
