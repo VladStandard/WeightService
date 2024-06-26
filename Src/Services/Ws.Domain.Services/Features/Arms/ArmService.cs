@@ -13,10 +13,7 @@ namespace Ws.Domain.Services.Features.Arms;
 
 internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository pluLineRepo) : IArmService
 {
-    #region Items
-
-    [Transactional]
-    public Arm GetCurrentLine() => armRepo.GetItemBySpec(ArmSpecs.GetByPcName(Dns.GetHostName()));
+    #region Item
 
     [Transactional]
     public Arm GetItemByUid(Guid uid) => armRepo.GetByUid(uid);

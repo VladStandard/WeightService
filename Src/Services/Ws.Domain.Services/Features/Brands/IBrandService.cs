@@ -4,5 +4,4 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Brands;
 
-public interface IBrandService : IGetAll<Brand>, IGetItemByUid<Brand>,
-    IDelete<Brand>;
+public interface IBrandService : IGetAll<Brand>, IGetItemByUid<Brand>, IDelete<Brand>;

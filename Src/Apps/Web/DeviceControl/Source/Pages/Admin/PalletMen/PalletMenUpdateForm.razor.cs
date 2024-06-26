@@ -1,11 +1,9 @@
 using System.Diagnostics;
-using System.Security.Claims;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
-using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
@@ -21,10 +19,10 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
     [Inject] private IUserService UserService { get; set; } = default!;
 
     #endregion
-
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
     [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
+
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
-    private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
 
@@ -38,16 +36,9 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-            User = UserService.GetItemByUid(userUid);
-
-        ProductionSite productionSite = User.ProductionSite;
-
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
 
-        IsOnlyView = !IsSeniorSupport && !productionSite.Equals(ProductionSite);
+        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSite);
     }
 
     protected override PalletMan UpdateItemAction(PalletMan item) =>

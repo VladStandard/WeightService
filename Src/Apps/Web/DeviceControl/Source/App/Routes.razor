@@ -7,7 +7,7 @@
           {
           <h3 class="text-lg">You are not authorized</h3>
           <form method="get" action="@($"{RouteUtils.Authorization}/login")">
-            <Button class="w-64 mt-4" Type="ButtonType.Submit">
+            <Button class="w-64 mt-4" Type="@ButtonType.Submit">
               Log in
             </Button>
             <AntiforgeryToken />

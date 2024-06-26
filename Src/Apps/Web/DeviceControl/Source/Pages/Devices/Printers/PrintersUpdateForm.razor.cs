@@ -1,12 +1,10 @@
 using System.Net;
-using System.Security.Claims;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Entities.Devices;
-using Ws.Domain.Models.Entities.Users;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
-using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -22,10 +20,11 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
 
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
     # endregion
 
     private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = new List<PrinterTypes>();
-    private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
 
@@ -38,12 +37,8 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-            User = UserService.GetItemByUid(userUid);
-
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-        IsOnlyView = !IsSeniorSupport && !User.ProductionSite.Equals(DialogItem.ProductionSite);
+        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(DialogItem.ProductionSite);
     }
 
     protected override Printer UpdateItemAction(Printer item) =>

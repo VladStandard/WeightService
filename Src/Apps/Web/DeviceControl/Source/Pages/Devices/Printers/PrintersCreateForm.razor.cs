@@ -24,9 +24,9 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
 
     # endregion
 
-    [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
     private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = new List<PrinterTypes>();
-    private User User { get; set; } = new();
     private bool IsSeniorSupport { get; set; }
 
     protected override void OnInitialized()
@@ -39,11 +39,7 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-            User = UserService.GetItemByUid(userUid);
-        DialogItem.ProductionSite = ProductionSite;
+        DialogItem.ProductionSite = UserProductionSite;
 
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport))
             .Succeeded;

@@ -27,10 +27,11 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
     # endregion
 
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
     private IEnumerable<Printer> Printers { get; set; } = [];
     private IEnumerable<ArmType> LineTypes { get; set; } = [];
-    private User User { get; set; } = new();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }
     private ProductionSite ProductionSite => DialogItem.Warehouse.ProductionSite;
@@ -47,16 +48,9 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
     {
         await base.OnInitializedAsync();
 
-        Claim? userIdClaim = UserPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-            User = UserService.GetItemByUid(userUid);
-
-        ProductionSite productionSite = User.ProductionSite;
-
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
 
-        IsOnlyView = !IsSeniorSupport && !productionSite.Equals(ProductionSite);
+        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSite);
     }
 
     protected override Arm UpdateItemAction(Arm item) => ArmService.Update(item);

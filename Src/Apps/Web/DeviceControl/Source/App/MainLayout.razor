@@ -13,11 +13,12 @@
       </main>
     </div>
   </div>
-</UserInformationProvider>
 
-<FluentDialogProvider @rendermode="InteractiveServer" />
-<FluentToastProvider @rendermode="InteractiveServer" />
-<FluentTooltipProvider @rendermode="InteractiveServer" />
+  <FluentDialogProvider @rendermode="InteractiveServer" />
+  <FluentToastProvider @rendermode="InteractiveServer" />
+  <FluentTooltipProvider @rendermode="InteractiveServer" />
+
+</UserInformationProvider>
 
 @code {
   private bool IsProduction { get; set; }

@@ -1,13 +1,11 @@
 using System.Security.Claims;
 using Force.DeepCloner;
 using Ws.Domain.Models.Entities.Devices.Arms;
+using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c.Plu;
-using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Domain.Services.Features.Users;
-using Claim = System.Security.Claims.Claim;
-
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
 public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
@@ -26,10 +24,10 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
     [CascadingParameter(Name = "DialogItem")] public Arm Arm { get; set; } = null!;
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
 
+    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
     private HashSet<Plu> SelectPluEntities { get; set; } = [];
     private HashSet<Plu> SelectedPluEntities { get; set; } = [];
     private HashSet<Plu> SelectedPluEntitiesCopy { get; set; } = [];
-    private User User { get; set; } = new();
     private bool IsAllowToEdit { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -37,12 +35,9 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
         await base.OnInitializedAsync();
 
         ClaimsPrincipal userPrincipal = (await AuthState).User;
-        Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
-        if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-            User = UserService.GetItemByUid(userUid);
         bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-        IsAllowToEdit = isSeniorSupport || (User.ProductionSite.Equals(Arm.Warehouse.ProductionSite));
+        IsAllowToEdit = isSeniorSupport || UserProductionSite.Equals(Arm.Warehouse.ProductionSite);
 
         SelectPluEntities = [.. PluService.GetAll()];
         SelectedPluEntities = [.. ArmService.GetArmAllPlus(Arm)];

@@ -20,8 +20,9 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        string storageMethod = cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
-                               throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
+        string storageMethod =
+            cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
+            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
         BarcodeWeightLabel barcode = dto.ToBarcodeModel();
 
