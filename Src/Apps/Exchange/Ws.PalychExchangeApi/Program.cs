@@ -12,6 +12,7 @@ using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Services;
 using Ws.PalychExchangeApi.Features.Plus.Common;
 using Ws.PalychExchangeApi.Features.Plus.Services;
+using Ws.PalychExchangeApi.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +30,11 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IPluService, PluService>();
 builder.Services.AddScoped<ICharacteristicService, CharacteristicService>();
 
-
 #pragma warning disable CA1416
 
 builder.Logging.AddEventLog(eventLogSetting =>
 {
+    eventLogSetting.Filter = (providerName, _) => !providerName.StartsWith("Microsoft");
     eventLogSetting.SourceName = "Ws.Palych.ExchangeApi";
 });
 
@@ -42,6 +43,8 @@ builder.Logging.AddEventLog(eventLogSetting =>
 
 
 WebApplication app = builder.Build();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.UseHttpsRedirection();
 
