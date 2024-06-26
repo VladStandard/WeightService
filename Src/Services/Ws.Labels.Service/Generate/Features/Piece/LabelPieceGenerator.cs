@@ -23,12 +23,13 @@ internal class LabelPieceGenerator(
         if (labelCount > 240)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
+        TemplateFromCache templateFromCache =
+            cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
+            throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        TemplateFromCache templateFromCache = cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
-                                              throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
-
-        string storageMethod = cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
-                               throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
+        string storageMethod =
+            cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
+            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
 
         List<Label> labels = [];
@@ -106,3 +107,25 @@ internal class LabelPieceGenerator(
         };
     }
 }
+
+
+#region Exchange
+
+// PalletCreateApiDto data = new()
+// {
+//     Organization = "ООО Владимирский стандарт",
+//     PluUid = dto.Plu.Uid,
+//     PalletManUid = dto.PalletMan.Uid1C,
+//     WarehouseUid = dto.Line.Warehouse.Uid1C,
+//     CharacteristicUid = dto.PluCharacteristic.Uid,
+//     Barcode = pallet.Barcode,
+//     ArmNumber = (uint)dto.Line.Number,
+//     Kneading = (ushort)dto.Kneading,
+//     TrayWeightKg = dto.Weight,
+//     CreatedAt = dto.ProductDt,
+//     Labels = null
+// };
+//
+// Task<PalletResponseDto> ans = api.CreatePallet(data);
+
+#endregion

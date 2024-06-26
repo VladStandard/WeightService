@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging.EventLog;
 using Ws.Database.EntityFramework;
 using Ws.PalychExchangeApi.Extensions;
 using Ws.PalychExchangeApi.Features.Boxes.Common;
