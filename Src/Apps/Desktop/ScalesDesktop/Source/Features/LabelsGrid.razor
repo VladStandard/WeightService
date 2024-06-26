@@ -78,22 +78,26 @@
               Virtualize
             >
               <TemplateColumn>
-                <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex justify-center items-center px-3">
+                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex justify-center items-center px-3">
                   @if (SelectedItems.Contains(context.Label))
                   {
                     <CheckIcon class="size-4"/>
                   }
+                  else
+                  {
+                    <div class="size-4"></div>
+                  }
                 </button>
               </TemplateColumn>
               <TemplateColumn Title="@WsDataLocalizer["ColNumber"]">
-                <button @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
+                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex items-center px-3">
                   @context.Id
                 </button>
               </TemplateColumn>
               <TemplateColumn Title="@WsDataLocalizer["ColBarcode"]">
-                <div @onclick="@(() => ToggleItem(context.Label))" class="size-full flex items-center px-3">
+                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex items-center px-3">
                   @Pallet.Barcode
-                </div>
+                </button>
               </TemplateColumn>
             </FluentDataGrid>
           </UseEndpoint>

@@ -23,7 +23,7 @@
     <ScaleIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColWeight"]</h3>
   </div>
-  <span class="line-clamp-2">@FormModel.PalletWeight</span>
+  <span class="line-clamp-2">@FormModel.PalletWeight.ToString("F3") @WsDataLocalizer["MeasureKg"]</span>
 
   <div class="flex items-center text-muted-foreground">
     <ScaleIcon class="size-4 mr-1" />
@@ -41,7 +41,7 @@
     <InboxStackIcon class="size-4 mr-1" />
     <h3>@WsDataLocalizer["ColCount"]</h3>
   </div>
-  <span class="line-clamp-2">@FormModel.Count</span>
+  <span class="line-clamp-2">@FormModel.Count @WsDataLocalizer["MeasurePc"]</span>
 </div>
 
 <div class="w-full flex max-w-sm mx-auto justify-end gap-2 pb-2 pt-4">
