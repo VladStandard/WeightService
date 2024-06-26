@@ -23,11 +23,4 @@ public sealed class CharacteristicEntity : EfEntityBase
 
     #endregion
 
-    public CharacteristicEntity() { }
-
-    public CharacteristicEntity(Guid uid, DateTime updateDt)
-    {
-        Id = uid;
-        ChangeDt = updateDt;
-    }
 }

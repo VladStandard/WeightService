@@ -15,7 +15,13 @@ public sealed record ClipDto : BaseDto
     [XmlAttribute("Weight")]
     public decimal Weight;
 
-    public ClipEntity ToEntity(DateTime updateDt) => new(Uid, Name, Weight, updateDt);
+    public ClipEntity ToEntity(DateTime updateDt) => new()
+    {
+        Id = Uid,
+        Name = Name,
+        Weight = Weight,
+        ChangeDt = updateDt
+    };
 }
 
 // ReSharper disable once ClassNeverInstantiated.Global

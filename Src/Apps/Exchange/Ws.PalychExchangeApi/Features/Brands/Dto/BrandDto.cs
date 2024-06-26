@@ -11,7 +11,12 @@ public sealed record BrandDto : BaseDto
     [XmlAttribute("Name")]
     public string Name = string.Empty;
 
-    public BrandEntity ToEntity(DateTime updateDate) => new(Uid, Name, updateDate);
+    public BrandEntity ToEntity(DateTime updateDate) => new()
+    {
+        Id = Uid,
+        Name = Name,
+        ChangeDt = updateDate
+    };
 }
 
 

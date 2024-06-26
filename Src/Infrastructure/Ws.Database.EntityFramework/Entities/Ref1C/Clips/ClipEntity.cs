@@ -14,13 +14,4 @@ public sealed class ClipEntity : EfEntityBase
 
     #endregion
 
-    public ClipEntity() { }
-
-    public ClipEntity(Guid uid, string name, decimal weight, DateTime updateDate)
-    {
-        Id = uid;
-        Name = name;
-        Weight = weight;
-        ChangeDt = updateDate;
-    }
 }

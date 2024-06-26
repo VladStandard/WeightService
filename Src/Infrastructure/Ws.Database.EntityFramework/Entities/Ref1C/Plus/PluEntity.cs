@@ -45,12 +45,4 @@ public sealed class PluEntity : EfEntityBase
     #endregion
 
     [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
-
-    public PluEntity() { }
-
-    public PluEntity(Guid uid, DateTime updateDt)
-    {
-        Id = uid;
-        ChangeDt = updateDt;
-    }
 }

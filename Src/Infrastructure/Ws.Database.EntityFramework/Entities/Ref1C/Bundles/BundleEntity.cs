@@ -14,13 +14,4 @@ public sealed class BundleEntity : EfEntityBase
 
     #endregion
 
-    public BundleEntity() { }
-
-    public BundleEntity(Guid uid, string name, decimal weight, DateTime updateDate)
-    {
-        Id = uid;
-        Name = name;
-        Weight = weight;
-        ChangeDt = updateDate;
-    }
 }

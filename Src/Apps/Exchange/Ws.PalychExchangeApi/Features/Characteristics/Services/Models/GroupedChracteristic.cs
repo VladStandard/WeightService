@@ -11,12 +11,13 @@ internal record GroupedCharacteristic : BaseDto
     public required bool IsDelete { get; set; }
     public required string Name { get; set; } = string.Empty;
 
-    public CharacteristicEntity ToEntity(DateTime updateDt) =>
-        new(Uid, updateDt)
-        {
-            Name = Name,
-            PluId = PluUid,
-            BoxId = BoxUid,
-            BundleCount = BundleCount
-        };
+    public CharacteristicEntity ToEntity(DateTime updateDt) => new()
+    {
+        Id = Uid,
+        ChangeDt = updateDt,
+        Name = Name,
+        BundleCount = BundleCount,
+        PluId = PluUid,
+        BoxId = BoxUid
+    };
 }

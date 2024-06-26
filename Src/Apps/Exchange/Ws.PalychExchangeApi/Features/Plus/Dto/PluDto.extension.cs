@@ -6,8 +6,9 @@ namespace Ws.PalychExchangeApi.Features.Plus.Dto;
 internal static class PluDtoExtensions
 {
     internal static PluEntity ToPluEntity(this PluDto dto, DateTime updateDt) =>
-        new(dto.Uid, updateDt)
+        new()
         {
+            Id = dto.Uid,
             IsWeight = dto.IsWeight,
             Ean13 = dto.Ean13,
             Itf14 = dto.Itf14,
@@ -20,7 +21,8 @@ internal static class PluDtoExtensions
             ClipId = dto.ClipUid,
             BundleId = dto.BundleUid,
             Weight = dto.Weight,
-            StorageMethod = dto.StorageMethod
+            StorageMethod = dto.StorageMethod,
+            ChangeDt = updateDt
         };
 
     internal static NestingEntity ToNestingEntity(this PluDto dto, DateTime updateDt) =>
