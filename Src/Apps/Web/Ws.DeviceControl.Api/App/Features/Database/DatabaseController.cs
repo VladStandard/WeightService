@@ -13,5 +13,8 @@ public class DatabaseController(IDatabaseService databaseService)
     [HttpGet("migrations")]
     public List<MigrationHistoryEntry> GetAllMigrations() => databaseService.GetAllMigrations();
 
+    [HttpGet("tables")]
+    public List<DataBaseTableEntry> GetAllTables() => databaseService.GetAllTables();
+
     #endregion
 }

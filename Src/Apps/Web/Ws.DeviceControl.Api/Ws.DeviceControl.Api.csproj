@@ -12,8 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
-      <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj"/>
+        <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj"/>
     </ItemGroup>
 
 </Project>

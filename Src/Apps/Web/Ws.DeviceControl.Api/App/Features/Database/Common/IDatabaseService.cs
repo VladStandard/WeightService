@@ -5,4 +5,5 @@ namespace Ws.DeviceControl.Api.App.Features.Database.Common;
 public interface IDatabaseService
 {
     List<MigrationHistoryEntry> GetAllMigrations();
+    List<DataBaseTableEntry> GetAllTables();
 }
