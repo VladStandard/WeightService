@@ -63,21 +63,21 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
 
 public class LinesCreateFormValidator : AbstractValidator<CreateArmBySite>
 {
-    public LinesCreateFormValidator()
+    public LinesCreateFormValidator(IStringLocalizer<ApplicationResources> localizer, IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty().MaximumLength(64);
-        RuleFor(item => item.Number).GreaterThan(10000).LessThan(100000);
-        RuleFor(item => item.PcName).NotEmpty().Matches("^[A-Z0-9-]*$");
-        RuleFor(item => item.Type).IsInEnum();
+        RuleFor(item => item.Name).NotEmpty().MaximumLength(64).WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Number).GreaterThan(10000).LessThan(100000).WithName(wsDataLocalizer["ColNumber"]);
+        RuleFor(item => item.PcName).NotEmpty().Matches("^[A-Z0-9-]*$").WithName(wsDataLocalizer["ColPcName"]);
+        RuleFor(item => item.Type).IsInEnum().WithName(wsDataLocalizer["ColType"]);
         RuleFor(item => item.Printer).Custom((obj, context) =>
         {
             if (obj.IsNew)
-                context.AddFailure("С объектом Printer что-то не так");
+                context.AddFailure(string.Format(localizer["FormFieldNotSelected"], wsDataLocalizer["ColPrinter"]));
         });
         RuleFor(item => item.Warehouse).Custom((obj, context) =>
         {
             if (obj.IsNew)
-                context.AddFailure("С объектом Warehouse что-то не так");
+                context.AddFailure(string.Format(localizer["FormFieldNotSelected"], wsDataLocalizer["ColWarehouse"]));
         });
     }
 }

@@ -28,9 +28,9 @@ public sealed partial class TemplatesUpdateForm : SectionFormBase<Template>
 
 public class TemplatesUpdateFormValidator : AbstractValidator<Template>
 {
-    public TemplatesUpdateFormValidator()
+    public TemplatesUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Body).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Body).NotEmpty().WithName(wsDataLocalizer["ColData"]);
     }
 }

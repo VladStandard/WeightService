@@ -6,7 +6,7 @@
 
 <SectionForm
   FormModel="@DialogItem"
-  Validator="@(new PrintersCreateFormValidator())"
+  Validator="@(new PrintersCreateFormValidator(Localizer, WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >

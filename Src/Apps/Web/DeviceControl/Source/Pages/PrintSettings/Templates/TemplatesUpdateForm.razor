@@ -7,7 +7,7 @@
   FormModel="@DialogItem"
   ChangeDate="@DialogItem.ChangeDt"
   CreateDate="@DialogItem.CreateDt"
-  Validator="@(new TemplatesUpdateFormValidator())"
+  Validator="@(new TemplatesUpdateFormValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@UpdateItem"
 >

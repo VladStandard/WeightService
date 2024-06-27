@@ -4,7 +4,7 @@
 
 <SectionForm
   FormModel="@DialogItem"
-  Validator="@(new TemplateResourcesCreateFormValidator())"
+  Validator="@(new TemplateResourcesCreateFormValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >

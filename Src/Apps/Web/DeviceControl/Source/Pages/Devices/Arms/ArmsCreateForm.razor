@@ -8,8 +8,8 @@
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 
 <SectionForm
-  FormModel="@DialogItem"
-  Validator="@(new LinesCreateFormValidator())"
+  FormModel="@_createCommand"
+  Validator="@(new LinesCreateFormValidator(Localizer, WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >
@@ -59,7 +59,7 @@
       Label="@WsDataLocalizer["ColPrinter"]"
       Items="Printers"
       @bind-Value="@_createCommand.Printer"
-      ItemDisplayName="item => item.DisplayName"
+      ItemDisplayName="@(item => item.IsNew ? Localizer["FormPrinterDefaultPlaceholder"] : item.DisplayName)"
       Path="@Redirector.ToPath(_createCommand.Printer, UserPrincipal)"
       For="@(() => _createCommand.Printer)"
       IsFilterable
@@ -78,7 +78,7 @@
       Label="@WsDataLocalizer["ColWarehouse"]"
       Items="Warehouses"
       @bind-Value="@_createCommand.Warehouse"
-      ItemDisplayName="item => item.Name"
+      ItemDisplayName="@(item => item.IsNew ? Localizer["FormWarehouseDefaultPlaceholder"] : item.Name)"
       Path="@Redirector.ToPath(_createCommand.Warehouse, UserPrincipal)"
       For="@(() => _createCommand.Warehouse)"
       IsFilterable

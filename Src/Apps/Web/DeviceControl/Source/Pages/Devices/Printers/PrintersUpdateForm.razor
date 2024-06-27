@@ -9,7 +9,7 @@
   FormModel="@DialogItem"
   ChangeDate="@DialogItem.ChangeDt"
   CreateDate="@DialogItem.CreateDt"
-  Validator="@(new PrintersUpdateFormValidator())"
+  Validator="@(new PrintersUpdateFormValidator(Localizer, WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@UpdateItem"
 >

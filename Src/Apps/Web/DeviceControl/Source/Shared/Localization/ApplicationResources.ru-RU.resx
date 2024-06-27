@@ -267,4 +267,7 @@
     <data name="ProductionSiteSuspenseDescription" xml:space="preserve">
         <value>Площадка не настроена для данного аккаунта. Обратитесь к поддержке.</value>
     </data>
+    <data name="FormFieldNotSelected" xml:space="preserve">
+        <value>{0} не выбран</value>
+    </data>
 </root>

@@ -24,9 +24,9 @@ public sealed partial class TemplateResourcesUpdateForm : SectionFormBase<ZplRes
 
 public class TemplateResourcesUpdateFormValidator : AbstractValidator<ZplResource>
 {
-    public TemplateResourcesUpdateFormValidator()
+    public TemplateResourcesUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Zpl).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Zpl).NotEmpty().WithName(wsDataLocalizer["ColData"]);
     }
 }
