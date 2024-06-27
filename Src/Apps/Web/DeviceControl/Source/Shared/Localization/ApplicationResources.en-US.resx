@@ -46,7 +46,7 @@
         <value>Agg. labels</value>
     </data>
     <data name="SectionAppsLogs" xml:space="preserve">
-        <value>Apps logs</value>
+        <value>App's logs</value>
     </data>
     <data name="SectionBarcodes" xml:space="preserve">
         <value>Barcodes</value>
@@ -79,7 +79,7 @@
         <value>PLU</value>
     </data>
     <data name="SectionStorageMethods" xml:space="preserve">
-        <value>PLU Storages</value>
+        <value>Storage Methods</value>
     </data>
     <data name="SectionPrinters" xml:space="preserve">
         <value>Printers</value>
@@ -269,5 +269,11 @@
     </data>
     <data name="FormFieldNotSelected" xml:space="preserve">
         <value>{0} field is not selected</value>
+    </data>
+    <data name="SectionMigrations" xml:space="preserve">
+        <value>Migrations</value>
+    </data>
+    <data name="SectionTables" xml:space="preserve">
+        <value>Tables</value>
     </data>
 </root>

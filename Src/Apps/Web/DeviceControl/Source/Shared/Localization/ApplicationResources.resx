@@ -270,4 +270,10 @@
     <data name="FormFieldNotSelected" xml:space="preserve">
         <value />
     </data>
+    <data name="SectionMigrations" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SectionTables" xml:space="preserve">
+        <value />
+    </data>
 </root>

@@ -5,8 +5,10 @@ using DeviceControl.Source.Shared.Api;
 using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.RenderZpl;
+using DeviceControl.Source.Shared.Services;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Refit;
+using Ws.DeviceControl.Models;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 
@@ -34,6 +36,14 @@ builder.Services.AddRefitClient<IKeycloakApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
     .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
+builder.Services.AddRefitClient<IWebApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new(builder.Configuration.GetValue<string>("WebApi") ?? ""))
+    .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    });
+
+builder.Services.AddScoped<DatabaseApi>();
 builder.Services.AddScoped<UserApi>();
 
 WebApplication app = builder.Build();

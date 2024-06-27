@@ -1,0 +1,52 @@
+@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Widgets.Section
+@using DeviceControl.Source.Widgets.Section.DataGridActions
+@using Ws.DeviceControl.Models.Models.Database
+
+@attribute [Route($"{RouteUtils.SectionTables}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@rendermode InteractiveServer
+
+<UseParameterlessEndpoint Endpoint="@DatabaseApi.TablesEndpoint" Context="tablesQuery">
+  <PageHeader>
+    <span>@Localizer["SectionTables"]</span>
+    <DataGridItemsCounter ItemsCount="@(tablesQuery.Data?.Length ?? 0)" IsLoading="tablesQuery.IsFetching" />
+    <DataGridActionReload OnClick="@tablesQuery.RefetchAsync" IsLoading="tablesQuery.IsFetching" />
+  </PageHeader>
+
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="DataBaseTableEntry"
+      Items="@(tablesQuery.HasData ? tablesQuery.Data : [])"
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@nameof(DataBaseTableEntry.Table)"
+          Width="30%"
+        />
+        <DataGridColumn
+          Caption="Схема"
+          Field="@nameof(DataBaseTableEntry.Schema)"
+          Width="30%"
+        />
+        <DataGridColumn
+          Caption="Количество записей"
+          Field="@nameof(DataBaseTableEntry.Rows)"
+          Width="30%"
+        />
+        <DataGridColumn
+          Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
+          Field="@nameof(DataBaseTableEntry.UsedMb)"
+          Width="10%"
+        />
+      </ColumnsContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseParameterlessEndpoint>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private DatabaseApi DatabaseApi { get; set; } = default!;
+}

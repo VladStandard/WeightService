@@ -44,6 +44,13 @@ public static class RouteUtils
 
     # endregion
 
+    # region Diagnostics
+
+    public const string SectionMigrations = "/migrations";
+    public const string SectionTables = "/tables";
+
+    # endregion
+
     public const string SectionQrlQuery = "/{SearchingSectionItemId?}";
     public const string Home = "/";
     public const string Authorization = "/auth";
