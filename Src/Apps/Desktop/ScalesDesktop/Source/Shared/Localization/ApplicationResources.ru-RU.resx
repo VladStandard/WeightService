@@ -288,4 +288,10 @@
     <data name="PalletCreateDialogSuccess" xml:space="preserve">
         <value>Паллета создана</value>
     </data>
+    <data name="UserSelectEmptyPlaceholder" xml:space="preserve">
+        <value>Пользователь не найден</value>
+    </data>
+    <data name="UserSelectSearchPlaceholder" xml:space="preserve">
+        <value>Поиск по имени</value>
+    </data>
 </root>

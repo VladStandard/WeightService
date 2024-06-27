@@ -288,4 +288,10 @@
     <data name="PalletCreateDialogSuccess" xml:space="preserve">
         <value>The pallet has been created</value>
     </data>
+    <data name="UserSelectEmptyPlaceholder" xml:space="preserve">
+        <value>The user was not found</value>
+    </data>
+    <data name="UserSelectSearchPlaceholder" xml:space="preserve">
+        <value>Search by name</value>
+    </data>
 </root>
