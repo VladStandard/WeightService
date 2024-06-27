@@ -18,17 +18,17 @@ public class DatabaseService(WsDbContext dbContext) : IDatabaseService
 
     public List<DataBaseTableEntry> GetAllTables()
     {
-        var data = dbContext.Database.SqlQuery<DataBaseTableEntry>(
-            $"""
-             SELECT
-                         [SCHEMA] AS [{nameof(DataBaseTableEntry.Schema)}],
-                         [TABLE] AS [{nameof(DataBaseTableEntry.Table)}],
-                         [ROWS_COUNT] AS [{nameof(DataBaseTableEntry.Rows)}],
-                         [USED_MB] AS [{nameof(DataBaseTableEntry.UsedMb)}],
-                         [FILENAME] AS [{nameof(DataBaseTableEntry.FileName)}]
-                       FROM dbo.DATABASE_TABLES_VIEW
-             """
-        ).ToList();
-        return new();
+        return dbContext.DatabaseTables.Select(i => new DataBaseTableEntry
+            {
+                Schema = i.Schema,
+                Table = i.Table,
+                Rows = i.Rows,
+                UsedMb = i.UsedMb,
+                FileName = i.FileName
+            })
+            .OrderBy(i => i.FileName)
+            .ThenBy(i => i.Schema)
+            .ThenByDescending(i => i.UsedMb)
+            .ThenByDescending(i => i.Rows).ToList();
     }
 }

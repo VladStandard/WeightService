@@ -22,6 +22,7 @@ using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 using Ws.Database.EntityFramework.Extensions;
 using Ws.Database.EntityFramework.Interceptors;
 using Ws.Database.EntityFramework.Models;
+using Ws.Database.EntityFramework.Views.Diag.DatabaseTables;
 using Ws.Shared.Utils;
 
 namespace Ws.Database.EntityFramework;
@@ -29,6 +30,8 @@ namespace Ws.Database.EntityFramework;
 public class WsDbContext : DbContext
 {
     #region DbSet
+
+    public DbSet<DatabaseTableView> DatabaseTables { get; set; }
 
     public DbSet<ZplResourceEntity> ZplResources { get; set; }
     public DbSet<PalletManEntity> PalletMen { get; set; }

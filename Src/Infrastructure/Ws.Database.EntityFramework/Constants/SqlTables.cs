@@ -15,7 +15,6 @@ internal static class SqlTables
     public const string ZplResources = "RESOURCES";
     public const string ProductionSites = "PRODUCTION_SITES";
     public const string StorageMethods = "STORAGE_METHODS";
-    public const string Claims = "CLAIMS";
     public const string Warehouses = "WAREHOUSES";
     public const string Templates = "TEMPLATES";
     public const string Users = "USERS";
