@@ -26,6 +26,9 @@
                 ItemDisplayName="@(item => item.Fio.DisplayShortName)"
                 Items="@palletMenQuery.Data"
                 Placeholder="@Localizer["UserSelectPlaceholder"]"
+                EmptyPlaceholder="@Localizer["UserSelectEmptyPlaceholder"]"
+                SearchPlaceholder="@Localizer["UserSelectSearchPlaceholder"]"
+                IsFilterable
               />
               <FieldValidation For="@(() => FormModel.User)" />
             }

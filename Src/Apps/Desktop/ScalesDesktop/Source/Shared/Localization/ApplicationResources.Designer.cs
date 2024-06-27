@@ -854,9 +854,27 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string UserSelectEmptyPlaceholder {
+            get {
+                return ResourceManager.GetString("UserSelectEmptyPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UserSelectPlaceholder {
             get {
                 return ResourceManager.GetString("UserSelectPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string UserSelectSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("UserSelectSearchPlaceholder", resourceCulture);
             }
         }
         

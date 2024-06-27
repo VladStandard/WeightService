@@ -1,17 +1,23 @@
 @using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Features
 
 <div class="w-full h-14 shrink-0 border-b bg-background">
   <div class="size-full max-w-screen-2xl mx-auto px-8 flex items-center justify-between">
-    <HeaderAppName Class="shrink-0" />
-    <div class="flex grow size-full">
-      @ChildContent
+    <HeaderAppName Class="shrink-0 w-2/5" />
+    <div class="w-1/5 flex items-center justify-center">
+      <Clock />
     </div>
-    <a href="@RouteUtils.Home">
-      <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
-        <HomeIcon class="size-5 mr-2"/>
-        <span class="text-base">@Localizer["BtnMenu"]</span>
-      </Button>
-    </a>
+    <div class="w-2/5 flex items-center">
+      <div class="flex grow size-full">
+        @ChildContent
+      </div>
+      <a href="@RouteUtils.Home">
+        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Large">
+          <HomeIcon class="size-5 mr-2"/>
+          <span class="text-base">@Localizer["BtnMenu"]</span>
+        </Button>
+      </a>
+    </div>
   </div>
 </div>
 
