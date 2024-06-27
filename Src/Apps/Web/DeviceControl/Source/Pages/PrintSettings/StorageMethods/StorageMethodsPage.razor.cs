@@ -33,7 +33,7 @@ public sealed partial class StorageMethodsPage : SectionDataGridPageBase<Storage
 
     protected override Task DeleteItemAction(StorageMethod item)
     {
-        StorageMethodService.Delete(item);
+        StorageMethodService.Delete(item.Uid, item.Name);
         return Task.CompletedTask;
     }
 }

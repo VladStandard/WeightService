@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Database.Nhibernate.Entities.Ref.Arms;
 using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Devices.Arms;
@@ -46,7 +45,7 @@ internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository
     public Arm Update(Arm line) => armRepo.Update(line);
 
     [Transactional]
-    public void Delete(Arm item) => armRepo.Delete(item);
+    public void DeleteById(Guid id) => armRepo.Delete(new() { Uid = id });
 
     [Transactional]
     public void DeletePluLine(ArmPlu item) => pluLineRepo.Delete(item);

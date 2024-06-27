@@ -6,7 +6,7 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.Printers;
 
 public interface IPrinterService : IGetItemByUid<Printer>, ICreate<Printer>,
-    IUpdate<Printer>, IDelete<Printer>
+    IUpdate<Printer>, IDelete<Guid>
 {
     IList<Printer> GetAllByProductionSite(ProductionSite site);
 }

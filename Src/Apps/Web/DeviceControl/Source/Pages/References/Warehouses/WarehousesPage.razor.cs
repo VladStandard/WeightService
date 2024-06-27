@@ -47,7 +47,7 @@ public sealed partial class WarehousesPage : SectionDataGridPageBase<Warehouse>
 
     protected override Task DeleteItemAction(Warehouse item)
     {
-        WarehouseService.Delete(item);
+        WarehouseService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

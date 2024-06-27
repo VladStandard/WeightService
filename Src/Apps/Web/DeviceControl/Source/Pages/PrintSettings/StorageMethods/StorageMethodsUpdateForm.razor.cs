@@ -17,7 +17,7 @@ public sealed partial class StorageMethodsUpdateForm : SectionFormBase<StorageMe
 
     protected override Task DeleteItemAction(StorageMethod item)
     {
-        StorageMethodService.Delete(item);
+        StorageMethodService.Delete(DialogItemCopy.Uid, DialogItemCopy.Name);
         return Task.CompletedTask;
     }
 }

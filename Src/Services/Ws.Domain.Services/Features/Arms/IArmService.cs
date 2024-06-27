@@ -6,7 +6,7 @@ using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Arms;
 
-public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, IDelete<Arm>
+public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, IDelete<Guid>
 {
     #region Queries
 

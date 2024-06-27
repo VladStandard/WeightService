@@ -46,7 +46,7 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
 
     protected override Task DeleteItemAction(PalletMan item)
     {
-        PalletManService.Delete(item);
+        PalletManService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

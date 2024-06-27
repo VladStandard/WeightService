@@ -18,7 +18,7 @@ public sealed partial class TemplatesUpdateForm : SectionFormBase<Template>
 
     protected override Task DeleteItemAction(Template item)
     {
-        TemplateService.Delete(item);
+        TemplateService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 

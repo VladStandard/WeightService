@@ -47,7 +47,7 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<Printer>
 
     protected override Task DeleteItemAction(Printer item)
     {
-        PrinterService.Delete(item);
+        PrinterService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

@@ -5,4 +5,4 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.ProductionSites;
 
 public interface IProductionSiteService : IGetItemByUid<ProductionSite>, IGetAll<ProductionSite>,
-    ICreate<ProductionSite>, IUpdate<ProductionSite>, IDelete<ProductionSite>;
+    ICreate<ProductionSite>, IUpdate<ProductionSite>, IDelete<Guid>;

@@ -17,7 +17,7 @@ public sealed partial class TemplateResourcesUpdateForm : SectionFormBase<ZplRes
 
     protected override Task DeleteItemAction(ZplResource item)
     {
-        ZplResourceService.Delete(item);
+        ZplResourceService.Delete(DialogItemCopy.Uid, DialogItemCopy.Name);
         return Task.CompletedTask;
     }
 }

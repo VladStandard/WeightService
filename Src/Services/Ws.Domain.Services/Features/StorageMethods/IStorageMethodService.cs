@@ -5,7 +5,9 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.StorageMethods;
 
 public interface IStorageMethodService : IGetItemByUid<StorageMethod>, IGetAll<StorageMethod>,
-    ICreate<StorageMethod>, IUpdate<StorageMethod>, IDelete<StorageMethod>
+    ICreate<StorageMethod>, IUpdate<StorageMethod>
 {
     StorageMethod GetByName(string name);
+
+    void Delete(Guid id, string name);
 }

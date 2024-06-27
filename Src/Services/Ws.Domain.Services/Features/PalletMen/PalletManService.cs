@@ -32,7 +32,7 @@ internal class PalletManService(SqlPalletManRepository palletManRepo) : IPalletM
     public PalletMan Update(PalletMan item) => palletManRepo.Update(item);
 
     [Transactional]
-    public void Delete(PalletMan item) => palletManRepo.Delete(item);
+    public void DeleteById(Guid id) => palletManRepo.Delete(new() { Uid = id });
 
     #endregion
 }

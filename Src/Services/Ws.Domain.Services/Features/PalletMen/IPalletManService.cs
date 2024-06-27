@@ -6,7 +6,7 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.PalletMen;
 
 public interface IPalletManService : IGetItemByUid<PalletMan>,
-    ICreate<PalletMan>, IUpdate<PalletMan>, IDelete<PalletMan>
+    ICreate<PalletMan>, IUpdate<PalletMan>, IDelete<Guid>
 {
     List<PalletMan> GetAllByProductionSite(ProductionSite site);
 }

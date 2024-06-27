@@ -33,7 +33,7 @@ internal class PrinterService(SqlPrinterRepository printerRepo) : IPrinterServic
     public Printer Update(Printer item) => printerRepo.Update(item);
 
     [Transactional]
-    public void Delete(Printer item) => printerRepo.Delete(item);
+    public void DeleteById(Guid id) => printerRepo.Delete(new() { Uid = id });
 
     #endregion
 }

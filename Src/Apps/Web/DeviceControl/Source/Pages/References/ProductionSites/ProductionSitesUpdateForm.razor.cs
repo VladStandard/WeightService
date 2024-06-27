@@ -17,7 +17,7 @@ public sealed partial class ProductionSitesUpdateForm : SectionFormBase<Producti
 
     protected override Task DeleteItemAction(ProductionSite item)
     {
-        ProductionSiteService.Delete(item);
+        ProductionSiteService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

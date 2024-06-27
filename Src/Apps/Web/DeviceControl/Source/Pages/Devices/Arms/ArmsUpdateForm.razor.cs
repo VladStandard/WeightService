@@ -57,7 +57,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
     protected override Task DeleteItemAction(Arm item)
     {
-        ArmService.Delete(item);
+        ArmService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

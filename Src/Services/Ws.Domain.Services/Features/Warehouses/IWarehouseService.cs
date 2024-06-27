@@ -5,7 +5,7 @@ using Ws.Domain.Services.Common.Queries;
 namespace Ws.Domain.Services.Features.Warehouses;
 
 public interface IWarehouseService : IGetItemByUid<Warehouse>,
-    ICreate<Warehouse>, IUpdate<Warehouse>, IDelete<Warehouse>
+    ICreate<Warehouse>, IUpdate<Warehouse>, IDelete<Guid>
 {
     public IList<Warehouse> GetAllByProductionSite(ProductionSite productionSite);
 }

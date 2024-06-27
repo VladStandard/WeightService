@@ -1,6 +1,6 @@
 namespace Ws.Domain.Services.Common.Commands;
 
-public interface IDelete<in TItem>
+public interface IDelete<in T>
 {
-    void Delete(TItem item);
+    void DeleteById(T id);
 }

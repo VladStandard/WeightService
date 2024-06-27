@@ -49,7 +49,7 @@ public sealed partial class ArmsPage : SectionDataGridPageBase<Arm>
 
     protected override Task DeleteItemAction(Arm item)
     {
-        ArmService.Delete(item);
+        ArmService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 

@@ -32,7 +32,7 @@ internal class WarehouseService(SqlWarehouseRepository warehouseRepo) : IWarehou
     public Warehouse Update(Warehouse item) => warehouseRepo.Update(item);
 
     [Transactional]
-    public void Delete(Warehouse item) => warehouseRepo.Delete(item);
+    public void DeleteById(Guid id) => warehouseRepo.Delete(new() { Uid = id });
 
     #endregion
 }

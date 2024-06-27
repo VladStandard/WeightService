@@ -33,7 +33,7 @@ public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplR
 
     protected override Task DeleteItemAction(ZplResource item)
     {
-        ZplResourceService.Delete(item);
+        ZplResourceService.Delete(item.Uid, item.Name);
         return Task.CompletedTask;
     }
 }

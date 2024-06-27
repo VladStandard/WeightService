@@ -46,10 +46,10 @@ internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRed
     }
 
     [Transactional]
-    public void Delete(ZplResource item)
+    public void Delete(Guid id, string name)
     {
-        zplResourceRepo.Delete(item);
-        provider.HDel("ZPL_RESOURCES", [item.Name]);
+        zplResourceRepo.Delete(new() { Uid = id });
+        provider.HDel("ZPL_RESOURCES", [name]);
     }
 
     #endregion

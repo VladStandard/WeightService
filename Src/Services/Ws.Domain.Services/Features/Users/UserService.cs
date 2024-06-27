@@ -29,7 +29,7 @@ internal class UserService(SqlUserRepository userRepo) : IUserService
     public User Update(User item) => userRepo.Update(item);
 
     [Transactional]
-    public void Delete(User item) => userRepo.Delete(item);
+    public void DeleteById(Guid id) => userRepo.Delete(new() { Uid = id });
 
     #endregion
 }

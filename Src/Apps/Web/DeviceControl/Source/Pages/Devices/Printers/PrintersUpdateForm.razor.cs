@@ -46,7 +46,7 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
 
     protected override Task DeleteItemAction(Printer item)
     {
-        PrinterService.Delete(item);
+        PrinterService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

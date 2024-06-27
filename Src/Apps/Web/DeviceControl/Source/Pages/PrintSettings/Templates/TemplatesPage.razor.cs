@@ -36,7 +36,7 @@ public sealed partial class TemplatesPage : SectionDataGridPageBase<Template>
 
     protected override Task DeleteItemAction(Template item)
     {
-        TemplateService.Delete(item);
+        TemplateService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }

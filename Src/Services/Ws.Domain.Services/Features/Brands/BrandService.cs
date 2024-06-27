@@ -23,7 +23,7 @@ internal class BrandService(SqlBrandRepository brandRepo) : IBrandService
     #region CRUD
 
     [Transactional]
-    public void Delete(Brand item) => brandRepo.Delete(item);
+    public void DeleteById(Brand item) => brandRepo.Delete(item);
 
     #endregion
 }

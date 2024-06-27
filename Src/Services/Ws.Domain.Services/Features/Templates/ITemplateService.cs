@@ -9,7 +9,7 @@ public interface ITemplateService :
     IGetAll<Template>,
     ICreate<Template>,
     IUpdate<Template>,
-    IDelete<Template>
+    IDelete<Guid>
 {
     IList<Template> GetTemplatesByIsWeight(bool isWeight);
 }

@@ -1,13 +1,10 @@
 using System.Net;
-using System.Security.Claims;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.ProductionSites;
 using Ws.Domain.Services.Features.Users;
-using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
@@ -21,11 +18,9 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
+    [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
 
     # endregion
-
-    [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
-
     private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = new List<PrinterTypes>();
     private bool IsSeniorSupport { get; set; }
 
@@ -39,7 +34,7 @@ public sealed partial class PrintersCreateForm : SectionFormBase<Printer>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        DialogItem.ProductionSite = UserProductionSite;
+        DialogItem.ProductionSite = ProductionSite;
 
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport))
             .Succeeded;

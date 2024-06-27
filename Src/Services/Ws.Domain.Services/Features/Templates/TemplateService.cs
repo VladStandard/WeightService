@@ -43,10 +43,10 @@ internal class TemplateService(
     }
 
     [Transactional]
-    public void Delete(Template item)
+    public void DeleteById(Guid id)
     {
-        templateRepo.Delete(item);
-        provider.HDel($"TEMPLATES:{item.Uid}");
+        templateRepo.Delete(new() { Uid = id });
+        provider.HDel($"TEMPLATES:{id}");
     }
 
     #endregion

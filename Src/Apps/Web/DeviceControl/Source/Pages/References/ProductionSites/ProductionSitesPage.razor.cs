@@ -33,7 +33,8 @@ public sealed partial class ProductionSitesPage : SectionDataGridPageBase<Produc
 
     protected override Task DeleteItemAction(ProductionSite item)
     {
-        ProductionSiteService.Delete(item);
+        ProductionSiteService.DeleteById(item.Uid
+        );
         return Task.CompletedTask;
     }
 }

@@ -30,7 +30,7 @@ internal class ProductionSiteService(SqlProductionSiteRepository productionSiteR
     public ProductionSite Update(ProductionSite item) => productionSiteRepo.Update(item);
 
     [Transactional]
-    public void Delete(ProductionSite item) => productionSiteRepo.Delete(item);
+    public void DeleteById(Guid id) => productionSiteRepo.Delete(new() { Uid = id });
 
     #endregion
 }

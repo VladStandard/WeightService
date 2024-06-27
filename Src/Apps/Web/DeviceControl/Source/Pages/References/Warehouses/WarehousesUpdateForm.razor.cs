@@ -7,6 +7,7 @@ namespace DeviceControl.Source.Pages.References.Warehouses;
 public sealed partial class WarehousesUpdateForm : SectionFormBase<Warehouse>
 {
     #region Inject
+
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
@@ -19,7 +20,7 @@ public sealed partial class WarehousesUpdateForm : SectionFormBase<Warehouse>
 
     protected override Task DeleteItemAction(Warehouse item)
     {
-        WarehouseService.Delete(item);
+        WarehouseService.DeleteById(item.Uid);
         return Task.CompletedTask;
     }
 }
