@@ -294,4 +294,7 @@
     <data name="UserSelectSearchPlaceholder" xml:space="preserve">
         <value>Search by name</value>
     </data>
+    <data name="PrintingStoppedDueToErrors" xml:space="preserve">
+        <value>Label printing stopped due to errors</value>
+    </data>
 </root>

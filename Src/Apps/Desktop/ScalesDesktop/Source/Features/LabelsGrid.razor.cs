@@ -24,7 +24,8 @@ public sealed partial class LabelsGrid : ComponentBase
     private List<LabelInfo> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private LabelInfo? HoverItem { get; set; }
-    private const int PrinterRequestDelay = 150;
+    private const ushort PrinterRequestDelay = 500;
+    private const ushort MaxPrinterErrors = 3;
 
     private void ToggleItem(LabelInfo item)
     {
@@ -56,16 +57,26 @@ public sealed partial class LabelsGrid : ComponentBase
         }
 
         int errorIndex = 0;
+        int consecutiveErrorCount = 0;
+
         foreach (LabelInfo item in SelectedItems)
         {
             try
             {
                 errorIndex += 1;
                 await PrinterService.PrintZplAsync(item.Zpl);
+                consecutiveErrorCount = 0;
             }
             catch
             {
+                consecutiveErrorCount += 1;
                 ToastService.ShowError($"{errorIndex} {Localizer["IndexedLabelNotPrinted"]}");
+
+                if (consecutiveErrorCount >= MaxPrinterErrors)
+                {
+                    ToastService.ShowError(Localizer["PrintingStoppedDueToErrors"]);
+                    break;
+                }
             }
             await Task.Delay(PrinterRequestDelay);
         }

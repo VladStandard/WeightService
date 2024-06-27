@@ -294,4 +294,7 @@
     <data name="UserSelectSearchPlaceholder" xml:space="preserve">
         <value>Поиск по имени</value>
     </data>
+    <data name="PrintingStoppedDueToErrors" xml:space="preserve">
+        <value>Печать этикеток  остановлена из-за ошибок</value>
+    </data>
 </root>

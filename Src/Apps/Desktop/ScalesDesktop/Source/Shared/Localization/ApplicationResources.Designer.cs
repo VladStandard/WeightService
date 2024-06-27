@@ -764,6 +764,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PrintingStoppedDueToErrors {
+            get {
+                return ResourceManager.GetString("PrintingStoppedDueToErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ScalesStatusDetached {
             get {
                 return ResourceManager.GetString("ScalesStatusDetached", resourceCulture);
