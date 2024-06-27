@@ -510,7 +510,7 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apps logs.
+        ///   Looks up a localized string similar to App&apos;s logs.
         /// </summary>
         public static string SectionAppsLogs {
             get {
@@ -600,6 +600,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Migrations.
+        /// </summary>
+        public static string SectionMigrations {
+            get {
+                return ResourceManager.GetString("SectionMigrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pallet Men.
         /// </summary>
         public static string SectionPalletMen {
@@ -663,11 +672,20 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PLU Storages.
+        ///   Looks up a localized string similar to Storage Methods.
         /// </summary>
         public static string SectionStorageMethods {
             get {
                 return ResourceManager.GetString("SectionStorageMethods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tables.
+        /// </summary>
+        public static string SectionTables {
+            get {
+                return ResourceManager.GetString("SectionTables", resourceCulture);
             }
         }
         

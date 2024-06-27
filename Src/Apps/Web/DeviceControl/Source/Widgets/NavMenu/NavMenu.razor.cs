@@ -92,18 +92,18 @@ public sealed partial class NavMenu : ComponentBase
                 new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyEnum.Support),
                 new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyEnum.SeniorSupport),
             ]
+        },
+        new()
+        {
+            Label = Localizer["MenuDiagnostics"],
+            Icon = HeroiconName.Wrench,
+            RequiredClaim = PolicyEnum.Admin,
+            SubItems =
+            [
+                new(Localizer["SectionMigrations"], RouteUtils.SectionMigrations),
+                new(Localizer["SectionTables"], RouteUtils.SectionTables)
+            ]
         }
-        // new()
-        // {
-        //     Label = Localizer["MenuDiagnostics"],
-        //     Icon = HeroiconName.Wrench,
-        //     RequiredClaim = PolicyEnum.Admin,
-        //     SubItems =
-        //     [
-        //         new(Localizer["Section1CLogs"], RouteUtils.Section1CLogs),
-        //         new(Localizer["SectionDatabase"], RouteUtils.SectionDatabase)
-        //     ]
-        // }
     ];
 
     private string GetUserShortName()

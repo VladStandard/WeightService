@@ -600,6 +600,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Миграции.
+        /// </summary>
+        public static string SectionMigrations {
+            get {
+                return ResourceManager.GetString("SectionMigrations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сдатчик.
         /// </summary>
         public static string SectionPalletMen {
@@ -668,6 +677,15 @@ namespace DeviceControl.Source.Shared.Localization {
         public static string SectionStorageMethods {
             get {
                 return ResourceManager.GetString("SectionStorageMethods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Таблицы.
+        /// </summary>
+        public static string SectionTables {
+            get {
+                return ResourceManager.GetString("SectionTables", resourceCulture);
             }
         }
         
