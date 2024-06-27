@@ -18,27 +18,30 @@
     <DataGridContainer
       TItem="DataBaseTableEntry"
       Items="@(tablesQuery.HasData ? tablesQuery.Data : [])"
+      IsGroupable
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
           Field="@nameof(DataBaseTableEntry.Table)"
-          Width="30%"
+          Width="50%"
         />
         <DataGridColumn
           Caption="Схема"
           Field="@nameof(DataBaseTableEntry.Schema)"
-          Width="30%"
+          Width="0%"
+          Groupable
+          Grouping
         />
         <DataGridColumn
           Caption="Количество записей"
           Field="@nameof(DataBaseTableEntry.Rows)"
-          Width="30%"
+          Width="25%"
         />
         <DataGridColumn
           Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
           Field="@nameof(DataBaseTableEntry.UsedMb)"
-          Width="10%"
+          Width="25%"
         />
       </ColumnsContent>
     </DataGridContainer>
