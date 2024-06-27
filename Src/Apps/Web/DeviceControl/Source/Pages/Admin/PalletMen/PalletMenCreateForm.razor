@@ -5,7 +5,7 @@
 
 <SectionForm
   FormModel="@DialogItem"
-  Validator="@(new PalletMenCreateFormValidator())"
+  Validator="@(new PalletMenCreateFormValidator(Localizer, WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >

@@ -6,7 +6,7 @@
 
 <SectionForm
   FormModel="@DialogItem"
-  Validator="@(new UsersUpdateFormValidator())"
+  Validator="@(new UsersUpdateFormValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@UpdateItem"
 >

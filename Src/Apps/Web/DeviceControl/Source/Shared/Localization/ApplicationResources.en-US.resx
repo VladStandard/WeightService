@@ -267,4 +267,7 @@
     <data name="ProductionSiteSuspenseDescription" xml:space="preserve">
         <value>The platform is not configured for this account. Contact support.</value>
     </data>
+    <data name="FormFieldNotSelected" xml:space="preserve">
+        <value>{0} field is not selected</value>
+    </data>
 </root>

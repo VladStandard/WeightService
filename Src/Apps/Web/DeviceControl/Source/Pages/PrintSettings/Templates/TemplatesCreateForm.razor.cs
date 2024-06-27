@@ -21,9 +21,9 @@ public sealed partial class TemplatesCreateForm : SectionFormBase<Template>
 
 public class TemplatesCreateFormValidator : AbstractValidator<Template>
 {
-    public TemplatesCreateFormValidator()
+    public TemplatesCreateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Body).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Body).NotEmpty().WithName(wsDataLocalizer["ColData"]);
     }
 }

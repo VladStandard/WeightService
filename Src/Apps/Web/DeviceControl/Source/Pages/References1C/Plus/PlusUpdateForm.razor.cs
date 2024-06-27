@@ -35,10 +35,10 @@ public sealed partial class PlusUpdateForm : SectionFormBase<Plu>
 
 public class PlusUpdateFormValidator : AbstractValidator<Plu>
 {
-    public PlusUpdateFormValidator()
+    public PlusUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.FullName).NotEmpty();
-        RuleFor(item => item.Description).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.FullName).NotEmpty().WithName(wsDataLocalizer["ColFullName"]);
+        RuleFor(item => item.Description).NotEmpty().WithName(wsDataLocalizer["ColDescription"]);
     }
 }

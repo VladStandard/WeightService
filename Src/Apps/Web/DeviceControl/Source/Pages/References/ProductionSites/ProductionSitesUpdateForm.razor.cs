@@ -24,9 +24,9 @@ public sealed partial class ProductionSitesUpdateForm : SectionFormBase<Producti
 
 public class ProductionSiteUpdateFormValidator : AbstractValidator<ProductionSite>
 {
-    public ProductionSiteUpdateFormValidator()
+    public ProductionSiteUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Address).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Address).NotEmpty().WithName(wsDataLocalizer["ColAddress"]);
     }
 }

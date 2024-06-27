@@ -9,7 +9,6 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserWithProduction
 {
     #region Inject
     [Inject] private Redirector Redirector { get; set; } = default!;
-    [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
     [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
@@ -20,8 +19,8 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserWithProduction
 
     protected override void OnInitialized()
     {
-        ProductionSite = ProductionSiteService.GetAll();
         base.OnInitialized();
+        ProductionSite = ProductionSiteService.GetAll();
     }
 
     protected override UserWithProductionSite UpdateItemAction(UserWithProductionSite item)
@@ -46,8 +45,8 @@ public sealed partial class UsersUpdateForm : SectionFormBase<UserWithProduction
 
 public class UsersUpdateFormValidator : AbstractValidator<UserWithProductionSite>
 {
-    public UsersUpdateFormValidator()
+    public UsersUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.ProductionSite).NotEmpty();
+        RuleFor(item => item.ProductionSite).NotEmpty().WithName(wsDataLocalizer["ColProductionSite"]);
     }
 }

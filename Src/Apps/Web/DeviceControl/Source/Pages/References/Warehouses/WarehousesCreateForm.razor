@@ -4,7 +4,7 @@
 
 <SectionForm
   FormModel="@DialogItem"
-  Validator="@(new WarehousesCreateFormValidator())"
+  Validator="@(new WarehousesCreateFormValidator(Localizer, WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >

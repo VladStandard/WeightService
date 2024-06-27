@@ -18,9 +18,9 @@ public sealed partial class ProductionSitesCreateForm : SectionFormBase<Producti
 
 public class ProductionSitesCreateFormValidator : AbstractValidator<ProductionSite>
 {
-    public ProductionSitesCreateFormValidator()
+    public ProductionSitesCreateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Address).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Address).NotEmpty().WithName(wsDataLocalizer["ColAddress"]);
     }
 }

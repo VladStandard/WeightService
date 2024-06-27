@@ -21,7 +21,7 @@ namespace DeviceControl.Source.Shared.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ApplicationResources_en_US {
+    public class ApplicationResources_en_US {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -35,7 +35,7 @@ namespace DeviceControl.Source.Shared.Localization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DeviceControl.Source.Shared.Localization.ApplicationResources.en-US", typeof(ApplicationResources_en_US).Assembly);
@@ -50,7 +50,7 @@ namespace DeviceControl.Source.Shared.Localization {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,16 +62,88 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Device control.
         /// </summary>
-        internal static string ApplicationName {
+        public static string ApplicationName {
             get {
                 return ResourceManager.GetString("ApplicationName", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PC.
+        /// </summary>
+        public static string ArmTypeEnumPc {
+            get {
+                return ResourceManager.GetString("ArmTypeEnumPc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tablet.
+        /// </summary>
+        public static string ArmTypeEnumTablet {
+            get {
+                return ResourceManager.GetString("ArmTypeEnumTablet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Universal.
+        /// </summary>
+        public static string ArmTypeEnumUniversal {
+            get {
+                return ResourceManager.GetString("ArmTypeEnumUniversal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the const....
+        /// </summary>
+        public static string BarcodeEditorConstInputPlaceholder {
+            get {
+                return ResourceManager.GetString("BarcodeEditorConstInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field are missing.
+        /// </summary>
+        public static string BarcodeEditorEmptyPlaceholder {
+            get {
+                return ResourceManager.GetString("BarcodeEditorEmptyPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the mask....
+        /// </summary>
+        public static string BarcodeEditorMaskPlaceholder {
+            get {
+                return ResourceManager.GetString("BarcodeEditorMaskPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select variable....
+        /// </summary>
+        public static string BarcodeEditorVariableSelectPlaceholder {
+            get {
+                return ResourceManager.GetString("BarcodeEditorVariableSelectPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string BtnAdd {
+            get {
+                return ResourceManager.GetString("BtnAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
-        internal static string BtnBack {
+        public static string BtnBack {
             get {
                 return ResourceManager.GetString("BtnBack", resourceCulture);
             }
@@ -80,16 +152,25 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string BtnCancel {
+        public static string BtnCancel {
             get {
                 return ResourceManager.GetString("BtnCancel", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string BtnClear {
+            get {
+                return ResourceManager.GetString("BtnClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
-        internal static string BtnSubmit {
+        public static string BtnSubmit {
             get {
                 return ResourceManager.GetString("BtnSubmit", resourceCulture);
             }
@@ -98,7 +179,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string DataGridContextMenuDelete {
+        public static string DataGridContextMenuDelete {
             get {
                 return ResourceManager.GetString("DataGridContextMenuDelete", resourceCulture);
             }
@@ -107,7 +188,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Open in a dialog.
         /// </summary>
-        internal static string DataGridContextMenuOpenInDialog {
+        public static string DataGridContextMenuOpenInDialog {
             get {
                 return ResourceManager.GetString("DataGridContextMenuOpenInDialog", resourceCulture);
             }
@@ -116,7 +197,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Open in new tab.
         /// </summary>
-        internal static string DataGridContextMenuOpenInNewTab {
+        public static string DataGridContextMenuOpenInNewTab {
             get {
                 return ResourceManager.GetString("DataGridContextMenuOpenInNewTab", resourceCulture);
             }
@@ -125,7 +206,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to items.
         /// </summary>
-        internal static string DataGridTotalItems {
+        public static string DataGridTotalItems {
             get {
                 return ResourceManager.GetString("DataGridTotalItems", resourceCulture);
             }
@@ -134,7 +215,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
-        internal static string FieldLocation {
+        public static string FieldLocation {
             get {
                 return ResourceManager.GetString("FieldLocation", resourceCulture);
             }
@@ -143,7 +224,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Packaging.
         /// </summary>
-        internal static string FieldPackaging {
+        public static string FieldPackaging {
             get {
                 return ResourceManager.GetString("FieldPackaging", resourceCulture);
             }
@@ -152,7 +233,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string FormActionDelete {
+        public static string FormActionDelete {
             get {
                 return ResourceManager.GetString("FormActionDelete", resourceCulture);
             }
@@ -161,7 +242,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Lock.
         /// </summary>
-        internal static string FormActionLock {
+        public static string FormActionLock {
             get {
                 return ResourceManager.GetString("FormActionLock", resourceCulture);
             }
@@ -170,7 +251,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Relogin.
         /// </summary>
-        internal static string FormActionRelogin {
+        public static string FormActionRelogin {
             get {
                 return ResourceManager.GetString("FormActionRelogin", resourceCulture);
             }
@@ -179,7 +260,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
-        internal static string FormActionReset {
+        public static string FormActionReset {
             get {
                 return ResourceManager.GetString("FormActionReset", resourceCulture);
             }
@@ -188,7 +269,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
-        internal static string FormActionShare {
+        public static string FormActionShare {
             get {
                 return ResourceManager.GetString("FormActionShare", resourceCulture);
             }
@@ -197,7 +278,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
-        internal static string FormActionsTitle {
+        public static string FormActionsTitle {
             get {
                 return ResourceManager.GetString("FormActionsTitle", resourceCulture);
             }
@@ -206,7 +287,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Unlock.
         /// </summary>
-        internal static string FormActionUnlock {
+        public static string FormActionUnlock {
             get {
                 return ResourceManager.GetString("FormActionUnlock", resourceCulture);
             }
@@ -215,16 +296,25 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Empty.
         /// </summary>
-        internal static string FormEmptyItemPlaceholder {
+        public static string FormEmptyItemPlaceholder {
             get {
                 return ResourceManager.GetString("FormEmptyItemPlaceholder", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} field is not selected.
+        /// </summary>
+        public static string FormFieldNotSelected {
+            get {
+                return ResourceManager.GetString("FormFieldNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Printer control.
         /// </summary>
-        internal static string FormPrinterControl {
+        public static string FormPrinterControl {
             get {
                 return ResourceManager.GetString("FormPrinterControl", resourceCulture);
             }
@@ -233,7 +323,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Select the printer.
         /// </summary>
-        internal static string FormPrinterDefaultPlaceholder {
+        public static string FormPrinterDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormPrinterDefaultPlaceholder", resourceCulture);
             }
@@ -242,7 +332,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Select the production site.
         /// </summary>
-        internal static string FormProductionSiteDefaultPlaceholder {
+        public static string FormProductionSiteDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormProductionSiteDefaultPlaceholder", resourceCulture);
             }
@@ -251,7 +341,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to No results.
         /// </summary>
-        internal static string FormSelectEmptyDefaultPlaceholder {
+        public static string FormSelectEmptyDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormSelectEmptyDefaultPlaceholder", resourceCulture);
             }
@@ -260,7 +350,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Search....
         /// </summary>
-        internal static string FormSelectSearchDefaultPlaceholder {
+        public static string FormSelectSearchDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormSelectSearchDefaultPlaceholder", resourceCulture);
             }
@@ -269,7 +359,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Select the warehouse.
         /// </summary>
-        internal static string FormWarehouseDefaultPlaceholder {
+        public static string FormWarehouseDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormWarehouseDefaultPlaceholder", resourceCulture);
             }
@@ -278,7 +368,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Click on the menu section to continue.
         /// </summary>
-        internal static string HomeMsgDescription {
+        public static string HomeMsgDescription {
             get {
                 return ResourceManager.GetString("HomeMsgDescription", resourceCulture);
             }
@@ -287,7 +377,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Enter value....
         /// </summary>
-        internal static string InputDefaultPlaceholder {
+        public static string InputDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("InputDefaultPlaceholder", resourceCulture);
             }
@@ -296,7 +386,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Error while converting zpl code to image.
         /// </summary>
-        internal static string LabelsPreviewErrorMsg {
+        public static string LabelsPreviewErrorMsg {
             get {
                 return ResourceManager.GetString("LabelsPreviewErrorMsg", resourceCulture);
             }
@@ -305,7 +395,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to No image.
         /// </summary>
-        internal static string LabelsPreviewNoData {
+        public static string LabelsPreviewNoData {
             get {
                 return ResourceManager.GetString("LabelsPreviewNoData", resourceCulture);
             }
@@ -314,7 +404,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Preview.
         /// </summary>
-        internal static string LabelsPreviewTitle {
+        public static string LabelsPreviewTitle {
             get {
                 return ResourceManager.GetString("LabelsPreviewTitle", resourceCulture);
             }
@@ -323,7 +413,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to 1C References.
         /// </summary>
-        internal static string Menu1CReferences {
+        public static string Menu1CReferences {
             get {
                 return ResourceManager.GetString("Menu1CReferences", resourceCulture);
             }
@@ -332,7 +422,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Administration.
         /// </summary>
-        internal static string MenuAdministration {
+        public static string MenuAdministration {
             get {
                 return ResourceManager.GetString("MenuAdministration", resourceCulture);
             }
@@ -341,7 +431,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
-        internal static string MenuDevices {
+        public static string MenuDevices {
             get {
                 return ResourceManager.GetString("MenuDevices", resourceCulture);
             }
@@ -350,7 +440,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Diagnostics.
         /// </summary>
-        internal static string MenuDiagnostics {
+        public static string MenuDiagnostics {
             get {
                 return ResourceManager.GetString("MenuDiagnostics", resourceCulture);
             }
@@ -359,7 +449,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Operations.
         /// </summary>
-        internal static string MenuOperations {
+        public static string MenuOperations {
             get {
                 return ResourceManager.GetString("MenuOperations", resourceCulture);
             }
@@ -368,7 +458,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Print settings.
         /// </summary>
-        internal static string MenuPrintSettings {
+        public static string MenuPrintSettings {
             get {
                 return ResourceManager.GetString("MenuPrintSettings", resourceCulture);
             }
@@ -377,7 +467,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to References.
         /// </summary>
-        internal static string MenuReferences {
+        public static string MenuReferences {
             get {
                 return ResourceManager.GetString("MenuReferences", resourceCulture);
             }
@@ -386,16 +476,25 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Developer version.
         /// </summary>
-        internal static string NavMenuDeveloperVersion {
+        public static string NavMenuDeveloperVersion {
             get {
                 return ResourceManager.GetString("NavMenuDeveloperVersion", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The platform is not configured for this account. Contact support..
+        /// </summary>
+        public static string ProductionSiteSuspenseDescription {
+            get {
+                return ResourceManager.GetString("ProductionSiteSuspenseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1C Logs.
         /// </summary>
-        internal static string Section1CLogs {
+        public static string Section1CLogs {
             get {
                 return ResourceManager.GetString("Section1CLogs", resourceCulture);
             }
@@ -404,7 +503,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Agg. labels.
         /// </summary>
-        internal static string SectionAggregatedLabels {
+        public static string SectionAggregatedLabels {
             get {
                 return ResourceManager.GetString("SectionAggregatedLabels", resourceCulture);
             }
@@ -413,7 +512,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Apps logs.
         /// </summary>
-        internal static string SectionAppsLogs {
+        public static string SectionAppsLogs {
             get {
                 return ResourceManager.GetString("SectionAppsLogs", resourceCulture);
             }
@@ -422,7 +521,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Barcodes.
         /// </summary>
-        internal static string SectionBarcodes {
+        public static string SectionBarcodes {
             get {
                 return ResourceManager.GetString("SectionBarcodes", resourceCulture);
             }
@@ -431,7 +530,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Boxes.
         /// </summary>
-        internal static string SectionBoxes {
+        public static string SectionBoxes {
             get {
                 return ResourceManager.GetString("SectionBoxes", resourceCulture);
             }
@@ -440,7 +539,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Brands.
         /// </summary>
-        internal static string SectionBrands {
+        public static string SectionBrands {
             get {
                 return ResourceManager.GetString("SectionBrands", resourceCulture);
             }
@@ -449,7 +548,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Bundles.
         /// </summary>
-        internal static string SectionBundles {
+        public static string SectionBundles {
             get {
                 return ResourceManager.GetString("SectionBundles", resourceCulture);
             }
@@ -458,7 +557,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Clips.
         /// </summary>
-        internal static string SectionClips {
+        public static string SectionClips {
             get {
                 return ResourceManager.GetString("SectionClips", resourceCulture);
             }
@@ -467,7 +566,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Database.
         /// </summary>
-        internal static string SectionDatabase {
+        public static string SectionDatabase {
             get {
                 return ResourceManager.GetString("SectionDatabase", resourceCulture);
             }
@@ -476,7 +575,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Labels.
         /// </summary>
-        internal static string SectionLabels {
+        public static string SectionLabels {
             get {
                 return ResourceManager.GetString("SectionLabels", resourceCulture);
             }
@@ -485,7 +584,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Line PLU.
         /// </summary>
-        internal static string SectionLinePLU {
+        public static string SectionLinePLU {
             get {
                 return ResourceManager.GetString("SectionLinePLU", resourceCulture);
             }
@@ -494,7 +593,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Lines.
         /// </summary>
-        internal static string SectionLines {
+        public static string SectionLines {
             get {
                 return ResourceManager.GetString("SectionLines", resourceCulture);
             }
@@ -503,7 +602,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Pallet Men.
         /// </summary>
-        internal static string SectionPalletMen {
+        public static string SectionPalletMen {
             get {
                 return ResourceManager.GetString("SectionPalletMen", resourceCulture);
             }
@@ -512,7 +611,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to PLU.
         /// </summary>
-        internal static string SectionPLU {
+        public static string SectionPLU {
             get {
                 return ResourceManager.GetString("SectionPLU", resourceCulture);
             }
@@ -521,7 +620,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Characteristics.
         /// </summary>
-        internal static string SectionPluCharacteristics {
+        public static string SectionPluCharacteristics {
             get {
                 return ResourceManager.GetString("SectionPluCharacteristics", resourceCulture);
             }
@@ -530,7 +629,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Nestring.
         /// </summary>
-        internal static string SectionPluNesting {
+        public static string SectionPluNesting {
             get {
                 return ResourceManager.GetString("SectionPluNesting", resourceCulture);
             }
@@ -539,7 +638,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Printers.
         /// </summary>
-        internal static string SectionPrinters {
+        public static string SectionPrinters {
             get {
                 return ResourceManager.GetString("SectionPrinters", resourceCulture);
             }
@@ -548,7 +647,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Production Sites.
         /// </summary>
-        internal static string SectionProductionSites {
+        public static string SectionProductionSites {
             get {
                 return ResourceManager.GetString("SectionProductionSites", resourceCulture);
             }
@@ -557,7 +656,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Roles.
         /// </summary>
-        internal static string SectionRoles {
+        public static string SectionRoles {
             get {
                 return ResourceManager.GetString("SectionRoles", resourceCulture);
             }
@@ -566,7 +665,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to PLU Storages.
         /// </summary>
-        internal static string SectionStorageMethods {
+        public static string SectionStorageMethods {
             get {
                 return ResourceManager.GetString("SectionStorageMethods", resourceCulture);
             }
@@ -575,7 +674,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Templates Resources.
         /// </summary>
-        internal static string SectionTemplateResources {
+        public static string SectionTemplateResources {
             get {
                 return ResourceManager.GetString("SectionTemplateResources", resourceCulture);
             }
@@ -584,7 +683,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Templates.
         /// </summary>
-        internal static string SectionTemplates {
+        public static string SectionTemplates {
             get {
                 return ResourceManager.GetString("SectionTemplates", resourceCulture);
             }
@@ -593,7 +692,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
-        internal static string SectionUsers {
+        public static string SectionUsers {
             get {
                 return ResourceManager.GetString("SectionUsers", resourceCulture);
             }
@@ -602,7 +701,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Versions.
         /// </summary>
-        internal static string SectionVersions {
+        public static string SectionVersions {
             get {
                 return ResourceManager.GetString("SectionVersions", resourceCulture);
             }
@@ -611,7 +710,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Warehouses.
         /// </summary>
-        internal static string SectionWarehouses {
+        public static string SectionWarehouses {
             get {
                 return ResourceManager.GetString("SectionWarehouses", resourceCulture);
             }
@@ -620,7 +719,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Weightings.
         /// </summary>
-        internal static string SectionWeightings {
+        public static string SectionWeightings {
             get {
                 return ResourceManager.GetString("SectionWeightings", resourceCulture);
             }
@@ -629,7 +728,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Value copied to clipboard.
         /// </summary>
-        internal static string ToastCopyToClipboard {
+        public static string ToastCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastCopyToClipboard", resourceCulture);
             }
@@ -638,7 +737,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to The item was created.
         /// </summary>
-        internal static string ToastCreateItem {
+        public static string ToastCreateItem {
             get {
                 return ResourceManager.GetString("ToastCreateItem", resourceCulture);
             }
@@ -647,7 +746,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to The item was deleted.
         /// </summary>
-        internal static string ToastDeleteItem {
+        public static string ToastDeleteItem {
             get {
                 return ResourceManager.GetString("ToastDeleteItem", resourceCulture);
             }
@@ -656,7 +755,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Error deleting an item. Try again later..
         /// </summary>
-        internal static string ToastDeleteItemError {
+        public static string ToastDeleteItemError {
             get {
                 return ResourceManager.GetString("ToastDeleteItemError", resourceCulture);
             }
@@ -665,7 +764,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while trying to retrieve the data. Try again later.
         /// </summary>
-        internal static string ToastErrorGettingData {
+        public static string ToastErrorGettingData {
             get {
                 return ResourceManager.GetString("ToastErrorGettingData", resourceCulture);
             }
@@ -674,7 +773,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to A relogin has been executed.
         /// </summary>
-        internal static string ToastReloginUser {
+        public static string ToastReloginUser {
             get {
                 return ResourceManager.GetString("ToastReloginUser", resourceCulture);
             }
@@ -683,7 +782,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Original values restored.
         /// </summary>
-        internal static string ToastResetItem {
+        public static string ToastResetItem {
             get {
                 return ResourceManager.GetString("ToastResetItem", resourceCulture);
             }
@@ -692,7 +791,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to The item was updated.
         /// </summary>
-        internal static string ToastUpdateItem {
+        public static string ToastUpdateItem {
             get {
                 return ResourceManager.GetString("ToastUpdateItem", resourceCulture);
             }
@@ -701,7 +800,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Url copied to clipboard.
         /// </summary>
-        internal static string ToastUrlCopyToClipboard {
+        public static string ToastUrlCopyToClipboard {
             get {
                 return ResourceManager.GetString("ToastUrlCopyToClipboard", resourceCulture);
             }
@@ -710,7 +809,7 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Unknown error.
         /// </summary>
-        internal static string UnknownError {
+        public static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
             }

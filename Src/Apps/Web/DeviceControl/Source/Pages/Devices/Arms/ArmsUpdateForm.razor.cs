@@ -1,14 +1,10 @@
-using System.Security.Claims;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
-using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
 using Ws.Shared.Enums;
-using Claim = System.Security.Claims.Claim;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -23,7 +19,6 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
     [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-    [Inject] private IUserService UserService { get; set; } = default!;
 
     # endregion
 
@@ -47,9 +42,7 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-
         IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSite);
     }
 
@@ -64,22 +57,22 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<Arm>
 
 public class LinesUpdateFormValidator : AbstractValidator<Arm>
 {
-    public LinesUpdateFormValidator()
+    public LinesUpdateFormValidator(IStringLocalizer<ApplicationResources> localizer, IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty().MaximumLength(64);
-        RuleFor(item => item.Number).GreaterThan(10000).LessThan(100000);
-        RuleFor(item => item.PcName).NotEmpty().Matches("^[A-Z0-9-]*$");
-        RuleFor(item => item.Type).IsInEnum();
-        RuleFor(item => item.Counter).GreaterThanOrEqualTo(0);
+        RuleFor(item => item.Name).NotEmpty().MaximumLength(64).WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Number).GreaterThan(10000).LessThan(100000).WithName(wsDataLocalizer["ColNumber"]);
+        RuleFor(item => item.PcName).NotEmpty().Matches("^[A-Z0-9-]*$").WithName(wsDataLocalizer["ColPcName"]);
+        RuleFor(item => item.Type).IsInEnum().WithName(wsDataLocalizer["ColType"]);
+        RuleFor(item => item.Counter).GreaterThanOrEqualTo(0).WithName(wsDataLocalizer["ColCounter"]);;
         RuleFor(item => item.Printer).Custom((obj, context) =>
         {
             if (obj.IsNew)
-                context.AddFailure("С объектом Printer что-то не так");
+                context.AddFailure(string.Format(localizer["FormFieldNotSelected"], wsDataLocalizer["ColPrinter"]));
         });
         RuleFor(item => item.Warehouse).Custom((obj, context) =>
         {
             if (obj.IsNew)
-                context.AddFailure("С объектом Warehouse что-то не так");
+                context.AddFailure(string.Format(localizer["FormFieldNotSelected"], wsDataLocalizer["ColWarehouse"]));
         });
     }
 }

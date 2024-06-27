@@ -24,9 +24,9 @@ public sealed partial class StorageMethodsUpdateForm : SectionFormBase<StorageMe
 
 public class StorageMethodsUpdateFormValidator : AbstractValidator<StorageMethod>
 {
-    public StorageMethodsUpdateFormValidator()
+    public StorageMethodsUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Zpl).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Zpl).NotEmpty().WithName(wsDataLocalizer["ColData"]);
     }
 }

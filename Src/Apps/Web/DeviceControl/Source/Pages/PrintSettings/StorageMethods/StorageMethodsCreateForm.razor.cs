@@ -18,9 +18,9 @@ public sealed partial class StorageMethodsCreateForm : SectionFormBase<StorageMe
 
 public class StorageMethodsCreateFormValidator : AbstractValidator<StorageMethod>
 {
-    public StorageMethodsCreateFormValidator()
+    public StorageMethodsCreateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.Name).NotEmpty();
-        RuleFor(item => item.Zpl).NotEmpty();
+        RuleFor(item => item.Name).NotEmpty().WithName(wsDataLocalizer["ColName"]);
+        RuleFor(item => item.Zpl).NotEmpty().WithName(wsDataLocalizer["ColData"]);
     }
 }
