@@ -1,0 +1,1 @@
+GET https://localhost:5138/api/database/migrations

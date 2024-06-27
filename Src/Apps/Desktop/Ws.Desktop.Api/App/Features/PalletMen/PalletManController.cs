@@ -6,7 +6,7 @@ namespace Ws.Desktop.Api.App.Features.PalletMen;
 
 [ApiController]
 [Route("api/arms/{armId:guid}/pallet-men/")]
-public class PalletManController(IPalletManService palletManService) : ControllerBase
+public class PalletManController(IPalletManService palletManService)
 {
     #region Queries
 
