@@ -29,13 +29,13 @@ public record PalletCreateApiDto
     [XmlAttribute("Kneading")]
     public required ushort Kneading;
 
-    [XmlAttribute("TrayWeightKg")]
+    [XmlAttribute("PalletWeightKg")]
     public required decimal TrayWeightKg;
 
-    [XmlAttribute("PalletWeightNettoKg")]
+    [XmlAttribute("NetWeightKg")]
     public decimal NetWeightKg;
 
-    [XmlAttribute("PalletWeightGrossKg")]
+    [XmlAttribute("GrossWeightKg")]
     public decimal GrossWeightKg;
 
     [XmlAttribute("CreatedAt")]

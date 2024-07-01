@@ -10,8 +10,4 @@ public record ResponseError(Guid Uid, string Message)
 
     [XmlAttribute("Message")]
     public string Message = Message;
-
-    public ResponseError() : this(Guid.Empty, string.Empty)
-    {
-    }
 }

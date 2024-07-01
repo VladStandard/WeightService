@@ -7,8 +7,4 @@ public sealed record ResponseSuccesses(Guid Uid)
 {
     [XmlAttribute("Guid")]
     public Guid Uid = Uid;
-
-    public ResponseSuccesses() : this(Guid.Empty)
-    {
-    }
 }
