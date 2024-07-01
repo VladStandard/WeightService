@@ -18,5 +18,5 @@ public interface IPrintLabelService
     /// Создает паллету
     /// </summary>
     /// <exception cref="LabelGenerateException">Ошибка формирования.</exception>
-    Guid GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount);
+    Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount);
 }

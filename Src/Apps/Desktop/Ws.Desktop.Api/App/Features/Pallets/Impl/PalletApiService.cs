@@ -65,7 +65,7 @@ public class PalletApiService(
 
     #region Commands
 
-    public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
+    public async Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
         var plu = pluService.GetItemByUid(dto.PluId);
         List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
@@ -81,7 +81,7 @@ public class PalletApiService(
             ProductDt = dto.ProdDt,
             ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
         };
-        Guid palletId = printLabelService.GeneratePiecePallet(data, dto.LabelCount);
+        Guid palletId = await printLabelService.GeneratePiecePallet(data, dto.LabelCount);
 
         return dbContext.Pallets
             .ToPalletInfo(dbContext.Labels)

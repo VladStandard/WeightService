@@ -41,13 +41,11 @@ builder.Logging.AddEventLog(eventLogSetting =>
 #pragma warning restore CA1416
 
 
-
 WebApplication app = builder.Build();
 
 app.UseMiddleware<LoggingMiddleware>();
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.MapControllers();

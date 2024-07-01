@@ -32,8 +32,8 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
     #region Commands
 
     [HttpPost]
-    public PalletInfo Create([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
-        palletApiService.CreatePiecePallet(armId, dto);
+    public async Task<PalletInfo> Create([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
+        await palletApiService.CreatePiecePallet(armId, dto);
 
     #endregion
 }

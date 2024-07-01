@@ -1,5 +1,8 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallets;
+using Ws.Labels.Service.Api;
+using Ws.Labels.Service.Api.Pallet.Input;
+using Ws.Labels.Service.Api.Pallet.Output;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Piece.Models;
@@ -11,11 +14,12 @@ namespace Ws.Labels.Service.Generate.Features.Piece;
 
 internal class LabelPieceGenerator(
     IPalletService palletService,
+    IPalychApi api,
     CacheService cacheService,
     ZplService zplService
     )
 {
-    public Guid GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
+    public async Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
     {
         if (dto.Plu.IsCheckWeight)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
@@ -52,6 +56,38 @@ internal class LabelPieceGenerator(
             Number = new Random().Next(0, 1000001),
         };
         palletService.Create(pallet, labels);
+
+        List<LabelCreateApiDto> labelsData = [];
+
+        foreach (Label va in labels)
+        {
+            labelsData.Add(new()
+            {
+                BarcodeTop = va.BarcodeTop,
+                BarcodeRight = va.BarcodeRight,
+                BarcodeBottom = va.BarcodeBottom,
+                NetWeightKg = va.WeightNet,
+                GrossWeightKg = va.WeightGross,
+            });
+        }
+
+        PalletCreateApiDto data = new()
+        {
+            Organization = "ООО Владимирский стандарт",
+            PluUid = dto.Plu.Uid,
+            PalletManUid = dto.PalletMan.Uid1C,
+            WarehouseUid = dto.Line.Warehouse.Uid1C,
+            CharacteristicUid = dto.PluCharacteristic.Uid,
+            Barcode = pallet.Barcode,
+            ArmNumber = (uint)dto.Line.Number,
+            Kneading = (ushort)dto.Kneading,
+            TrayWeightKg = dto.Weight,
+            Labels = labelsData,
+            ProductDt = pallet.ProdDt,
+            CreatedAt = pallet.CreateDt,
+        };
+
+        PalletResponseDto response  = await api.CreatePallet(data);
 
         return pallet.Uid;
     }
@@ -107,25 +143,3 @@ internal class LabelPieceGenerator(
         };
     }
 }
-
-
-#region Exchange
-
-// PalletCreateApiDto data = new()
-// {
-//     Organization = "ООО Владимирский стандарт",
-//     PluUid = dto.Plu.Uid,
-//     PalletManUid = dto.PalletMan.Uid1C,
-//     WarehouseUid = dto.Line.Warehouse.Uid1C,
-//     CharacteristicUid = dto.PluCharacteristic.Uid,
-//     Barcode = pallet.Barcode,
-//     ArmNumber = (uint)dto.Line.Number,
-//     Kneading = (ushort)dto.Kneading,
-//     TrayWeightKg = dto.Weight,
-//     CreatedAt = dto.ProductDt,
-//     Labels = null
-// };
-//
-// Task<PalletResponseDto> ans = api.CreatePallet(data);
-
-#endregion

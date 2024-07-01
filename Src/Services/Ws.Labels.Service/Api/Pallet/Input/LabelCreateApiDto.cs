@@ -19,7 +19,4 @@ public record LabelCreateApiDto
 
     [XmlAttribute("GrossWeightKg")]
     public required decimal GrossWeightKg { get; set; }
-
-    [XmlAttribute("BarcodeBottom")]
-    public required DateTime CreatedAt { get; set; }
 }

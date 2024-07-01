@@ -15,7 +15,7 @@ public interface IPalletApiService
 
     #region Commands
 
-    public PalletInfo CreatePiecePallet(Guid armId, PalletPieceCreateDto dto);
+    public Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto);
 
     #endregion
 }

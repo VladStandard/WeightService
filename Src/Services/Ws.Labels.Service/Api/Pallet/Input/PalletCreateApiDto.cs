@@ -32,14 +32,17 @@ public record PalletCreateApiDto
     [XmlAttribute("TrayWeightKg")]
     public required decimal TrayWeightKg;
 
-    [XmlAttribute("NetWeightKg")]
+    [XmlAttribute("PalletWeightNettoKg")]
     public decimal NetWeightKg;
 
-    [XmlAttribute("GrossWeightKg")]
+    [XmlAttribute("PalletWeightGrossKg")]
     public decimal GrossWeightKg;
 
     [XmlAttribute("CreatedAt")]
     public required DateTime CreatedAt;
+
+    [XmlAttribute("ProductDt")]
+    public required DateTime ProductDt;
 
     [XmlArray("Labels"), XmlArrayItem("Label")]
     public required List<LabelCreateApiDto> Labels;

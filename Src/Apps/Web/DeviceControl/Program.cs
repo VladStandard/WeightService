@@ -32,6 +32,9 @@ builder.Services.AddScoped<IRenderLabelService, RenderLabelService>();
 
 string keycloakAdminUrl = $"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}";
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
+
+#region Refit
+
 builder.Services.AddRefitClient<IKeycloakApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
     .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
@@ -42,6 +45,9 @@ builder.Services.AddRefitClient<IWebApi>()
     {
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
     });
+
+#endregion
+
 
 builder.Services.AddScoped<DatabaseApi>();
 builder.Services.AddScoped<UserApi>();
