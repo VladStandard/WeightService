@@ -56,21 +56,21 @@
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="box-count">@WsDataLocalizer["ColCount"]</FieldLabel>
+      <FieldLabel for="box-count">@WsDataLocalizer["ColCount"] (@WsDataLocalizer["MeasurePc"])</FieldLabel>
       <InputTextField
         id="box-count"
         Value="@Pallet.BoxCount.ToString()"
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="netto">@WsDataLocalizer["ColNetWeight"]</FieldLabel>
+      <FieldLabel for="netto">@WsDataLocalizer["ColNetWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
         id="netto"
         Value="@Pallet.WeightNet.ToString(CultureInfo.InvariantCulture)"
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="brutto">@WsDataLocalizer["ColGrossWeight"]</FieldLabel>
+      <FieldLabel for="brutto">@WsDataLocalizer["ColGrossWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
         id="brutto"
         Value="@Pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture)"
@@ -78,7 +78,7 @@
       />
     </div>
     <div class="space-y-2">
-      <FieldLabel for="tray">@WsDataLocalizer["ColPalletWeight"]</FieldLabel>
+      <FieldLabel for="tray">@WsDataLocalizer["ColPalletWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
         id="tray"
         Value="@Pallet.WeightTray.ToString(CultureInfo.InvariantCulture)"

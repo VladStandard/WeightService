@@ -268,7 +268,7 @@
         <value>Неверный zpl код</value>
     </data>
     <data name="IndexedLabelNotPrinted" xml:space="preserve">
-        <value>этикетка не распечатана</value>
+        <value>Этикетку с номером {0} не удалось отправить на печать</value>
     </data>
     <data name="BtnUnselectAllLabels" xml:space="preserve">
         <value>Убрать все</value>

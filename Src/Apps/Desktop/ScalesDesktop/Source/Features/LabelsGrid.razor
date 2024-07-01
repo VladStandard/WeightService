@@ -4,16 +4,16 @@
 
 <PrinterErrorBoundary>
   <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
-    <div class="w-full flex flex-col gap-2 shrink-0 items-center px-6 pt-6">
+    <div class="w-full flex flex-col gap-2 shrink-0 items-center px-6 pt-4">
       <div class="w-full flex items-center justify-between">
-        <h3 class="font-medium text-xl">@Localizer["LabelsDataGridHeaderTitle"]</h3>
+        <h3 class="font-medium text-xl pb-1">@Localizer["LabelsDataGridHeaderTitle"]</h3>
         <div class="flex gap-2 items-center">
           @if (armQuery.HasData)
           {
             <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
               <Button
                 Variant="ButtonVariant.Outline"
-                OnClick="@(() => ToggleAllLabels(labelsQuery.Data ?? []))"
+                OnClick="@(() => ToggleAllLabels(GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : []).ToArray()))"
                 Disabled="@(!labelsQuery.HasData)"
               >
                 @if (SelectedItems.Count.Equals(labelsQuery.Data?.Length ?? 0))
@@ -63,8 +63,8 @@
         </span>
       </div>
     </div>
-    <div class="size-full flex grow overflow-hidden px-6 pb-6 pt-0">
-      <div class="rounded-md border size-full flex bg-background shadow-sm overflow-y-auto overflow-x-hidden">
+    <div class="size-full grow overflow-hidden px-6 pb-6 pt-0">
+      <div class="rounded-md border size-full bg-background shadow-sm overflow-hidden">
         @if (armQuery.HasData)
         {
           <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
@@ -73,13 +73,14 @@
               GridTemplateColumns="5rem 1fr 4fr"
               Items="@GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : [])"
               RowClass="@(_ => "border-b shrink-0 hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
-              Class="[&>.header]:border-b [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
+              Class="overflow-y-auto [&>.sticky-header]:border-b [&>.sticky-header]:!bg-background [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
               Loading="@labelsQuery.IsLoading"
+              GenerateHeader="GenerateHeaderOption.Sticky"
               Virtualize
             >
               <TemplateColumn>
-                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex justify-center items-center px-3">
-                  @if (SelectedItems.Contains(context.Label))
+                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex justify-center items-center px-3">
+                  @if (SelectedItems.Contains(context))
                   {
                     <CheckIcon class="size-4"/>
                   }
@@ -90,12 +91,12 @@
                 </button>
               </TemplateColumn>
               <TemplateColumn Title="@WsDataLocalizer["ColNumber"]">
-                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex items-center px-3">
+                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex items-center px-3">
                   @context.Id
                 </button>
               </TemplateColumn>
               <TemplateColumn Title="@WsDataLocalizer["ColBarcode"]">
-                <button @onclick="@(() => ToggleItem(context.Label))" class="h-8 w-full flex items-center px-3">
+                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex items-center px-3">
                   @Pallet.Barcode
                 </button>
               </TemplateColumn>
