@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Print
 @using DeviceControl.Source.Widgets.Section
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Template>
 @attribute [Route($"{RouteUtils.SectionTemplates}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
@@ -23,8 +24,8 @@
   >
     <ColumnsContent>
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColCreateDt"]"
-        Field="@nameof(Template.CreateDt)"
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(Template.ChangeDt)"
         Width="20%"
       />
       <DataGridColumn
@@ -34,10 +35,8 @@
       />
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
-        Width="10%"
+        Width="20%"
         Field="@nameof(Template.IsWeight)"
-        Groupable
-        Grouping
       >
         <DisplayTemplate>
           <span>

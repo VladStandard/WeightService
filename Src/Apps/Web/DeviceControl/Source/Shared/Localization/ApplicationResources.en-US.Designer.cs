@@ -510,6 +510,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Analytics.
+        /// </summary>
+        public static string SectionAnalytics {
+            get {
+                return ResourceManager.GetString("SectionAnalytics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to App&apos;s logs.
         /// </summary>
         public static string SectionAppsLogs {

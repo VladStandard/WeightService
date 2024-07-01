@@ -510,6 +510,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Аналитика.
+        /// </summary>
+        public static string SectionAnalytics {
+            get {
+                return ResourceManager.GetString("SectionAnalytics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Логи приложения.
         /// </summary>
         public static string SectionAppsLogs {
