@@ -8,7 +8,7 @@
   <div class="@Css.Class("flex w-full relative h-screen overflow-x-hidden", IsProduction ? "bg-dot-black/[.25] dark:bg-dot-white/[.2]" : string.Empty)">
     <div class="grid w-full min-h-full h-fit grid-cols-[17rem,1fr] grid-rows-1 grow">
       <NavMenu />
-      <main class="flex flex-col size-full grow bg-secondary/[.3] dark:bg-inherit">
+      <main class="flex flex-col size-full pt-14 grow overflow-x-hidden bg-secondary/[.3] dark:bg-inherit">
         @Body
       </main>
     </div>

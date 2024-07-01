@@ -48,6 +48,7 @@ public static class RouteUtils
 
     public const string SectionMigrations = "/migrations";
     public const string SectionTables = "/tables";
+    public const string SectionAnalytics = "/analytics";
 
     # endregion
 

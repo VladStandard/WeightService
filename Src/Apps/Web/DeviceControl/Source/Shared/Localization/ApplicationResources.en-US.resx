@@ -276,4 +276,7 @@
     <data name="SectionTables" xml:space="preserve">
         <value>Tables</value>
     </data>
+    <data name="SectionAnalytics" xml:space="preserve">
+        <value>Analytics</value>
+    </data>
 </root>
