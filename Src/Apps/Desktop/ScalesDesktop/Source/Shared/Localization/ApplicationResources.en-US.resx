@@ -268,7 +268,7 @@
         <value>Invalid zpl code</value>
     </data>
     <data name="IndexedLabelNotPrinted" xml:space="preserve">
-        <value>label is not printed</value>
+        <value>The label with the number {0} could not be sent for printing</value>
     </data>
     <data name="BtnUnselectAllLabels" xml:space="preserve">
         <value>Unselect all</value>

@@ -21,22 +21,21 @@ public sealed partial class LabelsGrid : ComponentBase
 
     [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-    private List<LabelInfo> SelectedItems { get; set; } = [];
+    private List<DataItem> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
-    private LabelInfo? HoverItem { get; set; }
     private const ushort PrinterRequestDelay = 500;
     private const ushort MaxPrinterErrors = 3;
 
-    private void ToggleItem(LabelInfo item)
+    private void ToggleItem(DataItem item)
     {
         if (!SelectedItems.Remove(item))
             SelectedItems.Add(item);
     }
 
-    private void ToggleAllLabels(LabelInfo[] labels) =>
+    private void ToggleAllLabels(DataItem[] labels) =>
         SelectedItems = SelectedItems.Count.Equals(labels.Length) ? [] : labels.ToList();
 
-    private void SelectAllItems(List<LabelInfo> labels) => SelectedItems = labels;
+    private void SelectAllItems(List<DataItem> labels) => SelectedItems = labels;
 
     private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels)
     {
@@ -56,21 +55,21 @@ public sealed partial class LabelsGrid : ComponentBase
             return;
         }
 
-        int errorIndex = 0;
+        IOrderedEnumerable<DataItem> orderedLabels = SelectedItems.OrderBy(x => x.Id);
         int consecutiveErrorCount = 0;
 
-        foreach (LabelInfo item in SelectedItems)
+        foreach (DataItem item in orderedLabels)
         {
             try
             {
-                errorIndex += 1;
-                await PrinterService.PrintZplAsync(item.Zpl);
+                await PrinterService.PrintZplAsync(item.Label.Zpl);
+                SelectedItems.Remove(item);
                 consecutiveErrorCount = 0;
             }
             catch
             {
                 consecutiveErrorCount += 1;
-                ToastService.ShowError($"{errorIndex} {Localizer["IndexedLabelNotPrinted"]}");
+                ToastService.ShowError(string.Format(Localizer["IndexedLabelNotPrinted"], item.Id));
 
                 if (consecutiveErrorCount >= MaxPrinterErrors)
                 {
