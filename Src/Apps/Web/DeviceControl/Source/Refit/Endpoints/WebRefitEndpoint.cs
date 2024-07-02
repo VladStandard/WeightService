@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models;
 
 namespace DeviceControl.Source.Refit.Endpoints;
 
-internal class WebApiRefitEndpoint : IRefitEndpoint
+internal class WebRefitEndpoint : IRefitEndpoint
 {
     public void Configure(WebApplicationBuilder builder)
     {

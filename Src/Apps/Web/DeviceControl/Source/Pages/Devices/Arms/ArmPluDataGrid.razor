@@ -6,7 +6,7 @@
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.ArmPlu>
 @rendermode InteractiveServer
 
-<PageHeader>
+<PageHeader Class="!static">
   <span>@Localizer["SectionLinePLU"]</span>
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />

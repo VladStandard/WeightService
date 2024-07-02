@@ -15,7 +15,7 @@ internal static class RefitServicesExtension
             .Cast<IRefitEndpoint>()
             .ToList();
 
-        foreach (var config in configurations)
+        foreach (IRefitEndpoint config in configurations)
             config.Configure(builder);
     }
 }

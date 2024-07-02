@@ -4,7 +4,6 @@ using DeviceControl.Source.App;
 using DeviceControl.Source.Refit;
 using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Auth.Extensions;
-using DeviceControl.Source.Shared.RenderZpl;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
@@ -14,7 +13,6 @@ const string oidcScheme = "KeycloakOidc";
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.ApplyRefitConfigurations();
-
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddBlazorise().AddEmptyProviders().AddFontAwesomeIcons();
@@ -27,8 +25,6 @@ builder.Services.AddLabelsServices();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<Redirector>();
-builder.Services.AddScoped<IRenderLabelService, RenderLabelService>();
-
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
 
 WebApplication app = builder.Build();
