@@ -297,4 +297,13 @@
     <data name="PrintingStoppedDueToErrors" xml:space="preserve">
         <value />
     </data>
+    <data name="LabelsPrintingSuccess" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPrintingToastTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelsPrintingToastDescription" xml:space="preserve">
+        <value />
+    </data>
 </root>

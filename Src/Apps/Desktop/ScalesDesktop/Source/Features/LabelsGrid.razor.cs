@@ -23,6 +23,7 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private List<DataItem> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
+    private bool IsPrinting { get; set; } = false;
     private const ushort PrinterRequestDelay = 500;
     private const ushort MaxPrinterErrors = 3;
 
@@ -47,38 +48,77 @@ public sealed partial class LabelsGrid : ComponentBase
 
     private async Task PrintLabelsAsync()
     {
+        if (IsPrinting) return;
+
+        IsPrinting = true;
+
         PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
 
         if (printerStatus is not (PrinterStatus.Ready or PrinterStatus.Busy))
         {
             PrintPrinterStatusMessage(printerStatus);
+            IsPrinting = false;
             return;
         }
 
+        string toastUid = Guid.NewGuid().ToString();
+        double percentagesPerLabel = 100.0 / SelectedItems.Count;
+        ToastParameters<ProgressToastContent> toastData = new()
+        {
+            Id = toastUid,
+            Intent = ToastIntent.Upload,
+            Title = Localizer["LabelsPrintingToastTitle"],
+            Timeout = 0,
+            TopAction = "Cancel",
+            Content = new()
+            {
+                Details = Localizer["LabelsPrintingToastDescription"],
+                Progress = 0,
+            }
+        };
+        ToastService.ShowProgressToast(toastData);
+
         IOrderedEnumerable<DataItem> orderedLabels = SelectedItems.OrderBy(x => x.Id);
-        int consecutiveErrorCount = 0;
+        bool isPrintedSuccessfully = true;
+        ushort printedLabelsCount = 0;
 
         foreach (DataItem item in orderedLabels)
         {
-            try
+            for (int attempt = 0 ; attempt < MaxPrinterErrors ; attempt++)
             {
-                await PrinterService.PrintZplAsync(item.Label.Zpl);
-                SelectedItems.Remove(item);
-                consecutiveErrorCount = 0;
-            }
-            catch
-            {
-                consecutiveErrorCount += 1;
-                ToastService.ShowError(string.Format(Localizer["IndexedLabelNotPrinted"], item.Id));
-
-                if (consecutiveErrorCount >= MaxPrinterErrors)
+                try
                 {
-                    ToastService.ShowError(Localizer["PrintingStoppedDueToErrors"]);
+                    await PrinterService.PrintZplAsync(item.Label.Zpl);
+                    SelectedItems.Remove(item);
+                    isPrintedSuccessfully = true;
+                    printedLabelsCount += 1;
+                    toastData.Content.Progress = (int)(printedLabelsCount * percentagesPerLabel);
+                    ToastService.UpdateToast(toastUid, toastData);
                     break;
                 }
+                catch
+                {
+                    isPrintedSuccessfully = false;
+                    await Task.Delay(PrinterRequestDelay);
+                }
             }
+
+            if (!isPrintedSuccessfully)
+            {
+                ToastService.ShowError(string.Format(Localizer["IndexedLabelNotPrinted"], item.Id));
+                break;
+            }
+
             await Task.Delay(PrinterRequestDelay);
         }
+
+        ToastService.CloseToast(toastUid);
+        if (isPrintedSuccessfully)
+            ToastService.ShowSuccess(Localizer["LabelsPrintingSuccess"]);
+        else
+            ToastService.ShowError(Localizer["PrintingStoppedDueToErrors"]);
+
+        IsPrinting = false;
 
         await InvokeAsync(StateHasChanged);
     }
