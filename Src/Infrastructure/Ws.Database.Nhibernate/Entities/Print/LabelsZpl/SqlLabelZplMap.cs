@@ -17,6 +17,13 @@ public class SqlLabelZplMap : ClassMapping<LabelZpl>
             m.Generator(Generators.Assigned);
         });
 
+        Property(x => x.Zpl, m =>
+        {
+            m.Column("ZPL");
+            m.Type(NHibernateUtil.String);
+            m.NotNullable(false);
+        });
+
         Property(x => x.Height, m =>
         {
             m.Column("HEIGHT");
