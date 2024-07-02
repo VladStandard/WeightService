@@ -11,7 +11,7 @@ public interface IPrintLabelService
     /// Создает весовую этикетку
     /// </summary>
     /// <exception cref="LabelGenerateException">Ошибка формирования.</exception>
-    Label GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
+    (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
 
 
     /// <summary>

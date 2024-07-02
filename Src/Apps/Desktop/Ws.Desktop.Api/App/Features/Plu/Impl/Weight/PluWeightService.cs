@@ -67,12 +67,12 @@ public class PluWeightService(
             Kneading = (short)dto.Kneading,
             ProductDt = dto.ProductDt
         };
-        Label label = printLabelService.GenerateWeightLabel(dtoToCreate);
+        (_, LabelZpl zpl) = printLabelService.GenerateWeightLabel(dtoToCreate);
 
         line.Counter += 1;
         armService.Update(line);
 
-        return new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl };
+        return new() { ArmCounter = (uint)line.Counter, Zpl = zpl.Zpl };
     }
 
     #endregion

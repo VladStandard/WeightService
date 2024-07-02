@@ -36,7 +36,7 @@ internal class LabelPieceGenerator(
             throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
 
-        List<Label> labels = [];
+        List<(Label, LabelZpl)> labels = [];
         DateTime productDt = dto.ProductDt;
 
         BarcodePieceModel barcodeTemplates = dto.ToBarcodeModel(productDt);
@@ -57,15 +57,15 @@ internal class LabelPieceGenerator(
 
         List<LabelCreateApiDto> labelsData = [];
 
-        foreach (Label va in labels)
+        foreach ((Label label, _) in labels)
         {
             labelsData.Add(new()
             {
-                BarcodeTop = va.BarcodeTop,
-                BarcodeRight = va.BarcodeRight,
-                BarcodeBottom = va.BarcodeBottom,
-                NetWeightKg = va.WeightNet,
-                GrossWeightKg = va.WeightGross,
+                BarcodeTop = label.BarcodeTop,
+                BarcodeRight = label.BarcodeRight,
+                BarcodeBottom = label.BarcodeBottom,
+                NetWeightKg = label.WeightNet,
+                GrossWeightKg = label.WeightGross,
             });
         }
 
@@ -99,7 +99,7 @@ internal class LabelPieceGenerator(
         return pallet.Uid;
     }
 
-    private Label GenerateLabel(BarcodePieceModel barcodeTemplates, int index, TemplateFromCache templateFromCache, GeneratePiecePalletDto dto, string storageMethod)
+    private (Label, LabelZpl) GenerateLabel(BarcodePieceModel barcodeTemplates, int index, TemplateFromCache templateFromCache, GeneratePiecePalletDto dto, string storageMethod)
     {
         dto.Line.Counter += 1;
 
@@ -133,9 +133,8 @@ internal class LabelPieceGenerator(
 
         string zpl = zplService.GenerateZpl(templateFromCache.Template, data);
 
-        return new()
+        Label label = new()
         {
-            Zpl = zpl,
             BarcodeBottom = data.BarcodeBottom.Replace(">8", ""),
             BarcodeRight = data.BarcodeRight.Replace(">8", ""),
             BarcodeTop = data.BarcodeTop.Replace(">8", ""),
@@ -148,5 +147,15 @@ internal class LabelPieceGenerator(
             Plu = dto.Plu,
             BundleCount = dto.PluCharacteristic.BundleCount
         };
+
+        LabelZpl labelZpl = new()
+        {
+            Height = templateFromCache.Height,
+            Width = templateFromCache.Width,
+            Rotate = templateFromCache.Rotate,
+            Zpl = zpl
+        };
+
+        return (label, labelZpl);
     }
 }

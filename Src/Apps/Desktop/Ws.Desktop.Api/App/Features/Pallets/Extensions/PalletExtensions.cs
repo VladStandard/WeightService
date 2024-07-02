@@ -59,7 +59,7 @@ internal static class PalletExtensions
                 result => result.Labels,
                 (result, label) => new LabelInfo
                 {
-                    Zpl = label.Zpl
+                    Zpl = label.Zpl.Zpl
                 });
     }
 }

@@ -1,3 +1,4 @@
+using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
@@ -10,6 +11,7 @@ public sealed class LabelEntity : EfEntityBase
     public Guid? PalletEntityId { get; set; }
     public PluEntity? Plu { get; set; }
     public LineEntity Line { get; set; } = new();
+    public LabelZplEntity Zpl { get; set; } = new();
 
     #endregion
 
@@ -38,7 +40,6 @@ public sealed class LabelEntity : EfEntityBase
 
     public ushort BundleCount { get; set; }
     public short Kneading { get; set; }
-    public string Zpl { get; set; } = string.Empty;
 
     #endregion
 

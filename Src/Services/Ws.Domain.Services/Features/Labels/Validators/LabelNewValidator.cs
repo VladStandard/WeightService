@@ -8,8 +8,6 @@ internal sealed class LabelNewValidator : AbstractValidator<Label>
     {
         RuleFor(item => item.IsNew).Equal(true);
 
-        RuleFor(item => item.Zpl)
-            .NotEmpty();
         RuleFor(item => item.WeightNet)
             .NotNull();
         RuleFor(item => item.WeightTare)

@@ -39,6 +39,12 @@ internal sealed class SqlTemplateMap : ClassMapping<Template>
             m.Length(32);
         });
 
+        Property(x => x.Rotate, m =>
+        {
+            m.Column("ROTATE");
+            m.Type(NHibernateUtil.Int16);
+        });
+
         Property(x => x.Width, m =>
         {
             m.Column("WIDTH");

@@ -9,7 +9,7 @@ namespace Ws.Labels.Service.Generate;
 internal class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelWeightGenerator labelWeightGenerator)
     : IPrintLabelService
 {
-    public Label GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto) =>
+    public (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto) =>
         labelWeightGenerator.GenerateLabel(weightLabelDto);
 
     public Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount) =>

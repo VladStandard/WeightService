@@ -31,13 +31,6 @@ internal sealed class SqlLabelMap : ClassMapping<Label>
             m.NotNullable(true);
         });
 
-        Property(x => x.Zpl, m =>
-        {
-            m.Column("ZPL");
-            m.Type(NHibernateUtil.String);
-            m.NotNullable(true);
-        });
-
         Property(x => x.BarcodeTop, m =>
         {
             m.Column("BARCODE_TOP");

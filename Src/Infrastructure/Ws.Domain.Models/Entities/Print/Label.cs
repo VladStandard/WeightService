@@ -10,7 +10,6 @@ namespace Ws.Domain.Models.Entities.Print;
 [DebuggerDisplay("{ToString()}")]
 public class Label : EntityBase
 {
-    public virtual string Zpl { get; set; } = string.Empty;
     public virtual string BarcodeTop { get; set; } = string.Empty;
     public virtual string BarcodeRight { get; set; } = string.Empty;
     public virtual string BarcodeBottom { get; set; } = string.Empty;
@@ -30,8 +29,7 @@ public class Label : EntityBase
     protected override bool CastEquals(EntityBase obj)
     {
         Label item = (Label)obj;
-        return Equals(Zpl, item.Zpl) &&
-               Equals(BarcodeTop, item.BarcodeTop) &&
+        return Equals(BarcodeTop, item.BarcodeTop) &&
                Equals(BarcodeRight, item.BarcodeRight) &&
                Equals(BarcodeBottom, item.BarcodeBottom) &&
                Equals(WeightNet, item.WeightNet) &&

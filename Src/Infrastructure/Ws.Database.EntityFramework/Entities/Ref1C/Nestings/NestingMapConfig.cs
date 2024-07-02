@@ -30,7 +30,8 @@ internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
         builder.HasOne<PluEntity>()
             .WithOne()
             .HasForeignKey<NestingEntity>(n => n.Id)
-            .HasPrincipalKey<PluEntity>(p => p.Id);
+            .HasPrincipalKey<PluEntity>(p => p.Id)
+            .HasConstraintName($"FK_{SqlTables.Nestings}__PLU");
 
         #endregion
 

@@ -11,6 +11,7 @@ internal static class SqlTablesUtils
     public const string Plus = "PLUS";
     public const string PalletMen = "PALLET_MEN";
     public const string Labels = "LABELS";
+    public const string LabelsZpl = "LABELS_ZPL";
     public const string Pallets = "PALLETS";
     public const string Nestings = "NESTINGS";
     public const string PlusLines = "ARMS_PLUS_FK";

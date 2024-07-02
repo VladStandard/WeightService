@@ -95,11 +95,6 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
             .HasColumnName("BUNDLE_COUNT")
             .IsRequired();
 
-        builder.Property(e => e.Zpl)
-            .HasColumnName("ZPL")
-            .IsUnicode(false)
-            .IsRequired();
-
         builder.Property(e => e.Kneading)
             .HasColumnName("KNEADING")
             .IsRequired();

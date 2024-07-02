@@ -11,7 +11,7 @@ namespace Ws.Labels.Service.Generate.Features.Weight;
 
 internal class LabelWeightGenerator(CacheService cacheService, ILabelService labelService, ZplService zplService)
 {
-    public Label GenerateLabel(GenerateWeightLabelDto dto)
+    public (Label, LabelZpl) GenerateLabel(GenerateWeightLabelDto dto)
     {
         if (!dto.Plu.IsCheckWeight)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
@@ -50,10 +50,16 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
 
         #endregion
 
-        Label labelSql = new()
+        LabelZpl zplLabel = new()
         {
             Zpl = zpl,
+            Width = templateFromCache.Width,
+            Height = templateFromCache.Height,
+            Rotate = templateFromCache.Rotate
+        };
 
+        Label labelSql = new()
+        {
             Line = dto.Line,
             Plu = dto.Plu,
 
@@ -70,8 +76,8 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             WeightTare = dto.Plu.GetWeightWithNesting,
             BundleCount = data.BundleCount
         };
-        labelService.Create(labelSql);
+        labelService.Create(labelSql, zplLabel);
 
-        return labelSql;
+        return (labelSql, zplLabel);
     }
 }

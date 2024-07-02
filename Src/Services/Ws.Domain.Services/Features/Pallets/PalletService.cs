@@ -13,15 +13,15 @@ internal class PalletService(SqlPalletRepository palletRepo, SqlLabelRepository 
     #region CRUD
 
     [Transactional]
-    public void Create(Pallet pallet, IList<Label> labels)
+    public void Create(Pallet pallet, IList<(Label, LabelZpl)> labels)
     {
         NHibernateHelper.GetSession().SetBatchSize(labels.Count);
 
         pallet = palletRepo.Save(pallet);
-        foreach (Label label in labels)
+        foreach ((Label label, LabelZpl labelZpl) in labels)
         {
             label.PalletUid = pallet.Uid;
-            labelRepo.Save(label);
+            labelRepo.Save(label, labelZpl);
         }
 
         armRepo.Update(pallet.Arm);
