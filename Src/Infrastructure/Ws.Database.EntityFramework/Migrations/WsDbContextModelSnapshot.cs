@@ -904,6 +904,10 @@ namespace Ws.Database.EntityFramework.Migrations
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
 
+                    b.Property<short>("Rotate")
+                        .HasColumnType("smallint")
+                        .HasColumnName("ROTATE");
+
                     b.Property<short>("Width")
                         .HasColumnType("smallint")
                         .HasColumnName("WIDTH");

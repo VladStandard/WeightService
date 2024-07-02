@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240702093653_Add_LabelsZplTable")]
+    [Migration("20240702095607_Add_LabelsZplTable")]
     partial class Add_LabelsZplTable
     {
         /// <inheritdoc />
@@ -906,6 +906,10 @@ namespace Ws.Database.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(64)")
                         .HasColumnName("NAME");
+
+                    b.Property<short>("Rotate")
+                        .HasColumnType("smallint")
+                        .HasColumnName("ROTATE");
 
                     b.Property<short>("Width")
                         .HasColumnType("smallint")

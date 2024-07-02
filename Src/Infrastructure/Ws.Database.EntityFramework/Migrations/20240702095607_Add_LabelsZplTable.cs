@@ -21,6 +21,14 @@ namespace Ws.Database.EntityFramework.Migrations
                 schema: "PRINT",
                 table: "LABELS");
 
+            migrationBuilder.AddColumn<short>(
+                name: "ROTATE",
+                schema: "ZPL",
+                table: "TEMPLATES",
+                type: "smallint",
+                nullable: false,
+                defaultValue: (short)0);
+
             migrationBuilder.CreateTable(
                 name: "LABELS_ZPL",
                 schema: "PRINT",
@@ -66,6 +74,11 @@ namespace Ws.Database.EntityFramework.Migrations
             migrationBuilder.DropTable(
                 name: "LABELS_ZPL",
                 schema: "PRINT");
+
+            migrationBuilder.DropColumn(
+                name: "ROTATE",
+                schema: "ZPL",
+                table: "TEMPLATES");
 
             migrationBuilder.AddColumn<string>(
                 name: "ZPL",

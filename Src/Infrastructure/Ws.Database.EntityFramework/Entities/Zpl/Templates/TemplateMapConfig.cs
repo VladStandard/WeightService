@@ -29,6 +29,10 @@ internal sealed class TemplateMapConfig : IEntityTypeConfiguration<TemplateEntit
             .HasColumnName("BODY")
             .IsRequired();
 
+        builder.Property(e => e.Rotate)
+            .HasColumnName("ROTATE")
+            .IsRequired();
+
         builder.Property(e => e.Width)
             .HasColumnName("WIDTH")
             .IsRequired();

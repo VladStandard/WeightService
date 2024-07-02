@@ -8,6 +8,7 @@ public sealed class TemplateEntity : EfEntityBase
 
     public short Width { get; set; }
     public short Height { get; set; }
+    public short Rotate { get; set; }
 
     public string BarcodeTopBody { get; set; } = string.Empty;
     public string BarcodeBottomBody { get; set; } = string.Empty;
