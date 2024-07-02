@@ -308,4 +308,10 @@
     <data name="ColProductUnitsCount" xml:space="preserve">
         <value>Number of units of the product</value>
     </data>
+    <data name="ColRotation" xml:space="preserve">
+        <value>Rotation</value>
+    </data>
+    <data name="MeasureMm" xml:space="preserve">
+        <value>mm</value>
+    </data>
 </root>

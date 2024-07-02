@@ -15,15 +15,23 @@
     <SectionNumericField
       @bind-Value="@DialogItem.Width"
       Max="255"
-      Label="@WsDataLocalizer["ColWidth"]"
+      Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")"
       For="@(() => DialogItem.Width)"
     />
 
     <SectionNumericField
       @bind-Value="@DialogItem.Height"
       Max="255"
-      Label="@WsDataLocalizer["ColHeight"]"
+      Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")"
       For="@(() => DialogItem.Height)"
+    />
+
+    <SectionSelectSingleField
+      TItem="short"
+      @bind-Value="@DialogItem.Rotate"
+      Items="@([0, 90, 180, 270])"
+      Label="@($"{WsDataLocalizer["ColRotation"]} (°)")"
+      For="@(() => DialogItem.Rotate)"
     />
 
     <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>

@@ -78,13 +78,6 @@
 
     <FormDivider />
 
-    <AuthorizeView Policy="@PolicyEnum.Admin">
-      <SectionTextAreaField
-        Label="Zpl"
-        Value="@DialogItem.Zpl"
-        IsCopyable
-      />
-    </AuthorizeView>
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionLabels}/{DialogItem.Uid}")" />

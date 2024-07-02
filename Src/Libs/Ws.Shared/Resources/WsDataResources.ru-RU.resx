@@ -308,4 +308,10 @@
     <data name="ColProductUnitsCount" xml:space="preserve">
         <value>Кол-во единиц товара</value>
     </data>
+    <data name="ColRotation" xml:space="preserve">
+        <value>Поворот</value>
+    </data>
+    <data name="MeasureMm" xml:space="preserve">
+        <value>мм</value>
+    </data>
 </root>
