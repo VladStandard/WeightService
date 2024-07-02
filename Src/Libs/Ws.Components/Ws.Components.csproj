@@ -33,6 +33,20 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <TypeScriptCompile Include="wwwroot\libs\copy-base64-to-clipboard.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\dialog-animation.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\element-size.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\focus-check.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\handle-barcode.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\handle-middle-mouse-click.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\theme-utils.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\types\dotnet-object-type.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\types\element-with-dialog-type.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\types\global.d.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\types\resizable-element-type.ts" />
+    </ItemGroup>
+
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
         <Exec Command="npm -v" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />

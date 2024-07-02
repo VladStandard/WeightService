@@ -1,7 +1,7 @@
 using DeviceControl.Source.Shared.Api;
 using Refit;
 
-namespace DeviceControl.Source.Refit.Endpoints;
+namespace DeviceControl.Source.Shared.Refit.Endpoints;
 
 internal class LabelaryRefitEndpoint : IRefitEndpoint
 {

@@ -2,7 +2,7 @@ using DeviceControl.Source.Shared.Services;
 using Refit;
 using Ws.DeviceControl.Models;
 
-namespace DeviceControl.Source.Refit.Endpoints;
+namespace DeviceControl.Source.Shared.Refit.Endpoints;
 
 internal class WebRefitEndpoint : IRefitEndpoint
 {
