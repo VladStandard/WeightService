@@ -21,7 +21,7 @@
   </div>
   <Button
     Class="shrink-0 border"
-    OnClick="@PalletContext.ResetPalletMan"
+    OnClick="@LogoutPalletMan"
     Variant="ButtonVariant.Secondary"
   >
     <ArrowLeftOnRectangleIcon class="size-4 mr-2" />
@@ -34,9 +34,18 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private PalletApi PalletApi { get; set; } = default!;
+  [Inject] private PluApi PluApi { get; set; } = default!;
   [Inject] private ArmApi ArmApi { get; set; } = default!;
 
   # endregion
+
+  private void LogoutPalletMan()
+  {
+    PalletContext.ResetPalletMan();
+    PalletApi.PiecePalletsEndpoint.InvalidateAll();
+    PluApi.PiecePlusEndpoint.InvalidateAll();
+  }
 
   protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
 

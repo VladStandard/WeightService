@@ -33,7 +33,7 @@
             <Button
               Variant="ButtonVariant.Outline"
               Size="ButtonSize.Icon"
-              OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); })"
+              OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluApi.PiecePlusEndpoint.InvalidateAll(); })"
               Disabled="@palletQuery.IsFetching"
             >
               <ArrowPathIcon class="size-5 mx-2"/>
@@ -109,6 +109,7 @@
   # region Injects
 
   [Inject] private PalletApi PalletApi { get; set; } = default!;
+  [Inject] private PluApi PluApi { get; set; } = default!;
   [Inject] private ArmApi ArmApi { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
   [Inject] private PalletContext PalletContext { get; set; } = default!;

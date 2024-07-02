@@ -5,7 +5,7 @@
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plu.PluCharacteristic>
 @rendermode InteractiveServer
 
-<PageHeader>
+<PageHeader Class="!static">
   <span>@Localizer["SectionPluCharacteristics"]</span>
   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
