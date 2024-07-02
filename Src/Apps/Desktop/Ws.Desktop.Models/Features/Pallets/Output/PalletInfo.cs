@@ -9,7 +9,7 @@ public sealed record PalletInfo
     public required Guid Id { get; init; }
 
     [JsonPropertyName("number")]
-    public required uint Number { get; init; }
+    public required string Number { get; init; }
 
     [JsonPropertyName("palletMan")]
     public required Fio PalletMan { get; init; }

@@ -12,7 +12,7 @@ public class PalletEntity : EfEntityBase
 
     #endregion
 
-    public uint Number { get; set; }
+    public string Number { get; set; } = string.Empty;
     public uint Counter { get; set; }
 
     public DateTime ProductDt { get; set; }

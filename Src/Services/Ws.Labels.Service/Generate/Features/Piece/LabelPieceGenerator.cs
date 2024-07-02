@@ -52,10 +52,8 @@ internal class LabelPieceGenerator(
             ProdDt = dto.ProductDt,
             PalletMan = dto.PalletMan,
             Arm = dto.Line,
-            Counter = new Random().Next(0, 1000001),
-            Number = new Random().Next(0, 1000001),
+            Counter = new Random().Next(0, 1000001)
         };
-        palletService.Create(pallet, labels);
 
         List<LabelCreateApiDto> labelsData = [];
 
@@ -84,10 +82,19 @@ internal class LabelPieceGenerator(
             TrayWeightKg = dto.Weight,
             Labels = labelsData,
             ProductDt = pallet.ProdDt,
-            CreatedAt = pallet.CreateDt,
+            CreatedAt = DateTime.Now,
         };
 
-        PalletResponseDto response  = await api.CreatePallet(data);
+        PalletResponseDto response = await api.CreatePallet(data);
+        if (response.Successes.Count > 0)
+        {
+            PalletSuccess success = response.Successes.First();
+            pallet.Uid = success.Uid;
+            pallet.Number = success.Number;
+            palletService.Create(pallet, labels);
+        }
+        else
+            throw new();
 
         return pallet.Uid;
     }

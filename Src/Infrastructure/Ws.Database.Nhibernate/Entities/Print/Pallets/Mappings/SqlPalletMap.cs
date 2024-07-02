@@ -14,7 +14,7 @@ internal sealed class SqlPalletMap : ClassMapping<Pallet>
         {
             m.Column("UID");
             m.Type(NHibernateUtil.Guid);
-            m.Generator(Generators.GuidComb);
+            m.Generator(Generators.Assigned);
         });
 
         Property(x => x.Barcode, m =>
@@ -41,6 +41,7 @@ internal sealed class SqlPalletMap : ClassMapping<Pallet>
         Property(x => x.Number, m =>
         {
             m.Column("NUMBER");
+            m.Type(NHibernateUtil.String);
             m.NotNullable(true);
         });
 

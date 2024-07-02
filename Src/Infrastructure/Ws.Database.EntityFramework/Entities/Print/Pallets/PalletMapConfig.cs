@@ -42,6 +42,7 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 
         builder.Property(e => e.Number)
             .HasColumnName("NUMBER")
+            .HasColumnType("varchar(11)")
             .IsRequired();
 
         builder.Property(e => e.TrayWeight)

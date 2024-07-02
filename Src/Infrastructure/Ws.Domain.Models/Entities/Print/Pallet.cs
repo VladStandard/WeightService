@@ -13,8 +13,8 @@ public class Pallet : EntityBase
     public virtual PalletMan PalletMan { get; set; } = new();
     public virtual Arm Arm { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;
+    public virtual string Number { get; set; }  = string.Empty;
     public virtual int Counter { get; set; }
-    public virtual int Number { get; set; }
     public virtual DateTime ProdDt { get; set; }
     public virtual decimal Weight { get; set; }
 

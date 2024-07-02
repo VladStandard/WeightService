@@ -15,7 +15,9 @@ public class Warehouse : EntityBase
     protected override bool CastEquals(EntityBase obj)
     {
         Warehouse item = (Warehouse)obj;
-        return Equals(ProductionSite, item.ProductionSite) && Equals(Name, item.Name) && Equals(Uid, item.Uid1C);
+        return Equals(ProductionSite, item.ProductionSite) &&
+               Equals(Name, item.Name) &&
+               Equals(Uid1C, item.Uid1C);
     }
 
     public override string ToString() => Name;
