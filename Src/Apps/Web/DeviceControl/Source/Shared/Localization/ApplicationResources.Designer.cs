@@ -71,6 +71,42 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ArmPluAdded {
+            get {
+                return ResourceManager.GetString("ArmPluAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ArmPluAddedUnsuccessfully {
+            get {
+                return ResourceManager.GetString("ArmPluAddedUnsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ArmPluRemoved {
+            get {
+                return ResourceManager.GetString("ArmPluRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ArmPluRemovedUnsuccessfully {
+            get {
+                return ResourceManager.GetString("ArmPluRemovedUnsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string ArmTypeEnumPc {
             get {
                 return ResourceManager.GetString("ArmTypeEnumPc", resourceCulture);

@@ -279,4 +279,16 @@
     <data name="SectionAnalytics" xml:space="preserve">
         <value>Аналитика</value>
     </data>
+    <data name="ArmPluRemovedUnsuccessfully" xml:space="preserve">
+        <value>Не удалось убрать {0} ПЛУ с линии</value>
+    </data>
+    <data name="ArmPluRemoved" xml:space="preserve">
+        <value>{0} ПЛУ убрана с линии</value>
+    </data>
+    <data name="ArmPluAddedUnsuccessfully" xml:space="preserve">
+        <value>Не удалось добавить {0} ПЛУ к линии</value>
+    </data>
+    <data name="ArmPluAdded" xml:space="preserve">
+        <value>{0} ПЛУ добавлена к линии</value>
+    </data>
 </root>

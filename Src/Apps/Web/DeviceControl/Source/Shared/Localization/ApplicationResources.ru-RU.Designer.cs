@@ -69,6 +69,42 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ПЛУ добавлена к линии.
+        /// </summary>
+        public static string ArmPluAdded {
+            get {
+                return ResourceManager.GetString("ArmPluAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось добавить {0} ПЛУ к линии.
+        /// </summary>
+        public static string ArmPluAddedUnsuccessfully {
+            get {
+                return ResourceManager.GetString("ArmPluAddedUnsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ПЛУ убрана с линии.
+        /// </summary>
+        public static string ArmPluRemoved {
+            get {
+                return ResourceManager.GetString("ArmPluRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось убрать {0} ПЛУ с линии.
+        /// </summary>
+        public static string ArmPluRemovedUnsuccessfully {
+            get {
+                return ResourceManager.GetString("ArmPluRemovedUnsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Компьютер.
         /// </summary>
         public static string ArmTypeEnumPc {
