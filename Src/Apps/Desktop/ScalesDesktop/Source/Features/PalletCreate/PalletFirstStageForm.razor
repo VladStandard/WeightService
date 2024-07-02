@@ -20,7 +20,7 @@
               @bind-SelectedItem="@FormModel.Plu"
               @bind-SelectedItem:after="OnPluSelected"
               Placeholder="@Localizer["PluSelectPlaceholder"]"
-              ItemDisplayName="entity => entity.Name"
+              ItemDisplayName="@(entity => $"{entity.Number} | {entity.Name}")"
               IsFilterable
             />
           }
