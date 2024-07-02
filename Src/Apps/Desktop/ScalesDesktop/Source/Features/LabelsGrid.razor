@@ -34,7 +34,7 @@
           <Button
             Variant="ButtonVariant.Outline"
             OnClick="@PrintLabelsAsync"
-            Disabled="@(!SelectedItems.Any())"
+            Disabled="@(!SelectedItems.Any() || IsPrinting)"
           >
             <PrinterIcon class="size-4 mr-2" />
             @Localizer["BtnSelectedLabelsPrinting"]

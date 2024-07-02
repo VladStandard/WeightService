@@ -15,6 +15,7 @@ declare global {
     unsubscribeBarcodeEnterEvent: () => void
     subscribeMiddleMouseClickEvent: (dotNetObjReference: DotNetObjectType, functionName: string) => void
     unsubscribeMiddleMouseClickEvent: () => void
+    copyBase64ToClipboard: (base64: string) => Promise<void>
   }
 }
 

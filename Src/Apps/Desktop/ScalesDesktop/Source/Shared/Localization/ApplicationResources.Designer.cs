@@ -467,6 +467,33 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string LabelsPrintingSuccess {
+            get {
+                return ResourceManager.GetString("LabelsPrintingSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelsPrintingToastDescription {
+            get {
+                return ResourceManager.GetString("LabelsPrintingToastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelsPrintingToastTitle {
+            get {
+                return ResourceManager.GetString("LabelsPrintingToastTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string LineIsNewWarningDescription {
             get {
                 return ResourceManager.GetString("LineIsNewWarningDescription", resourceCulture);

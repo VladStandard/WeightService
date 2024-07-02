@@ -1,4 +1,4 @@
-namespace DeviceControl.Source.Refit;
+namespace DeviceControl.Source.Shared.Refit;
 
 internal interface IRefitEndpoint
 {

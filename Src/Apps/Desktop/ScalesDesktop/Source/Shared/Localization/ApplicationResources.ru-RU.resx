@@ -297,4 +297,13 @@
     <data name="PrintingStoppedDueToErrors" xml:space="preserve">
         <value>Печать этикеток  остановлена из-за ошибок</value>
     </data>
+    <data name="LabelsPrintingSuccess" xml:space="preserve">
+        <value>Печать успешно завершена</value>
+    </data>
+    <data name="LabelsPrintingToastTitle" xml:space="preserve">
+        <value>Печать этикеток</value>
+    </data>
+    <data name="LabelsPrintingToastDescription" xml:space="preserve">
+        <value>Распечатанные этикетки убираются из списка</value>
+    </data>
 </root>

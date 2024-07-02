@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace DeviceControl.Source.Refit;
+namespace DeviceControl.Source.Shared.Refit;
 
 internal static class RefitServicesExtension
 {
