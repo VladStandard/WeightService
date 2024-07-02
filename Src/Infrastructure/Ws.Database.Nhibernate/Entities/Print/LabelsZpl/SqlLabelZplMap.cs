@@ -8,7 +8,7 @@ public class SqlLabelZplMap : ClassMapping<LabelZpl>
     public SqlLabelZplMap()
     {
         Schema(SqlSchemasUtils.Print);
-        Table(SqlTablesUtils.Labels);
+        Table(SqlTablesUtils.LabelsZpl);
 
         Id(x => x.Uid, m =>
         {
