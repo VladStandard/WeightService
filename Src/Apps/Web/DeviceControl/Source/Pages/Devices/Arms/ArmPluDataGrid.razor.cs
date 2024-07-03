@@ -9,7 +9,7 @@ using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
-public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
+public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<Plu>
 {
     # region Injects
 
@@ -40,6 +40,7 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
         IsAllowToEdit = isSeniorSupport || UserProductionSite.Equals(Arm.Warehouse.ProductionSite);
 
         SelectPluEntities = [..PluService.GetAll()];
+
         if (Arm.Type == ArmType.Pc)
             SelectPluEntities = SelectPluEntities.Where(x => x.IsCheckWeight == false).ToHashSet();
         else if(Arm.Type == ArmType.Tablet)
@@ -55,32 +56,31 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
 
     private List<Plu> GetPluNotInSectionItems()
     {
-        HashSet<Plu> sectionPluList = SectionItems.Select(item => item.Plu).ToHashSet();
+        HashSet<Plu> sectionPluList = SectionItems.ToHashSet();
         return SelectPluEntities.Where(plu => !sectionPluList.Contains(plu)).ToList();
     }
 
-    private Task DeleteArmPlu(ArmPlu item)
+    private Task DeleteArmPlu(Plu item)
     {
         try
         {
-            ArmService.DeletePluLine(item);
+            ArmService.DeletePlu(Arm, item);
             SectionItems = SectionItems.Where(x => !x.Equals(item));
-            ToastService.ShowSuccess(string.Format(Localizer["ArmPluRemoved"], item.Plu.Number));
+            ToastService.ShowSuccess(string.Format(Localizer["ArmPluRemoved"], item.Number));
         }
         catch
         {
-            ToastService.ShowError(string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Plu.Number));
+            ToastService.ShowError(string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number));
         }
         return Task.CompletedTask;
     }
 
     private void AddArmPlu(Plu item)
     {
-        ArmPlu armPlu = new() { Line = Arm, Plu = item };
         try
         {
-            ArmService.AddPluLine(armPlu);
-            SectionItems = SectionItems.Union([armPlu]);
+            ArmService.AddPlu(Arm, item);
+            SectionItems = SectionItems.Union([item]);
             ToastService.ShowSuccess(string.Format(Localizer["ArmPluAdded"], item.Number));
         }
         catch
@@ -89,8 +89,8 @@ public sealed partial class ArmPluDataGrid : SectionDataGridPageBase<ArmPlu>
         }
     }
 
-    protected override IEnumerable<ArmPlu> SetSqlSectionCast() => ArmService.GetLinePlusFk(Arm);
+    protected override IEnumerable<Plu> SetSqlSectionCast() => ArmService.GetArmAllPlus(Arm);
 
-    protected override async Task OpenItemInNewTab(ArmPlu item)
-        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Plu.Uid}");
+    protected override async Task OpenItemInNewTab(Plu item)
+        => await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Uid}");
 }

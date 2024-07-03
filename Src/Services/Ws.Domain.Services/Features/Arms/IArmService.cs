@@ -13,14 +13,13 @@ public interface IArmService : IGetItemByUid<Arm>, ICreate<Arm>, IUpdate<Arm>, I
     public IList<Plu> GetArmAllPlus(Arm line);
     public IList<Plu> GetArmPiecePlus(Guid uid);
     public IList<Arm> GetAllByProductionSite(ProductionSite site);
-    public IList<ArmPlu> GetLinePlusFk(Arm line);
 
     #endregion
 
     #region CRUD
 
-    public void DeletePluLine(ArmPlu item);
-    void AddPluLine(ArmPlu armPlu);
+    public void DeletePlu(Arm arm, Plu plu);
+    void AddPlu(Arm arm, Plu plu);
 
     #endregion
 }

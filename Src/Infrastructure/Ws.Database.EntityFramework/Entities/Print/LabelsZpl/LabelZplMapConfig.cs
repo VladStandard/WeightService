@@ -29,7 +29,6 @@ public class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
 
         #endregion
 
-
         builder.Property(e => e.Zpl)
             .HasColumnName("ZPL")
             .IsUnicode(false)

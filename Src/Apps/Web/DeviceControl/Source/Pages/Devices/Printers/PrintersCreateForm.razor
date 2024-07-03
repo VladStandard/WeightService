@@ -29,7 +29,6 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="PrinterTypes"
       @bind-Value="@DialogItem.Type"
-      ItemDisplayName="item => EnumHelper.GetEnumDescription(item)"
       For="@(() => DialogItem.Type)"
     />
 

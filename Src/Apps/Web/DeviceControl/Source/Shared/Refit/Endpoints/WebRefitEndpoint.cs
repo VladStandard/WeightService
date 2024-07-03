@@ -8,8 +8,10 @@ internal class WebRefitEndpoint : IRefitEndpoint
 {
     public void Configure(WebApplicationBuilder builder)
     {
+        string apiUrl = builder.Configuration.GetValue<string>("WebApi")!;
+
         builder.Services.AddRefitClient<IWebApi>()
-            .ConfigureHttpClient(c => c.BaseAddress = new(builder.Configuration.GetValue<string>("WebApi") ?? ""))
+            .ConfigureHttpClient(c => c.BaseAddress = new(apiUrl))
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
