@@ -16,7 +16,6 @@ public sealed partial class PalletMenPage : SectionDataGridPageBase<PalletMan>
 
     #endregion
 
-
     [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
 
     private ProductionSite ProductionSite { get; set; } = new();

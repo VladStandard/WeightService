@@ -1,4 +1,3 @@
-using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Labels;
 
@@ -10,7 +9,6 @@ public sealed partial class LabelsPage : SectionDataGridPageBase<Label>
     # region Injects
 
     [Inject] private ILabelService LabelService { get; set; } = default!;
-    [Inject] private IDialogService DialogService { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
