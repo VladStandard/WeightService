@@ -40,6 +40,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
             kneading: (ushort)dto.Kneading,
             weight: dto.Weight,
+            weightGross: dto.Weight + dto.Plu.GetWeightWithNesting,
             storageMethod: storageMethod,
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
             barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),

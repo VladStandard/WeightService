@@ -1,9 +1,19 @@
+using System.ComponentModel;
+
 namespace Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 
 public enum LabelGenExceptions
 {
+    [Description("LabelGenExcInvalid")]
     Invalid,
-    BarcodeError,
+    [Description("LabelGenExcBarcodeInvalid")]
+    BarcodeInvalid,
+    [Description("LabelGenExcTemplateNotFound")]
     TemplateNotFound,
-    StorageMethodNotFound
+    [Description("LabelGenExcBarcodeVariableNotFound")]
+    BarcodeVarNotFound,
+    [Description("LabelGenExcStorageMethodNotFound")]
+    StorageMethodNotFound,
+    [Description("LabelGenExcExchangeFailed")]
+    ExchangeFailed
 }

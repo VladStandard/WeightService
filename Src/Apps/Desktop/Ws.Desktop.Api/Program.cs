@@ -12,6 +12,7 @@ using Ws.Desktop.Api.App.Features.Pallets.Impl;
 using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 using Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
+using Ws.Desktop.Api.App.Middlewares;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 
@@ -37,6 +38,7 @@ builder.Services.AddLabelsServices();
 
 #endregion
 
+
 builder.Services
     .AddControllers(options => {
         options.Filters.Add(new AllowAnonymousFilter());
@@ -53,9 +55,14 @@ builder.Services
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
+
+builder.Services.AddTransient<GenerateLabelExceptionHandlingMiddleware>();
+
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
+app.UseMiddleware<GenerateLabelExceptionHandlingMiddleware>();
 
 app.Run();

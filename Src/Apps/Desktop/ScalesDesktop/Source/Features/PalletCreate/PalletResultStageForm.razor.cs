@@ -1,10 +1,13 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Refit;
 using ScalesDesktop.Source.Shared.Services;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
+using Ws.Desktop.Models.Shared;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -61,7 +64,18 @@ public sealed partial class PalletResultStageForm : ComponentBase
             await OnSubmitAction.InvokeAsync(data);
             ToastService.ShowSuccess(Localizer["PalletCreateDialogSuccess"]);
         }
-        catch
+        catch (ApiException ex)
+        {
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content))
+                throw new();
+
+            ServerException? exception = JsonSerializer.Deserialize<ServerException>(ex.Content);
+            if (exception == null)
+                throw new();
+
+            ToastService.ShowError(WsDataLocalizer[exception.MessageLocalizeKey]);
+        }
+        catch (Exception)
         {
             ToastService.ShowError(Localizer["ToastPalletCreateError"]);
         }

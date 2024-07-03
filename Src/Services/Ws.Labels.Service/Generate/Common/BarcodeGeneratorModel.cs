@@ -53,7 +53,7 @@ public abstract record BarcodeGeneratorModel : IBarcodeLabel
         }
         catch (Exception ex)
         {
-            throw new LabelGenerateException(LabelGenExceptions.BarcodeError);
+            throw new LabelGenerateException(LabelGenExceptions.BarcodeInvalid);
         }
 
         return barcodeBuilder.ToString();

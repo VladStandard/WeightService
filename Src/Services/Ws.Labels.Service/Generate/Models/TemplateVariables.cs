@@ -9,8 +9,8 @@ public class TemplateVariables(
     string pluName, ushort pluNumber, string pluDescription,
     int lineNumber, string lineName, string lineAddress,
     string barcodeTop, string barcodeRight, string barcodeBottom,
-    ushort bundleCount, ushort kneading, decimal weight, string storageMethod,
-    ushort palletOrder, string palletNumber,
+    ushort bundleCount, ushort kneading, decimal weight,
+    decimal weightGross, string storageMethod, ushort palletOrder, string palletNumber,
     DateTime productDt, DateTime expirationDt)
 {
     #region Plu
@@ -44,12 +44,19 @@ public class TemplateVariables(
 
     #endregion
 
+    #region Weight
+
+    public readonly string Weight =  weight.ToSepStr(",");
+    public readonly string WeightGross =  weightGross.ToSepStr(",");
+
+    #endregion
+
     #region Other
 
     public readonly string StorageMethod = storageMethod;
     public readonly ushort BundleCount = bundleCount;
     public readonly string Kneading = $"{kneading:D3}";
-    public readonly string Weight =  weight.ToSepStr(",");
+
     public readonly string ProductDate = $"{productDt:dd.MM.yyyy}";
     public readonly string ExpirationDate = $"{expirationDt:dd.MM.yyyy}";
 

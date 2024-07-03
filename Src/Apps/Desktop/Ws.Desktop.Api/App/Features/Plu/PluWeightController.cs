@@ -27,8 +27,8 @@ public class PluWeightController(IPluWeightService pluWeightService, IPluPieceSe
     #region Commands
 
     [HttpPost("weight/{pluId:guid}/label")]
-    public WeightLabel GenerateLabel([FromRoute] Guid armId, Guid pluId, [FromBody] CreateWeightLabelDto dto)
-        => pluWeightService.GenerateLabel(armId, pluId, dto);
+    public ActionResult<WeightLabel> GenerateLabel([FromRoute] Guid armId, Guid pluId, [FromBody] CreateWeightLabelDto dto) =>
+        pluWeightService.GenerateLabel(armId, pluId, dto);
 
     #endregion
 }

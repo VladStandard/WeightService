@@ -94,7 +94,7 @@ internal class LabelPieceGenerator(
             palletService.Create(pallet, labels);
         }
         else
-            throw new();
+            throw new LabelGenerateException(LabelGenExceptions.ExchangeFailed);
 
         return pallet.Uid;
     }
@@ -125,7 +125,9 @@ internal class LabelPieceGenerator(
 
             bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
             kneading: (ushort)dto.Kneading,
-            weight: dto.Weight,
+            weight: dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
+            weightGross: dto.Plu.GetWeightByCharacteristic(dto.PluCharacteristic),
+
             storageMethod: storageMethod,
 
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
