@@ -43,11 +43,13 @@
         <FilterTemplate>
           @{ context.SearchValue = Type; }
           <SelectSingle
-            TItem="ZplResourceType"
-            Items="@(Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType>().ToList())"
+            TItem="ZplResourceType?"
+            Items="@(Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType?>().ToList().Union([null]))"
             @bind-SelectedItem="@Type"
             @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
-            ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"/>
+            Placeholder="@Localizer["SelectItemNotSelected"]"
+            ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : Localizer[EnumHelper.GetEnumDescription(item.Value)])"
+          />
         </FilterTemplate>
         <DisplayTemplate>
           @Localizer[EnumHelper.GetEnumDescription(context.Type)]

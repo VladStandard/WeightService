@@ -15,7 +15,7 @@ public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplR
 
     #endregion
 
-    private ZplResourceType Type { get; set; } = ZplResourceType.Sign;
+    private ZplResourceType? Type { get; set; }
 
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());

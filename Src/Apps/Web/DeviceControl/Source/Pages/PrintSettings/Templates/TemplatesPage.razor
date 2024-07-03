@@ -46,11 +46,12 @@
         <FilterTemplate>
           @{ context.SearchValue = Type; }
           <SelectSingle
-            TItem="bool"
-            Items="@([false, true])"
+            TItem="bool?"
+            Items="@([false, true, null])"
             @bind-SelectedItem="@Type"
             @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
-            ItemDisplayName="@(item => GetTemplateTypeName(item))"
+            Placeholder="@Localizer["SelectItemNotSelected"]"
+            ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : GetTemplateTypeName(item.Value))"
           />
         </FilterTemplate>
         <DisplayTemplate>
