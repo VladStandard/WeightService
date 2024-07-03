@@ -67,8 +67,21 @@
         Caption="@WsDataLocalizer["ColType"]"
         Field="@nameof(Plu.IsCheckWeight)"
         Width="10%"
-        Filterable="false"
+        Sortable="false"
+        FilterCellClass="!font-normal"
       >
+        <FilterTemplate>
+          @{ context.SearchValue = Type; }
+          <SelectSingle
+            TItem="bool?"
+            Items="@( [false, true, null])"
+            @bind-SelectedItem="@Type"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+            Placeholder="@Localizer["SelectItemNotSelected"]"
+            ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] :
+                                 item.Value ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])"
+          />
+        </FilterTemplate>
         <DisplayTemplate>
           <span>
             @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])

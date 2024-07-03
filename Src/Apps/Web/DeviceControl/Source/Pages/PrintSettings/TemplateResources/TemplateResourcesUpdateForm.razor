@@ -1,6 +1,9 @@
 @using DeviceControl.Source.Widgets.Section.FormActions
 @using DeviceControl.Source.Widgets.Section.FormFields
 @using DeviceControl.Source.Widgets.Section
+@using Ws.Shared.Utils
+@using Ws.Shared.Enums
+
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.ZplResource>
 
 <SectionForm
@@ -18,6 +21,15 @@
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@DialogItem.Name"
       For="@(() => DialogItem.Name)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ZplResourceType"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="ZplResourceTypes"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
+      For="@(() => DialogItem.Type)"
     />
 
     <SectionTextAreaField

@@ -1,4 +1,5 @@
 using DeviceControl.Source.Widgets.Section.Dialogs;
+using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Printers;
@@ -18,6 +19,7 @@ public sealed partial class PrintersPage : SectionDataGridPageBase<Printer>
     [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
 
     private ProductionSite ProductionSite { get; set; } = new();
+    private PrinterTypes? Type { get; set; }
 
     protected override void OnInitialized()
     {

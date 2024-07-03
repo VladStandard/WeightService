@@ -1,5 +1,6 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResources;
+using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.PrintSettings.TemplateResources;
 
@@ -13,6 +14,8 @@ public sealed partial class TemplateResourcesPage : SectionDataGridPageBase<ZplR
     [Inject] private IZplResourceService ZplResourceService { get; set; } = default!;
 
     #endregion
+
+    private ZplResourceType Type { get; set; } = ZplResourceType.Sign;
 
     protected override async Task OpenSectionCreateForm()
         => await OpenSectionModal<TemplateResourcesCreateDialog>(new());

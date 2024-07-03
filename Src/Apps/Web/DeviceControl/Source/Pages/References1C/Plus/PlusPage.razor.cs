@@ -14,7 +14,8 @@ public sealed partial class PlusPage : SectionDataGridPageBase<Plu>
 
     # endregion
 
-    private PluValidValidator PluValidator { get; set; } = new();
+    private PluValidValidator PluValidator { get; } = new();
+    private bool? Type { get; set; }
 
     protected override async Task OpenDataGridEntityModal(Plu item)
         => await OpenSectionModal<PlusUpdateDialog>(item);

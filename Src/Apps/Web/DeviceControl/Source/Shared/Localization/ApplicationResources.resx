@@ -291,4 +291,13 @@
     <data name="ArmPluAddedUnsuccessfully" xml:space="preserve">
         <value />
     </data>
+    <data name="ZplResourceTypeEnumSign" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ZplResourceTypeEnumText" xml:space="preserve">
+        <value />
+    </data>
+    <data name="SelectItemNotSelected" xml:space="preserve">
+        <value />
+    </data>
 </root>

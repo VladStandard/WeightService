@@ -1,6 +1,9 @@
 @using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Print
 @using DeviceControl.Source.Widgets.Section
+@using Ws.Shared.Enums
+@using Ws.Shared.Utils
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.ZplResource>
 @attribute [Route($"{RouteUtils.SectionTemplateResources}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
@@ -20,17 +23,41 @@
     TItem="ZplResource"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
         Field="@nameof(ZplResource.ChangeDt)"
         Width="20%"
+        Filterable="false"
       />
+
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(ZplResource.Type)"
+        Width="20%"
+        Sortable="false"
+        FilterCellClass="!font-normal"
+      >
+        <FilterTemplate>
+          @{ context.SearchValue = Type; }
+          <SelectSingle
+            TItem="ZplResourceType"
+            Items="@(Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType>().ToList())"
+            @bind-SelectedItem="@Type"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+            ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"/>
+        </FilterTemplate>
+        <DisplayTemplate>
+          @Localizer[EnumHelper.GetEnumDescription(context.Type)]
+        </DisplayTemplate>
+      </DataGridColumn>
+
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(ZplResource.Name)"
-        Width="80%"
+        Width="60%"
       />
     </ColumnsContent>
     <ContextMenuContent>

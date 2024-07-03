@@ -291,4 +291,13 @@
     <data name="ArmPluAdded" xml:space="preserve">
         <value>{0} ПЛУ добавлена к линии</value>
     </data>
+    <data name="ZplResourceTypeEnumSign" xml:space="preserve">
+        <value>Значок</value>
+    </data>
+    <data name="ZplResourceTypeEnumText" xml:space="preserve">
+        <value>Текст</value>
+    </data>
+    <data name="SelectItemNotSelected" xml:space="preserve">
+        <value>Не выбран</value>
+    </data>
 </root>

@@ -2,6 +2,7 @@
 @using Ws.Domain.Models.Entities.Devices
 @using DeviceControl.Source.Widgets.Section
 @using DeviceControl.Source.Features
+@using TscZebra.Plugin.Abstractions.Enums
 
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
@@ -27,23 +28,38 @@
       TItem="Printer"
       Items="SectionItems"
       OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+      IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColType"]"
           Field="@nameof(Printer.Type)"
           Width="4rem"
-          Sortable
-        />
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            @{ context.SearchValue = Type; }
+            <SelectSingle
+              TItem="PrinterTypes?"
+              Items="@(Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes?>().Union([null]))"
+              @bind-SelectedItem="@Type"
+              @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+              Placeholder="@Localizer["SelectItemNotSelected"]"
+              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : item.Value.ToString())"
+            />
+          </FilterTemplate>
+        </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
           Field="@nameof(Printer.Name)"
-          Width="40%"/>
+          Width="40%"
+        />
         <DataGridColumn
           Caption="IP"
           Field="@nameof(Printer.Ip)"
           Width="25%"
-          Sortable="false"/>
+          Sortable="false"
+        />
       </ColumnsContent>
       <ContextMenuContent>
         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />

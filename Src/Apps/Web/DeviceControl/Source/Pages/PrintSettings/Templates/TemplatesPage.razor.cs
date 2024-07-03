@@ -14,6 +14,8 @@ public sealed partial class TemplatesPage : SectionDataGridPageBase<Template>
 
     #endregion
 
+    private bool Type { get; set; }
+
     protected override async Task OpenDataGridEntityModal(Template item)
         => await OpenSectionModal<TemplatesUpdateDialog>(item);
 

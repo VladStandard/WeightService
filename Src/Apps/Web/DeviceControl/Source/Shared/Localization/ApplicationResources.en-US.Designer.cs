@@ -789,6 +789,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not selected.
+        /// </summary>
+        public static string SelectItemNotSelected {
+            get {
+                return ResourceManager.GetString("SelectItemNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value copied to clipboard.
         /// </summary>
         public static string ToastCopyToClipboard {
@@ -875,6 +884,24 @@ namespace DeviceControl.Source.Shared.Localization {
         public static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign.
+        /// </summary>
+        public static string ZplResourceTypeEnumSign {
+            get {
+                return ResourceManager.GetString("ZplResourceTypeEnumSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string ZplResourceTypeEnumText {
+            get {
+                return ResourceManager.GetString("ZplResourceTypeEnumText", resourceCulture);
             }
         }
     }

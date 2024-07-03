@@ -291,4 +291,13 @@
     <data name="ArmPluAdded" xml:space="preserve">
         <value>{0} PLU has been added to the arm</value>
     </data>
+    <data name="ZplResourceTypeEnumSign" xml:space="preserve">
+        <value>Sign</value>
+    </data>
+    <data name="ZplResourceTypeEnumText" xml:space="preserve">
+        <value>Text</value>
+    </data>
+    <data name="SelectItemNotSelected" xml:space="preserve">
+        <value>Not selected</value>
+    </data>
 </root>

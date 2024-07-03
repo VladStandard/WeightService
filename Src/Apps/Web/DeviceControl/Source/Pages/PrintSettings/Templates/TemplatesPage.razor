@@ -21,23 +21,38 @@
     TItem="Template"
     Items="SectionItems"
     OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
   >
     <ColumnsContent>
       <DataGridColumn
         Caption="@WsDataLocalizer["ColChangeDt"]"
         Field="@nameof(Template.ChangeDt)"
         Width="20%"
+        Filterable="false"
       />
+
       <DataGridColumn
         Caption="@WsDataLocalizer["ColTitle"]"
         Field="@nameof(Template.Name)"
         Width="20%"
       />
+
       <DataGridColumn
         Caption="@WsDataLocalizer["ColType"]"
         Width="20%"
         Field="@nameof(Template.IsWeight)"
+        FilterCellClass="!font-normal"
       >
+        <FilterTemplate>
+          @{ context.SearchValue = Type; }
+          <SelectSingle
+            TItem="bool"
+            Items="@([false, true])"
+            @bind-SelectedItem="@Type"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+            ItemDisplayName="@(item => GetTemplateTypeName(item))"
+          />
+        </FilterTemplate>
         <DisplayTemplate>
           <span>
             @GetTemplateTypeName(context.IsWeight)
@@ -49,8 +64,8 @@
         Caption="@WsDataLocalizer["ColSize"]"
         Field="@nameof(Template.SizeView)"
         Width="20%"
+        Filterable="false"
       />
-
     </ColumnsContent>
     <ContextMenuContent>
       <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
