@@ -7,7 +7,7 @@
   novalidate="true"
 >
   <FluentValidationValidator Validator="@(new PalletSecondStageFormValidator(WsDataLocalizer))" />
-  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColPalletWeight"]} ({WsDataLocalizer["MeasureKg"]})")" HtmlId="pallet-weight">
+  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColTareWeight"]} ({WsDataLocalizer["MeasureKg"]})")" HtmlId="pallet-weight">
     <InputNumberField
       TValue="decimal"
       id="pallet-weight"

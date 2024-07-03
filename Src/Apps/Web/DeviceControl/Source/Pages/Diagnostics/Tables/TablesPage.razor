@@ -22,11 +22,6 @@
     >
       <ColumnsContent>
         <DataGridColumn
-          Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(DataBaseTableEntry.Table)"
-          Width="30%"
-        />
-        <DataGridColumn
           Caption="@WsDataLocalizer["ColScheme"]"
           Field="@nameof(DataBaseTableEntry.Schema)"
           Width="20%"
@@ -53,6 +48,13 @@
             }
           </FilterTemplate>
         </DataGridColumn>
+
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@nameof(DataBaseTableEntry.Table)"
+          Width="30%"
+        />
+
         <DataGridColumn
           Caption="Количество записей"
           Field="@nameof(DataBaseTableEntry.Rows)"
