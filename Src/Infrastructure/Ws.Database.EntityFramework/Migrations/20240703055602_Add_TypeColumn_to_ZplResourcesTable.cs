@@ -16,7 +16,7 @@ namespace Ws.Database.EntityFramework.Migrations
                 table: "RESOURCES",
                 type: "varchar(4)",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: "Text");
         }
 
         /// <inheritdoc />

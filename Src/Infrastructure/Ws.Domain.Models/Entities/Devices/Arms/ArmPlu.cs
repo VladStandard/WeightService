@@ -11,6 +11,7 @@ public class ArmPlu : EntityBase
 {
     public virtual Plu Plu { get; set; } = new();
     public virtual Arm Line { get; set; } = new();
+    public override bool IsNew => Plu.IsNew && Line.IsNew;
 
     protected override bool CastEquals(EntityBase obj)
     {

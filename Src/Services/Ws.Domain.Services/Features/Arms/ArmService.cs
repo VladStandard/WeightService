@@ -22,9 +22,6 @@ internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository
     #region List
 
     [Transactional]
-    public IList<ArmPlu> GetLinePlusFk(Arm arm) => pluLineRepo.GetListByLine(arm);
-
-    [Transactional]
     public IList<Arm> GetAllByProductionSite(ProductionSite site) =>
         armRepo.GetListBySpec(ArmSpecs.GetByProductionSite(site)).ToList();
 
@@ -48,10 +45,11 @@ internal partial class ArmService(SqlArmRepository armRepo, SqlPluLineRepository
     public void DeleteById(Guid id) => armRepo.Delete(new() { Uid = id });
 
     [Transactional]
-    public void DeletePluLine(ArmPlu item) => pluLineRepo.Delete(item);
+    public void DeletePlu(Arm arm, Plu plu) => pluLineRepo.Delete(arm, plu);
+
 
     [Transactional]
-    public void AddPluLine(ArmPlu armPlu) => pluLineRepo.Save(armPlu);
+    public void AddPlu(Arm arm, Plu plu) => pluLineRepo.Save(arm, plu);
 
     #endregion
 }

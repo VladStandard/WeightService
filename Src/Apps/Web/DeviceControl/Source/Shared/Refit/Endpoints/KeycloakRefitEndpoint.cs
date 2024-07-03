@@ -9,7 +9,10 @@ internal class KeycloakRefitEndpoint : IRefitEndpoint
     public void Configure(WebApplicationBuilder builder)
     {
         IConfigurationSection oidcConfiguration = builder.Configuration.GetSection("Oidc");
-        string keycloakAdminUrl = $"{oidcConfiguration.GetValue<string>("Authority")}/admin/realms/{oidcConfiguration.GetValue<string>("Realm")}";
+
+        string authority = oidcConfiguration.GetValue<string>("Authority")!;
+        string realm = oidcConfiguration.GetValue<string>("Realm")!;
+        string keycloakAdminUrl = $"{authority}/admin/realms/{realm}";
 
         builder.Services.AddRefitClient<IKeycloakApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))

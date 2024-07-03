@@ -20,14 +20,13 @@ public abstract class ClaimsMapping
             if (claimsDict.TryGetValue(claim.Value, out string? value))
                 claimsIdentity.AddClaim(new(claim.Key, value));
 
-        if (claimsDict.TryGetValue("resource_access", out string? resourceAccess))
-        {
-            using JsonDocument document = JsonDocument.Parse(resourceAccess);
-            if (!document.RootElement.TryGetProperty(clientId, out JsonElement clientElement)) return;
-            if (!clientElement.TryGetProperty("roles", out JsonElement rolesElement)) return;
+        if (!claimsDict.TryGetValue("resource_access", out string? resourceAccess)) return;
 
-            foreach (JsonElement roleElement in rolesElement.EnumerateArray())
-                claimsIdentity.AddClaim(new(ClaimTypes.Role, roleElement.ToString()));
-        }
+        using JsonDocument document = JsonDocument.Parse(resourceAccess);
+        if (!document.RootElement.TryGetProperty(clientId, out JsonElement clientElement)) return;
+        if (!clientElement.TryGetProperty("roles", out JsonElement rolesElement)) return;
+
+        foreach (JsonElement roleElement in rolesElement.EnumerateArray())
+            claimsIdentity.AddClaim(new(ClaimTypes.Role, roleElement.ToString()));
     }
 }
