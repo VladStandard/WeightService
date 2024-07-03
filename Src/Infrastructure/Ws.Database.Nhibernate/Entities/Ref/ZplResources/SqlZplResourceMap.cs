@@ -1,5 +1,6 @@
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Print;
+using Ws.Shared.Enums;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.ZplResources;
 
@@ -44,6 +45,14 @@ internal sealed class SqlZplResourceMap : ClassMapping<ZplResource>
         {
             m.Column("ZPL");
             m.Type(NHibernateUtil.String);
+            m.NotNullable(true);
+        });
+
+        Property(x => x.Type, m =>
+        {
+            m.Column("TYPE");
+            m.Type<EnumStringType<ZplResourceType>>();
+            m.Length(8);
             m.NotNullable(true);
         });
     }
