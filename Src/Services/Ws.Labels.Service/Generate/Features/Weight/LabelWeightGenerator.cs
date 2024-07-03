@@ -29,12 +29,12 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
         #region label parse
 
         TemplateVariables data = new(
-            dto.Plu.FullName,
-            (ushort)dto.Plu.Number,
-            dto.Plu.Description,
-            dto.Line.Number,
-            dto.Line.Name,
-            dto.Line.Warehouse.ProductionSite.Address,
+            pluName: dto.Plu.FullName,
+            pluNumber: (ushort)dto.Plu.Number,
+            pluDescription: dto.Plu.Description,
+            lineNumber: dto.Line.Number,
+            lineName: dto.Line.Name,
+            lineAddress: dto.Line.Warehouse.ProductionSite.Address,
             productDt: dto.ProductDt,
             expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
             bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
@@ -43,7 +43,9 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             storageMethod: storageMethod,
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
             barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
-            barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate)
+            barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
+            palletOrder: 0,
+            palletNumber: ""
         );
 
         string zpl = zplService.GenerateZpl(templateFromCache.Template, data);

@@ -10,6 +10,7 @@ public class TemplateVariables(
     int lineNumber, string lineName, string lineAddress,
     string barcodeTop, string barcodeRight, string barcodeBottom,
     ushort bundleCount, ushort kneading, decimal weight, string storageMethod,
+    ushort palletOrder, string palletNumber,
     DateTime productDt, DateTime expirationDt)
 {
     #region Plu
@@ -33,6 +34,13 @@ public class TemplateVariables(
     public readonly string BarcodeTop = barcodeTop;
     public readonly string BarcodeRight = barcodeRight;
     public readonly string BarcodeBottom = barcodeBottom;
+
+    #endregion
+
+    #region Pallet
+
+    public readonly string PalletNumber = palletNumber;
+    public readonly ushort PalletOrder = palletOrder;
 
     #endregion
 

@@ -66,6 +66,7 @@ internal class LabelPieceGenerator(
                 BarcodeBottom = label.BarcodeBottom,
                 NetWeightKg = label.WeightNet,
                 GrossWeightKg = label.WeightGross,
+                Kneading = (ushort)label.Kneading
             });
         }
 
@@ -78,7 +79,6 @@ internal class LabelPieceGenerator(
             CharacteristicUid = dto.PluCharacteristic.Uid,
             Barcode = pallet.Barcode,
             ArmNumber = (uint)dto.Line.Number,
-            Kneading = (ushort)dto.Kneading,
             TrayWeightKg = dto.Weight,
             Labels = labelsData,
             ProductDt = pallet.ProdDt,
@@ -99,7 +99,9 @@ internal class LabelPieceGenerator(
         return pallet.Uid;
     }
 
-    private (Label, LabelZpl) GenerateLabel(BarcodePieceModel barcodeTemplates, int index, TemplateFromCache templateFromCache, GeneratePiecePalletDto dto, string storageMethod)
+    private (Label, LabelZpl) GenerateLabel(
+        BarcodePieceModel barcodeTemplates, int index,
+        TemplateFromCache templateFromCache, GeneratePiecePalletDto dto, string storageMethod)
     {
         dto.Line.Counter += 1;
 
@@ -128,7 +130,9 @@ internal class LabelPieceGenerator(
 
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
             barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
-            barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate)
+            barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
+            palletOrder: (ushort)(index + 1),
+            palletNumber: "12312"
         );
 
         string zpl = zplService.GenerateZpl(templateFromCache.Template, data);

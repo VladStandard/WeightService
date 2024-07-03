@@ -14,6 +14,9 @@ public record LabelCreateApiDto
     [XmlAttribute("BarcodeBottom")]
     public required string BarcodeBottom { get; set; } = string.Empty;
 
+    [XmlAttribute("Kneading")]
+    public required ushort Kneading;
+
     [XmlAttribute("NetWeightKg")]
     public required decimal NetWeightKg { get; set; }
 

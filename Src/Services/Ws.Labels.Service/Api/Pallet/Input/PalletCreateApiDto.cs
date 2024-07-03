@@ -26,9 +26,6 @@ public record PalletCreateApiDto
     [XmlAttribute("ArmNumber")]
     public required uint ArmNumber;
 
-    [XmlAttribute("Kneading")]
-    public required ushort Kneading;
-
     [XmlAttribute("PalletWeightKg")]
     public required decimal TrayWeightKg;
 

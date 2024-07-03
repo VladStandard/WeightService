@@ -57,9 +57,11 @@ internal static class PalletExtensions
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
             .SelectMany(
                 result => result.Labels,
-                (result, label) => new LabelInfo
-                {
-                    Zpl = label.Zpl.Zpl
-                });
+                (result, label) => new { label.Zpl, label.CreateDt })
+            .OrderBy(temp => temp.CreateDt)
+            .Select(temp => new LabelInfo
+            {
+                Zpl = temp.Zpl.Zpl
+            });
     }
 }
