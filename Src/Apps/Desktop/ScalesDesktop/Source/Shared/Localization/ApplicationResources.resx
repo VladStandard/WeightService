@@ -177,15 +177,6 @@
     <data name="BtnNext" xml:space="preserve">
         <value />
     </data>
-    <data name="LabelGenErrorInvalid" xml:space="preserve">
-        <value />
-    </data>
-    <data name="LabelGenErrorTemplateNotFound" xml:space="preserve">
-        <value />
-    </data>
-    <data name="LabelGenErrorStorageMethodNotFound" xml:space="preserve">
-        <value />
-    </data>
     <data name="UnknownError" xml:space="preserve">
         <value />
     </data>
@@ -304,6 +295,24 @@
         <value />
     </data>
     <data name="LabelsPrintingToastDescription" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcInvalid" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcBarcodeInvalid" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcTemplateNotFound" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcBarcodeVariableNotFound" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcStorageMethodNotFound" xml:space="preserve">
+        <value />
+    </data>
+    <data name="LabelGenExcExchangeFailed" xml:space="preserve">
         <value />
     </data>
 </root>

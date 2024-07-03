@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Refit;
 using ScalesDesktop.Source.Shared.Services;
+using ScalesDesktop.Source.Shared.Utils;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
@@ -66,14 +67,10 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content))
-                throw new();
-
-            ServerException? exception = JsonSerializer.Deserialize<ServerException>(ex.Content);
-            if (exception == null)
-                throw new();
-
-            ToastService.ShowError(WsDataLocalizer[exception.MessageLocalizeKey]);
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ServerException? exception) || exception == null)
+                ToastService.ShowError(Localizer["ToastPalletCreateError"]);
+            else
+                ToastService.ShowError(Localizer[exception.MessageLocalizeKey]);
         }
         catch (Exception)
         {
