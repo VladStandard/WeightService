@@ -23,10 +23,10 @@ public sealed record KeycloakUser
     public required bool EmailVerified { get; init; }
 
     [JsonPropertyName("firstName")]
-    public required string FirstName { get; init; }
+    public string FirstName { get; init; } = string.Empty;
 
     [JsonPropertyName("lastName")]
-    public required string LastName { get; init; }
+    public string LastName { get; init; } = string.Empty;
 
     [JsonPropertyName("federationLink")]
     public Guid FederationLink { get; init; } = Guid.Empty;
