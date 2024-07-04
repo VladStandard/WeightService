@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Domain.Services.Features.Templates;
 

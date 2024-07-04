@@ -13,6 +13,7 @@ internal static class GenerateWeightPluDtoExtension
             PluGtin = dto.Plu.Gtin,
             PluNumber = dto.Plu.Number,
             Weight = dto.Weight,
-            Kneading = dto.Kneading
+            Kneading = dto.Kneading,
+            PluEan13 = dto.Plu.Ean13
         };
 }

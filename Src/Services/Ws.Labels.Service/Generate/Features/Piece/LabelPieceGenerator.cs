@@ -1,8 +1,10 @@
+using System.Text;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Pallets;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
+using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Piece.Models;
@@ -12,6 +14,7 @@ using Ws.Labels.Service.Generate.Services;
 
 namespace Ws.Labels.Service.Generate.Features.Piece;
 
+
 internal class LabelPieceGenerator(
     IPalletService palletService,
     IPalychApi api,
@@ -19,12 +22,12 @@ internal class LabelPieceGenerator(
     ZplService zplService
     )
 {
-    public async Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
+    public async Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount, uint counter)
     {
         if (dto.Plu.IsCheckWeight)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        if (labelCount > 240)
+        if (labelCount is > 240 or < 2)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
         TemplateFromCache templateFromCache =
@@ -35,29 +38,42 @@ internal class LabelPieceGenerator(
             cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
             throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
-
-        List<(Label, LabelZpl)> labels = [];
         DateTime productDt = dto.ProductDt;
 
         BarcodePieceModel barcodeTemplates = dto.ToBarcodeModel(productDt);
 
-        for (int i = 0 ; i < labelCount ; ++i)
-            labels.Add(GenerateLabel(barcodeTemplates, i, templateFromCache, dto, storageMethod));
+        StringBuilder builder = new();
 
+        builder.Append("001460910023");
+        builder.AppendStrWithPadding($"{counter + 1}", 7);
 
         Pallet pallet = new()
         {
-            Barcode = new Random().Next(0, 1000001).ToString(),
+            Barcode = builder.ToString(),
             Weight = dto.Weight,
             ProdDt = dto.ProductDt,
             PalletMan = dto.PalletMan,
             Arm = dto.Line,
-            Counter = new Random().Next(0, 1000001)
+            Counter = counter+1
         };
+
+
+        // FOR TESTING VARS BEFORE 1C (don't touch)
+        (Label, LabelZpl, TemplateVariables) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto, storageMethod);
+        GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
 
         List<LabelCreateApiDto> labelsData = [];
 
-        foreach ((Label label, _) in labels)
+        List<(Label, LabelZpl, TemplateVariables)> labelsFor1C = [];
+        List<(Label, LabelZpl)> labelsForDb = [];
+
+        for (int i = 0 ; i < labelCount ; ++i)
+        {
+            dto.Line.Counter += 1;
+            labelsFor1C.Add(GenerateLabel(barcodeTemplates, i, templateFromCache, dto, storageMethod));
+        }
+
+        foreach ((Label label, _, _) in labelsFor1C)
         {
             labelsData.Add(new()
             {
@@ -85,13 +101,21 @@ internal class LabelPieceGenerator(
             CreatedAt = DateTime.Now,
         };
 
+
         PalletResponseDto response = await api.CreatePallet(data);
         if (response.Successes.Count > 0)
         {
             PalletSuccess success = response.Successes.First();
             pallet.Uid = success.Uid;
             pallet.Number = success.Number;
-            palletService.Create(pallet, labels);
+
+            foreach ((Label, LabelZpl, TemplateVariables) variable in labelsFor1C)
+            {
+                GenerateZpl(variable.Item2, variable.Item3,  pallet.Number, templateFromCache);
+                labelsForDb.Add((variable.Item1, variable.Item2));
+            }
+            palletService.Create(pallet, labelsForDb);
+
         }
         else
             throw new LabelGenerateException(LabelGenExceptions.ExchangeFailed);
@@ -99,12 +123,11 @@ internal class LabelPieceGenerator(
         return pallet.Uid;
     }
 
-    private (Label, LabelZpl) GenerateLabel(
+    private (Label, LabelZpl, TemplateVariables) GenerateLabel(
         BarcodePieceModel barcodeTemplates, int index,
-        TemplateFromCache templateFromCache, GeneratePiecePalletDto dto, string storageMethod)
+        TemplateFromCache templateFromCache, GeneratePiecePalletDto dto,
+        string storageMethod)
     {
-        dto.Line.Counter += 1;
-
         BarcodePieceModel barcode = barcodeTemplates with
         {
             LineCounter =  dto.Line.Counter,
@@ -134,7 +157,7 @@ internal class LabelPieceGenerator(
             barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
             barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
             palletOrder: (ushort)(index + 1),
-            palletNumber: "12312"
+            palletNumber: "21"
         );
 
         string zpl = zplService.GenerateZpl(templateFromCache.Template, data);
@@ -162,6 +185,12 @@ internal class LabelPieceGenerator(
             Zpl = zpl
         };
 
-        return (label, labelZpl);
+        return (label, labelZpl, data);
+    }
+
+    private void GenerateZpl(LabelZpl labelZpl, TemplateVariables vars, string palletNumber, TemplateFromCache templateFromCache)
+    {
+        vars.PalletNumber = palletNumber;
+        labelZpl.Zpl = zplService.GenerateZpl(templateFromCache.Template, vars);
     }
 }

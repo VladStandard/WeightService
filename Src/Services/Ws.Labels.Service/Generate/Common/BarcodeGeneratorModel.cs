@@ -70,6 +70,7 @@ public abstract record BarcodeGeneratorModel : IBarcodeLabel
 
     public required short PluNumber { get; init; }
     public required string PluGtin { get; init; }
+    public required string PluEan13 { get; init; }
 
     #endregion
 

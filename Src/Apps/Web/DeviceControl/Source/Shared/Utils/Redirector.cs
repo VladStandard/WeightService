@@ -5,7 +5,7 @@ using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace DeviceControl.Source.Shared.Utils;
 

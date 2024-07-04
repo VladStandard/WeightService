@@ -14,7 +14,7 @@ public class Pallet : EntityBase
     public virtual Arm Arm { get; set; } = new();
     public virtual string Barcode { get; set; } = string.Empty;
     public virtual string Number { get; set; }  = string.Empty;
-    public virtual int Counter { get; set; }
+    public virtual uint Counter { get; set; }
     public virtual DateTime ProdDt { get; set; }
     public virtual decimal Weight { get; set; }
 

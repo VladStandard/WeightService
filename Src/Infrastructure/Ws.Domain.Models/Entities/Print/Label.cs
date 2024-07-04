@@ -3,7 +3,7 @@
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace Ws.Domain.Models.Entities.Print;
 

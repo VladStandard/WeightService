@@ -14,7 +14,8 @@ public static class LabelPiecePalletDtoMapper
             LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,
             PluNumber = palletDto.Plu.Number,
-            PluGtin = palletDto.Plu.Gtin
+            PluGtin = palletDto.Plu.Gtin,
+            PluEan13 = palletDto.Plu.Ean13
         };
     }
 }

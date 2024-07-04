@@ -9,8 +9,6 @@ internal class PalletCreateValidator : AbstractValidator<Pallet>
         RuleFor(item => item.Barcode)
             .NotEmpty();
         RuleFor(item => item.Counter)
-            .GreaterThan(0);
-        RuleFor(item => item.Counter)
-            .GreaterThan(0);
+            .GreaterThan((uint)0);
     }
 }

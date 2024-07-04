@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 using Ws.Domain.Models.Entities.Users;
 
 namespace Ws.Labels.Service.Generate.Features.Piece.Dto;

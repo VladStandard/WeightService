@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Common;
 
-namespace Ws.Domain.Models.Entities.Ref1c.Plu;
+namespace Ws.Domain.Models.Entities.Ref1c.Plus;
 
 public class PluNesting : EntityBase
 {

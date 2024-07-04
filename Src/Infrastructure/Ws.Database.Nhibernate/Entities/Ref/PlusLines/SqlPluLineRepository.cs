@@ -1,7 +1,7 @@
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Common.Queries.List;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 

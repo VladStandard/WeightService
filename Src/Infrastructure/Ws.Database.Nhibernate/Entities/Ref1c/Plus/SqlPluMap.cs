@@ -1,5 +1,5 @@
 using Ws.Database.Nhibernate.Utils;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 

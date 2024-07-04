@@ -34,7 +34,7 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.HasIndex("ARM_UID");
 
-                    b.ToTable("ARMS_PLUS_FK");
+                    b.ToTable("ARMS_PLUS_FK", (string)null);
                 });
 
             modelBuilder.Entity("Ws.Database.EntityFramework.Entities.Print.Labels.LabelEntity", b =>

@@ -2,7 +2,7 @@ using NHibernate.Criterion;
 using ProjectionTools.Specifications;
 using Ws.Database.Nhibernate.Entities.Ref.PlusLines;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace Ws.Domain.Services.Features.Arms;
 

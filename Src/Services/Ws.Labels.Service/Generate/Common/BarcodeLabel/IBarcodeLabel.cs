@@ -7,5 +7,6 @@ internal interface IBarcodeLabel
     public short Kneading { get; init; }
     public short PluNumber { get; init; }
     public string PluGtin { get; init; }
+    public string PluEan13 { get; init; }
     public DateTime ProductDt { get; init; }
 }

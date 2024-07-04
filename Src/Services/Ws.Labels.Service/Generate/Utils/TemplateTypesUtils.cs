@@ -11,6 +11,7 @@ file class BarcodeLabelBaseTemp : IBarcodeLabel
     public int LineCounter { get; init; }
     public short Kneading { get; init; }
     public short PluNumber { get; init; }
+    public string PluEan13 { get; init; } = null!;
     public string PluGtin { get; init; } = null!;
     public DateTime ProductDt { get; init; }
 }
@@ -63,6 +64,7 @@ public static class TemplateTypesUtils
             new(() => data.LineCounter,6),
             new(() => data.PluNumber,3),
             new(() => data.PluGtin,14),
+            new(() => data.PluEan13,13),
             new(() => data.Kneading,3),
             new(() => data.ProductDt,0, true),
         ];

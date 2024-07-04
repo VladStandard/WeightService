@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Models;
 
-internal class SqlSettingsModels
+internal class SqlSettingsModel
 {
     public string DataSource { get; set; } = string.Empty;
     public string InitialCatalog { get; set; } = string.Empty;

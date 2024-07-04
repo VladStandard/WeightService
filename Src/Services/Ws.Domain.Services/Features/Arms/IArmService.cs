@@ -1,6 +1,6 @@
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 using Ws.Domain.Services.Common.Commands;
 using Ws.Domain.Services.Common.Queries;
 

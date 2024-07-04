@@ -56,8 +56,8 @@ public class PalletDocumentGenerator(IStringLocalizer<WsDataResources> wsDataLoc
 
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColDate"])).SetBorder(Border.NO_BORDER));
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColCreateTime"])).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.ProdDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.ProdDt.ToString("HH:mm:ss")).SetFontSize(30)).SetBorder(Border.NO_BORDER));
+        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.CreateDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
+        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.CreateDt.ToString("HH:mm:ss")).SetFontSize(30)).SetBorder(Border.NO_BORDER));
 
         return dateTimeTable;
     }

@@ -12,6 +12,6 @@ internal class PrintLabelService(LabelPieceGenerator labelPieceGenerator, LabelW
     public (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto) =>
         labelWeightGenerator.GenerateLabel(weightLabelDto);
 
-    public Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount) =>
-        labelPieceGenerator.GeneratePiecePallet(piecePalletDto, labelCount);
+    public Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount, uint counter) =>
+        labelPieceGenerator.GeneratePiecePallet(piecePalletDto, labelCount, counter);
 }

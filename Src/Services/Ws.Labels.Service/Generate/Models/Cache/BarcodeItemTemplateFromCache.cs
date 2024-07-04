@@ -6,6 +6,17 @@ namespace Ws.Labels.Service.Generate.Models.Cache;
 [ProtoContract]
 public class BarcodeItemTemplateFromCache
 {
+    [ProtoMember(1)]
+    public string Property { get; set; } = string.Empty;
+
+    [ProtoMember(2)]
+    public string FormatStr { get; set; } = string.Empty;
+
+    [ProtoMember(3)]
+    public ushort Length { get; set; }
+
+    [ProtoMember(4)]
+    public bool IsConst { get; set; }
 
     public BarcodeItemTemplateFromCache(BarcodeItem barcodeItem)
     {
@@ -17,8 +28,4 @@ public class BarcodeItemTemplateFromCache
 
     // FOR PROTOBUF
     public BarcodeItemTemplateFromCache() { }
-    [ProtoMember(1)] public string Property { get; set; } = string.Empty;
-    [ProtoMember(2)] public string FormatStr { get; set; } = string.Empty;
-    [ProtoMember(3)] public ushort Length { get; set; }
-    [ProtoMember(4)] public bool IsConst { get; set; }
 }

@@ -59,7 +59,7 @@ public class WsDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        SqlSettingsModels sqlCfg = LoadJsonConfig();
+        SqlSettingsModel sqlCfg = LoadJsonConfig();
 
         optionsBuilder.UseSqlServer(sqlCfg.GetConnectionString());
         optionsBuilder.AddInterceptors(new ChangeDtInterceptor());
@@ -78,26 +78,14 @@ public class WsDbContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
-    private static SqlSettingsModels LoadJsonConfig()
+    private static SqlSettingsModel LoadJsonConfig()
     {
         IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sqlconfig.json", optional: false, reloadOnChange: false)
             .Build();
 
-        SqlSettingsModels sqlSettingsModels = new();
-        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModels);
-        return sqlSettingsModels;
-    }
-
-    public override int SaveChanges()
-    {
-        foreach (var entry in ChangeTracker.Entries<PalletEntity>())
-        {
-            if (entry.State != EntityState.Added) continue;
-            uint maxCounter = Pallets.Max(p => (uint?)p.Counter) ?? 0;
-            entry.Entity.Counter = maxCounter+1;
-        }
-
-        return base.SaveChanges();
+        SqlSettingsModel sqlSettingsModel = new();
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModel);
+        return sqlSettingsModel;
     }
 }

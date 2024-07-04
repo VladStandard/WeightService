@@ -4,7 +4,7 @@ using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Extensions;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Plus;
@@ -67,6 +67,8 @@ public class PalletApiService(
 
     public async Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
+        uint maxCounter = dbContext.Pallets.Any() ? dbContext.Pallets.Max(i => i.Counter) : 0;
+
         var plu = pluService.GetItemByUid(dto.PluId);
         List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
 
@@ -81,7 +83,7 @@ public class PalletApiService(
             ProductDt = dto.ProdDt,
             ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
         };
-        Guid palletId = await printLabelService.GeneratePiecePallet(data, dto.LabelCount);
+        Guid palletId = await printLabelService.GeneratePiecePallet(data, dto.LabelCount, maxCounter);
 
         return dbContext.Pallets
             .ToPalletInfo(dbContext.Labels)

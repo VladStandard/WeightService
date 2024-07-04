@@ -39,7 +39,7 @@ public class TemplateVariables(
 
     #region Pallet
 
-    public readonly string PalletNumber = palletNumber;
+    public string PalletNumber = palletNumber;
     public readonly ushort PalletOrder = palletOrder;
 
     #endregion

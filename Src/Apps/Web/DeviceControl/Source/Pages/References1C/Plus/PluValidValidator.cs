@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.Ref1c.Plu;
+using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace DeviceControl.Source.Pages.References1C.Plus;
 
