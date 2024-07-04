@@ -9,6 +9,7 @@ using Ws.Domain.Services;
 using Ws.Labels.Service;
 
 const string oidcScheme = "KeycloakOidc";
+const string culture = "ru-RU";
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +42,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.UseRequestLocalization("ru-RU");
+app.UseRequestLocalization(culture);
 app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
