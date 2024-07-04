@@ -11,6 +11,16 @@ public static class AuthenticationServiceExtensions
         services.AddAuthentication(oidcScheme)
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
             {
+                opt.ExpireTimeSpan = TimeSpan.FromDays(30);
+                opt.SlidingExpiration = true;
+
+                opt.Events.OnSigningIn = context =>
+                {
+                    context.Properties.IsPersistent = true;
+                    context.Properties.ExpiresUtc = DateTimeOffset.UtcNow.Add(opt.ExpireTimeSpan);
+                    return Task.CompletedTask;
+                };
+
                 opt.Events.OnRedirectToAccessDenied  = context =>
                 {
                     context.Response.Redirect(RouteUtils.Home);

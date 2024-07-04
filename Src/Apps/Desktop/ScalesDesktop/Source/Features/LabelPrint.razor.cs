@@ -4,12 +4,14 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Refit;
 using ScalesDesktop.Source.Shared.Services;
+using ScalesDesktop.Source.Shared.Utils;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
+using Ws.Desktop.Models.Shared;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -96,9 +98,12 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         {
             ToastService.ShowError(Localizer["PrinterStatusCommonError"]);
         }
-        catch (ApiException)
+        catch (ApiException ex)
         {
-            ToastService.ShowError(Localizer["ApiResponseError"]);
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ServerException? exception) || exception == null)
+                ToastService.ShowError(Localizer["UnknownError"]);
+            else
+                ToastService.ShowError(Localizer[exception.MessageLocalizeKey]);
         }
         catch
         {

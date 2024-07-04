@@ -177,15 +177,6 @@
     <data name="BtnNext" xml:space="preserve">
         <value>Next</value>
     </data>
-    <data name="LabelGenErrorInvalid" xml:space="preserve">
-        <value>The label is incorrect</value>
-    </data>
-    <data name="LabelGenErrorTemplateNotFound" xml:space="preserve">
-        <value>The template was not found</value>
-    </data>
-    <data name="LabelGenErrorStorageMethodNotFound" xml:space="preserve">
-        <value>The storage method was not found</value>
-    </data>
     <data name="UnknownError" xml:space="preserve">
         <value>Unknown error</value>
     </data>
@@ -305,5 +296,23 @@
     </data>
     <data name="LabelsPrintingToastDescription" xml:space="preserve">
         <value>Printed labels are removed from the list</value>
+    </data>
+    <data name="LabelGenExcInvalid" xml:space="preserve">
+        <value>Label validation error</value>
+    </data>
+    <data name="LabelGenExcBarcodeInvalid" xml:space="preserve">
+        <value>Barcode generation error</value>
+    </data>
+    <data name="LabelGenExcTemplateNotFound" xml:space="preserve">
+        <value>The template was not found</value>
+    </data>
+    <data name="LabelGenExcBarcodeVariableNotFound" xml:space="preserve">
+        <value>Barcode variables are not defined</value>
+    </data>
+    <data name="LabelGenExcStorageMethodNotFound" xml:space="preserve">
+        <value>The storage method is not set</value>
+    </data>
+    <data name="LabelGenExcExchangeFailed" xml:space="preserve">
+        <value>Integration error with 1C</value>
     </data>
 </root>

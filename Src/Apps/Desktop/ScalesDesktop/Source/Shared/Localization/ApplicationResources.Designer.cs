@@ -422,27 +422,54 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string LabelGenErrorInvalid {
+        public static string LabelGenExcBarcodeInvalid {
             get {
-                return ResourceManager.GetString("LabelGenErrorInvalid", resourceCulture);
+                return ResourceManager.GetString("LabelGenExcBarcodeInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string LabelGenErrorStorageMethodNotFound {
+        public static string LabelGenExcBarcodeVariableNotFound {
             get {
-                return ResourceManager.GetString("LabelGenErrorStorageMethodNotFound", resourceCulture);
+                return ResourceManager.GetString("LabelGenExcBarcodeVariableNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string LabelGenErrorTemplateNotFound {
+        public static string LabelGenExcExchangeFailed {
             get {
-                return ResourceManager.GetString("LabelGenErrorTemplateNotFound", resourceCulture);
+                return ResourceManager.GetString("LabelGenExcExchangeFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelGenExcInvalid {
+            get {
+                return ResourceManager.GetString("LabelGenExcInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelGenExcStorageMethodNotFound {
+            get {
+                return ResourceManager.GetString("LabelGenExcStorageMethodNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string LabelGenExcTemplateNotFound {
+            get {
+                return ResourceManager.GetString("LabelGenExcTemplateNotFound", resourceCulture);
             }
         }
         
