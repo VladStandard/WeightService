@@ -7,8 +7,8 @@ public class ZplApi(ILabelaryApi labelary)
     public Endpoint<ZplEndpointArgs, string> ZplEndpoint { get; } = new(
         async value =>
         {
-          double widthInch = Math.Round(value.Width / 25.4, 1);
-          double heightInch = Math.Round(value.Height / 25.4, 1);
+          double widthInch = Math.Round(value.Width / 25.4, 2);
+          double heightInch = Math.Round(value.Height / 25.4, 2);
 
           StringContent content = new(value.Zpl);
           content.Headers.ContentType = new("application/x-www-form-urlencoded");

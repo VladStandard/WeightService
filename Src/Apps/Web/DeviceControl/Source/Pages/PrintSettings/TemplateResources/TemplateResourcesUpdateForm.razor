@@ -3,6 +3,8 @@
 @using DeviceControl.Source.Widgets.Section
 @using Ws.Shared.Utils
 @using Ws.Shared.Enums
+@using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Shared.Api
 
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.ZplResource>
 
@@ -43,5 +45,31 @@
     <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplateResources}/{DialogItem.Uid}")" />
     <SectionFormActionReset OnClick="@ResetAction" />
     <SectionFormActionDelete OnClick="@DeleteItem" />
+    @if (DialogItem.Type == ZplResourceType.Sign && !string.IsNullOrEmpty(DialogItem.Zpl))
+    {
+      <div class="w-full h-32 p-2 flex items-center rounded-md justify-center overflow-hidden border bg-background">
+        <UseEndpoint Endpoint="@ZplApi.ZplEndpoint" Arg="@(new ZplEndpointArgs($"^XA{DialogItem.Zpl}^XZ", 8, 8, 90))" Context="zplQuery">
+          @if (zplQuery.IsLoading)
+          {
+            <Spinner Class="size-8 text-muted animate-spin fill-blue-600" />
+          }
+          else
+          {
+            @if (zplQuery.HasData)
+            {
+              <img
+                src="@($"data:image/png;base64,{zplQuery.Data}")"
+                class="max-w-full max-h-full pr-2 pt-2"
+                alt=""
+              />
+            }
+            else
+            {
+              <ExclamationTriangleIcon class="size-8" />
+            }
+          }
+        </UseEndpoint>
+      </div>
+    }
   </ActionsContent>
 </SectionForm>
