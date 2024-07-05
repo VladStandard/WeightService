@@ -11,6 +11,7 @@ using Ws.Labels.Service.Generate.Features.Piece.Models;
 using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Services;
+using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Piece;
 
@@ -34,10 +35,6 @@ internal class LabelPieceGenerator(
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        string storageMethod =
-            cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
-            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
-
         DateTime productDt = dto.ProductDt;
 
         BarcodePieceModel barcodeTemplates = dto.ToBarcodeModel(productDt);
@@ -59,8 +56,14 @@ internal class LabelPieceGenerator(
 
 
         // FOR TESTING VARS BEFORE 1C (don't touch)
-        (Label, LabelZpl, TemplateVariables) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto, storageMethod);
+        (Label, LabelZpl, TemplateVariables) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
         GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
+
+        if (templateFromCache.Template.Contains("storage_method"))
+        {
+            templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
+                $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
+        }
 
         List<LabelCreateApiDto> labelsData = [];
 
@@ -70,7 +73,7 @@ internal class LabelPieceGenerator(
         for (int i = 0 ; i < labelCount ; ++i)
         {
             dto.Line.Counter += 1;
-            labelsFor1C.Add(GenerateLabel(barcodeTemplates, i, templateFromCache, dto, storageMethod));
+            labelsFor1C.Add(GenerateLabel(barcodeTemplates, i, templateFromCache, dto));
         }
 
         foreach ((Label label, _, _) in labelsFor1C)
@@ -125,8 +128,7 @@ internal class LabelPieceGenerator(
 
     private (Label, LabelZpl, TemplateVariables) GenerateLabel(
         BarcodePieceModel barcodeTemplates, int index,
-        TemplateFromCache templateFromCache, GeneratePiecePalletDto dto,
-        string storageMethod)
+        TemplateFromCache templateFromCache, GeneratePiecePalletDto dto)
     {
         BarcodePieceModel barcode = barcodeTemplates with
         {
@@ -150,8 +152,6 @@ internal class LabelPieceGenerator(
             kneading: (ushort)dto.Kneading,
             weight: dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
             weightGross: dto.Plu.GetWeightByCharacteristic(dto.PluCharacteristic),
-
-            storageMethod: storageMethod,
 
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
             barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),

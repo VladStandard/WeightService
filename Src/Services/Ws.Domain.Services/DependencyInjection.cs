@@ -12,7 +12,6 @@ using Ws.Domain.Services.Features.Pallets;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.ProductionSites;
-using Ws.Domain.Services.Features.StorageMethods;
 using Ws.Domain.Services.Features.Templates;
 using Ws.Domain.Services.Features.Users;
 using Ws.Domain.Services.Features.Warehouses;
@@ -43,7 +42,6 @@ public static class DependencyInjection
         services.AddScoped<IPluService, PluService>();
         services.AddScoped<IPrinterService, PrinterService>();
         services.AddScoped<IProductionSiteService, ProductionSiteService>();
-        services.AddScoped<IStorageMethodService, StorageMethodService>();
         services.AddScoped<ITemplateService, TemplateService>();
         services.AddScoped<IZplResourceService, ZplResourceService>();
         services.AddScoped<IWarehouseService, WarehouseService>();

@@ -10,7 +10,7 @@ public class TemplateVariables(
     int lineNumber, string lineName, string lineAddress,
     string barcodeTop, string barcodeRight, string barcodeBottom,
     ushort bundleCount, ushort kneading, decimal weight,
-    decimal weightGross, string storageMethod, ushort palletOrder, string palletNumber,
+    decimal weightGross, ushort palletOrder, string palletNumber,
     DateTime productDt, DateTime expirationDt)
 {
     #region Plu
@@ -53,7 +53,6 @@ public class TemplateVariables(
 
     #region Other
 
-    public readonly string StorageMethod = storageMethod;
     public readonly ushort BundleCount = bundleCount;
     public readonly string Kneading = $"{kneading:D3}";
 

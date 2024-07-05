@@ -21,7 +21,6 @@ public static class RouteUtils
     public const string SectionProductionSites = "/production-sites";
     public const string SectionTemplates = "/templates";
     public const string SectionTemplateResources = "/templates-resources";
-    public const string SectionStorageMethods = "/storage-methods";
 
     # endregion
 

@@ -16,7 +16,6 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-using Ws.Database.EntityFramework.Entities.Zpl.StorageMethods;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 using Ws.Database.EntityFramework.Extensions;
@@ -37,7 +36,6 @@ public class WsDbContext : DbContext
     public DbSet<PalletManEntity> PalletMen { get; set; }
     public DbSet<BrandEntity> Brands { get; set; }
     public DbSet<ProductionSiteEntity> ProductionSites { get; set; }
-    public DbSet<StorageMethodEntity> StorageMethods { get; set; }
     public DbSet<TemplateEntity> Templates { get; set; }
     public DbSet<BoxEntity> Boxes { get; set; }
     public DbSet<ClipEntity> Clips { get; set; }

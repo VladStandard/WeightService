@@ -6,6 +6,7 @@ using Ws.Labels.Service.Generate.Features.Weight.Models;
 using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Services;
+using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
@@ -19,10 +20,6 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
         TemplateFromCache templateFromCache =
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
-
-        string storageMethod =
-            cacheService.GetStorageByNameFromCacheOrDb(dto.Plu.StorageMethod) ??
-            throw new LabelGenerateException(LabelGenExceptions.StorageMethodNotFound);
 
         BarcodeWeightLabel barcode = dto.ToBarcodeModel();
 
@@ -41,13 +38,16 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             kneading: (ushort)dto.Kneading,
             weight: dto.Weight,
             weightGross: dto.Weight + dto.Plu.GetWeightWithNesting,
-            storageMethod: storageMethod,
             barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
             barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
             barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
             palletOrder: 0,
             palletNumber: ""
         );
+
+        if (templateFromCache.Template.Contains("storage_method"))
+            templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
+                $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
 
         string zpl = zplService.GenerateZpl(templateFromCache.Template, data);
 

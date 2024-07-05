@@ -43,32 +43,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.eot" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.woff" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-brands-400.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.eot" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.woff" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-regular-400.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.eot" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.svg" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.woff" />
-      <_ContentIncludedByDefault Remove="wwwroot\libs\fontawasome\webfonts\fa-solid-900.woff2" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Admin\Roles\RolesCreateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Admin\Roles\RolesCreateForm.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Admin\Roles\RolesPage.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Admin\Roles\RolesUpdateDialog.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Admin\Roles\RolesUpdateForm.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Diagnostics\Database\DatabaseFilesDialog.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Diagnostics\Database\DatabaseFilesPage.razor" />
-      <_ContentIncludedByDefault Remove="Source\Pages\Diagnostics\Database\FileTablesDataGrid.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
