@@ -1,10 +1,10 @@
-using Ws.Labels.Service.Generate.Features.Weight.Models;
+using Ws.Labels.Service.Generate.Common;
 
 namespace Ws.Labels.Service.Generate.Features.Weight.Dto;
 
 internal static class GenerateWeightPluDtoExtension
 {
-    internal static BarcodeWeightLabel ToBarcodeModel(this GenerateWeightLabelDto dto) =>
+    internal static BarcodeModel ToBarcodeModel(this GenerateWeightLabelDto dto) =>
         new()
         {
             LineNumber = dto.Line.Number,
@@ -12,8 +12,10 @@ internal static class GenerateWeightPluDtoExtension
             ProductDt = dto.ProductDt,
             PluGtin = dto.Plu.Gtin,
             PluNumber = dto.Plu.Number,
-            Weight = dto.Weight,
+            WeightNet = dto.Weight,
             Kneading = dto.Kneading,
-            PluEan13 = dto.Plu.Ean13
+            PluEan13 = dto.Plu.Ean13,
+            ExpirationDt = dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
+            BundleCount = dto.Plu.PluNesting.BundleCount
         };
 }

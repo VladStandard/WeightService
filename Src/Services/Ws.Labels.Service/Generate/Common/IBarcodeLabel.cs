@@ -1,4 +1,4 @@
-namespace Ws.Labels.Service.Generate.Common.BarcodeLabel;
+namespace Ws.Labels.Service.Generate.Common;
 
 internal interface IBarcodeLabel
 {
@@ -9,4 +9,7 @@ internal interface IBarcodeLabel
     public string PluGtin { get; init; }
     public string PluEan13 { get; init; }
     public DateTime ProductDt { get; init; }
+    public DateTime ExpirationDt { get; init; }
+    public short BundleCount { get; init; }
+    public decimal WeightNet { get; init; }
 }

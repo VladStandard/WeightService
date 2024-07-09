@@ -1,8 +1,8 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Labels;
+using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
-using Ws.Labels.Service.Generate.Features.Weight.Models;
 using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Services;
@@ -21,7 +21,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        BarcodeWeightLabel barcode = dto.ToBarcodeModel();
+        BarcodeModel barcode = dto.ToBarcodeModel();
 
         #region label parse
 

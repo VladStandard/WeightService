@@ -44,8 +44,7 @@
 
   private IList<BarcodeVariable> BarcodeVariables { get; set; } = [];
 
-  protected override void OnInitialized() => BarcodeVariables =
-    DialogItem.IsWeight ? TemplateTypesUtils.GetVarForWeightTemplate() : TemplateTypesUtils.GetVarsForPieceTemplate();
+  protected override void OnInitialized() => BarcodeVariables = TemplateTypesUtils.GetVariables();
 
   private async Task SubmitForm()
   {

@@ -1,16 +1,14 @@
 using System.Reflection;
 using System.Text;
 using Ws.Labels.Service.Extensions;
-using Ws.Labels.Service.Generate.Common.BarcodeLabel;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Common;
 
-public abstract record BarcodeGeneratorModel : IBarcodeLabel
+public record BarcodeModel : IBarcodeLabel
 {
-
     public string GenerateBarcode(List<BarcodeItemTemplateFromCache> barcodeTemplate)
     {
         StringBuilder barcodeBuilder = new();
@@ -76,8 +74,11 @@ public abstract record BarcodeGeneratorModel : IBarcodeLabel
 
     #region BarcodeTemplates
 
+    public required DateTime ExpirationDt { get; init; }
+    public required DateTime ProductDt { init; get; }
     public required short Kneading { get; init; }
-    public required DateTime ProductDt { get; init; } = DateTime.MinValue;
+    public required short BundleCount { get; init; }
+    public required decimal WeightNet { get; init; }
 
     #endregion
 }

@@ -5,9 +5,9 @@ using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
 using Ws.Labels.Service.Extensions;
+using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
-using Ws.Labels.Service.Generate.Features.Piece.Models;
 using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Services;
@@ -35,9 +35,7 @@ internal class LabelPieceGenerator(
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
 
-        DateTime productDt = dto.ProductDt;
-
-        BarcodePieceModel barcodeTemplates = dto.ToBarcodeModel(productDt);
+        BarcodeModel barcodeTemplates = dto.ToBarcodeModel();
 
         StringBuilder builder = new();
 
@@ -127,10 +125,10 @@ internal class LabelPieceGenerator(
     }
 
     private (Label, LabelZpl, TemplateVariables) GenerateLabel(
-        BarcodePieceModel barcodeTemplates, int index,
+        BarcodeModel barcodeTemplates, int index,
         TemplateFromCache templateFromCache, GeneratePiecePalletDto dto)
     {
-        BarcodePieceModel barcode = barcodeTemplates with
+        BarcodeModel barcode = barcodeTemplates with
         {
             LineCounter =  dto.Line.Counter,
             ProductDt = barcodeTemplates.ProductDt.AddSeconds(index)
