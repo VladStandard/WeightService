@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Ref1c;
 using Ws.Domain.Models.Entities.Ref1c.Plus;
@@ -58,10 +57,6 @@ public class Redirector(IAuthorizationService authorizationService)
 
     public string ToPath(Box item) => Link(item, RouteUtils.SectionBoxes);
 
-    public string ToPath(StorageMethod item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionStorageMethods, CheckPolicy(user, PolicyEnum.Admin));
-
     public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionTemplates, uid != Guid.Empty);
-
 }

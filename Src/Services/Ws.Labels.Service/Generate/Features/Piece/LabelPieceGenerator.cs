@@ -160,7 +160,7 @@ internal class LabelPieceGenerator(
             palletNumber: "21"
         );
 
-        string zpl = zplService.GenerateZpl(templateFromCache.Template, data);
+        string zpl = zplService.GenerateZpl(templateFromCache, data);
 
         Label label = new()
         {
@@ -191,6 +191,6 @@ internal class LabelPieceGenerator(
     private void GenerateZpl(LabelZpl labelZpl, TemplateVariables vars, string palletNumber, TemplateFromCache templateFromCache)
     {
         vars.PalletNumber = palletNumber;
-        labelZpl.Zpl = zplService.GenerateZpl(templateFromCache.Template, vars);
+        labelZpl.Zpl = zplService.GenerateZpl(templateFromCache, vars);
     }
 }

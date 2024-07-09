@@ -3,6 +3,7 @@ using Scriban;
 using Scriban.Runtime;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Models;
+using Ws.Labels.Service.Generate.Models.Cache;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -16,18 +17,18 @@ public partial class ZplService(CacheService cacheService)
     [GeneratedRegex(@"\{\{ ([a-zA-Z0-9_]+)_sql \}\}")]
     private static partial Regex ResourcesRegex();
 
-    public string GenerateZpl(string template, TemplateVariables model)
+    public string GenerateZpl(TemplateFromCache template, TemplateVariables model)
     {
         try
         {
             if (_cachedResourcesVars.Count <= 0)
             {
                 List<string> foundResourcesVariables = ResourcesRegex()
-                    .Matches(template)
-                    .Select(match => match.Groups[1].Value)
+                    .Matches(template.Template)
+                    .Select(match => $"{match.Groups[1].Value}_sql")
                     .ToList();
 
-                _cachedResourcesVars = cacheService.GetResourcesFromCacheOrDb(foundResourcesVariables);
+                _cachedResourcesVars = cacheService.GetResourcesFromCacheOrDb(foundResourcesVariables, (ushort)template.Rotate);
             }
 
             TemplateContext context = new() { StrictVariables = true };
@@ -38,7 +39,7 @@ public partial class ZplService(CacheService cacheService)
 
             context.PushGlobal(scriptObject1);
 
-            Template? labelTemp = Template.Parse(template);
+            Template? labelTemp = Template.Parse(template.Template);
 
             string zpl = labelTemp.Render(context);
 
@@ -50,7 +51,7 @@ public partial class ZplService(CacheService cacheService)
 
             return zpl;
         }
-        catch
+        catch (Exception ex)
         {
             throw new LabelGenerateException(LabelGenExceptions.BarcodeVarNotFound);
         }

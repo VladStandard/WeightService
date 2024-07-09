@@ -49,7 +49,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
                 $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
 
-        string zpl = zplService.GenerateZpl(templateFromCache.Template, data);
+        string zpl = zplService.GenerateZpl(templateFromCache, data);
 
         #endregion
 

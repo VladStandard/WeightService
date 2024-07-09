@@ -26,30 +26,27 @@ internal class ZplResourceService(SqlZplResourceRepository zplResourceRepo, IRed
     #region CRUD
 
     [Transactional, Validate<ZplResourceNewValidator>]
-    public ZplResource Create(ZplResource item)
-    {
-        ZplResource data = zplResourceRepo.Save(item);
-        Dictionary<string, string>? cacheData = provider.HGetAll("ZPL_RESOURCES");
-        cacheData[data.Name] = data.Zpl;
-        provider.HMSet("ZPL_RESOURCES", cacheData, TimeSpan.FromHours(1));
-        return data;
-    }
+    public ZplResource Create(ZplResource item) =>
+        zplResourceRepo.Save(item);
 
     [Transactional, Validate<ZplResourceUpdateValidator>]
     public ZplResource Update(ZplResource item)
     {
-        ZplResource data = zplResourceRepo.Update(item);
-        Dictionary<string, string>? cacheData = provider.HGetAll("ZPL_RESOURCES");
-        cacheData[data.Name] = data.Zpl;
-        provider.HMSet("ZPL_RESOURCES", cacheData, TimeSpan.FromHours(1));
-        return data;
+        string name =  $"{zplResourceRepo.GetByUid(item.Uid).Name.ToLower()}_sql";
+
+        provider.HDel("ZPL_RESOURCES:0", [name]);
+        provider.HDel("ZPL_RESOURCES:90", [name]);
+
+        return zplResourceRepo.Update(item);
     }
 
     [Transactional]
     public void Delete(Guid id, string name)
     {
+        provider.HDel("ZPL_RESOURCES:0", [$"{name.ToLower()}_sql"]);
+        provider.HDel("ZPL_RESOURCES:90", [$"{name.ToLower()}_sql"]);
+
         zplResourceRepo.Delete(new() { Uid = id });
-        provider.HDel("ZPL_RESOURCES", [name]);
     }
 
     #endregion

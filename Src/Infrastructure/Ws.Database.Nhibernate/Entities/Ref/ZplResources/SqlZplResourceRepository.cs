@@ -13,6 +13,6 @@ public class SqlZplResourceRepository : BaseRepository, IGetItemByUid<ZplResourc
     public IList<ZplResource> GetAll() => Session.Query<ZplResource>()
         .OrderBy(i => i.Type).ThenBy(i => i.Name).ToList();
     public ZplResource Save(ZplResource item) { Session.Save(item); return item; }
-    public ZplResource Update(ZplResource item) { Session.Update(item); return item; }
+    public ZplResource Update(ZplResource item) { Session.Merge(item); return item; }
     public void Delete(ZplResource item) => Session.Delete(item);
 }

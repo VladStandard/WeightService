@@ -12,8 +12,6 @@ public enum LabelGenExceptions
     TemplateNotFound,
     [Description("LabelGenExcBarcodeVariableNotFound")]
     BarcodeVarNotFound,
-    [Description("LabelGenExcStorageMethodNotFound")]
-    StorageMethodNotFound,
     [Description("LabelGenExcExchangeFailed")]
     ExchangeFailed
 }
