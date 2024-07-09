@@ -28,6 +28,7 @@
       <None Include="package.json">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </None>
+
       <Content Remove="package-lock.json" />
       <None Include="package-lock.json">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>

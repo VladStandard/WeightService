@@ -57,7 +57,7 @@ public partial class CacheService(
                 Bitmap resourceData = BitMapUtils.ReadSvg(i.Zpl, rotate);
                 byte[] resourceBytes = BitMapUtils.ToMonochromeBytes(resourceData);
                 ZplDownloadGraphics resourceZ64 = new('x', "x", resourceBytes, ZplCompressionScheme.Z64);
-                string zpl = resourceZ64.ToZplString().Replace("~DGx:x.GRF", "");
+                string zpl = resourceZ64.ToZplString().Replace("~DGx:x.GRF", "").Replace("\n", "");
 
                 Match match = MyRegex().Match(zpl);
 
