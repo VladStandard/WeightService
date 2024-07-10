@@ -8,8 +8,8 @@ using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
-using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
+using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
 using Ws.Shared.Utils;
 
@@ -54,7 +54,7 @@ internal class LabelPieceGenerator(
 
 
         // FOR TESTING VARS BEFORE 1C (don't touch)
-        (Label, LabelZpl, TemplateVariables) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
+        (Label, LabelZpl, TemplateVars) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
         GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
 
         if (templateFromCache.Template.Contains("storage_method"))
@@ -65,7 +65,7 @@ internal class LabelPieceGenerator(
 
         List<LabelCreateApiDto> labelsData = [];
 
-        List<(Label, LabelZpl, TemplateVariables)> labelsFor1C = [];
+        List<(Label, LabelZpl, TemplateVars)> labelsFor1C = [];
         List<(Label, LabelZpl)> labelsForDb = [];
 
         for (int i = 0 ; i < labelCount ; ++i)
@@ -110,7 +110,7 @@ internal class LabelPieceGenerator(
             pallet.Uid = success.Uid;
             pallet.Number = success.Number;
 
-            foreach ((Label, LabelZpl, TemplateVariables) variable in labelsFor1C)
+            foreach ((Label, LabelZpl, TemplateVars) variable in labelsFor1C)
             {
                 GenerateZpl(variable.Item2, variable.Item3,  pallet.Number, templateFromCache);
                 labelsForDb.Add((variable.Item1, variable.Item2));
@@ -124,7 +124,7 @@ internal class LabelPieceGenerator(
         return pallet.Uid;
     }
 
-    private (Label, LabelZpl, TemplateVariables) GenerateLabel(
+    private (Label, LabelZpl, TemplateVars) GenerateLabel(
         BarcodeModel barcodeTemplates, int index,
         TemplateFromCache templateFromCache, GeneratePiecePalletDto dto)
     {
@@ -138,28 +138,35 @@ internal class LabelPieceGenerator(
         BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
         BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
 
-        TemplateVariables data = new(
-            pluName: dto.Plu.FullName,
-            pluNumber: (ushort)dto.Plu.Number,
-            pluDescription: dto.Plu.Description,
-
-            lineNumber: dto.Line.Number,
-            lineName: dto.Line.Name,
-            lineAddress: dto.Line.Warehouse.ProductionSite.Address,
-
+        TemplateVars data = new(
+            plu: new()
+            {
+                Name = dto.Plu.FullName,
+                Number = (ushort)dto.Plu.Number,
+                Description = dto.Plu.Description
+            },
+            arm: new()
+            {
+                Number = dto.Line.Number,
+                Name = dto.Line.Name,
+                Address = dto.Line.Warehouse.ProductionSite.Address
+            },
+            pallet: new()
+            {
+                Number = "1",
+                Order = (ushort)(index + 1)
+            },
             productDt: dto.ProductDt,
             expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
 
             bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
             kneading: (ushort)dto.Kneading,
-            weight: dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
+            weightNet: dto.Plu.Weight,
             weightGross: dto.Plu.GetWeightByCharacteristic(dto.PluCharacteristic),
 
             barcodeTop: barcodeTop,
             barcodeBottom: barcodeBottom,
-            barcodeRight: barcodeRight,
-            palletOrder: (ushort)(index + 1),
-            palletNumber: "21"
+            barcodeRight: barcodeRight
         );
 
         string zpl = zplService.GenerateZpl(templateFromCache, data);
@@ -190,9 +197,9 @@ internal class LabelPieceGenerator(
         return (label, labelZpl, data);
     }
 
-    private void GenerateZpl(LabelZpl labelZpl, TemplateVariables vars, string palletNumber, TemplateFromCache templateFromCache)
+    private void GenerateZpl(LabelZpl labelZpl, TemplateVars vars, string palletNumber, TemplateFromCache templateFromCache)
     {
-        vars.PalletNumber = palletNumber;
+        vars.Pallet = vars.Pallet with { Number = palletNumber };
         labelZpl.Zpl = zplService.GenerateZpl(templateFromCache, vars);
     }
 }

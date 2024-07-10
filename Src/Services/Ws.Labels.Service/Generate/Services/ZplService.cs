@@ -4,6 +4,7 @@ using Scriban.Runtime;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Models;
 using Ws.Labels.Service.Generate.Models.Cache;
+using Ws.Labels.Service.Generate.Models.Variables;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -17,7 +18,7 @@ public partial class ZplService(CacheService cacheService)
     [GeneratedRegex(@"\{\{ ([a-zA-Z0-9_]+)_sql \}\}")]
     private static partial Regex ResourcesRegex();
 
-    public string GenerateZpl(TemplateFromCache template, TemplateVariables model)
+    public string GenerateZpl(TemplateFromCache template, TemplateVars model)
     {
         try
         {

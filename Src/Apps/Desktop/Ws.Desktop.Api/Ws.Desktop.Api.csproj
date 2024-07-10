@@ -6,4 +6,7 @@
         <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="App\Features\Plu\Impl\Weight\Extensions\" />
+    </ItemGroup>
 </Project>
