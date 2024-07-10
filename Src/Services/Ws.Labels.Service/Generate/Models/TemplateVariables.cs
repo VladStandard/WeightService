@@ -1,3 +1,4 @@
+using Ws.Labels.Service.Generate.Common;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Models;
@@ -8,7 +9,7 @@ namespace Ws.Labels.Service.Generate.Models;
 public class TemplateVariables(
     string pluName, ushort pluNumber, string pluDescription,
     int lineNumber, string lineName, string lineAddress,
-    string barcodeTop, string barcodeRight, string barcodeBottom,
+    BarcodeReadyModel barcodeTop, BarcodeReadyModel barcodeRight, BarcodeReadyModel barcodeBottom,
     ushort bundleCount, ushort kneading, decimal weight,
     decimal weightGross, ushort palletOrder, string palletNumber,
     DateTime productDt, DateTime expirationDt)
@@ -31,9 +32,9 @@ public class TemplateVariables(
 
     #region Barcodes
 
-    public readonly string BarcodeTop = barcodeTop;
-    public readonly string BarcodeRight = barcodeRight;
-    public readonly string BarcodeBottom = barcodeBottom;
+    public readonly BarcodeReadyModel BarcodeTop = barcodeTop;
+    public readonly BarcodeReadyModel BarcodeRight = barcodeRight;
+    public readonly BarcodeReadyModel BarcodeBottom = barcodeBottom;
 
     #endregion
 

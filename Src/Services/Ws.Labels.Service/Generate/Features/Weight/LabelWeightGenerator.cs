@@ -25,6 +25,10 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
 
         #region label parse
 
+        BarcodeReadyModel barcodeTop = barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate);
+        BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
+        BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
+
         TemplateVariables data = new(
             pluName: dto.Plu.FullName,
             pluNumber: (ushort)dto.Plu.Number,
@@ -38,9 +42,9 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             kneading: (ushort)dto.Kneading,
             weight: dto.Weight,
             weightGross: dto.Weight + dto.Plu.GetWeightWithNesting,
-            barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
-            barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
-            barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
+            barcodeTop: barcodeTop,
+            barcodeRight: barcodeRight,
+            barcodeBottom: barcodeBottom,
             palletOrder: 0,
             palletNumber: ""
         );
@@ -60,15 +64,14 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             Height = templateFromCache.Height,
             Rotate = templateFromCache.Rotate
         };
-
         Label labelSql = new()
         {
             Line = dto.Line,
             Plu = dto.Plu,
 
-            BarcodeBottom = data.BarcodeBottom.Replace(">8", ""),
-            BarcodeRight = data.BarcodeRight.Replace(">8", ""),
-            BarcodeTop = data.BarcodeTop.Replace(">8", ""),
+            BarcodeBottom = barcodeBottom.Clean,
+            BarcodeRight = barcodeRight.Clean,
+            BarcodeTop = barcodeTop.Clean,
 
             ExpirationDt = dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
 
@@ -79,6 +82,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             WeightTare = dto.Plu.GetWeightWithNesting,
             BundleCount = data.BundleCount
         };
+
         labelService.Create(labelSql, zplLabel);
 
         return (labelSql, zplLabel);

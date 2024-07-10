@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Models.Cache;
@@ -7,12 +8,30 @@ using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Common;
 
-public record BarcodeModel : IBarcodeLabel
+/// <summary>
+/// DON'T TOUCH (THIS IS VARIABLES FOR TEMPLATES) BE CAREFUL
+/// </summary>
+public partial record BarcodeReadyModel
 {
-    public string GenerateBarcode(List<BarcodeItemTemplateFromCache> barcodeTemplate)
+    [GeneratedRegex(@"[^0-9]")]
+    private static partial Regex NonDigitRegex();
+
+    // ReSharper disable once NotAccessedField.Global
+    public required string Zpl;
+
+    public required string Friendly;
+
+    public string Clean => NonDigitRegex().Replace(Friendly, "");
+}
+
+public partial record BarcodeModel : IBarcodeLabel
+{
+    [GeneratedRegex(@"[^0-9\(\)]")]
+    private static partial Regex NotFriendlyChars();
+
+    public BarcodeReadyModel GenerateBarcode(List<BarcodeItemTemplateFromCache> barcodeTemplate)
     {
-        StringBuilder barcodeBuilder = new();
-        bool firstSpecialConst = true;
+        StringBuilder barcodeZplBuilder = new();
         try
         {
             foreach (BarcodeItemTemplateFromCache item in barcodeTemplate)
@@ -22,30 +41,26 @@ public record BarcodeModel : IBarcodeLabel
 
                 if (item.IsConst)
                 {
-                    if (item.Property.StartsWith('(') && firstSpecialConst == false)
-                        item.Property = $">8{item.Property}";
-
-                    barcodeBuilder.Append(item.Property);
-                    firstSpecialConst = false;
+                    barcodeZplBuilder.Append(item.Property);
                     continue;
                 }
 
                 switch (value)
                 {
                     case int or short when Convert.ToInt32(value) > 0:
-                        barcodeBuilder.AppendStrWithPadding(value.ToString(), item.Length);
+                        barcodeZplBuilder.AppendStrWithPadding(value.ToString(), item.Length);
                         break;
                     case string strValue when strValue.IsDigitsOnly():
-                        barcodeBuilder.AppendStrWithPadding(strValue, item.Length);
+                        barcodeZplBuilder.AppendStrWithPadding(strValue, item.Length);
                         break;
                     case float or decimal or double when Convert.ToDecimal(value) > 0:
-                        barcodeBuilder.AppendStrWithPadding(Convert.ToDecimal(value).ToSepStr(), item.Length);
+                        barcodeZplBuilder.AppendStrWithPadding(Convert.ToDecimal(value).ToSepStr(), item.Length);
                         break;
                     case DateTime dateValue when item.FormatStr.IsDateFormat():
-                        barcodeBuilder.Append(dateValue.ToString(item.FormatStr));
+                        barcodeZplBuilder.Append(dateValue.ToString(item.FormatStr));
                         break;
                     default:
-                        throw new NotImplementedException();
+                        throw new LabelGenerateException(LabelGenExceptions.BarcodeInvalid);
                 }
             }
         }
@@ -54,7 +69,13 @@ public record BarcodeModel : IBarcodeLabel
             throw new LabelGenerateException(LabelGenExceptions.BarcodeInvalid);
         }
 
-        return barcodeBuilder.ToString();
+        string barcodeFriendlyBuilder = NotFriendlyChars().Replace(barcodeZplBuilder.ToString(), "");
+
+        return new()
+        {
+            Zpl = barcodeZplBuilder.Replace("(", "").Replace(")", "").ToString(),
+            Friendly = barcodeFriendlyBuilder
+        };
     }
 
     #region Line
@@ -74,9 +95,9 @@ public record BarcodeModel : IBarcodeLabel
 
     #region BarcodeTemplates
 
-    public required DateTime ExpirationDt { get; init; }
-    public required DateTime ProductDt { init; get; }
     public required short Kneading { get; init; }
+    public required DateTime ExpirationDt { get; init; }
+    public required DateTime ProductDt { get; init; }
     public required short BundleCount { get; init; }
     public required decimal WeightNet { get; init; }
 

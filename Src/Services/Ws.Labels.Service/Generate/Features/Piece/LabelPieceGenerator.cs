@@ -134,6 +134,10 @@ internal class LabelPieceGenerator(
             ProductDt = barcodeTemplates.ProductDt.AddSeconds(index)
         };
 
+        BarcodeReadyModel barcodeTop = barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate);
+        BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
+        BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
+
         TemplateVariables data = new(
             pluName: dto.Plu.FullName,
             pluNumber: (ushort)dto.Plu.Number,
@@ -151,9 +155,9 @@ internal class LabelPieceGenerator(
             weight: dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
             weightGross: dto.Plu.GetWeightByCharacteristic(dto.PluCharacteristic),
 
-            barcodeTop: barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate),
-            barcodeBottom: barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate),
-            barcodeRight: barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate),
+            barcodeTop: barcodeTop,
+            barcodeBottom: barcodeBottom,
+            barcodeRight: barcodeRight,
             palletOrder: (ushort)(index + 1),
             palletNumber: "21"
         );
@@ -162,9 +166,9 @@ internal class LabelPieceGenerator(
 
         Label label = new()
         {
-            BarcodeBottom = data.BarcodeBottom.Replace(">8", ""),
-            BarcodeRight = data.BarcodeRight.Replace(">8", ""),
-            BarcodeTop = data.BarcodeTop.Replace(">8", ""),
+            BarcodeBottom = barcodeBottom.Clean,
+            BarcodeRight = barcodeRight.Clean,
+            BarcodeTop = barcodeTop.Clean,
             WeightNet = dto.Plu.Weight,
             WeightTare = dto.Plu.GetTareWeightByCharacteristic(dto.PluCharacteristic),
             Kneading = dto.Kneading,

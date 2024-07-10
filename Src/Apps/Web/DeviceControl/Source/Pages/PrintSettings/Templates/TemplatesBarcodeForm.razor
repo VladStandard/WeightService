@@ -48,7 +48,8 @@
 
   private async Task SubmitForm()
   {
-    if (!ValidateBarcodes()) return;
+    if (!ValidateBarcodes())
+      return;
 
     try
     {

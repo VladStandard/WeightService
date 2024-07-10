@@ -97,7 +97,7 @@
               </TemplateColumn>
               <TemplateColumn Title="@WsDataLocalizer["ColBarcode"]">
                 <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex items-center px-3">
-                  @Pallet.Barcode
+                  @context.Label.Barcode
                 </button>
               </TemplateColumn>
             </FluentDataGrid>
