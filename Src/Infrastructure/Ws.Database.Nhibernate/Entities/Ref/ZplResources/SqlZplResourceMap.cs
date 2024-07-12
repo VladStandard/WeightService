@@ -43,7 +43,7 @@ internal sealed class SqlZplResourceMap : ClassMapping<ZplResource>
 
         Property(x => x.Zpl, m =>
         {
-            m.Column("ZPL");
+            m.Column("BODY");
             m.Type(NHibernateUtil.String);
             m.NotNullable(true);
         });

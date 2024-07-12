@@ -12,7 +12,7 @@ using Ws.Database.EntityFramework;
 namespace Ws.Database.EntityFramework.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20240705111201_Drop_StorageMethodsTable")]
+    [Migration("20240711110055_Drop_StorageMethodsTable")]
     partial class Drop_StorageMethodsTable
     {
         /// <inheritdoc />
@@ -917,8 +917,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasColumnType("varchar(2048)")
-                        .HasColumnName("ZPL");
+                        .HasColumnType("varchar(8192)")
+                        .HasColumnName("BODY");
 
                     b.HasKey("Id");
 

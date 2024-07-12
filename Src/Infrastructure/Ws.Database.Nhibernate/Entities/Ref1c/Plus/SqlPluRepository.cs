@@ -16,6 +16,7 @@ public sealed class SqlPluRepository : BaseRepository, IGetItemByUid<Plu>, IGetA
             .SetParameter("newValue", item.TemplateUid)
             .SetParameter("entityId", item.Uid)
             .ExecuteUpdate();
+        Session.Update(item);
         return item;
     }
 }

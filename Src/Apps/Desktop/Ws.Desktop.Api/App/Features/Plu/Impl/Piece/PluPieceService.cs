@@ -27,7 +27,7 @@ public class PluPieceService(IArmService armService, WsDbContext dbContext) : IP
                 Id = i.Uid,
                 BundleCount = (byte)i.BundleCount,
                 Box = i.Box.Name,
-                Name = i.Name
+                Name = i.Uid == Guid.Empty ? $"{i.BundleCount} (По умолчанию)" : $"{i.BundleCount} (Кор)"
             }).ToList()
         }));
         return plusPiece;

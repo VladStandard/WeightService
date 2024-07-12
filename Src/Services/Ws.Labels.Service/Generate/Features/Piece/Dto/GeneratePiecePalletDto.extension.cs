@@ -16,8 +16,9 @@ public static class LabelPiecePalletDtoMapper
             PluNumber = palletDto.Plu.Number,
             PluGtin = palletDto.Plu.Gtin,
             PluEan13 = palletDto.Plu.Ean13,
-            WeightNet = palletDto.Plu.Weight,
-            ExpirationDt = palletDto.ProductDt.AddDays(palletDto.Plu.ShelfLifeDays)
+            WeightNet = palletDto.Plu.Weight*palletDto.PluCharacteristic.BundleCount,
+            ExpirationDt = palletDto.ProductDt.AddDays(palletDto.Plu.ShelfLifeDays),
+            ExpirationDay = palletDto.ProductDt.AddDays(palletDto.Plu.ShelfLifeDays).DayOfYear
         };
     }
 }

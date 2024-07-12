@@ -377,9 +377,9 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Вложенность.
         /// </summary>
-        public static string ColNesting {
+        public static string ColNestingPerBox {
             get {
-                return ResourceManager.GetString("ColNesting", resourceCulture);
+                return ResourceManager.GetString("ColNestingPerBox", resourceCulture);
             }
         }
 
@@ -420,7 +420,7 @@ namespace Ws.Shared.Resources {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Вес паллеты.
+        ///   Looks up a localized string similar to ColNestingPerBox.
         /// </summary>
         public static string ColPalletWeight {
             get {

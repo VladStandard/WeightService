@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
 
@@ -126,7 +127,7 @@
         <value>Склад</value>
     </data>
     <data name="ColNesting" xml:space="preserve">
-        <value>Вложенность</value>
+        <value>Кол-во вложений</value>
     </data>
     <data name="ColType" xml:space="preserve">
         <value>Тип</value>
@@ -157,9 +158,6 @@
     </data>
     <data name="ColUser" xml:space="preserve">
         <value>Пользователь</value>
-    </data>
-    <data name="ColPalletWeight" xml:space="preserve">
-        <value>Вес паллеты</value>
     </data>
     <data name="ColCreateDt" xml:space="preserve">
         <value>Дата создания</value>
@@ -281,11 +279,8 @@
     <data name="ColPallets" xml:space="preserve">
         <value>Паллеты</value>
     </data>
-    <data name="ColLabels" xml:space="preserve">
-        <value>Этикетки</value>
-    </data>
     <data name="ColBoxCount" xml:space="preserve">
-        <value>Кол-во коробок</value>
+        <value>Кол-во коробов</value>
     </data>
     <data name="ColPalletCard" xml:space="preserve">
         <value>Паллетная карта</value>
@@ -313,5 +308,11 @@
     </data>
     <data name="MeasureMm" xml:space="preserve">
         <value>мм</value>
+    </data>
+    <data name="ColTrayWeight" xml:space="preserve">
+        <value>Вес поддона</value>
+    </data>
+    <data name="ColWeightTotal" xml:space="preserve">
+        <value>Вес (Итого)</value>
     </data>
 </root>

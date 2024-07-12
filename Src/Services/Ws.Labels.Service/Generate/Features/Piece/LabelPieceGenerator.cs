@@ -28,7 +28,7 @@ internal class LabelPieceGenerator(
         if (dto.Plu.IsCheckWeight)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
-        if (labelCount is > 240 or < 2)
+        if (labelCount is > 240 or < 1)
             throw new LabelGenerateException(LabelGenExceptions.Invalid);
 
         TemplateFromCache templateFromCache =
@@ -52,16 +52,17 @@ internal class LabelPieceGenerator(
             Counter = counter+1
         };
 
-
-        // FOR TESTING VARS BEFORE 1C (don't touch)
-        (Label, LabelZpl, TemplateVars) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
-        GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
-
         if (templateFromCache.Template.Contains("storage_method"))
         {
             templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
                 $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
         }
+
+        // FOR TESTING VARS BEFORE 1C (don't touch)
+        (Label, LabelZpl, TemplateVars) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
+        GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
+
+
 
         List<LabelCreateApiDto> labelsData = [];
 
@@ -159,9 +160,9 @@ internal class LabelPieceGenerator(
             productDt: dto.ProductDt,
             expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
 
-            bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
+            bundleCount: (ushort)dto.PluCharacteristic.BundleCount,
             kneading: (ushort)dto.Kneading,
-            weightNet: dto.Plu.Weight,
+            weightNet: dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
             weightGross: dto.Plu.GetWeightByCharacteristic(dto.PluCharacteristic),
 
             barcodeTop: barcodeTop,

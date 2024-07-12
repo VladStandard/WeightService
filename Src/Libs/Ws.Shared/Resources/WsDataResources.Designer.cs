@@ -377,9 +377,9 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string ColNesting {
+        public static string ColNestingPerBox {
             get {
-                return ResourceManager.GetString("ColNesting", resourceCulture);
+                return ResourceManager.GetString("ColNestingPerBox", resourceCulture);
             }
         }
 

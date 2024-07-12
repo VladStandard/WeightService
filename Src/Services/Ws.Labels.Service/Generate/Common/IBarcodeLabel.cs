@@ -12,4 +12,5 @@ internal interface IBarcodeLabel
     public DateTime ExpirationDt { get; init; }
     public short BundleCount { get; init; }
     public decimal WeightNet { get; init; }
+    public int ExpirationDay { get; init; }
 }

@@ -26,12 +26,14 @@ public static class MauiProgram
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents();
-        builder.UseMauiApp<App>().UseFullScreen();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
 #endif
+
+        if (builder.Configuration.GetValue<bool>("FullScreenMode"))
+            builder.UseMauiApp<App>().UseFullScreen();
 
         const string currentLanguage = "ru-RU";
         CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);

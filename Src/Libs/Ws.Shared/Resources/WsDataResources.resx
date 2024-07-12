@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
 
@@ -158,9 +159,6 @@
     <data name="ColUser" xml:space="preserve">
         <value/>
     </data>
-    <data name="ColPalletWeight" xml:space="preserve">
-        <value/>
-    </data>
     <data name="ColCreateDt" xml:space="preserve">
         <value/>
     </data>
@@ -261,57 +259,60 @@
         <value/>
     </data>
     <data name="ColMask" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColSequence" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColConst" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColVariable" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColLength" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="MeasurePc" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColPallets" xml:space="preserve">
-        <value />
-    </data>
-    <data name="ColLabels" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColBoxCount" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColPalletCard" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColDate" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColCreateTime" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColBoxes" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColTotal" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColNomenclature" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColProductUnitsCount" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="ColRotation" xml:space="preserve">
-        <value />
+        <value/>
     </data>
     <data name="MeasureMm" xml:space="preserve">
+        <value/>
+    </data>
+    <data name="ColTrayWeight" xml:space="preserve">
+        <value/>
+    </data>
+    <data name="ColWeightTotal" xml:space="preserve">
         <value />
     </data>
 </root>

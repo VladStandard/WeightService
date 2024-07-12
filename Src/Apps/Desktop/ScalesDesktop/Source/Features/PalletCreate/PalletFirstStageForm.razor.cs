@@ -28,6 +28,6 @@ public class PalletPluStageFormValidator : AbstractValidator<PalletCreateModel>
     public PalletPluStageFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
         RuleFor(item => item.Plu).NotNull().WithName(wsDataLocalizer["ColPlu"]);
-        RuleFor(item => item.Nesting).NotNull().WithName(wsDataLocalizer["ColNesting"]);;
+        RuleFor(item => item.Nesting).NotNull().WithName(wsDataLocalizer["ColNestingPerBox"]);;
     }
 }

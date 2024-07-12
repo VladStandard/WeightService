@@ -914,8 +914,8 @@ namespace Ws.Database.EntityFramework.Migrations
 
                     b.Property<string>("Zpl")
                         .IsRequired()
-                        .HasColumnType("varchar(2048)")
-                        .HasColumnName("ZPL");
+                        .HasColumnType("varchar(8192)")
+                        .HasColumnName("BODY");
 
                     b.HasKey("Id");
 

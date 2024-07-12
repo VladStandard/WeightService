@@ -1,15 +1,17 @@
 using MauiPageFullScreen;
 using Microsoft.AspNetCore.Components.WebView;
-using Ws.Shared.Enums;
-using Ws.Shared.Utils;
+using Microsoft.Extensions.Configuration;
 
 namespace ScalesDesktop;
 
 public partial class MainPage : ContentPage
 {
-    public MainPage()
+    private readonly bool _fullScreen;
+
+    public MainPage(IConfiguration configuration)
     {
         InitializeComponent();
+        _fullScreen = configuration.GetValue<bool>("FullScreenMode");
     }
 
     private void Bwv_BlazorWebViewInitialized(object sender, BlazorWebViewInitializedEventArgs e)
@@ -17,7 +19,7 @@ public partial class MainPage : ContentPage
         e.WebView.CoreWebView2.Settings.IsPinchZoomEnabled = false;
         e.WebView.CoreWebView2.Settings.IsZoomControlEnabled = false;
 
-        if (ConfigurationUtil.Config == EnumConfiguration.ReleaseVs)
+        if (_fullScreen)
             Controls.FullScreen();
     }
 }

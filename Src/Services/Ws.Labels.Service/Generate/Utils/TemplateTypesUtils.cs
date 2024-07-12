@@ -17,6 +17,7 @@ file class BarcodeLabelBaseTemp : IBarcodeLabel
     public DateTime ExpirationDt { get; init; }
     public short BundleCount { get; init; }
     public decimal WeightNet { get; init; }
+    public int ExpirationDay { get; init; }
 }
 
 #endregion
@@ -26,17 +27,19 @@ public static class TemplateTypesUtils
     public static List<BarcodeVariable> GetVariables()
     {
         BarcodeLabelBaseTemp data = new();
-        return [
-            new(() => data.LineNumber,5),
-            new(() => data.LineCounter,6),
-            new(() => data.PluNumber,3),
-            new(() => data.PluGtin,14),
-            new(() => data.PluEan13,13),
-            new(() => data.Kneading,3),
-            new(() => data.ProductDt,0, true),
-            new(() => data.ExpirationDt,0, true),
-            new(() => data.WeightNet,5),
-            new(() => data.BundleCount,2)
+        return
+        [
+            new(() => data.LineNumber, 5),
+            new(() => data.LineCounter, 6),
+            new(() => data.PluNumber, 3),
+            new(() => data.PluGtin, 14),
+            new(() => data.PluEan13, 13),
+            new(() => data.Kneading, 3),
+            new(() => data.ProductDt, 0, true),
+            new(() => data.ExpirationDt, 0, true),
+            new(() => data.WeightNet, 5),
+            new(() => data.BundleCount, 2),
+            new(() => data.ExpirationDay, 3)
         ];
     }
 }

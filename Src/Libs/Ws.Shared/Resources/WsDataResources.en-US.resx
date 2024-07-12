@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
 
@@ -126,7 +127,7 @@
         <value>Warehouse</value>
     </data>
     <data name="ColNesting" xml:space="preserve">
-        <value>Nesting</value>
+        <value>Number of attachments</value>
     </data>
     <data name="ColType" xml:space="preserve">
         <value>Type</value>
@@ -157,9 +158,6 @@
     </data>
     <data name="ColUser" xml:space="preserve">
         <value>User</value>
-    </data>
-    <data name="ColPalletWeight" xml:space="preserve">
-        <value>Pallet weight</value>
     </data>
     <data name="ColCreateDt" xml:space="preserve">
         <value>Create date</value>
@@ -281,9 +279,6 @@
     <data name="ColPallets" xml:space="preserve">
         <value>Pallets</value>
     </data>
-    <data name="ColLabels" xml:space="preserve">
-        <value>Labels</value>
-    </data>
     <data name="ColBoxCount" xml:space="preserve">
         <value>Box count</value>
     </data>
@@ -313,5 +308,11 @@
     </data>
     <data name="MeasureMm" xml:space="preserve">
         <value>mm</value>
+    </data>
+    <data name="ColTrayWeight" xml:space="preserve">
+        <value>Tray weight</value>
+    </data>
+    <data name="ColWeightTotal" xml:space="preserve">
+        <value>Weight (Total)</value>
     </data>
 </root>

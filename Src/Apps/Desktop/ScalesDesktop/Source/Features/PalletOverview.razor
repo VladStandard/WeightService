@@ -1,15 +1,10 @@
 @using System.Globalization
-@using Append.Blazor.Printing
 @using Microsoft.FluentUI.AspNetCore.Components
-@using ScalesDesktop.Source.Shared.Services
 @using Ws.Desktop.Models.Features.Pallets.Output
 
 <div class="size-full flex flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-6">
   <div class="w-full flex justify-between items-center">
-    <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number</h2>
-    <Button OnClick="@PrintPalletCard">
-      @Localizer["BtnPrintPC"]
-    </Button>
+    <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number от @Pallet.ProdDt.ToString("dd.MM.yyyy")</h2>
   </div>
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-2 items-start">
     <FormDivider Class="!pb-0">@Localizer["PalletOverviewDividerCommon"]</FormDivider>
@@ -17,7 +12,14 @@
       <FieldLabel for="number">@WsDataLocalizer["ColNumber"]</FieldLabel>
       <InputTextField
         id="number"
-        Value="@Pallet.Number.ToString()"
+        Value="@Pallet.Number"
+        ReadOnly/>
+    </div>
+    <div class="space-y-2">
+      <FieldLabel for="number">@Localizer["СolPalletProductDt"]</FieldLabel>
+      <InputTextField
+        id="date"
+        Value="@Pallet.ProdDt.ToString("dd.MM.yyyy")"
         ReadOnly/>
     </div>
     <div class="space-y-2">
@@ -25,6 +27,20 @@
       <InputTextField
         id="pallet-man"
         Value="@Pallet.PalletMan.DisplayShortName"
+        ReadOnly/>
+    </div>
+    <div class="space-y-2">
+      <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
+      <InputTextField
+        id="barcode"
+        Value="@Pallet.Barcode"
+        ReadOnly/>
+    </div>
+    <div class="space-y-2">
+      <FieldLabel for="box-count">@WsDataLocalizer["ColBoxCount"] (@WsDataLocalizer["MeasurePc"])</FieldLabel>
+      <InputTextField
+        id="box-count"
+        Value="@Pallet.BoxCount.ToString()"
         ReadOnly/>
     </div>
     <FormDivider Class="!pb-0">@WsDataLocalizer["ColPlu"]</FormDivider>
@@ -47,21 +63,7 @@
         />
       </div>
     }
-    <FormDivider Class="!pb-0">@WsDataLocalizer["ColLabels"]</FormDivider>
-    <div class="space-y-2">
-      <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
-      <InputTextField
-        id="barcode"
-        Value="@Pallet.Barcode"
-        ReadOnly/>
-    </div>
-    <div class="space-y-2">
-      <FieldLabel for="box-count">@WsDataLocalizer["ColCount"] (@WsDataLocalizer["MeasurePc"])</FieldLabel>
-      <InputTextField
-        id="box-count"
-        Value="@Pallet.BoxCount.ToString()"
-        ReadOnly/>
-    </div>
+    <FormDivider Class="!pb-0">@WsDataLocalizer["ColWeight"]</FormDivider>
     <div class="space-y-2">
       <FieldLabel for="netto">@WsDataLocalizer["ColNetWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
@@ -78,13 +80,21 @@
       />
     </div>
     <div class="space-y-2">
-      <FieldLabel for="tray">@WsDataLocalizer["ColTareWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
+      <FieldLabel for="tray">@WsDataLocalizer["ColTrayWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
         id="tray"
         Value="@Pallet.WeightTray.ToString(CultureInfo.InvariantCulture)"
         ReadOnly
       />
     </div>
+     <div class="space-y-2">
+       <FieldLabel for="tray">@WsDataLocalizer["ColWeightTotal"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
+       <InputTextField
+         id="tray"
+         Value="@((Pallet.WeightTray + Pallet.WeightBrutto).ToString(CultureInfo.InvariantCulture))"
+         ReadOnly
+       />
+     </div>
   </div>
 </div>
 
@@ -93,24 +103,9 @@
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private IPrintingService PrintingService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
-  [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
-
-  private async Task PrintPalletCard()
-  {
-    try
-    {
-      string palletCardBase64 = PalletDocumentGenerator.CreateBase64(Pallet);
-      await PrintingService.Print(new(palletCardBase64) { Base64 = true });
-    }
-    catch
-    {
-      ToastService.ShowError(Localizer["PalletDocumentGenerationError"]);
-    }
-  }
 }

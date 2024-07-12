@@ -1,3 +1,4 @@
+using Append.Blazor.Printing;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesDesktop.Source.Shared.Services;
@@ -16,6 +17,8 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private PrinterService PrinterService { get; set; } = default!;
     [Inject] private ArmApi ArmApi { get; set; } = default!;
     [Inject] private PalletApi PalletApi { get; set; } = default!;
+    [Inject] private IPrintingService PrintingService { get; set; } = default!;
+    [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
 
     # endregion
 
@@ -133,6 +136,19 @@ public sealed partial class LabelsGrid : ComponentBase
             PrinterStatus.PaperJam => Localizer["PrinterStatusPaperJam"],
             _ => Localizer["PrinterStatusUnknown"]
         });
+
+    private async Task PrintPalletCard()
+    {
+        try
+        {
+            string palletCardBase64 = PalletDocumentGenerator.CreateBase64(Pallet);
+            await PrintingService.Print(new(palletCardBase64) { Base64 = true });
+        }
+        catch
+        {
+            ToastService.ShowError(Localizer["PalletDocumentGenerationError"]);
+        }
+    }
 }
 
 internal record DataItem

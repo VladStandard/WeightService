@@ -55,10 +55,8 @@ public class PalletDocumentGenerator(IStringLocalizer<WsDataResources> wsDataLoc
         ITable dateTimeTable = CreateTable([60f, 40f]);
 
         dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColDate"])).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph(wsDataLocalizer["ColCreateTime"])).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.CreateDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
-        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.CreateDt.ToString("HH:mm:ss")).SetFontSize(30)).SetBorder(Border.NO_BORDER));
-
+        dateTimeTable.AddCell(new ICell().SetBorder(Border.NO_BORDER));
+        dateTimeTable.AddCell(new ICell().Add(new Paragraph(pallet.ProdDt.ToString("dd.MM.yyyy")).SetFontSize(40).SetBold()).SetBorder(Border.NO_BORDER));
         return dateTimeTable;
     }
 
@@ -68,8 +66,8 @@ public class PalletDocumentGenerator(IStringLocalizer<WsDataResources> wsDataLoc
 
         AddInfoTableRow(infoTable, wsDataLocalizer["ColNetWeight"], pallet.WeightNet.ToString(CultureInfo.InvariantCulture));
         AddInfoTableRow(infoTable, wsDataLocalizer["ColGrossWeight"], pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, wsDataLocalizer["ColPalletWeight"], pallet.WeightTray.ToString(CultureInfo.InvariantCulture));
-        AddInfoTableRow(infoTable, $"{wsDataLocalizer["ColGrossWeight"]} + {wsDataLocalizer["ColPalletWeight"]}", (pallet.WeightBrutto + pallet.WeightTray).ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, wsDataLocalizer["ColTrayWeight"], pallet.WeightTray.ToString(CultureInfo.InvariantCulture));
+        AddInfoTableRow(infoTable, $"{wsDataLocalizer["ColGrossWeight"]} + {wsDataLocalizer["ColTrayWeight"]}", (pallet.WeightBrutto + pallet.WeightTray).ToString(CultureInfo.InvariantCulture));
         AddInfoTableRow(infoTable, wsDataLocalizer["ColBoxCount"], pallet.BoxCount.ToString());
         AddInfoTableRow(infoTable, wsDataLocalizer["ColWarehouse"], pallet.Warehouse);
         AddInfoTableRow(infoTable, wsDataLocalizer["ColLine"], pallet.Arm);

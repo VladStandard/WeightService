@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+                xmlns="">
         <xsd:element name="root" msdata:IsDataSet="true">
 
         </xsd:element>
@@ -13,10 +14,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="BtnCooldown" xml:space="preserve">
         <value>Available in</value>
@@ -96,7 +101,7 @@
     <data name="PalletSelectEmpty" xml:space="preserve">
         <value>No pallets found</value>
     </data>
-    <data name="PalletWeightInputPlaceholder" xml:space="preserve">
+    <data name="TrayWeightInputPlaceholder" xml:space="preserve">
         <value>Enter the pallet weight</value>
     </data>
     <data name="PasswordInputPlaceholder" xml:space="preserve">
@@ -314,5 +319,14 @@
     </data>
     <data name="LabelGenExcExchangeFailed" xml:space="preserve">
         <value>Integration error with 1C</value>
+    </data>
+    <data name="СolPalletProductDt" xml:space="preserve">
+        <value>Date of pallet products</value>
+    </data>
+    <data name="ColNestingPerBox" xml:space="preserve">
+        <value>Number of attachments per box</value>
+    </data>
+    <data name="ColPrint" xml:space="preserve">
+        <value>Print</value>
     </data>
 </root>

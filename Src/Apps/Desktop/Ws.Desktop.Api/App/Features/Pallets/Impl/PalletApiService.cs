@@ -28,7 +28,7 @@ public class PalletApiService(
     {
         List<LabelInfo> labels = dbContext.Pallets
             .AsNoTracking()
-            .Where(p => p.Arm.Id == armId && p.Id == palletId)
+            .Where(p => p.Id == palletId)
             .ToLabelInfo(dbContext.Labels)
             .ToList();
         return labels;
@@ -54,7 +54,7 @@ public class PalletApiService(
         string numberStr = $"{number}";
         return dbContext.Pallets
             .AsNoTracking()
-            .Where(p => p.Arm.Id == armId && p.Number.ToString().Contains(numberStr))
+            .Where(p => p.Number.ToString().Contains(numberStr))
             .ToPalletInfo(dbContext.Labels)
             .Take(10)
             .ToList();

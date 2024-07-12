@@ -14,11 +14,41 @@ namespace Ws.Database.EntityFramework.Migrations
             migrationBuilder.DropTable(
                 name: "STORAGE_METHODS",
                 schema: "ZPL");
+
+            migrationBuilder.RenameColumn(
+                name: "ZPL",
+                schema: "ZPL",
+                table: "RESOURCES",
+                newName: "BODY");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "BODY",
+                schema: "ZPL",
+                table: "RESOURCES",
+                type: "varchar(8000)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "varchar(2048)");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "BODY",
+                schema: "ZPL",
+                table: "RESOURCES",
+                newName: "ZPL");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "ZPL",
+                schema: "ZPL",
+                table: "RESOURCES",
+                type: "varchar(2048)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "varchar(8000)");
+
             migrationBuilder.CreateTable(
                 name: "STORAGE_METHODS",
                 schema: "ZPL",

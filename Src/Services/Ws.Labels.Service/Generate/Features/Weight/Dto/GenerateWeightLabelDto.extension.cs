@@ -16,6 +16,7 @@ internal static class GenerateWeightPluDtoExtension
             Kneading = dto.Kneading,
             PluEan13 = dto.Plu.Ean13,
             ExpirationDt = dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
-            BundleCount = dto.Plu.PluNesting.BundleCount
+            BundleCount = dto.Plu.PluNesting.BundleCount,
+            ExpirationDay =  dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays).DayOfYear
         };
 }

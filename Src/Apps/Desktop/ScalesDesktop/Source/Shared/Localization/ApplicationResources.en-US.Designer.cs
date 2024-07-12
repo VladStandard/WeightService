@@ -323,9 +323,9 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Enter the pallet weight.
         /// </summary>
-        internal static string PalletWeightInputPlaceholder {
+        internal static string TrayWeightInputPlaceholder {
             get {
-                return ResourceManager.GetString("PalletWeightInputPlaceholder", resourceCulture);
+                return ResourceManager.GetString("TrayWeightInputPlaceholder", resourceCulture);
             }
         }
 

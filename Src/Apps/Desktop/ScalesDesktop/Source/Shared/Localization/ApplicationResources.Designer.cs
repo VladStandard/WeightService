@@ -260,6 +260,24 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ColNestingPerBox {
+            get {
+                return ResourceManager.GetString("ColNestingPerBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ColPrint {
+            get {
+                return ResourceManager.GetString("ColPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string CreatePalletFormHeader {
             get {
                 return ResourceManager.GetString("CreatePalletFormHeader", resourceCulture);
@@ -665,15 +683,6 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PalletWeightInputPlaceholder {
-            get {
-                return ResourceManager.GetString("PalletWeightInputPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string PasswordInputPlaceholder {
             get {
                 return ResourceManager.GetString("PasswordInputPlaceholder", resourceCulture);
@@ -908,6 +917,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string TrayWeightInputPlaceholder {
+            get {
+                return ResourceManager.GetString("TrayWeightInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
@@ -947,6 +965,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         public static string ZplCodeError {
             get {
                 return ResourceManager.GetString("ZplCodeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string СolPalletProductDt {
+            get {
+                return ResourceManager.GetString("СolPalletProductDt", resourceCulture);
             }
         }
     }

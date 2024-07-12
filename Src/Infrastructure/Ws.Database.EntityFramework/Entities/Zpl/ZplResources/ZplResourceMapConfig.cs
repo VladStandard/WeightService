@@ -22,8 +22,8 @@ internal sealed class ZplResourceMapConfig : IEntityTypeConfiguration<ZplResourc
             .IsRequired();
 
         builder.Property(e => e.Zpl)
-            .HasColumnName("ZPL")
-            .HasColumnType("varchar(2048)")
+            .HasColumnName("BODY")
+            .HasColumnType("varchar(8000)")
             .IsRequired();
 
         builder.Property(e => e.Type)

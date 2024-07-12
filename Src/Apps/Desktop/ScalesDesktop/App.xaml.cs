@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace ScalesDesktop;
 
@@ -6,7 +7,7 @@ public partial class App : Application
 {
     private static readonly Mutex Mutex = new(true, Assembly.GetEntryAssembly()?.GetName().Name);
 
-    public App()
+    public App(IConfiguration configuration)
     {
         if (!Mutex.WaitOne(TimeSpan.Zero, true))
         {
@@ -15,7 +16,7 @@ public partial class App : Application
         }
 
         InitializeComponent();
-        MainPage = new MainPage();
+        MainPage = new MainPage(configuration);
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

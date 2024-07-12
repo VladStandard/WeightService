@@ -100,6 +100,7 @@ public partial record BarcodeModel : IBarcodeLabel
     public required DateTime ProductDt { get; init; }
     public required short BundleCount { get; init; }
     public required decimal WeightNet { get; init; }
+    public required int ExpirationDay { get; init; }
 
     #endregion
 }
