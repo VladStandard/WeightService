@@ -23,17 +23,17 @@
         ReadOnly/>
     </div>
     <div class="space-y-2">
-      <FieldLabel for="pallet-man">@WsDataLocalizer["ColPalletMan"]</FieldLabel>
-      <InputTextField
-        id="pallet-man"
-        Value="@Pallet.PalletMan.DisplayShortName"
-        ReadOnly/>
-    </div>
-    <div class="space-y-2">
       <FieldLabel for="barcode">@WsDataLocalizer["ColBarcode"]</FieldLabel>
       <InputTextField
         id="barcode"
         Value="@Pallet.Barcode"
+        ReadOnly/>
+    </div>
+    <div class="space-y-2">
+      <FieldLabel for="pallet-man">@WsDataLocalizer["ColPalletMan"]</FieldLabel>
+      <InputTextField
+        id="pallet-man"
+        Value="@Pallet.PalletMan.DisplayShortName"
         ReadOnly/>
     </div>
     <div class="space-y-2">
@@ -43,22 +43,37 @@
         Value="@Pallet.BoxCount.ToString()"
         ReadOnly/>
     </div>
+    <div class="space-y-2">
+      <FieldLabel for="bundle-count">@WsDataLocalizer["ColProductUnitsCount"] (@WsDataLocalizer["MeasurePc"])</FieldLabel>
+      <InputTextField
+        id="bundle-count"
+        Value="@Pallet.BundleCount.ToString()"
+        ReadOnly/>
+    </div>
     <FormDivider Class="!pb-0">@WsDataLocalizer["ColPlu"]</FormDivider>
     @foreach (PluPalletInfo item in Pallet.Plus)
     {
       <div class="space-y-2">
-        <FieldLabel for="@($"plu-name-{item.Number}")">@WsDataLocalizer["ColNumber"]</FieldLabel>
+        <FieldLabel for="@($"plu-{item.Number}")">@WsDataLocalizer["ColNumber"]</FieldLabel>
         <InputTextField
-          id="@($"plu-name-{item.Number}")"
+          id="@($"plu-{item.Number}")"
           Value="@item.Number.ToString()"
           ReadOnly
         />
       </div>
       <div class="space-y-2">
-        <FieldLabel for="@($"plu-number-{item.Number}")">@WsDataLocalizer["ColName"]</FieldLabel>
+        <FieldLabel for="@($"plu-{item.Number}-name")">@WsDataLocalizer["ColName"]</FieldLabel>
         <InputTextField
-          id="@($"plu-number-{item.Number}")"
+          id="@($"plu-{item.Number}-name")"
           Value="@item.Name"
+          ReadOnly
+        />
+      </div>
+      <div class="space-y-2">
+        <FieldLabel for="@($"plu-{item.Number}-nesting")">@Localizer["ColNestingPerBox"] (@WsDataLocalizer["MeasurePc"])</FieldLabel>
+        <InputTextField
+          id="@($"plu-{item.Number}-nesting")"
+          Value="@((item.BundleCount/item.BoxCount).ToString())"
           ReadOnly
         />
       </div>

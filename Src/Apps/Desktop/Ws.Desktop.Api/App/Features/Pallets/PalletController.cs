@@ -20,12 +20,12 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
     ) => palletApiService.GetAllByDate(armId, startDt, endDt);
 
     [HttpGet("{number}")]
-    public List<PalletInfo> GetByNumber([FromRoute] Guid armId, uint number) =>
-        palletApiService.GetByNumber(armId, number);
+    public List<PalletInfo> GetByNumber([FromRoute] string number) =>
+        palletApiService.GetByNumber(number);
 
     [HttpGet("{palletId:guid}/labels")]
-    public List<LabelInfo> GetLabelsByPallet([FromRoute] Guid armId, Guid palletId) =>
-        palletApiService.GetAllZplByArm(armId, palletId);
+    public List<LabelInfo> GetLabelsByPallet(Guid palletId) =>
+        palletApiService.GetAllZplByPallet(palletId);
 
     #endregion
 

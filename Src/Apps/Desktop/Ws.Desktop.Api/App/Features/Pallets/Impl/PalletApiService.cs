@@ -24,7 +24,7 @@ public class PalletApiService(
 {
     #region Quieries
 
-    public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId)
+    public List<LabelInfo> GetAllZplByPallet(Guid palletId)
     {
         List<LabelInfo> labels = dbContext.Pallets
             .AsNoTracking()
@@ -49,12 +49,11 @@ public class PalletApiService(
             .ToPalletInfo(dbContext.Labels).ToList();
     }
 
-    public List<PalletInfo> GetByNumber(Guid armId, uint number)
+    public List<PalletInfo> GetByNumber(string number)
     {
-        string numberStr = $"{number}";
         return dbContext.Pallets
             .AsNoTracking()
-            .Where(p => p.Number.ToString().Contains(numberStr))
+            .Where(p => p.Number.ToString().Contains(number))
             .ToPalletInfo(dbContext.Labels)
             .Take(10)
             .ToList();

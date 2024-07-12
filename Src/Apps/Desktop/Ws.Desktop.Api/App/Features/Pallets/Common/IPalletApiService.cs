@@ -7,8 +7,8 @@ public interface IPalletApiService
 {
     #region Queries
 
-    public List<PalletInfo> GetByNumber(Guid armId, uint number);
-    public List<LabelInfo> GetAllZplByArm(Guid armId, Guid palletId);
+    public List<PalletInfo> GetByNumber(string number);
+    public List<LabelInfo> GetAllZplByPallet(Guid palletId);
     public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime);
 
     #endregion

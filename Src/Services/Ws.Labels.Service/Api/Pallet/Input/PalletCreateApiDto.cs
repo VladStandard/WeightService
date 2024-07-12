@@ -30,10 +30,10 @@ public record PalletCreateApiDto
     public required decimal TrayWeightKg;
 
     [XmlAttribute("NetWeightKg")]
-    public decimal NetWeightKg;
+    public required decimal NetWeightKg;
 
     [XmlAttribute("GrossWeightKg")]
-    public decimal GrossWeightKg;
+    public required decimal GrossWeightKg;
 
     [XmlAttribute("CreatedAt")]
     public required DateTime CreatedAt;

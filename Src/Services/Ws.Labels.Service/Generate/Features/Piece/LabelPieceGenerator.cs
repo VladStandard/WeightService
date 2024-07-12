@@ -101,6 +101,8 @@ internal class LabelPieceGenerator(
             Labels = labelsData,
             ProductDt = pallet.ProdDt,
             CreatedAt = DateTime.Now,
+            NetWeightKg = labelsData.Sum(i => i.NetWeightKg),
+            GrossWeightKg = labelsData.Sum(i => i.GrossWeightKg)
         };
 
 
@@ -177,7 +179,7 @@ internal class LabelPieceGenerator(
             BarcodeBottom = barcodeBottom.Clean,
             BarcodeRight = barcodeRight.Clean,
             BarcodeTop = barcodeTop.Clean,
-            WeightNet = dto.Plu.Weight,
+            WeightNet = dto.Plu.Weight*dto.PluCharacteristic.BundleCount,
             WeightTare = dto.Plu.GetTareWeightByCharacteristic(dto.PluCharacteristic),
             Kneading = dto.Kneading,
             ProductDt = dto.ProductDt,
