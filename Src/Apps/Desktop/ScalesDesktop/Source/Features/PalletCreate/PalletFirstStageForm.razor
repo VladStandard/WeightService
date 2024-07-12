@@ -6,7 +6,7 @@
   OnValidSubmit="@OnValidSubmit"
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
 >
-  <FluentValidationValidator Validator="@(new PalletPluStageFormValidator(WsDataLocalizer))" />
+  <FluentValidationValidator Validator="@(new PalletPluStageFormValidator(WsDataLocalizer, Localizer))" />
   <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
     <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)

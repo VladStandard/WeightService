@@ -6,11 +6,12 @@ using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
 using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate.Common;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
+using Ws.Shared.Api.ApiException;
 using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Piece;
@@ -26,14 +27,25 @@ internal class LabelPieceGenerator(
     public async Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount, uint counter)
     {
         if (dto.Plu.IsCheckWeight)
-            throw new LabelGenerateException(LabelGenExceptions.Invalid);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorInternalMessage = "Plu is weight, must be a piece"
+            };
 
         if (labelCount is > 240 or < 1)
-            throw new LabelGenerateException(LabelGenExceptions.Invalid);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
+            };
 
         TemplateFromCache templateFromCache =
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
-            throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.TemplateNotFound
+            };
 
         BarcodeModel barcodeTemplates = dto.ToBarcodeModel();
 
@@ -61,8 +73,6 @@ internal class LabelPieceGenerator(
         // FOR TESTING VARS BEFORE 1C (don't touch)
         (Label, LabelZpl, TemplateVars) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
         GenerateZpl(testData.Item2, testData.Item3, "1234", templateFromCache);
-
-
 
         List<LabelCreateApiDto> labelsData = [];
 
@@ -115,15 +125,18 @@ internal class LabelPieceGenerator(
 
             foreach ((Label, LabelZpl, TemplateVars) variable in labelsFor1C)
             {
-                GenerateZpl(variable.Item2, variable.Item3,  pallet.Number, templateFromCache);
+                GenerateZpl(variable.Item2, variable.Item3, pallet.Number, templateFromCache);
                 labelsForDb.Add((variable.Item1, variable.Item2));
             }
             palletService.Create(pallet, labelsForDb);
 
         }
         else
-            throw new LabelGenerateException(LabelGenExceptions.ExchangeFailed);
-
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.ExchangeFailed,
+                ErrorInternalMessage = response.Errors.First().Message
+            };
         return pallet.Uid;
     }
 

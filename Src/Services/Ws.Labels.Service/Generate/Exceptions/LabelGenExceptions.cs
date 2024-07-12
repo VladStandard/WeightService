@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
+namespace Ws.Labels.Service.Generate.Exceptions;
 
 public enum LabelGenExceptions
 {

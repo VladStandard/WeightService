@@ -1,7 +1,5 @@
-using System.Net;
 using System.Text.Json;
-using Ws.Desktop.Models.Shared;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
+using Ws.Shared.Api.ApiException;
 using Ws.Shared.Utils;
 
 namespace Ws.Desktop.Api.App.Middlewares;
@@ -10,22 +8,24 @@ public class GenerateLabelExceptionHandlingMiddleware(
     ILogger<GenerateLabelExceptionHandlingMiddleware> logger
     ): IMiddleware
 {
-
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
         {
             await next(context);
         }
-        catch (LabelGenerateException e)
+        catch (ApiExceptionServer e)
         {
-            logger.LogError(e, "{ECode}", e.Code);
+            string exceptionStr = EnumHelper.GetEnumDescription(e.ExceptionType);
 
-            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            logger.LogWarning(e, "{ECode} {EMessage}\n{EInternal}",
+                exceptionStr, e.ErrorDisplayMessage, e.ErrorInternalMessage);
 
-            ServerException problem = new()
+            context.Response.StatusCode = (int)e.StatusCode;
+
+            ApiExceptionClient problem = new()
             {
-                MessageLocalizeKey = EnumHelper.GetEnumDescription(e.Code)
+                ErrorLocalizeKey = exceptionStr,
             };
 
             string json = JsonSerializer.Serialize(problem);

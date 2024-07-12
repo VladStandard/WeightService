@@ -29,7 +29,7 @@ public sealed class SqlPluLineRepository : BaseRepository, IGetListByQuery<ArmPl
     {
         ArmPlu data = GetItemByLineAndPlu(arm, plu);
         if (data.IsNew)
-            Session.Save(new ArmPlu() { Line = arm, Plu = plu });
+            Session.Save(new ArmPlu { Line = arm, Plu = plu });
         return data;
     }
 }

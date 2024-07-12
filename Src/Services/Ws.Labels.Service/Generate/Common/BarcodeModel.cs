@@ -2,8 +2,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Ws.Labels.Service.Extensions;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Models.Cache;
+using Ws.Shared.Api.ApiException;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Common;
@@ -60,13 +61,20 @@ public partial record BarcodeModel : IBarcodeLabel
                         barcodeZplBuilder.Append(dateValue.ToString(item.FormatStr));
                         break;
                     default:
-                        throw new LabelGenerateException(LabelGenExceptions.BarcodeInvalid);
+                        throw new ApiExceptionServer
+                        {
+                            ExceptionType = LabelGenExceptions.BarcodeInvalid,
+                        };
                 }
             }
         }
         catch (Exception ex)
         {
-            throw new LabelGenerateException(LabelGenExceptions.BarcodeInvalid);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.BarcodeInvalid,
+                ErrorInternalMessage = ex.Message
+            };
         }
 
         string barcodeFriendlyBuilder = NotFriendlyChars().Replace(barcodeZplBuilder.ToString(), "");

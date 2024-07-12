@@ -1,5 +1,4 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 

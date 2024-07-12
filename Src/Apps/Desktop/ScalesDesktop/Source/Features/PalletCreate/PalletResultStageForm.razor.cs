@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Refit;
@@ -8,7 +7,7 @@ using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Desktop.Models.Shared;
+using Ws.Shared.Api.ApiException;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -67,10 +66,10 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ServerException? exception) || exception == null)
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
                 ToastService.ShowError(Localizer["ToastPalletCreateError"]);
             else
-                ToastService.ShowError(Localizer[exception.MessageLocalizeKey]);
+                ToastService.ShowError(Localizer[exception.ErrorLocalizeKey]);
         }
         catch (Exception)
         {

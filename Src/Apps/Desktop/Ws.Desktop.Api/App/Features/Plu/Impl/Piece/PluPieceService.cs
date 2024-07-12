@@ -14,7 +14,7 @@ public class PluPieceService(IArmService armService, WsDbContext dbContext) : IP
         List<Domain.Models.Entities.Ref1c.Plus.Plu> plus = armService.GetArmPiecePlus(uid).ToList();
 
         List<PluPiece> plusPiece = [];
-        plusPiece.AddRange(plus.Select(plu => new PluPiece()
+        plusPiece.AddRange(plus.Select(plu => new PluPiece
         {
             Id = plu.Uid,
             Number = (ushort)plu.Number,

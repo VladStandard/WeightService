@@ -1,11 +1,12 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.Labels;
 using Ws.Labels.Service.Generate.Common;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
+using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
+using Ws.Shared.Api.ApiException;
 using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
@@ -15,11 +16,19 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
     public (Label, LabelZpl) GenerateLabel(GenerateWeightLabelDto dto)
     {
         if (!dto.Plu.IsCheckWeight)
-            throw new LabelGenerateException(LabelGenExceptions.Invalid);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorInternalMessage = "Plu is piece, must be a weight"
+            };
 
         TemplateFromCache templateFromCache =
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
-            throw new LabelGenerateException(LabelGenExceptions.TemplateNotFound);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.TemplateNotFound
+            };
+
 
         BarcodeModel barcode = dto.ToBarcodeModel();
 

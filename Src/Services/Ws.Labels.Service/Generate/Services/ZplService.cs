@@ -1,10 +1,10 @@
 using System.Text.RegularExpressions;
 using Scriban;
 using Scriban.Runtime;
-using Ws.Labels.Service.Generate.Exceptions.LabelGenerate;
-using Ws.Labels.Service.Generate.Models;
+using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
+using Ws.Shared.Api.ApiException;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -54,7 +54,11 @@ public partial class ZplService(CacheService cacheService)
         }
         catch (Exception ex)
         {
-            throw new LabelGenerateException(LabelGenExceptions.BarcodeVarNotFound);
+            throw new ApiExceptionServer
+            {
+                ExceptionType = LabelGenExceptions.BarcodeVarNotFound,
+                ErrorInternalMessage = ex.Message
+            };
         }
     }
 }
