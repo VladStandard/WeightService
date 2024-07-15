@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
 internal sealed class BrandMapConfig : IEntityTypeConfiguration<BrandEntity>

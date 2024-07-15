@@ -2,8 +2,6 @@ namespace Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 
 public sealed class BrandEntity : EfEntityBase
 {
-
-    [Column(SqlColumns.Name), StringLength(32)]
     public string Name { get; set; } = string.Empty;
 
     #region Date

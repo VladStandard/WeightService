@@ -1,6 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResources;
-using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.PrintSettings.TemplateResources;
 

@@ -1,7 +1,4 @@
-@using DeviceControl.Source.Widgets.Section.FormActions
-@using DeviceControl.Source.Widgets.Section.FormFields
 @using Ws.Domain.Models.Entities.Print
-@using DeviceControl.Source.Widgets.Section
 @inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.Plus.Plu>
 
 <SectionForm
@@ -27,7 +24,7 @@
     />
 
     <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColWeight"]"
+      Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")"
       Value="@DialogItem.Weight"
     />
 

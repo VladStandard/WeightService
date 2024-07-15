@@ -1,6 +1,5 @@
 using Blazor.Heroicons;
 using Microsoft.AspNetCore.Components.Routing;
-using Ws.Shared.Utils;
 
 namespace DeviceControl.Source.Widgets.NavMenu;
 

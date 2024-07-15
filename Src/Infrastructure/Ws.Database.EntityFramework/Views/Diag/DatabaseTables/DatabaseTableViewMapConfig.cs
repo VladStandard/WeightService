@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Views.Diag.DatabaseTables;
 
 public class DatabaseTableViewMapConfig : IEntityTypeConfiguration<DatabaseTableView>

@@ -201,9 +201,6 @@
     <data name="ColWeight" xml:space="preserve">
         <value>Weight</value>
     </data>
-    <data name="ColTitle" xml:space="preserve">
-        <value>Title</value>
-    </data>
     <data name="ColSurname" xml:space="preserve">
         <value>Surname</value>
     </data>

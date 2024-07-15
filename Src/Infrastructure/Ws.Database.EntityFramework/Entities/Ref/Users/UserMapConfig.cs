@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref.Users;
 
 internal sealed class UserMapConfig : IEntityTypeConfiguration<UserEntity>

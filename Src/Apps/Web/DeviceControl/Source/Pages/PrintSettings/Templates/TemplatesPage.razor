@@ -1,6 +1,4 @@
-@using DeviceControl.Source.Widgets.Section.DataGridActions
 @using Ws.Domain.Models.Entities.Print
-@using DeviceControl.Source.Widgets.Section
 
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.Template>
 @attribute [Route($"{RouteUtils.SectionTemplates}{RouteUtils.SectionQrlQuery}")]
@@ -32,7 +30,7 @@
       />
 
       <DataGridColumn
-        Caption="@WsDataLocalizer["ColTitle"]"
+        Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(Template.Name)"
         Width="20%"
       />

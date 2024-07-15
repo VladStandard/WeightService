@@ -1,4 +1,3 @@
-using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace DeviceControl.Source.Widgets.Section;

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Ws.Database.EntityFramework.Common;
 
 public abstract class EfEntityBase

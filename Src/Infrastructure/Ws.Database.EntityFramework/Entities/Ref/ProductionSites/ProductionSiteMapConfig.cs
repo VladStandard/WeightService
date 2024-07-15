@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 
 internal sealed class ProductionSiteMapConfig : IEntityTypeConfiguration<ProductionSiteEntity>

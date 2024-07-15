@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 
 internal sealed class BundleMapConfig : IEntityTypeConfiguration<BundleEntity>

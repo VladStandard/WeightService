@@ -276,7 +276,7 @@ namespace Ws.Shared.Resources {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Полное имя.
+        ///   Looks up a localized string similar to .
         /// </summary>
         public static string ColFullName {
             get {

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;

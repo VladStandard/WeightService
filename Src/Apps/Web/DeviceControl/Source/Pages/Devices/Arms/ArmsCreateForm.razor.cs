@@ -5,7 +5,6 @@ using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Arms;
 using Ws.Domain.Services.Features.Printers;
 using Ws.Domain.Services.Features.Warehouses;
-using Ws.Shared.Enums;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 

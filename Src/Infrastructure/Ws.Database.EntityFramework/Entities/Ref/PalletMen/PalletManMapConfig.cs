@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 internal sealed class PalletManMapConfig : IEntityTypeConfiguration<PalletManEntity>

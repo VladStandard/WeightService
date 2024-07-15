@@ -73,7 +73,7 @@
         <value>Имя</value>
     </data>
     <data name="ColFullName" xml:space="preserve">
-        <value>Полное имя</value>
+        <value>Полное наименование</value>
     </data>
     <data name="ColLine" xml:space="preserve">
         <value>Линия</value>
@@ -100,7 +100,7 @@
         <value>Мин температура</value>
     </data>
     <data name="ColName" xml:space="preserve">
-        <value>Название</value>
+        <value>Наименование</value>
     </data>
     <data name="ColMessage" xml:space="preserve">
         <value>Сообщение</value>
@@ -200,9 +200,6 @@
     </data>
     <data name="ColWeight" xml:space="preserve">
         <value>Вес</value>
-    </data>
-    <data name="ColTitle" xml:space="preserve">
-        <value>Заголовок</value>
     </data>
     <data name="ColSurname" xml:space="preserve">
         <value>Фамилия</value>

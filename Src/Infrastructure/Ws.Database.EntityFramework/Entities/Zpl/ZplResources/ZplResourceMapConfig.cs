@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 
 internal sealed class ZplResourceMapConfig : IEntityTypeConfiguration<ZplResourceEntity>

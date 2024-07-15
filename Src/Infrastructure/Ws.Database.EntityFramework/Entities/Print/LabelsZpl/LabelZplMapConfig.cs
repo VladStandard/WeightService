@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 
 namespace Ws.Database.EntityFramework.Entities.Print.LabelsZpl;

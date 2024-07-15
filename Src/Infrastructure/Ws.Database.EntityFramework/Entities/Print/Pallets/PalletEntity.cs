@@ -12,16 +12,17 @@ public class PalletEntity : EfEntityBase
 
     #endregion
 
-    public string Number { get; set; } = string.Empty;
     public uint Counter { get; set; }
-
-    public DateTime ProductDt { get; set; }
+    public bool IsShipped { get; set; }
     public decimal TrayWeight { get; set; }
+    public DateTime ProductDt { get; set; }
+    public string Number { get; set; } = string.Empty;
     public string Barcode { get; set; } = string.Empty;
 
     #region Date
 
     public DateTime CreateDt { get; init; }
+    public DateTime? DeletedAt { get; init; }
 
     #endregion
 }

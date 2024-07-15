@@ -1,6 +1,3 @@
-using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
@@ -18,11 +15,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
-using Ws.Database.EntityFramework.Extensions;
-using Ws.Database.EntityFramework.Interceptors;
-using Ws.Database.EntityFramework.Models;
 using Ws.Database.EntityFramework.Views.Diag.DatabaseTables;
-using Ws.Shared.Utils;
 
 namespace Ws.Database.EntityFramework;
 

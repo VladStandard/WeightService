@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 internal sealed class TemplateMapConfig : IEntityTypeConfiguration<TemplateEntity>
@@ -27,6 +25,7 @@ internal sealed class TemplateMapConfig : IEntityTypeConfiguration<TemplateEntit
 
         builder.Property(e => e.Body)
             .HasColumnName("BODY")
+            .HasColumnType("varchar(8000)")
             .IsRequired();
 
         builder.Property(e => e.Rotate)

@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
 public class ClipMapConfig : IEntityTypeConfiguration<ClipEntity>

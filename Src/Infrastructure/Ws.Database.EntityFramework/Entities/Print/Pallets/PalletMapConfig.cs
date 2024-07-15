@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
 namespace Ws.Database.EntityFramework.Entities.Print.Pallets;
 
 internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
@@ -12,6 +10,10 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 
         builder.HasIndex(e => e.Barcode)
             .HasDatabaseName($"UQ_{SqlTables.Pallets}__BARCODE")
+            .IsUnique();
+
+        builder.HasIndex(e => e.Number)
+            .HasDatabaseName($"UQ_{SqlTables.Pallets}__NUMBER")
             .IsUnique();
 
         builder.HasIndex(e => e.Counter)
@@ -36,6 +38,10 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 
         #endregion
 
+        builder.Property(e => e.IsShipped)
+            .HasColumnName("IS_SHIPPED")
+            .IsRequired();
+
         builder.Property(e => e.Counter)
             .HasColumnName("COUNTER")
             .IsRequired();
@@ -58,5 +64,8 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
         builder.Property(e => e.ProductDt)
             .HasColumnName("PRODUCT_DT")
             .IsRequired();
+
+        builder.Property(e => e.DeletedAt)
+            .HasColumnName("DELETED_AT");
     }
 }
