@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.AspNetCore.Components;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 

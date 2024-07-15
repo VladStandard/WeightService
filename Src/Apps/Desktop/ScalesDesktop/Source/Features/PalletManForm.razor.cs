@@ -1,7 +1,4 @@
 using FluentValidation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Services;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Features;

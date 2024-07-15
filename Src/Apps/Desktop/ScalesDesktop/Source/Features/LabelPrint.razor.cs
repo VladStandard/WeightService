@@ -1,10 +1,4 @@
 using MassaK.Plugin.Abstractions.Enums;
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.JSInterop;
-using Refit;
-using ScalesDesktop.Source.Shared.Services;
-using ScalesDesktop.Source.Shared.Utils;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models;

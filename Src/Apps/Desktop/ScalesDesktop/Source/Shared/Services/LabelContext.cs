@@ -1,4 +1,3 @@
-using ScalesDesktop.Source.Shared.Models;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
 namespace ScalesDesktop.Source.Shared.Services;

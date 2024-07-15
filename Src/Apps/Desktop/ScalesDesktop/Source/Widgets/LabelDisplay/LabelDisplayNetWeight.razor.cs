@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Services;
-
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable

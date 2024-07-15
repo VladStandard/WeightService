@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
-
 namespace ScalesDesktop.Source.Features;
 
 public sealed partial class CloseAppDialog : ComponentBase, IDialogContentComponent

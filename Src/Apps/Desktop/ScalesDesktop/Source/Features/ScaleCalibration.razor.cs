@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using ScalesDesktop.Source.Shared.Services;
-
 namespace ScalesDesktop.Source.Features;
 
 public sealed partial class ScaleCalibration : ComponentBase, IDisposable

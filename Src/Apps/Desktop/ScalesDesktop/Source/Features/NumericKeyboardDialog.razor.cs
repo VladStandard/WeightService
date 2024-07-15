@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components;
-
 namespace ScalesDesktop.Source.Features;
 
 public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogContentComponent<NumericKeyboardDialogContent>

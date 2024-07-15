@@ -3,9 +3,6 @@ using Append.Blazor.Printing;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Refit;
-using ScalesDesktop.Source.Shared.Services;
 using Ws.Desktop.Models;
 
 namespace ScalesDesktop;

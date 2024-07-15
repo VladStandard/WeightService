@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Refit;
-using ScalesDesktop.Source.Shared.Services;
-using ScalesDesktop.Source.Shared.Utils;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
