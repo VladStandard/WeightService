@@ -14,8 +14,11 @@ public sealed partial class PlusPage : SectionDataGridPageBase<Plu>
 
     # endregion
 
+    private HashSet<string?> BrandNames { get; set; } = [];
     private PluValidValidator PluValidator { get; } = new();
-    private bool? Type { get; set; }
+
+    private bool? IsWeightFilter { get; set; }
+    private string? BrandFilter { get; set; }
 
     protected override async Task OpenDataGridEntityModal(Plu item)
         => await OpenSectionModal<PlusUpdateDialog>(item);
@@ -23,7 +26,16 @@ public sealed partial class PlusPage : SectionDataGridPageBase<Plu>
     protected override async Task OpenItemInNewTab(Plu item) =>
         await OpenLinkInNewTab($"{RouteUtils.SectionPlus}/{item.Uid.ToString()}");
 
-    protected override IEnumerable<Plu> SetSqlSectionCast() => PluService.GetAll();
+    protected override IEnumerable<Plu> SetSqlSectionCast()
+    {
+        IList<Plu> data = PluService.GetAll();
+        BrandNames =
+        [
+            ..data.Select(i => i.Brand.Name),
+            null
+        ];
+        return data;
+    }
 
     protected override IEnumerable<Plu> SetSqlSearchingCast()
     {

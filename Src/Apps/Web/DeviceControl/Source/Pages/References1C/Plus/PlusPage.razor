@@ -1,4 +1,5 @@
 @using Ws.Domain.Models.Entities.Ref1c.Plus
+@using Ws.Domain.Models.Entities.Ref1c
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plus.Plu>
 @attribute [Route($"{RouteUtils.SectionPlus}{RouteUtils.SectionQrlQuery}")]
 @rendermode InteractiveServer
@@ -52,14 +53,13 @@
         Field="@nameof(Plu.Number)"
         FilterMethod="DataGridColumnFilterMethod.StartsWith"
         Width="10%"
-        SortDirection="SortDirection.Ascending"
       />
 
       <DataGridColumn
         Caption="@WsDataLocalizer["ColName"]"
         Field="@nameof(Plu.Name)"
         FilterMethod="DataGridColumnFilterMethod.Contains"
-        Width="45%"
+        Width="25%"
       />
 
       <DataGridColumn
@@ -70,12 +70,12 @@
         FilterCellClass="!font-normal"
       >
         <FilterTemplate>
-          @{ context.SearchValue = Type; }
+          @{ context.SearchValue = IsWeightFilter; }
           <SelectSingle
             TItem="bool?"
             Items="@( [false, true, null])"
-            @bind-SelectedItem="@Type"
-            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+            @bind-SelectedItem="@IsWeightFilter"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(IsWeightFilter))"
             Placeholder="@Localizer["SelectItemNotSelected"]"
             ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] :
                                item.Value ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])"
@@ -86,6 +86,26 @@
             @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
           </span>
         </DisplayTemplate>
+      </DataGridColumn>
+
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColBrand"]"
+        Field="@($"{nameof(Plu.Brand)}.{nameof(Brand.Name)}")"
+        Width="20%"
+        Sortable="false"
+        FilterMethod="DataGridColumnFilterMethod.Equals"
+        FilterCellClass="!font-normal"
+      >
+        <FilterTemplate>
+          <SelectSingle
+            TItem="string?"
+            Items="@BrandNames"
+            @bind-SelectedItem="@BrandFilter"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(BrandFilter))"
+            Placeholder="@Localizer["SelectItemNotSelected"]"
+            ItemDisplayName="@(item => item ?? Localizer["SelectItemNotSelected"])"
+          />
+        </FilterTemplate>
       </DataGridColumn>
 
       <DataGridColumn
