@@ -29,8 +29,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-        if (builder.Configuration.GetValue<bool>("FullScreenMode"))
-            builder.UseMauiApp<App>().UseFullScreen();
+        builder.UseMauiApp<App>().UseFullScreen();
 
         const string currentLanguage = "ru-RU";
         CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);

@@ -14,6 +14,8 @@ public sealed partial class PalletSecondStageForm : ComponentBase
     [Parameter, EditorRequired] public PalletCreateModel FormModel { get; set; } = default!;
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public EventCallback OnCancelAction { get; set; }
+
+    private void SetCurrentDate() => FormModel.CreateDt = DateTime.Now;
 }
 
 public class PalletSecondStageFormValidator : AbstractValidator<PalletCreateModel>

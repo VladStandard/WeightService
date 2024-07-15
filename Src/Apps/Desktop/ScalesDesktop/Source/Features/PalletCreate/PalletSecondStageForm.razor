@@ -17,10 +17,21 @@
     />
     <FieldValidation For="@(() => FormModel.PalletWeight)" />
   </FormFieldWrapper>
+
   <FormFieldWrapper Label="@Localizer["СolPalletProductDt"]" HtmlId="create-dt">
-    <InputDateField @bind-Value="FormModel.CreateDt"/>
-    <FieldValidation For="@(() => FormModel.CreateDt)" />
+    <div class="flex gap-2 w-full">
+      <InputDateField class="w-full" @bind-Value="FormModel.CreateDt"/>
+      <Button
+        Size="ButtonSize.Icon"
+        Variant="ButtonVariant.Outline"
+        Class="shrink-0 !size-10"
+        OnClick="@SetCurrentDate">
+        <ArrowPathIcon class="size-5"/>
+      </Button>
+    </div>
+    <FieldValidation For="@(() => FormModel.CreateDt)"/>
   </FormFieldWrapper>
+
   <FormFieldWrapper Label="@($"{WsDataLocalizer["ColBoxCount"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="count">
     <InputNumberField
       TValue="int"
@@ -50,7 +61,7 @@
     >
       @Localizer["BtnBack"]
     </Button>
-    <Button Type="ButtonType.Submit">
+    <Button Type="@ButtonType.Submit">
       @Localizer["BtnNext"]
     </Button>
   </div>
