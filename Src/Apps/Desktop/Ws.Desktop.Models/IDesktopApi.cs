@@ -1,4 +1,5 @@
 using Refit;
+using Ws.Desktop.Models.Features.Arms.Input;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
@@ -12,11 +13,13 @@ namespace Ws.Desktop.Models;
 
 public interface IDesktopApi
 {
-
     #region Arms
 
     [Get("/arms")]
     Task<ArmValue> GetArmByName([AliasAs("name")] string armName);
+
+    [Post("/arms/{armUid}")]
+    Task UpdateArm(Guid armUid, [Body] UpdateArmDto updateDto);
 
     #endregion
 
@@ -33,6 +36,7 @@ public interface IDesktopApi
     Task<PalletMan[]> GetPalletMenByArm(Guid armUid);
 
     #endregion
+
     #region Pallet
 
     [Get("/arms/{armUid}/pallets")]

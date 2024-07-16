@@ -5,7 +5,6 @@ using Ws.Domain.Services.Features.Boxes;
 using Ws.Domain.Services.Features.Brands;
 using Ws.Domain.Services.Features.Bundles;
 using Ws.Domain.Services.Features.Clips;
-using Ws.Domain.Services.Features.DatabaseFiles;
 using Ws.Domain.Services.Features.Labels;
 using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Pallets;
@@ -36,7 +35,6 @@ public static class DependencyInjection
         services.AddScoped<IBrandService, BrandService>();
         services.AddScoped<IBundleService, BundleService>();
         services.AddScoped<IClipService, ClipService>();
-        services.AddScoped<IDatabaseFileService, DatabaseFileService>();
         services.AddScoped<ILabelService, LabelService>();
         services.AddScoped<IArmService, ArmService>();
         services.AddScoped<IPluService, PluService>();
@@ -47,7 +45,6 @@ public static class DependencyInjection
         services.AddScoped<IWarehouseService, WarehouseService>();
         services.AddScoped<IPalletManService, PalletManService>();
         services.AddScoped<IPalletService, PalletService>();
-
         services.AddSingleton<IUserService, UserService>();
     }
 }

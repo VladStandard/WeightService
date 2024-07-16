@@ -11,7 +11,11 @@ public class ArmApi(IDesktopApi desktopApi, PrinterService printerService)
         options: new()
         {
             DefaultStaleTime = TimeSpan.FromHours(1),
-            OnSuccess = data => printerService.Setup(data.Result.Printer.Ip, 9100, data.Result.Printer.Type)
+            OnSuccess = data =>
+            {
+                desktopApi.UpdateArm(data.Result.Id, new() { Version = VersionTracking.CurrentVersion });
+                printerService.Setup(data.Result.Printer.Ip, 9100, data.Result.Printer.Type);
+            }
         });
 
     public void UpdateArmCounter(uint counter) =>
