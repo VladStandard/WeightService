@@ -5,9 +5,9 @@ namespace Ws.DeviceControl.Models;
 
 public interface IWebApi
 {
-    [Get("/api/database/migrations")]
+    [Get("/database/migrations")]
     Task<MigrationHistoryEntry[]> GetMigrations();
 
-    [Get("/api/database/tables")]
+    [Get("/database/tables")]
     Task<DataBaseTableEntry[]> GetTables();
 }

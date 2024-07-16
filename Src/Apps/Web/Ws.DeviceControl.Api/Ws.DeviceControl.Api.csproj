@@ -11,4 +11,12 @@
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Properties\PublishProfiles\prod.pubxml">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </None>
+    </ItemGroup>
+
 </Project>
