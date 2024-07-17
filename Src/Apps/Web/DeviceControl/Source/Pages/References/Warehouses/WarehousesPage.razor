@@ -1,8 +1,6 @@
-@using Ws.Domain.Models.Entities.Ref
 @using DeviceControl.Source.Features
-
+@using Ws.Domain.Models.Entities.Ref
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.Warehouse>
-
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

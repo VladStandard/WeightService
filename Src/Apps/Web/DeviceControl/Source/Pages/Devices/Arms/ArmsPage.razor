@@ -1,6 +1,5 @@
-@using Ws.Domain.Models.Entities.Devices.Arms
 @using DeviceControl.Source.Features
-
+@using Ws.Domain.Models.Entities.Devices.Arms
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]

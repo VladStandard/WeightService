@@ -1,5 +1,4 @@
 @using Ws.Domain.Models.Entities.Print
-
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.ZplResource>
 @attribute [Route($"{RouteUtils.SectionTemplateResources}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]

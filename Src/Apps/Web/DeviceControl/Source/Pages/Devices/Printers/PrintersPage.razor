@@ -1,7 +1,6 @@
-@using Ws.Domain.Models.Entities.Devices
 @using DeviceControl.Source.Features
 @using TscZebra.Plugin.Abstractions.Enums
-
+@using Ws.Domain.Models.Entities.Devices
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
