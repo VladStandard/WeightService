@@ -55,6 +55,7 @@ public class PluWeightService(
 
     #region Commands
 
+    // FIX: dto naming
     public WeightLabel GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
     {
         Arm line = armService.GetItemByUid(armId);
@@ -63,7 +64,7 @@ public class PluWeightService(
         {
             Plu = pluService.GetItemByUid(pluId),
             Line = line,
-            Weight = dto.WeightNet,
+            Weight = dto.WeightNet-dto.WeightTare,
             Kneading = (short)dto.Kneading,
             ProductDt = dto.ProductDt
         };
