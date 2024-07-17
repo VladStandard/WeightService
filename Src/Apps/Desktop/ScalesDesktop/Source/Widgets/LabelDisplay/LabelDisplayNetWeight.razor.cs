@@ -1,3 +1,5 @@
+using Ws.Shared.Extensions;
+
 namespace ScalesDesktop.Source.Widgets.LabelDisplay;
 
 public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
@@ -12,27 +14,25 @@ public sealed partial class LabelDisplayNetWeight : ComponentBase, IDisposable
 
     private Action? StableStatusChangedHandler { get; set; }
 
+    #region Weight
+
+    private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
+    private decimal GetNetWeight => LabelContext.KneadingModel.NetWeight;
+    private string NetWeightAbsStr => Math.Abs(GetNetWeight).ToSepStr(',').PadLeft(8, '0');
+
+    #endregion
+
     protected override void OnInitialized()
     {
         StableStatusChangedHandler = () =>
         {
-            LabelContext.KneadingModel.NetWeightG = ScalesService.CurrentWeight;
+            LabelContext.KneadingModel.NetWeight = (decimal)ScalesService.CurrentWeight / 1000 - LabelContext.Plu?.TareWeight ?? 0;
             StateHasChanged();
         };
         LabelContext.StateChanged += StateHasChanged;
         ScalesService.WeightChanged += StableStatusChangedHandler;
         ScalesService.StartPolling();
     }
-
-    private decimal GetNetWeight => (decimal)LabelContext.KneadingModel.NetWeightG / 1000 - GetTareWeight;
-
-    private decimal GetTareWeight => LabelContext.Plu?.TareWeight ?? 0;
-
-    private string Sign => GetNetWeight >= 0 ? string.Empty : "-";
-
-    private string IntegerPart => $"{Math.Truncate(Math.Abs(GetNetWeight)):0000}";
-
-    private string DecimalPart => Math.Abs(GetNetWeight % 1).ToString(".000")[1..];
 
     public void Dispose()
     {

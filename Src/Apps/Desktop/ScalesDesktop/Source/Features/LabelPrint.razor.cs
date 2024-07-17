@@ -70,7 +70,7 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         {
             Kneading = LabelContext.KneadingModel.KneadingCount,
             ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
-            WeightNet = (decimal)LabelContext.KneadingModel.NetWeightG / 1000,
+            WeightNet = LabelContext.KneadingModel.NetWeight,
             WeightTare = LabelContext.Plu?.TareWeight ?? 0
         };
 
@@ -123,13 +123,9 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
             return false;
         }
 
-        if (((decimal)LabelContext.KneadingModel.NetWeightG / 1000 - LabelContext.Plu?.TareWeight ?? 0) < 0)
-        {
-            ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
-            return false;
-        }
-
-        return true;
+        if (LabelContext.KneadingModel.NetWeight >= 0) return true;
+        ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
+        return false;
     }
 
     private static DateTime GetProductDt(DateTime time) =>
