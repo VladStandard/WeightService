@@ -23,7 +23,7 @@ public class DatabaseService(WsDbContext dbContext) : IDatabaseService
                 Schema = i.Schema,
                 Table = i.Table,
                 Rows = i.Rows,
-                UsedMb = i.UsedMb,
+                UsedMb = i.UsedMb ?? 0,
                 FileName = i.FileName
             })
             .OrderBy(i => i.FileName)
