@@ -1,7 +1,6 @@
 using EasyCaching.Core;
 using Ws.Database.Nhibernate.Entities.Ref.Templates;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.Templates.Specs;
 using Ws.Domain.Services.Features.Templates.Validators;
 

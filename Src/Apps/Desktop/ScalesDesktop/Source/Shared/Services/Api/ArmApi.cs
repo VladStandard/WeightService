@@ -2,7 +2,7 @@ using System.Net;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Api;
 
 public class ArmApi(IDesktopApi desktopApi, PrinterService printerService)
 {

@@ -1,7 +1,6 @@
 using Ws.Database.Nhibernate.Entities.Ref.PalletMen;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Aspects;
 using Ws.Domain.Services.Features.PalletMen.Validators;
 
 namespace Ws.Domain.Services.Features.PalletMen;

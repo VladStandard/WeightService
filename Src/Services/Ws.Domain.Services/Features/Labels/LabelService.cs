@@ -1,6 +1,5 @@
 using Ws.Database.Nhibernate.Entities.Print.Labels;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Labels;
 

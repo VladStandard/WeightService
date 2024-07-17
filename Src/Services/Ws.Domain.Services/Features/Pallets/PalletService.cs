@@ -3,7 +3,6 @@ using Ws.Database.Nhibernate.Entities.Print.Pallets;
 using Ws.Database.Nhibernate.Entities.Ref.Arms;
 using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Pallets;
 

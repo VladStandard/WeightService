@@ -11,7 +11,7 @@ public interface IArmService
 
     #endregion
 
-    #region ArmService
+    #region Commands
 
     public bool Update(Guid armId, UpdateArmDto dto);
 

@@ -1,7 +1,7 @@
 using Ws.Desktop.Models.Features.PalletMen;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Contexts;
 
 public class PalletContext {
     public PalletInfo? Pallet { get; private set; }

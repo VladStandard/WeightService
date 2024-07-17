@@ -2,7 +2,7 @@ using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Api;
 
 public class PluApi(IDesktopApi desktopApi)
 {

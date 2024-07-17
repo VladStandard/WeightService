@@ -20,7 +20,8 @@ public class TemplateVars(
     decimal weightNet,
     decimal weightGross,
     DateTime productDt,
-    DateTime expirationDt)
+    DateTime expirationDt
+    )
 {
 
     #region Barcodes
@@ -38,7 +39,6 @@ public class TemplateVars(
     public readonly ArmVars Arm = arm;
 
     #endregion
-
 
     #region Other
 

@@ -9,7 +9,6 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 global using Refit;
 global using Phetch.Core;
 
-
 // MODULES
 global using Ws.Shared.Resources;
 
@@ -18,3 +17,5 @@ global using ScalesDesktop.Source.Shared.Models;
 global using ScalesDesktop.Source.Shared.Utils;
 global using ScalesDesktop.Source.Shared.Services;
 global using ScalesDesktop.Source.Shared.Localization;
+global using ScalesDesktop.Source.Shared.Services.Api;
+global using ScalesDesktop.Source.Shared.Services.Contexts;

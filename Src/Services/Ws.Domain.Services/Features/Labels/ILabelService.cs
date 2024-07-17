@@ -1,5 +1,4 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Common.Queries;
 
 namespace Ws.Domain.Services.Features.Labels;
 

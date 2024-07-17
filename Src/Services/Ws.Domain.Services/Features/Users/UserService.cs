@@ -1,6 +1,5 @@
 using Ws.Database.Nhibernate.Entities.Ref.Users;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Users;
 

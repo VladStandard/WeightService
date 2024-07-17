@@ -1,6 +1,5 @@
 using Ws.Database.Nhibernate.Entities.Ref1c.Plus;
 using Ws.Domain.Models.Entities.Ref1c.Plus;
-using Ws.Domain.Services.Aspects;
 
 namespace Ws.Domain.Services.Features.Plus;
 
