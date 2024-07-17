@@ -1,0 +1,61 @@
+@using Ws.Desktop.Models.Features.PalletMen
+@using vNext.BlazorComponents.FluentValidation
+
+<div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-background w-full">
+  <div class="w-full pb-4 border-b">
+    <h2 class="text-lg font-semibold leading-none tracking-tight">
+      @Localizer["PalletManFormHeader"]
+    </h2>
+  </div>
+  <EditForm
+    Model="FormModel"
+    OnValidSubmit="OnSubmit"
+    class="space-y-4 pt-3"
+  >
+    <FluentValidationValidator Validator="@(new PalletManFormValidator(Localizer, WsDataLocalizer))" />
+    <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
+      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+        @if (armQuery.HasData)
+        {
+          <UseEndpoint Endpoint="@PalletApi.PalletMenEndpoint" Arg="armQuery.Data.Id" Context="palletMenQuery">
+            @if (palletMenQuery.HasData)
+            {
+              <SelectSingle
+                TItem="PalletMan"
+                @bind-SelectedItem="@FormModel.User"
+                ItemDisplayName="@(item => item.Fio.DisplayShortName)"
+                Items="@palletMenQuery.Data"
+                Placeholder="@Localizer["UserSelectPlaceholder"]"
+                EmptyPlaceholder="@Localizer["UserSelectEmptyPlaceholder"]"
+                SearchPlaceholder="@Localizer["UserSelectSearchPlaceholder"]"
+                IsFilterable
+              />
+              <FieldValidation For="@(() => FormModel.User)" />
+            }
+            else
+            {
+              <Skeleton Class="h-10 w-full"/>
+            }
+          </UseEndpoint>
+        }
+        else
+        {
+          <Skeleton Class="h-10 w-full"/>
+        }
+      </UseParameterlessEndpoint>
+
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlId="login-password">
+      <InputTextField
+        id="login-password"
+        @bind-Value="@FormModel.Password"
+        Type="TextInputType.Password"
+        Placeholder="@Localizer["PasswordInputPlaceholder"]"
+      />
+      <FieldValidation For="@(() => FormModel.Password)" />
+    </FormFieldWrapper>
+    <Button Type="@ButtonType.Submit" Class="!mt-4">
+      @Localizer["BtnLogIn"]
+    </Button>
+  </EditForm>
+</div>

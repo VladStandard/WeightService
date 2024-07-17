@@ -1,0 +1,47 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.ZplResource>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new TemplateResourcesUpdateFormValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionSelectSingleField
+      TItem="ZplResourceType"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="ZplResourceTypes"
+      @bind-Value="@DialogItem.Type"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColData"]"
+      @bind-Value="@DialogItem.Zpl"
+      For="@(() => DialogItem.Zpl)"
+      IsCopyable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplateResources}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+    @if (DialogItem.Type == ZplResourceType.Sign && !string.IsNullOrEmpty(DialogItem.Zpl))
+    {
+      <div style="background-color: white;" class="w-full h-32 p-2 flex items-center rounded-md justify-center overflow-hidden border bg-background">
+          @((MarkupString)DialogItem.Zpl)
+      </div>
+    }
+  </ActionsContent>
+</SectionForm>

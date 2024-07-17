@@ -1,0 +1,37 @@
+@using TscZebra.Plugin.Abstractions.Enums
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Printer>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new PrintersCreateFormValidator(Localizer, WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+      MaxLength="16"
+    />
+
+    <SectionIpField
+      Label="IP"
+      @bind-Value="@DialogItem.Ip"
+      For="@(() => DialogItem.Ip)"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterTypes"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="PrinterTypes"
+      @bind-Value="@DialogItem.Type"
+      For="@(() => DialogItem.Type)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@DialogItem.ProductionSite.Name"
+    />
+  </FieldsContent>
+</SectionForm>

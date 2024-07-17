@@ -1,0 +1,57 @@
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Users.PalletMan>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new PalletMenCreateFormValidator(Localizer, WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+
+    <SectionGuidField
+      Label="UID 1C"
+      @bind-Value="@DialogItem.Uid1C"
+      For="@(() => DialogItem.Uid1C)"
+    />
+
+    <SectionSelectSingleField
+      TItem="Warehouse"
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Items="Warehouses"
+      @bind-Value="@DialogItem.Warehouse"
+      ItemDisplayName="item => item.Name"
+      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
+      For="@(() => DialogItem.Warehouse)"
+      IsFilterable
+    />
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColFirstName"]"
+      @bind-Value="@DialogItem.Fio.Name"
+      For="@(() => DialogItem.Fio.Name)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColSurname"]"
+      @bind-Value="@DialogItem.Fio.Surname"
+      For="@(() => DialogItem.Fio.Surname)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPatronymic"]"
+      @bind-Value="@DialogItem.Fio.Patronymic"
+      For="@(() => DialogItem.Fio.Patronymic)"
+    />
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPassword"]"
+      @bind-Value="@DialogItem.Password"
+      For="@(() => DialogItem.Password)"
+    />
+  </FieldsContent>
+</SectionForm>

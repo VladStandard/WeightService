@@ -1,0 +1,84 @@
+@using Ws.Domain.Models.Entities.Ref1c.Plus
+
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plus.Plu>
+@rendermode InteractiveServer
+
+<PageHeader Class="!static">
+  <span>@Localizer["SectionLinePLU"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+  <div class="w-fit">
+    <SelectSingle
+      TItem="Plu"
+      Items="@GetPluNotInSectionItems()"
+      @bind-SelectedItem="@SelectedPlu"
+      @bind-SelectedItem:after="@OnPluSelected"
+      ItemDisplayName="item => item.DisplayName"
+      IsFilterable
+    >
+      <TriggerContent Context="pluContext">
+        <Button
+          Id="@pluContext.DropdownAnchor"
+          Variant="ButtonVariant.Outline"
+          OnClick="@(() => pluContext.SetIsOpen.InvokeAsync(!pluContext.IsOpen))"
+          Disabled="@(!IsAllowToEdit)"
+        >
+          Добавить ПЛУ
+        </Button>
+      </TriggerContent>
+    </SelectSingle>
+  </div>
+</PageHeader>
+
+<DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+  <DataGridContainer
+    TItem="Plu"
+    Items="SectionItems"
+    ItemsPerPage="6"
+    IsForcePagination
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColNumber"]"
+        Field="@($"{nameof(Plu.Number)}")"
+        Width="10%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@($"{nameof(Plu.IsCheckWeight)}")"
+        Width="20%"
+      >
+        <DisplayTemplate>
+          <span>
+            @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
+          </span>
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@($"{nameof(Plu.Name)}")"
+        Width="60%"
+      />
+      <DataGridColumn
+        Width="10%"
+      >
+        <DisplayTemplate>
+          <div class="size-full flex items-center justify-center">
+            <Button
+              Variant="ButtonVariant.Outline"
+              Size="ButtonSize.Icon"
+              Class="mx-auto"
+              OnClick="@(() => DeleteArmPlu(context))"
+            >
+              <MinusIcon class="size-5"/>
+            </Button>
+          </div>
+        </DisplayTemplate>
+      </DataGridColumn>
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteArmPlu(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

@@ -1,0 +1,1 @@
+GET {{url}}/api/arms?name=PC473

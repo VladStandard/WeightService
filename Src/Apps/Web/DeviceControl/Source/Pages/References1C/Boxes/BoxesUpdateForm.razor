@@ -1,0 +1,29 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.Box>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="DialogItem.ChangeDt"
+  CreateDate="DialogItem.CreateDt"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColName"]"
+      Value="@DialogItem.Name"
+    />
+
+    <SectionReadOnlyField
+      Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")"
+      Value="@DialogItem.Weight"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionBoxes}/{DialogItem.Uid}")" />
+  </ActionsContent>
+</SectionForm>
+
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+}

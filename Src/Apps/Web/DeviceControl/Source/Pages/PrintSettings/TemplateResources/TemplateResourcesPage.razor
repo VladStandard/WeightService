@@ -1,0 +1,67 @@
+@using Ws.Domain.Models.Entities.Print
+
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Print.ZplResource>
+@attribute [Route($"{RouteUtils.SectionTemplateResources}{RouteUtils.SectionQrlQuery}")]
+@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@rendermode InteractiveServer
+
+<PageTitle>DeviceControl - @Localizer["SectionTemplateResources"]</PageTitle>
+
+<PageHeader>
+  <span>@Localizer["SectionTemplateResources"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+</PageHeader>
+
+<DataGridWrapper>
+  <DataGridContainer
+    TItem="ZplResource"
+    Items="SectionItems"
+    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+    IsFilterable
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColChangeDt"]"
+        Field="@nameof(ZplResource.ChangeDt)"
+        Width="20%"
+        Filterable="false"
+      />
+
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColType"]"
+        Field="@nameof(ZplResource.Type)"
+        Width="20%"
+        Sortable="false"
+        FilterCellClass="!font-normal"
+      >
+        <FilterTemplate>
+          @{ context.SearchValue = Type; }
+          <SelectSingle
+            TItem="ZplResourceType?"
+            Items="@(Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType?>().ToList().Union([null]))"
+            @bind-SelectedItem="@Type"
+            @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+            Placeholder="@Localizer["SelectItemNotSelected"]"
+            ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : Localizer[EnumHelper.GetEnumDescription(item.Value)])"
+          />
+        </FilterTemplate>
+        <DisplayTemplate>
+          @Localizer[EnumHelper.GetEnumDescription(context.Type)]
+        </DisplayTemplate>
+      </DataGridColumn>
+
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(ZplResource.Name)"
+        Width="60%"
+      />
+    </ColumnsContent>
+    <ContextMenuContent>
+      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+    </ContextMenuContent>
+  </DataGridContainer>
+</DataGridWrapper>

@@ -1,0 +1,28 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.Warehouse>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new WarehousesCreateFormValidator(Localizer, WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+
+    <SectionGuidField
+      Label="UID 1C"
+      @bind-Value="@DialogItem.Uid1C"
+      For="@(() => DialogItem.Uid1C)"
+    />
+
+    <SectionTextField
+      @bind-Value="@DialogItem.Name"
+      Label="@WsDataLocalizer["ColName"]"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@DialogItem.ProductionSite.Name"
+    />
+  </FieldsContent>
+</SectionForm>

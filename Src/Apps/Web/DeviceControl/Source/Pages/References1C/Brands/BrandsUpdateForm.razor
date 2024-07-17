@@ -1,0 +1,23 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.Brand>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="DialogItem.ChangeDt"
+  CreateDate="DialogItem.CreateDt"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColName"]"
+      Value="@DialogItem.Name"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionBrands}/{DialogItem.Uid}")" />
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+}

@@ -1,0 +1,21 @@
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(ArmsUpdateForm).ToString()">
+    <ArmsUpdateForm />
+  </Tab>
+  <Tab Id="@typeof(ArmPluDataGrid).ToString()">
+    <ArmPluDataGrid />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(ArmsUpdateForm).ToString(), Localizer["SectionLines"]),
+    new(typeof(ArmPluDataGrid).ToString(), Localizer["SectionLinePLU"])
+  ];
+}

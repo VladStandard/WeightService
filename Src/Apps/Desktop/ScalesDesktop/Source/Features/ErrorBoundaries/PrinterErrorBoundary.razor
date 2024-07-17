@@ -1,0 +1,36 @@
+@using TscZebra.Plugin.Abstractions.Enums
+@implements IDisposable
+
+@if (PrinterService.Status is PrinterStatus.Disconnected)
+{
+  <div class="flex flex-col size-full items-center justify-center">
+    <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
+    <span class="text-center text-red-500 text-xl xl:text-2xl">
+      @Localizer["PrinterStatusDisconnected"]
+    </span>
+    <Button
+      OnClick="@PrinterService.ConnectAsync"
+      Variant="ButtonVariant.Outline"
+      Class="mt-4"
+    >
+      <ArrowPathIcon class="size-5 mr-2" />
+      @Localizer["BtnReconnect"]
+    </Button>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private PrinterService PrinterService { get; set; } = default!;
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  protected override void OnInitialized() => PrinterService.StatusChanged += StateHasChanged;
+
+  public void Dispose() => PrinterService.StatusChanged -= StateHasChanged;
+}

@@ -1,0 +1,22 @@
+@using Ws.Domain.Models.Entities.Ref
+
+@if (UserProductionSite.IsNew)
+{
+  <div class="size-full flex items-center justify-center p-6">
+    <div class="max-w-md flex flex-col gap-2 text-center items-center">
+      <ExclamationTriangleIcon class="size-16" />
+      @Localizer["ProductionSiteSuspenseDescription"]
+    </div>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+}

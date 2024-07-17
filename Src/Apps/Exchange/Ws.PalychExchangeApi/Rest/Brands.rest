@@ -1,0 +1,7 @@
+﻿POST {{url}}/api/brands/load
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Brands Count="6">
+    <Brand Uid="5a159c70-70e6-11e6-80ce-a4bf01016d50" IsDelete="0" Name="Бамбушки"/>
+</Brands>

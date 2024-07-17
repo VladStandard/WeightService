@@ -1,0 +1,73 @@
+@using Ws.Domain.Models.Entities.Ref1c
+@using Ws.Domain.Models.Entities.Ref1c.Plus
+@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plus.PluCharacteristic>
+@rendermode InteractiveServer
+
+<PageHeader Class="!static">
+  <span>@Localizer["SectionPluCharacteristics"]</span>
+  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
+  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
+</PageHeader>
+
+<DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+  <DataGridContainer
+    TItem="PluCharacteristic"
+    Items="SectionItems"
+    ItemsPerPage="6"
+    IsForcePagination
+  >
+    <ColumnsContent>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColName"]"
+        Field="@nameof(PluCharacteristic.Name)"
+        Sortable="false"
+        Width="15%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColCount"]"
+        Field="@nameof(PluCharacteristic.BundleCount)"
+        Width="10%"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWeight"]"
+        Width="15%"
+      >
+        <DisplayTemplate>
+          @Plu.Weight * @context.BundleCount
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColBundle"]"
+        Width="15%"
+        Sortable="false"
+      >
+        <DisplayTemplate>
+          @Plu.Bundle.Weight * @context.BundleCount
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColClip"]"
+        Width="15%"
+        Sortable="false"
+      >
+        <DisplayTemplate>
+          @Plu.Clip.Weight * @context.BundleCount
+        </DisplayTemplate>
+      </DataGridColumn>
+      <DataGridColumn
+          Caption="@WsDataLocalizer["ColBox"]"
+          Field="@($"{nameof(PluCharacteristic.Box)}.{nameof(Box.Weight)}")"
+          Width="15%"
+          Sortable="false"
+      />
+      <DataGridColumn
+        Caption="@WsDataLocalizer["ColWeightGross"]"
+        Width="15%"
+      >
+        <DisplayTemplate>
+          @Plu.GetWeightByCharacteristic(context)
+        </DisplayTemplate>
+      </DataGridColumn>
+    </ColumnsContent>
+  </DataGridContainer>
+</DataGridWrapper>

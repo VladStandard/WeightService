@@ -1,0 +1,67 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.Template>
+
+<SectionForm
+  FormModel="@DialogItem"
+  ChangeDate="@DialogItem.ChangeDt"
+  CreateDate="@DialogItem.CreateDt"
+  Validator="@(new TemplatesUpdateFormValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.Uid" />
+
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetTemplateTypeName(DialogItem.IsWeight)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider>
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Width"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => DialogItem.Width)"
+    />
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Height"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => DialogItem.Height)"
+    />
+
+    <SectionSelectSingleField
+      TItem="short"
+      @bind-Value="@DialogItem.Rotate"
+      Items="@([0, 90])"
+      Label="@WsDataLocalizer["ColRotation"]"
+      ItemDisplayName="@(value => $"{value}°")"
+      For="@(() => DialogItem.Rotate)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider>
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColTemplate"]"
+      @bind-Value="@DialogItem.Body"
+      For="@(() => DialogItem.Body)"
+      IsCopyable
+    />
+
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}/{DialogItem.Uid}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>

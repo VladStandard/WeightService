@@ -1,0 +1,82 @@
+@using Ws.Domain.Models.Entities.Devices
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+
+<SectionForm
+  FormModel="@_createCommand"
+  Validator="@(new LinesCreateFormValidator(Localizer, WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb">
+      <div class="w-full items-center flex gap-2">
+        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@_createCommand.Number" />
+        <Button
+          Size="ButtonSize.Icon"
+          Variant="ButtonVariant.Outline"
+          Class="shrink-0 !size-10"
+          OnClick="@GenerateLineNumber"
+        >
+          <ArrowPathIcon class="size-5" />
+        </Button>
+      </div>
+      <FieldValidation For="@(() => _createCommand.Number)"/>
+    </SectionInputWrapper>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@_createCommand.Name"
+      For="@(() => _createCommand.Name)"
+      MaxLength="32"
+    />
+
+    <SectionSelectSingleField
+      TItem="ArmType"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="LineTypes"
+      @bind-Value="@_createCommand.Type"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
+      For="@(() => _createCommand.Type)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@_createCommand.PcName"
+      For="@(() => _createCommand.PcName)"
+      MaxLength="16"
+    />
+
+    <SectionSelectSingleField
+      TItem="Printer"
+      Label="@WsDataLocalizer["ColPrinter"]"
+      Items="Printers"
+      @bind-Value="@_createCommand.Printer"
+      ItemDisplayName="@(item => item.IsNew ? Localizer["FormPrinterDefaultPlaceholder"] : item.DisplayName)"
+      Path="@Redirector.ToPath(_createCommand.Printer, UserPrincipal)"
+      For="@(() => _createCommand.Printer)"
+      IsFilterable
+    />
+
+    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSite, UserPrincipal)"
+    />
+
+    <SectionSelectSingleField
+      TItem="Warehouse"
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Items="Warehouses"
+      @bind-Value="@_createCommand.Warehouse"
+      ItemDisplayName="@(item => item.IsNew ? Localizer["FormWarehouseDefaultPlaceholder"] : item.Name)"
+      Path="@Redirector.ToPath(_createCommand.Warehouse, UserPrincipal)"
+      For="@(() => _createCommand.Warehouse)"
+      IsFilterable
+    />
+  </FieldsContent>
+</SectionForm>

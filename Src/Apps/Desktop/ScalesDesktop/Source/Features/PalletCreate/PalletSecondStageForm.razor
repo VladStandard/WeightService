@@ -1,0 +1,68 @@
+@using vNext.BlazorComponents.FluentValidation
+
+<EditForm
+  Model="FormModel"
+  OnValidSubmit="@OnValidSubmit"
+  class="max-w-md mx-auto w-full flex flex-col space-y-4"
+  novalidate="true"
+>
+  <FluentValidationValidator Validator="@(new PalletSecondStageFormValidator(WsDataLocalizer))" />
+  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColTrayWeight"]} ({WsDataLocalizer["MeasureKg"]})")" HtmlId="pallet-weight">
+    <InputNumberField
+      TValue="decimal"
+      id="pallet-weight"
+      Step="0.001"
+      Placeholder="@Localizer["TrayWeightInputPlaceholder"]"
+      @bind-Value="FormModel.PalletWeight"
+    />
+    <FieldValidation For="@(() => FormModel.PalletWeight)" />
+  </FormFieldWrapper>
+
+  <FormFieldWrapper Label="@Localizer["СolPalletProductDt"]" HtmlId="create-dt">
+    <div class="flex gap-2 w-full">
+      <InputDateField class="w-full" @bind-Value="FormModel.CreateDt"/>
+      <Button
+        Size="ButtonSize.Icon"
+        Variant="ButtonVariant.Outline"
+        Class="shrink-0 !size-10"
+        OnClick="@SetCurrentDate">
+        <ArrowPathIcon class="size-5"/>
+      </Button>
+    </div>
+    <FieldValidation For="@(() => FormModel.CreateDt)"/>
+  </FormFieldWrapper>
+
+  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColBoxCount"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="count">
+    <InputNumberField
+      TValue="int"
+      id="count"
+      Step="1"
+      Min="1"
+      Placeholder="@Localizer["LabelCountInputPlaceholder"]"
+      @bind-Value="FormModel.Count"
+    />
+    <FieldValidation For="@(() => FormModel.Count)" />
+  </FormFieldWrapper>
+  <FormFieldWrapper Label="@WsDataLocalizer["ColKneading"]" HtmlId="kneading">
+    <InputNumberField
+      TValue="short"
+      id="kneading"
+      Step="1"
+      Min="1"
+      Placeholder="@Localizer["KneadingInputPlaceholder"]"
+      @bind-Value="FormModel.Kneading"
+    />
+    <FieldValidation For="@(() => FormModel.Kneading)" />
+  </FormFieldWrapper>
+  <div class="w-full flex justify-end gap-2 py-2">
+    <Button
+      OnClick="@OnCancelAction"
+      Variant="ButtonVariant.Outline"
+    >
+      @Localizer["BtnBack"]
+    </Button>
+    <Button Type="@ButtonType.Submit">
+      @Localizer["BtnNext"]
+    </Button>
+  </div>
+</EditForm>

@@ -1,0 +1,52 @@
+@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.Template>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new TemplatesCreateFormValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@DialogItem.Name"
+      For="@(() => DialogItem.Name)"/>
+
+    <SectionSelectSingleField
+      TItem="bool"
+      Items="@(new[] { false, true })"
+      Label="@WsDataLocalizer["ColType"]"
+      @bind-Value="DialogItem.IsWeight"
+      ItemDisplayName="GetTemplateTypeName"/>
+
+    <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider>
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Width"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => DialogItem.Width)"/>
+
+    <SectionNumericField
+      @bind-Value="@DialogItem.Height"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => DialogItem.Height)"/>
+
+    <SectionSelectSingleField
+      TItem="short"
+      @bind-Value="@DialogItem.Rotate"
+      Items="@( [0, 90])"
+      Label="@($"{WsDataLocalizer["ColRotation"]} (°)")"
+      For="@(() => DialogItem.Rotate)"/>
+
+    <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider>
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColTemplate"]"
+      @bind-Value="@DialogItem.Body"
+      For="@(() => DialogItem.Body)"/>
+
+  </FieldsContent>
+</SectionForm>

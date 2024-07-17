@@ -1,0 +1,17 @@
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Print.Template>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(TemplatesCreateForm).ToString()">
+    <TemplatesCreateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+  [
+    new(typeof(TemplatesCreateForm).ToString(), Localizer["SectionTemplates"])
+  ];
+}

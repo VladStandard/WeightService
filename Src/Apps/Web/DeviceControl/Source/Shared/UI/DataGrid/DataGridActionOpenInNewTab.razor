@@ -1,0 +1,9 @@
+<DropdownItem OnClick="@OnClick">
+  <ArrowTopRightOnSquareIcon class="size-4 mr-2" />
+  @Localizer["DataGridContextMenuOpenInNewTab"]
+</DropdownItem>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Parameter] public EventCallback OnClick { get; set; }
+}

@@ -1,0 +1,45 @@
+@typeparam TItem
+
+<div @ref="DropdownWrapper" class="w-full">
+  <SelectTrigger
+    id="@Id"
+    OnClick="@OpenDropdown"
+    IsDisabled="@IsDisabled"
+    IsActive="@IsOpen"
+    Class="@Css.Class("width-sub-element", Class)"
+  >
+    <span class="pointer-events-none line-clamp-1">Выбрано @SelectedItems.Count объектов</span>
+  </SelectTrigger>
+  <Dropdown
+    Anchor="@Id"
+    @bind-IsOpen="IsOpen"
+    Class="width-ref-element"
+    VerticalThreshold="@(Math.Max(Items.Count, 8) * 40)"
+  >
+    @if (IsFilterable)
+    {
+      <SelectSearch
+        @bind-Value="SearchString"
+        Placeholder="@SearchPlaceholder"
+      />
+    }
+    <div class="size-full overflow-x-hidden max-h-72 overflow-y-auto p-1">
+      <ul class="flex flex-col w-full">
+        @if (!GetFilteredList().Any())
+        {
+          <div class="h-8 w-full flex items-center justify-center text-sm">
+            @EmptyPlaceholder
+          </div>
+        }
+        @foreach (TItem item in GetFilteredList())
+        {
+          <li>
+            <SelectItem OnClick="@(() => SwitchSelectedItem(item))" IsActive="@IsSelectedItem(item)">
+              @ItemDisplayName(item)
+            </SelectItem>
+          </li>
+        }
+      </ul>
+    </div>
+  </Dropdown>
+</div>

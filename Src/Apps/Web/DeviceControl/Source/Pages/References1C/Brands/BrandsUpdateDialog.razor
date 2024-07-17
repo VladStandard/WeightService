@@ -1,0 +1,17 @@
+@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.Brand>
+
+
+<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
+  <Tab Id="@typeof(BrandsUpdateForm).ToString()">
+    <BrandsUpdateForm />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
+    [
+      new(typeof(BrandsUpdateForm).ToString(), Localizer["SectionBrands"])
+    ];
+}

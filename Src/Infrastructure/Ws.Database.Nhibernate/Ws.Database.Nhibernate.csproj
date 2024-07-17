@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="NHibernate" Version="5.5.1" />
+        <PackageReference Include="ProjectionTools" Version="1.0.17" />
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Ws.Domain.Models\Ws.Domain.Models.csproj" />
+    </ItemGroup>
+
+    <Import Project="..\..\.targets\SqlSettings.targets" />
+</Project>

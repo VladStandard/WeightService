@@ -1,0 +1,28 @@
+@using DeviceControl.Source.Shared.Api
+@using Microsoft.Extensions.Localization
+
+<SectionFormAction OnClick="@ReloginUser">
+  <UserIcon class="size-4 mr-2" />
+  @Localizer["FormActionRelogin"]
+</SectionFormAction>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private IKeycloakApi KeycloakApi { get; set; } = default!;
+
+  [Parameter, EditorRequired] public Guid UserUid { get; set; }
+
+  private async Task ReloginUser()
+  {
+    try
+    {
+      await KeycloakApi.LogoutUser(UserUid);
+      ToastService.ShowSuccess(Localizer["ToastReloginUser"]);
+    }
+    catch (Exception e)
+    {
+      ToastService.ShowError($"Failed to log out user {e.Message}");
+    }
+  }
+}

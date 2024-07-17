@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0-android34.0</TargetFramework>
+
+        <OutputType>Exe</OutputType>
+        <RootNamespace>ScalesMobile</RootNamespace>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <EnableDefaultCssItems>false</EnableDefaultCssItems>
+        <SelfContained>false</SelfContained>
+
+        <!-- Display name -->
+        <ApplicationTitle>ScalesMobile</ApplicationTitle>
+
+        <!-- App Identifier -->
+        <ApplicationId>ru.vladstandart.scalesmobile</ApplicationId>
+        <ApplicationIdGuid>C663D42A-C3A4-4848-AD9A-D10C23EE4ED1</ApplicationIdGuid>
+
+        <!-- Versions -->
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+        <ApplicationVersion>1</ApplicationVersion>
+        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
+
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- App Icon -->
+        <MauiAsset Include="wwwroot\app.css" />
+        <MauiAsset Include="wwwroot\font\Inter-Black.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Bold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-ExtraBold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-ExtraLight.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Light.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Medium.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Regular.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-SemiBold.ttf" />
+        <MauiAsset Include="wwwroot\font\Inter-Thin.ttf" />
+        <MauiAsset Include="wwwroot\inter.css" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+        <!-- Splash Screen -->
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+        <!-- Images -->
+        <MauiImage Include="Resources\Images\*" />
+        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+        <!-- Custom Fonts -->
+        <MauiFont Include="Resources\Fonts\*" />
+
+        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazor.Heroicons" Version="2.1.2.3" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.6" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.7.1" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.61" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.61" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.61" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
+      <ProjectReference Include="..\..\..\Services\Ws.Domain.Services\Ws.Domain.Services.csproj" />
+    </ItemGroup>
+
+    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
+        <Exec Command="npm -v" ContinueOnError="true">
+            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+        </Exec>
+        <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
+    </Target>
+
+    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
+        <Exec Command="npm install" />
+        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
+    </Target>
+
+    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm run build" />
+    </Target>
+
+</Project>

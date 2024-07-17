@@ -1,0 +1,5 @@
+GET https://localhost:5138/api/database/migrations
+
+###
+
+GET https://scales-api-dev.kolbasa-vs.local/api/device-control/database/tables

@@ -1,0 +1,38 @@
+@using Ws.Domain.Models.Entities.Ref
+@inherits SectionFormBase<UserWithProductionSite>
+
+<SectionForm
+  FormModel="@DialogItem"
+  Validator="@(new UsersUpdateFormValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@DialogItem.KeycloakUser.Id" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColUser"]"
+      Value="@DialogItem.KeycloakUser.Username"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColFullName"]"
+      Value="@DialogItem.KeycloakUser.FirstName"
+    />
+
+    <SectionSelectSingleField
+      TItem="ProductionSite"
+      Items="ProductionSite"
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"
+      @bind-Value="@DialogItem.ProductionSite"
+      ItemDisplayName="@(item => item.Name)"
+      For="@(() => DialogItem.ProductionSite!)"
+      IsFilterable
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionRelogin UserUid="DialogItem.KeycloakUser.Id" />
+  </ActionsContent>
+</SectionForm>
