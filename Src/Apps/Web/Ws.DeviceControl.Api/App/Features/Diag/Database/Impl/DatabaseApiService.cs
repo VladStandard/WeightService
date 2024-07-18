@@ -1,12 +1,10 @@
 using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
 using Ws.DeviceControl.Api.App.Features.Diag.Database.Common;
 using Ws.DeviceControl.Models.Dto.Database;
 
 namespace Ws.DeviceControl.Api.App.Features.Diag.Database.Impl;
 
-public class DatabaseService(WsDbContext dbContext) : IDatabaseService
+public class DatabaseApiService(WsDbContext dbContext) : IDatabaseService
 {
     public List<MigrationHistoryDto> GetAllMigrations()
     {

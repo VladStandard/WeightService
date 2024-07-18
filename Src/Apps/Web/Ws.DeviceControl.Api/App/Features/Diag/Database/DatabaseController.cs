@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Ws.DeviceControl.Api.App.Features.Diag.Database.Common;
 using Ws.DeviceControl.Models.Dto.Database;
 

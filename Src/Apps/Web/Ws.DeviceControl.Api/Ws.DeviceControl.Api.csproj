@@ -1,14 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
-
+    
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj"/>
-        <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj"/>
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
+        <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +11,10 @@
         <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Scrutor" Version="4.2.2" />
     </ItemGroup>
 
 </Project>

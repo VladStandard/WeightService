@@ -1,23 +1,18 @@
 using System.Net.Mime;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.Database.EntityFramework;
-using Ws.DeviceControl.Api.App.Features.Diag.Database.Common;
-using Ws.DeviceControl.Api.App.Features.Diag.Database.Impl;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
-using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 
-#region Internal services
-
-builder.Services.AddScoped<IDatabaseService, DatabaseService>();
-builder.Services.AddScoped<IProductionSiteService, ProductionSiteService>();
-
-#endregion
+builder.Services.Scan(scan => scan
+    .FromAssembliesOf(typeof(IProductionSiteService))
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()
+);
 
 #region Ready services
 

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
@@ -13,7 +12,10 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
     #region Queries
 
     [HttpGet]
-    public Task<List<ProductionSiteDto>> GetAllMigrations() => productionSiteService.GetAllAsync();
+    public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
+
+    [HttpGet("{id:guid}")]
+    public Task<ProductionSiteDto> GetById([FromRoute] Guid id) => productionSiteService.GetByIdAsync(id);
 
     #endregion
 

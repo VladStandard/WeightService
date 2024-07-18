@@ -4,14 +4,8 @@ using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 
-public interface IProductionSiteService
+public interface IProductionSiteService : IGetApiService<ProductionSiteDto>
 {
-    #region Queries
-
-    Task<List<ProductionSiteDto>> GetAllAsync();
-
-    #endregion
-
     #region Commands
 
     Task<ProductionSiteDto> CreateAsync(ProductionSiteCreateDto dto);
