@@ -1,13 +1,13 @@
 using Refit;
-using Ws.DeviceControl.Models.Models.Database;
+using Ws.DeviceControl.Models.Dto.Database;
 
 namespace Ws.DeviceControl.Models;
 
 public interface IWebApi
 {
     [Get("/database/migrations")]
-    Task<MigrationHistoryEntry[]> GetMigrations();
+    Task<MigrationHistoryDto[]> GetMigrations();
 
     [Get("/database/tables")]
-    Task<DataBaseTableEntry[]> GetTables();
+    Task<DataBaseTableDto[]> GetTables();
 }

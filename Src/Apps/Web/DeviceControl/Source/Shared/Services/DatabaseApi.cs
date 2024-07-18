@@ -1,19 +1,19 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
-using Ws.DeviceControl.Models.Models.Database;
+using Ws.DeviceControl.Models.Dto.Database;
 
 namespace DeviceControl.Source.Shared.Services;
 
 public class DatabaseApi(IWebApi webApi)
 {
-    public ParameterlessEndpoint<MigrationHistoryEntry[]> MigrationsEndpoint { get; } = new(
+    public ParameterlessEndpoint<MigrationHistoryDto[]> MigrationsEndpoint { get; } = new(
         webApi.GetMigrations,
         options: new()
         {
             DefaultStaleTime = TimeSpan.FromMinutes(5),
         });
 
-    public ParameterlessEndpoint<DataBaseTableEntry[]> TablesEndpoint { get; } = new(
+    public ParameterlessEndpoint<DataBaseTableDto[]> TablesEndpoint { get; } = new(
         webApi.GetTables,
         options: new()
         {

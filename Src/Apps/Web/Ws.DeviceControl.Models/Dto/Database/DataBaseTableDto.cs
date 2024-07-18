@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Ws.DeviceControl.Models.Models.Database;
+namespace Ws.DeviceControl.Models.Dto.Database;
 
-public sealed record DataBaseTableEntry
+public sealed record DataBaseTableDto
 {
     [JsonPropertyName("rows")]
     public required int Rows { get; init; }

@@ -1,10 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace Ws.DeviceControl.Models.Models.Database;
+namespace Ws.DeviceControl.Models.Dto.Database;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-public sealed record MigrationHistoryEntry
+public sealed record MigrationHistoryDto
 {
     [JsonPropertyName("migrationId")]
     public string MigrationId { get; set; } = string.Empty;

@@ -1,24 +1,24 @@
 using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
-using Ws.DeviceControl.Api.App.Features.Database.Common;
-using Ws.DeviceControl.Models.Models.Database;
+using Ws.DeviceControl.Api.App.Features.Diag.Database.Common;
+using Ws.DeviceControl.Models.Dto.Database;
 
-namespace Ws.DeviceControl.Api.App.Features.Database.Impl;
+namespace Ws.DeviceControl.Api.App.Features.Diag.Database.Impl;
 
 public class DatabaseService(WsDbContext dbContext) : IDatabaseService
 {
-    public List<MigrationHistoryEntry> GetAllMigrations()
+    public List<MigrationHistoryDto> GetAllMigrations()
     {
         FormattableString getMigrationSql = FormattableStringFactory.Create("SELECT * FROM dbo.__EFMigrationsHistory");
-        List<MigrationHistoryEntry> data = dbContext.Database.SqlQuery<MigrationHistoryEntry>(getMigrationSql).ToList();
+        List<MigrationHistoryDto> data = dbContext.Database.SqlQuery<MigrationHistoryDto>(getMigrationSql).ToList();
         data.Reverse();
         return data;
     }
 
-    public List<DataBaseTableEntry> GetAllTables()
+    public List<DataBaseTableDto> GetAllTables()
     {
-        return dbContext.DatabaseTables.Select(i => new DataBaseTableEntry
+        return dbContext.DatabaseTables.Select(i => new DataBaseTableDto
             {
                 Schema = i.Schema,
                 Table = i.Table,

@@ -68,12 +68,12 @@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductDt"]"
-      Value="@DialogItem.ProductDt"
+      Value="@DialogItem.ProductDt.ToString("dd.MM.yyyy")"
     />
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColExpirationDt"]"
-      Value="@DialogItem.ExpirationDt"
+      Value="@DialogItem.ExpirationDt.ToString("dd.MM.yyyy")"
     />
 
   </FieldsContent>

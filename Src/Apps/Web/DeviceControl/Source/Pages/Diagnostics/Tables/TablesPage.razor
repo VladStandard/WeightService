@@ -1,5 +1,5 @@
 @using DeviceControl.Source.Shared.Services
-@using Ws.DeviceControl.Models.Models.Database
+@using Ws.DeviceControl.Models.Dto.Database
 @attribute [Route($"{RouteUtils.SectionTables}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -13,14 +13,14 @@
 
   <DataGridWrapper>
     <DataGridContainer
-      TItem="DataBaseTableEntry"
+      TItem="DataBaseTableDto"
       Items="@(tablesQuery.HasData ? tablesQuery.Data : [])"
       IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColScheme"]"
-          Field="@nameof(DataBaseTableEntry.Schema)"
+          Field="@nameof(DataBaseTableDto.Schema)"
           Width="20%"
           Sortable="false"
           FilterMethod="DataGridColumnFilterMethod.Equals"
@@ -48,19 +48,19 @@
 
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(DataBaseTableEntry.Table)"
+          Field="@nameof(DataBaseTableDto.Table)"
           Width="30%"
         />
 
         <DataGridColumn
           Caption="Количество записей"
-          Field="@nameof(DataBaseTableEntry.Rows)"
+          Field="@nameof(DataBaseTableDto.Rows)"
           Width="25%"
           Filterable="false"
         />
         <DataGridColumn
           Caption="@($"{WsDataLocalizer["ColSize"]} ({WsDataLocalizer["MeasureMb"]})")"
-          Field="@nameof(DataBaseTableEntry.UsedMb)"
+          Field="@nameof(DataBaseTableDto.UsedMb)"
           Width="25%"
           Filterable="false"
         />

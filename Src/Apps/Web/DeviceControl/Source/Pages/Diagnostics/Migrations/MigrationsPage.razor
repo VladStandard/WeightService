@@ -1,5 +1,5 @@
 @using DeviceControl.Source.Shared.Services
-@using Ws.DeviceControl.Models.Models.Database
+@using Ws.DeviceControl.Models.Dto.Database
 @attribute [Route($"{RouteUtils.SectionMigrations}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -13,18 +13,18 @@
 
   <DataGridWrapper>
     <DataGridContainer
-      TItem="MigrationHistoryEntry"
+      TItem="MigrationHistoryDto"
       Items="@(migrationsQuery.HasData ? migrationsQuery.Data : [])"
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColVersion"]"
-          Field="@nameof(MigrationHistoryEntry.ProductVersion)"
+          Field="@nameof(MigrationHistoryDto.ProductVersion)"
           Width="10%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(MigrationHistoryEntry.MigrationId)"
+          Field="@nameof(MigrationHistoryDto.MigrationId)"
           Width="90%"
         />
       </ColumnsContent>
