@@ -96,7 +96,7 @@
         <value>Enter a label count</value>
     </data>
     <data name="PalletManFormHeader" xml:space="preserve">
-        <value>Log in to your account</value>
+        <value>Log in system</value>
     </data>
     <data name="PalletSelectEmpty" xml:space="preserve">
         <value>No pallets found</value>
@@ -268,9 +268,6 @@
     </data>
     <data name="BtnUnselectAllLabels" xml:space="preserve">
         <value>Unselect all</value>
-    </data>
-    <data name="LabelsDataGridHeaderTitle" xml:space="preserve">
-        <value>Pallet's labels</value>
     </data>
     <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
         <value>{0} of {1} selected</value>

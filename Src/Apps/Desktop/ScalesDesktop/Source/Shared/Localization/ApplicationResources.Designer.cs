@@ -494,15 +494,6 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string LabelsDataGridHeaderTitle {
-            get {
-                return ResourceManager.GetString("LabelsDataGridHeaderTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string LabelsDataGridSelectedInfo {
             get {
                 return ResourceManager.GetString("LabelsDataGridSelectedInfo", resourceCulture);

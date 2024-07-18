@@ -96,7 +96,7 @@
         <value>Введите количество этикеток</value>
     </data>
     <data name="PalletManFormHeader" xml:space="preserve">
-        <value>Вход в профиль</value>
+        <value>Вход в систему</value>
     </data>
     <data name="PalletSelectEmpty" xml:space="preserve">
         <value>Нет информации о паллетах</value>
@@ -265,9 +265,6 @@
     </data>
     <data name="BtnUnselectAllLabels" xml:space="preserve">
         <value>Убрать все</value>
-    </data>
-    <data name="LabelsDataGridHeaderTitle" xml:space="preserve">
-        <value>Этикетки паллеты</value>
     </data>
     <data name="LabelsDataGridSelectedInfo" xml:space="preserve">
         <value>Выбрано {0} из {1}</value>
