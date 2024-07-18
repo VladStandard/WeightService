@@ -1,10 +1,15 @@
 @attribute [Route(RouteUtils.Pallet)]
+
+@using Fluxor
 @using ScalesDesktop.Source.Features.DeviceStatusIcons
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using ScalesDesktop.Source.Widgets.FunctionalityDescription
 @using ScalesDesktop.Source.Widgets.MainHeader
 @using ScalesDesktop.Source.Widgets.PalletSelect
 @using ScalesDesktop.Source.Widgets.PalletWorkspace
+
 @implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <div class="flex flex-col grow size-full">
   <MainHeader>
@@ -13,7 +18,7 @@
     </div>
   </MainHeader>
   <div class="size-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4 xl:p-10">
-    @if (PalletContext.PalletMan == null)
+    @if (PalletManState.Value.PalletMan == null)
     {
       <PalletManForm />
     }
@@ -22,15 +27,15 @@
       <div class="size-full grid grid-rows-1 grid-cols-[24rem,2fr] rounded-lg shadow-sm bg-background border divide-x max-w-screen-2xl overflow-hidden">
         <PalletSelect />
         <div class="size-full overflow-hidden">
-          @if (PalletContext.Pallet == null)
+          @if (PalletState.Value.Pallet == null)
           {
-          <div class="size-full flex items-center justify-center p-6 bg-secondary/[.6] overflow-hidden">
-            <FunctionalityDescription />
-          </div>
+            <div class="size-full flex items-center justify-center p-6 bg-secondary/[.6] overflow-hidden">
+              <FunctionalityDescription />
+            </div>
           }
           else
           {
-            <PalletWorkspace Pallet="@PalletContext.Pallet" />
+            <PalletWorkspace Pallet="@PalletState.Value.Pallet" />
           }
         </div>
       </div>
@@ -39,20 +44,23 @@
 </div>
 
 @code {
+  # region Injects
 
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
+  [Inject] private IState<PalletState> PalletState { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
 
-  protected override async Task OnInitializedAsync()
+  # endregion
+
+  protected override void OnInitialized()
   {
-    PalletContext.Reset();
-    PalletContext.StateChanged += StateHasChanged;
-    await PrinterService.ConnectAsync();
+    base.OnInitialized();
+    Dispatcher.Dispatch(new ResetPalletManAction());
+    Dispatcher.Dispatch(new ResetPalletAction());
   }
 
-  public void Dispose()
-  {
-    PrinterService.Disconnect();
-    PalletContext.StateChanged -= StateHasChanged;
-  }
+  protected override async Task OnInitializedAsync() => await PrinterService.ConnectAsync();
+
+  public void Dispose() => PrinterService.Disconnect();
 }

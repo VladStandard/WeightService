@@ -1,8 +1,11 @@
 @attribute [Route(RouteUtils.Labels)]
+
 @using ScalesDesktop.Source.Features.DeviceStatusIcons
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using ScalesDesktop.Source.Widgets.LabelConfig
-@using ScalesDesktop.Source.Widgets.LabelDisplay
 @using ScalesDesktop.Source.Widgets.MainHeader
+@using ScalesDesktop.Source.Widgets.LabelCreateForm
+
 @implements IDisposable
 
 <div class="flex flex-col select-none grow size-full">
@@ -17,17 +20,16 @@
   <div class="size-full flex flex-col grow overflow-hidden items-center justify-center px-8 pt-2 pb-4">
     <div class="w-full grid grid-rows-1 gap-4 grid-cols-[1fr,1.5fr] h-[34rem] max-w-screen-2xl overflow-hidden">
       <LabelConfig />
-      <LabelDisplay />
+      <LabelCreateForm />
     </div>
   </div>
   <ArmDebug />
 </div>
 
 @code {
-
   # region Injects
 
-  [Inject] private LabelContext LabelContext { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [Inject] private ScalesService ScalesService { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
 
@@ -35,7 +37,7 @@
 
   protected override async Task OnInitializedAsync()
   {
-    LabelContext.ResetData();
+    Dispatcher.Dispatch(new ResetPluAction());
     ScalesService.Connect();
     await PrinterService.ConnectAsync();
   }

@@ -11,7 +11,6 @@ public static class BuilderExtensions
         const string currentLanguage = "ru-RU";
         CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);
         CultureInfo.DefaultThreadCurrentUICulture = new(currentLanguage);
-
         builder.Services.AddLocalization();
     }
 

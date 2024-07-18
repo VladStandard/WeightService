@@ -1,12 +1,13 @@
-@implements IDisposable
+@using ScalesDesktop.Source.Shared.Services.Stores
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<LabelDisplayItem Label="@WsDataLocalizer["ColKneading"]">
+<LabelCreateFormFieldItem Label="@WsDataLocalizer["ColKneading"]">
   <div class="size-full grid grid-cols-7 items-center">
     <div class="col-span-2"></div>
     <div class="col-span-3 flex items-center justify-center size-full overflow-hidden">
       <span class="text-xl font-medium xl:text-3xl">
-          @LabelContext.KneadingModel.KneadingCount
-        </span>
+        @Kneading
+      </span>
     </div>
     <div class="col-span-2 size-full overflow-hidden">
       <Button
@@ -19,34 +20,32 @@
         </span>
       </Button>
     </div>
-
   </div>
-</LabelDisplayItem>
+</LabelCreateFormFieldItem>
 
 @code {
-
   # region Injects
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
-  [Inject] private LabelContext LabelContext { get; set; } = default!;
+  [Inject] private IState<PluState> PluState { get; set; } = default!;
 
   # endregion
 
-  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
+  [Parameter, EditorRequired] public ushort Kneading { get; set; }
+  [Parameter] public EventCallback<ushort> KneadingChanged { get; set; }
 
   private async Task ShowNumericKeyboard()
   {
-    NumericKeyboardDialogContent data = new() { Kneading = LabelContext.KneadingModel.KneadingCount };
+    NumericKeyboardDialogContent data = new() { Kneading = Kneading };
     IDialogReference dialog = await DialogService.ShowDialogAsync<NumericKeyboardDialog>(data, new());
     DialogResult result = await dialog.Result;
     if (result is { Cancelled: false, Data: ushort newKneading })
     {
-      LabelContext.KneadingModel.KneadingCount = newKneading;
+      Kneading = newKneading;
+      await KneadingChanged.InvokeAsync(newKneading);
       StateHasChanged();
     }
   }
-
-  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
 }

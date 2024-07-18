@@ -1,4 +1,5 @@
 using Append.Blazor.Printing;
+using Fluxor;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -29,14 +30,15 @@ public static class MauiProgram
         builder.ApplyRefitConfigurations();
 
         builder.Services.AddScoped<IPrintingService, PrintingService>();
+        builder.Services.AddFluxor(options =>
+        {
+            options.WithLifetime(StoreLifetime.Singleton);
+            options.ScanAssemblies(typeof(MauiProgram).Assembly);
+        });
 
         builder.Services.AddSingleton<PalletDocumentGenerator>();
-
         builder.Services.AddSingleton<ScalesService>();
         builder.Services.AddSingleton<PrinterService>();
-
-        builder.Services.AddSingleton<LabelContext>();
-        builder.Services.AddSingleton<PalletContext>();
 
         return builder;
     }

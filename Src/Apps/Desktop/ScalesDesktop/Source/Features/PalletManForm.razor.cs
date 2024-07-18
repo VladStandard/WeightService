@@ -1,4 +1,5 @@
 using FluentValidation;
+using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Features;
@@ -8,8 +9,7 @@ public sealed partial class PalletManForm : ComponentBase
 {
     # region Injects
 
-    [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private PalletContext PalletContext { get; set; } = default!;
+    [Inject] private Fluxor.IDispatcher Dispatcher { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private PalletApi PalletApi { get; set; } = default!;
@@ -19,7 +19,7 @@ public sealed partial class PalletManForm : ComponentBase
 
     [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
 
-    private void OnSubmit() => PalletContext.SetPalletMan(FormModel.User!);
+    private void OnSubmit() => Dispatcher.Dispatch(new ChangePalletManAction(FormModel.User!));
 }
 
 public class PalletManFormModel {

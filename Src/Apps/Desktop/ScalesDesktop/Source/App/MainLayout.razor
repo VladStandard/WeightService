@@ -1,4 +1,5 @@
 ﻿@using ScalesDesktop.Source.Features.ErrorBoundaries
+@using Fluxor.Blazor.Web
 @inherits LayoutComponentBase
 
 <ArmErrorBoundary>
@@ -10,3 +11,4 @@
 <FluentDialogProvider />
 <FluentTooltipProvider />
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
+<StoreInitializer />
