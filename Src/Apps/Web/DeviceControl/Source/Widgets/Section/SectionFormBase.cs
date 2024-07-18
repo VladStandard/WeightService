@@ -4,18 +4,18 @@ using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public abstract class SectionFormBase<TItem> : ComponentBase where TItem : new()
+public abstract class SectionFormBase<TItem> : ComponentBase
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
 
-    [CascadingParameter(Name = "DialogItem")] protected TItem DialogItem { get; set; } = new();
+    [CascadingParameter(Name = "DialogItem")] protected TItem DialogItem { get; set; } = default!;
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
 
     protected ClaimsPrincipal UserPrincipal { get; private set; } = new();
     protected bool IsForceSubmit { get; set; }
-    protected TItem DialogItemCopy { get; private set; } = new();
+    protected TItem DialogItemCopy { get; private set; } = default!;
 
     protected override void OnInitialized() => DialogItemCopy = DialogItem.DeepClone();
 

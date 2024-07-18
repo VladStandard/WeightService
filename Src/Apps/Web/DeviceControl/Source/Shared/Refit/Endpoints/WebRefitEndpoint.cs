@@ -17,6 +17,7 @@ internal class WebRefitEndpoint : IRefitEndpoint
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             });
 
-        builder.Services.AddScoped<DatabaseApi>();
+        builder.Services.AddScoped<DiagnosticEndpoints>();
+        builder.Services.AddScoped<References1CEndpoints>();
     }
 }

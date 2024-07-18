@@ -1,11 +1,12 @@
 @using DeviceControl.Source.Shared.Api
+@using DeviceControl.Source.Shared.Services
 @using Ws.Domain.Models.Entities.Print
 @using Ws.Domain.Services.Features.Labels
 
 <div class="flex items-center min-h-72 w-full p-10 overflow-hidden justify-center bg-secondary/[.3] dark:bg-inherit">
   @if (!string.IsNullOrEmpty(LabelZpl.Zpl))
   {
-    <UseEndpoint Endpoint="@ZplApi.ZplEndpoint" Arg="@(new ZplEndpointArgs(LabelZpl.Zpl, LabelZpl.Width, LabelZpl.Height, LabelZpl.Rotate))" Context="zplQuery">
+    <UseEndpoint Endpoint="@ZplEndpoints.ZplEndpoint" Arg="@(new ZplEndpointArgs(LabelZpl.Zpl, LabelZpl.Width, LabelZpl.Height, LabelZpl.Rotate))" Context="zplQuery">
       @if (zplQuery.IsLoading)
       {
         <Spinner Class="size-14 text-muted animate-spin fill-blue-600"/>
@@ -57,7 +58,7 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private ILabelaryApi LabelaryApi { get; set; } = default!;
-  [Inject] private ZplApi ZplApi { get; set; } = default!;
+  [Inject] private ZplEndpoints ZplEndpoints { get; set; } = default!;
   [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private ILabelService LabelService { get; set; } = default!;

@@ -1,5 +1,6 @@
 using Blazorise.Extensions;
 using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
 using Ws.Domain.Services.Features.Users;
@@ -14,7 +15,7 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
-    [Inject] private UserApi UserApi { get; set; } = default!;
+    [Inject] private UserEndpoints UserEndpoints { get; set; } = default!;
 
     #endregion
 

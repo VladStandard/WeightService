@@ -1,5 +1,6 @@
 using DeviceControl.Source.Shared.Api;
 using DeviceControl.Source.Shared.Auth;
+using DeviceControl.Source.Shared.Services;
 using Refit;
 
 namespace DeviceControl.Source.Shared.Refit.Endpoints;
@@ -18,6 +19,6 @@ internal class KeycloakRefitEndpoint : IRefitEndpoint
             .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
             .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
-        builder.Services.AddScoped<UserApi>();
+        builder.Services.AddScoped<UserEndpoints>();
     }
 }

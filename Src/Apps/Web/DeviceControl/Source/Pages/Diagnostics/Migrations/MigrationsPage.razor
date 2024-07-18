@@ -4,7 +4,7 @@
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 
-<UseParameterlessEndpoint Endpoint="@DatabaseApi.MigrationsEndpoint" Context="migrationsQuery">
+<UseParameterlessEndpoint Endpoint="@DiagnosticEndpoints.MigrationsEndpoint" Context="migrationsQuery">
   <PageHeader>
     <span>@Localizer["SectionMigrations"]</span>
     <DataGridItemsCounter ItemsCount="@(migrationsQuery.Data?.Length ?? 0)" IsLoading="migrationsQuery.IsFetching" />
@@ -35,5 +35,5 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private DatabaseApi DatabaseApi { get; set; } = default!;
+  [Inject] private DiagnosticEndpoints DiagnosticEndpoints { get; set; } = default!;
 }

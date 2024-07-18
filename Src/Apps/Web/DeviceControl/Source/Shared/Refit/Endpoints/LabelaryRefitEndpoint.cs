@@ -1,4 +1,5 @@
 using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Services;
 using Refit;
 
 namespace DeviceControl.Source.Shared.Refit.Endpoints;
@@ -11,6 +12,6 @@ internal class LabelaryRefitEndpoint : IRefitEndpoint
         builder.Services.AddRefitClient<ILabelaryApi>()
             .ConfigureHttpClient(c => c.BaseAddress = new(apiUrl));
 
-        builder.Services.AddScoped<ZplApi>();
+        builder.Services.AddScoped<ZplEndpoints>();
     }
 }

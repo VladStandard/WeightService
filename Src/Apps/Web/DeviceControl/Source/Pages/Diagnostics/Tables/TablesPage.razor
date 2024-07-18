@@ -4,7 +4,7 @@
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 
-<UseParameterlessEndpoint Endpoint="@DatabaseApi.TablesEndpoint" Context="tablesQuery">
+<UseParameterlessEndpoint Endpoint="@DiagnosticEndpoints.TablesEndpoint" Context="tablesQuery">
   <PageHeader>
     <span>@Localizer["SectionTables"]</span>
     <DataGridItemsCounter ItemsCount="@(tablesQuery.Data?.Length ?? 0)" IsLoading="tablesQuery.IsFetching" />
@@ -72,7 +72,7 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private DatabaseApi DatabaseApi { get; set; } = default!;
+  [Inject] private DiagnosticEndpoints DiagnosticEndpoints { get; set; } = default!;
 
   private string? Scheme { get; set; }
 }

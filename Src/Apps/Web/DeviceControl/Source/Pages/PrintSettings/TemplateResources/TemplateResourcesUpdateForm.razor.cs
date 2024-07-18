@@ -1,4 +1,5 @@
 using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Services;
 using Ws.Domain.Models.Entities.Print;
 using Ws.Domain.Services.Features.ZplResources;
 
@@ -11,7 +12,7 @@ public sealed partial class TemplateResourcesUpdateForm : SectionFormBase<ZplRes
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IZplResourceService ZplResourceService { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private ZplApi ZplApi { get; set; } = default!;
+    [Inject] private ZplEndpoints ZplEndpoints { get; set; } = default!;
 
     #endregion
 

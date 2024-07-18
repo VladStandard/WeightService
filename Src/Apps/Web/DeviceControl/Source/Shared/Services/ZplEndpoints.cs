@@ -1,8 +1,9 @@
+using DeviceControl.Source.Shared.Api;
 using Phetch.Core;
 
-namespace DeviceControl.Source.Shared.Api;
+namespace DeviceControl.Source.Shared.Services;
 
-public class ZplApi(ILabelaryApi labelary)
+public class ZplEndpoints(ILabelaryApi labelary)
 {
     public Endpoint<ZplEndpointArgs, string> ZplEndpoint { get; } = new(
         async value =>

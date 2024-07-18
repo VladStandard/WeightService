@@ -1,4 +1,4 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref1c.Box>
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Shared.PackageDto>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -6,7 +6,7 @@
   CreateDate="DialogItem.CreateDt"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid" />
+    <SectionAdminGuidField Value="@DialogItem.Id" />
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColName"]"
@@ -19,7 +19,7 @@
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionBoxes}/{DialogItem.Uid}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionBoxes}/{DialogItem.Id}")" />
   </ActionsContent>
 </SectionForm>
 

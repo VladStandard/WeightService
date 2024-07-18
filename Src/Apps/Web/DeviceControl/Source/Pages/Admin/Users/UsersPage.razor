@@ -6,7 +6,7 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle>
 
-<UseParameterlessEndpoint Endpoint="@UserApi.UsersEndpoint" Context="usersQuery">
+<UseParameterlessEndpoint Endpoint="@UserEndpoints.UsersEndpoint" Context="usersQuery">
   <PageHeader>
     <span>@Localizer["SectionUsers"]</span>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
