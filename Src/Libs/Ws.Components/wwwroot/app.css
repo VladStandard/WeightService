@@ -112,4 +112,8 @@
   .fluent-tooltip-provider fluent-tooltip::part(tooltip) {
     @apply !bg-background !text-popover-foreground !border-border !px-3 !py-1.5 !shadow-md after:hidden
   }
+
+  .fluent-datepicker-popup {
+    @apply !shadow-md !border
+  }
 }

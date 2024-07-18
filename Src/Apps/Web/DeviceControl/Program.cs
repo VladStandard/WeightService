@@ -16,7 +16,7 @@ builder.ApplyRefitConfigurations();
 
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddBlazorise().AddEmptyProviders().AddFontAwesomeIcons();
-builder.Services.AddFluentUIComponents();
+builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 builder.Services.ConfigureKeycloakAuthorization(builder.Configuration.GetSection("Oidc"), oidcScheme);
 
 builder.Services.AddLocalization();

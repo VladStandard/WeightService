@@ -22,7 +22,7 @@ public static class MauiProgram
         builder.Configuration.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: false, reloadOnChange: true);
 
         builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddFluentUIComponents();
+        builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();

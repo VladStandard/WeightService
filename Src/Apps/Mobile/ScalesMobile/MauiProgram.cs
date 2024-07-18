@@ -12,7 +12,7 @@ public static class MauiProgram
 
         builder.UseMauiApp<App>();
         builder.Services.AddMauiBlazorWebView();
-        builder.Services.AddFluentUIComponents();
+        builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
         // builder.Services.AddDomainServices();
 
 #if DEBUG
