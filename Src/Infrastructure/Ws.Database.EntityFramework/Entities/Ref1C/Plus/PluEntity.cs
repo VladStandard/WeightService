@@ -1,6 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
@@ -34,8 +35,9 @@ public sealed class PluEntity : EfEntityBase
 
     //
 
-    [ForeignKey("TEMPLATE_UID"), Column("TEMPLATE_UID")]
     public Guid? TemplateId { get; set; }
+
+    public TemplateEntity Template { get; set; } = new();
 
     #region Date
 

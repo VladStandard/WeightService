@@ -1,4 +1,4 @@
-GET https://localhost:5138/api/boxes/
+GET https://localhost:5138/api/plu/
 
 ###
 GET https://localhost:5138/api/production-sites

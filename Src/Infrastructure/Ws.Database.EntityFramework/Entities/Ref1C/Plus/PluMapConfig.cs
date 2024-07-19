@@ -54,7 +54,7 @@ internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>
         builder.Property(e => e.TemplateId)
             .HasColumnName("TEMPLATE_UID");
 
-        builder.HasOne<TemplateEntity>()
+        builder.HasOne(e => e.Template)
             .WithMany()
             .HasForeignKey(e => e.TemplateId)
             .HasConstraintName($"FK_{SqlTables.Plus}__TEMPLATE")
