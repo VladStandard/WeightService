@@ -37,7 +37,7 @@ builder.Services
     });
 
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
