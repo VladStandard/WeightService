@@ -5,7 +5,7 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;
 
 [ApiController]
 [Route("api/pallet-men/")]
-public class PrinterController(IPalletManService palletManService)
+public class PalletManController(IPalletManService palletManService)
 {
     #region Queries
 
