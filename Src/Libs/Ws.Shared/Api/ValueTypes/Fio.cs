@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Ws.Shared.Extensions;
 
-namespace Ws.Desktop.Models.ValueTypes;
+namespace Ws.Shared.Api.ValueTypes;
 
 public sealed record Fio
 {

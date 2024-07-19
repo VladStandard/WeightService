@@ -18,6 +18,7 @@ public record PrinterDto
     public required IPAddress Ip  { get; set; }
 
     [JsonPropertyName("type")]
+    [JsonConverter(typeof(EnumJsonConverter<PrinterTypes>))]
     public required PrinterTypes Type  { get; set; }
 
     [JsonPropertyName("createDt")]
