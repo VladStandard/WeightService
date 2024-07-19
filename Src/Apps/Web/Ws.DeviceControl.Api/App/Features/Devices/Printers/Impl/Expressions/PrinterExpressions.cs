@@ -1,4 +1,3 @@
-using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Database.EntityFramework.Entities.Ref.Printers;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
 
