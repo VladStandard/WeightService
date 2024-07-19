@@ -71,7 +71,7 @@ public class PalletApiService(
         var plu = pluService.GetItemByUid(dto.PluId);
         List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
 
-        var data = new GeneratePiecePalletDto
+        GeneratePiecePalletDto data = new()
         {
             Plu = pluService.GetItemByUid(dto.PluId),
             Line = armService.GetItemByUid(armId),
