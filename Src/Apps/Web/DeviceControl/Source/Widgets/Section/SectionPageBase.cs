@@ -47,6 +47,20 @@ public class SectionPageBase<TItem>: ComponentBase
         }
     }
 
+    protected async Task DeleteItem(TItem item)
+    {
+        try
+        {
+            await DeleteItemAction(item);
+            ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
+            StateHasChanged();
+        }
+        catch
+        {
+            ToastService.ShowError(Localizer["ToastDeleteItemError"]);
+        }
+    }
+
     protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
         await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem> { Item = sectionEntity },
             DialogParameters);
@@ -71,5 +85,8 @@ public class SectionPageBase<TItem>: ComponentBase
         throw new NotImplementedException();
 
     protected virtual Task OpenItemInNewTab(TItem item) =>
+        throw new NotImplementedException();
+
+    protected virtual Task DeleteItemAction(TItem item) =>
         throw new NotImplementedException();
 }
