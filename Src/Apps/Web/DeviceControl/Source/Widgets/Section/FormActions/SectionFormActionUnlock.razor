@@ -1,3 +1,5 @@
+@using Blazor.Heroicons.Outline
+
 <AuthorizeView Policy="@PolicyEnum.Support">
   <SectionFormAction OnClick="@SwitchIsUnlocked" Class="@Class">
     @if (IsUnlocked)

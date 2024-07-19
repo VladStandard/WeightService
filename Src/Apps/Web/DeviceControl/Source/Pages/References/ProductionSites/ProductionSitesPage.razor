@@ -1,40 +1,69 @@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
 @using Ws.Domain.Models.Entities.Ref
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.ProductionSite>
-@attribute [Route($"{RouteUtils.SectionProductionSites}{RouteUtils.SectionQrlQuery}")]
+
+@inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
+@attribute [Route(RouteUtils.SectionProductionSites)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionProductionSites"]</PageTitle>
 
-<PageHeader>
-  <span>@Localizer["SectionProductionSites"]</span>
-  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-  <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-</PageHeader>
+<UseParameterlessEndpoint Endpoint="@ReferencesEndpoints.ProductionSitesEndpoint" Options="@(DefaultEndpointOptions)" Context="sitesQuery">
+  <PageHeader>
+    <span>@Localizer["SectionProductionSites"]</span>
+    <DataGridItemsCounter ItemsCount="@(sitesQuery.Data?.Length ?? 0)" IsLoading="sitesQuery.IsLoading"/>
+    <DataGridActionReload OnClick="@sitesQuery.RefetchAsync" IsLoading="sitesQuery.IsFetching" />
+    @* <DataGridActionCreate OnClick="@OpenSectionCreateForm" /> *@
+  </PageHeader>
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="ProductionSiteDto"
+      Items="@(sitesQuery.HasData ? sitesQuery.Data : [])"
+      OnItemSelect="@(item => OpenSectionViewModal(item))"
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@nameof(ProductionSite.Name)"
+          Width="20%"
+        />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColAddress"]"
+          Field="@nameof(ProductionSite.Address)"
+          Width="80%"
+        />
+      </ColumnsContent>
+      <ContextMenuContent>
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenSectionViewModal(item)))" />
+        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+        @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
+      </ContextMenuContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseParameterlessEndpoint>
 
-<DataGridWrapper>
-  <DataGridContainer
-    TItem="ProductionSite"
-    Items="SectionItems"
-    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-  >
-    <ColumnsContent>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(ProductionSite.Name)"
-        Width="20%"
-      />
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColAddress"]"
-        Field="@nameof(ProductionSite.Address)"
-        Width="80%"
-      />
-    </ColumnsContent>
-    <ContextMenuContent>
-      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
-      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-      <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
-    </ContextMenuContent>
-  </DataGridContainer>
-</DataGridWrapper>
+@code {
+
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  #endregion
+
+  protected override async Task OpenSectionCreateForm()
+    => await OpenSectionModal<ProductionSitesCreateDialog>(default!);
+
+  protected override async Task OpenSectionViewModal(ProductionSiteDto item)
+    => await OpenSectionModal<ProductionSitesUpdateDialog>(item);
+
+  protected override async Task OpenItemInNewTab(ProductionSiteDto item)
+    => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}?id={item.Id}");
+
+  protected override Task<ProductionSiteDto> SearchByUidAction(Guid uid) =>
+    WebApi.GetProductionSitesByUid(uid);
+}

@@ -1,5 +1,7 @@
 @using DeviceControl.Source.Features
 @using Ws.Domain.Models.Entities.Devices.Arms
+@using Blazor.Heroicons.Outline
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
 @attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]

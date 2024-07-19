@@ -1,22 +1,16 @@
-using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Services.Features.ProductionSites;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 
 namespace DeviceControl.Source.Pages.References.ProductionSites;
 
-public sealed partial class ProductionSitesCreateForm : SectionFormBase<ProductionSite>
+public sealed partial class ProductionSitesCreateForm : SectionFormBase<ProductionSiteDto>
 {
-    # region Injects
-
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
 
-    # endregion
-
-    protected override ProductionSite CreateItemAction(ProductionSite item) =>
-        ProductionSiteService.Create(item);
+    protected override ProductionSiteDto CreateItemAction(ProductionSiteDto item) =>
+        throw new NotImplementedException();
 }
 
-public class ProductionSitesCreateFormValidator : AbstractValidator<ProductionSite>
+public class ProductionSitesCreateFormValidator : AbstractValidator<ProductionSiteDto>
 {
     public ProductionSitesCreateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

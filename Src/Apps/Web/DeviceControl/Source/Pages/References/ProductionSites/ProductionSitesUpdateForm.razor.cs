@@ -1,28 +1,19 @@
-using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Services.Features.ProductionSites;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 
 namespace DeviceControl.Source.Pages.References.ProductionSites;
 
-public sealed partial class ProductionSitesUpdateForm : SectionFormBase<ProductionSite>
+public sealed partial class ProductionSitesUpdateForm : SectionFormBase<ProductionSiteDto>
 {
-    # region Injects
-
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
 
-    # endregion
+    protected override ProductionSiteDto UpdateItemAction(ProductionSiteDto item) =>
+        throw new NotImplementedException();
 
-    protected override ProductionSite UpdateItemAction(ProductionSite item) =>
-        ProductionSiteService.Update(item);
-
-    protected override Task DeleteItemAction(ProductionSite item)
-    {
-        ProductionSiteService.DeleteById(item.Uid);
-        return Task.CompletedTask;
-    }
+    protected override Task DeleteItemAction(ProductionSiteDto item) =>
+        throw new NotImplementedException();
 }
 
-public class ProductionSiteUpdateFormValidator : AbstractValidator<ProductionSite>
+public class ProductionSiteUpdateFormValidator : AbstractValidator<ProductionSiteDto>
 {
     public ProductionSiteUpdateFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

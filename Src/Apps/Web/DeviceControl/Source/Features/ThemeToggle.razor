@@ -1,4 +1,5 @@
-@inject IJSRuntime JsRuntime
+@using Blazor.Heroicons.Outline
+
 @rendermode InteractiveServer
 
 <Button
@@ -41,6 +42,8 @@
 </Dropdown>
 
 @code {
+  [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+
   private bool IsOpen { get; set; }
 
   private async Task SetTheme(string theme) =>

@@ -15,9 +15,11 @@ internal class WebRefitEndpoint : IRefitEndpoint
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            });
+            })
+            .AddHttpMessageHandler(() => new AcceptLanguageHandler());;
 
         builder.Services.AddScoped<DiagnosticEndpoints>();
         builder.Services.AddScoped<References1CEndpoints>();
+        builder.Services.AddScoped<ReferencesEndpoints>();
     }
 }

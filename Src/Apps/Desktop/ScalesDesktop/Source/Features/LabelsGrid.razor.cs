@@ -21,20 +21,14 @@ public sealed partial class LabelsGrid : ComponentBase
 
     [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-    private List<DataItem> SelectedItems { get; set; } = [];
+    private IEnumerable<DataItem> SelectedItems { get; set; } = [];
     private string SearchingNumber { get; set; } = string.Empty;
     private bool IsPrinting { get; set; } = false;
     private const ushort PrinterRequestDelay = 500;
     private const ushort MaxPrinterErrors = 3;
 
-    private void ToggleItem(DataItem item)
-    {
-        if (!SelectedItems.Remove(item))
-            SelectedItems.Add(item);
-    }
-
     private void ToggleAllLabels(DataItem[] labels) =>
-        SelectedItems = SelectedItems.Count.Equals(labels.Length) ? [] : labels.ToList();
+        SelectedItems = SelectedItems.Count().Equals(labels.Length) ? [] : labels.ToList();
 
     private void SelectAllItems(List<DataItem> labels) => SelectedItems = labels;
 
@@ -62,7 +56,7 @@ public sealed partial class LabelsGrid : ComponentBase
         }
 
         string toastUid = Guid.NewGuid().ToString();
-        double percentagesPerLabel = 100.0 / SelectedItems.Count;
+        double percentagesPerLabel = 100.0 / SelectedItems.Count();
         ToastParameters<ProgressToastContent> toastData = new()
         {
             Id = toastUid,
@@ -81,6 +75,7 @@ public sealed partial class LabelsGrid : ComponentBase
         IOrderedEnumerable<DataItem> orderedLabels = SelectedItems.OrderBy(x => x.Id);
         bool isPrintedSuccessfully = true;
         ushort printedLabelsCount = 0;
+        List<DataItem> itemsToDelete = [];
 
         foreach (DataItem item in orderedLabels)
         {
@@ -89,7 +84,7 @@ public sealed partial class LabelsGrid : ComponentBase
                 try
                 {
                     await PrinterService.PrintZplAsync(item.Label.Zpl);
-                    SelectedItems.Remove(item);
+                    itemsToDelete.Add(item);
                     isPrintedSuccessfully = true;
                     printedLabelsCount += 1;
                     toastData.Content.Progress = (int)(printedLabelsCount * percentagesPerLabel);
@@ -111,6 +106,8 @@ public sealed partial class LabelsGrid : ComponentBase
 
             await Task.Delay(PrinterRequestDelay);
         }
+
+        SelectedItems = SelectedItems.Except(itemsToDelete);
 
         ToastService.CloseToast(toastUid);
         if (isPrintedSuccessfully)

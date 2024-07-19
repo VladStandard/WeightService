@@ -1,5 +1,6 @@
 using Refit;
 using Ws.DeviceControl.Models.Dto.Database;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 using Ws.DeviceControl.Models.Dto.References1C.Brands;
 using Ws.DeviceControl.Models.Dto.Shared;
 
@@ -7,6 +8,8 @@ namespace Ws.DeviceControl.Models;
 
 public interface IWebApi
 {
+    # region References 1C
+
     [Get("/database/migrations")]
     Task<MigrationHistoryDto[]> GetMigrations();
 
@@ -36,4 +39,16 @@ public interface IWebApi
 
     [Get("/bundles/{Uid}")]
     Task<PackageDto> GetBundleByUid(Guid uid);
+
+    # endregion
+
+    # region References
+
+    [Get("/production-sites")]
+    Task<ProductionSiteDto[]> GetProductionSites();
+
+    [Get("/production-sites/{Uid}")]
+    Task<ProductionSiteDto> GetProductionSitesByUid(Guid uid);
+
+    # endregion
 }

@@ -1,4 +1,4 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.ProductionSite>
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -9,7 +9,7 @@
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid"/>
+    <SectionAdminGuidField Value="@DialogItem.Id"/>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
@@ -24,7 +24,7 @@
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionProductionSites}/{DialogItem.Uid}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionProductionSites}?id={DialogItem.Id}")" />
     <SectionFormActionReset OnClick="@ResetAction" />
     <SectionFormActionDelete OnClick="@DeleteItem" />
   </ActionsContent>

@@ -51,7 +51,7 @@
         <value>Print PC</value>
     </data>
     <data name="BtnSelectedLabelsPrinting" xml:space="preserve">
-        <value>Print selected</value>
+        <value>Print labels</value>
     </data>
     <data name="CreatePalletFormHeader" xml:space="preserve">
         <value>Create pallet form</value>

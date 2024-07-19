@@ -1,4 +1,6 @@
 @using ScalesDesktop.Source.Features.ErrorBoundaries
+@using Blazor.Heroicons.Mini
+@using Blazor.Heroicons
 
 <PrinterErrorBoundary>
   <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
@@ -6,32 +8,6 @@
       <div class="w-full flex items-center justify-between">
         <h3 class="font-medium text-xl pb-1">@Localizer["ColPrint"]</h3>
         <div class="flex gap-2 items-center">
-          @if (armQuery.HasData)
-          {
-            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
-              <Button OnClick="@PrintPalletCard">
-                @Localizer["BtnPrintPC"]
-              </Button>
-              <Button
-                Variant="ButtonVariant.Outline"
-                OnClick="@(() => ToggleAllLabels(GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : []).ToArray()))"
-                Disabled="@(!labelsQuery.HasData)"
-              >
-                @if (SelectedItems.Count.Equals(labelsQuery.Data?.Length ?? 0))
-                {
-                  @Localizer["BtnUnselectAllLabels"]
-                }
-                else
-                {
-                  @Localizer["BtnSelectAllLabels"]
-                }
-              </Button>
-            </UseEndpoint>
-          }
-          else
-          {
-            <Skeleton Class="w-full h-9"/>
-          }
           <Button
             Variant="ButtonVariant.Outline"
             OnClick="@PrintLabelsAsync"
@@ -40,17 +16,34 @@
             <PrinterIcon class="size-4 mr-2" />
             @Localizer["BtnSelectedLabelsPrinting"]
           </Button>
+          @if (armQuery.HasData)
+          {
+            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+              <Button OnClick="@PrintPalletCard">
+                <DocumentTextIcon class="size-4 mr-2" />
+                @Localizer["BtnPrintPC"]
+              </Button>
+            </UseEndpoint>
+          }
+          else
+          {
+            <Skeleton Class="w-full h-9"/>
+          }
         </div>
       </div>
       <div class="flex w-full pb-2 justify-between items-end">
         <div class="w-1/2 pb-2">
           <div class="w-full border bg-background rounded-md pb-0.5 px-2 h-9 flex items-center shadow-sm gap-2 justify-between overflow-hidden">
-            <MagnifyingGlassIcon class="h-5 w-5 pb-[2px] text-muted-foreground"/>
+            <Heroicon
+              Name="@HeroiconName.MagnifyingGlass"
+              Type="HeroiconType.Outline"
+              class="size-5 py-px text-muted-foreground"
+            />
             <input
               @bind="SearchingNumber"
               @bind:event="oninput"
               placeholder="@Localizer["SearchByNumberPlaceholder"]"
-              class="bg-transparent w-full text-sm h-full focus:outline-none focus:border-0 focus:ring-0"
+              class="bg-transparent size-full text-sm focus:outline-none focus:border-0 focus:ring-0"
             />
           </div>
         </div>
@@ -58,7 +51,7 @@
           @if (armQuery.HasData)
           {
             <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
-              @(string.Format(Localizer["LabelsDataGridSelectedInfo"], SelectedItems.Count, labelsQuery.Data?.Length ?? 0))
+              @(string.Format(Localizer["LabelsDataGridSelectedInfo"], SelectedItems.Count(), labelsQuery.Data?.Length ?? 0))
             </UseEndpoint>
           }
         </span>
@@ -71,36 +64,31 @@
           <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
             <FluentDataGrid
               TGridItem="DataItem"
-              GridTemplateColumns="5rem 1fr 4fr"
               Items="@GetOrderedLabels(labelsQuery.HasData ? labelsQuery.Data : [])"
-              RowClass="@(_ => "border-b shrink-0 hover:bg-secondary/[.5] hover:cursor-pointer [&_fluent-data-grid-cell]:!p-0")"
+              RowClass="@(_ => "border-b shrink-0 hover:bg-secondary/[.5] hover:cursor-pointer")"
               Class="overflow-y-auto [&>.sticky-header]:border-b [&>.sticky-header]:!bg-background [&_fluent-data-grid-cell]:!text-primary [&_.col-sort-button]:!text-primary size-full [&_.col-options-button]:pl-1 [&_.col-sort-button]:pl-1"
               Loading="@labelsQuery.IsLoading"
               GenerateHeader="GenerateHeaderOption.Sticky"
               Virtualize
             >
-              <TemplateColumn>
-                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex justify-center items-center px-3">
-                  @if (SelectedItems.Contains(context))
-                  {
-                    <CheckIcon class="size-4"/>
-                  }
-                  else
-                  {
-                    <div class="size-4"></div>
-                  }
-                </button>
-              </TemplateColumn>
-              <TemplateColumn Title="@WsDataLocalizer["ColNumber"]">
-                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex items-center px-3">
-                  @context.Id
-                </button>
-              </TemplateColumn>
-              <TemplateColumn Title="@WsDataLocalizer["ColBarcode"]">
-                <button @onclick="@(() => ToggleItem(context))" class="h-8 w-full flex items-center px-3">
-                  @context.Label.Barcode
-                </button>
-              </TemplateColumn>
+              <SelectColumn
+                TGridItem="DataItem"
+                SelectMode="DataGridSelectMode.Multiple"
+                SelectFromEntireRow="true"
+                @bind-SelectedItems="@SelectedItems"
+                Align="Align.Center"
+                Class="[&>svg]:!ml-0"
+              />
+              <PropertyColumn
+                Title="@WsDataLocalizer["ColNumber"]"
+                Property="@(p => p.Id)"
+                Width="1fr"
+              />
+              <PropertyColumn
+                Title="@WsDataLocalizer["ColBarcode"]"
+                Property="@(p => p.Label.Barcode)"
+                Width="5fr"
+              />
             </FluentDataGrid>
           </UseEndpoint>
         }

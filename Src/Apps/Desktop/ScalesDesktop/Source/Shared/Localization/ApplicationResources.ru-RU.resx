@@ -51,7 +51,7 @@
         <value>Печать ПК</value>
     </data>
     <data name="BtnSelectedLabelsPrinting" xml:space="preserve">
-        <value>Печать выбранных</value>
+        <value>Печать этикеток</value>
     </data>
     <data name="CreatePalletFormHeader" xml:space="preserve">
         <value>Форма создания паллеты</value>
