@@ -3,17 +3,15 @@
 @using Ws.Domain.Services.Features.ProductionSites
 @using Ws.Shared.Extensions
 
-<div class="w-64">
-  <SelectSingle
-    TItem="ProductionSite"
-    Items="ProductionSiteEntities"
-    @bind-SelectedItem="Value"
-    @bind-SelectedItem:after="@OnValueChanged"
-    ItemDisplayName="@(item => item.IsNew ? "Без площадки" : item.Name)"
-    IsDisabled="@(!IsSeniorSupport)"
-    IsFilterable
-  />
-</div>
+<SelectSingle
+  TItem="ProductionSite"
+  Items="ProductionSiteEntities"
+  @bind-SelectedItem="Value"
+  @bind-SelectedItem:after="@OnValueChanged"
+  ItemDisplayName="@(item => item.IsNew ? "Без площадки" : item.Name)"
+  IsDisabled="@(!IsSeniorSupport)"
+  IsFilterable
+/>
 
 @code {
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
@@ -53,5 +51,4 @@
     if (AllowIsNew)
       ProductionSiteEntities = ProductionSiteEntities.Append(new()).ToList();
   }
-
 }

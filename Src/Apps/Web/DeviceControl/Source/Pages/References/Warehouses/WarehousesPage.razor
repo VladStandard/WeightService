@@ -1,5 +1,6 @@
 @using DeviceControl.Source.Features
 @using Ws.Domain.Models.Entities.Ref
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref.Warehouse>
 @attribute [Route($"{RouteUtils.SectionWarehouses}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
@@ -13,10 +14,6 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <ProductionSiteSelect
-      @bind-Value="ProductionSite"
-      @bind-Value:after="UpdateData"
-    />
   </PageHeader>
 
   <DataGridWrapper>
@@ -24,18 +21,27 @@
       TItem="Warehouse"
       Items="SectionItems"
       OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+      IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
           Field="@nameof(Warehouse.Name)"
-          Width="50%"
+          Width="30%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColProductionSite"]"
           Field="ProductionSite.Name"
-          Width="50%"
-        />
+          Width="70%"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <ProductionSiteSelect
+              @bind-Value="ProductionSite"
+              @bind-Value:after="UpdateData"
+            />
+          </FilterTemplate>
+        </DataGridColumn>
       </ColumnsContent>
       <ContextMenuContent>
         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />

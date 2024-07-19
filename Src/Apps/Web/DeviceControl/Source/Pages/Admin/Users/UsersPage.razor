@@ -10,11 +10,6 @@
   <PageHeader>
     <span>@Localizer["SectionUsers"]</span>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-    <ProductionSiteSelect
-      @bind-Value="ProductionSite"
-      @bind-Value:after="UpdateData"
-      AllowIsNew
-    />
   </PageHeader>
 
   <DataGridWrapper>
@@ -28,13 +23,27 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColUser"]"
           Field="KeycloakUser.Username"
-          Width="40%"
+          Width="30%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColFullName"]"
           Field="KeycloakUser.FirstName"
-          Width="60%"
+          Width="30%"
         />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColProductionSite"]"
+          Field="ProductionSite.Name"
+          Width="40%"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <ProductionSiteSelect
+              @bind-Value="ProductionSite"
+              @bind-Value:after="UpdateData"
+              AllowIsNew
+            />
+          </FilterTemplate>
+        </DataGridColumn>
       </ColumnsContent>
       <ContextMenuContent>
         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />

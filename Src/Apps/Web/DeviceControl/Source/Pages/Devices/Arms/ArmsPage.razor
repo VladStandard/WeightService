@@ -15,7 +15,6 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <ProductionSiteSelect @bind-Value="ProductionSite" @bind-Value:after="UpdateData" />
   </PageHeader>
 
   <DataGridWrapper>
@@ -23,12 +22,14 @@
       TItem="Arm"
       Items="SectionItems"
       OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+      IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
           Field="@(nameof(Arm.Type))"
           Caption="@WsDataLocalizer["ColType"]"
           Width="1rem"
+          Filterable="false"
         >
           <DisplayTemplate>
             <div class="size-full flex items-center justify-center">
@@ -53,7 +54,8 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColVersion"]"
           Field="@nameof(Arm.Version)"
-          Width="4rem"
+          Width="2rem"
+          Filterable="false"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColLine"]"
@@ -61,10 +63,15 @@
           Width="20%"
         />
         <DataGridColumn
-          Caption="@WsDataLocalizer["ColNumber"]"
-          Field="@nameof(Arm.Number)"
-          Width="10%"
-        />
+          Caption="@WsDataLocalizer["ColProductionSite"]"
+          Field="Warehouse.ProductionSite.Name"
+          Width="20%"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <ProductionSiteSelect @bind-Value="ProductionSite" @bind-Value:after="UpdateData" />
+          </FilterTemplate>
+        </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColPcName"]"
           Field="PcName"
@@ -73,12 +80,13 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColPrinter"]"
           Field="Printer.Name"
-          Width="20%"
+          Width="15%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColCounter"]"
           Field="@nameof(Arm.Counter)"
-          Width="20%"
+          Width="15%"
+          Filterable="false"
         />
       </ColumnsContent>
       <ContextMenuContent>

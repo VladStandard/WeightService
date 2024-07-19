@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Features
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.Domain.Models.Entities.Devices
+
 @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
 @attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -14,12 +15,7 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <ProductionSiteSelect
-      @bind-Value="ProductionSite"
-      @bind-Value:after="UpdateData"
-    />
   </PageHeader>
-
   <DataGridWrapper>
     <DataGridContainer
       TItem="Printer"
@@ -31,7 +27,7 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColType"]"
           Field="@nameof(Printer.Type)"
-          Width="4rem"
+          Width="10%"
           FilterCellClass="!font-normal"
         >
           <FilterTemplate>
@@ -49,12 +45,25 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
           Field="@nameof(Printer.Name)"
-          Width="40%"
+          Width="25%"
         />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColProductionSite"]"
+          Field="ProductionSite.Name"
+          Width="35%"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <ProductionSiteSelect
+              @bind-Value="ProductionSite"
+              @bind-Value:after="UpdateData"
+            />
+          </FilterTemplate>
+        </DataGridColumn>
         <DataGridColumn
           Caption="IP"
           Field="@nameof(Printer.Ip)"
-          Width="25%"
+          Width="20%"
           Sortable="false"
         />
       </ColumnsContent>

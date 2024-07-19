@@ -15,10 +15,6 @@
     <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
     <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-    <ProductionSiteSelect
-      @bind-Value="ProductionSite"
-      @bind-Value:after="UpdateData"
-    />
   </PageHeader>
 
   <DataGridWrapper>
@@ -26,22 +22,38 @@
       TItem="PalletMan"
       Items="SectionItems"
       OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+      IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColChangeDt"]"
           Field="@nameof(PalletMan.ChangeDt)"
           Width="20%"
+          Filterable="false"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColFIO"]"
           Field=@($"{nameof(PalletMan.Fio)}.{nameof(Fio.DisplayFull)}")
-          Width="40%"
+          Width="25%"
         />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColProductionSite"]"
+          Field="Warehouse.ProductionSite.Name"
+          Width="30%"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <ProductionSiteSelect
+              @bind-Value="ProductionSite"
+              @bind-Value:after="UpdateData"
+            />
+          </FilterTemplate>
+        </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColWarehouse"]"
           Field="@($"{nameof(PalletMan.Warehouse)}.{nameof(Warehouse.Name)}")"
-          Width="40%"
+          Width="25%"
+          Filterable="false"
         />
       </ColumnsContent>
       <ContextMenuContent>

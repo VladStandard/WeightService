@@ -3,7 +3,7 @@ using Ws.Domain.Models.Entities.Ref;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 
-public class UserWithProductionSite
+public record UserWithProductionSite
 {
     public KeycloakUser KeycloakUser { get; set; } = default!;
     public ProductionSite? ProductionSite { get; set; }
