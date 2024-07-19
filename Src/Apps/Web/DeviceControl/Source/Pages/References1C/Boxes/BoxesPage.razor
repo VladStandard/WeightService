@@ -12,7 +12,7 @@
 <UseParameterlessEndpoint Endpoint="@References1CEndpoints.BoxesEndpoint" Options="@(DefaultEndpointOptions)" Context="boxesQuery">
   <PageHeader>
     <span>@Localizer["SectionBoxes"]</span>
-    <DataGridItemsCounter ItemsCount="@(boxesQuery.Data?.Length ?? 0)" IsLoading="boxesQuery.IsFetching"/>
+    <DataGridItemsCounter ItemsCount="@(boxesQuery.Data?.Length ?? 0)" IsLoading="boxesQuery.IsLoading"/>
     <DataGridActionReload OnClick="@boxesQuery.RefetchAsync" IsLoading="boxesQuery.IsFetching" />
   </PageHeader>
   <DataGridWrapper>

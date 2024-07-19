@@ -1,49 +1,74 @@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.References1C.Brands
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Brand>
-@attribute [Route($"{RouteUtils.SectionBrands}{RouteUtils.SectionQrlQuery}")]
+
+@inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References1C.Brands.BrandDto>
+@attribute [Route(RouteUtils.SectionBrands)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionBrands"]</PageTitle>
 
-<PageHeader>
-  <span>@Localizer["SectionBrands"]</span>
-  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-</PageHeader>
-
-<DataGridWrapper>
-  <DataGridContainer
-    TItem="Brand"
-    Items="SectionItems"
-    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-  >
-    <ColumnsContent>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColStatus"]"
-        Width="5%"
-        Filterable="false"
-      >
-        <DisplayTemplate>
-          @if (context.Name.StartsWith('я'))
-          {
+<UseParameterlessEndpoint Endpoint="@References1CEndpoints.BrandsEndpoint" Options="@(DefaultEndpointOptions)" Context="brandsQuery">
+  <PageHeader>
+    <span>@Localizer["SectionBrands"]</span>
+    <DataGridItemsCounter ItemsCount="@(brandsQuery.Data?.Length ?? 0)" IsLoading="brandsQuery.IsLoading"/>
+    <DataGridActionReload OnClick="@brandsQuery.RefetchAsync" IsLoading="brandsQuery.IsFetching" />
+  </PageHeader>
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="BrandDto"
+      Items="@(brandsQuery.HasData ? brandsQuery.Data : [])"
+      OnItemSelect="@(item => OpenSectionViewModal(item))"
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColStatus"]"
+          Width="5%"
+          Filterable="false"
+        >
+          <DisplayTemplate>
+            @if (context.Name.StartsWith('я'))
+            {
             <div class="w-full flex items-center justify-center">
               <TrashIcon class="text-red-600 size-5"/>
             </div>
-          }
-        </DisplayTemplate>
-      </DataGridColumn>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(Brand.ChangeDt)"
-        Width="20%"/>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(Brand.Name)"
-        Width="55%"/>
-    </ColumnsContent>
-    <ContextMenuContent>
-      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
-      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
-    </ContextMenuContent>
-  </DataGridContainer>
-</DataGridWrapper>
+            }
+          </DisplayTemplate>
+        </DataGridColumn>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColChangeDt"]"
+          Field="@nameof(Brand.ChangeDt)"
+          Width="20%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@nameof(Brand.Name)"
+          Width="55%"/>
+      </ColumnsContent>
+      <ContextMenuContent>
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenSectionViewModal(item)))"/>
+        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))"/>
+      </ContextMenuContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseParameterlessEndpoint>
+
+@code {
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  #endregion
+
+  protected override async Task OpenSectionViewModal(BrandDto item)
+    => await OpenSectionModal<BrandsUpdateDialog>(item);
+
+  protected override async Task OpenItemInNewTab(BrandDto item)
+    => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}?id={item.Id}");
+
+  protected override Task<BrandDto> SearchByUidAction(Guid uid) =>
+    WebApi.GetBrandByUid(uid);
+}

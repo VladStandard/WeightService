@@ -1,53 +1,79 @@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.Shared
 @using Ws.Domain.Models.Entities.Ref1c
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Bundle>
-@attribute [Route($"{RouteUtils.SectionBundles}{RouteUtils.SectionQrlQuery}")]
+
+@inherits SectionPageBase<PackageDto>
+@attribute [Route(RouteUtils.SectionBundles)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionBundles"]</PageTitle>
 
-<PageHeader>
-  <span>@Localizer["SectionBundles"]</span>
-  <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-  <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-</PageHeader>
+<UseParameterlessEndpoint Endpoint="@References1CEndpoints.BundlesEndpoint" Options="@(DefaultEndpointOptions)" Context="bundlesQuery">
+  <PageHeader>
+    <span>@Localizer["SectionBundles"]</span>
+    <DataGridItemsCounter ItemsCount="@(bundlesQuery.Data?.Length ?? 0)" IsLoading="bundlesQuery.IsLoading"/>
+    <DataGridActionReload OnClick="@bundlesQuery.RefetchAsync" IsLoading="bundlesQuery.IsFetching" />
+  </PageHeader>
 
-<DataGridWrapper>
-  <DataGridContainer
-    TItem="Bundle"
-    Items="SectionItems"
-    OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-  >
-    <ColumnsContent>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColStatus"]"
-        Width="5%"
-        Filterable="false"
-      >
-        <DisplayTemplate>
-          @if (context.Name.StartsWith('я'))
-          {
-            <div class="w-full flex items-center justify-center">
-              <TrashIcon class="text-red-600 size-5"/>
-            </div>
-          }
-        </DisplayTemplate>
-      </DataGridColumn>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColChangeDt"]"
-        Field="@nameof(Bundle.ChangeDt)"
-        Width="20%"/>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColName"]"
-        Field="@nameof(Bundle.Name)"
-        Width="55%"/>
-      <DataGridColumn
-        Caption="@WsDataLocalizer["ColWeight"]"
-        Field="@nameof(Bundle.Weight)"
-        Width="20%"/>
-    </ColumnsContent>
-    <ContextMenuContent>
-      <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
-      <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
-    </ContextMenuContent>
-  </DataGridContainer>
-</DataGridWrapper>
+  <DataGridWrapper>
+    <DataGridContainer
+      TItem="PackageDto"
+      Items="@(bundlesQuery.HasData ? bundlesQuery.Data : [])"
+      OnItemSelect="@(item => OpenSectionViewModal(item))"
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColStatus"]"
+          Width="5%"
+          Filterable="false"
+        >
+          <DisplayTemplate>
+            @if (context.Name.StartsWith('я'))
+            {
+              <div class="w-full flex items-center justify-center">
+                <TrashIcon class="text-red-600 size-5"/>
+              </div>
+            }
+          </DisplayTemplate>
+        </DataGridColumn>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColChangeDt"]"
+          Field="@nameof(Bundle.ChangeDt)"
+          Width="20%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@nameof(Bundle.Name)"
+          Width="55%"/>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColWeight"]"
+          Field="@nameof(Bundle.Weight)"
+          Width="20%"/>
+      </ColumnsContent>
+      <ContextMenuContent>
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenSectionViewModal(item)))" />
+        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
+      </ContextMenuContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseParameterlessEndpoint>
+
+@code {
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  #endregion
+
+  protected override async Task OpenSectionViewModal(PackageDto item)
+    => await OpenSectionModal<BundlesUpdateDialog>(item);
+
+  protected override async Task OpenItemInNewTab(PackageDto item)
+    => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}?id={item.Id}");
+
+  protected override Task<PackageDto> SearchByUidAction(Guid uid) =>
+    WebApi.GetBundleByUid(uid);
+}
