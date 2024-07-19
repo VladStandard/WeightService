@@ -1,77 +1,117 @@
 @using DeviceControl.Source.Features
+@using DeviceControl.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
 @using Ws.Domain.Models.Entities.Devices
 
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Printer>
-@attribute [Route($"{RouteUtils.SectionPrinters}{RouteUtils.SectionQrlQuery}")]
+@inherits SectionPageBase<PrinterDto>
+@attribute [Route(RouteUtils.SectionPrinters)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionPrinters"]</PageTitle>
 
 <UserProductionSiteErrorSuspense>
-  <PageHeader>
-    <span>@Localizer["SectionPrinters"]</span>
-    <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-    <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-    <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
-  </PageHeader>
-  <DataGridWrapper>
-    <DataGridContainer
-      TItem="Printer"
-      Items="SectionItems"
-      OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-      IsFilterable
-    >
-      <ColumnsContent>
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColType"]"
-          Field="@nameof(Printer.Type)"
-          Width="10%"
-          FilterCellClass="!font-normal"
-        >
-          <FilterTemplate>
-            @{ context.SearchValue = Type; }
-            <SelectSingle
-              TItem="PrinterTypes?"
-              Items="@(Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes?>().Union([null]))"
-              @bind-SelectedItem="@Type"
-              @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
-              Placeholder="@Localizer["SelectItemNotSelected"]"
-              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : item.Value.ToString())"
-            />
-          </FilterTemplate>
-        </DataGridColumn>
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(Printer.Name)"
-          Width="25%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColProductionSite"]"
-          Field="ProductionSite.Name"
-          Width="35%"
-          FilterCellClass="!font-normal"
-        >
-          <FilterTemplate>
-            <ProductionSiteSelect
-              @bind-Value="ProductionSite"
-              @bind-Value:after="UpdateData"
-            />
-          </FilterTemplate>
-        </DataGridColumn>
-        <DataGridColumn
-          Caption="IP"
-          Field="@nameof(Printer.Ip)"
-          Width="20%"
-          Sortable="false"
-        />
-      </ColumnsContent>
-      <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenDataGridEntityModal(item)))" />
-        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
-        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
-      </ContextMenuContent>
-    </DataGridContainer>
-  </DataGridWrapper>
+  <UseEndpoint
+    Endpoint="@DevicesEndpoints.PrintersEndpoint"
+    Arg="ProductionSiteState.Value.ProductionSite.Uid"
+    Options="@DefaultEndpointOptions"
+    Context="printersQuery"
+  >
+    <PageHeader>
+      <span>@Localizer["SectionPrinters"]</span>
+      <DataGridItemsCounter ItemsCount="@(printersQuery.Data?.Length ?? 0)" IsLoading="printersQuery.IsLoading"/>
+      <DataGridActionReload OnClick="@printersQuery.RefetchAsync" IsLoading="printersQuery.IsFetching" />
+      @* <DataGridActionCreate OnClick="@OpenSectionCreateForm"/> *@
+    </PageHeader>
+    <DataGridWrapper>
+      <DataGridContainer
+        TItem="PrinterDto"
+        Items="@(printersQuery.HasData ? printersQuery.Data : [])"
+        OnItemSelect="@(item => OpenSectionViewModal(item))"
+        IsFilterable
+      >
+        <ColumnsContent>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColType"]"
+            Field="@nameof(Printer.Type)"
+            Width="10%"
+            FilterCellClass="!font-normal"
+          >
+            <FilterTemplate>
+              @{ context.SearchValue = Type; }
+              <SelectSingle
+                TItem="PrinterTypes?"
+                Items="@(Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes?>().Union([null]))"
+                @bind-SelectedItem="@Type"
+                @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+                Placeholder="@Localizer["SelectItemNotSelected"]"
+                ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : item.Value.ToString())"
+              />
+            </FilterTemplate>
+          </DataGridColumn>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColName"]"
+            Field="@nameof(Printer.Name)"
+            Width="25%"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColProductionSite"]"
+            Width="35%"
+            FilterCellClass="!font-normal"
+          >
+            <FilterTemplate>
+              <ProductionSiteSelect />
+            </FilterTemplate>
+            <DisplayTemplate>
+              @ProductionSiteState.Value.ProductionSite.Name
+            </DisplayTemplate>
+          </DataGridColumn>
+          <DataGridColumn
+            Caption="IP"
+            Field="@nameof(Printer.Ip)"
+            Width="20%"
+            Sortable="false"
+          />
+        </ColumnsContent>
+        <ContextMenuContent>
+          <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenSectionViewModal(item)))"/>
+          <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))"/>
+          @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/> *@
+        </ContextMenuContent>
+      </DataGridContainer>
+    </DataGridWrapper>
+  </UseEndpoint>
 </UserProductionSiteErrorSuspense>
+
+@code {
+
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  #endregion
+
+  private PrinterTypes? Type { get; set; }
+
+  protected override Task OpenSectionCreateForm() =>
+    throw new NotImplementedException();
+
+  protected override async Task OpenSectionViewModal(PrinterDto item)
+    => await OpenSectionModal<PrintersUpdateDialog>(item);
+
+  protected override async Task OpenItemInNewTab(PrinterDto item) =>
+    await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}?id={item.Id}");
+
+  protected override Task<PrinterDto> SearchByUidAction(Guid uid) =>
+    WebApi.GetPrinterByUid(uid);
+
+  protected override Task DeleteItemAction(PrinterDto item) =>
+    throw new NotImplementedException();
+
+}

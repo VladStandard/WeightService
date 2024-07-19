@@ -1,4 +1,4 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Ref.Warehouse>
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References.Warehouses.Queries.WarehouseDto>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -9,12 +9,12 @@
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid" />
+    <SectionAdminGuidField Value="@DialogItem.Id" />
 
     <SectionGuidField
       Label="UID 1C"
-      @bind-Value="@DialogItem.Uid1C"
-      For="@(() => DialogItem.Uid1C)"
+      @bind-Value="@DialogItem.Id1C"
+      For="@(() => DialogItem.Id1C)"
     />
 
     <SectionTextField
@@ -25,11 +25,11 @@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@DialogItem.ProductionSite.Name"
+      Value="@("No value")"
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionWarehouses}/{DialogItem.Uid}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionWarehouses}?id={DialogItem.Id}")" />
     <SectionFormActionReset OnClick="@ResetAction" />
     <SectionFormActionDelete OnClick="@DeleteItem" />
   </ActionsContent>

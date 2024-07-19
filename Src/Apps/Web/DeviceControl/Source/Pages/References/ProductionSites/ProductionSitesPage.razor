@@ -65,5 +65,5 @@
     => await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}?id={item.Id}");
 
   protected override Task<ProductionSiteDto> SearchByUidAction(Guid uid) =>
-    WebApi.GetProductionSitesByUid(uid);
+    WebApi.GetProductionSiteByUid(uid);
 }

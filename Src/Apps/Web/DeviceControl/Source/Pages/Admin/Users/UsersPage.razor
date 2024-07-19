@@ -37,11 +37,7 @@
           FilterCellClass="!font-normal"
         >
           <FilterTemplate>
-            <ProductionSiteSelect
-              @bind-Value="ProductionSite"
-              @bind-Value:after="UpdateData"
-              AllowIsNew
-            />
+            <ProductionSiteSelect AllowIsNew />
           </FilterTemplate>
         </DataGridColumn>
       </ColumnsContent>

@@ -1,10 +1,11 @@
 using System.Security.Claims;
+using Fluxor.Blazor.Web.Components;
 using Force.DeepCloner;
 using Ws.Domain.Services.Exceptions;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public abstract class SectionFormBase<TItem> : ComponentBase
+public abstract class SectionFormBase<TItem> : FluxorComponent
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
@@ -17,7 +18,11 @@ public abstract class SectionFormBase<TItem> : ComponentBase
     protected bool IsForceSubmit { get; set; }
     protected TItem DialogItemCopy { get; private set; } = default!;
 
-    protected override void OnInitialized() => DialogItemCopy = DialogItem.DeepClone();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        DialogItemCopy = DialogItem.DeepClone();
+    }
 
     protected override async Task OnInitializedAsync()
         => UserPrincipal = (await AuthState).User;

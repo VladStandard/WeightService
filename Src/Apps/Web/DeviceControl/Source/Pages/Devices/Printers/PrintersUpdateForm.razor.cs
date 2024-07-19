@@ -1,19 +1,20 @@
 using System.Net;
+using DeviceControl.Source.Shared.Services;
+using Fluxor;
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Domain.Models.Entities.Devices;
+using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
 using Ws.Domain.Models.Entities.Ref;
-using Ws.Domain.Services.Features.Printers;
 
 namespace DeviceControl.Source.Pages.Devices.Printers;
 
-public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
+public sealed partial class PrintersUpdateForm : SectionFormBase<PrinterDto>
 {
     # region Injects
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+    [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
 
     # endregion
 
@@ -33,30 +34,22 @@ public sealed partial class PrintersUpdateForm : SectionFormBase<Printer>
     {
         await base.OnInitializedAsync();
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(DialogItem.ProductionSite);
+        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
     }
 
-    protected override Printer UpdateItemAction(Printer item) =>
-        PrinterService.Update(item);
+    protected override PrinterDto UpdateItemAction(PrinterDto item) =>
+        throw new NotImplementedException();
 
-    protected override Task DeleteItemAction(Printer item)
-    {
-        PrinterService.DeleteById(item.Uid);
-        return Task.CompletedTask;
-    }
+    protected override Task DeleteItemAction(PrinterDto item) =>
+        throw new NotImplementedException();
 }
 
-public class PrintersUpdateFormValidator : AbstractValidator<Printer>
+public class PrintersUpdateFormValidator : AbstractValidator<PrinterDto>
 {
     public PrintersUpdateFormValidator(IStringLocalizer<ApplicationResources> localizer, IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
         RuleFor(item => item.Name).NotEmpty().Matches("^[A-Z0-9-]*$").WithName(wsDataLocalizer["ColName"]);
         RuleFor(item => item.Ip).NotEmpty().NotEqual(IPAddress.Parse("127.0.0.1"));
         RuleFor(item => item.Type).IsInEnum().WithName(wsDataLocalizer["ColType"]);
-        RuleFor(item => item.ProductionSite).Custom((obj, context) =>
-        {
-            if (obj.IsNew)
-                context.AddFailure(string.Format(localizer["FormFieldNotSelected"], wsDataLocalizer["ColProductionSite"]));
-        });
     }
 }

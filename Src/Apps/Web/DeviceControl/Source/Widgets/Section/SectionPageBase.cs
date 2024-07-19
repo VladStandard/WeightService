@@ -1,9 +1,10 @@
+using Fluxor.Blazor.Web.Components;
 using Microsoft.JSInterop;
 using Phetch.Core;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public class SectionPageBase<TItem>: ComponentBase
+public class SectionPageBase<TItem>: FluxorComponent
 {
     # region Injects
 
@@ -18,10 +19,11 @@ public class SectionPageBase<TItem>: ComponentBase
 
     protected QueryOptions DefaultEndpointOptions { get; } =
         new() { RefetchInterval = TimeSpan.FromMinutes(1), StaleTime = TimeSpan.FromMinutes(1) };
-    private DialogParameters DialogParameters { get; set; } = new();
+    protected DialogParameters DialogParameters { get; set; } = new();
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         DialogParameters = new()
         {
             OnDialogClosing = EventCallback.Factory.Create<DialogInstance>(this, async instance =>

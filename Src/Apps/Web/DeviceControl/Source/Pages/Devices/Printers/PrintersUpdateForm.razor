@@ -1,5 +1,5 @@
 @using TscZebra.Plugin.Abstractions.Enums
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Printer>
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Devices.Printers.Queries.PrinterDto>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -10,7 +10,7 @@
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid" />
+    <SectionAdminGuidField Value="@DialogItem.Id" />
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
@@ -38,12 +38,11 @@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@DialogItem.ProductionSite.Name"
+      Value="@ProductionSiteState.Value.ProductionSite"
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}/{DialogItem.Uid}")" />
-
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}?id={DialogItem.Id}")" />
     @if (IsOnlyView == false)
     {
       <SectionFormActionReset OnClick="@ResetAction" />

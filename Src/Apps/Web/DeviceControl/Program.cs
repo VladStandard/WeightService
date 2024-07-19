@@ -4,6 +4,7 @@ using DeviceControl.Source.App;
 using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.Refit;
+using Fluxor;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
 
@@ -26,6 +27,12 @@ builder.Services.AddLabelsServices();
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<Redirector>();
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
+
+builder.Services.AddFluxor(c =>
+{
+    c.WithLifetime(StoreLifetime.Singleton);
+    c.ScanAssemblies(typeof(Program).Assembly);
+});
 
 WebApplication app = builder.Build();
 
