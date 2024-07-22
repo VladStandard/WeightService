@@ -10,8 +10,10 @@ using Ws.PalychExchangeApi.Features.Characteristics.Common;
 using Ws.PalychExchangeApi.Features.Characteristics.Services;
 using Ws.PalychExchangeApi.Features.Clips.Common;
 using Ws.PalychExchangeApi.Features.Clips.Services;
+using Ws.PalychExchangeApi.Features.Pallets.Common;
 using Ws.PalychExchangeApi.Features.Plus.Common;
 using Ws.PalychExchangeApi.Features.Plus.Services;
+
 using Ws.PalychExchangeApi.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -29,6 +31,7 @@ builder.Services.AddScoped<IBundleService, BundleService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IPluService, PluService>();
 builder.Services.AddScoped<ICharacteristicService, CharacteristicService>();
+builder.Services.AddScoped<IPalletService, Ws.PalychExchangeApi.Features.Pallets.Services.PalletService>();
 
 #pragma warning disable CA1416
 

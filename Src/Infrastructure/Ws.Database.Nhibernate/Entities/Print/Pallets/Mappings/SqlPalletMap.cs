@@ -52,6 +52,20 @@ internal sealed class SqlPalletMap : ClassMapping<Pallet>
             m.NotNullable(true);
         });
 
+        Property(x => x.DeletedAt, m =>
+        {
+            m.Column("DELETED_AT");
+            m.Type(NHibernateUtil.DateTime);
+            m.NotNullable(false);
+        });
+
+        Property(x => x.IsShipped, m =>
+        {
+            m.Column("IS_SHIPPED");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(false);
+        });
+
         Property(x => x.Weight, m =>
         {
             m.Column("WEIGHT_TRAY");

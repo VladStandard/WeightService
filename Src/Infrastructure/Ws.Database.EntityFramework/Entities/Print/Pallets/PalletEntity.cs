@@ -22,7 +22,7 @@ public class PalletEntity : EfEntityBase
     #region Date
 
     public DateTime CreateDt { get; init; }
-    public DateTime? DeletedAt { get; init; }
+    public DateTime? DeletedAt { get; set; }
 
     #endregion
 }

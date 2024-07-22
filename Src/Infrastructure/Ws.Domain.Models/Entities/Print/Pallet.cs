@@ -18,6 +18,10 @@ public class Pallet : EntityBase
     public virtual DateTime ProdDt { get; set; }
     public virtual decimal Weight { get; set; }
 
+    public virtual bool IsShipped { get; set; }
+    public virtual DateTime? DeletedAt { get; set; }
+
+
     protected override bool CastEquals(EntityBase obj)
     {
         Pallet item = (Pallet)obj;
