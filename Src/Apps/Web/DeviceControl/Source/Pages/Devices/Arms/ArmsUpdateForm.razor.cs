@@ -22,8 +22,6 @@ public sealed partial class ArmsUpdateForm : SectionFormBase<ArmDto>
 
     [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
 
-    private IEnumerable<Warehouse> Warehouses { get; set; } = [];
-    private IEnumerable<Printer> Printers { get; set; } = [];
     private IEnumerable<ArmType> LineTypes { get; set; } = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
     private bool IsOnlyView { get; set; }
     private bool IsSeniorSupport { get; set; }

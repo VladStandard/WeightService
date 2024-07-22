@@ -1,3 +1,4 @@
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
 @using Ws.Domain.Models.Entities.Ref
 @inherits SectionFormBase<UserWithProductionSite>
 
@@ -20,16 +21,27 @@
       Value="@DialogItem.KeycloakUser.FirstName"
     />
 
-    <SectionSelectSingleField
-      TItem="ProductionSite"
-      Items="ProductionSite"
-      Label="@WsDataLocalizer["ColProductionSite"]"
-      Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"
-      @bind-Value="@DialogItem.ProductionSite"
-      ItemDisplayName="@(item => item.Name)"
-      For="@(() => DialogItem.ProductionSite!)"
-      IsFilterable
-    />
+    <UseParameterlessEndpoint
+      Endpoint="@ReferencesEndpoints.ProductionSitesEndpoint"
+      Context="productionSitesQuery"
+    >
+      @if (productionSitesQuery.HasData)
+      {
+        <SectionSelectSingleField
+          TItem="ProductionSiteDto"
+          Items="productionSitesQuery.Data"
+          Label="@WsDataLocalizer["ColProductionSite"]"
+          Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"
+          ItemDisplayName="@(item => item.Name)"
+          IsFilterable
+        />
+      }
+      else
+      {
+        <Skeleton class="h-10 w-full" />
+      }
+    </UseParameterlessEndpoint>
+
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionReset OnClick="@ResetAction" />
