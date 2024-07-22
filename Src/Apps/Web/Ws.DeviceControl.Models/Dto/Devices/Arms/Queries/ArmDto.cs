@@ -13,8 +13,7 @@ public record ArmDto
     [JsonPropertyName("name")]
     public required string Name { get; set; }
 
-    [JsonPropertyName("ip")]
-    [JsonConverter(typeof(IpAddressJsonConverter))]
+    [JsonPropertyName("version")]
     public required string Version  { get; set; }
 
     [JsonPropertyName("type")]
@@ -25,7 +24,7 @@ public record ArmDto
     public required int Number  { get; set; }
 
     [JsonPropertyName("counter")]
-    public required uint Counter  { get; set; }
+    public required int Counter  { get; set; }
 
     [JsonPropertyName("pc")]
     public required string PcName  { get; set; }

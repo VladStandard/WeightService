@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Ws.DeviceControl.Models.Dto.Shared;
 using Ws.Domain.Models.Common;
 using Ws.Domain.Models.Entities.Devices;
 using Ws.Domain.Models.Entities.Devices.Arms;
@@ -39,6 +40,12 @@ public class Redirector(IAuthorizationService authorizationService)
         Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 
     public string ToPath(Plu item) => Link(item, RouteUtils.SectionPlus);
+
+    public string ToPrinterPath(ProxyDto item, ClaimsPrincipal user) =>
+        Link(item.Id, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
+
+    public string ToWarehousePath(ProxyDto item, ClaimsPrincipal user) =>
+        Link(item.Id, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToPath(Printer item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));

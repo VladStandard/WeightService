@@ -1,32 +1,41 @@
 @using DeviceControl.Source.Features
 @using Ws.Domain.Models.Entities.Devices.Arms
+@using DeviceControl.Source.Shared.Services
 @using Blazor.Heroicons.Outline
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
 
-@inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
-@attribute [Route($"{RouteUtils.SectionLines}{RouteUtils.SectionQrlQuery}")]
+@inherits SectionPageBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
+@attribute [Route(RouteUtils.SectionLines)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionLines"]</PageTitle>
 
 <UserProductionSiteErrorSuspense>
+  <UseEndpoint
+    Endpoint="@DevicesEndpoints.ArmsEndpoint"
+    Arg="ProductionSiteState.Value.ProductionSite.Uid"
+    Options="@DefaultEndpointOptions"
+    Context="armsQuery"
+  >
   <PageHeader>
     <span>@Localizer["SectionLines"]</span>
-    <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/>
-    <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-    <DataGridActionCreate OnClick="@OpenSectionCreateForm" />
+    <DataGridItemsCounter ItemsCount="@(armsQuery.Data?.Length ?? 0)" IsLoading="armsQuery.IsLoading"/>
+    <DataGridActionReload OnClick="@armsQuery.RefetchAsync" IsLoading="armsQuery.IsFetching" />
+    @* <DataGridActionCreate OnClick="@OpenSectionCreateForm"/> *@
   </PageHeader>
 
   <DataGridWrapper>
     <DataGridContainer
-      TItem="Arm"
-      Items="SectionItems"
-      OnItemSelect="@(item => OpenDataGridEntityModal(item))"
+      TItem="ArmDto"
+      Items="@(armsQuery.HasData ? armsQuery.Data : [])"
+      OnItemSelect="@(item => OpenSectionViewModal(item))"
       IsFilterable
     >
       <ColumnsContent>
         <DataGridColumn
-          Field="@(nameof(Arm.Type))"
+          Field="@(nameof(ArmDto.Type))"
           Caption="@WsDataLocalizer["ColType"]"
           Width="1rem"
           Filterable="false"
@@ -53,24 +62,26 @@
         </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColVersion"]"
-          Field="@nameof(Arm.Version)"
+          Field="@nameof(ArmDto.Version)"
           Width="2rem"
           Filterable="false"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColLine"]"
-          Field="@nameof(Arm.Name)"
+          Field="@nameof(ArmDto.Name)"
           Width="20%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColProductionSite"]"
-          Field="Warehouse.ProductionSite.Name"
           Width="20%"
           FilterCellClass="!font-normal"
         >
           <FilterTemplate>
             <ProductionSiteSelect />
           </FilterTemplate>
+          <DisplayTemplate>
+            @ProductionSiteState.Value.ProductionSite.Name
+          </DisplayTemplate>
         </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColPcName"]"
@@ -90,10 +101,39 @@
         />
       </ColumnsContent>
       <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenSectionViewModal(item)))" />
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
+        @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
       </ContextMenuContent>
     </DataGridContainer>
   </DataGridWrapper>
+  </UseEndpoint>
 </UserProductionSiteErrorSuspense>
+
+@code {
+
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  #endregion
+
+  protected override  Task OpenSectionCreateForm() =>
+    throw new NotImplementedException();
+
+  protected override async Task OpenSectionViewModal(ArmDto item)
+    => await OpenSectionModal<ArmsUpdateDialog>(item);
+
+  protected override async Task OpenItemInNewTab(ArmDto item)
+    => await OpenLinkInNewTab($"{RouteUtils.SectionLines}?id={item.Id}");
+
+  protected override Task<ArmDto> SearchByUidAction(Guid uid) =>
+    WebApi.GetArmByUid(uid);
+
+  protected override Task DeleteItemAction(ArmDto item) =>
+    throw new NotImplementedException();
+}

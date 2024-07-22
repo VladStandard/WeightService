@@ -1,5 +1,6 @@
 using Refit;
 using Ws.DeviceControl.Models.Dto.Database;
+using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries;
@@ -11,6 +12,13 @@ namespace Ws.DeviceControl.Models;
 public interface IWebApi
 {
     # region Devices
+
+    [Get("/arms?productionSite={productionSiteUid}")]
+    Task<ArmDto[]> GetArms(Guid productionSiteUid);
+
+    [Get("/arms/{Uid}")]
+    Task<ArmDto> GetArmByUid(Guid uid);
+
 
     [Get("/printers?productionSite={productionSiteUid}")]
     Task<PrinterDto[]> GetPrinters(Guid productionSiteUid);

@@ -1,13 +1,13 @@
-@inherits SectionDialogBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="@typeof(ArmsUpdateForm).ToString()">
     <ArmsUpdateForm />
   </Tab>
-  <Tab Id="@typeof(ArmPluDataGrid).ToString()">
-    <ArmPluDataGrid />
-  </Tab>
+  @* <Tab Id="@typeof(ArmPluDataGrid).ToString()"> *@
+  @*   <ArmPluDataGrid /> *@
+  @* </Tab> *@
 </SectionDialog>
 
 @code {
@@ -16,6 +16,6 @@
   protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
     new(typeof(ArmsUpdateForm).ToString(), Localizer["SectionLines"]),
-    new(typeof(ArmPluDataGrid).ToString(), Localizer["SectionLinePLU"])
+    // new(typeof(ArmPluDataGrid).ToString(), Localizer["SectionLinePLU"])
   ];
 }

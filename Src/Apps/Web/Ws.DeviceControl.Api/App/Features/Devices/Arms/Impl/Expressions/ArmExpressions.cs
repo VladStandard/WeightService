@@ -13,7 +13,7 @@ public static class ArmExpressions
             Version = arm.Version,
             Type = arm.Type,
             Number = arm.Number,
-            Counter = (uint)arm.Counter,
+            Counter = arm.Counter,
             PcName = arm.PcName,
             Printer = new()
             {

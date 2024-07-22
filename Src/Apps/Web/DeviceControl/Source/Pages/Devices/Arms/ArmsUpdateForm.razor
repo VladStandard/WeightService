@@ -1,6 +1,5 @@
-@using Ws.Domain.Models.Entities.Devices
-@using Ws.Domain.Models.Entities.Ref
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
+@using Ws.DeviceControl.Models.Dto.Shared
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
 
 <SectionForm
   FormModel="@DialogItem"
@@ -11,7 +10,7 @@
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Uid" />
+    <SectionAdminGuidField Value="@DialogItem.Id" />
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColVersion"]"
@@ -37,7 +36,7 @@
 
     <SectionNumericField
       Label="@WsDataLocalizer["ColCounter"]"
-      @bind-Value="@DialogItem.Counter"
+      @bind-Value="@(DialogItem.Counter)"
       Min="0"
       For="@(() => DialogItem.Counter)"
       Disabled="IsOnlyView"
@@ -63,40 +62,66 @@
       MaxLength="16"
     />
 
-    <SectionSelectSingleField
-      TItem="Printer"
-      Label="@WsDataLocalizer["ColPrinter"]"
-      Items="Printers"
-      @bind-Value="@DialogItem.Printer"
-      ItemDisplayName="item => item.DisplayName"
-      Path="@Redirector.ToPath(DialogItem.Printer, UserPrincipal)"
-      For="@(() => DialogItem.Printer)"
-      Disabled="IsOnlyView"
-      IsFilterable
-    />
+    <UseEndpoint
+      Endpoint="@DevicesEndpoints.ProxyPrinterEndpoint"
+      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Context="printersQuery"
+    >
+      @if (printersQuery.HasData)
+      {
+        <SectionSelectSingleField
+          TItem="ProxyDto"
+          Label="@WsDataLocalizer["ColPrinter"]"
+          Items="@(printersQuery.Data)"
+          @bind-Value="@DialogItem.Printer"
+          ItemDisplayName="item => item.Name"
+          Path="@Redirector.ToPrinterPath(DialogItem.Printer, UserPrincipal)"
+          For="@(() => DialogItem.Printer)"
+          Disabled="IsOnlyView"
+          IsFilterable
+        />
+      }
+      else
+      {
+        <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
 
     <FormDivider>@Localizer["FieldLocation"]</FormDivider>
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSite.Name"
-      Path="@Redirector.ToPath(ProductionSite, UserPrincipal)"
+      Value="@ProductionSiteState.Value.ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)"
     />
 
-    <SectionSelectSingleField
-      TItem="Warehouse"
-      Label="@WsDataLocalizer["ColWarehouse"]"
-      Items="Warehouses"
-      @bind-Value="@DialogItem.Warehouse"
-      ItemDisplayName="item => item.Name"
-      Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)"
-      For="@(() => DialogItem.Warehouse)"
-      Disabled="IsOnlyView"
-      IsFilterable
-    />
+    <UseEndpoint
+      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Context="warehousesQuery"
+    >
+      @if (warehousesQuery.HasData)
+      {
+        <SectionSelectSingleField
+          TItem="ProxyDto"
+          Label="@WsDataLocalizer["ColWarehouse"]"
+          Items="@warehousesQuery.Data"
+          @bind-Value="@DialogItem.Warehouse"
+          ItemDisplayName="item => item.Name"
+          Path="@Redirector.ToWarehousePath(DialogItem.Warehouse, UserPrincipal)"
+          For="@(() => DialogItem.Warehouse)"
+          Disabled="IsOnlyView"
+          IsFilterable
+        />
+      }
+      else
+      {
+        <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}/{DialogItem.Uid}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}?id={DialogItem.Id}")" />
     @if (IsOnlyView == false)
     {
       <SectionFormActionReset OnClick="@ResetAction" />
