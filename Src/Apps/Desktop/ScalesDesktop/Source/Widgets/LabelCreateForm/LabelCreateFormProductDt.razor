@@ -1,4 +1,4 @@
-<LabelDisplayItem Label="@Localizer["ColDt"]">
+<LabelCreateFormFieldItem Label="@Localizer["ColDt"]">
   <div class="grid overflow-hidden grid-cols-7 size-full">
     <div class="col-span-2 size-full py-1 overflow-hidden">
       <Button
@@ -11,7 +11,7 @@
     </div>
     <div class="col-span-3 flex items-center justify-center size-full overflow-hidden">
       <span class="text-xl xl:text-3xl font-medium">
-        @LabelContext.KneadingModel.ProductDate.ToString("dd-MM-yyyy")
+        @Date.ToString("dd-MM-yyyy")
       </span>
     </div>
     <div class="col-span-2 flex gap-2 size-full overflow-hidden py-1">
@@ -31,24 +31,35 @@
       </Button>
     </div>
   </div>
-</LabelDisplayItem>
+</LabelCreateFormFieldItem>
 
 @code {
 
   # region Injects
 
   [Inject] private IStringLocalizer<WsDataResources> Localizer { get; set; } = default!;
-  [Inject] private LabelContext LabelContext { get; set; } = default!;
 
   # endregion
 
-  private void IncreaseDate() =>
-    LabelContext.KneadingModel.ProductDate = LabelContext.KneadingModel.ProductDate.AddDays(1);
+  [Parameter, EditorRequired] public DateTime Date { get; set; }
+  [Parameter] public EventCallback<DateTime> DateChanged { get; set; }
 
-  private void DecreaseDate() =>
-    LabelContext.KneadingModel.ProductDate = LabelContext.KneadingModel.ProductDate.AddDays(-1);
+  private async Task IncreaseDate()
+  {
+    Date = Date.AddDays(1);
+    await DateChanged.InvokeAsync(Date);
+  }
 
-  private void ResetDate() =>
-    LabelContext.KneadingModel.ProductDate = DateTime.Now;
+  private async Task DecreaseDate()
+  {
+    Date = Date.AddDays(-1);
+    await DateChanged.InvokeAsync(Date);
+  }
+
+  private async Task ResetDate()
+  {
+    Date = DateTime.Now;
+    await DateChanged.InvokeAsync(Date);
+  }
 
 }

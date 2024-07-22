@@ -1,11 +1,14 @@
-@implements IDisposable
+@using Fluxor
+@using ScalesDesktop.Source.Shared.Services.Stores
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <div class="flex justify-between items-center w-full">
   <div class="size-12 shrink-0 rounded-full flex items-center justify-center bg-secondary">
     <UserIcon class="size-6" />
   </div>
   <div class="flex w-full flex-col px-3 justify-start">
-    <span class="font-medium text-sm truncate">@PalletContext.PalletMan?.Fio.DisplayShortName</span>
+    <span class="font-medium text-sm truncate">@PalletManState.Value.PalletMan?.Fio.DisplayShortName</span>
     <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
       @if (query.HasData)
       {
@@ -30,8 +33,9 @@
 @code {
   # region Injects
 
+  [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
   [Inject] private PalletApi PalletApi { get; set; } = default!;
   [Inject] private PluApi PluApi { get; set; } = default!;
   [Inject] private ArmApi ArmApi { get; set; } = default!;
@@ -40,12 +44,8 @@
 
   private void LogoutPalletMan()
   {
-    PalletContext.ResetPalletMan();
+    Dispatcher.Dispatch(new ResetPalletManAction());
     PalletApi.PiecePalletsEndpoint.InvalidateAll();
     PluApi.PiecePlusEndpoint.InvalidateAll();
   }
-
-  protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
-
-  public void Dispose() => PalletContext.StateChanged -= StateHasChanged;
 }

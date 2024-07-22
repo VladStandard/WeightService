@@ -1,3 +1,5 @@
+@using ScalesDesktop.Source.Shared.Services.Stores
+
 <div class="h-14 shrink-0 bg-background w-full grid grid-cols-4 border-b px-4">
   <div class="flex h-full items-center">
     <Button
@@ -28,8 +30,12 @@
 </div>
 
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+
+  # endregion
 
   [Parameter] public string CurrentTabId { get; set; } = default!;
   [Parameter] public EventCallback<string> CurrentTabIdChanged { get; set; }
@@ -42,5 +48,5 @@
     StateHasChanged();
   }
 
-  private void CloseCurrentPallet() => PalletContext.ChangePallet(null);
+  private void CloseCurrentPallet() => Dispatcher.Dispatch(new ResetPalletAction());
 }

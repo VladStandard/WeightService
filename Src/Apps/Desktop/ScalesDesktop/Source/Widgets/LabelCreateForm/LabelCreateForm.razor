@@ -1,13 +1,13 @@
 @inject ArmApi ArmApi
 
 <div class="size-full bg-background border rounded-lg flex flex-col overflow-hidden">
-  <LabelDisplayErrorBoundary>
-    <LabelDisplayTitle />
+  <LabelCreateFormErrorBoundary>
+    <LabelCreateFormTitle />
     <div class="size-full flex overflow-hidden justify-around flex-col px-8 py-3 xl:py-5 xl:px-12">
-      <LabelDisplayNetWeight />
-      <LabelDisplayTareWeight />
-      <LabelDisplayDate />
-      <LabelDisplayKneading />
+      <LabelCreateFormNetWeight @bind-Weight="FormModel.NetWeight" />
+      <LabelCreateFormTareWeight />
+      <LabelCreateFormProductDt @bind-Date="FormModel.ProductDate" />
+      <LabelCreateFormKneading @bind-Kneading="FormModel.KneadingCount" />
     </div>
     <div class="flex gap-8 w-full px-8 pb-5 shrink-0 h-24 xl:h-28 xl:px-12 xl:pb-8">
       <div class="w-1/2 h-full">
@@ -17,7 +17,7 @@
         <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
           @if (query.HasData)
           {
-            <LabelPrint Arm="query.Data"/>
+            <LabelPrint Arm="query.Data" KneadingModel="FormModel"/>
           }
           else
           {
@@ -26,5 +26,9 @@
         </UseParameterlessEndpoint>
       </div>
     </div>
-  </LabelDisplayErrorBoundary>
+  </LabelCreateFormErrorBoundary>
 </div>
+
+@code {
+  private WeightKneadingModel FormModel { get; } = new();
+}

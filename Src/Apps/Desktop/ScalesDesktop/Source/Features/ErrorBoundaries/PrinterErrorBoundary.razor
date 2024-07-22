@@ -1,7 +1,9 @@
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using TscZebra.Plugin.Abstractions.Enums
-@implements IDisposable
 
-@if (PrinterService.Status is PrinterStatus.Disconnected)
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@if (PrinterState.Value.Status is PrinterStatus.Disconnected)
 {
   <div class="flex flex-col size-full items-center justify-center">
     <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
@@ -23,14 +25,14 @@ else
   @ChildContent
 }
 
-
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
+
+  # endregion
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
-
-  protected override void OnInitialized() => PrinterService.StatusChanged += StateHasChanged;
-
-  public void Dispose() => PrinterService.StatusChanged -= StateHasChanged;
 }

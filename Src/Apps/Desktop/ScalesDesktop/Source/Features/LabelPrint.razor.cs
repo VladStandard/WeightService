@@ -1,4 +1,8 @@
+using Fluxor;
+using Fluxor.Blazor.Web.Components;
 using MassaK.Plugin.Abstractions.Enums;
+using ScalesDesktop.Source.Shared.Models;
+using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models;
@@ -9,7 +13,7 @@ using Ws.Shared.Api.ApiException;
 
 namespace ScalesDesktop.Source.Features;
 
-public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
+public sealed partial class LabelPrint : FluxorComponent
 {
     # region Injects
 
@@ -17,26 +21,21 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private PrinterService PrinterService { get; set; } = default!;
-    [Inject] private ScalesService ScalesService { get; set; } = default!;
-    [Inject] private LabelContext LabelContext { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private ArmApi ArmApi { get; set; } = default!;
+    [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
+    [Inject] private IState<WeightState> WeightState { get; set; } = default!;
+    [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
+    [Inject] private IState<PluState> PluState { get; set; } = default!;
 
     #endregion
 
     [Parameter, EditorRequired] public ArmValue Arm { get; set; } = default!;
+    [Parameter, EditorRequired] public WeightKneadingModel KneadingModel { get; set; } = default!;
 
     private bool IsButtonClicked { get; set; }
-
     private const int ButtonCooldownDelay = 500;
-
-    protected override void OnInitialized()
-    {
-        PrinterService.StatusChanged += StateHasChanged;
-        ScalesService.StatusChanged += StateHasChanged;
-        ScalesService.WeightChanged += StateHasChanged;
-    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -68,15 +67,15 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
 
         CreateWeightLabelDto createDto = new()
         {
-            Kneading = LabelContext.KneadingModel.KneadingCount,
-            ProductDt = GetProductDt(LabelContext.KneadingModel.ProductDate),
-            WeightNet = LabelContext.KneadingModel.NetWeight,
-            WeightTare = LabelContext.Plu?.TareWeight ?? 0
+            Kneading = KneadingModel.KneadingCount,
+            ProductDt = GetProductDt(KneadingModel.ProductDate),
+            WeightNet = KneadingModel.NetWeight,
+            WeightTare = PluState.Value.Plu?.TareWeight ?? 0
         };
 
         try
         {
-            WeightLabel label = await DesktopApi.CreatePluWeightLabel(Arm.Id, LabelContext.Plu!.Id, createDto);
+            WeightLabel label = await DesktopApi.CreatePluWeightLabel(Arm.Id, PluState.Value.Plu!.Id, createDto);
             ArmApi.UpdateArmCounter(label.ArmCounter);
             await PrinterService.PrintZplAsync(label.Zpl);
         }
@@ -109,21 +108,21 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
 
     private async Task<bool> ValidatePrinterStatus()
     {
-        PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
-        if (printerStatus is PrinterStatus.Ready or PrinterStatus.Busy) return true;
+        await PrinterService.RequestStatusAsync();
+        if (PrinterState.Value.Status is PrinterStatus.Ready or PrinterStatus.Busy) return true;
         PrintPrinterStatusMessage();
         return false;
     }
 
     private bool ValidateScalesStatus()
     {
-        if (!ScalesService.IsStable)
+        if (!WeightState.Value.IsStable)
         {
             ToastService.ShowWarning(Localizer["ScalesStatusUnstable"]);
             return false;
         }
 
-        if (LabelContext.KneadingModel.NetWeight >= 0) return true;
+        if (KneadingModel.NetWeight >= 0) return true;
         ToastService.ShowWarning(Localizer["ScalesStatusTooLight"]);
         return false;
     }
@@ -132,7 +131,7 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         new(time.Year, time.Month, time.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
     private void PrintPrinterStatusMessage() =>
-        ToastService.ShowWarning(PrinterService.Status switch
+        ToastService.ShowWarning(PrinterState.Value.Status switch
         {
             PrinterStatus.Disconnected => Localizer["PrinterStatusIsForceDisconnected"],
             PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
@@ -143,16 +142,10 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
         });
 
     private bool GetPrintLabelDisabledStatus() =>
-        LabelContext.Plu == null || ScalesService.Status != MassaKStatus.Ready;
+        PluState.Value.Plu == null || ScalesState.Value.Status != MassaKStatus.Ready;
 
-    # region Event Subscribe and Unsubscribe
-
-    public async ValueTask DisposeAsync()
+    public new async ValueTask DisposeAsync()
     {
-        PrinterService.StatusChanged -= StateHasChanged;
-        ScalesService.StatusChanged -= StateHasChanged;
-        ScalesService.WeightChanged -= StateHasChanged;
-
         try
         {
             await JsRuntime.InvokeVoidAsync("unsubscribeMiddleMouseClickEvent");
@@ -162,6 +155,4 @@ public sealed partial class LabelPrint : ComponentBase, IAsyncDisposable
             // pass
         }
     }
-
-    # endregion
 }
