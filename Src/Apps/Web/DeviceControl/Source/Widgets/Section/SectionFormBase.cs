@@ -15,8 +15,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     [Parameter, EditorRequired] public TItem FormModel { get; set; } = default!;
 
     protected ClaimsPrincipal UserPrincipal { get; private set; } = new();
-    protected bool IsForceSubmit { get; set; }
-    protected TItem DialogItemCopy { get; private set; } = default!;
+    private TItem DialogItemCopy { get; set; } = default!;
 
     protected override void OnInitialized()
     {

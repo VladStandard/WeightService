@@ -1,52 +1,88 @@
-@* @using TscZebra.Plugin.Abstractions.Enums *@
-@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Devices.Printers.Queries.PrinterDto> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   ChangeDate="@DialogItem.ChangeDt" *@
-@*   CreateDate="@DialogItem.CreateDt" *@
-@*   Validator="@(new PrintersUpdateFormValidator(Localizer, WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@UpdateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@*     <SectionAdminGuidField Value="@DialogItem.Id" /> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColName"]" *@
-@*       @bind-Value="DialogItem.Name" *@
-@*       For="@(() => DialogItem.Name)" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <SectionIpField *@
-@*       Label="@($"IP ({Localizer["FormPrinterControl"]})")" *@
-@*       @bind-Value="@DialogItem.Ip" *@
-@*       For="@(() => DialogItem.Ip)" *@
-@*       Path="@($"http://{DialogItem.Ip}")" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <SectionSelectSingleField *@
-@*       TItem="PrinterTypes" *@
-@*       Label="@WsDataLocalizer["ColType"]" *@
-@*       Items="PrinterTypes" *@
-@*       @bind-Value="@DialogItem.Type" *@
-@*       Disabled="IsOnlyView" *@
-@*       For="@(() => DialogItem.Type)" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColProductionSite"]" *@
-@*       Value="@ProductionSiteState.Value.ProductionSite" *@
-@*     /> *@
-@*   </FieldsContent> *@
-@*   <ActionsContent> *@
-@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}?id={DialogItem.Id}")" /> *@
-@*     @if (IsOnlyView == false) *@
-@*     { *@
-@*       <SectionFormActionReset OnClick="@ResetAction" /> *@
-@*       <SectionFormActionDelete OnClick="@DeleteItem" /> *@
-@*     } *@
-@*   </ActionsContent> *@
-@* </SectionForm> *@
+@using DeviceControl.Source.Shared.Services
+@using TscZebra.Plugin.Abstractions.Enums
+@using Ws.Domain.Models.Entities.Ref
+@using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update
+@using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
+
+@inherits SectionFormBase<PrinterUpdateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="@Model.ChangeDt"
+  CreateDate="@Model.CreateDt"
+  Validator="@(new PrinterUpdateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@Model.Id" />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="FormModel.Name"
+      For="@(() => FormModel.Name)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionIpField
+      Label="@($"IP ({Localizer["FormPrinterControl"]})")"
+      @bind-Value="@FormModel.Ip"
+      For="@(() => FormModel.Ip)"
+      Path="@($"http://{FormModel.Ip}")"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionSelectSingleField
+      TItem="PrinterTypes"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="PrinterTypes"
+      @bind-Value="@FormModel.Type"
+      Disabled="IsOnlyView"
+      For="@(() => FormModel.Type)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@ProductionSiteState.Value.ProductionSite"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPrinters}?id={Model.Id}")" />
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  # region Injects
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+
+  # endregion
+
+  [Parameter, EditorRequired] public PrinterDto Model { get; set; } = default!;
+  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+
+  private IEnumerable<PrinterTypes> PrinterTypes { get; } = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
+  private bool IsOnlyView { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
+  }
+
+  protected override Task UpdateItemAction(PrinterUpdateDto item) =>
+    throw new NotImplementedException();
+
+  protected override Task DeleteItemAction(PrinterUpdateDto item) =>
+    throw new NotImplementedException();
+
+}

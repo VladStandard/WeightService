@@ -1,17 +1,17 @@
-@* @inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Devices.Printers.Queries.PrinterDto> *@
-@* *@
-@* *@
-@* <SectionDialog DialogItem="DialogItem" TabsList="@TabsList"> *@
-@*   <Tab Id="@typeof(PrintersUpdateForm).ToString()"> *@
-@*     <PrintersUpdateForm /> *@
-@*   </Tab> *@
-@* </SectionDialog> *@
-@* *@
-@* @code { *@
-@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
-@* *@
-@*   protected override List<KeyValuePair<string, string>> InitializeTabList() => *@
-@*   [ *@
-@*     new(typeof(PrintersUpdateForm).ToString(), Localizer["SectionPrinters"]) *@
-@*   ]; *@
-@* } *@
+@using Ws.DeviceControl.Models.Dto.Devices.Printers
+@using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
+
+@implements IDialogContentComponent<PrinterDto>
+
+
+<SectionDialog>
+  <Tab Id="@typeof(PrintersUpdateForm).ToString()" Title="@Localizer["SectionPrinters"]">
+    <PrintersUpdateForm Model="Content" FormModel="@PrinterMapper.DtoToUpdateDto(Content)" />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  [Parameter] public PrinterDto Content { get; set; } = default!;
+}
