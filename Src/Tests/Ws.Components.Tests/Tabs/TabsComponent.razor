@@ -1,6 +1,6 @@
 @using Ws.Components.Source.UI.Tabs
 
-<Tabs ActiveTabId="@CurrentTabId">
+<Tabs DefaultTab="first" @ref="InnerTabsComponent">
   <Tab Id="first">
     <p>First tab</p>
   </Tab>
@@ -10,11 +10,11 @@
 </Tabs>
 
 @code {
-  private string CurrentTabId { get; set; } = "first";
+  private Tabs InnerTabsComponent { get; set; } = default!;
 
   public void SetCurrentTabId(string newTabId)
   {
-    CurrentTabId = newTabId;
+    InnerTabsComponent.ChangeTab(newTabId);
     StateHasChanged();
   }
 }

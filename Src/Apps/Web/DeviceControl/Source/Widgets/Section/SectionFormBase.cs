@@ -30,10 +30,10 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     protected virtual Task DeleteItemAction(TItem item) =>
         throw new NotImplementedException();
 
-    protected virtual TItem UpdateItemAction(TItem item) =>
+    protected virtual Task UpdateItemAction(TItem item) =>
         throw new NotImplementedException();
 
-    protected virtual TItem CreateItemAction(TItem item) =>
+    protected virtual Task CreateItemAction(TItem item) =>
         throw new NotImplementedException();
 
     protected async Task OnCancelAction() => await Dialog.CancelAsync();
@@ -48,10 +48,9 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     {
         try
         {
-            TItem createdItem = CreateItemAction(FormModel.DeepClone());
+            await CreateItemAction(FormModel.DeepClone());
             ToastService.ShowSuccess(Localizer["ToastCreateItem"]);
-            await Dialog.CloseAsync(new SectionDialogContent<TItem>
-            { Item = createdItem, DataAction = SectionDialogResultEnum.Create });
+            await Dialog.CloseAsync();
         }
         catch (ValidateException ex)
         {
@@ -74,7 +73,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
 
         try
         {
-            UpdateItemAction(FormModel.DeepClone());
+            await UpdateItemAction(FormModel.DeepClone());
             ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
             await Dialog.CloseAsync();
         }

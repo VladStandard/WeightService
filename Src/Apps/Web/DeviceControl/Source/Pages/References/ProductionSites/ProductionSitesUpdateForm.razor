@@ -38,7 +38,7 @@
 
   [Parameter, EditorRequired] public ProductionSiteDto Model { get; set; } = default!;
 
-  protected override ProductionSiteUpdateDto UpdateItemAction(ProductionSiteUpdateDto item) =>
+  protected override Task UpdateItemAction(ProductionSiteUpdateDto item) =>
     throw new NotImplementedException();
 
   protected override Task DeleteItemAction(ProductionSiteUpdateDto item) =>

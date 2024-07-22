@@ -4,14 +4,25 @@
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
-  [Parameter] public string ActiveTabId { get; set; } = default!;
+  [Parameter] public string? DefaultTab { get; set; }
 
+  public string ActiveTabId { get; private set; } = string.Empty;
   public List<Tab> TabsList { get; private set; } = [];
+
+  protected override void OnInitialized()
+  {
+    if (!string.IsNullOrEmpty(DefaultTab))
+      ActiveTabId = DefaultTab;
+  }
+
+  public void ChangeTab(string id) => ActiveTabId = id;
 
   internal void RegisterTab(Tab tab)
   {
     if (!TabsList.Contains(tab))
       TabsList.Add(tab);
+    if (string.IsNullOrEmpty(ActiveTabId))
+      ActiveTabId = tab.Id;
   }
 
   internal void UnregisterTab(Tab tab)

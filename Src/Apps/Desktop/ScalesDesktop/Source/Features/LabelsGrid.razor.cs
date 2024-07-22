@@ -27,6 +27,21 @@ public sealed partial class LabelsGrid : ComponentBase
     private const ushort PrinterRequestDelay = 500;
     private const ushort MaxPrinterErrors = 3;
 
+    private PalletInfo PreviousPallet { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        PreviousPallet = Pallet;
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (PreviousPallet == Pallet) return;
+        PreviousPallet = Pallet;
+        SelectedItems = [];
+    }
+
     private void ToggleAllLabels(DataItem[] labels) =>
         SelectedItems = SelectedItems.Count().Equals(labels.Length) ? [] : labels.ToList();
 

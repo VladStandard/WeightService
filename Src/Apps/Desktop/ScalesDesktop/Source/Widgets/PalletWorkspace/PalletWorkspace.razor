@@ -1,46 +1,65 @@
 @using Ws.Desktop.Models.Features.Pallets.Output
+@using Blazor.Heroicons.Outline
 
 <div class="size-full flex flex-col overflow-hidden">
-  <PalletWorkspaceHeader
-    TabsList="TabsButtonList"
-    @bind-CurrentTabId="@CurrentTabId"
-  />
-  <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
-    <Tabs ActiveTabId="@CurrentTabId">
-      <Tab Id="@typeof(PalletOverview).ToString()">
+  <Tabs @ref="TabsComponent">
+    <div class="h-14 shrink-0 bg-background w-full grid grid-cols-4 border-b px-4">
+      <div class="flex h-full items-center">
+        <Button
+          Size="ButtonSize.Icon"
+          Variant="ButtonVariant.Ghost"
+          OnClick="@CloseCurrentPallet"
+        >
+          <ArrowLeftIcon class="size-5 text-muted-foreground"/>
+        </Button>
+      </div>
+      <div class="h-full flex items-center justify-center w-full col-span-2 grow overflow-hidden">
+        <ul class="size-full flex items-center gap-2 justify-center">
+          @foreach (Tab tab in TabsComponent.TabsList)
+          {
+            <li>
+              <Button
+                Variant="@(TabsComponent.ActiveTabId == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                OnClick="@(() => TabsComponent.ChangeTab(tab.Id))"
+                Disabled="@(TabsComponent.ActiveTabId == tab.Id)"
+                Class="disabled:!opacity-100"
+              >
+                @tab.Title
+              </Button>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
+      <Tab Id="@typeof(PalletOverview).ToString()" Title="@WsDataLocalizer["ColPallet"]">
         <PalletOverview Pallet="Pallet" />
       </Tab>
-      <Tab Id="@typeof(LabelsGrid).ToString()">
+      <Tab Id="@typeof(LabelsGrid).ToString()" Title="@Localizer["ColPrint"]">
         <LabelsGrid Pallet="Pallet" />
       </Tab>
-    </Tabs>
-  </div>
+    </div>
+  </Tabs>
 </div>
 
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private PalletContext PalletContext { get; set; } = default!;
 
-  private List<KeyValuePair<string, string>> TabsButtonList { get; set; } = [];
-  private string CurrentTabId { get; set; } = typeof(LabelsGrid).ToString();
+  # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-  private PalletInfo PreviousPallet { get; set; } = default!;
-
-  protected override void OnInitialized()
+  protected override void OnAfterRender(bool firstRender)
   {
-    PreviousPallet = Pallet;
-    TabsButtonList = [
-      new(typeof(PalletOverview).ToString(), WsDataLocalizer["ColPallet"]),
-      new(typeof(LabelsGrid).ToString(), Localizer["ColPrint"])
-    ];
+    if (!firstRender) return;
+    StateHasChanged();
   }
 
-  protected override void OnParametersSet()
-  {
-    if (PreviousPallet == Pallet) return;
-    PreviousPallet = Pallet;
-    CurrentTabId = typeof(LabelsGrid).ToString();
-  }
+  private Tabs TabsComponent { get; set; } = default!;
+
+  private void CloseCurrentPallet() => PalletContext.ChangePallet(null);
 }

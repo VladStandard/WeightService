@@ -2,6 +2,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries
+@using Ws.Shared.Constants
 
 @inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References.Warehouses.Queries.WarehouseDto>
 @attribute [Route(RouteUtils.SectionWarehouses)]
@@ -10,10 +11,10 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionWarehouses"]</PageTitle>
 
-<UserProductionSiteErrorSuspense>
+@* <UserProductionSiteErrorSuspense> *@
   <UseEndpoint
     Endpoint="@ReferencesEndpoints.WarehousesEndpoint"
-    Arg="ProductionSiteState.Value.ProductionSite.Uid"
+    Arg="@BaseConsts.GuidMax"
     Options="@(DefaultEndpointOptions)"
     Context="warehousesQuery"
   >
@@ -21,7 +22,7 @@
       <span>@Localizer["SectionWarehouses"]</span>
       <DataGridItemsCounter ItemsCount="@(warehousesQuery.Data?.Length ?? 0)" IsLoading="warehousesQuery.IsLoading"/>
       <DataGridActionReload OnClick="@warehousesQuery.RefetchAsync" IsLoading="warehousesQuery.IsFetching" />
-      @* <DataGridActionCreate OnClick="@OpenSectionCreateForm" /> *@
+      <DataGridActionCreate OnClick="@OpenCreateFormModal" />
     </PageHeader>
 
   <DataGridWrapper>
@@ -57,7 +58,7 @@
     </DataGridContainer>
   </DataGridWrapper>
   </UseEndpoint>
-</UserProductionSiteErrorSuspense>
+@* </UserProductionSiteErrorSuspense> *@
 
 @code {
   #region Inject
@@ -70,11 +71,11 @@
 
   #endregion
 
-  protected override Task OpenCreateFormModal() =>
-    throw new NotImplementedException();
+  protected override async Task OpenCreateFormModal() =>
+    await OpenModal<WarehousesCreateDialog>();
 
   protected override async Task OpenUpdateFormModal(WarehouseDto item) =>
-    throw new NotImplementedException();
+    await OpenModalWithItem<WarehousesUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(WarehouseDto item) =>
     await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}?id={item.Id}");

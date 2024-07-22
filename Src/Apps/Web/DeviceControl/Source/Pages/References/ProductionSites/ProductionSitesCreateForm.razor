@@ -26,6 +26,6 @@
 @code {
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
-  protected override ProductionSiteCreateDto CreateItemAction(ProductionSiteCreateDto item) =>
+  protected override Task CreateItemAction(ProductionSiteCreateDto item) =>
     throw new NotImplementedException();
 }
