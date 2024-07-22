@@ -116,6 +116,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string BtnDelete {
+            get {
+                return ResourceManager.GetString("BtnDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string BtnEnter {
             get {
                 return ResourceManager.GetString("BtnEnter", resourceCulture);
@@ -200,6 +209,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         public static string BtnReconnect {
             get {
                 return ResourceManager.GetString("BtnReconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string BtnRestore {
+            get {
+                return ResourceManager.GetString("BtnRestore", resourceCulture);
             }
         }
         
@@ -596,6 +614,24 @@ namespace ScalesDesktop.Source.Shared.Localization {
         public static string PalletDocumentGenerationError {
             get {
                 return ResourceManager.GetString("PalletDocumentGenerationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletFlagDelivered {
+            get {
+                return ResourceManager.GetString("PalletFlagDelivered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletFlagNotDelivered {
+            get {
+                return ResourceManager.GetString("PalletFlagNotDelivered", resourceCulture);
             }
         }
         

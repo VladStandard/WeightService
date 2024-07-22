@@ -326,4 +326,16 @@
     <data name="ColPrint" xml:space="preserve">
         <value>Print</value>
     </data>
+    <data name="BtnDelete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="BtnRestore" xml:space="preserve">
+        <value>Restore</value>
+    </data>
+    <data name="PalletFlagNotDelivered" xml:space="preserve">
+        <value>Not delivered</value>
+    </data>
+    <data name="PalletFlagDelivered" xml:space="preserve">
+        <value>Delivered</value>
+    </data>
 </root>

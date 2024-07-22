@@ -323,4 +323,16 @@
     <data name="ColPrint" xml:space="preserve">
         <value>Печать</value>
     </data>
+    <data name="BtnDelete" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="BtnRestore" xml:space="preserve">
+        <value>Восстановить</value>
+    </data>
+    <data name="PalletFlagNotDelivered" xml:space="preserve">
+        <value>Не отгружен</value>
+    </data>
+    <data name="PalletFlagDelivered" xml:space="preserve">
+        <value>Отгружен</value>
+    </data>
 </root>
