@@ -3,7 +3,7 @@ using Phetch.Core;
 
 namespace DeviceControl.Source.Shared.Services;
 
-public class UserEndpoints(IKeycloakApi keycloakApi)
+public class UsersEndpoints(IKeycloakApi keycloakApi)
 {
     public ParameterlessEndpoint<KeycloakUser[]> UsersEndpoint { get; } = new(
         keycloakApi.GetAllUsers,

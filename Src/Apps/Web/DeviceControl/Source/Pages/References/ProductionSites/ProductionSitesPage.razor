@@ -1,7 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
-@using Ws.Domain.Models.Entities.Ref
 
 @inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
 @attribute [Route(RouteUtils.SectionProductionSites)]
@@ -26,12 +25,12 @@
       <ColumnsContent>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(ProductionSite.Name)"
+          Field="@nameof(ProductionSiteDto.Name)"
           Width="20%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColAddress"]"
-          Field="@nameof(ProductionSite.Address)"
+          Field="@nameof(ProductionSiteDto.Address)"
           Width="80%"
         />
       </ColumnsContent>

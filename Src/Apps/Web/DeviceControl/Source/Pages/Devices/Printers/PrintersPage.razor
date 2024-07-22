@@ -3,7 +3,6 @@
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
-@using Ws.Domain.Models.Entities.Devices
 
 @inherits SectionPageBase<PrinterDto>
 @attribute [Route(RouteUtils.SectionPrinters)]
@@ -35,7 +34,7 @@
         <ColumnsContent>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColType"]"
-            Field="@nameof(Printer.Type)"
+            Field="@nameof(PrinterDto.Type)"
             Width="10%"
             FilterCellClass="!font-normal"
           >
@@ -53,7 +52,7 @@
           </DataGridColumn>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColName"]"
-            Field="@nameof(Printer.Name)"
+            Field="@nameof(PrinterDto.Name)"
             Width="25%"
           />
           <DataGridColumn
@@ -70,7 +69,7 @@
           </DataGridColumn>
           <DataGridColumn
             Caption="IP"
-            Field="@nameof(Printer.Ip)"
+            Field="@nameof(PrinterDto.Ip)"
             Width="20%"
             Sortable="false"
           />

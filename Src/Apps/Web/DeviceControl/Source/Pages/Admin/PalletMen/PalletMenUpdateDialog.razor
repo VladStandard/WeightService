@@ -1,9 +1,9 @@
-@inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Users.PalletMan>
+@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="@typeof(PalletMenUpdateForm).ToString()">
-    <PalletMenUpdateForm ProductionSite="Content.ProductionSite" />
+    <PalletMenUpdateForm />
   </Tab>
 </SectionDialog>
 

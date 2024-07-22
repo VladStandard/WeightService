@@ -1,7 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Shared
-@using Ws.Domain.Models.Entities.Ref1c
 @using Blazor.Heroicons.Outline
 
 @inherits SectionPageBase<PackageDto>
@@ -39,17 +38,17 @@
         </DataGridColumn>
         <DataGridColumn
           Caption="@WsDataLocalizer["ColChangeDt"]"
-          Field="@nameof(Box.ChangeDt)"
+          Field="@nameof(PackageDto.ChangeDt)"
           Width="20%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColName"]"
-          Field="@nameof(Box.Name)"
+          Field="@nameof(PackageDto.Name)"
           Width="55%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColWeight"]"
-          Field="@nameof(Box.Weight)"
+          Field="@nameof(PackageDto.Weight)"
           Width="20%"
         />
       </ColumnsContent>

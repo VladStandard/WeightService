@@ -1,21 +1,20 @@
-@using DeviceControl.Source.Pages.References1C.Plus.Characteristics
-@inherits SectionDialogBase<Ws.Domain.Models.Entities.Ref1c.Plus.Plu>
+@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Queries.PluDto>
 
 
 <SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
   <Tab Id="@typeof(PlusUpdateForm).ToString()">
     <PlusUpdateForm />
   </Tab>
-  <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()">
-    @if (!DialogItem.IsCheckWeight)
-    {
-      <PieceCharacteristicsDataGrid/>
-    }
-    else
-    {
-      <WeightCharacteristicsDataGrid />
-    }
-  </Tab>
+  @* <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()"> *@
+  @*   @if (!DialogItem.IsWeight) *@
+  @*   { *@
+  @*     <PieceCharacteristicsDataGrid/> *@
+  @*   } *@
+  @*   else *@
+  @*   { *@
+  @*     <WeightCharacteristicsDataGrid /> *@
+  @*   } *@
+  @* </Tab> *@
 </SectionDialog>
 
 @code {
@@ -24,6 +23,6 @@
   protected override List<KeyValuePair<string, string>> InitializeTabList() =>
   [
     new(typeof(PlusUpdateForm).ToString(), Localizer["SectionPLU"]),
-    new(typeof(PieceCharacteristicsDataGrid).ToString(), Localizer["SectionPluCharacteristics"])
+    // new(typeof(PieceCharacteristicsDataGrid).ToString(), Localizer["SectionPluCharacteristics"])
   ];
 }

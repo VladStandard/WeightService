@@ -15,7 +15,7 @@ public sealed partial class UsersPage : SectionDataGridPageBase<UserWithProducti
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IUserService UserService { get; set; } = default!;
-    [Inject] private UserEndpoints UserEndpoints { get; set; } = default!;
+    [Inject] private UsersEndpoints UsersEndpoints { get; set; } = default!;
 
     #endregion
 

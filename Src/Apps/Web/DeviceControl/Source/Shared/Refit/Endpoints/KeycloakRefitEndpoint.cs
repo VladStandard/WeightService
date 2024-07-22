@@ -19,6 +19,6 @@ internal class KeycloakRefitEndpoint : IRefitEndpoint
             .ConfigureHttpClient(c => c.BaseAddress = new(keycloakAdminUrl))
             .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
-        builder.Services.AddScoped<UserEndpoints>();
+        builder.Services.AddScoped<UsersEndpoints>();
     }
 }

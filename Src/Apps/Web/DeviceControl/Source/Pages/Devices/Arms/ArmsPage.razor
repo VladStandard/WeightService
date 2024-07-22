@@ -1,5 +1,4 @@
 @using DeviceControl.Source.Features
-@using Ws.Domain.Models.Entities.Devices.Arms
 @using DeviceControl.Source.Shared.Services
 @using Blazor.Heroicons.Outline
 @using Ws.DeviceControl.Models
@@ -19,94 +18,94 @@
     Options="@DefaultEndpointOptions"
     Context="armsQuery"
   >
-  <PageHeader>
-    <span>@Localizer["SectionLines"]</span>
-    <DataGridItemsCounter ItemsCount="@(armsQuery.Data?.Length ?? 0)" IsLoading="armsQuery.IsLoading"/>
-    <DataGridActionReload OnClick="@armsQuery.RefetchAsync" IsLoading="armsQuery.IsFetching" />
-    @* <DataGridActionCreate OnClick="@OpenSectionCreateForm"/> *@
-  </PageHeader>
+    <PageHeader>
+      <span>@Localizer["SectionLines"]</span>
+      <DataGridItemsCounter ItemsCount="@(armsQuery.Data?.Length ?? 0)" IsLoading="armsQuery.IsLoading"/>
+      <DataGridActionReload OnClick="@armsQuery.RefetchAsync" IsLoading="armsQuery.IsFetching" />
+      @* <DataGridActionCreate OnClick="@OpenSectionCreateForm"/> *@
+    </PageHeader>
 
-  <DataGridWrapper>
-    <DataGridContainer
-      TItem="ArmDto"
-      Items="@(armsQuery.HasData ? armsQuery.Data : [])"
-      OnItemSelect="@(item => OpenSectionViewModal(item))"
-      IsFilterable
-    >
-      <ColumnsContent>
-        <DataGridColumn
-          Field="@(nameof(ArmDto.Type))"
-          Caption="@WsDataLocalizer["ColType"]"
-          Width="1rem"
-          Filterable="false"
-        >
-          <DisplayTemplate>
-            <div class="size-full flex items-center justify-center">
-              @switch (context.Type)
-              {
-                case ArmType.Pc:
-                  <ComputerDesktopIcon class="size-5"/>
-                  break;
-                case ArmType.Tablet:
-                  <DeviceTabletIcon class="size-5"/>
-                  break;
-                case ArmType.Universal:
-                  <ServerIcon class="size-5"/>
-                  break;
-                default:
-                  <ExclamationTriangleIcon class="size-5 text-destructive"/>
-                  break;
-              }
-            </div>
-          </DisplayTemplate>
-        </DataGridColumn>
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColVersion"]"
-          Field="@nameof(ArmDto.Version)"
-          Width="2rem"
-          Filterable="false"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColLine"]"
-          Field="@nameof(ArmDto.Name)"
-          Width="20%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColProductionSite"]"
-          Width="20%"
-          FilterCellClass="!font-normal"
-        >
-          <FilterTemplate>
-            <ProductionSiteSelect />
-          </FilterTemplate>
-          <DisplayTemplate>
-            @ProductionSiteState.Value.ProductionSite.Name
-          </DisplayTemplate>
-        </DataGridColumn>
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColPcName"]"
-          Field="PcName"
-          Width="15%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColPrinter"]"
-          Field="Printer.Name"
-          Width="15%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColCounter"]"
-          Field="@nameof(Arm.Counter)"
-          Width="15%"
-          Filterable="false"
-        />
-      </ColumnsContent>
-      <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenSectionViewModal(item)))" />
-        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-        @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
-      </ContextMenuContent>
-    </DataGridContainer>
-  </DataGridWrapper>
+    <DataGridWrapper>
+      <DataGridContainer
+        TItem="ArmDto"
+        Items="@(armsQuery.HasData ? armsQuery.Data : [])"
+        OnItemSelect="@(item => OpenSectionViewModal(item))"
+        IsFilterable
+      >
+        <ColumnsContent>
+          <DataGridColumn
+            Field="@(nameof(ArmDto.Type))"
+            Caption="@WsDataLocalizer["ColType"]"
+            Width="1rem"
+            Filterable="false"
+          >
+            <DisplayTemplate>
+              <div class="size-full flex items-center justify-center">
+                @switch (context.Type)
+                {
+                  case ArmType.Pc:
+                    <ComputerDesktopIcon class="size-5"/>
+                    break;
+                  case ArmType.Tablet:
+                    <DeviceTabletIcon class="size-5"/>
+                    break;
+                  case ArmType.Universal:
+                    <ServerIcon class="size-5"/>
+                    break;
+                  default:
+                    <ExclamationTriangleIcon class="size-5 text-destructive"/>
+                    break;
+                }
+              </div>
+            </DisplayTemplate>
+          </DataGridColumn>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColVersion"]"
+            Field="@nameof(ArmDto.Version)"
+            Width="2rem"
+            Filterable="false"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColLine"]"
+            Field="@nameof(ArmDto.Name)"
+            Width="20%"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColProductionSite"]"
+            Width="20%"
+            FilterCellClass="!font-normal"
+          >
+            <FilterTemplate>
+              <ProductionSiteSelect />
+            </FilterTemplate>
+            <DisplayTemplate>
+              @ProductionSiteState.Value.ProductionSite.Name
+            </DisplayTemplate>
+          </DataGridColumn>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColPcName"]"
+            Field="@nameof(ArmDto.PcName)"
+            Width="15%"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColPrinter"]"
+            Field="Printer.Name"
+            Width="15%"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColCounter"]"
+            Field="@nameof(ArmDto.Counter)"
+            Width="15%"
+            Filterable="false"
+          />
+        </ColumnsContent>
+        <ContextMenuContent>
+          <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenSectionViewModal(item)))" />
+          <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
+          @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
+        </ContextMenuContent>
+      </DataGridContainer>
+    </DataGridWrapper>
   </UseEndpoint>
 </UserProductionSiteErrorSuspense>
 

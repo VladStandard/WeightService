@@ -1,10 +1,9 @@
-using Ws.Domain.Models.Entities.Devices;
+using DeviceControl.Source.Shared.Services;
+using Fluxor;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Services.Features.Arms;
-using Ws.Domain.Services.Features.Printers;
-using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.Devices.Arms;
 
@@ -15,8 +14,9 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-    [Inject] private IPrinterService PrinterService { get; set; } = default!;
-    [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
+    [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+    [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+    [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
     [Inject] private IArmService ArmService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
 
@@ -24,9 +24,7 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
 
     [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
 
-    private IEnumerable<Printer> Printers { get; set; } = [];
-    private IEnumerable<Warehouse> Warehouses { get; set; } = [];
-    private IEnumerable<ArmType> LineTypes { get; set; } = [];
+    private IEnumerable<ArmType> LineTypes { get; set; } = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
     private bool IsSeniorSupport { get; set; }
     private bool IsDeveloper { get; set; }
 
@@ -37,21 +35,13 @@ public sealed partial class ArmsCreateForm : SectionFormBase<Arm>
         DialogItem.Warehouse.Name = Localizer["FormWarehouseDefaultPlaceholder"];
         DialogItem.Printer.Name = Localizer["FormPrinterDefaultPlaceholder"];
         GenerateLineNumber();
-
-        LineTypes = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
-        Printers = PrinterService.GetAllByProductionSite(ProductionSite);
-        Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
     }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
         IsDeveloper = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Developer)).Succeeded;
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-
-        DialogItem.Printer = Printers.FirstOrDefault() ?? new() { Name = Localizer["FormPrinterDefaultPlaceholder"] };
-        DialogItem.Warehouse = Warehouses.FirstOrDefault() ?? new();
     }
 
     protected override Arm CreateItemAction(Arm item) =>

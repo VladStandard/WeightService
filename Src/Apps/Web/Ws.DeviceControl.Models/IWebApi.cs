@@ -1,16 +1,28 @@
 using Refit;
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 using Ws.DeviceControl.Models.Dto.Database;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries;
 using Ws.DeviceControl.Models.Dto.References1C.Brands;
+using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
 using Ws.DeviceControl.Models.Dto.Shared;
 
 namespace Ws.DeviceControl.Models;
 
 public interface IWebApi
 {
+    # region Admin
+
+    [Get("/pallet-men?productionSite={productionSiteUid}")]
+    Task<PalletManDto[]> GetPalletMen(Guid productionSiteUid);
+
+    [Get("/pallet-men/{Uid}")]
+    Task<PalletManDto> GetPalletManByUid(Guid uid);
+
+    # endregion
+
     # region Devices
 
     [Get("/arms?productionSite={productionSiteUid}")]
@@ -62,6 +74,12 @@ public interface IWebApi
 
     [Get("/bundles/{Uid}")]
     Task<PackageDto> GetBundleByUid(Guid uid);
+
+    [Get("/plu")]
+    Task<PluDto[]> GetPlus();
+
+    [Get("/plu/{Uid}")]
+    Task<PluDto> GetPluByUid(Guid uid);
 
     # endregion
 

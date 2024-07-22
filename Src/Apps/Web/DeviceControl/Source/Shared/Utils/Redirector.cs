@@ -18,7 +18,7 @@ public class Redirector(IAuthorizationService authorizationService)
     private static string Link(EntityBase entity, string baseUrl) => Link(entity, baseUrl, true);
 
     private static string Link(EntityBase entity, string baseUrl, bool isActive) =>
-        entity.IsNew || !isActive ? string.Empty : $"{baseUrl}/{entity.Uid}";
+        entity.IsNew || !isActive ? string.Empty : $"{baseUrl}?id={entity.Uid}";
 
     #endregion
 
@@ -27,7 +27,7 @@ public class Redirector(IAuthorizationService authorizationService)
     private static string Link(Guid uid, string baseUrl) => Link(uid, baseUrl, true);
 
     private static string Link(Guid uid, string baseUrl, bool isActive) =>
-        !isActive ? string.Empty : $"{baseUrl}/{uid}";
+        !isActive ? string.Empty : $"{baseUrl}?id={uid}";
 
     #endregion
 
@@ -47,8 +47,11 @@ public class Redirector(IAuthorizationService authorizationService)
     public string ToWarehousePath(ProxyDto item, ClaimsPrincipal user) =>
         Link(item.Id, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToPath(Printer item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
+    public string ToBrandPath(ProxyDto item) => Link(item.Id, RouteUtils.SectionBrands);
+
+    public string ToBundlePath(ProxyDto item) => Link(item.Id, RouteUtils.SectionBundles);
+
+    public string ToClipPath(ProxyDto item) => Link(item.Id, RouteUtils.SectionClips);
 
     public string ToPath(Warehouse item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
@@ -56,14 +59,4 @@ public class Redirector(IAuthorizationService authorizationService)
     public string ToPath(ProductionSite item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToPath(Bundle item) => Link(item, RouteUtils.SectionBundles);
-
-    public string ToPath(Clip item) => Link(item, RouteUtils.SectionClips);
-
-    public string ToPath(Brand item) => Link(item, RouteUtils.SectionBrands);
-
-    public string ToPath(Box item) => Link(item, RouteUtils.SectionBoxes);
-
-    public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
-        Link(uid, RouteUtils.SectionTemplates, uid != Guid.Empty);
 }

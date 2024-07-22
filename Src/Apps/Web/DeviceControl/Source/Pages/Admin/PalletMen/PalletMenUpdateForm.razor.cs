@@ -1,18 +1,18 @@
-using System.Diagnostics;
+using DeviceControl.Source.Shared.Services;
+using Fluxor;
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Domain.Models.Entities.Users;
-using Ws.Domain.Services.Features.PalletMen;
 using Ws.Domain.Services.Features.Warehouses;
 
 namespace DeviceControl.Source.Pages.Admin.PalletMen;
 
-[DebuggerDisplay("{DialogItem}")]
-public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
+public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletManDto>
 {
     #region Inject
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private IPalletManService PalletManService { get; set; } = default!;
+    [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
     [Inject] private IWarehouseService WarehouseService { get; set; } = default!;
     [Inject] private Redirector Redirector { get; set; } = default!;
     [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
@@ -20,7 +20,6 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
     #endregion
 
     [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
-    [Parameter, EditorRequired] public ProductionSite ProductionSite { get; set; } = new();
 
     private IEnumerable<Warehouse> Warehouses { get; set; } = [];
     private bool IsOnlyView { get; set; }
@@ -30,24 +29,21 @@ public sealed partial class PalletMenUpdateForm : SectionFormBase<PalletMan>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Warehouses = WarehouseService.GetAllByProductionSite(ProductionSite);
+        Warehouses = WarehouseService.GetAllByProductionSite(ProductionSiteState.Value.ProductionSite);
     }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSite);
+        IsOnlyView = !IsSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
     }
 
-    protected override PalletMan UpdateItemAction(PalletMan item) =>
-        PalletManService.Update(item);
+    protected override PalletManDto UpdateItemAction(PalletManDto item) =>
+        throw new NotImplementedException();
 
-    protected override Task DeleteItemAction(PalletMan item)
-    {
-        PalletManService.DeleteById(item.Uid);
-        return Task.CompletedTask;
-    }
+    protected override Task DeleteItemAction(PalletManDto item) =>
+        throw new NotImplementedException();
 }
 
 public class PalletMenUpdateFormValidator : AbstractValidator<PalletMan>
