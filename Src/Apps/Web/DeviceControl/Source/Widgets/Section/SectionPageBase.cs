@@ -4,7 +4,7 @@ using Phetch.Core;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public class SectionPageBase<TItem>: FluxorComponent
+public class SectionPageBase<TItem>: FluxorComponent where TItem : notnull
 {
     # region Injects
 
@@ -41,7 +41,7 @@ public class SectionPageBase<TItem>: FluxorComponent
         try
         {
             TItem item = await SearchByUidAction(Id.Value);
-            await OpenSectionViewModal(item);
+            await OpenUpdateFormModal(item);
         }
         catch
         {
@@ -63,9 +63,11 @@ public class SectionPageBase<TItem>: FluxorComponent
         }
     }
 
-    protected async Task OpenSectionModal<T>(TItem sectionEntity) where T : SectionDialogBase<TItem> =>
-        await DialogService.ShowDialogAsync<T>(new SectionDialogContent<TItem> { Item = sectionEntity },
-            DialogParameters);
+    protected async Task OpenModalWithItem<T>(TItem sectionEntity) where T : IDialogContentComponent<TItem> =>
+        await DialogService.ShowDialogAsync<T>(sectionEntity, DialogParameters);
+
+    protected async Task OpenModal<T>() where T : IDialogContentComponent =>
+        await DialogService.ShowDialogAsync<T>(DialogParameters);
 
     protected async Task ContextFuncWrapper(TItem? item, EventCallback onComplete, Func<TItem, Task> action)
     {
@@ -77,10 +79,10 @@ public class SectionPageBase<TItem>: FluxorComponent
     protected async Task OpenLinkInNewTab(string url) =>
         await JsRuntime.InvokeVoidAsync("open", url, "_blank");
 
-    protected virtual Task OpenSectionViewModal(TItem item) =>
+    protected virtual Task OpenUpdateFormModal(TItem item) =>
         throw new NotImplementedException();
 
-    protected virtual Task OpenSectionCreateForm() =>
+    protected virtual Task OpenCreateFormModal() =>
         throw new NotImplementedException();
 
     protected virtual Task<TItem> SearchByUidAction(Guid uid) =>

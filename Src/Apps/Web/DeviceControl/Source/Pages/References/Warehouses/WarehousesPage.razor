@@ -28,7 +28,7 @@
     <DataGridContainer
       TItem="WarehouseDto"
       Items="@(warehousesQuery.HasData ? warehousesQuery.Data : [])"
-      OnItemSelect="@(item => OpenSectionViewModal(item))"
+      OnItemSelect="@(item => OpenUpdateFormModal(item))"
       IsFilterable
     >
       <ColumnsContent>
@@ -50,7 +50,7 @@
         </DataGridColumn>
       </ColumnsContent>
       <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenSectionViewModal(item)))"/>
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenUpdateFormModal(item)))"/>
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))"/>
         @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/> *@
       </ContextMenuContent>
@@ -70,11 +70,11 @@
 
   #endregion
 
-  protected override Task OpenSectionCreateForm() =>
+  protected override Task OpenCreateFormModal() =>
     throw new NotImplementedException();
 
-  protected override async Task OpenSectionViewModal(WarehouseDto item) =>
-    await OpenSectionModal<WarehousesUpdateDialog>(item);
+  protected override async Task OpenUpdateFormModal(WarehouseDto item) =>
+    throw new NotImplementedException();
 
   protected override async Task OpenItemInNewTab(WarehouseDto item) =>
     await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}?id={item.Id}");

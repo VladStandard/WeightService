@@ -1,17 +1,17 @@
-@inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Devices.Printer>
-
-
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(PrintersCreateForm).ToString()">
-    <PrintersCreateForm  ProductionSite="Content.ProductionSite" />
-  </Tab>
-</SectionDialog>
-
-@code {
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(PrintersCreateForm).ToString(), Localizer["SectionPrinters"])
-  ];
-}
+@* @inherits DeviceControl.Source.Widgets.Section.Dialogs.SectionDialogWithProductionSite<Ws.Domain.Models.Entities.Devices.Printer> *@
+@* *@
+@* *@
+@* <SectionDialog DialogItem="DialogItem" TabsList="@TabsList"> *@
+@*   <Tab Id="@typeof(PrintersCreateForm).ToString()"> *@
+@*     <PrintersCreateForm  ProductionSite="Content.ProductionSite" /> *@
+@*   </Tab> *@
+@* </SectionDialog> *@
+@* *@
+@* @code { *@
+@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
+@* *@
+@*   protected override List<KeyValuePair<string, string>> InitializeTabList() => *@
+@*   [ *@
+@*     new(typeof(PrintersCreateForm).ToString(), Localizer["SectionPrinters"]) *@
+@*   ]; *@
+@* } *@

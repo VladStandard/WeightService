@@ -21,7 +21,7 @@
     <DataGridContainer
       TItem="PluDto"
       Items="@(plusQuery.HasData ? plusQuery.Data : [])"
-      OnItemSelect="@(item => OpenSectionViewModal(item))"
+      OnItemSelect="@(item => OpenUpdateFormModal(item))"
       IsFilterable
     >
       <ColumnsContent>
@@ -109,7 +109,7 @@
         />
       </ColumnsContent>
       <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenSectionViewModal(item)))" />
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenUpdateFormModal(item)))" />
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
       </ContextMenuContent>
     </DataGridContainer>
@@ -128,8 +128,8 @@
 
   private bool? IsWeightFilter { get; set; }
 
-  protected override async Task OpenSectionViewModal(PluDto item) =>
-    await OpenSectionModal<PlusUpdateDialog>(item);
+  protected override async Task OpenUpdateFormModal(PluDto item) =>
+    throw new NotImplementedException();
 
   protected override async Task OpenItemInNewTab(PluDto item) =>
     await OpenLinkInNewTab($"{RouteUtils.SectionPlus}?id={item.Id}");

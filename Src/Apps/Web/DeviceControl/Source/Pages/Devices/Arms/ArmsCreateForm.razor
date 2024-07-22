@@ -1,111 +1,111 @@
-@using Ws.Domain.Models.Entities.Devices
-@using Ws.Domain.Models.Entities.Ref
-@using Ws.DeviceControl.Models.Dto.Shared
-@using Blazor.Heroicons.Outline
-
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm>
-
-<SectionForm
-  FormModel="@_createCommand"
-  Validator="@(new LinesCreateFormValidator(Localizer, WsDataLocalizer))"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@CreateItem"
->
-  <FieldsContent>
-    <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb">
-      <div class="w-full items-center flex gap-2">
-        <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@_createCommand.Number" />
-        <Button
-          Size="ButtonSize.Icon"
-          Variant="ButtonVariant.Outline"
-          Class="shrink-0 !size-10"
-          OnClick="@GenerateLineNumber"
-        >
-          <ArrowPathIcon class="size-5" />
-        </Button>
-      </div>
-      <FieldValidation For="@(() => _createCommand.Number)"/>
-    </SectionInputWrapper>
-
-    <SectionTextField
-      Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@_createCommand.Name"
-      For="@(() => _createCommand.Name)"
-      MaxLength="32"
-    />
-
-    <SectionSelectSingleField
-      TItem="ArmType"
-      Label="@WsDataLocalizer["ColType"]"
-      Items="LineTypes"
-      @bind-Value="@_createCommand.Type"
-      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
-      For="@(() => _createCommand.Type)"
-    />
-
-    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
-
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPcName"]"
-      @bind-Value="@_createCommand.PcName"
-      For="@(() => _createCommand.PcName)"
-      MaxLength="16"
-    />
-
-    <UseEndpoint
-      Endpoint="@DevicesEndpoints.ProxyPrinterEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
-      Context="printersQuery"
-    >
-      @if (printersQuery.HasData)
-      {
-        @* <SectionSelectSingleField *@
-        @*   TItem="ProxyDto" *@
-        @*   Label="@WsDataLocalizer["ColPrinter"]" *@
-        @*   Items="@(printersQuery.Data)" *@
-        @*   @bind-Value="@DialogItem.Printer" *@
-        @*   ItemDisplayName="item => item.Name" *@
-        @*   Path="@Redirector.ToPrinterPath(DialogItem.Printer, UserPrincipal)" *@
-        @*   For="@(() => DialogItem.Printer)" *@
-        @*   IsFilterable *@
-        @* /> *@
-      }
-      else
-      {
-      <Skeleton class="h-10 w-full" />
-      }
-    </UseEndpoint>
-
-    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSiteState.Value.ProductionSite.Name"
-      Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)"
-    />
-
-    <UseEndpoint
-      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
-      Context="warehousesQuery"
-    >
-      @if (warehousesQuery.HasData)
-      {
-        @* <SectionSelectSingleField *@
-        @*   TItem="ProxyDto" *@
-        @*   Label="@WsDataLocalizer["ColWarehouse"]" *@
-        @*   Items="@warehousesQuery.Data" *@
-        @*   @bind-Value="@DialogItem.Warehouse" *@
-        @*   ItemDisplayName="item => item.Name" *@
-        @*   Path="@Redirector.ToWarehousePath(DialogItem.Warehouse, UserPrincipal)" *@
-        @*   For="@(() => DialogItem.Warehouse)" *@
-        @*   IsFilterable *@
-        @* /> *@
-      }
-      else
-      {
-      <Skeleton class="h-10 w-full" />
-      }
-    </UseEndpoint>
-  </FieldsContent>
-</SectionForm>
+@* @using Ws.Domain.Models.Entities.Devices *@
+@* @using Ws.Domain.Models.Entities.Ref *@
+@* @using Ws.DeviceControl.Models.Dto.Shared *@
+@* @using Blazor.Heroicons.Outline *@
+@* *@
+@* @inherits SectionFormBase<Ws.Domain.Models.Entities.Devices.Arms.Arm> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@_createCommand" *@
+@*   Validator="@(new LinesCreateFormValidator(Localizer, WsDataLocalizer))" *@
+@*   OnCancelAction="@OnCancelAction" *@
+@*   OnSubmitAction="@CreateItem" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionInputWrapper Label="@WsDataLocalizer["ColNumber"]" HtmlFor="line-numb"> *@
+@*       <div class="w-full items-center flex gap-2"> *@
+@*         <InputNumberField id="line-numb" Min="10000" Max="99999" @bind-Value="@_createCommand.Number" /> *@
+@*         <Button *@
+@*           Size="ButtonSize.Icon" *@
+@*           Variant="ButtonVariant.Outline" *@
+@*           Class="shrink-0 !size-10" *@
+@*           OnClick="@GenerateLineNumber" *@
+@*         > *@
+@*           <ArrowPathIcon class="size-5" /> *@
+@*         </Button> *@
+@*       </div> *@
+@*       <FieldValidation For="@(() => _createCommand.Number)"/> *@
+@*     </SectionInputWrapper> *@
+@* *@
+@*     <SectionTextField *@
+@*       Label="@WsDataLocalizer["ColName"]" *@
+@*       @bind-Value="@_createCommand.Name" *@
+@*       For="@(() => _createCommand.Name)" *@
+@*       MaxLength="32" *@
+@*     /> *@
+@* *@
+@*     <SectionSelectSingleField *@
+@*       TItem="ArmType" *@
+@*       Label="@WsDataLocalizer["ColType"]" *@
+@*       Items="LineTypes" *@
+@*       @bind-Value="@_createCommand.Type" *@
+@*       ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]" *@
+@*       For="@(() => _createCommand.Type)" *@
+@*     /> *@
+@* *@
+@*     <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider> *@
+@* *@
+@*     <SectionTextField *@
+@*       Label="@WsDataLocalizer["ColPcName"]" *@
+@*       @bind-Value="@_createCommand.PcName" *@
+@*       For="@(() => _createCommand.PcName)" *@
+@*       MaxLength="16" *@
+@*     /> *@
+@* *@
+@*     <UseEndpoint *@
+@*       Endpoint="@DevicesEndpoints.ProxyPrinterEndpoint" *@
+@*       Arg="ProductionSiteState.Value.ProductionSite.Uid" *@
+@*       Context="printersQuery" *@
+@*     > *@
+@*       @if (printersQuery.HasData) *@
+@*       { *@
+@*         $1$ <SectionSelectSingleField #1# *@
+@*         $1$   TItem="ProxyDto" #1# *@
+@*         $1$   Label="@WsDataLocalizer["ColPrinter"]" #1# *@
+@*         $1$   Items="@(printersQuery.Data)" #1# *@
+@*         $1$   @bind-Value="@DialogItem.Printer" #1# *@
+@*         $1$   ItemDisplayName="item => item.Name" #1# *@
+@*         $1$   Path="@Redirector.ToPrinterPath(DialogItem.Printer, UserPrincipal)" #1# *@
+@*         $1$   For="@(() => DialogItem.Printer)" #1# *@
+@*         $1$   IsFilterable #1# *@
+@*         $1$ /> #1# *@
+@*       } *@
+@*       else *@
+@*       { *@
+@*       <Skeleton class="h-10 w-full" /> *@
+@*       } *@
+@*     </UseEndpoint> *@
+@* *@
+@*     <FormDivider>@Localizer["FieldLocation"]</FormDivider> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@WsDataLocalizer["ColProductionSite"]" *@
+@*       Value="@ProductionSiteState.Value.ProductionSite.Name" *@
+@*       Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)" *@
+@*     /> *@
+@* *@
+@*     <UseEndpoint *@
+@*       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint" *@
+@*       Arg="ProductionSiteState.Value.ProductionSite.Uid" *@
+@*       Context="warehousesQuery" *@
+@*     > *@
+@*       @if (warehousesQuery.HasData) *@
+@*       { *@
+@*         $1$ <SectionSelectSingleField #1# *@
+@*         $1$   TItem="ProxyDto" #1# *@
+@*         $1$   Label="@WsDataLocalizer["ColWarehouse"]" #1# *@
+@*         $1$   Items="@warehousesQuery.Data" #1# *@
+@*         $1$   @bind-Value="@DialogItem.Warehouse" #1# *@
+@*         $1$   ItemDisplayName="item => item.Name" #1# *@
+@*         $1$   Path="@Redirector.ToWarehousePath(DialogItem.Warehouse, UserPrincipal)" #1# *@
+@*         $1$   For="@(() => DialogItem.Warehouse)" #1# *@
+@*         $1$   IsFilterable #1# *@
+@*         $1$ /> #1# *@
+@*       } *@
+@*       else *@
+@*       { *@
+@*       <Skeleton class="h-10 w-full" /> *@
+@*       } *@
+@*     </UseEndpoint> *@
+@*   </FieldsContent> *@
+@* </SectionForm> *@

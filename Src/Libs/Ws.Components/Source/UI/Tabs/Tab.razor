@@ -1,10 +1,18 @@
+@implements IDisposable
+
 @if (Control.ActiveTabId == Id)
 {
   @ChildContent
 }
 
 @code {
-  [Parameter, EditorRequired] public string Id { get; set; } = default!;
   [CascadingParameter] private Tabs Control { get; set; } = default!;
+
+  [Parameter, EditorRequired] public string Id { get; set; } = default!;
+  [Parameter] public string Title { get; set; } = string.Empty;
   [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  protected override void OnInitialized() => Control.RegisterTab(this);
+
+  public void Dispose() => Control.UnregisterTab(this);
 }

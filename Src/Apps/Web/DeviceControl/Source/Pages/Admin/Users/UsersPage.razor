@@ -1,49 +1,49 @@
-@using DeviceControl.Source.Features
-@inherits SectionDataGridPageBase<UserWithProductionSite>
-@attribute [Route($"{RouteUtils.SectionUsers}")]
-@attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
-@rendermode InteractiveServer
-
-<PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle>
-
-<UseParameterlessEndpoint Endpoint="@UsersEndpoints.UsersEndpoint" Context="usersQuery">
-  <PageHeader>
-    <span>@Localizer["SectionUsers"]</span>
-    <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" />
-  </PageHeader>
-
-  <DataGridWrapper>
-    <DataGridContainer
-      TItem="UserWithProductionSite"
-      Items="@(usersQuery.HasData ? GetAllUsers(usersQuery.Data) : [])"
-      OnItemSelect="@(item => OpenDataGridEntityModal(item))"
-      IsFilterable
-    >
-      <ColumnsContent>
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColUser"]"
-          Field="KeycloakUser.Username"
-          Width="30%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColFullName"]"
-          Field="KeycloakUser.FirstName"
-          Width="30%"
-        />
-        <DataGridColumn
-          Caption="@WsDataLocalizer["ColProductionSite"]"
-          Field="ProductionSite.Name"
-          Width="40%"
-          FilterCellClass="!font-normal"
-        >
-          <FilterTemplate>
-            <ProductionSiteSelect AllowIsNew />
-          </FilterTemplate>
-        </DataGridColumn>
-      </ColumnsContent>
-      <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" />
-      </ContextMenuContent>
-    </DataGridContainer>
-  </DataGridWrapper>
-</UseParameterlessEndpoint>
+@* @using DeviceControl.Source.Features *@
+@* @inherits SectionDataGridPageBase<Ws.DeviceControl.Models.Dto.Admins.Users.Queries.UserDto> *@
+@* @attribute [Route($"{RouteUtils.SectionUsers}")] *@
+@* @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)] *@
+@* @rendermode InteractiveServer *@
+@* *@
+@* <PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle> *@
+@* *@
+@* <UseParameterlessEndpoint Endpoint="@UsersEndpoints.UsersEndpoint" Context="usersQuery"> *@
+@*   <PageHeader> *@
+@*     <span>@Localizer["SectionUsers"]</span> *@
+@*     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" /> *@
+@*   </PageHeader> *@
+@* *@
+@*   <DataGridWrapper> *@
+@*     <DataGridContainer *@
+@*       TItem="UserWithProductionSite" *@
+@*       Items="@(usersQuery.HasData ? GetAllUsers(usersQuery.Data) : [])" *@
+@*       OnItemSelect="@(item => OpenDataGridEntityModal(item))" *@
+@*       IsFilterable *@
+@*     > *@
+@*       <ColumnsContent> *@
+@*         <DataGridColumn *@
+@*           Caption="@WsDataLocalizer["ColUser"]" *@
+@*           Field="KeycloakUser.Username" *@
+@*           Width="30%" *@
+@*         /> *@
+@*         <DataGridColumn *@
+@*           Caption="@WsDataLocalizer["ColFullName"]" *@
+@*           Field="KeycloakUser.FirstName" *@
+@*           Width="30%" *@
+@*         /> *@
+@*         <DataGridColumn *@
+@*           Caption="@WsDataLocalizer["ColProductionSite"]" *@
+@*           Field="ProductionSite.Name" *@
+@*           Width="40%" *@
+@*           FilterCellClass="!font-normal" *@
+@*         > *@
+@*           <FilterTemplate> *@
+@*             <ProductionSiteSelect AllowIsNew /> *@
+@*           </FilterTemplate> *@
+@*         </DataGridColumn> *@
+@*       </ColumnsContent> *@
+@*       <ContextMenuContent> *@
+@*         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" /> *@
+@*       </ContextMenuContent> *@
+@*     </DataGridContainer> *@
+@*   </DataGridWrapper> *@
+@* </UseParameterlessEndpoint> *@

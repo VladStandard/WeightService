@@ -1,16 +1,16 @@
-@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
 
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(ProductionSitesUpdateForm).ToString()">
-    <ProductionSitesUpdateForm />
+@implements IDialogContentComponent<ProductionSiteDto>
+
+<SectionDialog>
+  <Tab Id="@typeof(ProductionSitesUpdateForm).ToString()" Title="@Localizer["SectionProductionSites"]">
+    <ProductionSitesUpdateForm Model="Content" FormModel="@ProductionSiteMapper.DtoToUpdateDto(Content)" />
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(ProductionSitesUpdateForm).ToString(),Localizer["SectionProductionSites"])
-  ];
+  [Parameter] public ProductionSiteDto Content { get; set; } = default!;
 }

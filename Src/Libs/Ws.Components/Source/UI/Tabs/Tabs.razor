@@ -5,4 +5,18 @@
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [Parameter] public string ActiveTabId { get; set; } = default!;
+
+  public List<Tab> TabsList { get; private set; } = [];
+
+  internal void RegisterTab(Tab tab)
+  {
+    if (!TabsList.Contains(tab))
+      TabsList.Add(tab);
+  }
+
+  internal void UnregisterTab(Tab tab)
+  {
+    if (TabsList.Contains(tab))
+      TabsList.Remove(tab);
+  }
 }

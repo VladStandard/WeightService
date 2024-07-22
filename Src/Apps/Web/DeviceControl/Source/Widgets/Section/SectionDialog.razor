@@ -1,38 +1,34 @@
-@typeparam TDialogItem
-
-
 <Dialog Class="max-w-screen-lg !p-0">
-  <CascadingValue Value="DialogItem" Name="DialogItem">
-    <Tabs ActiveTabId="@CurrentTabId">
-      <DialogHeader>
-        <ul class="flex gap-2">
-          @foreach (KeyValuePair<string, string> item in TabsList)
-          {
-            <li>
-              <Button
-                Variant="@(CurrentTabId == item.Key ? ButtonVariant.Secondary : ButtonVariant.Outline)"
-                OnClick="@(() => CurrentTabId = item.Key)">
-                @item.Value
-              </Button>
-            </li>
-          }
-        </ul>
-      </DialogHeader>
-      @ChildContent
-    </Tabs>
-  </CascadingValue>
+  <Tabs ActiveTabId="@CurrentTabId" @ref="TabComponent">
+    <DialogHeader>
+      <ul class="flex gap-2">
+        @foreach (Tab tab in TabComponent.TabsList)
+        {
+          <li>
+            <Button
+              Variant="@(CurrentTabId == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+              OnClick="@(() => CurrentTabId = tab.Id)">
+              @tab.Title
+            </Button>
+          </li>
+        }
+      </ul>
+    </DialogHeader>
+    @ChildContent
+  </Tabs>
 </Dialog>
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
-  [Parameter, EditorRequired] public List<KeyValuePair<string, string>> TabsList { get; set; } = default!;
-  [Parameter, EditorRequired] public TDialogItem DialogItem { get; set; } = default!;
 
-  private string CurrentTabId { get; set; } = default!;
+  private Tabs TabComponent { get; set; } = default!;
+  private string CurrentTabId { get; set; } = string.Empty;
 
-  protected override void OnInitialized()
+  protected override void OnAfterRender(bool firstRender)
   {
-    base.OnInitialized();
-    if (TabsList.Count > 0) CurrentTabId = TabsList.FirstOrDefault().Key;
+    if (!firstRender) return;
+    if (TabComponent.TabsList.Count > 0)
+      CurrentTabId = TabComponent.TabsList.FirstOrDefault()?.Id ?? string.Empty;
+    StateHasChanged();
   }
 }

@@ -10,9 +10,9 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
 
-    [CascadingParameter(Name = "DialogItem")] protected TItem DialogItem { get; set; } = default!;
     [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
     [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
+    [Parameter, EditorRequired] public TItem FormModel { get; set; } = default!;
 
     protected ClaimsPrincipal UserPrincipal { get; private set; } = new();
     protected bool IsForceSubmit { get; set; }
@@ -21,7 +21,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        DialogItemCopy = DialogItem.DeepClone();
+        DialogItemCopy = FormModel.DeepClone();
     }
 
     protected override async Task OnInitializedAsync()
@@ -40,7 +40,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
 
     protected void ResetAction()
     {
-        DialogItem = DialogItemCopy.DeepClone();
+        FormModel = DialogItemCopy.DeepClone();
         ToastService.ShowInfo(Localizer["ToastResetItem"]);
     }
 
@@ -48,7 +48,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     {
         try
         {
-            TItem createdItem = CreateItemAction(DialogItem.DeepClone());
+            TItem createdItem = CreateItemAction(FormModel.DeepClone());
             ToastService.ShowSuccess(Localizer["ToastCreateItem"]);
             await Dialog.CloseAsync(new SectionDialogContent<TItem>
             { Item = createdItem, DataAction = SectionDialogResultEnum.Create });
@@ -66,7 +66,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
 
     protected async Task UpdateItem()
     {
-        if (DialogItem != null && DialogItem.Equals(DialogItemCopy))
+        if (FormModel != null && FormModel.Equals(DialogItemCopy))
         {
             await Dialog.CancelAsync();
             return;
@@ -74,10 +74,9 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
 
         try
         {
-            TItem updatedItem = UpdateItemAction(DialogItem.DeepClone());
+            UpdateItemAction(FormModel.DeepClone());
             ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
-            await Dialog.CloseAsync(new SectionDialogContent<TItem>
-            { Item = updatedItem, DataAction = SectionDialogResultEnum.Update });
+            await Dialog.CloseAsync();
         }
         catch (ValidateException ex)
         {
@@ -94,10 +93,9 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     {
         try
         {
-            await DeleteItemAction(DialogItem.DeepClone());
+            await DeleteItemAction(FormModel.DeepClone());
             ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
-            await Dialog.CloseAsync(new SectionDialogContent<TItem>
-            { Item = DialogItem, DataAction = SectionDialogResultEnum.Delete });
+            await Dialog.CloseAsync();
         }
         catch (DbServiceException)
         {

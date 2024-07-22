@@ -1,8 +1,6 @@
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
-
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
-public class ProductionSiteCreateValidator : AbstractValidator<ProductionSiteDto>
+public class ProductionSiteCreateValidator : AbstractValidator<ProductionSiteCreateDto>
 {
     public ProductionSiteCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

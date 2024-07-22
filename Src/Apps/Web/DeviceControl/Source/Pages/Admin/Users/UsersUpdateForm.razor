@@ -1,50 +1,50 @@
-@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
-@using Ws.Domain.Models.Entities.Ref
-@inherits SectionFormBase<UserWithProductionSite>
-
-<SectionForm
-  FormModel="@DialogItem"
-  Validator="@(new UsersUpdateFormValidator(WsDataLocalizer))"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@UpdateItem"
->
-  <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.KeycloakUser.Id" />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColUser"]"
-      Value="@DialogItem.KeycloakUser.Username"
-    />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColFullName"]"
-      Value="@DialogItem.KeycloakUser.FirstName"
-    />
-
-    <UseParameterlessEndpoint
-      Endpoint="@ReferencesEndpoints.ProductionSitesEndpoint"
-      Context="productionSitesQuery"
-    >
-      @if (productionSitesQuery.HasData)
-      {
-        <SectionSelectSingleField
-          TItem="ProductionSiteDto"
-          Items="productionSitesQuery.Data"
-          Label="@WsDataLocalizer["ColProductionSite"]"
-          Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)"
-          ItemDisplayName="@(item => item.Name)"
-          IsFilterable
-        />
-      }
-      else
-      {
-        <Skeleton class="h-10 w-full" />
-      }
-    </UseParameterlessEndpoint>
-
-  </FieldsContent>
-  <ActionsContent>
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionRelogin UserUid="DialogItem.KeycloakUser.Id" />
-  </ActionsContent>
-</SectionForm>
+@* @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries *@
+@* @using Ws.Domain.Models.Entities.Ref *@
+@* @inherits SectionFormBase<UserWithProductionSite> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@DialogItem" *@
+@*   Validator="@(new UsersUpdateFormValidator(WsDataLocalizer))" *@
+@*   OnCancelAction="@OnCancelAction" *@
+@*   OnSubmitAction="@UpdateItem" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionAdminGuidField Value="@DialogItem.KeycloakUser.Id" /> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@WsDataLocalizer["ColUser"]" *@
+@*       Value="@DialogItem.KeycloakUser.Username" *@
+@*     /> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@WsDataLocalizer["ColFullName"]" *@
+@*       Value="@DialogItem.KeycloakUser.FirstName" *@
+@*     /> *@
+@* *@
+@*     <UseParameterlessEndpoint *@
+@*       Endpoint="@ReferencesEndpoints.ProductionSitesEndpoint" *@
+@*       Context="productionSitesQuery" *@
+@*     > *@
+@*       @if (productionSitesQuery.HasData) *@
+@*       { *@
+@*         <SectionSelectSingleField *@
+@*           TItem="ProductionSiteDto" *@
+@*           Items="productionSitesQuery.Data" *@
+@*           Label="@WsDataLocalizer["ColProductionSite"]" *@
+@*           Path="@Redirector.ToPath(DialogItem.ProductionSite ?? new(), UserPrincipal)" *@
+@*           ItemDisplayName="@(item => item.Name)" *@
+@*           IsFilterable *@
+@*         /> *@
+@*       } *@
+@*       else *@
+@*       { *@
+@*         <Skeleton class="h-10 w-full" /> *@
+@*       } *@
+@*     </UseParameterlessEndpoint> *@
+@* *@
+@*   </FieldsContent> *@
+@*   <ActionsContent> *@
+@*     <SectionFormActionReset OnClick="@ResetAction" /> *@
+@*     <SectionFormActionRelogin UserUid="DialogItem.KeycloakUser.Id" /> *@
+@*   </ActionsContent> *@
+@* </SectionForm> *@

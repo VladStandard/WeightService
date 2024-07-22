@@ -1,31 +1,31 @@
-@inherits SectionFormBase<Ws.Domain.Models.Entities.Print.ZplResource>
-
-<SectionForm
-  FormModel="@DialogItem"
-  Validator="@(new TemplateResourcesCreateFormValidator(WsDataLocalizer))"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@CreateItem"
->
-  <FieldsContent>
-    <SectionTextField
-      Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
-    />
-
-    <SectionSelectSingleField
-      TItem="ZplResourceType"
-      Label="@WsDataLocalizer["ColType"]"
-      Items="ZplResourceTypes"
-      @bind-Value="@DialogItem.Type"
-      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
-      For="@(() => DialogItem.Type)"
-    />
-
-    <SectionTextAreaField
-      @bind-Value="@DialogItem.Zpl"
-      Label="@WsDataLocalizer["ColData"]"
-      For="@(() => DialogItem.Zpl)"
-    />
-  </FieldsContent>
-</SectionForm>
+@* @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.ZplResource> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@DialogItem" *@
+@*   Validator="@(new TemplateResourcesCreateFormValidator(WsDataLocalizer))" *@
+@*   OnCancelAction="@OnCancelAction" *@
+@*   OnSubmitAction="@CreateItem" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionTextField *@
+@*       Label="@WsDataLocalizer["ColName"]" *@
+@*       @bind-Value="@DialogItem.Name" *@
+@*       For="@(() => DialogItem.Name)" *@
+@*     /> *@
+@* *@
+@*     <SectionSelectSingleField *@
+@*       TItem="ZplResourceType" *@
+@*       Label="@WsDataLocalizer["ColType"]" *@
+@*       Items="ZplResourceTypes" *@
+@*       @bind-Value="@DialogItem.Type" *@
+@*       ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]" *@
+@*       For="@(() => DialogItem.Type)" *@
+@*     /> *@
+@* *@
+@*     <SectionTextAreaField *@
+@*       @bind-Value="@DialogItem.Zpl" *@
+@*       Label="@WsDataLocalizer["ColData"]" *@
+@*       For="@(() => DialogItem.Zpl)" *@
+@*     /> *@
+@*   </FieldsContent> *@
+@* </SectionForm> *@

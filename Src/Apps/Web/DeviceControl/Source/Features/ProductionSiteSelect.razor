@@ -1,7 +1,6 @@
 @using System.Security.Claims
 @using DeviceControl.Source.Shared.Services
 @using Ws.Domain.Models.Entities.Ref
-@using Ws.Domain.Services.Features.ProductionSites
 @using Ws.Shared.Extensions
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
@@ -18,7 +17,6 @@
 
 @code {
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-  [Inject] private IProductionSiteService ProductionSiteService { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
@@ -28,18 +26,6 @@
 
   private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
   private bool IsSeniorSupport { get; set; }
-
-  // private ProductionSite Value
-  // {
-  //   get => ProductionSiteState.Value.ProductionSite;
-  //   set => Dispatcher.Dispatch(new ChangeProductionSiteAction(value));
-  // }
-
-  // protected override void OnInitialized()
-  // {
-  //   base.OnInitialized();
-  //   Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
-  // }
 
   protected override async Task OnInitializedAsync()
   {
@@ -55,7 +41,7 @@
     }
 
     if (IsSeniorSupport)
-      ProductionSiteEntities = ProductionSiteService.GetAll().ToList();
+      ProductionSiteEntities = [];
 
     if (!isDeveloper)
       ProductionSiteEntities.RemoveAll(i => i.Uid.IsMax());

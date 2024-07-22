@@ -1,21 +1,21 @@
-@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
-
-
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(ArmsUpdateForm).ToString()">
-    <ArmsUpdateForm />
-  </Tab>
-  @* <Tab Id="@typeof(ArmPluDataGrid).ToString()"> *@
-  @*   <ArmPluDataGrid /> *@
-  @* </Tab> *@
-</SectionDialog>
-
-@code {
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(ArmsUpdateForm).ToString(), Localizer["SectionLines"]),
-    // new(typeof(ArmPluDataGrid).ToString(), Localizer["SectionLinePLU"])
-  ];
-}
+@* @inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto> *@
+@* *@
+@* *@
+@* <SectionDialog DialogItem="DialogItem" TabsList="@TabsList"> *@
+@*   <Tab Id="@typeof(ArmsUpdateForm).ToString()"> *@
+@*     <ArmsUpdateForm /> *@
+@*   </Tab> *@
+@*   $1$ <Tab Id="@typeof(ArmPluDataGrid).ToString()"> #1# *@
+@*   $1$   <ArmPluDataGrid /> #1# *@
+@*   $1$ </Tab> #1# *@
+@* </SectionDialog> *@
+@* *@
+@* @code { *@
+@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
+@* *@
+   @* protected override List<KeyValuePair<string, string>> InitializeTabList() => *@
+   @* [ *@
+   @*   new(typeof(ArmsUpdateForm).ToString(), Localizer["SectionLines"]), *@
+   @*   // new(typeof(ArmPluDataGrid).ToString(), Localizer["SectionLinePLU"]) *@
+   @* ]; *@
+@* } *@

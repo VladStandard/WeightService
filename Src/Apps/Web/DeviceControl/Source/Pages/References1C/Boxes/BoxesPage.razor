@@ -19,7 +19,7 @@
     <DataGridContainer
       TItem="PackageDto"
       Items="@(boxesQuery.HasData ? boxesQuery.Data : [])"
-      OnItemSelect="@(item => OpenSectionViewModal(item))"
+      OnItemSelect="@(item => OpenUpdateFormModal(item))"
     >
       <ColumnsContent>
         <DataGridColumn
@@ -53,7 +53,7 @@
         />
       </ColumnsContent>
       <ContextMenuContent>
-        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenSectionViewModal(item)))" />
+        <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenUpdateFormModal(item)))" />
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))" />
       </ContextMenuContent>
     </DataGridContainer>
@@ -70,8 +70,8 @@
 
   # endregion
 
-  protected override async Task OpenSectionViewModal(PackageDto item) =>
-    await OpenSectionModal<BoxesUpdateDialog>(item);
+  protected override async Task OpenUpdateFormModal(PackageDto item) =>
+    throw new NotImplementedException();
 
   protected override async Task OpenItemInNewTab(PackageDto item)
     => await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}?id={item.Id}");

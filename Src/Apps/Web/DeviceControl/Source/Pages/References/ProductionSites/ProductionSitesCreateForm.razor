@@ -1,22 +1,31 @@
-@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create
+
+@inherits SectionFormBase<ProductionSiteCreateDto>
 
 <SectionForm
-  FormModel="@DialogItem"
-  Validator="@(new ProductionSitesCreateFormValidator(WsDataLocalizer))"
+  FormModel="@FormModel"
+  Validator="@(new ProductionSiteCreateValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >
   <FieldsContent>
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
     />
 
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColAddress"]"
-      @bind-Value="@DialogItem.Address"
-      For="@(() => DialogItem.Address)"
+      @bind-Value="@FormModel.Address"
+      For="@(() => FormModel.Address)"
     />
   </FieldsContent>
 </SectionForm>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  protected override ProductionSiteCreateDto CreateItemAction(ProductionSiteCreateDto item) =>
+    throw new NotImplementedException();
+}

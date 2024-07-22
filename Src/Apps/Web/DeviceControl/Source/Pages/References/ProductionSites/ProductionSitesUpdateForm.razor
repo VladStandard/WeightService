@@ -1,31 +1,46 @@
-@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
+
+@inherits SectionFormBase<ProductionSiteUpdateDto>
 
 <SectionForm
-  FormModel="@DialogItem"
-  ChangeDate="@DialogItem.ChangeDt"
-  CreateDate="@DialogItem.CreateDt"
-  Validator="@(new ProductionSiteUpdateFormValidator(WsDataLocalizer))"
+  FormModel="@FormModel"
+  ChangeDate="@Model.ChangeDt"
+  CreateDate="@Model.CreateDt"
+  Validator="@(new ProductionSiteUpdateValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@UpdateItem"
 >
   <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Id"/>
+    <SectionAdminGuidField Value="@Model.Id"/>
 
     <SectionTextField
       Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@DialogItem.Name"
-      For="@(() => DialogItem.Name)"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
     />
 
     <SectionTextAreaField
       Label="@WsDataLocalizer["ColAddress"]"
-      @bind-Value="@DialogItem.Address"
-      For="@(() => DialogItem.Address)"
+      @bind-Value="@FormModel.Address"
+      For="@(() => FormModel.Address)"
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionProductionSites}?id={DialogItem.Id}")" />
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionProductionSites}?id={Model.Id}")" />
     <SectionFormActionReset OnClick="@ResetAction" />
     <SectionFormActionDelete OnClick="@DeleteItem" />
   </ActionsContent>
 </SectionForm>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  [Parameter, EditorRequired] public ProductionSiteDto Model { get; set; } = default!;
+
+  protected override ProductionSiteUpdateDto UpdateItemAction(ProductionSiteUpdateDto item) =>
+    throw new NotImplementedException();
+
+  protected override Task DeleteItemAction(ProductionSiteUpdateDto item) =>
+    throw new NotImplementedException();
+}

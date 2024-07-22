@@ -1,16 +1,11 @@
-@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries.ProductionSiteDto>
+@implements IDialogContentComponent
 
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(ProductionSitesCreateForm).ToString()">
-    <ProductionSitesCreateForm />
+<SectionDialog>
+  <Tab Id="@typeof(ProductionSitesCreateForm).ToString()" Title="@Localizer["SectionProductionSites"]">
+    <ProductionSitesCreateForm FormModel="@(new())" />
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(ProductionSitesCreateForm).ToString(), Localizer["SectionProductionSites"])
-  ];
 }

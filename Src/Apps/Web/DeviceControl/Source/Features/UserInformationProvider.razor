@@ -1,17 +1,14 @@
 @using System.Security.Claims
 @using DeviceControl.Source.Shared.Services
 @using Ws.Domain.Models.Entities.Ref
-@using Ws.Domain.Models.Entities.Users
-@using Ws.Domain.Services.Features.Users
+
 @using Claim = System.Security.Claims.Claim
 
 <CascadingValue TValue="ProductionSite" Value="UserProductionSite">
   @ChildContent
 </CascadingValue>
 
-
 @code {
-  [Inject] private IUserService UserService { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
   [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -24,8 +21,8 @@
     Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
     if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
     {
-      User user = UserService.GetItemByUid(userUid);
-      UserProductionSite = user.ProductionSite;
+      // User user = UserService.GetItemByUid(userUid);
+      // UserProductionSite = user.ProductionSite;
       Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
     }
   }

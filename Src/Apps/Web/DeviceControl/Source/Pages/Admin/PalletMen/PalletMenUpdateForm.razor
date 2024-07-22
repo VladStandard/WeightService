@@ -1,71 +1,71 @@
-@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto>
-
-<SectionForm
-  FormModel="@DialogItem"
-  ChangeDate="@DialogItem.ChangeDt"
-  CreateDate="@DialogItem.CreateDt"
-  Validator="@(new PalletMenUpdateFormValidator(Localizer, WsDataLocalizer))"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@UpdateItem"
->
-  <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Id"/>
-
-    @* <SectionGuidField *@
-    @*   Label="UID 1C" *@
-    @*   @bind-Value="@DialogItem.Id1C" *@
-    @*   For="@(() => DialogItem.Id1C)" *@
-    @*   IsCopyable *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-
-    @* <SectionSelectSingleField *@
-    @*   TItem="Warehouse" *@
-    @*   Label="@WsDataLocalizer["ColWarehouse"]" *@
-    @*   Items="Warehouses" *@
-    @*   @bind-Value="@DialogItem.Warehouse" *@
-    @*   ItemDisplayName="item => item.Name" *@
-    @*   Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)" *@
-    @*   For="@(() => DialogItem.Warehouse)" *@
-    @*   IsFilterable *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-
-    <FormDivider></FormDivider>
-
-    @* <SectionTextField *@
-    @*   Label="@WsDataLocalizer["ColFirstName"]" *@
-    @*   @bind-Value="@DialogItem.Fio.Name" *@
-    @*   For="@(() => DialogItem.Fio.Name)" *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-
-    @* <SectionTextField *@
-    @*   Label="@WsDataLocalizer["ColSurname"]" *@
-    @*   @bind-Value="@DialogItem.Fio.Surname" *@
-    @*   For="@(() => DialogItem.Fio.Surname)" *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-
-    @* <SectionTextField *@
-    @*   Label="@WsDataLocalizer["ColPatronymic"]" *@
-    @*   @bind-Value="@DialogItem.Fio.Patronymic" *@
-    @*   For="@(() => DialogItem.Fio.Patronymic)" *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-
-    <FormDivider></FormDivider>
-
-    @* <SectionTextField *@
-    @*   Label="@WsDataLocalizer["ColPassword"]" *@
-    @*   @bind-Value="@DialogItem.Password" *@
-    @*   For="@(() => DialogItem.Password)" *@
-    @*   Disabled="IsOnlyView" *@
-    @* /> *@
-  </FieldsContent>
-  <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={DialogItem.Id}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
-  </ActionsContent>
-</SectionForm>
+@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@DialogItem" *@
+@*   ChangeDate="@DialogItem.ChangeDt" *@
+@*   CreateDate="@DialogItem.CreateDt" *@
+@*   Validator="@(new PalletMenUpdateFormValidator(Localizer, WsDataLocalizer))" *@
+@*   OnCancelAction="@OnCancelAction" *@
+@*   OnSubmitAction="@UpdateItem" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionAdminGuidField Value="@DialogItem.Id"/> *@
+@* *@
+@*     $1$ <SectionGuidField #1# *@
+@*     $1$   Label="UID 1C" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Id1C" #1# *@
+@*     $1$   For="@(() => DialogItem.Id1C)" #1# *@
+@*     $1$   IsCopyable #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@* *@
+@*     $1$ <SectionSelectSingleField #1# *@
+@*     $1$   TItem="Warehouse" #1# *@
+@*     $1$   Label="@WsDataLocalizer["ColWarehouse"]" #1# *@
+@*     $1$   Items="Warehouses" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Warehouse" #1# *@
+@*     $1$   ItemDisplayName="item => item.Name" #1# *@
+@*     $1$   Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)" #1# *@
+@*     $1$   For="@(() => DialogItem.Warehouse)" #1# *@
+@*     $1$   IsFilterable #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@* *@
+@*     <FormDivider></FormDivider> *@
+@* *@
+@*     $1$ <SectionTextField #1# *@
+@*     $1$   Label="@WsDataLocalizer["ColFirstName"]" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Fio.Name" #1# *@
+@*     $1$   For="@(() => DialogItem.Fio.Name)" #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@* *@
+@*     $1$ <SectionTextField #1# *@
+@*     $1$   Label="@WsDataLocalizer["ColSurname"]" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Fio.Surname" #1# *@
+@*     $1$   For="@(() => DialogItem.Fio.Surname)" #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@* *@
+@*     $1$ <SectionTextField #1# *@
+@*     $1$   Label="@WsDataLocalizer["ColPatronymic"]" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Fio.Patronymic" #1# *@
+@*     $1$   For="@(() => DialogItem.Fio.Patronymic)" #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@* *@
+@*     <FormDivider></FormDivider> *@
+@* *@
+@*     $1$ <SectionTextField #1# *@
+@*     $1$   Label="@WsDataLocalizer["ColPassword"]" #1# *@
+@*     $1$   @bind-Value="@DialogItem.Password" #1# *@
+@*     $1$   For="@(() => DialogItem.Password)" #1# *@
+@*     $1$   Disabled="IsOnlyView" #1# *@
+@*     $1$ /> #1# *@
+@*   </FieldsContent> *@
+@*   <ActionsContent> *@
+@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={DialogItem.Id}")" /> *@
+@*     <SectionFormActionReset OnClick="@ResetAction" /> *@
+@*     <SectionFormActionDelete OnClick="@DeleteItem" /> *@
+@*   </ActionsContent> *@
+@* </SectionForm> *@

@@ -1,28 +1,28 @@
-@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Shared.PackageDto>
-
-<SectionForm
-  FormModel="@DialogItem"
-  ChangeDate="DialogItem.ChangeDt"
-  CreateDate="DialogItem.CreateDt"
->
-  <FieldsContent>
-    <SectionAdminGuidField Value="@DialogItem.Id" />
-
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColName"]"
-      Value="@DialogItem.Name"
-    />
-
-    <SectionReadOnlyField
-      Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")"
-      Value="@DialogItem.Weight"
-    />
-  </FieldsContent>
-  <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionBundles}?id={DialogItem.Id}")" />
-  </ActionsContent>
-</SectionForm>
-
-@code {
-  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-}
+@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Shared.PackageDto> *@
+@* *@
+@* <SectionForm *@
+@*   FormModel="@DialogItem" *@
+@*   ChangeDate="DialogItem.ChangeDt" *@
+@*   CreateDate="DialogItem.CreateDt" *@
+@* > *@
+@*   <FieldsContent> *@
+@*     <SectionAdminGuidField Value="@DialogItem.Id" /> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@WsDataLocalizer["ColName"]" *@
+@*       Value="@DialogItem.Name" *@
+@*     /> *@
+@* *@
+@*     <SectionReadOnlyField *@
+@*       Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")" *@
+@*       Value="@DialogItem.Weight" *@
+@*     /> *@
+@*   </FieldsContent> *@
+@*   <ActionsContent> *@
+@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionBundles}?id={DialogItem.Id}")" /> *@
+@*   </ActionsContent> *@
+@* </SectionForm> *@
+@* *@
+@* @code { *@
+@*   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!; *@
+@* } *@
