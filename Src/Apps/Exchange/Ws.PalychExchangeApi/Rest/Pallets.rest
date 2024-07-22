@@ -1,0 +1,7 @@
+POST {{url}}/pallets/update
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<PalletType xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Record Number="001744197" IsShipped="false" IsDeleted="false"/>
+</PalletType>

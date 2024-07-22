@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 namespace Ws.PalychExchangeApi.Features.Pallets.Dto;
 
 
-[XmlRoot(ElementName = "Pallet")]
+[XmlRoot(ElementName = "PalletType")]
 public class PalletUpdateWrapper
 {
     [XmlElement(ElementName = "Record")]
