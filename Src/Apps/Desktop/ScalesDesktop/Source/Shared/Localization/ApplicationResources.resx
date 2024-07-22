@@ -230,18 +230,6 @@
     <data name="ScalesStatusInitializing" xml:space="preserve">
         <value/>
     </data>
-    <data name="PalletSortDate" xml:space="preserve">
-        <value/>
-    </data>
-    <data name="PalletSortNumber" xml:space="preserve">
-        <value/>
-    </data>
-    <data name="PalletSortPlu" xml:space="preserve">
-        <value/>
-    </data>
-    <data name="PalletSortLabelsCount" xml:space="preserve">
-        <value/>
-    </data>
     <data name="PalletOverviewDividerCommon" xml:space="preserve">
         <value/>
     </data>
@@ -332,10 +320,19 @@
     <data name="BtnRestore" xml:space="preserve">
         <value />
     </data>
-    <data name="PalletFlagDelivered" xml:space="preserve">
+    <data name="PalletFlagShipped" xml:space="preserve">
         <value />
     </data>
-    <data name="PalletFlagNotDelivered" xml:space="preserve">
+    <data name="PalletFlagNotShipped" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletFilterNoFilter" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletFilterShipped" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletFilterDeleted" xml:space="preserve">
         <value />
     </data>
 </root>

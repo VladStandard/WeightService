@@ -620,18 +620,45 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PalletFlagDelivered {
+        public static string PalletFilterDeleted {
             get {
-                return ResourceManager.GetString("PalletFlagDelivered", resourceCulture);
+                return ResourceManager.GetString("PalletFilterDeleted", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PalletFlagNotDelivered {
+        public static string PalletFilterNoFilter {
             get {
-                return ResourceManager.GetString("PalletFlagNotDelivered", resourceCulture);
+                return ResourceManager.GetString("PalletFilterNoFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletFilterShipped {
+            get {
+                return ResourceManager.GetString("PalletFilterShipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletFlagNotShipped {
+            get {
+                return ResourceManager.GetString("PalletFlagNotShipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string PalletFlagShipped {
+            get {
+                return ResourceManager.GetString("PalletFlagShipped", resourceCulture);
             }
         }
         
@@ -668,42 +695,6 @@ namespace ScalesDesktop.Source.Shared.Localization {
         public static string PalletSelectEmpty {
             get {
                 return ResourceManager.GetString("PalletSelectEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PalletSortDate {
-            get {
-                return ResourceManager.GetString("PalletSortDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PalletSortLabelsCount {
-            get {
-                return ResourceManager.GetString("PalletSortLabelsCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PalletSortNumber {
-            get {
-                return ResourceManager.GetString("PalletSortNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string PalletSortPlu {
-            get {
-                return ResourceManager.GetString("PalletSortPlu", resourceCulture);
             }
         }
         

@@ -40,7 +40,7 @@
         </div>
       </div>
         <PalletSelectSearching
-          @bind-Sorting="PalletSort"
+          @bind-Filter="PalletFilter"
           @bind-SearchingString="InputSearchCounter"
         />
         @if (string.IsNullOrEmpty(InputSearchCounter))
@@ -112,7 +112,7 @@
 
   # endregion
 
-  private PalletSortEnum PalletSort { get; set; } = PalletSortEnum.Date;
+  private PalletFilterEnum PalletFilter { get; set; } = PalletFilterEnum.NoFilter;
   private DateTime? StartDate { get; set; } = GetStartOfWorkingShift();
   private DateTime? EndDate { get; set; } = GetEndOfWorkingShift();
   private string InputSearchCounter { get; set; } = string.Empty;
@@ -125,12 +125,10 @@
     if (!string.IsNullOrEmpty(InputSearchCounter))
       filteredPallets = pallets.Where(x => x.Number.ToString().Contains(InputSearchCounter));
 
-    filteredPallets = PalletSort switch
+    filteredPallets = PalletFilter switch
     {
-      PalletSortEnum.Date => filteredPallets.OrderByDescending(x => x.CreateDt),
-      PalletSortEnum.Number => filteredPallets.OrderByDescending(x => x.Number),
-      PalletSortEnum.Plu => filteredPallets.OrderByDescending(x => x.Plus.Min(p => p.Number)),
-      PalletSortEnum.LabelsCount => filteredPallets.OrderByDescending(x => x.BoxCount),
+      PalletFilterEnum.Shipped => filteredPallets.Where(x => x.IsShipped),
+      PalletFilterEnum.Deleted => filteredPallets.Where(x => x.DeletedAt != null),
       _ => filteredPallets
     };
 
@@ -153,7 +151,7 @@
   {
     StartDate = GetStartOfWorkingShift();
     EndDate = GetEndOfWorkingShift();
-    PalletSort = PalletSortEnum.Date;
+    PalletFilter = PalletFilterEnum.NoFilter;
     InputSearchCounter = string.Empty;
   }
 

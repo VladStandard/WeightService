@@ -5,18 +5,33 @@
   <div class="w-full flex justify-between items-center">
     <div class="flex gap-3 items-center">
       <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number от @Pallet.ProdDt.ToString("dd.MM.yyyy")</h2>
-      <Badge Class="pb-1 !bg-green-500">@Localizer["PalletFlagDelivered"]</Badge>
+      @if (Pallet.IsShipped)
+      {
+        <Badge Class="pb-1">@Localizer["PalletFlagShipped"]</Badge>
+      }
+      else
+      {
+        <Badge Variant="BadgeVariant.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
+      }
+      @if (Pallet.DeletedAt != null)
+      {
+        <Badge Variant="BadgeVariant.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
+        <Tooltip Anchor="badge-deleted-pallet">
+          @Pallet.DeletedAt
+        </Tooltip>
+      }
     </div>
-    @if (!IsDeleted)
+    @if (Pallet.DeletedAt == null)
     {
-      <Button Variant="ButtonVariant.Destructive" OnClick="@(() => IsDeleted = !IsDeleted)">
+      <Button Variant="ButtonVariant.Destructive">
         <TrashIcon class="size-4 mr-2" />
         @Localizer["BtnDelete"]
       </Button>
     }
     else
     {
-      <Button OnClick="@(() => IsDeleted = !IsDeleted)">
+      <Button>
+        <ArrowUturnRightIcon class="size-4 mr-2" />
         @Localizer["BtnRestore"]
       </Button>
     }
@@ -110,17 +125,17 @@
       />
     </div>
     <div class="space-y-2">
-      <FieldLabel for="tray">@WsDataLocalizer["ColTrayWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
+      <FieldLabel for="tray-weight">@WsDataLocalizer["ColTrayWeight"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
       <InputTextField
-        id="tray"
+        id="tray-weight"
         Value="@Pallet.WeightTray.ToString(CultureInfo.InvariantCulture)"
         ReadOnly
       />
     </div>
      <div class="space-y-2">
-       <FieldLabel for="tray">@WsDataLocalizer["ColWeightTotal"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
+       <FieldLabel for="weight-total">@WsDataLocalizer["ColWeightTotal"] (@WsDataLocalizer["MeasureKg"])</FieldLabel>
        <InputTextField
-         id="tray"
+         id="weight-total"
          Value="@((Pallet.WeightTray + Pallet.WeightBrutto).ToString(CultureInfo.InvariantCulture))"
          ReadOnly
        />
@@ -136,8 +151,6 @@
   [Inject] private IToastService ToastService { get; set; } = default!;
 
   # endregion
-
-  private bool IsDeleted { get; set; }
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 }

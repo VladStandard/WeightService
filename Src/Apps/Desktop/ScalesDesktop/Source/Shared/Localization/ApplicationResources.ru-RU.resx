@@ -227,18 +227,6 @@
     <data name="ScalesStatusInitializing" xml:space="preserve">
         <value>Подготовка весов</value>
     </data>
-    <data name="PalletSortDate" xml:space="preserve">
-        <value>По дате</value>
-    </data>
-    <data name="PalletSortNumber" xml:space="preserve">
-        <value>По номеру</value>
-    </data>
-    <data name="PalletSortPlu" xml:space="preserve">
-        <value>По ПЛУ</value>
-    </data>
-    <data name="PalletSortLabelsCount" xml:space="preserve">
-        <value>По кол-во этикеток</value>
-    </data>
     <data name="PalletOverviewDividerCommon" xml:space="preserve">
         <value>Общее</value>
     </data>
@@ -329,10 +317,22 @@
     <data name="BtnRestore" xml:space="preserve">
         <value>Восстановить</value>
     </data>
-    <data name="PalletFlagNotDelivered" xml:space="preserve">
-        <value>Не отгружен</value>
+    <data name="TrayWeightInputPlaceholder" xml:space="preserve">
+        <value>Введите вес паллеты</value>
     </data>
-    <data name="PalletFlagDelivered" xml:space="preserve">
-        <value>Отгружен</value>
+    <data name="PalletFlagNotShipped" xml:space="preserve">
+        <value>Не отгружено</value>
+    </data>
+    <data name="PalletFlagShipped" xml:space="preserve">
+        <value>Отгружено</value>
+    </data>
+    <data name="PalletFilterNoFilter" xml:space="preserve">
+        <value>Без фильтра</value>
+    </data>
+    <data name="PalletFilterShipped" xml:space="preserve">
+        <value>Отгруженные</value>
+    </data>
+    <data name="PalletFilterDeleted" xml:space="preserve">
+        <value>Удаленные</value>
     </data>
 </root>
