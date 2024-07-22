@@ -31,10 +31,19 @@
           </Badge>
         }
       </div>
-      <Badge Variant="BadgeVariant.Secondary" Class="@Css.Class(IsSelected ? "!border-primary/[.1]" : "")">
-        <CalculatorIcon class="size-3 mr-1"/>
-        <span class="text-xs pt-px">@Pallet.BoxCount</span>
-      </Badge>
+      <div class="flex items-center gap-1">
+        @if (Pallet.DeletedAt != null)
+        {
+        <Badge Variant="BadgeVariant.Destructive">
+          <TrashIcon class="size-4" />
+        </Badge>
+        }
+        <Badge Variant="BadgeVariant.Secondary" Class="@Css.Class(IsSelected ? "!border-primary/[.1]" : "")">
+          <CalculatorIcon class="size-3 mr-1"/>
+          <span class="text-xs pt-px">@Pallet.BoxCount</span>
+        </Badge>
+      </div>
+
     </div>
   </div>
 </button>

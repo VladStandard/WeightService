@@ -35,6 +35,12 @@ public sealed record PalletInfo
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; init; }
 
+    [JsonPropertyName("deletedAt")]
+    public required DateTime? DeletedAt { get; init; }
+
+    [JsonPropertyName("isShipped")]
+    public required bool IsShipped { get; init; }
+
     [JsonPropertyName("weightTray")]
     public required decimal WeightTray { get; init; }
 

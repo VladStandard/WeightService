@@ -2,14 +2,12 @@ using System.ComponentModel;
 
 namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
-public enum PalletSortEnum
+public enum PalletFilterEnum
 {
-    [Description("PalletSortDate")]
-    Date,
-    [Description("PalletSortNumber")]
-    Number,
-    [Description("PalletSortPlu")]
-    Plu,
-    [Description("PalletSortLabelsCount")]
-    LabelsCount
+    [Description("PalletFilterNoFilter")]
+    NoFilter,
+    [Description("PalletFilterShipped")]
+    Shipped,
+    [Description("PalletFilterDeleted")]
+    Deleted
 }

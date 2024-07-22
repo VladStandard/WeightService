@@ -44,6 +44,8 @@ internal static class PalletExtensions
                 ProdDt = result.Pallet.ProductDt,
                 CreateDt = result.Pallet.CreateDt,
                 Kneadings = result.Labels.Select(i => (ushort)i.Kneading).ToHashSet(),
+                DeletedAt = result.Pallet.DeletedAt,
+                IsShipped = result.Pallet.IsShipped
             });
     }
 
