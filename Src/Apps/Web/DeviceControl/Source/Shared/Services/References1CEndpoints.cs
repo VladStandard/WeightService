@@ -3,6 +3,7 @@ using Ws.DeviceControl.Models;
 using Ws.DeviceControl.Models.Dto.References1C.Brands;
 using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
 using Ws.DeviceControl.Models.Dto.Shared;
+using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;
 
@@ -27,4 +28,7 @@ public class References1CEndpoints(IWebApi webApi)
     public ParameterlessEndpoint<BrandDto[]> BrandsEndpoint { get; } = new(
         webApi.GetBrands,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
+
+    public void UpdatePlu(PluDto plu) => PlusEndpoint.UpdateQueryData(new(),
+        query => query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(plu, p => p.Id == plu.Id).ToArray());
 }
