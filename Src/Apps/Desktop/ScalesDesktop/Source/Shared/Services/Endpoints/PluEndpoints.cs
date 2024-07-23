@@ -2,9 +2,9 @@ using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
-namespace ScalesDesktop.Source.Shared.Services.Api;
+namespace ScalesDesktop.Source.Shared.Services.Endpoints;
 
-public class PluApi(IDesktopApi desktopApi)
+public class PluEndpoints(IDesktopApi desktopApi)
 {
     public Endpoint<Guid, PluWeight[]> WeightPlusEndpoint { get; } = new(
          desktopApi.GetPlusWeightByArm,

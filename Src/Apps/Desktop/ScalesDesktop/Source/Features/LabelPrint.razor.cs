@@ -2,6 +2,7 @@ using Fluxor;
 using Fluxor.Blazor.Web.Components;
 using MassaK.Plugin.Abstractions.Enums;
 using ScalesDesktop.Source.Shared.Models;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
@@ -23,7 +24,7 @@ public sealed partial class LabelPrint : FluxorComponent
     [Inject] private PrinterService PrinterService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
-    [Inject] private ArmApi ArmApi { get; set; } = default!;
+    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
     [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
     [Inject] private IState<WeightState> WeightState { get; set; } = default!;
     [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
@@ -76,7 +77,7 @@ public sealed partial class LabelPrint : FluxorComponent
         try
         {
             WeightLabel label = await DesktopApi.CreatePluWeightLabel(Arm.Id, PluState.Value.Plu!.Id, createDto);
-            ArmApi.UpdateArmCounter(label.ArmCounter);
+            ArmEndpoints.UpdateArmCounter(label.ArmCounter);
             await PrinterService.PrintZplAsync(label.Zpl);
         }
         catch (PrinterCommandBodyException)

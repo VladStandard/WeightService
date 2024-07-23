@@ -1,4 +1,6 @@
 @using System.Globalization
+@using ScalesDesktop.Source.Shared.Services.Endpoints
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models
 @using Ws.Desktop.Models.Features.Pallets.Output
 
@@ -22,28 +24,27 @@
         </Tooltip>
       }
     </div>
-    @if (Pallet.DeletedAt == null)
-    {
-      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
-        @if (armQuery.HasData)
+    <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
+      @if (armQuery.HasData)
+      {
+      <Button
+        Variant="@(Pallet.DeletedAt == null ? ButtonVariant.Destructive : ButtonVariant.Default)"
+        OnClick="@(() => DeletePallet(armQuery.Data.Id, Pallet.Id))"
+      >
+        @if (Pallet.DeletedAt == null)
         {
-          <Button
-            Variant="ButtonVariant.Destructive"
-            OnClick="@(() => DeletePallet(armQuery.Data.Id, Pallet.Id))"
-          >
-            <TrashIcon class="size-4 mr-2" />
-            @Localizer["BtnDelete"]
-          </Button>
+          <TrashIcon class="size-4 mr-2" />
+          @Localizer["BtnDelete"]
         }
-      </UseParameterlessEndpoint>
-    }
-    else
-    {
-      <Button>
-        <ArrowUturnRightIcon class="size-4 mr-2" />
-        @Localizer["BtnRestore"]
+        else
+        {
+          <ArrowUturnRightIcon class="size-4 mr-2" />
+          @Localizer["BtnRestore"]
+        }
+
       </Button>
-    }
+      }
+    </UseParameterlessEndpoint>
   </div>
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-2 items-start">
     <FormDivider Class="!pb-0">@Localizer["PalletOverviewDividerCommon"]</FormDivider>
@@ -159,7 +160,9 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
+  [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
   # endregion
 
@@ -170,6 +173,8 @@
     try
     {
       await DesktopApi.DeletePallet(armUid, palletUid);
+      PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
+      Dispatcher.Dispatch(new ChangePalletAction(Pallet with {DeletedAt = Pallet.DeletedAt == null ? DateTime.Now : null}));
       ToastService.ShowSuccess("Good");
     }
     catch

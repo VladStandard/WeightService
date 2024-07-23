@@ -1,5 +1,6 @@
 using Append.Blazor.Printing;
 using Fluxor;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Desktop.Models.Features.Pallets.Output;
@@ -14,8 +15,8 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private PrinterService PrinterService { get; set; } = default!;
-    [Inject] private ArmApi ArmApi { get; set; } = default!;
-    [Inject] private PalletApi PalletApi { get; set; } = default!;
+    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
+    [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
     [Inject] private IPrintingService PrintingService { get; set; } = default!;
     [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
     [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;

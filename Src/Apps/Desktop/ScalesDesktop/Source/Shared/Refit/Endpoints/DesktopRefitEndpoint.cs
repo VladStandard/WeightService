@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
 using Ws.Desktop.Models;
 
 namespace ScalesDesktop.Source.Shared.Refit.Endpoints;
@@ -15,8 +16,8 @@ internal class DesktopRefitEndpoint : IRefitEndpoint
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             });
 
-        builder.Services.AddScoped<PalletApi>();
-        builder.Services.AddScoped<ArmApi>();
-        builder.Services.AddScoped<PluApi>();
+        builder.Services.AddScoped<PalletEndpoints>();
+        builder.Services.AddScoped<ArmEndpoints>();
+        builder.Services.AddScoped<PluEndpoints>();
     }
 }

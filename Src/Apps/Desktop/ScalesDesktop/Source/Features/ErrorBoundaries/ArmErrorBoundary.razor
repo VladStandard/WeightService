@@ -1,4 +1,5 @@
-<UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
+@using ScalesDesktop.Source.Shared.Services.Endpoints
+<UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="query">
   @if (query is { HasData: false, IsLoading: false })
   {
     <div class="size-full flex items-center justify-center">
@@ -30,7 +31,7 @@
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
 }

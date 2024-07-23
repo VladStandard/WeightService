@@ -1,14 +1,14 @@
 @using ScalesDesktop.Source.Features.ErrorBoundaries
 
 <PrinterErrorBoundary>
-  <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+  <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
     <div class="w-full flex flex-col gap-2 shrink-0 items-center px-6 pt-4">
       <div class="w-full flex items-center justify-between">
         <h3 class="font-medium text-xl pb-1">@Localizer["ColPrint"]</h3>
         <div class="flex gap-2 items-center">
           @if (armQuery.HasData)
           {
-            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+            <UseEndpoint Endpoint="@PalletEndpoints.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
               <Button OnClick="@PrintPalletCard">
                 @Localizer["BtnPrintPC"]
               </Button>
@@ -57,7 +57,7 @@
         <span class="text-sm">
           @if (armQuery.HasData)
           {
-            <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+            <UseEndpoint Endpoint="@PalletEndpoints.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
               @(string.Format(Localizer["LabelsDataGridSelectedInfo"], SelectedItems.Count, labelsQuery.Data?.Length ?? 0))
             </UseEndpoint>
           }
@@ -68,7 +68,7 @@
       <div class="rounded-md border size-full bg-background shadow-sm overflow-hidden">
         @if (armQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PalletApi.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
+          <UseEndpoint Endpoint="@PalletEndpoints.PalletLabelsEndpoint" Arg="@new(armQuery.Data.Id, Pallet.Id)" Context="labelsQuery">
             <FluentDataGrid
               TGridItem="DataItem"
               GridTemplateColumns="5rem 1fr 4fr"

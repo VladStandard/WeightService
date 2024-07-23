@@ -1,4 +1,5 @@
 using FluentValidation;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models.Features.PalletMen;
 
@@ -12,8 +13,8 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private Fluxor.IDispatcher Dispatcher { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private PalletApi PalletApi { get; set; } = default!;
-    [Inject] private ArmApi ArmApi { get; set; } = default!;
+    [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
+    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
     # endregion
 

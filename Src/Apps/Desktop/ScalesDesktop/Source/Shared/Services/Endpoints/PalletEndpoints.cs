@@ -1,10 +1,11 @@
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.PalletMen;
 using Ws.Desktop.Models.Features.Pallets.Output;
+using Ws.Shared.Extensions;
 
-namespace ScalesDesktop.Source.Shared.Services.Api;
+namespace ScalesDesktop.Source.Shared.Services.Endpoints;
 
-public class PalletApi(IDesktopApi desktopApi)
+public class PalletEndpoints(IDesktopApi desktopApi)
 {
     public Endpoint<Guid, PalletMan[]> PalletMenEndpoint { get; } = new(
         desktopApi.GetPalletMenByArm,
@@ -29,6 +30,16 @@ public class PalletApi(IDesktopApi desktopApi)
             if (q.Data == null) return q.Data!;
             IEnumerable<PalletInfo> newData = q.Data.Prepend(data);
             return newData.ToArray();
+        });
+
+    public void SwitchPiecePalletDeleteFlag(PiecePalletsArgs args, Guid palletId) =>
+        PiecePalletsEndpoint.UpdateQueryData(args, q =>
+        {
+            if (q.Data == null) return q.Data!;
+            PalletInfo? item = q.Data.FirstOrDefault(x => x.Id == palletId);
+            if (item == null) return q.Data;
+            PalletInfo newItem = item with { DeletedAt = item.DeletedAt == null ? DateTime.Now : null };
+            return q.Data.ReplaceItemByKey(newItem, x => x.Id == palletId).ToArray();
         });
 }
 

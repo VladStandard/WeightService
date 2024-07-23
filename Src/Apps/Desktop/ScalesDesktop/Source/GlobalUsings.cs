@@ -16,4 +16,3 @@ global using Ws.Shared.Resources;
 global using ScalesDesktop.Source.Shared.Utils;
 global using ScalesDesktop.Source.Shared.Services;
 global using ScalesDesktop.Source.Shared.Localization;
-global using ScalesDesktop.Source.Shared.Services.Api;

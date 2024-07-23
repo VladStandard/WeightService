@@ -1,4 +1,5 @@
 @using ScalesDesktop.Source.Features.PluSelectDialog
+@using ScalesDesktop.Source.Shared.Services.Endpoints
 @using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models.Features.Plus.Weight.Output
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
@@ -11,10 +12,10 @@
   </div>
   <div class="flex flex-col gap-3 size-full p-4 overflow-hidden justify-between xl:p-6 xl:gap-4">
     <div class="w-full h-10 lg:h-12 shrink-0">
-      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
         @if (armQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PluApi.WeightPlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
+          <UseEndpoint Endpoint="@PluEndpoints.WeightPlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
             @if (pluQuery.HasData)
             {
               <Button
@@ -54,8 +55,8 @@
   [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private IState<PluState> PluState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
-  [Inject] private PluApi PluApi { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
+  [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
 
   # endregion
 
@@ -72,6 +73,6 @@
   {
     Dispatcher.Dispatch(new ResetPluAction());
     await PrinterService.ConnectAsync();
-    PluApi.WeightPlusEndpoint.InvalidateAll();
+    PluEndpoints.WeightPlusEndpoint.InvalidateAll();
   }
 }

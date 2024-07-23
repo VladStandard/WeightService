@@ -1,4 +1,5 @@
 using Fluxor;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
@@ -17,7 +18,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
-    [Inject] private ArmApi ArmApi { get; set; } = default!;
+    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
     # endregion
 

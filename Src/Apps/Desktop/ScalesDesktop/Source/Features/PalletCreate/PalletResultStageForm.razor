@@ -59,7 +59,7 @@
   >
     @Localizer["BtnBack"]
   </Button>
-  <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armApi">
+  <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armApi">
     <Button OnClick="@(() => CreatePallet(armApi.Data!))" Disabled="@(IsLoading || !armApi.HasData)">
       @Localizer["BtnCreate"]
     </Button>

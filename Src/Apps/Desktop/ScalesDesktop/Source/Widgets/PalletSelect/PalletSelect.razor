@@ -1,11 +1,12 @@
 @using ScalesDesktop.Source.Features.PalletCreate
+@using ScalesDesktop.Source.Shared.Services.Endpoints
 @using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models.Features.Arms.Output
 @using Ws.Desktop.Models.Features.Pallets.Output
 
 <div class="size-full bg-background overflow-hidden flex flex-col">
   <div class="size-full grow flex flex-col overflow-hidden">
-    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+    <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
       <div class="h-14 flex items-center px-4 shrink-0 border-b justify-between">
@@ -25,11 +26,11 @@
           />
         </div>
         <div class="flex items-center gap-2">
-          <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
+          <UseEndpoint Endpoint="@PalletEndpoints.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
             <Button
               Variant="ButtonVariant.Outline"
               Size="ButtonSize.Icon"
-              OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluApi.PiecePlusEndpoint.InvalidateAll(); })"
+              OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluEndpoints.PiecePlusEndpoint.InvalidateAll(); })"
               Disabled="@palletQuery.IsFetching"
             >
               <ArrowPathIcon class="size-5 mx-2"/>
@@ -46,7 +47,7 @@
         />
         @if (string.IsNullOrEmpty(InputSearchCounter))
         {
-          <UseEndpoint Endpoint="@PalletApi.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
+          <UseEndpoint Endpoint="@PalletEndpoints.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
             @if (palletQuery.IsLoading)
             {
               <PalletSelectStub />
@@ -70,7 +71,7 @@
         }
         else
         {
-          <UseEndpoint Endpoint="@PalletApi.PiecePalletsNumberEndpoint" Arg="@new(armQuery.Data.Id, TryGetPalletNumber())" Context="palletQuery">
+          <UseEndpoint Endpoint="@PalletEndpoints.PiecePalletsNumberEndpoint" Arg="@new(armQuery.Data.Id, TryGetPalletNumber())" Context="palletQuery">
             @if (palletQuery.IsLoading)
             {
               <PalletSelectStub />
@@ -104,9 +105,9 @@
 
   # region Injects
 
-  [Inject] private PalletApi PalletApi { get; set; } = default!;
-  [Inject] private PluApi PluApi { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
+  [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
+  [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
@@ -176,7 +177,7 @@
     DialogResult result = await dialog.Result;
     if (result is { Cancelled: false, Data: PalletInfo newPallet })
     {
-      PalletApi.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
+      PalletEndpoints.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
       Dispatcher.Dispatch(new ChangePalletAction(newPallet));
       ResetSortsAndFilters();
     }

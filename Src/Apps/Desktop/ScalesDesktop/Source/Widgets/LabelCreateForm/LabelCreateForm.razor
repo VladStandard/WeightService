@@ -1,4 +1,5 @@
-@inject ArmApi ArmApi
+@using ScalesDesktop.Source.Shared.Services.Endpoints
+@inject ArmEndpoints ArmEndpoints
 
 <div class="size-full bg-background border rounded-lg flex flex-col overflow-hidden">
   <LabelCreateFormErrorBoundary>
@@ -14,7 +15,7 @@
         <ScaleCalibration />
       </div>
       <div class="w-1/2 h-full">
-        <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
+        <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="query">
           @if (query.HasData)
           {
             <LabelPrint Arm="query.Data" KneadingModel="FormModel"/>

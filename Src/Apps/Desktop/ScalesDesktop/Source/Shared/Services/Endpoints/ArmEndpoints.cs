@@ -2,9 +2,9 @@ using System.Net;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 
-namespace ScalesDesktop.Source.Shared.Services.Api;
+namespace ScalesDesktop.Source.Shared.Services.Endpoints;
 
-public class ArmApi(IDesktopApi desktopApi, PrinterService printerService)
+public class ArmEndpoints(IDesktopApi desktopApi, PrinterService printerService)
 {
     public ParameterlessEndpoint<ArmValue> ArmEndpoint { get; } = new(
         () => desktopApi.GetArmByName(Dns.GetHostName()),
