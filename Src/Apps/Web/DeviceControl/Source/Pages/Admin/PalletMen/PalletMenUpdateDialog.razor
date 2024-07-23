@@ -1,17 +1,16 @@
-@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto>
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
 
+@implements IDialogContentComponent<PalletManDto>
 
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(PalletMenUpdateForm).ToString()">
-    <PalletMenUpdateForm />
+<SectionDialog>
+  <Tab Id="@typeof(PalletMenUpdateForm).ToString()" Title="@Localizer["SectionPalletMen"]">
+    <PalletMenUpdateForm Model="Content" FormModel="@PalletManMapper.DtoToUpdateDto(Content)" />
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(PalletMenUpdateForm).ToString(), Localizer["SectionPalletMen"])
-  ];
+  [Parameter] public PalletManDto Content { get; set; } = default!;
 }

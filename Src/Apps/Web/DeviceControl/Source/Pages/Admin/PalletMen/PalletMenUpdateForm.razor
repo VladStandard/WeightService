@@ -1,71 +1,127 @@
-@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   ChangeDate="@DialogItem.ChangeDt" *@
-@*   CreateDate="@DialogItem.CreateDt" *@
-@*   Validator="@(new PalletMenUpdateFormValidator(Localizer, WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@UpdateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@*     <SectionAdminGuidField Value="@DialogItem.Id"/> *@
-@* *@
-@*     $1$ <SectionGuidField #1# *@
-@*     $1$   Label="UID 1C" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Id1C" #1# *@
-@*     $1$   For="@(() => DialogItem.Id1C)" #1# *@
-@*     $1$   IsCopyable #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     $1$ <SectionSelectSingleField #1# *@
-@*     $1$   TItem="Warehouse" #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColWarehouse"]" #1# *@
-@*     $1$   Items="Warehouses" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Warehouse" #1# *@
-@*     $1$   ItemDisplayName="item => item.Name" #1# *@
-@*     $1$   Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)" #1# *@
-@*     $1$   For="@(() => DialogItem.Warehouse)" #1# *@
-@*     $1$   IsFilterable #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     <FormDivider></FormDivider> *@
-@* *@
-@*     $1$ <SectionTextField #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColFirstName"]" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Fio.Name" #1# *@
-@*     $1$   For="@(() => DialogItem.Fio.Name)" #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     $1$ <SectionTextField #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColSurname"]" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Fio.Surname" #1# *@
-@*     $1$   For="@(() => DialogItem.Fio.Surname)" #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     $1$ <SectionTextField #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColPatronymic"]" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Fio.Patronymic" #1# *@
-@*     $1$   For="@(() => DialogItem.Fio.Patronymic)" #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     <FormDivider></FormDivider> *@
-@* *@
-@*     $1$ <SectionTextField #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColPassword"]" #1# *@
-@*     $1$   @bind-Value="@DialogItem.Password" #1# *@
-@*     $1$   For="@(() => DialogItem.Password)" #1# *@
-@*     $1$   Disabled="IsOnlyView" #1# *@
-@*     $1$ /> #1# *@
-@*   </FieldsContent> *@
-@*   <ActionsContent> *@
-@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={DialogItem.Id}")" /> *@
-@*     <SectionFormActionReset OnClick="@ResetAction" /> *@
-@*     <SectionFormActionDelete OnClick="@DeleteItem" /> *@
-@*   </ActionsContent> *@
-@* </SectionForm> *@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
+@using Ws.Domain.Models.Entities.Ref
+
+@inherits SectionFormBase<PalletManUpdateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="@Model.ChangeDt"
+  CreateDate="@Model.CreateDt"
+  Validator="@(new PalletManUpdateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@Model.Id"/>
+
+    <SectionGuidField
+      Label="UID 1C"
+      @bind-Value="@FormModel.Id1C"
+      For="@(() => FormModel.Id1C)"
+      IsCopyable
+      Disabled="IsOnlyView"
+    />
+
+    <UseEndpoint
+      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Context="warehousesQuery"
+    >
+      @if (warehousesQuery.HasData)
+      {
+      <SectionInputWrapper
+        Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+        Label="@WsDataLocalizer["ColWarehouse"]"
+      >
+        <SelectSingle
+          TItem="ProxyDto?"
+          Items="warehousesQuery.Data"
+          SelectedItem="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
+          SelectedItemChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"
+          Placeholder="@Localizer["FormWarehouseDefaultPlaceholder"]"
+          EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+          SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+          ItemDisplayName="@(item => item!.Name)"
+          IsFilterable
+        />
+        <FieldValidation For="@(() => FormModel.WarehouseId)" />
+      </SectionInputWrapper>
+      }
+      else
+      {
+      <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColFirstName"]"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColSurname"]"
+      @bind-Value="@FormModel.Surname"
+      For="@(() => FormModel.Surname)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPatronymic"]"
+      @bind-Value="@FormModel.Patronymic"
+      For="@(() => FormModel.Patronymic)"
+      Disabled="IsOnlyView"
+    />
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPassword"]"
+      @bind-Value="@FormModel.Password"
+      For="@(() => FormModel.Password)"
+      Disabled="IsOnlyView"
+    />
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={Model.Id}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  #region Inject
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+
+  #endregion
+
+  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+  [Parameter, EditorRequired] public PalletManDto Model { get; set; } = default!;
+
+  private bool IsOnlyView { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
+  }
+
+  protected override Task UpdateItemAction(PalletManUpdateDto item) =>
+    throw new NotImplementedException();
+
+  protected override Task DeleteItemAction(PalletManUpdateDto item) =>
+    throw new NotImplementedException();
+}

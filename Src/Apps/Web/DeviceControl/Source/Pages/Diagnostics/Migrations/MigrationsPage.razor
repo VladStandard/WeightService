@@ -1,5 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Dto.Database
+
 @attribute [Route($"{RouteUtils.SectionMigrations}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
@@ -33,7 +34,11 @@
 </UseParameterlessEndpoint>
 
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private DiagnosticEndpoints DiagnosticEndpoints { get; set; } = default!;
+
+  # endregion
 }

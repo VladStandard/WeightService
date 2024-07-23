@@ -70,9 +70,13 @@
 </UseParameterlessEndpoint>
 
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private DiagnosticEndpoints DiagnosticEndpoints { get; set; } = default!;
+
+  # endregion
 
   private string? Scheme { get; set; }
 }

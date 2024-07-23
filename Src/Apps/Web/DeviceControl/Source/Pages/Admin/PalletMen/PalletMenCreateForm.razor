@@ -1,57 +1,94 @@
-@* @using Ws.Domain.Models.Entities.Ref *@
-@* @inherits SectionFormBase<Ws.Domain.Models.Entities.Users.PalletMan> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   Validator="@(new PalletMenCreateFormValidator(Localizer, WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@CreateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@* *@
-@*     <SectionGuidField *@
-@*       Label="UID 1C" *@
-@*       @bind-Value="@DialogItem.Uid1C" *@
-@*       For="@(() => DialogItem.Uid1C)" *@
-@*     /> *@
-@* *@
-@*     <SectionSelectSingleField *@
-@*       TItem="Warehouse" *@
-@*       Label="@WsDataLocalizer["ColWarehouse"]" *@
-@*       Items="Warehouses" *@
-@*       @bind-Value="@DialogItem.Warehouse" *@
-@*       ItemDisplayName="item => item.Name" *@
-@*       Path="@Redirector.ToPath(DialogItem.Warehouse, UserPrincipal)" *@
-@*       For="@(() => DialogItem.Warehouse)" *@
-@*       IsFilterable *@
-@*     /> *@
-@* *@
-@*     <FormDivider></FormDivider> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColFirstName"]" *@
-@*       @bind-Value="@DialogItem.Fio.Name" *@
-@*       For="@(() => DialogItem.Fio.Name)" *@
-@*     /> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColSurname"]" *@
-@*       @bind-Value="@DialogItem.Fio.Surname" *@
-@*       For="@(() => DialogItem.Fio.Surname)" *@
-@*     /> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColPatronymic"]" *@
-@*       @bind-Value="@DialogItem.Fio.Patronymic" *@
-@*       For="@(() => DialogItem.Fio.Patronymic)" *@
-@*     /> *@
-@* *@
-@*     <FormDivider></FormDivider> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColPassword"]" *@
-@*       @bind-Value="@DialogItem.Password" *@
-@*       For="@(() => DialogItem.Password)" *@
-@*     /> *@
-@*   </FieldsContent> *@
-@* </SectionForm> *@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create
+@using Ws.DeviceControl.Models.Dto.Shared
+
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create.PalletManCreateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  Validator="@(new PalletManCreateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@CreateItem"
+>
+  <FieldsContent>
+    <SectionGuidField
+      Label="UID 1C"
+      @bind-Value="@FormModel.Id1C"
+      For="@(() => FormModel.Id1C)"
+    />
+
+    <UseEndpoint
+      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Context="warehousesQuery"
+    >
+      @if (warehousesQuery.HasData)
+      {
+      <SectionInputWrapper
+        Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+        Label="@WsDataLocalizer["ColWarehouse"]"
+      >
+        <SelectSingle
+          TItem="ProxyDto?"
+          Items="warehousesQuery.Data"
+          SelectedItem="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
+          SelectedItemChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"
+          Placeholder="@Localizer["FormWarehouseDefaultPlaceholder"]"
+          EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+          SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+          ItemDisplayName="@(item => item!.Name)"
+          IsFilterable
+        />
+        <FieldValidation For="@(() => FormModel.WarehouseId)" />
+      </SectionInputWrapper>
+      }
+      else
+      {
+      <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColFirstName"]"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColSurname"]"
+      @bind-Value="@FormModel.Surname"
+      For="@(() => FormModel.Surname)"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPatronymic"]"
+      @bind-Value="@FormModel.Patronymic"
+      For="@(() => FormModel.Patronymic)"
+    />
+
+    <FormDivider></FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPassword"]"
+      @bind-Value="@FormModel.Password"
+      For="@(() => FormModel.Password)"
+    />
+  </FieldsContent>
+</SectionForm>
+
+@code {
+  #region Inject
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+
+  #endregion
+
+  protected override Task CreateItemAction(PalletManCreateDto item) =>
+    throw new NotImplementedException();
+}
