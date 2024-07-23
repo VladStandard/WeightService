@@ -4,7 +4,7 @@ using Ws.PalychExchangeApi.Features.Brands.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Brands.Services;
 
-internal partial class BrandService
+internal partial class BrandApiService
 {
     #region Resolve uniques db
 

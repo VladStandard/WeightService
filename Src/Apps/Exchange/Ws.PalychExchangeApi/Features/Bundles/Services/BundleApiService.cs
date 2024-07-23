@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Bundles.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Bundles.Services;
 
-internal partial class BundleService(BundleDtoValidator validator) : BaseService<BundleDto>(validator), IBundleService
+internal partial class BundleApiService(BundleDtoValidator validator) : BaseService<BundleDto>(validator), IBundleService
 {
     public ResponseDto Load(BundlesWrapper dtoWrapper)
     {

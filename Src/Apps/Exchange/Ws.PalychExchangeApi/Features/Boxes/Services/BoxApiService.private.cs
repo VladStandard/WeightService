@@ -4,7 +4,7 @@ using Ws.PalychExchangeApi.Features.Boxes.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
-internal partial class BoxService
+internal partial class BoxApiService
 {
     private void SaveBoxes(IEnumerable<BoxDto> validDtos)
     {

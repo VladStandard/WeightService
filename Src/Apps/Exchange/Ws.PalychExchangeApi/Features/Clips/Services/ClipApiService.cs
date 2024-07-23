@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Clips.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
-internal partial class ClipService(ClipDtoValidator validator) : BaseService<ClipDto>(validator), IClipService
+internal partial class ClipApiService(ClipDtoValidator validator) : BaseService<ClipDto>(validator), IClipService
 {
     public ResponseDto Load(ClipsWrapper dtoWrapper)
     {

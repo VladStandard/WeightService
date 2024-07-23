@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Pallets.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Pallets.Services;
 
-internal class PalletService(WsDbContext context) : IPalletService
+internal class PalletApiService(WsDbContext context) : IPalletService
 {
     public PalletUpdateStatus Update(PalletUpdateDto dto)
     {

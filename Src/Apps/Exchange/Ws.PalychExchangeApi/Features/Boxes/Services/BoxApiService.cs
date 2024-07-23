@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Boxes.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Boxes.Services;
 
-internal partial class BoxService(BoxDtoValidator validator) : BaseService<BoxDto>(validator), IBoxService
+internal partial class BoxApiService(BoxDtoValidator validator) : BaseService<BoxDto>(validator), IBoxService
 {
     public ResponseDto Load(BoxesWrapper dtoWrapper)
     {

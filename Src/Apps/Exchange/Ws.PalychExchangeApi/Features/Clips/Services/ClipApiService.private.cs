@@ -1,32 +1,32 @@
 using Microsoft.EntityFrameworkCore.Storage;
-using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
-using Ws.PalychExchangeApi.Features.Bundles.Dto;
+using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.PalychExchangeApi.Features.Clips.Dto;
 
-namespace Ws.PalychExchangeApi.Features.Bundles.Services;
+namespace Ws.PalychExchangeApi.Features.Clips.Services;
 
-internal partial class BundleService
+internal partial class ClipApiService
 {
-    private void SaveBundles(IEnumerable<BundleDto> validDtos)
+    private void SaveClips(IEnumerable<ClipDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
+        List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(bundles, options =>
+            DbContext.BulkMerge(clips, options =>
             {
                 options.InsertIfNotExists = true;
                 options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
                 options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
             });
             transaction.Commit();
-            OutputDto.AddSuccess(bundles.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(clips.Select(i => i.Id).ToList());
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(bundles.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(clips.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
         }
     }
 }

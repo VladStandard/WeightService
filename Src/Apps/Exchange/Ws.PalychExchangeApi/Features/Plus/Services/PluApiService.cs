@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Plus.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
-internal sealed partial class PluService(PluDtoValidator validator) : BaseService<PluDto>(validator), IPluService
+internal sealed partial class PluApiService(PluDtoValidator validator) : BaseService<PluDto>(validator), IPluService
 {
     public ResponseDto Load(PlusWrapper dtoWrapper)
     {

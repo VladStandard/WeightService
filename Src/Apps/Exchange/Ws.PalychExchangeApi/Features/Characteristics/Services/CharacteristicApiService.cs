@@ -6,7 +6,7 @@ using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
 
-internal sealed partial class CharacteristicService(GroupedCharacteristicValidator validator) :
+internal sealed partial class CharacteristicApiService(GroupedCharacteristicValidator validator) :
     BaseService<GroupedCharacteristic>(validator), ICharacteristicService
 {
     public ResponseDto Load(PluCharacteristicsWrapper dtoWrapper)

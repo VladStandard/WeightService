@@ -4,7 +4,7 @@ using Ws.PalychExchangeApi.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchangeApi.Features.Characteristics.Services;
 
-internal sealed partial class CharacteristicService
+internal sealed partial class CharacteristicApiService
 {
     #region Resolve uniques Db
 

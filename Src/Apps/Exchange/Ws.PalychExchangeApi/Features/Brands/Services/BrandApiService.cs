@@ -5,7 +5,7 @@ using Ws.PalychExchangeApi.Features.Brands.Dto;
 
 namespace Ws.PalychExchangeApi.Features.Brands.Services;
 
-internal partial class BrandService(BrandDtoValidator validator) : BaseService<BrandDto>(validator), IBrandService
+internal partial class BrandApiService(BrandDtoValidator validator) : BaseService<BrandDto>(validator), IBrandService
 {
     public ResponseDto Load(BrandsWrapper dtoWrapper)
     {

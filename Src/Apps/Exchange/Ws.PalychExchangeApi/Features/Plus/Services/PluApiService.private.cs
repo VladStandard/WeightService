@@ -9,7 +9,7 @@ using Ws.Shared.Constants;
 namespace Ws.PalychExchangeApi.Features.Plus.Services;
 
 
-internal sealed partial class PluService
+internal sealed partial class PluApiService
 {
     #region Resolve uniques db
 
