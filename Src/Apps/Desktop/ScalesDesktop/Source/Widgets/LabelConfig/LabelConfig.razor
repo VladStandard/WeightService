@@ -1,8 +1,10 @@
 @using ScalesDesktop.Source.Features.PluSelectDialog
+@using ScalesDesktop.Source.Shared.Services.Endpoints
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models.Features.Plus.Weight.Output
 @using Blazor.Heroicons.Outline
 
-@implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <div class="size-full bg-background border rounded-lg flex flex-col overflow-hidden">
   <div class="flex flex-col overflow-hidden items-start h-12 shrink-0 justify-center w-full px-6 border-b xl:px-8">
@@ -12,10 +14,10 @@
   </div>
   <div class="flex flex-col gap-3 size-full p-4 overflow-hidden justify-between xl:p-6 xl:gap-4">
     <div class="w-full h-10 lg:h-12 shrink-0">
-      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
         @if (armQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PluApi.WeightPlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
+          <UseEndpoint Endpoint="@PluEndpoints.WeightPlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
             @if (pluQuery.HasData)
             {
               <Button
@@ -24,7 +26,7 @@
                 OnClick="@(() => ShowPluSelectDialog(pluQuery.Data))">
                 <div class="size-full font-normal px-5 flex items-center justify-between lg:text-lg">
                   <span class="truncate">
-                    @(LabelContext.Plu == null ? Localizer["PluSelectPlaceholder"] : LabelContext.Plu.Name)
+                    @(PluState.Value.Plu == null ? Localizer["PluSelectPlaceholder"] : PluState.Value.Plu.Name)
                   </span>
                   <ChevronDownIcon class="size-5"/>
                 </div>
@@ -42,25 +44,23 @@
         }
       </UseParameterlessEndpoint>
     </div>
-    <PluDescription Plu="@LabelContext.Plu" />
+    <PluDescription Plu="@PluState.Value.Plu" />
     <ArmControl OnArmRefetch="OnArmRefetchAction" />
   </div>
 </div>
 
 @code {
-
   # region Injects
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
-  [Inject] private LabelContext LabelContext { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
-  [Inject] private PluApi PluApi { get; set; } = default!;
+  [Inject] private IState<PluState> PluState { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
+  [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
 
   # endregion
-
-  protected override void OnInitialized() => LabelContext.StateChanged += StateHasChanged;
 
   private async Task ShowPluSelectDialog(PluWeight[] plu)
   {
@@ -68,15 +68,13 @@
     IDialogReference dialog = await DialogService.ShowDialogAsync<PluSelectDialog>(data, new());
     DialogResult result = await dialog.Result;
     if (result is { Cancelled: false, Data: PluWeight pluEntity })
-      LabelContext.ChangePlu(pluEntity);
+      Dispatcher.Dispatch(new ChangePluAction(pluEntity));
   }
 
   private async Task OnArmRefetchAction()
   {
-    LabelContext.ResetData();
+    Dispatcher.Dispatch(new ResetPluAction());
     await PrinterService.ConnectAsync();
-    PluApi.WeightPlusEndpoint.InvalidateAll();
+    PluEndpoints.WeightPlusEndpoint.InvalidateAll();
   }
-
-  public void Dispose() => LabelContext.StateChanged -= StateHasChanged;
 }

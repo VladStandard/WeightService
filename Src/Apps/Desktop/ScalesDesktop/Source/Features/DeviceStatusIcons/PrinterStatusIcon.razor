@@ -1,7 +1,8 @@
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using TscZebra.Plugin.Abstractions.Enums
 @using Blazor.Heroicons.Outline
 
-@implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <Button
   Size="ButtonSize.Icon"
@@ -14,25 +15,23 @@
 </Button>
 
 @code {
-
   # region Injects
 
+  [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
   [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   # endregion
 
-  protected override void OnInitialized() => PrinterService.StatusChanged += StateHasChanged;
-
-  private string GetIconStyle => PrinterService.Status switch
+  private string GetIconStyle => PrinterState.Value.Status switch
   {
     PrinterStatus.Disconnected => "text-red-500",
     PrinterStatus.Busy or PrinterStatus.Ready => "text-green-500",
     _ => "text-amber-500"
   };
 
-  private string GetIndicatorStyle => PrinterService.Status switch
+  private string GetIndicatorStyle => PrinterState.Value.Status switch
   {
   PrinterStatus.Disconnected => "bg-red-500 animate-ping",
   PrinterStatus.Busy or PrinterStatus.Ready => "bg-green-500",
@@ -41,8 +40,8 @@
 
   private async Task PrintStatusMessage()
   {
-    PrinterStatus printerStatus = await PrinterService.GetStatusAsync();
-    switch (printerStatus)
+    await PrinterService.RequestStatusAsync();
+    switch (PrinterState.Value.Status)
     {
       case PrinterStatus.Disconnected:
         ToastService.ShowError(Localizer["PrinterStatusDisconnected"]);
@@ -51,7 +50,7 @@
         ToastService.ShowSuccess(Localizer["PrinterStatusReady"]);
         break;
       default:
-        ToastService.ShowWarning(printerStatus switch
+        ToastService.ShowWarning(PrinterState.Value.Status switch
         {
           PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
           PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
@@ -62,7 +61,4 @@
         break;
     }
   }
-
-
-  public void Dispose() => PrinterService.StatusChanged -= StateHasChanged;
 }

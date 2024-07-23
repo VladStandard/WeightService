@@ -1,7 +1,8 @@
 @using MassaK.Plugin.Abstractions.Enums
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using Blazor.Heroicons.Outline
 
-@implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <Button
   Size="ButtonSize.Icon"
@@ -14,13 +15,15 @@
 </Button>
 
 @code {
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  # region Injects
+
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
 
-  protected override void OnInitialized() => ScalesService.StatusChanged += StateHasChanged;
+  # endregion
 
-  private string GetIconStyle => ScalesService.Status switch
+  private string GetIconStyle => ScalesState.Value.Status switch
   {
     MassaKStatus.Disabled => "text-muted-foreground",
     MassaKStatus.Detached => "text-red-500",
@@ -28,7 +31,7 @@
     _ => "text-green-500"
   };
 
-  private string GetIndicatorStyle => ScalesService.Status switch
+  private string GetIndicatorStyle => ScalesState.Value.Status switch
   {
     MassaKStatus.Disabled => "bg-muted-foreground",
     MassaKStatus.Detached => "bg-red-500 animate-ping",
@@ -38,8 +41,7 @@
 
   private void PrintStatusMessage()
   {
-    MassaKStatus scalesStatus = ScalesService.Status;
-    switch (scalesStatus)
+    switch (ScalesState.Value.Status)
     {
       case MassaKStatus.Detached:
         ToastService.ShowError(Localizer["ScalesStatusDetached"]);
@@ -57,6 +59,4 @@
         throw new ArgumentOutOfRangeException();
     }
   }
-
-  public void Dispose() => ScalesService.StatusChanged -= StateHasChanged;
 }

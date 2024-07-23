@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
+using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Extensions;
 using Ws.Desktop.Models.Features.Pallets.Input;
@@ -47,6 +48,18 @@ public class PalletApiService(
             .Where(p => p.Arm.Id == armId)
             .OrderByDescending(p => p.CreateDt)
             .ToPalletInfo(dbContext.Labels).ToList();
+    }
+
+    public async Task Delete(Guid id)
+    {
+        PalletEntity? pallet = await dbContext.Pallets.FindAsync(id);
+        if (pallet != null)
+        {
+            bool isDelete = !(pallet.DeletedAt != null);
+            await printLabelService.DeletePallet(pallet.Number, isDelete);
+            pallet.DeletedAt = isDelete ? DateTime.Now : null;
+            await dbContext.SaveChangesAsync();
+        }
     }
 
     public List<PalletInfo> GetByNumber(string number)

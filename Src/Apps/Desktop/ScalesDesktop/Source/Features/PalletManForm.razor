@@ -14,10 +14,10 @@
   >
     <FluentValidationValidator Validator="@(new PalletManFormValidator(Localizer, WsDataLocalizer))" />
     <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
-      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
         @if (armQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PalletApi.PalletMenEndpoint" Arg="armQuery.Data.Id" Context="palletMenQuery">
+          <UseEndpoint Endpoint="@PalletEndpoints.PalletMenEndpoint" Arg="armQuery.Data.Id" Context="palletMenQuery">
             @if (palletMenQuery.HasData)
             {
               <SelectSingle

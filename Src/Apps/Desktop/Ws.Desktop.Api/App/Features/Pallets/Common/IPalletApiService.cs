@@ -15,6 +15,7 @@ public interface IPalletApiService
 
     #region Commands
 
+    public Task Delete(Guid id);
     public Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto);
 
     #endregion

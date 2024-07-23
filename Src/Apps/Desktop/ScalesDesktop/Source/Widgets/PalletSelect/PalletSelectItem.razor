@@ -1,12 +1,13 @@
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models.Features.Pallets.Output
 @using Blazor.Heroicons.Outline
 
-@implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <button
   type="button"
   disabled="@IsSelected"
-  @onclick="@(() => PalletContext.ChangePallet(Pallet))"
+  @onclick="@(() => Dispatcher.Dispatch(new ChangePalletAction(Pallet)))"
   class="@Css.Class("w-full h-18 shrink-0 px-4 pb-2.5 pt-2 items-center flex shadow-sm transition-colors rounded-md border hover:bg-secondary/[.6]",
            IsSelected ? "bg-secondary hover:bg-secondary" : string.Empty)"
 >
@@ -49,19 +50,15 @@
 </button>
 
 @code {
-
   # region Injects
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+  [Inject] private IState<PalletState> PalletState { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-  private bool IsSelected => PalletContext.Pallet != null && PalletContext.Pallet.Equals(Pallet);
-
-  protected override void OnInitialized() => PalletContext.StateChanged += StateHasChanged;
-
-  public void Dispose() => PalletContext.StateChanged -= StateHasChanged;
+  private bool IsSelected => PalletState.Value.Pallet != null && PalletState.Value.Pallet.Equals(Pallet);
 }

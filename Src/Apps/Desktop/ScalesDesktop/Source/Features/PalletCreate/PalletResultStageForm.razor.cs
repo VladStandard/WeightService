@@ -1,3 +1,6 @@
+using Fluxor;
+using ScalesDesktop.Source.Shared.Services.Endpoints;
+using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
@@ -12,10 +15,10 @@ public sealed partial class PalletResultStageForm : ComponentBase
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private PalletContext PalletContext { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
-    [Inject] private ArmApi ArmApi { get; set; } = default!;
+    [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
+    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
     # endregion
 
@@ -46,7 +49,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         {
             PluId = FormModel.Plu!.Id,
             CharacteristicId = FormModel.Nesting!.Id,
-            PalletManId = PalletContext.PalletMan!.Id,
+            PalletManId = PalletManState.Value.PalletMan!.Id,
             WeightTray = FormModel.PalletWeight,
             LabelCount = (byte)FormModel.Count,
             Kneading = (ushort)FormModel.Kneading,

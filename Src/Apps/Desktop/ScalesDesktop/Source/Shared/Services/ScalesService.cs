@@ -2,23 +2,18 @@ using MassaK.Plugin;
 using MassaK.Plugin.Abstractions.Enums;
 using MassaK.Plugin.Abstractions.Events;
 using MassaK.Plugin.Impl;
+using ScalesDesktop.Source.Shared.Services.Stores;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
 public class ScalesService : IDisposable
 {
-    private readonly IDispatcher _dispatcher;
-    private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
-    public MassaKStatus Status { get; private set; } = MassaKStatus.Disabled;
-    public bool IsStable { get; private set; }
-    public int CurrentWeight { get; private set; }
-
-    public event Action? StatusChanged;
-    public event Action? WeightChanged;
-
+    private readonly Fluxor.IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
+    private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
 
-    public ScalesService(IDispatcher dispatcher)
+
+    public ScalesService(Fluxor.IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
         Setup();
@@ -36,15 +31,13 @@ public class ScalesService : IDisposable
     public void Connect()
     {
         Scales.Connect();
-        Status = MassaKStatus.Ready;
-        StatusChanged?.Invoke();
+        _dispatcher.Dispatch(new ChangeScalesStatusAction(MassaKStatus.Ready));
     }
 
     public void Disconnect()
     {
         Scales.Disconnect();
-        Status = MassaKStatus.Disabled;
-        StatusChanged?.Invoke();
+        _dispatcher.Dispatch(new ChangeScalesStatusAction(MassaKStatus.Disabled));
     }
 
     public void Calibrate() => Scales.Calibrate();
@@ -53,21 +46,11 @@ public class ScalesService : IDisposable
 
     public void StartPolling() => Scales.StartWeightPolling();
 
-    private async void ScalesOnStatusChanged(object? sender, MassaKStatus e) =>
-        await _dispatcher.DispatchAsync(() =>
-        {
-            if (Status.Equals(e)) return;
-            Status = e;
-            StatusChanged?.Invoke();
-        });
+    private void ScalesOnStatusChanged(object? sender, MassaKStatus e) =>
+        _dispatcher.Dispatch(new ChangeScalesStatusAction(e));
 
-    private async void ScalesOnWeightChanged(object? sender, WeightEventArg e) =>
-        await _dispatcher.DispatchAsync(() =>
-        {
-            IsStable = e.IsStable;
-            CurrentWeight = e.Weight;
-            WeightChanged?.Invoke();
-        });
+    private void ScalesOnWeightChanged(object? sender, WeightEventArg e) =>
+        _dispatcher.Dispatch(new ChangeWeightAction(e.Weight, e.IsStable));
 
     public void Dispose()
     {

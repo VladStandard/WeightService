@@ -51,6 +51,9 @@ public interface IDesktopApi
     [Post("/arms/{armUid}/pallets")]
     Task<PalletInfo> CreatePiecePallet(Guid armUid, [Body] PalletPieceCreateDto createDto);
 
+    [Delete("/arms/{armUid}/pallets/{palletId}")]
+    Task DeletePallet(Guid armUid, Guid palletId);
+
     #endregion
 
     #region Plus Weight

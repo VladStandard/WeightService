@@ -1,8 +1,9 @@
+@using ScalesDesktop.Source.Shared.Services.Endpoints
 @using Ws.Desktop.Models.Features.Arms.Output
 @using Blazor.Heroicons.Outline
 
 <div class="flex justify-between items-center w-full">
-  <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="query">
+  <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="query">
     @if (!query.HasData)
     {
       <Skeleton Class="size-16 !rounded-full shrink-0"/>
@@ -55,7 +56,7 @@
 @code {
   [Inject] private PrinterService PrinterService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private ArmApi ArmApi { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
   [Parameter] public EventCallback OnArmRefetch { get; set; }
 

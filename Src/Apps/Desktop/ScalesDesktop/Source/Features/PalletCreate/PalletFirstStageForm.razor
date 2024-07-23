@@ -8,10 +8,10 @@
 >
   <FluentValidationValidator Validator="@(new PalletPluStageFormValidator(WsDataLocalizer, Localizer))" />
   <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
-    <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+    <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
-        <UseEndpoint Endpoint="@PluApi.PiecePlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
+        <UseEndpoint Endpoint="@PluEndpoints.PiecePlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
           @if (pluQuery.HasData)
           {
             <SelectSingle

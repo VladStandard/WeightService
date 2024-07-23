@@ -27,8 +27,8 @@
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
         <ApplicationVersion>1</ApplicationVersion>
 
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
-        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
 
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
         <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
@@ -45,6 +45,7 @@
     <ItemGroup>
         <PackageReference Include="Append.Blazor.Printing" Version="6.3.0" />
         <PackageReference Include="FluentValidation" Version="11.9.2" />
+        <PackageReference Include="Fluxor.Blazor.Web" Version="6.0.0" />
         <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
         <PackageReference Include="itext7" Version="8.0.4" />
         <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />

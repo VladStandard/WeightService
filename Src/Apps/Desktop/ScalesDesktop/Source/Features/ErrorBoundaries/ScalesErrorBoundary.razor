@@ -1,9 +1,10 @@
 @using MassaK.Plugin.Abstractions.Enums
+@using ScalesDesktop.Source.Shared.Services.Stores
 @using Blazor.Heroicons.Outline
 
-@implements IDisposable
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-@if (ScalesService.Status is MassaKStatus.Detached or MassaKStatus.Disabled)
+@if (ScalesState.Value.Status is MassaKStatus.Detached or MassaKStatus.Disabled)
 {
   <div class="flex flex-col size-full items-center justify-center">
     <ExclamationTriangleIcon class="size-16 stroke-[0.9] text-red-500" />
@@ -17,14 +18,13 @@ else
   @ChildContent
 }
 
-
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
+
+  # endregion
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
-
-  protected override void OnInitialized() => ScalesService.StatusChanged += StateHasChanged;
-
-  public void Dispose() => ScalesService.StatusChanged -= StateHasChanged;
 }
