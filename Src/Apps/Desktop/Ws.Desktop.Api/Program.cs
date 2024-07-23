@@ -3,15 +3,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database.EntityFramework;
-using Ws.Desktop.Api.App.Features.Arms.Common;
 using Ws.Desktop.Api.App.Features.Arms.Impl;
-using Ws.Desktop.Api.App.Features.PalletMen.Common;
-using Ws.Desktop.Api.App.Features.PalletMen.Impl;
-using Ws.Desktop.Api.App.Features.Pallets.Common;
-using Ws.Desktop.Api.App.Features.Pallets.Impl;
-using Ws.Desktop.Api.App.Features.Plu.Common;
-using Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
-using Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 using Ws.Desktop.Api.App.Middlewares;
 using Ws.Domain.Services;
 using Ws.Labels.Service;
@@ -22,11 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 
 #region Internal services
 
-builder.Services.AddScoped<IArmService, ArmService>();
-builder.Services.AddScoped<IPluPieceService, PluPieceService>();
-builder.Services.AddScoped<IPluWeightService, PluWeightService>();
-builder.Services.AddScoped<IPalletManService, PalletManService>();
-builder.Services.AddScoped<IPalletApiService, PalletApiService>();
+builder.Services.Scan(scan => scan
+    .FromAssembliesOf(typeof(ArmApiService))
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime()
+);
 
 #endregion
 

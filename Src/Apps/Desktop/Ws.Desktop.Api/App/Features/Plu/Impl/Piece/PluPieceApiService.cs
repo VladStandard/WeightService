@@ -5,7 +5,7 @@ using Ws.Domain.Services.Features.Arms;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
-public class PluPieceService(IArmService armService, WsDbContext dbContext) : IPluPieceService
+public class PluPieceApiService(IArmService armService, WsDbContext dbContext) : IPluPieceService
 {
     #region Queries
 

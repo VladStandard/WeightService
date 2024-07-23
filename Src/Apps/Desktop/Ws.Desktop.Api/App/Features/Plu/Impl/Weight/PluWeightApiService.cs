@@ -12,7 +12,7 @@ using Ws.Labels.Service.Generate.Features.Weight.Dto;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
-public class PluWeightService(
+public class PluWeightApiService(
     IPrintLabelService printLabelService,
     IPluService pluService,
     IArmService armService,
