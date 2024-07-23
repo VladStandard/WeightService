@@ -7,6 +7,6 @@ namespace DeviceControl.Source.Shared.Services;
 public class PalletManEndpoints(IWebApi webApi)
 {
     public Endpoint<Guid, PalletManDto[]> PalletMenEndpoint { get; } = new(
-        webApi.GetPalletMen,
+        webApi.GetPalletMenByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 }

@@ -1,121 +1,146 @@
-@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Queries.PluDto> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   ChangeDate="DialogItem.ChangeDt" *@
-@*   CreateDate="DialogItem.CreateDt" *@
-@*   Validator="@(new PlusUpdateFormValidator(WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@UpdateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@*     <SectionAdminGuidField Value="@DialogItem.Id" /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColNumber"]" *@
-@*       Value="@DialogItem.Number" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColType"]" *@
-@*       Value="@GetPluTypeName(DialogItem.IsWeight)" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")" *@
-@*       Value="@DialogItem.Weight" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*         Label="@WsDataLocalizer["ColBrand"]" *@
-@*         Value="@DialogItem.Brand.Name" *@
-@*         Path="@Redirector.ToBrandPath(DialogItem.Brand)" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColShelfLifeDays"]" *@
-@*       Value="@DialogItem.ShelfLifeDays" *@
-@*     /> *@
-@* *@
-@*     $1$ <SectionSelectSingleField #1# *@
-@*     $1$   TItem="Template" #1# *@
-@*     $1$   Label="@WsDataLocalizer["ColTemplate"]" #1# *@
-@*     $1$   Items="AllTemplates" #1# *@
-@*     $1$   ValueChanged="(i) => DialogItem.TemplateUid = i.Uid" #1# *@
-@*     $1$   Value="AllTemplates.SingleOrDefault(i => i.Uid == DialogItem.TemplateUid)" #1# *@
-@*     $1$   ItemDisplayName="@(item => item.Name)" #1# *@
-@*     $1$   Disabled="@(!IsForceSubmit)" #1# *@
-@*     $1$   Path="@Redirector.ToTemplatePath(DialogItem.TemplateUid ?? Guid.Empty, UserPrincipal)" #1# *@
-@*     $1$ /> #1# *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColStorageMethod"]" *@
-@*       Value="@DialogItem.StorageMethod" *@
-@*     /> *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColName"]" *@
-@*       @bind-Value="@DialogItem.Name" *@
-@*       For="@(() => DialogItem.Name)" *@
-@*       Disabled="@(!IsForceSubmit)" *@
-@*     /> *@
-@* *@
-@*     <SectionTextAreaField *@
-@*       Label="@WsDataLocalizer["ColFullName"]" *@
-@*       @bind-Value="@DialogItem.FullName" *@
-@*       For="@(() => DialogItem.FullName)" *@
-@*       Disabled="@(!IsForceSubmit)" *@
-@*     /> *@
-@* *@
-@*     <SectionTextAreaField *@
-@*       Label="@WsDataLocalizer["ColDescription"]" *@
-@*       @bind-Value="@DialogItem.Description" *@
-@*       For="@(() => DialogItem.Description)" *@
-@*       Disabled="@(!IsForceSubmit)" *@
-@*     /> *@
-@* *@
-@*     <FormDivider>@Localizer["FieldPackaging"]</FormDivider> *@
-@* *@
-@*     @if (DialogItem.Bundle != null) *@
-@*     { *@
-@*       <SectionReadOnlyField *@
-@*         Label="@WsDataLocalizer["ColBundle"]" *@
-@*         Value="@DialogItem.Bundle.Name" *@
-@*         Path="@Redirector.ToBundlePath(DialogItem.Bundle)" *@
-@*       /> *@
-@*     } *@
-@* *@
-@*     @if (DialogItem.Clip != null) *@
-@*     { *@
-@*       <SectionReadOnlyField *@
-@*         Label="@WsDataLocalizer["ColClip"]" *@
-@*         Value="@DialogItem.Clip.Name" *@
-@*         Path="@Redirector.ToClipPath(DialogItem.Clip)" *@
-@*       /> *@
-@*     } *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColBarcode"]</FormDivider> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="Ean13" *@
-@*       Value="@DialogItem.Ean13" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="Gtin" *@
-@*       Value="@DialogItem.Gtin" *@
-@*     /> *@
-@* *@
-@*   </FieldsContent> *@
-@* *@
-@*   <ActionsContent> *@
-@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}?id={DialogItem.Id}")" /> *@
-@*     <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" /> *@
-@*     @if (IsForceSubmit) *@
-@*     { *@
-@*       <SectionFormActionReset OnClick="@ResetAction" /> *@
-@*     } *@
-@*   </ActionsContent> *@
-@* </SectionForm> *@
+@using Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update
+@using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
+@using Ws.Domain.Models.Entities.Print
+
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update.PluUpdateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="Model.ChangeDt"
+  CreateDate="Model.CreateDt"
+  Validator="@(new PluUpdateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@Model.Id" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColNumber"]"
+      Value="@Model.Number"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetPluTypeName(Model.IsWeight)"
+    />
+
+    <SectionReadOnlyField
+      Label="@($"{WsDataLocalizer["ColWeight"]} ({WsDataLocalizer["MeasureKg"]})")"
+      Value="@Model.Weight"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBrand"]"
+      Value="@Model.Brand.Name"
+      Path="@Redirector.ToBrandPath(Model.Brand)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColShelfLifeDays"]"
+      Value="@Model.ShelfLifeDays"
+    />
+
+    <SectionSelectSingleField
+      TItem="Template?"
+      Label="@WsDataLocalizer["ColTemplate"]"
+      Items="@AllTemplates"
+      Value="@AllTemplates.SingleOrDefault(i => i.Uid == FormModel.TemplateId)"
+      ValueChanged="@(item => FormModel.TemplateId = item?.Uid ?? Guid.Empty)"
+      ItemDisplayName="@(item => item!.Name)"
+      Disabled="@(!IsForceSubmit)"
+      Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColStorageMethod"]"
+      Value="@Model.StorageMethod"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColFullName"]"
+      @bind-Value="@FormModel.FullName"
+      For="@(() => FormModel.FullName)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColDescription"]"
+      @bind-Value="@FormModel.Description"
+      For="@(() => FormModel.Description)"
+      Disabled="@(!IsForceSubmit)"
+    />
+
+    <FormDivider>@Localizer["FieldPackaging"]</FormDivider>
+
+    @if (Model.Bundle != null)
+    {
+      <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColBundle"]"
+        Value="@Model.Bundle.Name"
+        Path="@Redirector.ToBundlePath(Model.Bundle)"
+      />
+    }
+
+    @if (Model.Clip != null)
+    {
+      <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColClip"]"
+        Value="@Model.Clip.Name"
+        Path="@Redirector.ToClipPath(Model.Clip)"
+      />
+    }
+
+    <FormDivider>@WsDataLocalizer["ColBarcode"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="Ean13"
+      Value="@Model.Ean13"
+    />
+
+    <SectionReadOnlyField
+      Label="Gtin"
+      Value="@Model.Gtin"
+    />
+
+  </FieldsContent>
+
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}?id={Model.Id}")" />
+    <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" />
+    @if (IsForceSubmit)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+    }
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  # region Injects
+
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  # endregion
+
+  [Parameter, EditorRequired] public PluDto Model { get; set; } = default!;
+
+  private IEnumerable<Template> AllTemplates { get; set; } = [];
+  private bool IsForceSubmit { get; set; }
+
+  protected override Task UpdateItemAction(PluUpdateDto item) =>
+    throw new NotImplementedException();
+
+  private string GetPluTypeName(bool isWeight) =>
+    isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];
+}

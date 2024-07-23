@@ -9,14 +9,14 @@ namespace DeviceControl.Source.Shared.Services;
 public class DevicesEndpoints(IWebApi webApi)
 {
     public Endpoint<Guid, ArmDto[]> ArmsEndpoint { get; } = new(
-        webApi.GetArms,
+        webApi.GetArmsByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     public Endpoint<Guid, PrinterDto[]> PrintersEndpoint { get; } = new(
-        webApi.GetPrinters,
+        webApi.GetPrintersByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     public Endpoint<Guid, ProxyDto[]> ProxyPrinterEndpoint { get; } = new(
-        webApi.GetProxyPrinters,
+        webApi.GetProxyPrintersByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 }

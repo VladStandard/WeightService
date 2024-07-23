@@ -13,10 +13,10 @@ public class ReferencesEndpoints(IWebApi webApi)
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     public Endpoint<Guid, WarehouseDto[]> WarehousesEndpoint { get; } = new(
-        webApi.GetWarehouses,
+        webApi.GetWarehousesByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     public Endpoint<Guid, ProxyDto[]> ProxyWarehousesEndpoint { get; } = new(
-        webApi.GetProxyWarehouses,
+        webApi.GetProxyWarehousesByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 }

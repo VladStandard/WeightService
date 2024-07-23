@@ -7,7 +7,7 @@ public abstract class SectionFieldBase<TValue> : ComponentBase
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
     [Parameter] public TValue? Value { get; set; }
-    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public bool IsCopyable { get; set; }
     [Parameter] public string Label { get; set; } = string.Empty;

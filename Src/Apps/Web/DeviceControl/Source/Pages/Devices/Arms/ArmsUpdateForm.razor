@@ -1,131 +1,183 @@
-@* @using Ws.DeviceControl.Models.Dto.Shared *@
-@* @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   ChangeDate="@DialogItem.ChangeDt" *@
-@*   CreateDate="@DialogItem.CreateDt" *@
-@*   Validator="@(new LinesUpdateFormValidator(Localizer, WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@UpdateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@*     <SectionAdminGuidField Value="@DialogItem.Id" /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColVersion"]" *@
-@*       Value="@DialogItem.Version" *@
-@*     /> *@
-@* *@
-@*     <SectionNumericField *@
-@*       Label="@WsDataLocalizer["ColNumber"]" *@
-@*       @bind-Value="@DialogItem.Number" *@
-@*       Min="10000" *@
-@*       Max="99999" *@
-@*       For="@(() => DialogItem.Number)" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColName"]" *@
-@*       @bind-Value="@DialogItem.Name" *@
-@*       For="@(() => DialogItem.Name)" *@
-@*       MaxLength="32" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <SectionNumericField *@
-@*       Label="@WsDataLocalizer["ColCounter"]" *@
-@*       @bind-Value="@(DialogItem.Counter)" *@
-@*       Min="0" *@
-@*       For="@(() => DialogItem.Counter)" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <SectionSelectSingleField *@
-@*       TItem="ArmType" *@
-@*       Label="@WsDataLocalizer["ColType"]" *@
-@*       Items="LineTypes" *@
-@*       @bind-Value="@DialogItem.Type" *@
-@*       ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]" *@
-@*       For="@(() => DialogItem.Type)" *@
-@*       Disabled="IsOnlyView" *@
-@*     /> *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColPcName"]" *@
-@*       @bind-Value="@DialogItem.PcName" *@
-@*       For="@(() => DialogItem.PcName)" *@
-@*       Disabled="IsOnlyView" *@
-@*       MaxLength="16" *@
-@*     /> *@
-@* *@
-@*     <UseEndpoint *@
-@*       Endpoint="@DevicesEndpoints.ProxyPrinterEndpoint" *@
-@*       Arg="ProductionSiteState.Value.ProductionSite.Uid" *@
-@*       Context="printersQuery" *@
-@*     > *@
-@*       @if (printersQuery.HasData) *@
-@*       { *@
-@*         <SectionSelectSingleField *@
-@*           TItem="ProxyDto" *@
-@*           Label="@WsDataLocalizer["ColPrinter"]" *@
-@*           Items="@(printersQuery.Data)" *@
-@*           @bind-Value="@DialogItem.Printer" *@
-@*           ItemDisplayName="item => item.Name" *@
-@*           Path="@Redirector.ToPrinterPath(DialogItem.Printer, UserPrincipal)" *@
-@*           For="@(() => DialogItem.Printer)" *@
-@*           Disabled="IsOnlyView" *@
-@*           IsFilterable *@
-@*         /> *@
-@*       } *@
-@*       else *@
-@*       { *@
-@*         <Skeleton class="h-10 w-full" /> *@
-@*       } *@
-@*     </UseEndpoint> *@
-@* *@
-@*     <FormDivider>@Localizer["FieldLocation"]</FormDivider> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColProductionSite"]" *@
-@*       Value="@ProductionSiteState.Value.ProductionSite.Name" *@
-@*       Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)" *@
-@*     /> *@
-@* *@
-@*     <UseEndpoint *@
-@*       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint" *@
-@*       Arg="ProductionSiteState.Value.ProductionSite.Uid" *@
-@*       Context="warehousesQuery" *@
-@*     > *@
-@*       @if (warehousesQuery.HasData) *@
-@*       { *@
-@*         <SectionSelectSingleField *@
-@*           TItem="ProxyDto" *@
-@*           Label="@WsDataLocalizer["ColWarehouse"]" *@
-@*           Items="@warehousesQuery.Data" *@
-@*           @bind-Value="@DialogItem.Warehouse" *@
-@*           ItemDisplayName="item => item.Name" *@
-@*           Path="@Redirector.ToWarehousePath(DialogItem.Warehouse, UserPrincipal)" *@
-@*           For="@(() => DialogItem.Warehouse)" *@
-@*           Disabled="IsOnlyView" *@
-@*           IsFilterable *@
-@*         /> *@
-@*       } *@
-@*       else *@
-@*       { *@
-@*         <Skeleton class="h-10 w-full" /> *@
-@*       } *@
-@*     </UseEndpoint> *@
-@*   </FieldsContent> *@
-@*   <ActionsContent> *@
-@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}?id={DialogItem.Id}")" /> *@
-@*     @if (IsOnlyView == false) *@
-@*     { *@
-@*       <SectionFormActionReset OnClick="@ResetAction" /> *@
-@*       <SectionFormActionDelete OnClick="@DeleteItem" /> *@
-@*     } *@
-@*   </ActionsContent> *@
-@* </SectionForm> *@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models.Dto.Shared
+@using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update
+@using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
+@using Ws.Shared.Constants
+@using Ws.Domain.Models.Entities.Ref
+
+@inherits SectionFormBase<ArmUpdateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="@Model.ChangeDt"
+  CreateDate="@Model.CreateDt"
+  Validator="@(new ArmUpdateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@Model.Id" />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColVersion"]"
+      Value="@Model.Version"
+    />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColNumber"]"
+      @bind-Value="@FormModel.Number"
+      Min="10000"
+      Max="99999"
+      For="@(() => FormModel.Number)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
+      MaxLength="32"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionNumericField
+      Label="@WsDataLocalizer["ColCounter"]"
+      @bind-Value="@(FormModel.Counter)"
+      Min="0"
+      For="@(() => FormModel.Counter)"
+      Disabled="IsOnlyView"
+    />
+
+    <SectionSelectSingleField
+      TItem="ArmType"
+      Label="@WsDataLocalizer["ColType"]"
+      Items="LineTypes"
+      @bind-Value="@FormModel.Type"
+      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
+      For="@(() => FormModel.Type)"
+      Disabled="IsOnlyView"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColPcName"]"
+      @bind-Value="@FormModel.PcName"
+      For="@(() => FormModel.PcName)"
+      Disabled="IsOnlyView"
+      MaxLength="16"
+    />
+
+    <UseEndpoint
+      Endpoint="@DevicesEndpoints.ProxyPrinterEndpoint"
+      Arg="@BaseConsts.GuidMax"
+      Context="printersQuery"
+    >
+      @if (printersQuery.HasData)
+      {
+        <SectionInputWrapper
+          Path="@(FormModel.PrinterId != Guid.Empty ? Redirector.ToPrinterPath(FormModel.PrinterId, UserPrincipal) : string.Empty)"
+          Label="@WsDataLocalizer["ColPrinter"]"
+        >
+          <SelectSingle
+            TItem="ProxyDto?"
+            Items="printersQuery.Data"
+            SelectedItem="@printersQuery.Data.SingleOrDefault(x => x.Id == FormModel.PrinterId)"
+            SelectedItemChanged="@(value => FormModel.PrinterId = value?.Id ?? Guid.Empty)"
+            Placeholder="@Localizer["FormPrinterDefaultPlaceholder"]"
+            EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+            SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+            ItemDisplayName="@(item => item!.Name)"
+            IsFilterable
+          />
+          <FieldValidation For="@(() => FormModel.PrinterId)" />
+        </SectionInputWrapper>
+      }
+      else
+      {
+        <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
+
+    <FormDivider>@Localizer["FieldLocation"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductionSite"]"
+      Value="@ProductionSiteState.Value.ProductionSite.Name"
+      Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)"
+    />
+
+    <UseEndpoint
+      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Context="warehousesQuery"
+    >
+      @if (warehousesQuery.HasData)
+      {
+        <SectionInputWrapper
+          Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+          Label="@WsDataLocalizer["ColWarehouse"]"
+        >
+          <SelectSingle
+            TItem="ProxyDto?"
+            Items="warehousesQuery.Data"
+            SelectedItem="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
+            SelectedItemChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"
+            Placeholder="@Localizer["FormWarehouseDefaultPlaceholder"]"
+            EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+            SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+            ItemDisplayName="@(item => item!.Name)"
+            IsFilterable
+          />
+          <FieldValidation For="@(() => FormModel.WarehouseId)" />
+        </SectionInputWrapper>
+      }
+      else
+      {
+        <Skeleton class="h-10 w-full" />
+      }
+    </UseEndpoint>
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLines}?id={Model.Id}")" />
+    @if (IsOnlyView == false)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
+  </ActionsContent>
+</SectionForm>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+
+  # endregion
+
+  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+  [Parameter, EditorRequired] public ArmDto Model { get; set; } = default!;
+
+  private IEnumerable<ArmType> LineTypes { get; } = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
+  private bool IsOnlyView { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
+  }
+
+  protected override Task UpdateItemAction(ArmUpdateDto item) =>
+    throw new NotImplementedException();
+
+  protected override Task DeleteItemAction(ArmUpdateDto item) =>
+    throw new NotImplementedException();
+}

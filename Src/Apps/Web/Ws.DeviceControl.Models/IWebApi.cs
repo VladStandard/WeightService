@@ -16,7 +16,7 @@ public interface IWebApi
     # region Admin
 
     [Get("/pallet-men?productionSite={productionSiteUid}")]
-    Task<PalletManDto[]> GetPalletMen(Guid productionSiteUid);
+    Task<PalletManDto[]> GetPalletMenByProductionSite(Guid productionSiteUid);
 
     [Get("/pallet-men/{Uid}")]
     Task<PalletManDto> GetPalletManByUid(Guid uid);
@@ -26,17 +26,17 @@ public interface IWebApi
     # region Devices
 
     [Get("/arms?productionSite={productionSiteUid}")]
-    Task<ArmDto[]> GetArms(Guid productionSiteUid);
+    Task<ArmDto[]> GetArmsByProductionSite(Guid productionSiteUid);
 
     [Get("/arms/{Uid}")]
     Task<ArmDto> GetArmByUid(Guid uid);
 
 
     [Get("/printers?productionSite={productionSiteUid}")]
-    Task<PrinterDto[]> GetPrinters(Guid productionSiteUid);
+    Task<PrinterDto[]> GetPrintersByProductionSite(Guid productionSiteUid);
 
     [Get("/printers/proxy?productionSite={productionSiteUid}")]
-    Task<ProxyDto[]> GetProxyPrinters(Guid productionSiteUid);
+    Task<ProxyDto[]> GetProxyPrintersByProductionSite(Guid productionSiteUid);
 
     [Get("/printers/{Uid}")]
     Task<PrinterDto> GetPrinterByUid(Guid uid);
@@ -92,13 +92,13 @@ public interface IWebApi
     Task<ProductionSiteDto> GetProductionSiteByUid(Guid uid);
 
     [Get("/warehouses?productionSite={productionSiteUid}")]
-    Task<WarehouseDto[]> GetWarehouses(Guid productionSiteUid);
+    Task<WarehouseDto[]> GetWarehousesByProductionSite(Guid productionSiteUid);
 
     [Get("/warehouses/{Uid}")]
     Task<WarehouseDto> GetWarehouseByUid(Guid uid);
 
     [Get("/warehouses/proxy?productionSite={productionSiteUid}")]
-    Task<ProxyDto[]> GetProxyWarehouses(Guid productionSiteUid);
+    Task<ProxyDto[]> GetProxyWarehousesByProductionSite(Guid productionSiteUid);
 
     # endregion
 }

@@ -1,0 +1,15 @@
+@using Ws.DeviceControl.Models.Dto.Shared
+
+@implements IDialogContentComponent<PackageDto>
+
+<SectionDialog>
+  <Tab Id="@typeof(ClipsViewForm).ToString()" Title="@Localizer["SectionClips"]">
+    <ClipsViewForm FormModel="Content" />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  [Parameter] public PackageDto Content { get; set; } = default!;
+}

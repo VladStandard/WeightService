@@ -64,7 +64,7 @@
   #endregion
 
   protected override async Task OpenUpdateFormModal(BrandDto item) =>
-    throw new NotImplementedException();
+    await OpenModalWithItem<BrandsViewDialog>(item);
 
   protected override async Task OpenItemInNewTab(BrandDto item)
     => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}?id={item.Id}");

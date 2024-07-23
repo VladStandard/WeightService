@@ -129,7 +129,7 @@
   private bool? IsWeightFilter { get; set; }
 
   protected override async Task OpenUpdateFormModal(PluDto item) =>
-    throw new NotImplementedException();
+    await OpenModalWithItem<PlusUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(PluDto item) =>
     await OpenLinkInNewTab($"{RouteUtils.SectionPlus}?id={item.Id}");

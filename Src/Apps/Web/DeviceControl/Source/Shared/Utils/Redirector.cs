@@ -36,25 +36,20 @@ public class Redirector(IAuthorizationService authorizationService)
 
     #endregion
 
-    public string ToPath(Arm line, ClaimsPrincipal user) =>
-        Link(line, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
+    public string ToPrinterPath(Guid uid, ClaimsPrincipal user) =>
+        Link(uid, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToPath(Plu item) => Link(item, RouteUtils.SectionPlus);
+    public string ToWarehousePath(Guid uid, ClaimsPrincipal user) =>
+        Link(uid, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToPrinterPath(ProxyDto item, ClaimsPrincipal user) =>
-        Link(item.Id, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
-
-    public string ToWarehousePath(ProxyDto item, ClaimsPrincipal user) =>
-        Link(item.Id, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
+    public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
+        Link(uid, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyEnum.Support));
 
     public string ToBrandPath(ProxyDto item) => Link(item.Id, RouteUtils.SectionBrands);
 
     public string ToBundlePath(ProxyDto item) => Link(item.Id, RouteUtils.SectionBundles);
 
     public string ToClipPath(ProxyDto item) => Link(item.Id, RouteUtils.SectionClips);
-
-    public string ToPath(Warehouse item, ClaimsPrincipal user) =>
-        Link(item, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
     public string ToPath(ProductionSite item, ClaimsPrincipal user) =>
         Link(item, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));

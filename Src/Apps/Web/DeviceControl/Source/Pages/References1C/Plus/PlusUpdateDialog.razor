@@ -1,11 +1,13 @@
-@inherits SectionDialogBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Queries.PluDto>
+@using Ws.DeviceControl.Models.Dto.References1C.Plus
+@using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
 
+@implements IDialogContentComponent<PluDto>
 
-<SectionDialog DialogItem="DialogItem" TabsList="@TabsList">
-  <Tab Id="@typeof(PlusUpdateForm).ToString()">
-    <PlusUpdateForm />
+<SectionDialog>
+  <Tab Id="@typeof(PlusUpdateForm).ToString()" Title="@Localizer["SectionPLU"]">
+    <PlusUpdateForm Model="Content" FormModel="@PluMapper.DtoToUpdateDto(Content)" />
   </Tab>
-  @* <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()"> *@
+  @* <Tab Id="@typeof(PieceCharacteristicsDataGrid).ToString()" Title="@Localizer["SectionPluCharacteristics"]"> *@
   @*   @if (!DialogItem.IsWeight) *@
   @*   { *@
   @*     <PieceCharacteristicsDataGrid/> *@
@@ -20,9 +22,5 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  protected override List<KeyValuePair<string, string>> InitializeTabList() =>
-  [
-    new(typeof(PlusUpdateForm).ToString(), Localizer["SectionPLU"]),
-    // new(typeof(PieceCharacteristicsDataGrid).ToString(), Localizer["SectionPluCharacteristics"])
-  ];
+  [Parameter] public PluDto Content { get; set; } = default!;
 }
