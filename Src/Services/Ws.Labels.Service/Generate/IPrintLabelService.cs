@@ -12,6 +12,8 @@ public interface IPrintLabelService
     /// <exception cref="LabelGenerateException">Ошибка формирования.</exception>
     (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
 
+    Task<bool> DeletePallet(string palletNumber, bool isDelete);
+
 
     /// <summary>
     /// Создает паллету

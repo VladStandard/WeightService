@@ -1,4 +1,5 @@
 @using System.Globalization
+@using Ws.Desktop.Models
 @using Ws.Desktop.Models.Features.Pallets.Output
 
 <div class="size-full flex flex-col overflow-x-hidden overflow-y-auto pt-6 pb-8 px-6">
@@ -23,10 +24,18 @@
     </div>
     @if (Pallet.DeletedAt == null)
     {
-      <Button Variant="ButtonVariant.Destructive">
-        <TrashIcon class="size-4 mr-2" />
-        @Localizer["BtnDelete"]
-      </Button>
+      <UseParameterlessEndpoint Endpoint="@ArmApi.ArmEndpoint" Context="armQuery">
+        @if (armQuery.HasData)
+        {
+          <Button
+            Variant="ButtonVariant.Destructive"
+            OnClick="@(() => DeletePallet(armQuery.Data.Id, Pallet.Id))"
+          >
+            <TrashIcon class="size-4 mr-2" />
+            @Localizer["BtnDelete"]
+          </Button>
+        }
+      </UseParameterlessEndpoint>
     }
     else
     {
@@ -149,8 +158,23 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
+  [Inject] private ArmApi ArmApi { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
+
+  private async void DeletePallet(Guid armUid, Guid palletUid)
+  {
+    try
+    {
+      await DesktopApi.DeletePallet(armUid, palletUid);
+      ToastService.ShowSuccess("Good");
+    }
+    catch
+    {
+      ToastService.ShowError("Bad");
+    }
+  }
 }
