@@ -11,6 +11,7 @@ using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Shared.Api.ApiException;
+using Ws.Shared.Utils;
 
 namespace ScalesDesktop.Source.Features;
 

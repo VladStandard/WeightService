@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace ScalesDesktop.Source.Shared.Utils;
+namespace Ws.Shared.Utils;
 
 public static class SerializationUtils
 {

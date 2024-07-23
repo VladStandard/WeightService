@@ -1,3 +1,5 @@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create
 
 @inherits SectionFormBase<ProductionSiteCreateDto>
@@ -24,8 +26,14 @@
 </SectionForm>
 
 @code {
-  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  # region Injects
 
-  protected override Task CreateItemAction(ProductionSiteCreateDto item) =>
-    throw new NotImplementedException();
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+
+  # endregion
+
+  protected override async Task CreateItemAction(ProductionSiteCreateDto item) =>
+    ReferencesEndpoints.AddProductionSite(await WebApi.CreateProductionSite(item));
 }

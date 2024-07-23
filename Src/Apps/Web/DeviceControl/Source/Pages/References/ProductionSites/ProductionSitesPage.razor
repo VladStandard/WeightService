@@ -37,7 +37,7 @@
       <ContextMenuContent>
         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenUpdateFormModal(item)))" />
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" />
-        @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" /> *@
+        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))" />
       </ContextMenuContent>
     </DataGridContainer>
   </DataGridWrapper>
@@ -64,4 +64,10 @@
 
   protected override Task<ProductionSiteDto> SearchByUidAction(Guid uid) =>
     WebApi.GetProductionSiteByUid(uid);
+
+  protected override async Task DeleteItemAction(ProductionSiteDto item)
+  {
+    await WebApi.DeleteProductionSite(item.Id);
+    ReferencesEndpoints.DeleteProductionSite(item.Id);
+  }
 }

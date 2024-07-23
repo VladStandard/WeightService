@@ -1,7 +1,8 @@
 using System.Security.Claims;
 using Fluxor.Blazor.Web.Components;
 using Force.DeepCloner;
-using Ws.Domain.Services.Exceptions;
+using Refit;
+using Ws.Shared.Api.ApiException;
 
 namespace DeviceControl.Source.Widgets.Section;
 
@@ -23,10 +24,10 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
         DialogItemCopy = FormModel.DeepClone();
     }
 
-    protected override async Task OnInitializedAsync()
-        => UserPrincipal = (await AuthState).User;
+    protected override async Task OnInitializedAsync() =>
+        UserPrincipal = (await AuthState).User;
 
-    protected virtual Task DeleteItemAction(TItem item) =>
+    protected virtual Task DeleteItemAction() =>
         throw new NotImplementedException();
 
     protected virtual Task UpdateItemAction(TItem item) =>
@@ -43,24 +44,32 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
         ToastService.ShowInfo(Localizer["ToastResetItem"]);
     }
 
-    protected async Task CreateItem()
+    private async Task ExecuteAction(Func<Task> action, string successMessage)
     {
         try
         {
-            await CreateItemAction(FormModel.DeepClone());
-            ToastService.ShowSuccess(Localizer["ToastCreateItem"]);
+            await action();
+            ToastService.ShowSuccess(successMessage);
             await Dialog.CloseAsync();
         }
-        catch (ValidateException ex)
+        catch (ApiException ex)
         {
-            foreach (string error in ex.Errors.Keys)
-                ToastService.ShowWarning(ex.Errors[error]);
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
+                ToastService.ShowError(Localizer["UnknownError"]);
+            else
+                ToastService.ShowError(exception.LocalizeMessage);
         }
-        catch (DbServiceException)
+        catch
         {
             ToastService.ShowError(Localizer["UnknownError"]);
         }
     }
+
+    protected async Task CreateItem() =>
+        await ExecuteAction(() => CreateItemAction(FormModel), Localizer["ToastCreateItem"]);
+
+    protected async Task DeleteItem() =>
+        await ExecuteAction(DeleteItemAction, Localizer["ToastDeleteItem"]);
 
     protected async Task UpdateItem()
     {
@@ -70,34 +79,6 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
             return;
         }
 
-        try
-        {
-            await UpdateItemAction(FormModel.DeepClone());
-            ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
-            await Dialog.CloseAsync();
-        }
-        catch (ValidateException ex)
-        {
-            foreach (string error in ex.Errors.Keys)
-                ToastService.ShowWarning(ex.Errors[error]);
-        }
-        catch (DbServiceException)
-        {
-            ToastService.ShowError(Localizer["UnknownError"]);
-        }
-    }
-
-    protected async Task DeleteItem()
-    {
-        try
-        {
-            await DeleteItemAction(FormModel.DeepClone());
-            ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
-            await Dialog.CloseAsync();
-        }
-        catch (DbServiceException)
-        {
-            ToastService.ShowError(Localizer["UnknownError"]);
-        }
+        await ExecuteAction(() => UpdateItemAction(FormModel), Localizer["ToastUpdateItem"]);
     }
 }

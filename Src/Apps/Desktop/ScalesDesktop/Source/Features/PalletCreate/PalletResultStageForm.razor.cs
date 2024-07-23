@@ -6,6 +6,7 @@ using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Shared.Api.ApiException;
+using Ws.Shared.Utils;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 

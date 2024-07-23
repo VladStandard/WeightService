@@ -3,6 +3,8 @@ using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 using Ws.DeviceControl.Models.Dto.Database;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries;
 using Ws.DeviceControl.Models.Dto.References1C.Brands;
@@ -85,14 +87,27 @@ public interface IWebApi
 
     # region References
 
+    # region Production Site
+
     [Get("/production-sites")]
     Task<ProductionSiteDto[]> GetProductionSites();
 
     [Get("/production-sites/{Uid}")]
     Task<ProductionSiteDto> GetProductionSiteByUid(Guid uid);
 
+    [Post("/production-sites")]
+    Task<ProductionSiteDto> CreateProductionSite([Body] ProductionSiteCreateDto createDto);
+
+    [Put("/production-sites/{productionSiteUid}")]
+    Task<ProductionSiteDto> UpdateProductionSite(Guid productionSiteUid, [Body] ProductionSiteUpdateDto updateDto);
+
+    [Delete("/production-sites/{productionSiteUid}")]
+    Task<bool> DeleteProductionSite(Guid productionSiteUid);
+
     [Get("/warehouses?productionSite={productionSiteUid}")]
     Task<WarehouseDto[]> GetWarehousesByProductionSite(Guid productionSiteUid);
+
+    # endregion
 
     [Get("/warehouses/{Uid}")]
     Task<WarehouseDto> GetWarehouseByUid(Guid uid);
