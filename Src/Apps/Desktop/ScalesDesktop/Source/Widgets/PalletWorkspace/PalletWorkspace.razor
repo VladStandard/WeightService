@@ -1,5 +1,6 @@
 @using Ws.Desktop.Models.Features.Pallets.Output
 @using Blazor.Heroicons.Outline
+@using ScalesDesktop.Source.Shared.Services.Stores
 
 <div class="size-full flex flex-col overflow-hidden">
   <Tabs @ref="TabsComponent">
@@ -47,7 +48,7 @@
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private PalletContext PalletContext { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
   # endregion
 
@@ -61,5 +62,5 @@
 
   private Tabs TabsComponent { get; set; } = default!;
 
-  private void CloseCurrentPallet() => PalletContext.ChangePallet(null);
+  private void CloseCurrentPallet() => Dispatcher.Dispatch(new ResetPalletAction());
 }
