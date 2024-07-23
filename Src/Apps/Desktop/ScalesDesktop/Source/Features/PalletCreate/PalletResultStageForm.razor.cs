@@ -67,7 +67,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
             if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
                 ToastService.ShowError(Localizer["ToastPalletCreateError"]);
             else
-                ToastService.ShowError(Localizer[exception.ErrorLocalizeKey]);
+                ToastService.ShowError(Localizer[exception.LocalizeMessage]);
         }
         catch (Exception)
         {

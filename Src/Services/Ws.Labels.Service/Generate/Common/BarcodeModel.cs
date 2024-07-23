@@ -6,6 +6,7 @@ using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Extensions;
+using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Common;
 
@@ -61,9 +62,9 @@ public partial record BarcodeModel : IBarcodeLabel
                         barcodeZplBuilder.Append(dateValue.ToString(item.FormatStr));
                         break;
                     default:
-                        throw new ApiExceptionServer
-                        {
-                            ExceptionType = LabelGenExceptions.BarcodeInvalid,
+                       throw new ApiExceptionServer
+                       {
+                           ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
                         };
                 }
             }
@@ -72,8 +73,8 @@ public partial record BarcodeModel : IBarcodeLabel
         {
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.BarcodeInvalid,
-                ErrorInternalMessage = ex.Message
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
+                ErrorInternalMessage = ex.Message,
             };
         }
 

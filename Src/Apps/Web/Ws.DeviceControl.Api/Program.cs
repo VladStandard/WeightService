@@ -2,6 +2,8 @@ using System.Net.Mime;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
+using Ws.DeviceControl.Api.App.Middlewares;
+using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +16,17 @@ builder.Services.Scan(scan => scan
     .WithScopedLifetime()
 );
 
-#region Ready services
+builder.Services.Scan(scan => scan
+    .FromAssembliesOf(typeof(ProductionSiteCreateValidator))
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
+    .AsSelf()
+    .WithScopedLifetime()
+);
+
 
 builder.Services.AddEfCore();
+builder.Services.AddLocalization();
 
-#endregion
 
 builder.Services
     .AddControllers(options => {
@@ -36,10 +44,12 @@ builder.Services
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();

@@ -7,6 +7,6 @@ POST https://localhost:5138/api/production-sites
 Content-Type: application/json
 
 {
-    "name": "Tets",
+    "name": "Площадка Камешковоооо",
     "address": "dawdadwdaw"
 }

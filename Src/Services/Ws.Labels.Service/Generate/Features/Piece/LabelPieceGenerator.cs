@@ -29,14 +29,14 @@ internal class LabelPieceGenerator(
         if (dto.Plu.IsCheckWeight)
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.Invalid),
                 ErrorInternalMessage = "Plu is weight, must be a piece"
             };
 
         if (labelCount is > 240 or < 1)
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.Invalid),
                 ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
             };
 
@@ -44,7 +44,7 @@ internal class LabelPieceGenerator(
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.TemplateNotFound
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
             };
 
         BarcodeModel barcodeTemplates = dto.ToBarcodeModel();
@@ -134,7 +134,8 @@ internal class LabelPieceGenerator(
         else
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.ExchangeFailed,
+
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.ExchangeFailed),
                 ErrorInternalMessage = response.Errors.First().Message
             };
         return pallet.Uid;

@@ -2,10 +2,10 @@ using System.Text.Json;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Utils;
 
-namespace Ws.Desktop.Api.App.Middlewares;
+namespace Ws.DeviceControl.Api.App.Middlewares;
 
-public class GenerateLabelExceptionHandlingMiddleware(
-    ILogger<GenerateLabelExceptionHandlingMiddleware> logger
+public class ExceptionHandlingMiddleware(
+    ILogger<ExceptionHandlingMiddleware> logger
     ): IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -16,7 +16,8 @@ public class GenerateLabelExceptionHandlingMiddleware(
         }
         catch (ApiExceptionServer e)
         {
-            logger.LogWarning(e, "{EMessage}\n{EInternal}", e.ErrorDisplayMessage, e.ErrorInternalMessage);
+            logger.LogWarning(e, "{EMessage}\n{EInternal}",
+                e.ErrorDisplayMessage, e.ErrorInternalMessage);
 
             context.Response.StatusCode = (int)e.StatusCode;
 

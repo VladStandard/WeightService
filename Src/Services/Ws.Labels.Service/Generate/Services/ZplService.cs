@@ -5,6 +5,7 @@ using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Shared.Api.ApiException;
+using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -56,7 +57,7 @@ public partial class ZplService(CacheService cacheService)
         {
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.BarcodeVarNotFound,
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeVarNotFound),
                 ErrorInternalMessage = ex.Message
             };
         }

@@ -18,7 +18,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
         if (!dto.Plu.IsCheckWeight)
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.Invalid,
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.Invalid),
                 ErrorInternalMessage = "Plu is piece, must be a weight"
             };
 
@@ -26,7 +26,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ExceptionType = LabelGenExceptions.TemplateNotFound
+                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
             };
 
 
