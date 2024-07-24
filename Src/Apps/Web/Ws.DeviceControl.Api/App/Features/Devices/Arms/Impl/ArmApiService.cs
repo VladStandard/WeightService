@@ -60,10 +60,11 @@ public class ArmApiService(
         await dbContext.Lines.SafeExistAsync(i => i.Number == dto.Number && i.Id != id, "Ошибка уникальности");
         await dbContext.Lines.SafeExistAsync(i => i.PcName == dto.PcName && i.Id != id, "Ошибка уникальности");
 
-        PrinterEntity printerEntity = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
 
-        dto.UpdateEntity(entity, printerEntity);
+        dto.UpdateEntity(entity, printer, warehouse);
         await dbContext.SaveChangesAsync();
 
         return ArmExpressions.ToDto.Compile().Invoke(entity);

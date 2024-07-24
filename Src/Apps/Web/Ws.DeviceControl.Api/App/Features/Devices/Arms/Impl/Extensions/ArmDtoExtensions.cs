@@ -22,7 +22,7 @@ internal static class ArmDtoExtensions
         };
     }
 
-    public static void UpdateEntity(this ArmUpdateDto dto, LineEntity entity, PrinterEntity printer)
+    public static void UpdateEntity(this ArmUpdateDto dto, LineEntity entity, PrinterEntity printer, WarehouseEntity warehouse)
     {
         entity.Name = dto.Name;
         entity.Type = dto.Type;
@@ -30,5 +30,6 @@ internal static class ArmDtoExtensions
         entity.Number = dto.Number;
         entity.PcName = dto.PcName;
         entity.Counter = dto.Counter;
+        entity.Warehouse = warehouse;
     }
 }

@@ -66,6 +66,8 @@ public class PalletManApiService(
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
 
         dto.UpdateEntity(entity, warehouse);
+        await dbContext.SaveChangesAsync();
+
         return PalletManExpressions.ToDto.Compile().Invoke(entity);
     }
 
