@@ -39,7 +39,7 @@
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
-  [Parameter] public PalletFilterEnum Filter { get; set; } = PalletFilterEnum.NoFilter;
+  [Parameter] public PalletFilterEnum Filter { get; set; } = PalletFilterEnum.NotShipped;
   [Parameter] public EventCallback<PalletFilterEnum> FilterChanged { get; set; }
   [Parameter] public string SearchingString { get; set; } = string.Empty;
   [Parameter] public EventCallback<string> SearchingStringChanged { get; set; }

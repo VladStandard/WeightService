@@ -326,13 +326,22 @@
     <data name="PalletFlagNotShipped" xml:space="preserve">
         <value />
     </data>
-    <data name="PalletFilterNoFilter" xml:space="preserve">
+    <data name="PalletFilterNotShipped" xml:space="preserve">
         <value />
     </data>
     <data name="PalletFilterShipped" xml:space="preserve">
         <value />
     </data>
     <data name="PalletFilterDeleted" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastPalletMarkedDeleted" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ToastPalletMarkedNotDeleted" xml:space="preserve">
+        <value />
+    </data>
+    <data name="PalletFilterAll" xml:space="preserve">
         <value />
     </data>
 </root>

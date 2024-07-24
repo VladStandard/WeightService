@@ -326,13 +326,22 @@
     <data name="PalletFlagShipped" xml:space="preserve">
         <value>Отгружено</value>
     </data>
-    <data name="PalletFilterNoFilter" xml:space="preserve">
-        <value>Без фильтра</value>
+    <data name="PalletFilterNotShipped" xml:space="preserve">
+        <value>Не отгруженные</value>
     </data>
     <data name="PalletFilterShipped" xml:space="preserve">
         <value>Отгруженные</value>
     </data>
     <data name="PalletFilterDeleted" xml:space="preserve">
         <value>Удаленные</value>
+    </data>
+    <data name="ToastPalletMarkedDeleted" xml:space="preserve">
+        <value>Паллета удалена</value>
+    </data>
+    <data name="ToastPalletMarkedNotDeleted" xml:space="preserve">
+        <value>Паллета восстановлена</value>
+    </data>
+    <data name="PalletFilterAll" xml:space="preserve">
+        <value>Все</value>
     </data>
 </root>

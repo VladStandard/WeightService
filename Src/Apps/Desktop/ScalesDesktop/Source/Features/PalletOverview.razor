@@ -25,27 +25,30 @@
         </Tooltip>
       }
     </div>
-    <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
-      @if (armQuery.HasData)
-      {
-      <Button
-        Variant="@(Pallet.DeletedAt == null ? ButtonVariant.Destructive : ButtonVariant.Default)"
-        OnClick="@(() => DeletePallet(armQuery.Data.Id, Pallet.Id))"
-      >
-        @if (Pallet.DeletedAt == null)
+    @if (!Pallet.IsShipped)
+    {
+      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
+        @if (armQuery.HasData)
         {
-          <TrashIcon class="size-4 mr-2" />
-          @Localizer["BtnDelete"]
-        }
-        else
-        {
-          <ArrowUturnRightIcon class="size-4 mr-2" />
-          @Localizer["BtnRestore"]
-        }
+          <Button
+            Variant="@(Pallet.DeletedAt == null ? ButtonVariant.Destructive : ButtonVariant.Default)"
+            OnClick="@(() => DeletePallet(armQuery.Data.Id, Pallet.Id))"
+          >
+            @if (Pallet.DeletedAt == null)
+            {
+              <TrashIcon class="size-4 mr-2" />
+              @Localizer["BtnDelete"]
+            }
+            else
+            {
+              <ArrowUturnRightIcon class="size-4 mr-2" />
+              @Localizer["BtnRestore"]
+            }
 
-      </Button>
-      }
-    </UseParameterlessEndpoint>
+          </Button>
+        }
+      </UseParameterlessEndpoint>
+    }
   </div>
   <div class="w-full grid grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-2 items-start">
     <FormDivider Class="!pb-0">@Localizer["PalletOverviewDividerCommon"]</FormDivider>
@@ -175,12 +178,13 @@
     {
       await DesktopApi.DeletePallet(armUid, palletUid);
       PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
-      Dispatcher.Dispatch(new ChangePalletAction(Pallet with {DeletedAt = Pallet.DeletedAt == null ? DateTime.Now : null}));
-      ToastService.ShowSuccess("Good");
+      DateTime? newDeletedAt = Pallet.DeletedAt == null ? DateTime.Now : null;
+      Dispatcher.Dispatch(new ChangePalletAction(Pallet with { DeletedAt = newDeletedAt }));
+      ToastService.ShowSuccess(newDeletedAt != null ? Localizer["ToastPalletMarkedDeleted"] : Localizer["ToastPalletMarkedNotDeleted"]);
     }
     catch
     {
-      ToastService.ShowError("Bad");
+      ToastService.ShowError(Localizer["UnknownError"]);
     }
   }
 }
