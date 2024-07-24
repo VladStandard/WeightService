@@ -78,7 +78,7 @@
         <ContextMenuContent>
           <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenUpdateFormModal(item)))"/>
           <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, async item => await OpenItemInNewTab(item)))"/>
-          @* <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/> *@
+          <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/>
         </ContextMenuContent>
       </DataGridContainer>
     </DataGridWrapper>
@@ -110,6 +110,9 @@
   protected override Task<PrinterDto> SearchByUidAction(Guid uid) =>
     WebApi.GetPrinterByUid(uid);
 
-  protected override Task DeleteItemAction(PrinterDto item) =>
-    throw new NotImplementedException();
+  protected override async Task DeleteItemAction(PrinterDto item)
+  {
+    await WebApi.DeletePrinter(item.Id);
+    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Uid, item.Id);
+  }
 }

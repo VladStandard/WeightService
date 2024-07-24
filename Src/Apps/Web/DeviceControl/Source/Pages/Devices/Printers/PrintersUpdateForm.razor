@@ -1,5 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
+@using Ws.DeviceControl.Models
 @using Ws.Domain.Models.Entities.Ref
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
@@ -63,6 +64,8 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
 
   # endregion
 
@@ -82,6 +85,9 @@
   protected override Task UpdateItemAction(PrinterUpdateDto item) =>
     throw new NotImplementedException();
 
-  protected override Task DeleteItemAction() =>
-    throw new NotImplementedException();
+  protected override async Task DeleteItemAction()
+  {
+    await WebApi.DeletePrinter(Model.Id);
+    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Uid, Model.Id);
+  }
 }

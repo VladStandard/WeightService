@@ -1,3 +1,5 @@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
 @using Ws.Domain.Models.Entities.Print
@@ -130,6 +132,8 @@
   [Inject] private Redirector Redirector { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
 
   # endregion
 
@@ -138,8 +142,8 @@
   private IEnumerable<Template> AllTemplates { get; set; } = [];
   private bool IsForceSubmit { get; set; }
 
-  protected override Task UpdateItemAction(PluUpdateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task UpdateItemAction(PluUpdateDto item) =>
+    References1CEndpoints.UpdatePlu(await WebApi.UpdatePlu(Model.Id, item));
 
   private string GetPluTypeName(bool isWeight) =>
     isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];

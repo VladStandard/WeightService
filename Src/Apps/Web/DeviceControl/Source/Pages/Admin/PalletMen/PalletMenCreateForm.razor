@@ -1,4 +1,5 @@
 @using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create
 @using Ws.DeviceControl.Models.Dto.Shared
 
@@ -85,10 +86,12 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private Redirector Redirector { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private PalletManEndpoints PalletManEndpoints { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
 
   #endregion
 
-  protected override Task CreateItemAction(PalletManCreateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task CreateItemAction(PalletManCreateDto item) =>
+    PalletManEndpoints.AddPalletMan(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreatePalletMan(item));
 }

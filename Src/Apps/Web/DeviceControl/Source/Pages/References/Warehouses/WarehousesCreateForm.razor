@@ -1,4 +1,5 @@
 @using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create
 
 @inherits SectionFormBase<WarehouseCreateDto>
@@ -35,9 +36,11 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
 
   #endregion
 
-  protected override Task CreateItemAction(WarehouseCreateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task CreateItemAction(WarehouseCreateDto item) =>
+    ReferencesEndpoints.AddWarehouse(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreateWarehouse(item));
 }

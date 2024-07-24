@@ -1,5 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Create
 
 @inherits SectionFormBase<PrinterCreateDto>
@@ -46,11 +47,13 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
 
   # endregion
 
   private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
 
-  protected override Task CreateItemAction(PrinterCreateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task CreateItemAction(PrinterCreateDto item) =>
+    DevicesEndpoints.AddPrinter(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreatePrinter(item));
 }
