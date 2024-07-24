@@ -23,10 +23,17 @@
       For="@(() => FormModel.Name)"
     />
 
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSiteState.Value.ProductionSite.Name"
-    />
+    <UseParameterlessEndpoint Endpoint="ReferencesEndpoints.ProductionSitesEndpoint" Context="productionSiteQuery">
+      @if (productionSiteQuery.HasData)
+      {
+        <SectionReadOnlyField
+          Label="@WsDataLocalizer["ColProductionSite"]"
+          Value="@(productionSiteQuery.Data.FirstOrDefault(x => x.Id == FormModel.ProductionSiteId)?.Name ?? string.Empty)"
+          For="@(() => FormModel.Id1C)"
+        />
+      }
+    </UseParameterlessEndpoint>
+
   </FieldsContent>
 </SectionForm>
 
@@ -42,5 +49,5 @@
   #endregion
 
   protected override async Task CreateItemAction(WarehouseCreateDto item) =>
-    ReferencesEndpoints.AddWarehouse(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreateWarehouse(item));
+    ReferencesEndpoints.AddWarehouse(item.ProductionSiteId, await WebApi.CreateWarehouse(item));
 }
