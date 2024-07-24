@@ -92,11 +92,19 @@
             else
             {
               <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
-                @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
+                @{ PalletInfo[] filteredPallets = GetFilteredPalletList(palletQuery.Data).ToArray(); }
+                @if (!filteredPallets.Any())
                 {
-                  <li>
-                    <PalletSelectItem Pallet="@item"/>
-                  </li>
+                  <PalletSelectNotFound />
+                }
+                else
+                {
+                  @foreach (PalletInfo item in filteredPallets)
+                  {
+                    <li>
+                      <PalletSelectItem Pallet="@item"/>
+                    </li>
+                  }
                 }
               </ul>
             }

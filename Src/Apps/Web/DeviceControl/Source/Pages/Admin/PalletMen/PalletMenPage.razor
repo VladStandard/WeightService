@@ -2,7 +2,6 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
-@using Ws.Shared.Constants
 @using Ws.Domain.Models.Entities.Ref
 
 @inherits SectionPageBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto>
@@ -12,10 +11,10 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionPalletMen"]</PageTitle>
 
-@* <UserProductionSiteErrorSuspense> *@
+<UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@PalletManEndpoints.PalletMenEndpoint"
-    Arg="@BaseConsts.GuidMax"
+    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
     Options="@DefaultEndpointOptions"
     Context="palletManQuery"
   >
@@ -75,7 +74,7 @@
       </DataGridContainer>
     </DataGridWrapper>
   </UseEndpoint>
-@* </UserProductionSiteErrorSuspense> *@
+</UserProductionSiteErrorSuspense>
 
 @code {
   #region Inject

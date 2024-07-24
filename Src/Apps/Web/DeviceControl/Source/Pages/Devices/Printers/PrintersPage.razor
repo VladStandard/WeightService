@@ -3,7 +3,6 @@
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
-@using Ws.Shared.Constants
 
 @inherits SectionPageBase<PrinterDto>
 @attribute [Route(RouteUtils.SectionPrinters)]
@@ -12,10 +11,10 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionPrinters"]</PageTitle>
 
-@* <UserProductionSiteErrorSuspense> *@
+<UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@DevicesEndpoints.PrintersEndpoint"
-    Arg="@BaseConsts.GuidMax"
+    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
     Options="@DefaultEndpointOptions"
     Context="printersQuery"
   >
@@ -83,7 +82,7 @@
       </DataGridContainer>
     </DataGridWrapper>
   </UseEndpoint>
-@* </UserProductionSiteErrorSuspense> *@
+</UserProductionSiteErrorSuspense>
 
 @code {
   #region Inject

@@ -2,6 +2,7 @@
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
+@using Ws.Shared.Constants
 @using Blazor.Heroicons.Outline
 
 @inherits SectionFormBase<ArmCreateDto>
@@ -60,7 +61,7 @@
 
     <UseEndpoint
       Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
       Context="printersQuery"
     >
       @if (printersQuery.HasData)
@@ -99,7 +100,7 @@
 
     <UseEndpoint
       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
       Context="warehousesQuery"
     >
       @if (warehousesQuery.HasData)

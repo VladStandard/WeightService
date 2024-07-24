@@ -12,10 +12,10 @@
 
 <PageTitle>DeviceControl - @Localizer["SectionLines"]</PageTitle>
 
-@* <UserProductionSiteErrorSuspense> *@
+<UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@DevicesEndpoints.ArmsEndpoint"
-    Arg="@BaseConsts.GuidMax"
+    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
     Options="@DefaultEndpointOptions"
     Context="armsQuery"
   >
@@ -108,7 +108,7 @@
       </DataGridContainer>
     </DataGridWrapper>
   </UseEndpoint>
-@* </UserProductionSiteErrorSuspense> *@
+</UserProductionSiteErrorSuspense>
 
 @code {
   #region Inject
