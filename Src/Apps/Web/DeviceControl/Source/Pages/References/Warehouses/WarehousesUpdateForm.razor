@@ -28,10 +28,16 @@
       For="@(() => FormModel.Name)"
     />
 
-    <SectionReadOnlyField
-      Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSiteState.Value.ProductionSite.Name"
-    />
+    <UseParameterlessEndpoint Endpoint="ReferencesEndpoints.ProductionSitesEndpoint" Context="productionSiteQuery">
+      @if (productionSiteQuery.HasData)
+      {
+        <SectionReadOnlyField
+          Label="@WsDataLocalizer["ColProductionSite"]"
+          Value="@(productionSiteQuery.Data.FirstOrDefault(x => x.Id == ProductionSiteState.Value.ProductionSite.Uid)?.Name ?? string.Empty)"
+          For="@(() => FormModel.Id1C)"
+        />
+      }
+    </UseParameterlessEndpoint>
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionWarehouses}?id={Model.Id}")" />

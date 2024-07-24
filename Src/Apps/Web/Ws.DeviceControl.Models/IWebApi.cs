@@ -38,7 +38,7 @@ public interface IWebApi
     [Post("/pallet-men")]
     Task<PalletManDto> CreatePalletMan([Body] PalletManCreateDto createDto);
 
-    [Put("/pallet-men/{uid}")]
+    [Post("/pallet-men/{uid}")]
     Task<PalletManDto> UpdatePalletMan(Guid uid, [Body] PalletManUpdateDto updateDto);
 
     [Delete("/pallet-men/{uid}")]
@@ -59,7 +59,7 @@ public interface IWebApi
     [Post("/arms")]
     Task<ArmDto> CreateArm([Body] ArmCreateDto createDto);
 
-    [Put("/arms/{uid}")]
+    [Post("/arms/{uid}")]
     Task<ArmDto> UpdateArm(Guid uid, [Body] ArmUpdateDto updateDto);
 
     [Delete("/arms/{uid}")]
@@ -78,7 +78,7 @@ public interface IWebApi
     [Post("/printers")]
     Task<PrinterDto> CreatePrinter([Body] PrinterCreateDto createDto);
 
-    [Put("/printers/{uid}")]
+    [Post("/printers/{uid}")]
     Task<PrinterDto> UpdatePrinter(Guid uid, [Body] PrinterUpdateDto updateDto);
 
     [Delete("/printers/{uid}")]
@@ -129,7 +129,7 @@ public interface IWebApi
     [Get("/plu/{uid}")]
     Task<PluDto> GetPluByUid(Guid uid);
 
-    [Put("/plu/{uid}")]
+    [Post("/plu/{uid}")]
     Task<PluDto> UpdatePlu(Guid uid, [Body] PluUpdateDto updateDto);
 
     # endregion
@@ -147,7 +147,7 @@ public interface IWebApi
     [Post("/production-sites")]
     Task<ProductionSiteDto> CreateProductionSite([Body] ProductionSiteCreateDto createDto);
 
-    [Put("/production-sites/{uid}")]
+    [Post("/production-sites/{uid}")]
     Task<ProductionSiteDto> UpdateProductionSite(Guid uid, [Body] ProductionSiteUpdateDto updateDto);
 
     [Delete("/production-sites/{uid}")]
@@ -166,7 +166,7 @@ public interface IWebApi
     [Post("/warehouses")]
     Task<WarehouseDto> CreateWarehouse([Body] WarehouseCreateDto createDto);
 
-    [Put("/warehouses/{uid}")]
+    [Post("/warehouses/{uid}")]
     Task<WarehouseDto> UpdateWarehouse(Guid uid, [Body] WarehouseUpdateDto updateDto);
 
     [Delete("/warehouses/{uid}")]

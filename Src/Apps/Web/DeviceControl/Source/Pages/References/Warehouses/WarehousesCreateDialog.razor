@@ -1,8 +1,10 @@
+@using Ws.Shared.Constants
+
 @implements IDialogContentComponent
 
 <SectionDialog>
   <Tab Id="@typeof(WarehousesCreateForm).ToString()" Title="@Localizer["SectionWarehouses"]">
-    <WarehousesCreateForm FormModel="@new()" />
+    <WarehousesCreateForm FormModel="@(new() { ProductionSiteId = BaseConsts.GuidMax })" />
   </Tab>
 </SectionDialog>
 
