@@ -1,13 +1,15 @@
+@using DeviceControl.Source.Shared.Services
 @using Ws.Shared.Constants
 
 @implements IDialogContentComponent
 
 <SectionDialog>
   <Tab Id="@typeof(WarehousesCreateForm).ToString()" Title="@Localizer["SectionWarehouses"]">
-    <WarehousesCreateForm FormModel="@(new() { ProductionSiteId = BaseConsts.GuidMax })" />
+    <WarehousesCreateForm FormModel="@(new() { ProductionSiteId = ProductionSiteState.Value.ProductionSite.Uid })" />
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
 }

@@ -71,7 +71,7 @@
 
     <UseEndpoint
       Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-      Arg="@BaseConsts.GuidMax"
+      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
       Context="printersQuery"
     >
       @if (printersQuery.HasData)
@@ -110,7 +110,7 @@
 
     <UseEndpoint
       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
       Context="warehousesQuery"
     >
       @if (warehousesQuery.HasData)

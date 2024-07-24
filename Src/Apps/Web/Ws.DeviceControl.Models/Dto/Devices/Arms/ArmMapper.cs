@@ -15,7 +15,7 @@ public static class ArmMapper
             Counter = item.Counter,
             PcName = item.PcName,
             PrinterId = item.Printer.Id,
-            WarehouseId = item.Printer.Id
+            WarehouseId = item.Warehouse.Id
         };
     }
 }
