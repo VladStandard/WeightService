@@ -4,10 +4,12 @@ namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
 public enum PalletFilterEnum
 {
-    [Description("PalletFilterNoFilter")]
-    NoFilter,
+    [Description("PalletFilterNotShipped")]
+    NotShipped,
     [Description("PalletFilterShipped")]
     Shipped,
     [Description("PalletFilterDeleted")]
-    Deleted
+    Deleted,
+    [Description("PalletFilterAll")]
+    All
 }

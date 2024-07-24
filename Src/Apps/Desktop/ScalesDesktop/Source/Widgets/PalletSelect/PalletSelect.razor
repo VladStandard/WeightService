@@ -60,11 +60,19 @@
             else
             {
               <ul class="w-full space-y-3 grow px-4 pb-3 pr-px overflow-y-scroll">
-                @foreach (PalletInfo item in GetFilteredPalletList(palletQuery.Data))
+                @{ PalletInfo[] filteredPallets = GetFilteredPalletList(palletQuery.Data).ToArray(); }
+                @if (!filteredPallets.Any())
                 {
-                  <li>
-                    <PalletSelectItem Pallet="@item"/>
-                  </li>
+                  <PalletSelectNotFound />
+                }
+                else
+                {
+                  @foreach (PalletInfo item in filteredPallets)
+                  {
+                    <li>
+                      <PalletSelectItem Pallet="@item"/>
+                    </li>
+                  }
                 }
               </ul>
             }
@@ -115,7 +123,7 @@
 
   # endregion
 
-  private PalletFilterEnum PalletFilter { get; set; } = PalletFilterEnum.NoFilter;
+  private PalletFilterEnum PalletFilter { get; set; } = PalletFilterEnum.NotShipped;
   private DateTime? StartDate { get; set; } = GetStartOfWorkingShift();
   private DateTime? EndDate { get; set; } = GetEndOfWorkingShift();
   private string InputSearchCounter { get; set; } = string.Empty;
@@ -130,7 +138,8 @@
 
     filteredPallets = PalletFilter switch
     {
-      PalletFilterEnum.Shipped => filteredPallets.Where(x => x.IsShipped),
+      PalletFilterEnum.NotShipped => filteredPallets.Where(x => x is { IsShipped: false, DeletedAt: null }),
+      PalletFilterEnum.Shipped => filteredPallets.Where(x => x is { IsShipped: true, DeletedAt: null }),
       PalletFilterEnum.Deleted => filteredPallets.Where(x => x.DeletedAt != null),
       _ => filteredPallets
     };
@@ -154,7 +163,7 @@
   {
     StartDate = GetStartOfWorkingShift();
     EndDate = GetEndOfWorkingShift();
-    PalletFilter = PalletFilterEnum.NoFilter;
+    PalletFilter = PalletFilterEnum.NotShipped;
     InputSearchCounter = string.Empty;
   }
 

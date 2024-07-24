@@ -125,7 +125,7 @@ public sealed partial class LabelsGrid : ComponentBase
             await Task.Delay(PrinterRequestDelay);
         }
 
-        SelectedItems = SelectedItems.Except(itemsToDelete);
+        SelectedItems = SelectedItems.Except(itemsToDelete).ToArray();
 
         ToastService.CloseToast(toastUid);
         if (isPrintedSuccessfully)

@@ -620,6 +620,15 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string PalletFilterAll {
+            get {
+                return ResourceManager.GetString("PalletFilterAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string PalletFilterDeleted {
             get {
                 return ResourceManager.GetString("PalletFilterDeleted", resourceCulture);
@@ -629,9 +638,9 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string PalletFilterNoFilter {
+        public static string PalletFilterNotShipped {
             get {
-                return ResourceManager.GetString("PalletFilterNoFilter", resourceCulture);
+                return ResourceManager.GetString("PalletFilterNotShipped", resourceCulture);
             }
         }
         
@@ -929,6 +938,24 @@ namespace ScalesDesktop.Source.Shared.Localization {
         public static string ToastPalletCreateError {
             get {
                 return ResourceManager.GetString("ToastPalletCreateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToastPalletMarkedDeleted {
+            get {
+                return ResourceManager.GetString("ToastPalletMarkedDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToastPalletMarkedNotDeleted {
+            get {
+                return ResourceManager.GetString("ToastPalletMarkedNotDeleted", resourceCulture);
             }
         }
         
