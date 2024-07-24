@@ -2,6 +2,7 @@
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Create
+@using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
 
 @inherits SectionFormBase<PrinterCreateDto>
 
@@ -54,6 +55,9 @@
 
   private IEnumerable<PrinterTypes> PrinterTypes { get; set; } = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
 
-  protected override async Task CreateItemAction(PrinterCreateDto item) =>
-    DevicesEndpoints.AddPrinter(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreatePrinter(item));
+  protected override async Task CreateItemAction(PrinterCreateDto item)
+  {
+    PrinterDto dto = await WebApi.CreatePrinter(item);
+    DevicesEndpoints.AddPrinter(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 }

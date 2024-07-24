@@ -46,8 +46,11 @@
 
   [Parameter, EditorRequired] public ProductionSiteDto Model { get; set; } = default!;
 
-  protected override async Task UpdateItemAction(ProductionSiteUpdateDto item) =>
-    ReferencesEndpoints.UpdateProductionSite(await WebApi.UpdateProductionSite(Model.Id, item));
+  protected override async Task UpdateItemAction(ProductionSiteUpdateDto item)
+  {
+    ProductionSiteDto dto = await WebApi.UpdateProductionSite(Model.Id, item);
+    ReferencesEndpoints.UpdateProductionSite(dto);
+  }
 
   protected override async Task DeleteItemAction()
   {

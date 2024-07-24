@@ -3,6 +3,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.Shared.Constants
+@using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
 @using Blazor.Heroicons.Outline
 
 @inherits SectionFormBase<ArmCreateDto>
@@ -146,8 +147,11 @@
 
   private IEnumerable<ArmType> LineTypes { get; } = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
 
-  protected override async Task CreateItemAction(ArmCreateDto item) =>
-    DevicesEndpoints.AddArm(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreateArm(item));
+  protected override async Task CreateItemAction(ArmCreateDto item)
+  {
+    ArmDto dto = await WebApi.CreateArm(item);
+    DevicesEndpoints.AddArm(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 
   private void GenerateArmNumber() => FormModel.Number = new Random().Next(10001, 100000);
 }

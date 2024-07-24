@@ -176,8 +176,11 @@
     IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
   }
 
-  protected override async Task UpdateItemAction(ArmUpdateDto item) =>
-    DevicesEndpoints.UpdateArm(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.UpdateArm(Model.Id, item));
+  protected override async Task UpdateItemAction(ArmUpdateDto item)
+  {
+    ArmDto dto = await WebApi.UpdateArm(Model.Id, item);
+    DevicesEndpoints.UpdateArm(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 
   protected override async Task DeleteItemAction()
   {

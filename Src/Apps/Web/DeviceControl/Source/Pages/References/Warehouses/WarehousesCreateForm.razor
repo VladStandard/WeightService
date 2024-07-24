@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create
+@using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries
 
 @inherits SectionFormBase<WarehouseCreateDto>
 
@@ -48,6 +49,9 @@
 
   #endregion
 
-  protected override async Task CreateItemAction(WarehouseCreateDto item) =>
-    ReferencesEndpoints.AddWarehouse(item.ProductionSiteId, await WebApi.CreateWarehouse(item));
+  protected override async Task CreateItemAction(WarehouseCreateDto item)
+  {
+    WarehouseDto dto = await WebApi.CreateWarehouse(item);
+    ReferencesEndpoints.AddWarehouse(item.ProductionSiteId, dto);
+  }
 }

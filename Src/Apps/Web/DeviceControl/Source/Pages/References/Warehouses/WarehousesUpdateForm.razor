@@ -59,8 +59,11 @@
 
   [Parameter, EditorRequired] public WarehouseDto Model { get; set; } = default!;
 
-  protected override async Task UpdateItemAction(WarehouseUpdateDto item) =>
-    ReferencesEndpoints.UpdateWarehouse(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.UpdateWarehouse(Model.Id, item));
+  protected override async Task UpdateItemAction(WarehouseUpdateDto item)
+  {
+    WarehouseDto dto = await WebApi.UpdateWarehouse(Model.Id, item);
+    ReferencesEndpoints.UpdateWarehouse(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 
   protected override async Task DeleteItemAction()
   {

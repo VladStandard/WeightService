@@ -142,8 +142,11 @@
   private IEnumerable<Template> AllTemplates { get; set; } = [];
   private bool IsForceSubmit { get; set; }
 
-  protected override async Task UpdateItemAction(PluUpdateDto item) =>
-    References1CEndpoints.UpdatePlu(await WebApi.UpdatePlu(Model.Id, item));
+  protected override async Task UpdateItemAction(PluUpdateDto item)
+  {
+    PluDto dto = await WebApi.UpdatePlu(Model.Id, item);
+    References1CEndpoints.UpdatePlu(dto);
+  }
 
   private string GetPluTypeName(bool isWeight) =>
     isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];

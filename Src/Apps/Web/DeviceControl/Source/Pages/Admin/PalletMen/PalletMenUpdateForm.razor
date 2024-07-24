@@ -122,8 +122,11 @@
     IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
   }
 
-  protected override async Task UpdateItemAction(PalletManUpdateDto item) =>
-    PalletManEndpoints.UpdatePalletMan(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.UpdatePalletMan(Model.Id, item));
+  protected override async Task UpdateItemAction(PalletManUpdateDto item)
+  {
+    PalletManDto dto = await WebApi.UpdatePalletMan(Model.Id, item);
+    PalletManEndpoints.UpdatePalletMan(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 
   protected override async Task DeleteItemAction()
   {

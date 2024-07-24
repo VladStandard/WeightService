@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create
+@using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
 @using Ws.DeviceControl.Models.Dto.Shared
 
 @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create.PalletManCreateDto>
@@ -92,6 +93,9 @@
 
   #endregion
 
-  protected override async Task CreateItemAction(PalletManCreateDto item) =>
-    PalletManEndpoints.AddPalletMan(ProductionSiteState.Value.ProductionSite.Uid, await WebApi.CreatePalletMan(item));
+  protected override async Task CreateItemAction(PalletManCreateDto item)
+  {
+    PalletManDto dto = await WebApi.CreatePalletMan(item);
+    PalletManEndpoints.AddPalletMan(ProductionSiteState.Value.ProductionSite.Uid, dto);
+  }
 }

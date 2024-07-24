@@ -1,6 +1,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create
+@using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
 
 @inherits SectionFormBase<ProductionSiteCreateDto>
 
@@ -34,6 +35,9 @@
 
   # endregion
 
-  protected override async Task CreateItemAction(ProductionSiteCreateDto item) =>
-    ReferencesEndpoints.AddProductionSite(await WebApi.CreateProductionSite(item));
+  protected override async Task CreateItemAction(ProductionSiteCreateDto item)
+  {
+    ProductionSiteDto dto = await WebApi.CreateProductionSite(item);
+    ReferencesEndpoints.AddProductionSite(dto);
+  }
 }
