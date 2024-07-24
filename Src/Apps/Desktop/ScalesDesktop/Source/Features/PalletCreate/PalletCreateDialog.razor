@@ -45,8 +45,13 @@
 </Dialog>
 
 @code {
+  # region Injects
+
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  # endregion
+
   [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 
   private int CurrentStepIndex { get; set; } = 1;

@@ -3,7 +3,11 @@
 @using ScalesDesktop.Source.Shared.Services.Stores
 
 <div class="size-full flex flex-col overflow-hidden">
-  <Tabs @ref="TabsComponent">
+  <Tabs
+    ActiveTabId="@PalletState.Value.PalletViewTab.ToString()"
+    ActiveTabIdChanged="@(value => ChangeActiveId(value))"
+    @ref="TabsComponent"
+  >
     <div class="h-14 shrink-0 bg-background w-full grid grid-cols-4 border-b px-4">
       <div class="flex h-full items-center">
         <Button
@@ -20,8 +24,8 @@
           {
             <li>
               <Button
-                Variant="@(TabsComponent.ActiveTabId == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
-                OnClick="@(() => TabsComponent.ChangeTab(tab.Id))"
+                Variant="@(PalletState.Value.PalletViewTab.ToString() == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                OnClick="@(() => ChangeActiveId(tab.Id))"
                 Disabled="@(TabsComponent.ActiveTabId == tab.Id)"
                 Class="disabled:!opacity-100"
               >
@@ -33,10 +37,10 @@
       </div>
     </div>
     <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
-      <Tab Id="@typeof(PalletOverview).ToString()" Title="@WsDataLocalizer["ColPallet"]">
+      <Tab Id="@PalletViewTab.Info.ToString()" Title="@WsDataLocalizer["ColPallet"]">
         <PalletOverview Pallet="Pallet" />
       </Tab>
-      <Tab Id="@typeof(LabelsGrid).ToString()" Title="@Localizer["ColPrint"]">
+      <Tab Id="@PalletViewTab.Labels.ToString()" Title="@Localizer["ColPrint"]">
         <LabelsGrid Pallet="Pallet" />
       </Tab>
     </div>
@@ -49,10 +53,13 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+  [Inject] private IState<PalletState> PalletState { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
+
+  private Tabs TabsComponent { get; set; } = default!;
 
   protected override void OnAfterRender(bool firstRender)
   {
@@ -60,7 +67,11 @@
     StateHasChanged();
   }
 
-  private Tabs TabsComponent { get; set; } = default!;
+  private void ChangeActiveId(string newActiveId)
+  {
+    bool isParsed = Enum.TryParse(newActiveId, out PalletViewTab newViewTab);
+    if (isParsed) Dispatcher.Dispatch(new ChangePalletViewTabAction(newViewTab));
+  }
 
   private void CloseCurrentPallet() => Dispatcher.Dispatch(new ResetPalletAction());
 }
