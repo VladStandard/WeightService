@@ -180,6 +180,7 @@
     {
       PalletEndpoints.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
       Dispatcher.Dispatch(new ChangePalletAction(newPallet));
+      Dispatcher.Dispatch(new ChangePalletViewTabAction(PalletViewTab.Labels));
       ResetSortsAndFilters();
     }
   }

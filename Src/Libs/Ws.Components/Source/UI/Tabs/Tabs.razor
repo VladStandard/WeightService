@@ -5,29 +5,36 @@
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [Parameter] public string? DefaultTab { get; set; }
+  [Parameter] public string ActiveTabId { get; set; } = string.Empty;
+  [Parameter] public EventCallback<string> ActiveTabIdChanged { get; set; }
 
-  public string ActiveTabId { get; private set; } = string.Empty;
   public List<Tab> TabsList { get; private set; } = [];
 
-  protected override void OnInitialized()
+  protected override async Task OnInitializedAsync()
   {
     if (!string.IsNullOrEmpty(DefaultTab))
-      ActiveTabId = DefaultTab;
+      await ChangeActiveTabId(DefaultTab);
   }
 
   public void ChangeTab(string id) => ActiveTabId = id;
 
-  internal void RegisterTab(Tab tab)
+  internal async Task RegisterTab(Tab tab)
   {
     if (!TabsList.Contains(tab))
       TabsList.Add(tab);
     if (string.IsNullOrEmpty(ActiveTabId))
-      ActiveTabId = tab.Id;
+      await ChangeActiveTabId(tab.Id);
   }
 
   internal void UnregisterTab(Tab tab)
   {
     if (TabsList.Contains(tab))
       TabsList.Remove(tab);
+  }
+
+  private async Task ChangeActiveTabId(string newActiveTabId)
+  {
+    ActiveTabId = newActiveTabId;
+    await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
   }
 }

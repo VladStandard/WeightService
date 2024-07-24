@@ -12,7 +12,7 @@
   [Parameter] public string Title { get; set; } = string.Empty;
   [Parameter] public RenderFragment? ChildContent { get; set; }
 
-  protected override void OnInitialized() => Control.RegisterTab(this);
+  protected override async Task OnInitializedAsync() => await Control.RegisterTab(this);
 
   public void Dispose() => Control.UnregisterTab(this);
 }

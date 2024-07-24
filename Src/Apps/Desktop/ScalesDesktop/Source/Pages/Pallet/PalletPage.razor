@@ -56,6 +56,7 @@
     base.OnInitialized();
     Dispatcher.Dispatch(new ResetPalletManAction());
     Dispatcher.Dispatch(new ResetPalletAction());
+    Dispatcher.Dispatch(new ChangePalletViewTabAction(PalletViewTab.Info));
   }
 
   protected override async Task OnInitializedAsync() => await PrinterService.ConnectAsync();
