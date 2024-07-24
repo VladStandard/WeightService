@@ -15,7 +15,7 @@
 <UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@DevicesEndpoints.ArmsEndpoint"
-    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+    Arg="@ProductionSiteState.Value.ProductionSite.Id"
     Options="@DefaultEndpointOptions"
     Context="armsQuery"
   >
@@ -136,6 +136,6 @@
   protected override async Task DeleteItemAction(ArmDto item)
   {
     await WebApi.DeleteArm(item.Id);
-    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Uid, item.Id);
+    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Id, item.Id);
   }
 }

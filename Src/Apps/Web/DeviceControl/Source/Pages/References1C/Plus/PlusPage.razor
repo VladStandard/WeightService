@@ -1,7 +1,7 @@
-@using Ws.Domain.Models.Entities.Ref1c
 @using Ws.DeviceControl.Models
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
 @using Blazor.Heroicons.Outline
 
 @inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Queries.PluDto>
@@ -95,7 +95,7 @@
 
         <DataGridColumn
           Caption="@WsDataLocalizer["ColBrand"]"
-          Field="@($"{nameof(PluDto.Brand)}.{nameof(Brand.Name)}")"
+          Field="@($"{nameof(PluDto.Brand)}.{nameof(ProxyDto.Name)}")"
           Width="20%"
           Sortable="false"
           Filterable="false"

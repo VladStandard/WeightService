@@ -2,7 +2,6 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
-@using Ws.Domain.Models.Entities.Print
 
 @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update.PluUpdateDto>
 
@@ -35,7 +34,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColBrand"]"
       Value="@Model.Brand.Name"
-      Path="@Redirector.ToBrandPath(Model.Brand)"
+      Path="@Redirector.ToBrandPath(Model.Brand.Id)"
     />
 
     <SectionReadOnlyField
@@ -43,16 +42,16 @@
       Value="@Model.ShelfLifeDays"
     />
 
-    <SectionSelectSingleField
-      TItem="Template?"
-      Label="@WsDataLocalizer["ColTemplate"]"
-      Items="@AllTemplates"
-      Value="@AllTemplates.SingleOrDefault(i => i.Uid == FormModel.TemplateId)"
-      ValueChanged="@(item => FormModel.TemplateId = item?.Uid ?? Guid.Empty)"
-      ItemDisplayName="@(item => item!.Name)"
-      Disabled="@(!IsForceSubmit)"
-      Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)"
-    />
+    @* <SectionSelectSingleField *@
+    @*   TItem="Template?" *@
+    @*   Label="@WsDataLocalizer["ColTemplate"]" *@
+    @*   Items="@AllTemplates" *@
+    @*   Value="@AllTemplates.SingleOrDefault(i => i.Uid == FormModel.TemplateId)" *@
+    @*   ValueChanged="@(item => FormModel.TemplateId = item?.Uid ?? Guid.Empty)" *@
+    @*   ItemDisplayName="@(item => item!.Name)" *@
+    @*   Disabled="@(!IsForceSubmit)" *@
+    @*   Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)" *@
+    @* /> *@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColStorageMethod"]"
@@ -89,7 +88,7 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColBundle"]"
         Value="@Model.Bundle.Name"
-        Path="@Redirector.ToBundlePath(Model.Bundle)"
+        Path="@Redirector.ToBundlePath(Model.Bundle.Id)"
       />
     }
 
@@ -98,7 +97,7 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColClip"]"
         Value="@Model.Clip.Name"
-        Path="@Redirector.ToClipPath(Model.Clip)"
+        Path="@Redirector.ToClipPath(Model.Clip.Id)"
       />
     }
 
@@ -139,7 +138,6 @@
 
   [Parameter, EditorRequired] public PluDto Model { get; set; } = default!;
 
-  private IEnumerable<Template> AllTemplates { get; set; } = [];
   private bool IsForceSubmit { get; set; }
 
   protected override async Task UpdateItemAction(PluUpdateDto item)

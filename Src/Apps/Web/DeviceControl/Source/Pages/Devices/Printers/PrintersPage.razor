@@ -14,7 +14,7 @@
 <UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@DevicesEndpoints.PrintersEndpoint"
-    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+    Arg="@ProductionSiteState.Value.ProductionSite.Id"
     Options="@DefaultEndpointOptions"
     Context="printersQuery"
   >
@@ -112,6 +112,6 @@
   protected override async Task DeleteItemAction(PrinterDto item)
   {
     await WebApi.DeletePrinter(item.Id);
-    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Uid, item.Id);
+    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Id, item.Id);
   }
 }

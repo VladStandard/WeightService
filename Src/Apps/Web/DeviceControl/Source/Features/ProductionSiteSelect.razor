@@ -1,16 +1,16 @@
 @using System.Security.Claims
 @using DeviceControl.Source.Shared.Services
-@using Ws.Domain.Models.Entities.Ref
+@using Ws.DeviceControl.Models.Dto.Shared
 @using Ws.Shared.Extensions
 
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <SelectSingle
-  TItem="ProductionSite"
+  TItem="ProxyDto"
   Items="ProductionSiteEntities"
   SelectedItem="ProductionSiteState.Value.ProductionSite"
   SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
-  ItemDisplayName="@(item => item.IsNew ? "Без площадки" : item.Name)"
+  ItemDisplayName="@(item => item.Name)"
   IsDisabled="@(!IsSeniorSupport)"
   IsFilterable
 />
@@ -20,11 +20,11 @@
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
 
-  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
   [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
   [Parameter] public bool AllowIsNew { get; set; }
 
-  private List<ProductionSite> ProductionSiteEntities { get; set; } = [];
+  private List<ProxyDto> ProductionSiteEntities { get; set; } = [];
   private bool IsSeniorSupport { get; set; }
 
   protected override async Task OnInitializedAsync()
@@ -37,16 +37,16 @@
       IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport))
         .Succeeded;
       isDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer))
-        .Succeeded || ProductionSiteState.Value.ProductionSite.Uid.IsMax();
+        .Succeeded || ProductionSiteState.Value.ProductionSite.Id.IsMax();
     }
 
     if (IsSeniorSupport)
       ProductionSiteEntities = [];
 
     if (!isDeveloper)
-      ProductionSiteEntities.RemoveAll(i => i.Uid.IsMax());
+      ProductionSiteEntities.RemoveAll(i => i.Id.IsMax());
 
     if (AllowIsNew)
-      ProductionSiteEntities = ProductionSiteEntities.Append(new()).ToList();
+      ProductionSiteEntities = ProductionSiteEntities.Append(new() { Id = Guid.Empty, Name = "Без площадки" }).ToList();
   }
 }

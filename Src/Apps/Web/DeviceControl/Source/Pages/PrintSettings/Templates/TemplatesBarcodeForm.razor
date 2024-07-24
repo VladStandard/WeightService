@@ -1,93 +1,88 @@
-@using DeviceControl.Source.Features.BarcodeConfigurator
-@using Ws.Domain.Models.Entities.Print
-@using Ws.Domain.Models.ValueTypes
-@using Ws.Domain.Services.Features.Templates
-@using Ws.Labels.Service.Generate.Models
-@using Ws.Labels.Service.Generate.Utils
-
-<div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
-  <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
-    <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeTopTemplate"
-      BarcodeVariables="BarcodeVariables"
-    />
-  </Accordion>
-  <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
-    <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeBottomTemplate"
-      BarcodeVariables="BarcodeVariables"
-    />
-  </Accordion>
-  <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
-    <BarcodeConfigurator
-      @bind-BarcodeDictionary="DialogItem.BarcodeRightTemplate"
-      BarcodeVariables="BarcodeVariables"
-    />
-  </Accordion>
-  <div class="pt-4 flex justify-end">
-    <Button OnClick="@SubmitForm">
-      @Localizer["BtnSubmit"]
-    </Button>
-  </div>
-</div>
-
-@code {
-  [Inject] private ITemplateService TemplateService { get; set; } = default!;
-  [Inject] private IToastService ToastService { get; set; } = default!;
-  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-
-  [CascadingParameter(Name = "DialogItem")] protected Template DialogItem { get; set; } = new();
-  [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
-
-  private IList<BarcodeVariable> BarcodeVariables { get; set; } = [];
-
-  protected override void OnInitialized() => BarcodeVariables = TemplateTypesUtils.GetVariables();
-
-  private async Task SubmitForm()
-  {
-    if (!ValidateBarcodes())
-      return;
-
-    try
-    {
-      TemplateService.Update(DialogItem);
-      ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
-      await Dialog.CloseAsync(new SectionDialogContent<Template>
-        { Item = DialogItem, DataAction = SectionDialogResultEnum.Update });
-    }
-    catch
-    {
-      ToastService.ShowError(Localizer["UnknownError"]);
-    }
-  }
-
-  private bool ValidateBarcodes()
-  {
-    BarcodeItemValidator validator = new(BarcodeVariables);
-    List<BarcodeError> validationErrors = [];
-
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopTemplate, WsDataLocalizer["ColBarcodeTop"], validator));
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
-    validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
-
-    if (!validationErrors.Any()) return true;
-
-    foreach (BarcodeError barcodeError in validationErrors)
-      ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName} {barcodeError.Error}");
-
-    return false;
-  }
-
-  private List<BarcodeError> ValidateBarcodeItems(IEnumerable<BarcodeItem> barcodeItems, string barcodeType, BarcodeItemValidator validator) =>
-    barcodeItems
-      .Select(item => new { Item = item, validator.Validate(item).Errors })
-      .Where(x => x.Errors != null && x.Errors.Any())
-      .Select(x => new BarcodeError
-      {
-        Barcode = barcodeType,
-        ItemName = x.Item.Property,
-        Error = x.Errors.First().ErrorMessage
-      })
-      .ToList();
-}
+@* @using DeviceControl.Source.Features.BarcodeConfigurator *@
+@* *@
+@* <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit"> *@
+@*   <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]"> *@
+@*     <BarcodeConfigurator *@
+@*       @bind-BarcodeDictionary="DialogItem.BarcodeTopTemplate" *@
+@*       BarcodeVariables="BarcodeVariables" *@
+@*     /> *@
+@*   </Accordion> *@
+@*   <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]"> *@
+@*     <BarcodeConfigurator *@
+@*       @bind-BarcodeDictionary="DialogItem.BarcodeBottomTemplate" *@
+@*       BarcodeVariables="BarcodeVariables" *@
+@*     /> *@
+@*   </Accordion> *@
+@*   <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]"> *@
+@*     <BarcodeConfigurator *@
+@*       @bind-BarcodeDictionary="DialogItem.BarcodeRightTemplate" *@
+@*       BarcodeVariables="BarcodeVariables" *@
+@*     /> *@
+@*   </Accordion> *@
+@*   <div class="pt-4 flex justify-end"> *@
+@*     <Button OnClick="@SubmitForm"> *@
+@*       @Localizer["BtnSubmit"] *@
+@*     </Button> *@
+@*   </div> *@
+@* </div> *@
+@* *@
+@* @code { *@
+@*   [Inject] private ITemplateService TemplateService { get; set; } = default!; *@
+@*   [Inject] private IToastService ToastService { get; set; } = default!; *@
+@*   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!; *@
+@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
+@* *@
+@*   [CascadingParameter(Name = "DialogItem")] protected Template DialogItem { get; set; } = new(); *@
+@*   [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!; *@
+@* *@
+@*   private IList<BarcodeVariable> BarcodeVariables { get; set; } = []; *@
+@* *@
+@*   protected override void OnInitialized() => BarcodeVariables = TemplateTypesUtils.GetVariables(); *@
+@* *@
+@*   private async Task SubmitForm() *@
+@*   { *@
+@*     if (!ValidateBarcodes()) *@
+@*       return; *@
+@* *@
+@*     try *@
+@*     { *@
+@*       TemplateService.Update(DialogItem); *@
+@*       ToastService.ShowSuccess(Localizer["ToastUpdateItem"]); *@
+@*       await Dialog.CloseAsync(new SectionDialogContent<Template> *@
+@*         { Item = DialogItem, DataAction = SectionDialogResultEnum.Update }); *@
+@*     } *@
+@*     catch *@
+@*     { *@
+@*       ToastService.ShowError(Localizer["UnknownError"]); *@
+@*     } *@
+@*   } *@
+@* *@
+@*   private bool ValidateBarcodes() *@
+@*   { *@
+@*     BarcodeItemValidator validator = new(BarcodeVariables); *@
+@*     List<BarcodeError> validationErrors = []; *@
+@* *@
+@*     validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopTemplate, WsDataLocalizer["ColBarcodeTop"], validator)); *@
+@*     validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomTemplate, WsDataLocalizer["ColBarcodeBottom"], validator)); *@
+@*     validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightTemplate, WsDataLocalizer["ColBarcodeBottom"], validator)); *@
+@* *@
+@*     if (!validationErrors.Any()) return true; *@
+@* *@
+@*     foreach (BarcodeError barcodeError in validationErrors) *@
+@*       ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName} {barcodeError.Error}"); *@
+@* *@
+@*     return false; *@
+@*   } *@
+@* *@
+@*   private List<BarcodeError> ValidateBarcodeItems(IEnumerable<BarcodeItem> barcodeItems, string barcodeType, BarcodeItemValidator validator) => *@
+@*     barcodeItems *@
+@*       .Select(item => new { Item = item, validator.Validate(item).Errors }) *@
+@*       .Where(x => x.Errors != null && x.Errors.Any()) *@
+@*       .Select(x => new BarcodeError *@
+@*       { *@
+@*         Barcode = barcodeType, *@
+@*         ItemName = x.Item.Property, *@
+@*         Error = x.Errors.First().ErrorMessage *@
+@*       }) *@
+@*       .ToList(); *@
+@* } *@

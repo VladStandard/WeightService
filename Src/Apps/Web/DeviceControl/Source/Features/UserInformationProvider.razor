@@ -1,11 +1,9 @@
 @using System.Security.Claims
 @using DeviceControl.Source.Shared.Services
-@using Ws.Domain.Models.Entities.Ref
+@using Ws.DeviceControl.Models.Dto.Shared
 @using Ws.Shared.Constants
 
-@using Claim = System.Security.Claims.Claim
-
-<CascadingValue TValue="ProductionSite" Value="UserProductionSite">
+<CascadingValue TValue="ProxyDto" Value="UserProductionSite">
   @ChildContent
 </CascadingValue>
 
@@ -14,7 +12,7 @@
   [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
   [Parameter] public RenderFragment? ChildContent { get; set; }
 
-  public ProductionSite UserProductionSite { get; set; } = new();
+  public ProxyDto UserProductionSite { get; set; } = new() { Id = Guid.Empty, Name = string.Empty };
 
   protected override async Task OnInitializedAsync()
   {
@@ -24,11 +22,8 @@
     {
       // User user = UserService.GetItemByUid(userUid);
       // UserProductionSite = user.ProductionSite;
-      ProductionSite productionSite = UserProductionSite;
-      productionSite.Uid = BaseConsts.GuidMax;
-      productionSite.Name = "Test";
-      UserProductionSite = productionSite;
-      Dispatcher.Dispatch(new ChangeProductionSiteAction(productionSite));
+      UserProductionSite = new() { Id = BaseConsts.GuidMax, Name = "Test Develop" };
+      Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
     }
   }
 }

@@ -1,58 +1,54 @@
-@using Ws.Domain.Models.ValueTypes
-@using Ws.Labels.Service.Generate.Models
-@using Ws.Shared.Extensions
-
-@if (BarcodeDictionary.Any())
-{
-  <div class="h-9 text-sm rounded-md px-0.5 border bg-background">
-    <ol class="flex items-center h-full divide-x">
-      @foreach ((BarcodeItem item, int index) in BarcodeDictionary.Select((value, index) => (value, index)))
-      {
-        <li class="h-full px-1.5 flex items-center relative">
-          @if (BarcodeVariables.FirstOrDefault(x => x.Name == item.Property)?.Type == typeof(DateTime))
-          {
-            @if (item.FormatStr.IsDateFormat())
-            {
-              <span>@DateTime.Now.ToString(item.FormatStr)</span>
-            }
-            else
-            {
-              <span class="text-destructive">Ошибка</span>
-            }
-          }
-          else if (item.IsConst)
-          {
-            @if (!string.IsNullOrEmpty(item.Property))
-            {
-              <span>@item.Property</span>
-            }
-            else
-            {
-              <span class="text-destructive">Ошибка</span>
-            }
-          }
-          else
-          {
-            Random random = new();
-            @for (int i = 0; i < item.Length; i++)
-            {
-              <span>@random.Next(0, 10)</span>
-            }
-          }
-          <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs text-muted-foreground select-none">
-            @(index + 1)
-          </div>
-        </li>
-      }
-    </ol>
-  </div>
-}
-else
-{
-  <span class="text-sm">Штрихкод отсутствует</span>
-}
-
-@code {
-  [Parameter] public IList<BarcodeItem> BarcodeDictionary { get; set; } = [];
-  [Parameter] public IList<BarcodeVariable> BarcodeVariables { get; set; } = [];
-}
+@* @if (BarcodeDictionary.Any()) *@
+@* { *@
+@*   <div class="h-9 text-sm rounded-md px-0.5 border bg-background"> *@
+@*     <ol class="flex items-center h-full divide-x"> *@
+@*       @foreach ((BarcodeItem item, int index) in BarcodeDictionary.Select((value, index) => (value, index))) *@
+@*       { *@
+@*         <li class="h-full px-1.5 flex items-center relative"> *@
+@*           @if (BarcodeVariables.FirstOrDefault(x => x.Name == item.Property)?.Type == typeof(DateTime)) *@
+@*           { *@
+@*             @if (item.FormatStr.IsDateFormat()) *@
+@*             { *@
+@*               <span>@DateTime.Now.ToString(item.FormatStr)</span> *@
+@*             } *@
+@*             else *@
+@*             { *@
+@*               <span class="text-destructive">Ошибка</span> *@
+@*             } *@
+@*           } *@
+@*           else if (item.IsConst) *@
+@*           { *@
+@*             @if (!string.IsNullOrEmpty(item.Property)) *@
+@*             { *@
+@*               <span>@item.Property</span> *@
+@*             } *@
+@*             else *@
+@*             { *@
+@*               <span class="text-destructive">Ошибка</span> *@
+@*             } *@
+@*           } *@
+@*           else *@
+@*           { *@
+@*             Random random = new(); *@
+@*             @for (int i = 0; i < item.Length; i++) *@
+@*             { *@
+@*               <span>@random.Next(0, 10)</span> *@
+@*             } *@
+@*           } *@
+@*           <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-xs text-muted-foreground select-none"> *@
+@*             @(index + 1) *@
+@*           </div> *@
+@*         </li> *@
+@*       } *@
+@*     </ol> *@
+@*   </div> *@
+@* } *@
+@* else *@
+@* { *@
+@*   <span class="text-sm">Штрихкод отсутствует</span> *@
+@* } *@
+@* *@
+@* @code { *@
+@*   [Parameter] public IList<BarcodeItem> BarcodeDictionary { get; set; } = []; *@
+@*   [Parameter] public IList<BarcodeVariable> BarcodeVariables { get; set; } = []; *@
+@* } *@

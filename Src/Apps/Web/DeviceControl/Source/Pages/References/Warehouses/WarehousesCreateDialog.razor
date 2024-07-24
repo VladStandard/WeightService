@@ -5,7 +5,7 @@
 
 <SectionDialog>
   <Tab Id="@typeof(WarehousesCreateForm).ToString()" Title="@Localizer["SectionWarehouses"]">
-    <WarehousesCreateForm FormModel="@(new() { ProductionSiteId = ProductionSiteState.Value.ProductionSite.Uid })" />
+    <WarehousesCreateForm FormModel="@(new() { ProductionSiteId = ProductionSiteState.Value.ProductionSite.Id })" />
   </Tab>
 </SectionDialog>
 

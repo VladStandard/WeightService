@@ -3,8 +3,6 @@
 @using Ws.DeviceControl.Models.Dto.Shared
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
-@using Ws.Shared.Constants
-@using Ws.Domain.Models.Entities.Ref
 
 @inherits SectionFormBase<ArmUpdateDto>
 
@@ -71,7 +69,7 @@
 
     <UseEndpoint
       Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Id"
       Context="printersQuery"
     >
       @if (printersQuery.HasData)
@@ -105,12 +103,12 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
       Value="@ProductionSiteState.Value.ProductionSite.Name"
-      Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)"
+      Path="@Redirector.ToProductionPath(ProductionSiteState.Value.ProductionSite.Id, UserPrincipal)"
     />
 
     <UseEndpoint
       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Id"
       Context="warehousesQuery"
     >
       @if (warehousesQuery.HasData)
@@ -163,7 +161,7 @@
 
   # endregion
 
-  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
   [Parameter, EditorRequired] public ArmDto Model { get; set; } = default!;
 
   private IEnumerable<ArmType> LineTypes { get; } = Enum.GetValues(typeof(ArmType)).Cast<ArmType>().ToList();
@@ -179,12 +177,12 @@
   protected override async Task UpdateItemAction(ArmUpdateDto item)
   {
     ArmDto dto = await WebApi.UpdateArm(Model.Id, item);
-    DevicesEndpoints.UpdateArm(ProductionSiteState.Value.ProductionSite.Uid, dto);
+    DevicesEndpoints.UpdateArm(ProductionSiteState.Value.ProductionSite.Id, dto);
   }
 
   protected override async Task DeleteItemAction()
   {
     await WebApi.DeleteArm(Model.Id);
-    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Uid, Model.Id);
+    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Id, Model.Id);
   }
 }

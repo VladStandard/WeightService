@@ -35,7 +35,7 @@
       <div class="flex items-center gap-1">
         @if (Pallet.DeletedAt != null)
         {
-        <Badge Variant="BadgeVariant.Destructive">
+        <Badge Variant="BadgeVariant.Destructive" Class="!px-1">
           <TrashIcon class="size-4" />
         </Badge>
         }
@@ -60,5 +60,5 @@
 
   [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 
-  private bool IsSelected => PalletState.Value.Pallet != null && PalletState.Value.Pallet.Equals(Pallet);
+  private bool IsSelected => PalletState.Value.Pallet != null && PalletState.Value.Pallet.Id == Pallet.Id;
 }

@@ -2,7 +2,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
-@using Ws.Domain.Models.Entities.Ref
+@using Ws.DeviceControl.Models.Dto.Shared
 
 @inherits SectionPageBase<Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries.PalletManDto>
 @attribute [Route(RouteUtils.SectionPalletMen)]
@@ -14,7 +14,7 @@
 <UserProductionSiteErrorSuspense>
   <UseEndpoint
     Endpoint="@PalletManEndpoints.PalletMenEndpoint"
-    Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+    Arg="@ProductionSiteState.Value.ProductionSite.Id"
     Options="@DefaultEndpointOptions"
     Context="palletManQuery"
   >
@@ -61,7 +61,7 @@
           </DataGridColumn>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColWarehouse"]"
-            Field="@($"{nameof(PalletManDto.Warehouse)}.{nameof(Warehouse.Name)}")"
+            Field="@($"{nameof(PalletManDto.Warehouse)}.{nameof(ProxyDto.Name)}")"
             Width="25%"
             Filterable="false"
           />
@@ -102,6 +102,6 @@
   protected override async Task DeleteItemAction(PalletManDto item)
   {
     await WebApi.DeletePalletMan(item.Id);
-    PalletManEndpoints.DeletePalletMan(ProductionSiteState.Value.ProductionSite.Uid, item.Id);
+    PalletManEndpoints.DeletePalletMan(ProductionSiteState.Value.ProductionSite.Id, item.Id);
   }
 }

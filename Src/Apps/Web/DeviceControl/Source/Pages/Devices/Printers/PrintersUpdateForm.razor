@@ -1,9 +1,9 @@
 @using DeviceControl.Source.Shared.Services
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
-@using Ws.Domain.Models.Entities.Ref
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
 
 @inherits SectionFormBase<PrinterUpdateDto>
 
@@ -70,7 +70,7 @@
   # endregion
 
   [Parameter, EditorRequired] public PrinterDto Model { get; set; } = default!;
-  [CascadingParameter] private ProductionSite UserProductionSite { get; set; } = default!;
+  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
 
   private IEnumerable<PrinterTypes> PrinterTypes { get; } = Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes>().ToList();
   private bool IsOnlyView { get; set; }
@@ -82,12 +82,15 @@
     IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
   }
 
-  protected override Task UpdateItemAction(PrinterUpdateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task UpdateItemAction(PrinterUpdateDto item)
+  {
+    PrinterDto dto = await WebApi.UpdatePrinter(Model.Id, item);
+    DevicesEndpoints.UpdatePrinter(ProductionSiteState.Value.ProductionSite.Id, dto);
+  }
 
   protected override async Task DeleteItemAction()
   {
     await WebApi.DeletePrinter(Model.Id);
-    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Uid, Model.Id);
+    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Id, Model.Id);
   }
 }

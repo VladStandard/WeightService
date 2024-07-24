@@ -33,7 +33,7 @@
       {
         <SectionReadOnlyField
           Label="@WsDataLocalizer["ColProductionSite"]"
-          Value="@(productionSiteQuery.Data.FirstOrDefault(x => x.Id == ProductionSiteState.Value.ProductionSite.Uid)?.Name ?? string.Empty)"
+          Value="@(productionSiteQuery.Data.FirstOrDefault(x => x.Id == ProductionSiteState.Value.ProductionSite.Id)?.Name ?? string.Empty)"
           For="@(() => FormModel.Id1C)"
         />
       }
@@ -62,12 +62,12 @@
   protected override async Task UpdateItemAction(WarehouseUpdateDto item)
   {
     WarehouseDto dto = await WebApi.UpdateWarehouse(Model.Id, item);
-    ReferencesEndpoints.UpdateWarehouse(ProductionSiteState.Value.ProductionSite.Uid, dto);
+    ReferencesEndpoints.UpdateWarehouse(ProductionSiteState.Value.ProductionSite.Id, dto);
   }
 
   protected override async Task DeleteItemAction()
   {
     await WebApi.DeleteWarehouse(Model.Id);
-    ReferencesEndpoints.DeleteWarehouse(ProductionSiteState.Value.ProductionSite.Uid, Model.Id);
+    ReferencesEndpoints.DeleteWarehouse(ProductionSiteState.Value.ProductionSite.Id, Model.Id);
   }
 }

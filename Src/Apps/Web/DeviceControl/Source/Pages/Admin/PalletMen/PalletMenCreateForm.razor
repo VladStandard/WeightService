@@ -21,7 +21,7 @@
 
     <UseEndpoint
       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="ProductionSiteState.Value.ProductionSite.Id"
       Context="warehousesQuery"
     >
       @if (warehousesQuery.HasData)
@@ -96,6 +96,6 @@
   protected override async Task CreateItemAction(PalletManCreateDto item)
   {
     PalletManDto dto = await WebApi.CreatePalletMan(item);
-    PalletManEndpoints.AddPalletMan(ProductionSiteState.Value.ProductionSite.Uid, dto);
+    PalletManEndpoints.AddPalletMan(ProductionSiteState.Value.ProductionSite.Id, dto);
   }
 }

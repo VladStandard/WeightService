@@ -37,6 +37,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
       Value="@ProductionSiteState.Value.ProductionSite.Name"
+      For="@(() => FormModel.ProductionSiteId)"
     />
   </FieldsContent>
 </SectionForm>
@@ -58,6 +59,6 @@
   protected override async Task CreateItemAction(PrinterCreateDto item)
   {
     PrinterDto dto = await WebApi.CreatePrinter(item);
-    DevicesEndpoints.AddPrinter(ProductionSiteState.Value.ProductionSite.Uid, dto);
+    DevicesEndpoints.AddPrinter(FormModel.ProductionSiteId, dto);
   }
 }

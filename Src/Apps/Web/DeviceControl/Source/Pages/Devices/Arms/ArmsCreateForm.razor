@@ -2,7 +2,6 @@
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
-@using Ws.Shared.Constants
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
 @using Blazor.Heroicons.Outline
 
@@ -62,7 +61,7 @@
 
     <UseEndpoint
       Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Id"
       Context="printersQuery"
     >
       @if (printersQuery.HasData)
@@ -96,12 +95,12 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
       Value="@ProductionSiteState.Value.ProductionSite.Name"
-      Path="@Redirector.ToPath(ProductionSiteState.Value.ProductionSite, UserPrincipal)"
+      Path="@Redirector.ToProductionPath(ProductionSiteState.Value.ProductionSite.Id, UserPrincipal)"
     />
 
     <UseEndpoint
       Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Uid"
+      Arg="@ProductionSiteState.Value.ProductionSite.Id"
       Context="warehousesQuery"
     >
       @if (warehousesQuery.HasData)
@@ -150,7 +149,7 @@
   protected override async Task CreateItemAction(ArmCreateDto item)
   {
     ArmDto dto = await WebApi.CreateArm(item);
-    DevicesEndpoints.AddArm(ProductionSiteState.Value.ProductionSite.Uid, dto);
+    DevicesEndpoints.AddArm(ProductionSiteState.Value.ProductionSite.Id, dto);
   }
 
   private void GenerateArmNumber() => FormModel.Number = new Random().Next(10001, 100000);
