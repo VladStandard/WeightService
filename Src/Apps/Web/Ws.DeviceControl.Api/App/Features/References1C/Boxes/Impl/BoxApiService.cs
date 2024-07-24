@@ -1,6 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.References1C.Boxes.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Boxes.Impl.Expressions;
-using Ws.DeviceControl.Api.App.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Boxes.Impl;
 

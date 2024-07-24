@@ -35,7 +35,7 @@ public class PalletController(IPalletApiService palletApiService) : ControllerBa
     public async Task<PalletInfo> Create([FromRoute] Guid armId, [FromBody] PalletPieceCreateDto dto) =>
         await palletApiService.CreatePiecePallet(armId, dto);
 
-    [HttpDelete("{palletId:guid}")]
+    [HttpPost("{palletId:guid}")]
     public async Task Delete(Guid palletId) =>
         await palletApiService.Delete(palletId);
 

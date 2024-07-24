@@ -1,12 +1,22 @@
-GET https://localhost:5138/api/production-sites
+GET https://scales-api-dev.kolbasa-vs.local/api/device-control/production-sites/ffffffff-ffff-ffff-ffff-ffffffffffff
 
 ###
 
-
-PUT https://localhost:5138/api/production-sites/278f5287-9d86-4b92-8d41-08dcab1a0935
+POST https://localhost:5138/api/warehouses
 Content-Type: application/json
 
 {
     "name": "Площадка Камешковоооо",
-    "address": "dawdadwdaw"
+    "id1C": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    "productionSiteId": "ffffffff-ffff-ffff-ffff-ffffffffffff"
+}
+
+###
+
+POST https://localhost:5138/api/warehouses/6ced6c1e-7b94-46c1-5493-08dcabbe3249
+Content-Type: application/json
+
+{
+    "name": "Площадка Камешковооооsss",
+    "id1C": "ffffffff-ffff-ffff-ffff-ffffffffffff"
 }

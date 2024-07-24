@@ -1,4 +1,6 @@
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
+using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
+using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms;
@@ -15,6 +17,18 @@ public class ArmController(IArmService armService)
 
     [HttpGet("{id:guid}")]
     public Task<ArmDto> GetById([FromRoute] Guid id) => armService.GetByIdAsync(id);
+
+    #endregion
+
+    #region Commands
+
+    [HttpPost]
+    public Task<ArmDto> Create([FromBody] ArmCreateDto dto) =>
+        armService.CreateAsync(dto);
+
+    [HttpPost("{id:guid}")]
+    public Task<ArmDto> Update([FromRoute] Guid id, [FromBody] ArmUpdateDto dto) =>
+        armService.UpdateAsync(id, dto);
 
     #endregion
 }

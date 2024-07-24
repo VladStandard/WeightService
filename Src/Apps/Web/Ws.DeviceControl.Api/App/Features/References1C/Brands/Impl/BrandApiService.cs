@@ -1,6 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.References1C.Brands.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Brands.Impl.Expressions;
-using Ws.DeviceControl.Api.App.Shared.Extensions;
 using Ws.DeviceControl.Models.Dto.References1C.Brands;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Brands.Impl;
