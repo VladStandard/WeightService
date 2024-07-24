@@ -6,7 +6,7 @@ using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites;
 
 [ApiController]
-[Route("api/production-sites/")]
+[Route("api/production-sites")]
 public class ProductionSiteController(IProductionSiteService productionSiteService)
 {
     #region Queries
@@ -25,7 +25,7 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
     public Task<ProductionSiteDto> Create([FromBody] ProductionSiteCreateDto dto) =>
         productionSiteService.CreateAsync(dto);
 
-    [HttpPut("{id:guid}")]
+    [HttpPost("{id:guid}")]
     public Task<ProductionSiteDto> Update([FromRoute] Guid id, [FromBody] ProductionSiteUpdateDto dto) =>
         productionSiteService.UpdateAsync(id, dto);
 

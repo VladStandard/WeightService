@@ -18,12 +18,8 @@ public class ProductionSiteApiService(
 {
     #region Queries
 
-    public async Task<ProductionSiteDto> GetByIdAsync(Guid id)
-    {
-        ProductionSiteEntity? site = await dbContext.ProductionSites.FindAsync(id);
-        if (site == null) throw new KeyNotFoundException();
-        return ProductionSiteExpressions.ToDto.Compile().Invoke(site);
-    }
+    public async Task<ProductionSiteDto> GetByIdAsync(Guid id) =>
+        ProductionSiteExpressions.ToDto.Compile().Invoke(await dbContext.ProductionSites.SafeGetById(id, "Не найдено"));
 
     public Task<List<ProductionSiteDto>> GetAllAsync() => dbContext.ProductionSites
         .AsNoTracking().Select(ProductionSiteExpressions.ToDto)
@@ -37,26 +33,28 @@ public class ProductionSiteApiService(
     public async Task<ProductionSiteDto> CreateAsync(ProductionSiteCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.ProductionSites.CheckUqAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.ProductionSites.SafeExistAsync(i => i.Address == dto.Address, "Ошибка уникальности");
 
-        ProductionSiteEntity item = dto.ToEntity();
+        ProductionSiteEntity entity = dto.ToEntity();
 
-        await dbContext.ProductionSites.AddAsync(item);
+        await dbContext.ProductionSites.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-       return ProductionSiteExpressions.ToDto.Compile().Invoke(item);
+       return ProductionSiteExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public async Task<ProductionSiteDto> UpdateAsync(Guid id, ProductionSiteUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.ProductionSites.CheckUqAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.ProductionSites.SafeExistAsync(i => i.Address == dto.Address && i.Id != id, "Ошибка уникальности");
 
-        ProductionSiteEntity productionSite = await dbContext.ProductionSites.SaveGetById(id, "Не найдено");
-        dto.UpdateEntity(productionSite);
+        ProductionSiteEntity entity = await dbContext.ProductionSites.SafeGetById(id, "Не найдено");
+        dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 
-        return ProductionSiteExpressions.ToDto.Compile().Invoke(productionSite);
+        return ProductionSiteExpressions.ToDto.Compile().Invoke(entity);
     }
 
     #endregion

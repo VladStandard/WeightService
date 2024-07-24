@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl.Expressions;
+using Ws.DeviceControl.Api.App.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl;
 
@@ -8,12 +8,8 @@ public class BundleApiService(WsDbContext dbContext) : IBundleService
 {
     #region Queries
 
-    public async Task<PackageDto> GetByIdAsync(Guid id)
-    {
-        BundleEntity? bundle = await dbContext.Bundles.FindAsync(id);
-        if (bundle == null) throw new KeyNotFoundException();
-        return BundleExpressions.ToDto.Compile().Invoke(bundle);
-    }
+    public async Task<PackageDto> GetByIdAsync(Guid id) =>
+        BundleExpressions.ToDto.Compile().Invoke(await dbContext.Bundles.SafeGetById(id, "Не найдено"));
 
     public Task<List<PackageDto>> GetAllAsync()
     {

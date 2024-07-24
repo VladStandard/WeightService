@@ -5,7 +5,7 @@ namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 
 internal static class DbContextExtensions
 {
-    public static async Task CheckUqAsync<T>(this DbSet<T> dbSet, Expression<Func<T, bool>> predicate, string message) where T : class
+    public static async Task SafeExistAsync<T>(this DbSet<T> dbSet, Expression<Func<T, bool>> predicate, string message) where T : class
     {
         bool isExist = await dbSet.AnyAsync(predicate);
         if (isExist)
@@ -16,7 +16,7 @@ internal static class DbContextExtensions
             };
     }
 
-    public static async Task<T> SaveGetById<T>(this DbSet<T> dbSet, Guid id, string message) where T : class
+    public static async Task<T> SafeGetById<T>(this DbSet<T> dbSet, Guid id, string message) where T : class
     {
         T? entity = await dbSet.FindAsync(id);
         if (entity == null)
