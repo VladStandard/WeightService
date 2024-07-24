@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Expressions;
+using Ws.DeviceControl.Api.App.Shared.Extensions;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl;
@@ -28,12 +28,8 @@ public class PrinterApiService(WsDbContext dbContext) : IPrinterService
             .ToListAsync();
     }
 
-    public async Task<PrinterDto> GetByIdAsync(Guid id)
-    {
-        PrinterEntity? printer = await dbContext.Printers.FindAsync(id);
-        if (printer == null) throw new KeyNotFoundException();
-        return PrinterExpressions.ToDto.Compile().Invoke(printer);
-    }
+    public async Task<PrinterDto> GetByIdAsync(Guid id) =>
+        PrinterExpressions.ToDto.Compile().Invoke(await dbContext.Printers.SafeGetById(id, "Не найдено"));
 
     #endregion
 }

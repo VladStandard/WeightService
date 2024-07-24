@@ -5,7 +5,7 @@ using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Middlewares;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 

@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
+using Ws.DeviceControl.Api.App.Shared.Extensions;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;
@@ -19,12 +19,8 @@ public class ArmApiService(WsDbContext dbContext) : IArmService
             .ToListAsync();
     }
 
-    public async Task<ArmDto> GetByIdAsync(Guid id)
-    {
-        LineEntity? line = await dbContext.Lines.FindAsync(id);
-        if (line == null) throw new KeyNotFoundException();
-        return ArmExpressions.ToDto.Compile().Invoke(line);
-    }
+    public async Task<ArmDto> GetByIdAsync(Guid id) =>
+        ArmExpressions.ToDto.Compile().Invoke(await dbContext.Lines.SafeGetById(id, "Не найдено"));
 
     #endregion
 }

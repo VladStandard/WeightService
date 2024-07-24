@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.DeviceControl.Api.App.Features.References1C.Clips.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Clips.Impl.Expressions;
+using Ws.DeviceControl.Api.App.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Clips.Impl;
 
@@ -8,12 +8,8 @@ public class ClipApiService(WsDbContext dbContext) : IClipService
 {
     #region Queries
 
-    public async Task<PackageDto> GetByIdAsync(Guid id)
-    {
-        ClipEntity? clip = await dbContext.Clips.FindAsync(id);
-        if (clip == null) throw new KeyNotFoundException();
-        return ClipExpressions.ToDto.Compile().Invoke(clip);
-    }
+    public async Task<PackageDto> GetByIdAsync(Guid id) =>
+        ClipExpressions.ToDto.Compile().Invoke(await dbContext.Clips.SafeGetById(id, "Не найдено"));
 
     public Task<List<PackageDto>> GetAllAsync()
     {

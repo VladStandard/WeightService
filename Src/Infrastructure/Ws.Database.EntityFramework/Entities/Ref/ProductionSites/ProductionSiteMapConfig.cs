@@ -12,10 +12,6 @@ internal sealed class ProductionSiteMapConfig : IEntityTypeConfiguration<Product
             .HasDatabaseName($"UQ_{SqlTables.ProductionSites}__NAME")
             .IsUnique();
 
-        builder.HasIndex(e => e.Address)
-            .HasDatabaseName($"UQ_{SqlTables.ProductionSites}__ADDRESS")
-            .IsUnique();
-
         #endregion
 
         builder.Property(e => e.Name)

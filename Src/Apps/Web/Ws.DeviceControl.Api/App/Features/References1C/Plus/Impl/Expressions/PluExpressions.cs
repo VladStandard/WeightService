@@ -25,8 +25,8 @@ public static class PluExpressions
             } : null ,
             StorageMethod = plu.StorageMethod,
             Name = plu.Name,
-            FullName = string.Empty,
-            Description = string.Empty,
+            FullName = plu.FullName,
+            Description = plu.Description,
             Ean13 = plu.Ean13,
             Gtin = plu.Ean13,
             Clip = new()
