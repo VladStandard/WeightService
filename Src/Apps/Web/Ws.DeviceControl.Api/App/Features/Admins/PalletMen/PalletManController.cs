@@ -1,4 +1,6 @@
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create;
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;
@@ -15,6 +17,18 @@ public class PalletManController(IPalletManService palletManService)
 
     [HttpGet("{id:guid}")]
     public Task<PalletManDto> GetById([FromRoute] Guid id) => palletManService.GetByIdAsync(id);
+
+    #endregion
+
+    #region Commands
+
+    [HttpPost]
+    public Task<PalletManDto> Create([FromBody] PalletManCreateDto dto) =>
+        palletManService.CreateAsync(dto);
+
+    [HttpPost("{id:guid}")]
+    public Task<PalletManDto> Update([FromRoute] Guid id, [FromBody] PalletManUpdateDto dto) =>
+        palletManService.UpdateAsync(id, dto);
 
     #endregion
 }

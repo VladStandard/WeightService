@@ -1,3 +1,5 @@
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create;
+using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
@@ -8,6 +10,13 @@ public interface IPalletManService
 
     Task<PalletManDto> GetByIdAsync(Guid id);
     Task<List<PalletManDto>> GetAllByProductionSiteAsync(Guid productionSiteId);
+
+    #endregion
+
+    #region Commands
+
+    Task<PalletManDto> CreateAsync(PalletManCreateDto dto);
+    Task<PalletManDto> UpdateAsync(Guid id, PalletManUpdateDto dto);
 
     #endregion
 }

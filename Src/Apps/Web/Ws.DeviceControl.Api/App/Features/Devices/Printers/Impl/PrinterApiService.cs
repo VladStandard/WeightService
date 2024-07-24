@@ -66,8 +66,6 @@ public class PrinterApiService(
 
         PrinterEntity entity = await dbContext.Printers.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);
-        await dbContext.SaveChangesAsync();
-
         return PrinterExpressions.ToDto.Compile().Invoke(entity);
     }
 
