@@ -3,7 +3,7 @@ GET https://localhost:5138/api/production-sites
 ###
 
 
-POST https://localhost:5138/api/production-sites
+PUT https://localhost:5138/api/production-sites/278f5287-9d86-4b92-8d41-08dcab1a0935
 Content-Type: application/json
 
 {

@@ -3,7 +3,7 @@ using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;
 
-public static class ProductionSiteExpressions
+internal static class ProductionSiteExpressions
 {
     public static Expression<Func<ProductionSiteEntity, ProductionSiteDto>> ToDto =>
         productionSite => new()

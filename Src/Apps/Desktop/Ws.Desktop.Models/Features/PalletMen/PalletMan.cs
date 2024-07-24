@@ -1,6 +1,3 @@
-using System.Text.Json.Serialization;
-using Ws.Shared.Api.ValueTypes;
-
 namespace Ws.Desktop.Models.Features.PalletMen;
 
 public sealed record PalletMan

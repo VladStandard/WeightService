@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.Desktop.Models.Features.Pallets.Output;
 
 public sealed record LabelInfo

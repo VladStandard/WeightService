@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.DeviceControl.Models.Dto.References1C.Brands;
 
 public class BrandDto

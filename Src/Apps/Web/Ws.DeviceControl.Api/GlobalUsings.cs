@@ -8,3 +8,4 @@ global using Microsoft.EntityFrameworkCore;
 global using Ws.Database.EntityFramework;
 
 global using Ws.DeviceControl.Api.App.Shared;
+global using FluentValidation.Results;

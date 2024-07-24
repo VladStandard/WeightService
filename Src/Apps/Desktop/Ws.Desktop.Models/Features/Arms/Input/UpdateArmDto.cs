@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.Desktop.Models.Features.Arms.Input;
 
 public sealed record UpdateArmDto

@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.Desktop.Models.Features.Labels.Output;
 
 public sealed record WeightLabel

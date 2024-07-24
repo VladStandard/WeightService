@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.Desktop.Models.Features.Plus.Weight.Output;
 
 public record PluWeight

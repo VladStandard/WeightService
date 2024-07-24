@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Ws.DeviceControl.Models.Dto.Shared;
 using Ws.Shared.Converters.Json;
 using Ws.Shared.Enums;
