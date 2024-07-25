@@ -12,6 +12,10 @@ public class AdminEndpoints(IWebApi webApi)
         webApi.GetUsersByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 
+    public void UpdateUserRelationship(Guid productionSiteId, UserDto user) =>
+        UserRelationshipEndpoint.UpdateQueryData(productionSiteId, query =>
+            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(user, p => p.Id == user.Id).ToArray());
+
     public Endpoint<Guid, PalletManDto[]> PalletMenEndpoint { get; } = new(
         webApi.GetPalletMenByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
