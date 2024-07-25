@@ -1,9 +1,6 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
-using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
-using Ws.DeviceControl.Models.Dto.Admins.Users.Queries;
 using Ws.DeviceControl.Models.Dto.Print.Labels;
-using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;
 

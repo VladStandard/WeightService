@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Zpl.Templates;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
 internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>

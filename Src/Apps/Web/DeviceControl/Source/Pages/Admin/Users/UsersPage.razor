@@ -1,10 +1,9 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Features
 @using DeviceControl.Source.Shared.Api
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
 @using Ws.DeviceControl.Models.Dto.Shared
-@using Ws.DeviceControl.Models
-@using DeviceControl.Source.Features
-
 @inherits SectionPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]

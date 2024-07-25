@@ -1,13 +1,9 @@
+@using Blazor.Heroicons.Outline
 @using DeviceControl.Source.Features
 @using DeviceControl.Source.Shared.Services
-@using Blazor.Heroicons.Outline
 @using Ws.DeviceControl.Models
-@using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
-@using Ws.DeviceControl.Models.Dto.Shared
-@using Ws.Shared.Constants
-
-@inherits SectionPageBase<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
+@inherits SectionPageBase<ArmDto>
 @attribute [Route(RouteUtils.SectionLines)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer

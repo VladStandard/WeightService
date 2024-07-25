@@ -1,7 +1,6 @@
 @using Ws.DeviceControl.Models.Dto.Devices.Arms
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
-
-@implements IDialogContentComponent<Ws.DeviceControl.Models.Dto.Devices.Arms.Queries.ArmDto>
+@implements IDialogContentComponent<ArmDto>
 
 <SectionDialog>
   <Tab Id="@typeof(ArmsUpdateForm).ToString()" Title="@Localizer["SectionLines"]">

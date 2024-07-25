@@ -3,17 +3,18 @@ using MassaK.Plugin.Abstractions.Enums;
 using MassaK.Plugin.Abstractions.Events;
 using MassaK.Plugin.Impl;
 using ScalesDesktop.Source.Shared.Services.Stores;
+using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
 public class ScalesService : IDisposable
 {
-    private readonly Fluxor.IDispatcher _dispatcher;
+    private readonly IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
     private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
 
 
-    public ScalesService(Fluxor.IDispatcher dispatcher)
+    public ScalesService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
         Setup();

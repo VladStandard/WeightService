@@ -2,6 +2,7 @@ using FluentValidation;
 using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models.Features.PalletMen;
+using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -10,7 +11,7 @@ public sealed partial class PalletManForm : ComponentBase
 {
     # region Injects
 
-    [Inject] private Fluxor.IDispatcher Dispatcher { get; set; } = default!;
+    [Inject] private IDispatcher Dispatcher { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;

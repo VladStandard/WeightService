@@ -2,9 +2,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries
-@using Ws.Shared.Constants
-
-@inherits SectionPageBase<Ws.DeviceControl.Models.Dto.References.Warehouses.Queries.WarehouseDto>
+@inherits SectionPageBase<WarehouseDto>
 @attribute [Route(RouteUtils.SectionWarehouses)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
