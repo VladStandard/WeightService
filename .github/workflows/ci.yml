@@ -33,5 +33,5 @@ jobs:
       - name: Run tests
         run: |
           dotnet test Src/Tests/Ws.Components.Tests/Ws.Components.Tests.csproj --no-restore --verbosity quiet --configuration ReleaseVS
-          dotnet test Src/Tests/Ws.Domain.Tests/Ws.Domain.Tests.csproj --no-restore --verbosity quiet --configuration ReleaseVS
+          dotnet test Src/Tests/Ws.Domain.Models.Tests/Ws.Domain.Models.Tests.csproj --no-restore --verbosity quiet --configuration ReleaseVS
           dotnet test Src/Tests/Ws.Shared.Tests/Ws.Shared.Tests.csproj --no-restore --verbosity quiet --configuration ReleaseVS
