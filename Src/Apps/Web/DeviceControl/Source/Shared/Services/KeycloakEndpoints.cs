@@ -3,9 +3,9 @@ using Phetch.Core;
 
 namespace DeviceControl.Source.Shared.Services;
 
-public class UsersEndpoints(IKeycloakApi keycloakApi)
+public class KeycloakEndpoints(IKeycloakApi keycloakApi)
 {
-    public ParameterlessEndpoint<KeycloakUser[]> UsersEndpoint { get; } = new(
+    public ParameterlessEndpoint<KeycloakUser[]> KeycloakUsersEndpoint { get; } = new(
         keycloakApi.GetAllUsers,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 }

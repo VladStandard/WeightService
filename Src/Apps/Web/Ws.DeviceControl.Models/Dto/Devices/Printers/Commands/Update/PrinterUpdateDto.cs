@@ -4,7 +4,7 @@ using Ws.Shared.Converters.Json;
 
 namespace Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update;
 
-public class PrinterUpdateDto
+public sealed record PrinterUpdateDto
 {
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;

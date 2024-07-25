@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create;
 
-public class PalletManCreateDto
+public sealed record PalletManCreateDto
 {
     [JsonPropertyName("id1C")]
     public Guid Id1C { get; set; }

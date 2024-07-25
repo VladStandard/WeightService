@@ -1,17 +1,17 @@
-@* @inherits SectionDialogBase<UserWithProductionSite> *@
-@* *@
-@* *@
-@* <SectionDialog DialogItem="DialogItem" TabsList="@TabsList"> *@
-@*   <Tab Id="@typeof(UsersUpdateForm).ToString()"> *@
-@*     <UsersUpdateForm /> *@
-@*   </Tab> *@
-@* </SectionDialog> *@
-@* *@
-@* @code { *@
-@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
-@* *@
-@*   protected override List<KeyValuePair<string, string>> InitializeTabList() => *@
-@*   [ *@
-@*     new(typeof(UsersUpdateForm).ToString(), Localizer["SectionUsers"]) *@
-@*   ]; *@
-@* } *@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models.Dto.Admins.Users.Commands.Update
+
+@implements IDialogContentComponent<UserWithProductionSite>
+
+<SectionDialog>
+  <Tab Id="@typeof(UsersUpdateForm).ToString()" Title="@Localizer["SectionUsers"]">
+    <UsersUpdateForm Model="Content" FormModel="@(new UserUpdateDto { ProductionSiteId = ProductionSiteState.Value.ProductionSite.Id })" />
+  </Tab>
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+
+  [Parameter] public UserWithProductionSite Content { get; set; } = default!;
+}

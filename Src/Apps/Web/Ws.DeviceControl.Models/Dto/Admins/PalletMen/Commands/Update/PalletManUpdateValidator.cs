@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update;
 
-public class PalletManUpdateValidator : AbstractValidator<PalletManUpdateDto>
+public sealed class PalletManUpdateValidator : AbstractValidator<PalletManUpdateDto>
 {
     public PalletManUpdateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

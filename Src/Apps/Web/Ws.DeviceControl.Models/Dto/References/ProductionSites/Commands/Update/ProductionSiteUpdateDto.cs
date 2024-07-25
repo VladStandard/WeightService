@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
 
-public class ProductionSiteUpdateDto
+public sealed record ProductionSiteUpdateDto
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; } = string.Empty;

@@ -1,12 +1,17 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
+using Ws.DeviceControl.Models.Dto.Admins.Users.Queries;
 using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;
 
-public class PalletManEndpoints(IWebApi webApi)
+public class AdminEndpoints(IWebApi webApi)
 {
+    public Endpoint<Guid, UserDto[]> UserRelationshipEndpoint { get; } = new(
+        webApi.GetUsersByProductionSite,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
+
     public Endpoint<Guid, PalletManDto[]> PalletMenEndpoint { get; } = new(
         webApi.GetPalletMenByProductionSite,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });

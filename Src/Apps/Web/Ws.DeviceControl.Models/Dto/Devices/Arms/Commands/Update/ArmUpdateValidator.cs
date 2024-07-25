@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
 
-public class ArmUpdateValidator : AbstractValidator<ArmUpdateDto>
+public sealed class ArmUpdateValidator : AbstractValidator<ArmUpdateDto>
 {
     public ArmUpdateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

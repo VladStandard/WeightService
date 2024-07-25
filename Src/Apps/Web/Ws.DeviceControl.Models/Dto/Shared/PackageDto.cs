@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Shared;
 
-public class PackageDto
+public sealed record PackageDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

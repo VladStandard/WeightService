@@ -1,7 +1,7 @@
 namespace Ws.DeviceControl.Models.Dto.Admins.Users.Queries;
 
-public record UserDto
+public sealed record UserDto
 {
     [JsonPropertyName("id")]
-    public Guid Id { get; set; }
+    public required Guid Id { get; init; }
 }

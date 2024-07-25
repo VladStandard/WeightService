@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update;
 
-public class PalletManUpdateDto
+public sealed record PalletManUpdateDto
 {
     [JsonPropertyName("id1C")]
     public Guid Id1C { get; set; }

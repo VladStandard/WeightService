@@ -10,9 +10,6 @@ public static class PluMapper
         return new()
         {
             TemplateId = item.Template?.Id ?? Guid.Empty,
-            Name = item.Name,
-            FullName = item.FullName,
-            Description = item.Description
         };
     }
 }

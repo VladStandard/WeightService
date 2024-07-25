@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 
-public record ProductionSiteDto
+public sealed record ProductionSiteDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create;
 
-public class WarehouseCreateDto
+public sealed record WarehouseCreateDto
 {
     [JsonPropertyName("id1C")]
     public Guid Id1C { get; set; }

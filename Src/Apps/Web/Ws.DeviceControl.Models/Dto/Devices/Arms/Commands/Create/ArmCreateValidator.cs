@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 
-public class ArmCreateValidator : AbstractValidator<ArmCreateDto>
+public sealed class ArmCreateValidator : AbstractValidator<ArmCreateDto>
 {
     public ArmCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

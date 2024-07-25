@@ -13,7 +13,7 @@
 
 <UserProductionSiteErrorSuspense>
   <UseEndpoint
-    Endpoint="@PalletManEndpoints.PalletMenEndpoint"
+    Endpoint="@AdminEndpoints.PalletMenEndpoint"
     Arg="@ProductionSiteState.Value.ProductionSite.Id"
     Options="@DefaultEndpointOptions"
     Context="palletManQuery"
@@ -81,7 +81,7 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private PalletManEndpoints PalletManEndpoints { get; set; } = default!;
+  [Inject] private AdminEndpoints AdminEndpoints { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
 
@@ -102,6 +102,6 @@
   protected override async Task DeleteItemAction(PalletManDto item)
   {
     await WebApi.DeletePalletMan(item.Id);
-    PalletManEndpoints.DeletePalletMan(ProductionSiteState.Value.ProductionSite.Id, item.Id);
+    AdminEndpoints.DeletePalletMan(ProductionSiteState.Value.ProductionSite.Id, item.Id);
   }
 }

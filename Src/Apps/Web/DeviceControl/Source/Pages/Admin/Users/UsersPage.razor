@@ -1,49 +1,99 @@
-@* @using DeviceControl.Source.Features *@
-@* @inherits SectionDataGridPageBase<Ws.DeviceControl.Models.Dto.Admins.Users.Queries.UserDto> *@
-@* @attribute [Route($"{RouteUtils.SectionUsers}")] *@
-@* @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)] *@
-@* @rendermode InteractiveServer *@
-@* *@
-@* <PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle> *@
-@* *@
-@* <UseParameterlessEndpoint Endpoint="@UsersEndpoints.UsersEndpoint" Context="usersQuery"> *@
-@*   <PageHeader> *@
-@*     <span>@Localizer["SectionUsers"]</span> *@
-@*     <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" /> *@
-@*   </PageHeader> *@
-@* *@
-@*   <DataGridWrapper> *@
-@*     <DataGridContainer *@
-@*       TItem="UserWithProductionSite" *@
-@*       Items="@(usersQuery.HasData ? GetAllUsers(usersQuery.Data) : [])" *@
-@*       OnItemSelect="@(item => OpenDataGridEntityModal(item))" *@
-@*       IsFilterable *@
-@*     > *@
-@*       <ColumnsContent> *@
-@*         <DataGridColumn *@
-@*           Caption="@WsDataLocalizer["ColUser"]" *@
-@*           Field="KeycloakUser.Username" *@
-@*           Width="30%" *@
-@*         /> *@
-@*         <DataGridColumn *@
-@*           Caption="@WsDataLocalizer["ColFullName"]" *@
-@*           Field="KeycloakUser.FirstName" *@
-@*           Width="30%" *@
-@*         /> *@
-@*         <DataGridColumn *@
-@*           Caption="@WsDataLocalizer["ColProductionSite"]" *@
-@*           Field="ProductionSite.Name" *@
-@*           Width="40%" *@
-@*           FilterCellClass="!font-normal" *@
-@*         > *@
-@*           <FilterTemplate> *@
-@*             <ProductionSiteSelect AllowIsNew /> *@
-@*           </FilterTemplate> *@
-@*         </DataGridColumn> *@
-@*       </ColumnsContent> *@
-@*       <ContextMenuContent> *@
-@*         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenDataGridEntityModal(item)))" /> *@
-@*       </ContextMenuContent> *@
-@*     </DataGridContainer> *@
-@*   </DataGridWrapper> *@
-@* </UseParameterlessEndpoint> *@
+@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api
+@using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
+@using Ws.DeviceControl.Models
+@using DeviceControl.Source.Features
+
+@inherits SectionPageBase<UserWithProductionSite>
+@attribute [Route($"{RouteUtils.SectionUsers}")]
+@attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
+@rendermode InteractiveServer
+
+<PageTitle>DeviceControl - @Localizer["SectionUsers"]</PageTitle>
+
+<UseEndpoint
+  Endpoint="AdminEndpoints.UserRelationshipEndpoint"
+  Arg="@ProductionSiteState.Value.ProductionSite.Id"
+  Options="@DefaultEndpointOptions"
+  Context="userRelationshipQuery"
+>
+  <UseParameterlessEndpoint
+    Endpoint="@KeycloakEndpoints.KeycloakUsersEndpoint"
+    Options="@DefaultEndpointOptions"
+    Context="keycloakUsersQuery"
+  >
+    @{ IEnumerable<UserWithProductionSite> usersData = GetAllUsers(keycloakUsersQuery.Data ?? [], userRelationshipQuery.Data ?? []);}
+    <PageHeader>
+      <span>@Localizer["SectionUsers"]</span>
+      <DataGridItemsCounter ItemsCount="@(usersData.Count())" IsLoading="@(userRelationshipQuery.IsLoading || keycloakUsersQuery.IsLoading)"/>
+      <DataGridActionReload
+        OnClick="@(() => { userRelationshipQuery.RefetchAsync(); keycloakUsersQuery.RefetchAsync(); })"
+        IsLoading="@(userRelationshipQuery.IsFetching || keycloakUsersQuery.IsFetching)"
+      />
+    </PageHeader>
+
+    <DataGridWrapper>
+      <DataGridContainer
+        TItem="UserWithProductionSite"
+        Items="@(usersData)"
+        OnItemSelect="@(item => OpenUpdateFormModal(item))"
+        IsFilterable>
+        <ColumnsContent>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColUser"]"
+            Field="@($"{nameof(UserWithProductionSite.User)}.{nameof(KeycloakUser.Username)}")"
+            Width="30%"/>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColFullName"]"
+            Field="@($"{nameof(UserWithProductionSite.User)}.{nameof(KeycloakUser.FirstName)}")"
+            Width="30%"/>
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColProductionSite"]"
+            Width="40%"
+            FilterCellClass="!font-normal"
+          >
+            <FilterTemplate>
+              <ProductionSiteSelect AllowIsNew/>
+            </FilterTemplate>
+            <DisplayTemplate>
+              @ProductionSiteState.Value.ProductionSite.Name
+            </DisplayTemplate>
+          </DataGridColumn>
+        </ColumnsContent>
+        <ContextMenuContent>
+          <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenUpdateFormModal(item)))"/>
+        </ContextMenuContent>
+      </DataGridContainer>
+    </DataGridWrapper>
+  </UseParameterlessEndpoint>
+</UseEndpoint>
+
+@code {
+
+  #region Inject
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private KeycloakEndpoints KeycloakEndpoints { get; set; } = default!;
+  [Inject] private AdminEndpoints AdminEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+
+  #endregion
+
+  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
+
+  protected override async Task OpenUpdateFormModal(UserWithProductionSite item) =>
+    await OpenModalWithItem<UsersUpdateDialog>(item);
+
+  private IEnumerable<UserWithProductionSite> GetAllUsers(IEnumerable<KeycloakUser> keycloakUsers, IEnumerable<UserDto> usersRelations) =>
+    usersRelations
+      .Select(item =>
+      {
+        KeycloakUser? keycloakUser = keycloakUsers.FirstOrDefault(x => x.Id == item.Id);
+        return keycloakUser != null ? new UserWithProductionSite(keycloakUser, ProductionSiteState.Value.ProductionSite.Id) : null;
+      })
+      .OfType<UserWithProductionSite>();
+
+}

@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
 
-public class ProductionSiteUpdateValidator : AbstractValidator<ProductionSiteUpdateDto>
+public sealed class ProductionSiteUpdateValidator : AbstractValidator<ProductionSiteUpdateDto>
 {
     public ProductionSiteUpdateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

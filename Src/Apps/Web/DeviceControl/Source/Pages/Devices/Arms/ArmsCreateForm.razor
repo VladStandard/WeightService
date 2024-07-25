@@ -59,17 +59,17 @@
       MaxLength="16"
     />
 
-    <UseEndpoint
-      Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Id"
-      Context="printersQuery"
+    <SectionInputWrapper
+      Path="@(FormModel.PrinterId != Guid.Empty ? Redirector.ToPrinterPath(FormModel.PrinterId, UserPrincipal) : string.Empty)"
+      Label="@WsDataLocalizer["ColPrinter"]"
     >
-      @if (printersQuery.HasData)
-      {
-        <SectionInputWrapper
-          Path="@(FormModel.PrinterId != Guid.Empty ? Redirector.ToPrinterPath(FormModel.PrinterId, UserPrincipal) : string.Empty)"
-          Label="@WsDataLocalizer["ColPrinter"]"
-        >
+      <UseEndpoint
+        Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
+        Arg="@ProductionSiteState.Value.ProductionSite.Id"
+        Context="printersQuery"
+      >
+        @if (printersQuery.HasData)
+        {
           <SelectSingle
             TItem="ProxyDto?"
             Items="printersQuery.Data"
@@ -81,14 +81,14 @@
             ItemDisplayName="@(item => item!.Name)"
             IsFilterable
           />
-          <FieldValidation For="@(() => FormModel.PrinterId)" />
-        </SectionInputWrapper>
-      }
-      else
-      {
-        <Skeleton class="h-10 w-full" />
-      }
-    </UseEndpoint>
+        }
+        else
+        {
+          <Skeleton class="h-10 w-full" />
+        }
+      </UseEndpoint>
+      <FieldValidation For="@(() => FormModel.PrinterId)" />
+    </SectionInputWrapper>
 
     <FormDivider>@Localizer["FieldLocation"]</FormDivider>
 
@@ -98,17 +98,17 @@
       Path="@Redirector.ToProductionPath(ProductionSiteState.Value.ProductionSite.Id, UserPrincipal)"
     />
 
-    <UseEndpoint
-      Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-      Arg="@ProductionSiteState.Value.ProductionSite.Id"
-      Context="warehousesQuery"
+    <SectionInputWrapper
+      Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+      Label="@WsDataLocalizer["ColWarehouse"]"
     >
-      @if (warehousesQuery.HasData)
-      {
-        <SectionInputWrapper
-          Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
-          Label="@WsDataLocalizer["ColWarehouse"]"
-        >
+      <UseEndpoint
+        Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+        Arg="@ProductionSiteState.Value.ProductionSite.Id"
+        Context="warehousesQuery"
+      >
+        @if (warehousesQuery.HasData)
+        {
           <SelectSingle
             TItem="ProxyDto?"
             Items="warehousesQuery.Data"
@@ -120,14 +120,14 @@
             ItemDisplayName="@(item => item!.Name)"
             IsFilterable
           />
-          <FieldValidation For="@(() => FormModel.WarehouseId)" />
-        </SectionInputWrapper>
-      }
-      else
-      {
-        <Skeleton class="h-10 w-full" />
-      }
-    </UseEndpoint>
+        }
+        else
+        {
+          <Skeleton class="h-10 w-full" />
+        }
+      </UseEndpoint>
+      <FieldValidation For="@(() => FormModel.WarehouseId)" />
+    </SectionInputWrapper>
   </FieldsContent>
 </SectionForm>
 

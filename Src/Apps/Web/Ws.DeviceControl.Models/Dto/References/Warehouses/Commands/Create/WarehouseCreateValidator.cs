@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create;
 
-public class WarehouseCreateValidator : AbstractValidator<WarehouseCreateDto>
+public sealed class WarehouseCreateValidator : AbstractValidator<WarehouseCreateDto>
 {
     public WarehouseCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

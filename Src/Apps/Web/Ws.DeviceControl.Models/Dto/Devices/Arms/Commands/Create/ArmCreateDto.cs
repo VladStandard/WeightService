@@ -3,7 +3,7 @@ using Ws.Shared.Enums;
 
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 
-public record ArmCreateDto
+public sealed record ArmCreateDto
 {
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;

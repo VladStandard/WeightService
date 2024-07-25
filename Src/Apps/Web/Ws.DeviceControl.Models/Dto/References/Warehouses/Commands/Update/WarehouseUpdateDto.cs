@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Update;
 
-public class WarehouseUpdateDto
+public sealed record WarehouseUpdateDto
 {
     [JsonPropertyName("id1C")]
     public Guid Id1C { get; set; }

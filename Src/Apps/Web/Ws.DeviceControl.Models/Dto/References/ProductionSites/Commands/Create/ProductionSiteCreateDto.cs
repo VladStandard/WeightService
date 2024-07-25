@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
-public class ProductionSiteCreateDto
+public sealed record ProductionSiteCreateDto
 {
     [JsonPropertyName("name")]
     public string Name { get; set; } = string.Empty;

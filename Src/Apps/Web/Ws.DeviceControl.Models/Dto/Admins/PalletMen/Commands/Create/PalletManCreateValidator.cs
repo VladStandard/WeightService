@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create;
 
-public class PalletManCreateValidator : AbstractValidator<PalletManCreateDto>
+public sealed class PalletManCreateValidator : AbstractValidator<PalletManCreateDto>
 {
     public PalletManCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

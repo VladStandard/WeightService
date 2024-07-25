@@ -3,7 +3,7 @@ using Ws.Shared.Api.ValueTypes;
 
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 
-public class PalletManDto
+public sealed record PalletManDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; init; }

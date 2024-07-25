@@ -6,7 +6,7 @@ using Ws.Shared.Api.ApiException;
 
 namespace DeviceControl.Source.Widgets.Section;
 
-public abstract class SectionFormBase<TItem> : FluxorComponent
+public abstract class SectionFormBase<TItem> : FluxorComponent where TItem : IEquatable<TItem>
 {
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
@@ -21,7 +21,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        DialogItemCopy = FormModel.DeepClone();
+        DialogItemCopy = FormModel;
     }
 
     protected override async Task OnInitializedAsync() =>
@@ -73,7 +73,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent
 
     protected async Task UpdateItem()
     {
-        if (FormModel != null && FormModel.Equals(DialogItemCopy))
+        if (FormModel.Equals(DialogItemCopy))
         {
             await Dialog.CancelAsync();
             return;

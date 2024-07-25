@@ -4,7 +4,7 @@ using Ws.Shared.Enums;
 
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 
-public record ArmDto
+public sealed record ArmDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

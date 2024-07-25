@@ -2,6 +2,8 @@ using Refit;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
+using Ws.DeviceControl.Models.Dto.Admins.Users.Commands.Update;
+using Ws.DeviceControl.Models.Dto.Admins.Users.Queries;
 using Ws.DeviceControl.Models.Dto.Database;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
@@ -26,6 +28,21 @@ public interface IWebApi
 {
     # region Admin
 
+    # region Users
+
+    [Get("/users?productionSite={productionSiteUid}")]
+    Task<UserDto[]> GetUsersByProductionSite(Guid productionSiteUid);
+
+    [Get("/users/{uid}")]
+    Task<UserDto> GetUsersByUid(Guid uid);
+
+    [Post("/users/{uid}")]
+    Task<UserDto> UpdateUser(Guid uid, [Body] UserUpdateDto updateDto);
+
+    # endregion
+
+    # region Pallet Man
+
     [Get("/pallet-men?productionSite={productionSiteUid}")]
     Task<PalletManDto[]> GetPalletMenByProductionSite(Guid productionSiteUid);
 
@@ -43,6 +60,8 @@ public interface IWebApi
 
     [Delete("/pallet-men/{uid}")]
     Task<bool> DeletePalletMan(Guid uid);
+
+    # endregion
 
     # endregion
 

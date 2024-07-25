@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.Warehouses.Queries;
 
-public class WarehouseDto
+public sealed record WarehouseDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

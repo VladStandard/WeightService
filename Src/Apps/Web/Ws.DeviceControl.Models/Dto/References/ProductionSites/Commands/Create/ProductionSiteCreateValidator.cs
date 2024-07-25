@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
-public class ProductionSiteCreateValidator : AbstractValidator<ProductionSiteCreateDto>
+public sealed class ProductionSiteCreateValidator : AbstractValidator<ProductionSiteCreateDto>
 {
     public ProductionSiteCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {

@@ -42,6 +42,13 @@
       Value="@Model.ShelfLifeDays"
     />
 
+    <SectionGuidField
+      Label="@WsDataLocalizer["ColTemplate"]"
+      Value="@FormModel.TemplateId"
+      Disabled="@(!IsSupport)"
+      For="@(() => FormModel.TemplateId)"
+    />
+
     @* <SectionSelectSingleField *@
     @*   TItem="Template?" *@
     @*   Label="@WsDataLocalizer["ColTemplate"]" *@
@@ -49,7 +56,7 @@
     @*   Value="@AllTemplates.SingleOrDefault(i => i.Uid == FormModel.TemplateId)" *@
     @*   ValueChanged="@(item => FormModel.TemplateId = item?.Uid ?? Guid.Empty)" *@
     @*   ItemDisplayName="@(item => item!.Name)" *@
-    @*   Disabled="@(!IsForceSubmit)" *@
+    @*   Disabled="@(!IsSupport)" *@
     @*   Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)" *@
     @* /> *@
 
@@ -60,25 +67,19 @@
 
     <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
 
-    <SectionTextField
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColName"]"
-      @bind-Value="@FormModel.Name"
-      For="@(() => FormModel.Name)"
-      Disabled="@(!IsForceSubmit)"
+      Value="@Model.Name"
     />
 
-    <SectionTextAreaField
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColFullName"]"
-      @bind-Value="@FormModel.FullName"
-      For="@(() => FormModel.FullName)"
-      Disabled="@(!IsForceSubmit)"
+      Value="@Model.FullName"
     />
 
-    <SectionTextAreaField
+    <SectionReadOnlyField
       Label="@WsDataLocalizer["ColDescription"]"
-      @bind-Value="@FormModel.Description"
-      For="@(() => FormModel.Description)"
-      Disabled="@(!IsForceSubmit)"
+      Value="@Model.Description"
     />
 
     <FormDivider>@Localizer["FieldPackaging"]</FormDivider>
@@ -117,11 +118,7 @@
 
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}?id={Model.Id}")" />
-    <SectionFormActionUnlock @bind-IsUnlocked="@IsForceSubmit" />
-    @if (IsForceSubmit)
-    {
-      <SectionFormActionReset OnClick="@ResetAction" />
-    }
+    <SectionFormActionReset OnClick="@ResetAction" />
   </ActionsContent>
 </SectionForm>
 
@@ -133,12 +130,19 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public PluDto Model { get; set; } = default!;
 
-  private bool IsForceSubmit { get; set; }
+  private bool IsSupport { get; set; } = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    IsSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+  }
 
   protected override async Task UpdateItemAction(PluUpdateDto item)
   {

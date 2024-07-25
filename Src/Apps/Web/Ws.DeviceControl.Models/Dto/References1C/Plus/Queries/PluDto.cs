@@ -2,7 +2,7 @@ using Ws.DeviceControl.Models.Dto.Shared;
 
 namespace Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
 
-public record PluDto
+public sealed record PluDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

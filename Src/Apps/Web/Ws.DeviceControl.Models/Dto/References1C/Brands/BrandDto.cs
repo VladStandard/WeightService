@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Dto.References1C.Brands;
 
-public class BrandDto
+public sealed record BrandDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

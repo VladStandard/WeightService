@@ -18,7 +18,7 @@ internal class WebRefitEndpoint : IRefitEndpoint
             })
             .AddHttpMessageHandler(() => new AcceptLanguageHandler());;
 
-        builder.Services.AddScoped<PalletManEndpoints>();
+        builder.Services.AddScoped<AdminEndpoints>();
         builder.Services.AddScoped<DevicesEndpoints>();
         builder.Services.AddScoped<DiagnosticEndpoints>();
         builder.Services.AddScoped<References1CEndpoints>();
