@@ -22,4 +22,4 @@ public class ZplEndpoints(ILabelaryApi labelary)
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 }
 
-public record ZplEndpointArgs(string Zpl, short Width, short Height, short RotateDegrees = 0);
+public record ZplEndpointArgs(string Zpl, ushort Width, ushort Height, short RotateDegrees = 0);

@@ -6,9 +6,9 @@
   <Tab Id="@typeof(LabelsViewForm).ToString()" Title="@Localizer["SectionLabels"]">
     <LabelsViewForm FormModel="Content" />
   </Tab>
-  @* <Tab Id="@typeof(LabelsPreview).ToString()" Title="@Localizer["LabelsPreviewTitle"]"> *@
-  @*   <LabelsPreview /> *@
-  @* </Tab> *@
+  <Tab Id="@typeof(LabelsPreview).ToString()" Title="@Localizer["LabelsPreviewTitle"]">
+    <LabelsPreview Model="Content" />
+  </Tab>
 </SectionDialog>
 
 @code {

@@ -45,12 +45,8 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColPluNumber"]"
           Field="@($"{nameof(LabelDto.Plu)}.{nameof(ProxyDto.Name)}")"
-          Width="5%"
-        >
-          <DisplayTemplate>
-            @(context.Plu == null ? "000" : context.Plu.Name.Split(" ").FirstOrDefault("000"))
-          </DisplayTemplate>
-        </DataGridColumn>
+          Width="18%"
+        />
 
         <DataGridColumn
           Caption="@WsDataLocalizer["ColBarcodeTop"]"
@@ -62,19 +58,19 @@
         <DataGridColumn
           Caption="@WsDataLocalizer["ColLine"]"
           Field="@($"{nameof(LabelDto.Arm)}.{nameof(ProxyDto.Name)}")"
-          Width="20%"
+          Width="15%"
         />
         <DataGridColumn
           Caption="@WsDataLocalizer["ColWarehouse"]"
           Field="@($"{nameof(LabelDto.Warehouse)}.{nameof(ProxyDto.Name)}")"
-          Width="20%"
+          Width="15%"
         />
 
         <DataGridColumn
           Caption="@WsDataLocalizer["ColType"]"
           Field="@nameof(LabelDto.IsWeight)"
           Filterable="false"
-          Width="10%"
+          Width="7%"
         >
           <DisplayTemplate>
             @if (context.Plu != null)

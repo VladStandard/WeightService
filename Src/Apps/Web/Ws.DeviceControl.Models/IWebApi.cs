@@ -119,6 +119,9 @@ public interface IWebApi
     [Get("/labels/{uid}")]
     Task<LabelDto> GetLabelByUid(Guid uid);
 
+    [Get("/labels/{uid}/zpl")]
+    Task<ZplDto> GetLabelZplByUid(Guid uid);
+
     # endregion
 
     # region References 1C
