@@ -98,6 +98,13 @@ internal sealed class SqlLabelMap : ClassMapping<Label>
             m.NotNullable(true);
         });
 
+        Property(x => x.IsWeight, m =>
+        {
+            m.Column("IS_WEIGHT");
+            m.Type(NHibernateUtil.Boolean);
+            m.NotNullable(true);
+        });
+
         ManyToOne(x => x.Plu, m =>
         {
             m.Column("PLU_UID");

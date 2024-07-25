@@ -1,3 +1,4 @@
+using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.DeviceControl.Api.App.Features.Print.Labels.Common;
 using Ws.DeviceControl.Api.App.Features.Print.Labels.Impl.Expressions;
 using Ws.DeviceControl.Models.Dto.Print.Labels;
@@ -10,13 +11,30 @@ public class LabelApiService(
 {
     #region Queries
 
-    public async Task<LabelDto> GetByIdAsync(Guid id) =>
-        LabelExpressions.ToDto.Compile().Invoke(await dbContext.Labels.SafeGetById(id, "Не найдено"));
+    public async Task<LabelDto> GetByIdAsync(Guid id)
+    {
+        LabelEntity entity = await dbContext.Labels.SafeGetById(id, "Не найдено");
+        await LoadDefaultForeignKeysAsync(entity);
+        return LabelExpressions.ToDto.Compile().Invoke(entity);
+    }
 
     public Task<List<LabelDto>> GetAllAsync() => dbContext.Labels
         .AsNoTracking().Select(LabelExpressions.ToDto)
         .OrderByDescending(i => i.CreateDt)
         .ToListAsync();
+
+    #endregion
+
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(LabelEntity entity)
+    {
+        await dbContext.Entry(entity).Reference(e => e.Plu).LoadAsync();
+        await dbContext.Entry(entity).Reference(e => e.Line).LoadAsync();
+        await dbContext.Entry(entity).Reference(e => e.Pallet).LoadAsync();
+        await dbContext.Entry(entity.Line).Reference(e => e.Warehouse).LoadAsync();
+        await dbContext.Entry(entity.Line.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
+    }
 
     #endregion
 }

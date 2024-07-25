@@ -99,7 +99,8 @@ internal class LabelWeightGenerator(CacheService cacheService, ILabelService lab
 
             WeightNet = dto.Weight,
             WeightTare = dto.Plu.GetWeightWithNesting,
-            BundleCount = data.BundleCount
+            BundleCount = data.BundleCount,
+            IsWeight = true
         };
 
         labelService.Create(labelSql, zplLabel);

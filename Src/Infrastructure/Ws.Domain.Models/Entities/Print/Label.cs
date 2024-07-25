@@ -10,6 +10,7 @@ namespace Ws.Domain.Models.Entities.Print;
 [DebuggerDisplay("{ToString()}")]
 public class Label : EntityBase
 {
+    public virtual bool IsWeight { get; set; }
     public virtual string BarcodeTop { get; set; } = string.Empty;
     public virtual string BarcodeRight { get; set; } = string.Empty;
     public virtual string BarcodeBottom { get; set; } = string.Empty;

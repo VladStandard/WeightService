@@ -200,7 +200,8 @@ internal class LabelPieceGenerator(
             ExpirationDt = dto.ExpirationDt,
             Line = dto.Line,
             Plu = dto.Plu,
-            BundleCount = dto.PluCharacteristic.BundleCount
+            BundleCount = dto.PluCharacteristic.BundleCount,
+            IsWeight = false
         };
 
         LabelZpl labelZpl = new()
