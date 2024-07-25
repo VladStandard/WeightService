@@ -1,5 +1,7 @@
 @using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Commands.Update
+@using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
 
 @inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Admins.Users.Commands.Update.UserUpdateDto>
@@ -67,11 +69,16 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private AdminEndpoints AdminEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
 
   #endregion
 
   [Parameter, EditorRequired] public UserWithProductionSite Model { get; set; } = default!;
 
-  protected override Task UpdateItemAction(UserUpdateDto item) =>
-    throw new NotImplementedException();
+  protected override async Task UpdateItemAction(UserUpdateDto item)
+  {
+    UserDto dto = await WebApi.UpdateUser(Model.User.Id, item);
+    AdminEndpoints.UpdateUserRelationship(Model.ProductionSiteId, dto);
+  }
 }

@@ -11,6 +11,7 @@ using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
+using Ws.DeviceControl.Models.Dto.Print.Labels;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
@@ -107,6 +108,16 @@ public interface IWebApi
     Task<ProxyDto[]> GetProxyPrintersByProductionSite(Guid productionSiteUid);
 
     # endregion
+
+    # endregion
+
+    # region Operations
+
+    [Get("/labels")]
+    Task<LabelDto[]> GetLabels();
+
+    [Get("/labels/{uid}")]
+    Task<LabelDto> GetLabelByUid(Guid uid);
 
     # endregion
 

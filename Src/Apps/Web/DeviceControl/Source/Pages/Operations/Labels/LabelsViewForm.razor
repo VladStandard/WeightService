@@ -1,0 +1,92 @@
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.Print.Labels.LabelDto>
+
+<SectionForm CreateDate="FormModel.CreateDt">
+  <FieldsContent>
+    <SectionAdminGuidField Value="@FormModel.Id" />
+
+    <FormDivider>@WsDataLocalizer["ColLine"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColLine"]"
+      Value="@FormModel.Arm.Name"
+      Path="@Redirector.ToArmPath(FormModel.Arm.Id, UserPrincipal)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColWarehouse"]"
+      Value="@FormModel.Warehouse.Name"
+      Path="@Redirector.ToWarehousePath(FormModel.Warehouse.Id, UserPrincipal)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColPlu"]</FormDivider>
+
+    @if (FormModel.Plu != null)
+    {
+      <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColPlu"]"
+        Value="@FormModel.Plu.Name"
+        Path="@Redirector.ToPluPath(FormModel.Plu.Id)"
+      />
+
+      <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColType"]"
+        Value="@GetPluTypeName(FormModel.IsWeight)"
+      />
+    }
+    else
+    {
+      <SectionReadOnlyField
+        Label="@WsDataLocalizer["ColPlu"]"
+        Value="@("Удалено")"
+      />
+    }
+
+    <FormDivider>@WsDataLocalizer["ColBarcode"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBarcodeTop"]"
+      Value="@FormModel.BarcodeTop"
+      IsCopyable
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBarcodeBottom"]"
+      Value="@FormModel.BarcodeBottom"
+      IsCopyable
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColBarcodeRight"]"
+      Value="@FormModel.BarcodeRight"
+      IsCopyable
+    />
+
+    <FormDivider>@WsDataLocalizer["ColShelfLifeDays"]</FormDivider>
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColProductDt"]"
+      Value="@FormModel.ProductDt.ToString("dd.MM.yyyy")"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColExpirationDt"]"
+      Value="@FormModel.ExpirationDt.ToString("dd.MM.yyyy")"
+    />
+
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionLabels}?id={FormModel.Id}")" />
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  # region Injects
+
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  # endregion
+
+  private string GetPluTypeName(bool isWeight) =>
+    isWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"];
+}

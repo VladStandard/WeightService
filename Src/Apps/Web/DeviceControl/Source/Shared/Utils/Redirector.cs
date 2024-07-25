@@ -25,6 +25,12 @@ public class Redirector(IAuthorizationService authorizationService)
     public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyEnum.Support));
 
+    public string ToArmPath(Guid uid, ClaimsPrincipal user) =>
+        Link(uid, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
+
+    public string ToPluPath(Guid uid) =>
+        Link(uid, RouteUtils.SectionPlus);
+
     public string ToProductionPath(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));
 
