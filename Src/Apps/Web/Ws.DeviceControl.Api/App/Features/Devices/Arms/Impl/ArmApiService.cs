@@ -28,8 +28,12 @@ public class ArmApiService(
             .ToListAsync();
     }
 
-    public async Task<ArmDto> GetByIdAsync(Guid id) =>
-        ArmExpressions.ToDto.Compile().Invoke(await dbContext.Lines.SafeGetById(id, "Не найдено"));
+    public async Task<ArmDto> GetByIdAsync(Guid id)
+    {
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+        await LoadDefaultForeignKeysAsync(entity);
+        return ArmExpressions.ToDto.Compile().Invoke(entity);
+    }
 
     #endregion
 
@@ -72,4 +76,13 @@ public class ArmApiService(
 
     #endregion
 
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(LineEntity entity)
+    {
+        await dbContext.Entry(entity).Reference(e => e.Printer).LoadAsync();
+        await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
+    }
+
+    #endregion
 }

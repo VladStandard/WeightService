@@ -1,7 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Expressions;
@@ -31,8 +28,8 @@ public class PalletManApiService(
 
     public async Task<PalletManDto> GetByIdAsync(Guid id)
     {
-        PalletManEntity? palletMan = await dbContext.PalletMen.FindAsync(id);
-        if (palletMan == null) throw new KeyNotFoundException();
+        PalletManEntity palletMan = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
+        await LoadDefaultForeignKeysAsync(palletMan);
         return PalletManExpressions.ToDto.Compile().Invoke(palletMan);
     }
 
@@ -70,6 +67,13 @@ public class PalletManApiService(
 
         return PalletManExpressions.ToDto.Compile().Invoke(entity);
     }
+
+    #endregion
+
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity) =>
+        await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
 
     #endregion
 }
