@@ -1,4 +1,3 @@
-using Ws.DeviceControl.Models.Dto.Shared;
 using Ws.Shared.Api.ValueTypes;
 
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;

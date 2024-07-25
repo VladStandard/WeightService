@@ -1,5 +1,3 @@
-using Ws.DeviceControl.Models.Dto.Shared;
-
 namespace Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
 
 public sealed record PluDto

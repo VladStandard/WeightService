@@ -1,6 +1,3 @@
-using Ws.Shared.Converters.Json;
-using Ws.Shared.Enums;
-
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 
 public sealed record ArmCreateDto

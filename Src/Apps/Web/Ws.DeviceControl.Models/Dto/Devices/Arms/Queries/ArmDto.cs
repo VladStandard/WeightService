@@ -1,7 +1,3 @@
-using Ws.DeviceControl.Models.Dto.Shared;
-using Ws.Shared.Converters.Json;
-using Ws.Shared.Enums;
-
 namespace Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
 
 public sealed record ArmDto
