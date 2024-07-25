@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Print.Pallets;
-
 namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 
 internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
@@ -21,7 +19,7 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
         builder.Property(e => e.PalletEntityId)
             .HasColumnName("PALLET_UID");
 
-        builder.HasOne<PalletEntity>()
+        builder.HasOne(i => i.Pallet)
             .WithMany()
             .HasForeignKey(e => e.PalletEntityId)
             .OnDelete(DeleteBehavior.Restrict)

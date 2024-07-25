@@ -1,4 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
+using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 
@@ -9,6 +10,8 @@ public sealed class LabelEntity : EfEntityBase
     #region ForeignKeys
 
     public Guid? PalletEntityId { get; set; }
+    public PalletEntity Pallet { get; set; } = new();
+
     public PluEntity? Plu { get; set; }
     public LineEntity Line { get; set; } = new();
     public LabelZplEntity Zpl { get; set; } = new();
@@ -31,6 +34,7 @@ public sealed class LabelEntity : EfEntityBase
 
     #region Weight
 
+    public bool IsWeight { get; set; }
     public decimal WeightNet { get; set; }
     public decimal WeightTare { get; set; }
 
