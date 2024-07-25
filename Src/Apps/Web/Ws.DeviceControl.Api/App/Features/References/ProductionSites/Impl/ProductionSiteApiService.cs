@@ -32,7 +32,6 @@ public class ProductionSiteApiService(
     {
         await ValidateAsync(dto, createValidator);
         await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
-        await dbContext.ProductionSites.SafeExistAsync(i => i.Address == dto.Address, "Ошибка уникальности");
 
         ProductionSiteEntity entity = dto.ToEntity();
 
@@ -46,7 +45,6 @@ public class ProductionSiteApiService(
     {
         await ValidateAsync(dto, updateValidator);
         await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.ProductionSites.SafeExistAsync(i => i.Address == dto.Address && i.Id != id, "Ошибка уникальности");
 
         ProductionSiteEntity entity = await dbContext.ProductionSites.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);

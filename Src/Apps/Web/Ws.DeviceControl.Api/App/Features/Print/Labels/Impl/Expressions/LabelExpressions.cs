@@ -10,6 +10,10 @@ internal static class LabelExpressions
         {
             Id = label.Id,
             IsWeight = label.IsWeight,
+            BundleCount = (byte)label.BundleCount,
+            Kneading = (ushort)label.Kneading,
+            WeightNet = label.WeightNet,
+            WeightTare = label.WeightTare,
             Arm = new()
             {
                 Id = label.Line.Id,
@@ -25,13 +29,15 @@ internal static class LabelExpressions
                 Id = label.Line.Warehouse.ProductionSite.Id,
                 Name = label.Line.Warehouse.ProductionSite.Name,
             },
-            Plu = label.Plu != null ? new()
+            Plu = label.Plu != null
+                ? new()
                 {
                     Id = label.Plu.Id,
                     Name = label.Plu.Number + " | " + label.Plu.Name
                 }
                 : null,
-            Pallet = label.PalletEntityId != null ? new()
+            Pallet = label.PalletEntityId != null
+                ? new()
                 {
                     Id = label.Pallet.Id,
                     Name = label.Pallet.Number
@@ -42,6 +48,6 @@ internal static class LabelExpressions
             BarcodeRight = label.BarcodeRight,
             ProductDt = DateOnly.FromDateTime(label.ProductDt),
             ExpirationDt = DateOnly.FromDateTime(label.ExpirationDt),
-            CreateDt = label.CreateDt
+            CreateDt = label.CreateDt,
         };
 }

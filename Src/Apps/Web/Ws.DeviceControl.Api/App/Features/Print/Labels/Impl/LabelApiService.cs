@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Dto.Print.Labels;
 
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Impl;
 
-public class LabelService(
+public class LabelApiService(
     WsDbContext dbContext
     ): ApiService, ILabelService
 {

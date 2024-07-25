@@ -7,8 +7,24 @@ public record LabelDto
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }
 
+    [JsonPropertyName("bundleCount")]
+    public required byte BundleCount { get; set; }
+
+    [JsonPropertyName("kneading")]
+    public required ushort Kneading { get; set; }
+
+    #region Weight
+
     [JsonPropertyName("isWeight")]
     public required bool IsWeight { get; set; }
+
+    [JsonPropertyName("weightNet")]
+    public required decimal WeightNet { get; set; }
+
+    [JsonPropertyName("weightTare")]
+    public required decimal WeightTare { get; set; }
+
+    #endregion
 
     #region Proxies
 
@@ -47,7 +63,7 @@ public record LabelDto
     [JsonPropertyName("productDt")]
     public required DateOnly ProductDt { get; set; }
 
-    [JsonPropertyName("createDt")]
+    [JsonPropertyName("expirationDt")]
     public required DateOnly ExpirationDt { get; set; }
 
     [JsonPropertyName("createDt")]

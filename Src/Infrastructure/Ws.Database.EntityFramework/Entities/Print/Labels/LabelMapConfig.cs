@@ -96,6 +96,10 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
             .HasColumnName("KNEADING")
             .IsRequired();
 
+        builder.Property(e => e.IsWeight)
+            .HasColumnName("IS_WEIGHT")
+            .IsRequired();
+
         #endregion
     }
 }
