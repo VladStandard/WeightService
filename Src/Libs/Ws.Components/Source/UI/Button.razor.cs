@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Components;
+using Ws.Components.Source.Utils;
 
 namespace Ws.Components.Source.UI;
 
 public sealed partial class Button : ComponentBase
 {
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> Attributes { get; set; } = new();
-
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
@@ -14,12 +12,13 @@ public sealed partial class Button : ComponentBase
     [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
     [Parameter] public string Class { get; set; } = string.Empty;
     [Parameter] public bool Disabled { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> Attributes { get; set; } = new();
 
-    private string ButtonClasses => $"inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm" +
-                                    $" font-medium ring-offset-background transition-colors focus-visible:outline-none" +
-                                    $" focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" +
-                                    $" disabled:pointer-events-none disabled:opacity-5" +
-                                    $" {VariantClasses} {SizeClasses} {Class}";
+    private string ButtonClasses => Css.Class("inline-flex items-center justify-center whitespace-nowrap",
+                                              "rounded-md text-sm font-medium ring-offset-background transition-colors",
+                                              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                              "focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-5",
+                                              VariantClasses, SizeClasses, Class);
 
     private string VariantClasses => Variant switch
     {

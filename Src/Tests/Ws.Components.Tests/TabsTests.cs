@@ -10,7 +10,10 @@ public class TabsTests : TestContext
     {
         // Arrange
         using TestContext ctx = new();
-        IRenderedComponent<TestTabsComponent> cut = ctx.RenderComponent<TestTabsComponent>();
+        IRenderedComponent<Tabs> cut = RenderComponent<Tabs>(parameters => parameters
+            .AddChildContent<Tab>(p => p.Add(t => t.Id, "first").Add(t => t.ChildContent, "<p>First tab</p>"))
+            .AddChildContent<Tab>(p => p.Add(t => t.Id, "second").Add(t => t.ChildContent, "<p>Second tab</p>"))
+        );
 
         // Assert
         IElement tabContent = cut.Find("p");
@@ -38,14 +41,16 @@ public class TabsTests : TestContext
     public async Task ChangeTabMethod_ShouldChangeActiveTab()
     {
         // Arrange
-        IRenderedComponent<TestTabsComponent> cut = RenderComponent<TestTabsComponent>();
+        IRenderedComponent<Tabs> cut = RenderComponent<Tabs>(parameters => parameters
+            .AddChildContent<Tab>(p => p.Add(t => t.Id, "first").Add(t => t.ChildContent, "<p>First tab</p>"))
+            .AddChildContent<Tab>(p => p.Add(t => t.Id, "second").Add(t => t.ChildContent, "<p>Second tab</p>"))
+        );
 
         // Act
-        await cut.InvokeAsync(() => cut.Instance.SetCurrentTabId("second"));
+        await cut.InvokeAsync(() => cut.Instance.ChangeTab("second"));
 
         // Assert
-        Tabs tabInstance = cut.FindComponent<Tabs>().Instance;
-        tabInstance.ActiveTabId.Should().Be("second");
+        cut.Instance.ActiveTabId.Should().Be("second");
     }
 
     [Fact]

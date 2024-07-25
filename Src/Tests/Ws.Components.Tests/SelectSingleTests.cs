@@ -1,7 +1,9 @@
 using AngleSharp.Dom;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Components.Source.UI.Select;
 
-namespace Ws.Components.Tests.Select;
+namespace Ws.Components.Tests;
 
 public class SelectSingleTests
 {
@@ -12,8 +14,9 @@ public class SelectSingleTests
         string[] items = ["first", "second", "third"];
 
         using TestContext ctx = new();
+        ctx.Services.AddSingleton<LibraryConfiguration>();
         ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
+        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
         IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
             .Add(p => p.Items, items));
 
@@ -33,8 +36,9 @@ public class SelectSingleTests
         string? selectedItem = null;
 
         using TestContext ctx = new();
+        ctx.Services.AddSingleton<LibraryConfiguration>();
         ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
+        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
         IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.SelectedItem, selectedItem)
@@ -57,8 +61,9 @@ public class SelectSingleTests
     {
         // Arrange
         using TestContext ctx = new();
+        ctx.Services.AddSingleton<LibraryConfiguration>();
         ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
+        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
         IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
             .Add(p => p.Items, [])
             .Add(p => p.IsDisabled, true));
@@ -78,8 +83,9 @@ public class SelectSingleTests
         string[] items = ["first", "second", "third"];
 
         using TestContext ctx = new();
+        ctx.Services.AddSingleton<LibraryConfiguration>();
         ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js");
+        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
         IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.IsFilterable, true));
