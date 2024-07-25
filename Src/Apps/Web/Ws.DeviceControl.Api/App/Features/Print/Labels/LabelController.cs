@@ -15,5 +15,8 @@ public class LabelController(ILabelService labelService)
     [HttpGet("{id:guid}")]
     public Task<LabelDto> GetById([FromRoute] Guid id) => labelService.GetByIdAsync(id);
 
+    [HttpGet("{id:guid}/zpl")]
+    public Task<ZplDto> GetZplById([FromRoute] Guid id) => labelService.GetZplByIdAsync(id);
+
     #endregion
 }

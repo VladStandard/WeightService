@@ -1,4 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
@@ -42,6 +43,7 @@ public class WsDbContext : DbContext
     public DbSet<CharacteristicEntity> Characteristics { get; set; }
     public DbSet<LabelEntity> Labels { get; set; }
     public DbSet<PalletEntity> Pallets { get; set; }
+    public DbSet<LabelZplEntity> LabelZpl { get; set; }
 
     #endregion
 

@@ -15,13 +15,16 @@ public class LabelApiService(
     {
         LabelEntity entity = await dbContext.Labels.SafeGetById(id, "Не найдено");
         await LoadDefaultForeignKeysAsync(entity);
-        return LabelExpressions.ToDto.Compile().Invoke(entity);
+        return LabelExpressions.ToLabelDto.Compile().Invoke(entity);
     }
 
     public Task<List<LabelDto>> GetAllAsync() => dbContext.Labels
-        .AsNoTracking().Select(LabelExpressions.ToDto)
+        .AsNoTracking().Select(LabelExpressions.ToLabelDto)
         .OrderByDescending(i => i.CreateDt)
         .ToListAsync();
+
+    public async Task<ZplDto> GetZplByIdAsync(Guid id) =>
+        LabelExpressions.ToZplDto.Compile().Invoke(await dbContext.LabelZpl.SafeGetById(id, "Не найдено"));
 
     #endregion
 

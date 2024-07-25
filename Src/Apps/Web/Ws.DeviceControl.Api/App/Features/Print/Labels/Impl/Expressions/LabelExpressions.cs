@@ -1,11 +1,12 @@
 using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 using Ws.DeviceControl.Models.Dto.Print.Labels;
 
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Impl.Expressions;
 
 internal static class LabelExpressions
 {
-    public static Expression<Func<LabelEntity, LabelDto>> ToDto =>
+    public static Expression<Func<LabelEntity, LabelDto>> ToLabelDto =>
         label => new()
         {
             Id = label.Id,
@@ -49,5 +50,14 @@ internal static class LabelExpressions
             ProductDt = DateOnly.FromDateTime(label.ProductDt),
             ExpirationDt = DateOnly.FromDateTime(label.ExpirationDt),
             CreateDt = label.CreateDt,
+        };
+
+    public static Expression<Func<LabelZplEntity, ZplDto>> ToZplDto =>
+        zpl => new()
+        {
+            Width = (ushort)zpl.Width,
+            Height = (ushort)zpl.Height,
+            Rotate = (ushort)zpl.Rotate,
+            Zpl = zpl.Zpl
         };
 }
