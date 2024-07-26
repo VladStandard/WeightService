@@ -8,6 +8,9 @@ public interface IWebProductionSiteApi
 {
     #region Queries
 
+    [Get("/production-sites/proxy")]
+    Task<ProxyDto[]> GetProxyProductionSites();
+
     [Get("/production-sites")]
     Task<ProductionSiteDto[]> GetProductionSites();
 

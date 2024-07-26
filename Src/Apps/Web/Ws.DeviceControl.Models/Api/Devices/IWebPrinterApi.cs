@@ -14,7 +14,6 @@ public interface IWebPrinterApi
     [Get("/printers?productionSite={productionSiteUid}")]
     Task<PrinterDto[]> GetPrintersByProductionSite(Guid productionSiteUid);
 
-
     [Get("/printers/proxy?productionSite={productionSiteUid}")]
     Task<ProxyDto[]> GetProxyPrintersByProductionSite(Guid productionSiteUid);
 

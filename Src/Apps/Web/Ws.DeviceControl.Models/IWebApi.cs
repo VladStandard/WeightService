@@ -20,4 +20,6 @@ public interface IWebApi :
     IWebProductionSiteApi,
     IWebWarehouseApi,
     IWebLabelApi,
-    IWebDatabaseApi;
+    IWebDatabaseApi,
+    IWebTemplateApi,
+    IWebTemplateResourceApi;

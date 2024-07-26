@@ -3,53 +3,53 @@ namespace Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
 public sealed record PluDto
 {
     [JsonPropertyName("id")]
-    public required Guid Id { get; set; }
+    public required Guid Id { get; init; }
 
     [JsonPropertyName("number")]
-    public required ushort Number { get; set; }
+    public required ushort Number { get; init; }
 
     [JsonPropertyName("type")]
-    public required bool IsWeight { get; set; }
+    public required bool IsWeight { get; init; }
 
     [JsonPropertyName("weight")]
-    public required decimal Weight { get; set; }
+    public required decimal Weight { get; init; }
 
     [JsonPropertyName("brand")]
-    public required ProxyDto Brand { get; set; }
+    public required ProxyDto Brand { get; init; }
 
     [JsonPropertyName("shelfLifeDays")]
-    public required ushort ShelfLifeDays { get; set; }
+    public required ushort ShelfLifeDays { get; init; }
 
     [JsonPropertyName("template")]
-    public required ProxyDto? Template { get; set; }
+    public required ProxyDto? Template { get; init; }
 
     [JsonPropertyName("storageMethods")]
-    public required string StorageMethod { get; set; }
+    public required string StorageMethod { get; init; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public required string Name { get; init; }
 
     [JsonPropertyName("fullName")]
-    public required string FullName { get; set; }
+    public required string FullName { get; init; }
 
     [JsonPropertyName("description")]
-    public required string Description { get; set; }
+    public required string Description { get; init; }
 
     [JsonPropertyName("ean13")]
-    public required string Ean13 { get; set; }
+    public required string Ean13 { get; init; }
 
     [JsonPropertyName("gtin")]
-    public required string Gtin { get; set; }
+    public required string Gtin { get; init; }
 
     [JsonPropertyName("clip")]
-    public required ProxyDto? Clip { get; set; }
+    public required ProxyDto? Clip { get; init; }
 
     [JsonPropertyName("bundle")]
-    public required ProxyDto? Bundle { get; set; }
+    public required ProxyDto? Bundle { get; init; }
 
     [JsonPropertyName("createDt")]
-    public required DateTime CreateDt { get; set; }
+    public required DateTime CreateDt { get; init; }
 
     [JsonPropertyName("changeDt")]
-    public required DateTime ChangeDt { get; set; }
+    public required DateTime ChangeDt { get; init; }
 }
