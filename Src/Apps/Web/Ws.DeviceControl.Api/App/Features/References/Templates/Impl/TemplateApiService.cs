@@ -1,11 +1,18 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
+using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
+using Ws.DeviceControl.Models.Dto.References.Template.Commands.Create;
+using Ws.DeviceControl.Models.Dto.References.Template.Commands.Update;
+using Ws.DeviceControl.Models.Dto.References.Template.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl;
 
 public class TemplateApiService(
-    WsDbContext dbContext
+    WsDbContext dbContext,
+    TemplateUpdateValidator updateValidator,
+    TemplateCreateValidator createValidator
     ): ApiService, ITemplateService
 {
     #region Queries
@@ -23,6 +30,42 @@ public class TemplateApiService(
             .ToListAsync();
     }
 
+    public async Task<TemplateDto> GetByIdAsync(Guid id) =>
+        TemplatesExpressions.ToDto.Compile().Invoke(await dbContext.Templates.SafeGetById(id, "Не найдено"));
+
+    public Task<List<TemplateDto>> GetAllAsync() => dbContext.Templates
+        .AsNoTracking().Select(TemplatesExpressions.ToDto)
+        .OrderBy(i => i.IsWeight).ThenBy(i => i.Name)
+        .ToListAsync();
+
     #endregion
 
+    #region Commands
+
+    public async Task<TemplateDto> UpdateAsync(Guid id, TemplateUpdateDto dto)
+    {
+        await ValidateAsync(dto, updateValidator);
+        await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+
+        TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
+        dto.UpdateEntity(entity);
+        await dbContext.SaveChangesAsync();
+
+        return TemplatesExpressions.ToDto.Compile().Invoke(entity);
+    }
+
+    public async Task<TemplateDto> CreateAsync(TemplateCreateDto dto)
+    {
+        await ValidateAsync(dto, createValidator);
+        await dbContext.Templates.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+
+        TemplateEntity entity = dto.ToEntity();
+
+        await dbContext.Templates.AddAsync(entity);
+        await dbContext.SaveChangesAsync();
+
+        return TemplatesExpressions.ToDto.Compile().Invoke(entity);
+    }
+
+    #endregion
 }
