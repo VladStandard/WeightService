@@ -13,7 +13,6 @@ public static class TemplateMapper
             Width = item.Width,
             Height = item.Height,
             Rotate = item.Rotate,
-            Body = item.Body
         };
     }
 }

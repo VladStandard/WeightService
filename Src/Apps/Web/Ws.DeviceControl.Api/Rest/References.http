@@ -13,4 +13,4 @@ Content-Type: application/json
 
 ###
 
-GET https://localhost:5138/api/templates/proxy?plu=156a269f-d4f3-11eb-bcf0-00155d8a4604
+GET https://localhost:5138/api/templates/

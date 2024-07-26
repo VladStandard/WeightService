@@ -25,10 +25,10 @@ public interface IWebTemplateApi
     Task<bool> DeleteTemplate(Guid id);
 
     [Post("/templates")]
-    Task<TemplateDto> CreateWarehouse([Body] TemplateCreateDto createDto);
+    Task<TemplateDto> CreateTemplate([Body] TemplateCreateDto createDto);
 
     [Post("/templates/{id}")]
-    Task<TemplateDto> UpdateWarehouse(Guid id, [Body] TemplateUpdateDto updateDto);
+    Task<TemplateDto> UpdateTemplate(Guid id, [Body] TemplateUpdateDto updateDto);
 
     #endregion
 }

@@ -15,5 +15,5 @@ public sealed record TemplateUpdateDto
     public required ushort Rotate { get; set; }
 
     [JsonPropertyName("body")]
-    public required string Body { get; set; }
+    public string Body { get; set; } = string.Empty;
 }

@@ -20,9 +20,6 @@ public sealed record TemplateDto
     [JsonPropertyName("rotate")]
     public required ushort Rotate { get; set; }
 
-    [JsonPropertyName("body")]
-    public required string Body { get; set; }
-
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }
 

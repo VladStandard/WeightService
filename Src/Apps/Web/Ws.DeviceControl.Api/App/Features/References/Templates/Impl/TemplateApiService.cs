@@ -25,16 +25,16 @@ public class TemplateApiService(
         return await dbContext.Templates
             .AsNoTracking()
             .Where(i => i.IsWeight == isWeight)
-            .Select(TemplatesExpressions.ToProxy)
+            .Select(TemplateExpressions.ToProxy)
             .OrderBy(i => i.Name)
             .ToListAsync();
     }
 
     public async Task<TemplateDto> GetByIdAsync(Guid id) =>
-        TemplatesExpressions.ToDto.Compile().Invoke(await dbContext.Templates.SafeGetById(id, "Не найдено"));
+        TemplateExpressions.ToDto.Compile().Invoke(await dbContext.Templates.SafeGetById(id, "Не найдено"));
 
     public Task<List<TemplateDto>> GetAllAsync() => dbContext.Templates
-        .AsNoTracking().Select(TemplatesExpressions.ToDto)
+        .AsNoTracking().Select(TemplateExpressions.ToDto)
         .OrderBy(i => i.IsWeight).ThenBy(i => i.Name)
         .ToListAsync();
 
@@ -45,13 +45,13 @@ public class TemplateApiService(
     public async Task<TemplateDto> UpdateAsync(Guid id, TemplateUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.ProductionSites.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.Templates.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 
-        return TemplatesExpressions.ToDto.Compile().Invoke(entity);
+        return TemplateExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public async Task<TemplateDto> CreateAsync(TemplateCreateDto dto)
@@ -64,7 +64,7 @@ public class TemplateApiService(
         await dbContext.Templates.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-        return TemplatesExpressions.ToDto.Compile().Invoke(entity);
+        return TemplateExpressions.ToDto.Compile().Invoke(entity);
     }
 
     #endregion
