@@ -1,28 +1,10 @@
-using Ws.Database.Nhibernate.Entities.Ref1c.Plus;
+using Ws.Database.Nhibernate.Common;
 using Ws.Domain.Models.Entities.Ref1c.Plus;
 
 namespace Ws.Domain.Services.Features.Plus;
 
-internal class PluService(SqlPluRepository pluRepo) : IPluService
+public class PluService : BaseRepository
 {
-    #region Items
-
     [Transactional]
-    public Plu GetItemByUid(Guid uid) => pluRepo.GetByUid(uid);
-
-    #endregion
-
-    #region List
-
-    [Transactional]
-    public IList<Plu> GetAll() => pluRepo.GetAll();
-
-    #endregion
-
-    #region CRUD
-
-    [Transactional]
-    public Plu Update(Plu item) => pluRepo.Update(item);
-
-    #endregion
+    public Plu GetItemByUid(Guid uid) => Session.Get<Plu>(uid) ?? new();
 }

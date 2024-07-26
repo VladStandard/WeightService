@@ -1,11 +1,11 @@
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
-using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
-public class PluPieceApiService(IArmService armService, WsDbContext dbContext) : IPluPieceService
+public class PluPieceApiService(ArmService armService, WsDbContext dbContext) : IPluPieceService
 {
     #region Queries
 

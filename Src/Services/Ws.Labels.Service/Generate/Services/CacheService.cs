@@ -3,8 +3,7 @@ using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
 using EasyCaching.Core;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Templates;
-using Ws.Domain.Services.Features.ZplResources;
+using Ws.Domain.Services.Features;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Utils;
 using Ws.Shared.Enums;
@@ -12,8 +11,8 @@ using Ws.Shared.Enums;
 namespace Ws.Labels.Service.Generate.Services;
 
 public partial class CacheService(
-    ITemplateService templateService,
-    IZplResourceService zplResourceService,
+    TemplateService templateService,
+    ZplResourceService zplResourceService,
     IEasyCachingProvider easyCachingProvider,
     IRedisCachingProvider redisCachingProvider)
 {

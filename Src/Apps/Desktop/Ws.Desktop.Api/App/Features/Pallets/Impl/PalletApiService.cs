@@ -6,8 +6,7 @@ using Ws.Desktop.Api.App.Features.Pallets.Extensions;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Domain.Models.Entities.Ref1c.Plus;
-using Ws.Domain.Services.Features.Arms;
-using Ws.Domain.Services.Features.PalletMen;
+using Ws.Domain.Services.Features;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Generate;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
@@ -17,9 +16,9 @@ namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
 public class PalletApiService(
     WsDbContext dbContext,
-    IPluService pluService,
-    IArmService armService,
-    IPalletManService palletManService,
+    PluService pluService,
+    ArmService armService,
+    PalletManService palletManService,
     IPrintLabelService printLabelService
     ): IPalletApiService
 {

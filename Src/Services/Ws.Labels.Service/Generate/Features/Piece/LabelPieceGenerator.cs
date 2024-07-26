@@ -1,6 +1,6 @@
 using System.Text;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Pallets;
+using Ws.Domain.Services.Features;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
@@ -18,7 +18,7 @@ namespace Ws.Labels.Service.Generate.Features.Piece;
 
 
 internal class LabelPieceGenerator(
-    IPalletService palletService,
+    PalletService palletService,
     IPalychApi api,
     CacheService cacheService,
     ZplService zplService

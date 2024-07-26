@@ -5,6 +5,5 @@ namespace Ws.Domain.Services.Features.Plus.Specs;
 
 internal static class PluSpecs
 {
-    public static Specification<Plu> GetWeight() => new (x => x.IsCheckWeight);
     public static Specification<Plu> GetPiece() => new(x => !x.IsCheckWeight);
 }

@@ -6,8 +6,6 @@ internal static class SqlTablesUtils
     public const string Brands = "BRANDS";
     public const string Bundles = "BUNDLES";
     public const string Clips = "CLIPS";
-    public const string Users = "USERS";
-    public const string Claims = "CLAIMS";
     public const string Plus = "PLUS";
     public const string PalletMen = "PALLET_MEN";
     public const string Labels = "LABELS";
@@ -21,6 +19,5 @@ internal static class SqlTablesUtils
     public const string Warehouses = "WAREHOUSES";
     public const string Printers = "PRINTERS";
     public const string Lines = "ARMS";
-    public const string ViewTablesSizes = "VIEW_TABLES_SIZES";
     public const string Characteristics = "CHARACTERISTICS";
 }

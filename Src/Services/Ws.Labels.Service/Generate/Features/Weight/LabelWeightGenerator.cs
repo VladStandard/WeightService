@@ -1,5 +1,5 @@
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Labels;
+using Ws.Domain.Services.Features;
 using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
@@ -11,7 +11,7 @@ using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
-internal class LabelWeightGenerator(CacheService cacheService, ILabelService labelService, ZplService zplService)
+internal class LabelWeightGenerator(CacheService cacheService, LabelService labelService, ZplService zplService)
 {
     public (Label, LabelZpl) GenerateLabel(GenerateWeightLabelDto dto)
     {

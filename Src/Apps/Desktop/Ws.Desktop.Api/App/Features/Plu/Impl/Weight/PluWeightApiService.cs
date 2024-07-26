@@ -5,7 +5,7 @@ using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 using Ws.Domain.Models.Entities.Devices.Arms;
 using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features.Arms;
+using Ws.Domain.Services.Features;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Generate;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
@@ -14,8 +14,8 @@ namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
 public class PluWeightApiService(
     IPrintLabelService printLabelService,
-    IPluService pluService,
-    IArmService armService,
+    PluService pluService,
+    ArmService armService,
     WsDbContext dbContext
     ) : IPluWeightService
 {

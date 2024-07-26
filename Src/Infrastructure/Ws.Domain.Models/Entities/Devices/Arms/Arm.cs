@@ -2,7 +2,6 @@
 
 using System.Diagnostics;
 using Ws.Domain.Models.Common;
-using Ws.Domain.Models.Entities.Devices.Arms.Commands;
 using Ws.Domain.Models.Entities.Ref;
 using Ws.Shared.Enums;
 
@@ -18,26 +17,9 @@ public class Arm : EntityBase
     public virtual string Name { get; set; } = string.Empty;
     public virtual string PcName { get; set; } = string.Empty;
     public virtual string Version { set; get; } = string.Empty;
-
     public virtual Printer Printer { get; set; } = new();
     public virtual Warehouse Warehouse { get; set; } = new();
     public virtual ArmType Type { get; set; } = ArmType.Tablet;
-
-    #region Constructors
-
-    public Arm() { } // DEFAULT
-
-    public Arm(CreateArmBySite command)
-    {
-        Number = command.Number;
-        Name = command.Name;
-        PcName = command.PcName;
-        Type = command.Type;
-        Printer = command.Printer;
-        Warehouse = command.Warehouse;
-    }
-
-    #endregion
 
     protected override bool CastEquals(EntityBase obj)
     {
