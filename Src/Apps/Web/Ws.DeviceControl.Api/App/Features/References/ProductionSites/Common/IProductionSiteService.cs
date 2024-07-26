@@ -6,6 +6,12 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 
 public interface IProductionSiteService : IGetApiService<ProductionSiteDto>
 {
+    #region Queries
+
+    Task<List<ProxyDto>> GetProxiesAsync();
+
+    #endregion
+
     #region Commands
 
     Task<ProductionSiteDto> CreateAsync(ProductionSiteCreateDto dto);

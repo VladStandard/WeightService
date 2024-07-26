@@ -16,6 +16,12 @@ public class ProductionSiteApiService(
 {
     #region Queries
 
+    public Task<List<ProxyDto>> GetProxiesAsync() => dbContext.ProductionSites
+            .AsNoTracking()
+            .Select(ProductionSiteExpressions.ToProxy)
+            .OrderBy(i => i.Name)
+            .ToListAsync();
+
     public async Task<ProductionSiteDto> GetByIdAsync(Guid id) =>
         ProductionSiteExpressions.ToDto.Compile().Invoke(await dbContext.ProductionSites.SafeGetById(id, "Не найдено"));
 

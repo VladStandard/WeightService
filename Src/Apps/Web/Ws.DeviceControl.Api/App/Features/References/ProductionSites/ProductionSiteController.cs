@@ -11,6 +11,9 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
 {
     #region Queries
 
+    [HttpGet("proxy")]
+    public Task<List<ProxyDto>> GetProxies() => productionSiteService.GetProxiesAsync();
+
     [HttpGet]
     public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
 
