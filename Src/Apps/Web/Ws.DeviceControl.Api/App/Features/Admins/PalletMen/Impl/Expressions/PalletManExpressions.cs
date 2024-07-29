@@ -22,6 +22,11 @@ public static class PalletManExpressions
                 Id = palletMan.Warehouse.Id,
                 Name = palletMan.Warehouse.Name
             },
+            ProductionSite = new()
+            {
+                Id = palletMan.Warehouse.ProductionSite.Id,
+                Name = palletMan.Warehouse.ProductionSite.Name
+            },
             CreateDt = palletMan.CreateDt,
             ChangeDt = palletMan.ChangeDt
         };

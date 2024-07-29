@@ -72,8 +72,10 @@ public class PalletManApiService(
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity) =>
+    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity) {
         await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
+        await dbContext.Entry(entity.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
+    }
 
     #endregion
 }

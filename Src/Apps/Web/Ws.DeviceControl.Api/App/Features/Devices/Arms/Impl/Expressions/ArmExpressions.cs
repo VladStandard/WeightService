@@ -25,6 +25,11 @@ public static class ArmExpressions
                 Id = arm.Warehouse.Id,
                 Name = arm.Warehouse.Name
             },
+            ProductionSite = new()
+            {
+                Id = arm.Warehouse.ProductionSite.Id,
+                Name = arm.Warehouse.ProductionSite.Name
+            },
             CreateDt = arm.CreateDt,
             ChangeDt = arm.ChangeDt
         };

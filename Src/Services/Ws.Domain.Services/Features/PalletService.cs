@@ -1,6 +1,5 @@
 using Ws.Database.Nhibernate.Common;
 using Ws.Database.Nhibernate.Entities.Print.Labels;
-using Ws.Database.Nhibernate.Entities.Print.Pallets;
 using Ws.Database.Nhibernate.Sessions;
 using Ws.Domain.Models.Entities.Print;
 

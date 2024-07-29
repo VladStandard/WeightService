@@ -30,6 +30,9 @@ public sealed record ArmDto
     [JsonPropertyName("warehouse")]
     public required ProxyDto Warehouse  { get; set; }
 
+    [JsonPropertyName("productionSite")]
+    public required ProxyDto ProductionSite  { get; set; }
+
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }
 

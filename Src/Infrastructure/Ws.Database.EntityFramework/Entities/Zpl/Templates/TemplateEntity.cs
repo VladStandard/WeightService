@@ -1,3 +1,5 @@
+using Ws.Domain.Models.ValueTypes;
+
 namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 public sealed class TemplateEntity : EfEntityBase
@@ -10,9 +12,9 @@ public sealed class TemplateEntity : EfEntityBase
     public short Height { get; set; }
     public short Rotate { get; set; }
 
-    public string BarcodeTopBody { get; set; } = string.Empty;
-    public string BarcodeBottomBody { get; set; } = string.Empty;
-    public string BarcodeRightBody { get; set; } = string.Empty;
+    public List<BarcodeItem> BarcodeTopBody { get; set; } = [];
+    public List<BarcodeItem> BarcodeBottomBody { get; set; } = [];
+    public List<BarcodeItem> BarcodeRightBody { get; set; } = [];
 
     #region Date
 

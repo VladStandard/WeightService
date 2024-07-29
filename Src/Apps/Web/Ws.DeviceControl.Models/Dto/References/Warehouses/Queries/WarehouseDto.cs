@@ -11,6 +11,9 @@ public sealed record WarehouseDto
     [JsonPropertyName("name")]
     public required string Name { get; set; }
 
+    [JsonPropertyName("productionSite")]
+    public required ProxyDto ProductionSite { get; set; }
+
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }
 

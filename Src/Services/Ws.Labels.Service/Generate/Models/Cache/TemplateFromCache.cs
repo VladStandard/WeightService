@@ -1,4 +1,5 @@
 using ProtoBuf;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Labels.Service.Generate.Models.Cache;
@@ -28,15 +29,15 @@ public class TemplateFromCache
     [ProtoMember(7)]
     public short Rotate { get; set; }
 
-    public TemplateFromCache(Template template)
+    public TemplateFromCache(TemplateEntity template)
     {
         Template = template.Body;
         Width = template.Width;
         Height = template.Height;
         Rotate = template.Rotate;
-        BarcodeTopTemplate.AddRange(template.BarcodeTopTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
-        BarcodeRightTemplate.AddRange(template.BarcodeRightTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
-        BarcodeBottomTemplate.AddRange(template.BarcodeBottomTemplate.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeTopTemplate.AddRange(template.BarcodeTopBody.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeRightTemplate.AddRange(template.BarcodeRightBody.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeBottomTemplate.AddRange(template.BarcodeBottomBody.Select(data => new BarcodeItemTemplateFromCache(data)));
     }
 
     // FOR PROTOBUF

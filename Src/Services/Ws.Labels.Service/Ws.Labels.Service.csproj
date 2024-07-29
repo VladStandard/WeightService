@@ -14,6 +14,7 @@
     </Target>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\Ws.Domain.Services\Ws.Domain.Services.csproj" PrivateAssets="All" />
     </ItemGroup>

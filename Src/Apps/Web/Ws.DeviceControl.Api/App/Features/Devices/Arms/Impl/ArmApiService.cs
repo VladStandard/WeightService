@@ -82,6 +82,7 @@ public class ArmApiService(
     {
         await dbContext.Entry(entity).Reference(e => e.Printer).LoadAsync();
         await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
+        await dbContext.Entry(entity.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
     }
 
     #endregion

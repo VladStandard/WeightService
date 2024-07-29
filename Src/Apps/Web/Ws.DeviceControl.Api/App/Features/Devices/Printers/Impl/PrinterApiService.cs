@@ -36,8 +36,12 @@ public class PrinterApiService(
             .ToListAsync();
     }
 
-    public async Task<PrinterDto> GetByIdAsync(Guid id) =>
-        PrinterExpressions.ToDto.Compile().Invoke(await dbContext.Printers.SafeGetById(id, "Не найдено"));
+    public async Task<PrinterDto> GetByIdAsync(Guid id)
+    {
+        PrinterEntity entity = await dbContext.Printers.SafeGetById(id, "Не найдено");
+        await LoadDefaultForeignKeysAsync(entity);
+        return PrinterExpressions.ToDto.Compile().Invoke(entity);
+    }
 
     #endregion
 
@@ -69,6 +73,15 @@ public class PrinterApiService(
         await dbContext.SaveChangesAsync();
 
         return PrinterExpressions.ToDto.Compile().Invoke(entity);
+    }
+
+    #endregion
+
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(PrinterEntity entity)
+    {
+        await dbContext.Entry(entity).Reference(e => e.ProductionSite).LoadAsync();
     }
 
     #endregion

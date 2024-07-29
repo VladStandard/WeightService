@@ -19,6 +19,9 @@ public sealed record PalletManDto
     [JsonPropertyName("warehouse")]
     public required ProxyDto Warehouse { get; init; }
 
+    [JsonPropertyName("productionSite")]
+    public required ProxyDto ProductionSite { get; init; }
+
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; init; }
 

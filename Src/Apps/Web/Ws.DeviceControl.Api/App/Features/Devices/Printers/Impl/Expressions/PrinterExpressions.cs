@@ -13,7 +13,12 @@ public static class PrinterExpressions
             Ip = printer.Ip,
             Type = printer.Type,
             CreateDt = printer.CreateDt,
-            ChangeDt = printer.ChangeDt
+            ChangeDt = printer.ChangeDt,
+            ProductionSite = new()
+            {
+                Id = printer.ProductionSite.Id,
+                Name = printer.ProductionSite.Name
+            }
         };
 
     public static Expression<Func<PrinterEntity, ProxyDto>> ToProxy =>

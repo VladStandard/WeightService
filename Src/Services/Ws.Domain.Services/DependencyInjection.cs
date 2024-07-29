@@ -20,8 +20,6 @@ public static class DependencyInjection
 
         services.AddScoped<ArmService>();
         services.AddScoped<LabelService>();
-        services.AddScoped<ZplResourceService>();
-        services.AddScoped<TemplateService>();
         services.AddScoped<PalletService>();
         services.AddScoped<PalletManService>();
 

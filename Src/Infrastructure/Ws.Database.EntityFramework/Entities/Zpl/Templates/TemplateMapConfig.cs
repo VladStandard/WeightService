@@ -1,3 +1,5 @@
+using Ws.Database.EntityFramework.Converters;
+
 namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 internal sealed class TemplateMapConfig : IEntityTypeConfiguration<TemplateEntity>
@@ -42,17 +44,20 @@ internal sealed class TemplateMapConfig : IEntityTypeConfiguration<TemplateEntit
 
         builder.Property(e => e.BarcodeTopBody)
             .HasColumnName("BARCODE_TOP_BODY")
+            .HasConversion(new BarcodeItemListConverter())
             .HasColumnType("varchar(2048)")
-            .IsRequired();
+            .Metadata.SetValueComparer(new BarcodeItemListComparer());
 
         builder.Property(e => e.BarcodeBottomBody)
             .HasColumnName("BARCODE_BOTTOM_BODY")
+            .HasConversion(new BarcodeItemListConverter())
             .HasColumnType("varchar(2048)")
-            .IsRequired();
+            .Metadata.SetValueComparer(new BarcodeItemListComparer());
 
         builder.Property(e => e.BarcodeRightBody)
             .HasColumnName("BARCODE_RIGHT_BODY")
+            .HasConversion(new BarcodeItemListConverter())
             .HasColumnType("varchar(2048)")
-            .IsRequired();
+            .Metadata.SetValueComparer(new BarcodeItemListComparer());
     }
 }

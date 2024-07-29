@@ -11,6 +11,11 @@ public static class WarehouseExpressions
             Id = warehouse.Id,
             Id1C = warehouse.Uid1C,
             Name = warehouse.Name,
+            ProductionSite = new()
+            {
+                Id = warehouse.ProductionSite.Id,
+                Name = warehouse.ProductionSite.Name
+            },
             CreateDt = warehouse.CreateDt,
             ChangeDt = warehouse.ChangeDt
         };

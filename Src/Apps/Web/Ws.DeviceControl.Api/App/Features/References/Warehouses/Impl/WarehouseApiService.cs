@@ -36,8 +36,12 @@ public class WarehouseApiService(
             .ToListAsync();
     }
 
-    public async Task<WarehouseDto> GetByIdAsync(Guid id) =>
-        WarehouseExpressions.ToDto.Compile().Invoke(await dbContext.Warehouses.SafeGetById(id, "Не найдено"));
+    public async Task<WarehouseDto> GetByIdAsync(Guid id)
+    {
+        WarehouseEntity entity = await dbContext.Warehouses.SafeGetById(id, "Не найдено");
+        await LoadDefaultForeignKeysAsync(entity);
+        return WarehouseExpressions.ToDto.Compile().Invoke(entity);
+    }
 
     #endregion
 
@@ -69,6 +73,15 @@ public class WarehouseApiService(
         await dbContext.SaveChangesAsync();
 
         return WarehouseExpressions.ToDto.Compile().Invoke(entity);
+    }
+
+    #endregion
+
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(WarehouseEntity entity)
+    {
+        await dbContext.Entry(entity).Reference(e => e.ProductionSite).LoadAsync();
     }
 
     #endregion

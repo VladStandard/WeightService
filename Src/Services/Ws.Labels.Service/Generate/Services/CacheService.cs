@@ -2,8 +2,8 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
 using EasyCaching.Core;
-using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features;
+using Ws.Database.EntityFramework;
+using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Utils;
 using Ws.Shared.Enums;
@@ -11,8 +11,7 @@ using Ws.Shared.Enums;
 namespace Ws.Labels.Service.Generate.Services;
 
 public partial class CacheService(
-    TemplateService templateService,
-    ZplResourceService zplResourceService,
+    WsDbContext dbContext,
     IEasyCachingProvider easyCachingProvider,
     IRedisCachingProvider redisCachingProvider)
 {
@@ -26,9 +25,8 @@ public partial class CacheService(
         if (easyCachingProvider.Exists(zplKey))
             return easyCachingProvider.Get<TemplateFromCache>(zplKey).Value;
 
-        Template temp = templateService.GetItemByUid(templateUid);
-        if (!temp.IsExists || temp.Body == string.Empty) return null;
-
+        TemplateEntity? temp = dbContext.Templates.Find(templateUid);
+        if (temp is null) return null;
         TemplateFromCache tempFromCache = new(temp);
 
         easyCachingProvider.Set($"{zplKey}", tempFromCache, TimeSpan.FromHours(1));
@@ -46,7 +44,7 @@ public partial class CacheService(
         if (allValuesNonNull)
             return cached!;
 
-        cached = zplResourceService.GetAll().ToDictionary(
+        cached = dbContext.ZplResources.ToDictionary(
             i => $"{i.Name.ToLower()}_sql",
             i =>
             {
