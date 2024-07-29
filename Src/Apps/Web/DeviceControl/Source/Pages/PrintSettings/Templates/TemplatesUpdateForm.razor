@@ -56,13 +56,29 @@
 
     <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider>
 
-    <SectionTextAreaField
-      Label="@WsDataLocalizer["ColTemplate"]"
-      @bind-Value="@FormModel.Body"
-      For="@(() => FormModel.Body)"
-      IsCopyable
-    />
-
+    <UseEndpoint
+      Endpoint="@PrintSettingsEndpoints.TemplateBodyEndpoint"
+      Arg="Model.Id"
+      Context="templateBodyQuery"
+    >
+      @if (templateBodyQuery.HasData)
+      {
+        {
+          if (string.IsNullOrEmpty(FormModel.Body)) FormModel.Body = templateBodyQuery.Data;
+          if (string.IsNullOrEmpty(DialogItemCopy.Body)) DialogItemCopy.Body = templateBodyQuery.Data;
+        }
+        <SectionTextAreaField
+          Label="@WsDataLocalizer["ColTemplate"]"
+          @bind-Value="@FormModel.Body"
+          For="@(() => FormModel.Body)"
+          IsCopyable
+        />
+      }
+      else
+      {
+        <Skeleton Class="h-20 w-full" />
+      }
+    </UseEndpoint>
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}?id={Model.Id}")" />
@@ -86,7 +102,7 @@
   protected override async Task UpdateItemAction(TemplateUpdateDto item)
   {
     TemplateDto dto = await WebApi.UpdateTemplate(Model.Id, item);
-    PrintSettingsEndpoints.UpdateTemplate(dto);
+    PrintSettingsEndpoints.UpdateTemplate(dto, FormModel.Body);
   }
 
   protected override async Task DeleteItemAction()

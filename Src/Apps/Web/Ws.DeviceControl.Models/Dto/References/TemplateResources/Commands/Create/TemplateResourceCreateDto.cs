@@ -3,12 +3,12 @@ namespace Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Crea
 public sealed record TemplateResourceCreateDto
 {
     [JsonPropertyName("name")]
-    public required string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("body")]
-    public required string Body { get; set; }
+    public string Body { get; set; } = string.Empty;
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<ZplResourceType>))]
-    public required ZplResourceType Type { get; set; }
+    public ZplResourceType Type { get; set; }
 }

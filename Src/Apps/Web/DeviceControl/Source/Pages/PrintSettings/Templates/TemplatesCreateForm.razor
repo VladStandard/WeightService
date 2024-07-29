@@ -73,7 +73,7 @@
   protected override async Task CreateItemAction(TemplateCreateDto item)
   {
     TemplateDto dto = await WebApi.CreateTemplate(item);
-    PrintSettingsEndpoints.AddTemplate(dto);
+    PrintSettingsEndpoints.AddTemplate(dto, FormModel.Body);
   }
 
   private string GetTemplateTypeName(bool isWeight) =>

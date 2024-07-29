@@ -20,7 +20,7 @@ public static class RouteUtils
     public const string SectionWarehouses = "/warehouses";
     public const string SectionProductionSites = "/production-sites";
     public const string SectionTemplates = "/templates";
-    public const string SectionTemplateResources = "/templates-resources";
+    public const string SectionResources = "/resources";
 
     # endregion
 
@@ -51,7 +51,6 @@ public static class RouteUtils
 
     # endregion
 
-    public const string SectionQrlQuery = "/{SearchingSectionItemId?}";
     public const string Home = "/";
     public const string Authorization = "/auth";
 }
