@@ -1,4 +1,6 @@
+using System.Security.Claims;
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.EntityFramework.Entities.Ref.Users;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensions;
@@ -11,16 +13,38 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 public class ProductionSiteApiService(
     WsDbContext dbContext,
     ProductionSiteCreateValidator createValidator,
-    ProductionSiteUpdateValidator updateValidator
-    ): ApiService, IProductionSiteService
+    ProductionSiteUpdateValidator updateValidator,
+    IHttpContextAccessor httpContextAccessor
+    ): ApiService(), IProductionSiteService
 {
     #region Queries
 
-    public Task<List<ProxyDto>> GetProxiesAsync() => dbContext.ProductionSites
-            .AsNoTracking()
-            .Select(ProductionSiteExpressions.ToProxy)
-            .OrderBy(i => i.Name)
-            .ToListAsync();
+    public async Task<List<ProxyDto>> GetProxiesAsync()
+    {
+        List<ProxyDto> productionSites = [];
+
+        UserEntity user = await dbContext.Users
+            .Include(i => i.ProductionSite)
+            .FirstAsync(i => i.Id == UserId);
+
+        ProxyDto userProduction = new()
+        {
+            Id = user.ProductionSite.Id,
+            Name = user.ProductionSite.Name
+        };
+        productionSites.Add(userProduction);
+
+        if (User.HasClaim(ClaimTypes.Role, RoleEnum.Support))
+        {
+            List<ProxyDto> data = await dbContext.ProductionSites
+                .AsNoTracking()
+                .Select(ProductionSiteExpressions.ToProxy)
+                .OrderBy(i => i.Name)
+                .ToListAsync();
+            return productionSites.Concat(data).ToList();
+        }
+        return productionSites;
+    }
 
     public async Task<ProductionSiteDto> GetByIdAsync(Guid id) =>
         ProductionSiteExpressions.ToDto.Compile().Invoke(await dbContext.ProductionSites.SafeGetById(id, "Не найдено"));
@@ -60,4 +84,9 @@ public class ProductionSiteApiService(
     }
 
     #endregion
+
+    protected ClaimsPrincipal User => httpContextAccessor.HttpContext!.User;
+
+    protected Guid UserId => Guid.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out Guid result)
+        ? result : Guid.Empty;
 }

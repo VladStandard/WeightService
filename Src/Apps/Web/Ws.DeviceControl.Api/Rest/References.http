@@ -13,4 +13,4 @@ Content-Type: application/json
 
 ###
 
-GET https://localhost:5138/api/templates/
+GET https://localhost:5138/api/warehouses?productionSite=ffffffff-ffff-ffff-ffff-ffffffffffff

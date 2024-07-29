@@ -1,4 +1,5 @@
 // MODULES
+global using Ws.DeviceControl.Models.Auth;
 global using Ws.Shared.Resources;
 global using Ws.Shared.Utils;
 global using Ws.Shared.Enums;
@@ -16,4 +17,3 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 global using DeviceControl.Source.Shared.Utils;
 global using DeviceControl.Source.Widgets.Section;
 global using DeviceControl.Source.Shared.Localization;
-global using DeviceControl.Source.Shared.Auth.Policies;

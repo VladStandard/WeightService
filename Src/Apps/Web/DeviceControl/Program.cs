@@ -21,6 +21,7 @@ builder.Services.ConfigureKeycloakAuthorization(builder.Configuration.GetSection
 builder.Services.AddLocalization();
 builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<Redirector>();
+builder.Services.AddTransient<AcceptLanguageHandler>();
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
 
 builder.Services.AddFluxor(c =>

@@ -1,5 +1,7 @@
 using System.Net.Mime;
 using System.Text.Json;
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Middlewares;
@@ -7,7 +9,19 @@ using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+
+builder.Services.AddAuthorization()
+    .AddKeycloakAuthorization(options =>
+    {
+        options.EnableRolesMapping = RolesClaimTransformationSource.ResourceAccess;
+        options.RolesResource = builder.Configuration.GetSection("Keycloak").GetValue<string>("resource");
+    }).AddAuthorization(PolicyAuthUtils.RegisterAuthorization).AddAuthorizationBuilder();
+
 builder.Services.AddEndpointsApiExplorer();
+
+#region ApiServices
 
 builder.Services.Scan(scan => scan
     .FromAssembliesOf(typeof(IProductionSiteService))
@@ -16,6 +30,10 @@ builder.Services.Scan(scan => scan
     .WithScopedLifetime()
 );
 
+#endregion
+
+#region Validators
+
 builder.Services.Scan(scan => scan
     .FromAssembliesOf(typeof(ProductionSiteCreateValidator))
     .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
@@ -23,6 +41,7 @@ builder.Services.Scan(scan => scan
     .WithScopedLifetime()
 );
 
+#endregion
 
 builder.Services.AddEfCore();
 builder.Services.AddLocalization();
@@ -47,6 +66,9 @@ builder.Services
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 WebApplication app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.MapControllers();

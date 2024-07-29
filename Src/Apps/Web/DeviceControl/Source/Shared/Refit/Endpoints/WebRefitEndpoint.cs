@@ -1,3 +1,4 @@
+using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Services;
 using Refit;
 using Ws.DeviceControl.Models;
@@ -16,7 +17,8 @@ internal class WebRefitEndpoint : IRefitEndpoint
             {
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             })
-            .AddHttpMessageHandler(() => new AcceptLanguageHandler());;
+            .AddHttpMessageHandler<AcceptLanguageHandler>()
+            .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
 
         builder.Services.AddScoped<AdminEndpoints>();
         builder.Services.AddScoped<DevicesEndpoints>();

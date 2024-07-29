@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
@@ -14,7 +15,7 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
     [HttpGet("proxy")]
     public Task<List<ProxyDto>> GetProxies() => productionSiteService.GetProxiesAsync();
 
-    [HttpGet]
+    [HttpGet, Authorize]
     public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
 
     [HttpGet("{id:guid}")]

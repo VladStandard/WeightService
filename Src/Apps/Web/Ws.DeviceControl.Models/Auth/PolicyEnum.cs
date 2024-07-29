@@ -1,4 +1,4 @@
-namespace DeviceControl.Source.Shared.Auth.Policies;
+namespace Ws.DeviceControl.Models.Auth;
 
 public static class PolicyEnum
 {

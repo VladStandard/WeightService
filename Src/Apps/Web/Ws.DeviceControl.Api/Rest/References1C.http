@@ -1,4 +1,4 @@
-GET https://localhost:5138/api/warehouses/proxy/?productionSite=ffffffff-ffff-ffff-ffff-ffffffffffff
+GET https://localhost:5138/api/warehouses?productionSite=ffffffff-ffff-ffff-ffff-ffffffffffff
 
 ###
 GET https://localhost:5138/api/production-sites
