@@ -1,4 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
@@ -17,11 +16,8 @@ public class TemplateApiService(
 {
     #region Queries
 
-    public async Task<List<ProxyDto>> GetProxiesByPluAsync(Guid pluId)
+    public async Task<List<ProxyDto>> GetProxiesByIsWeightAsync(bool isWeight)
     {
-        PluEntity pluEntity = await dbContext.Plus.SafeGetById(pluId, "Не найдено");
-        bool isWeight = pluEntity.IsWeight;
-
         return await dbContext.Templates
             .AsNoTracking()
             .Where(i => i.IsWeight == isWeight)
@@ -37,6 +33,15 @@ public class TemplateApiService(
         .AsNoTracking().Select(TemplateExpressions.ToDto)
         .OrderBy(i => i.IsWeight).ThenBy(i => i.Name)
         .ToListAsync();
+
+    public async Task<TemplateBodyDto> GetBodyByIdAsync(Guid id)
+    {
+        TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
+        return new()
+        {
+            Body = entity.Body
+        };
+    }
 
     #endregion
 

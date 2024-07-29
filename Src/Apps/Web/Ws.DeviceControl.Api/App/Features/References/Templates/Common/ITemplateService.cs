@@ -8,7 +8,9 @@ public interface ITemplateService : IGetApiService<TemplateDto>
 {
     #region Queries
 
-    Task<List<ProxyDto>> GetProxiesByPluAsync(Guid pluId);
+    Task<List<ProxyDto>> GetProxiesByIsWeightAsync(bool isWeight);
+
+    Task<TemplateBodyDto> GetBodyByIdAsync(Guid id);
 
     #endregion
 

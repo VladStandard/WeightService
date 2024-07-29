@@ -28,10 +28,6 @@ public class TemplateResourceApiService(
         .ThenBy(i => i.Name)
         .ToListAsync();
 
-    #endregion
-
-    #region Commands
-
     public async Task<TemplateResourceBodyDto> GetBodyByIdAsync(Guid id)
     {
         ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
@@ -40,6 +36,10 @@ public class TemplateResourceApiService(
             Body = entity.Zpl
         };
     }
+
+    #endregion
+
+    #region Commands
 
     public async Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto)
     {
