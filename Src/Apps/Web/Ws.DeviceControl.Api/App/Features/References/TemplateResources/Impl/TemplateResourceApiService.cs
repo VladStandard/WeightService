@@ -1,3 +1,5 @@
+using System.Net;
+using Svg;
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
@@ -5,6 +7,7 @@ using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extens
 using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Update;
 using Ws.DeviceControl.Models.Dto.References.TemplateResources.Queries;
+using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;
 
@@ -29,9 +32,19 @@ public class TemplateResourceApiService(
 
     #region Commands
 
+    public async Task<TemplateResourceBodyDto> GetBodyByIdAsync(Guid id)
+    {
+        ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
+        return new()
+        {
+            Body = entity.Zpl
+        };
+    }
+
     public async Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
+        ValidateSvg(dto.Body);
         await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
@@ -44,6 +57,7 @@ public class TemplateResourceApiService(
     public async Task<TemplateResourceDto> CreateAsync(TemplateResourceCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
+        ValidateSvg(dto.Body);
         await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
 
         ZplResourceEntity entity = dto.ToEntity();
@@ -55,4 +69,20 @@ public class TemplateResourceApiService(
     }
 
     #endregion
+
+    private static void ValidateSvg(string svg)
+    {
+        try
+        {
+            SvgDocument.FromSvg<SvgDocument>(svg);
+        }
+        catch
+        {
+            throw new ApiExceptionServer
+            {
+                ErrorDisplayMessage = "zpl error",
+                StatusCode = HttpStatusCode.UnprocessableEntity
+            };
+        }
+    }
 }

@@ -16,6 +16,7 @@
     <ItemGroup>
       <PackageReference Include="ProjectionTools" Version="1.0.17" />
       <PackageReference Include="Scrutor" Version="4.2.2" />
+      <PackageReference Include="Svg" Version="3.4.7" />
     </ItemGroup>
 
 </Project>

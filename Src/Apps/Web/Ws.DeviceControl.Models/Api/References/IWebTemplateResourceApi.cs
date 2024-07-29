@@ -14,6 +14,9 @@ public interface IWebTemplateResourceApi
     [Get("/template-resources/{id}")]
     Task<TemplateResourceDto> GetResourceByUid(Guid id);
 
+    [Get("/template-resources/{id}/body")]
+    Task<TemplateResourceBodyDto> GetTemplateResourceBody(Guid id);
+
     #endregion
 
     #region Commands

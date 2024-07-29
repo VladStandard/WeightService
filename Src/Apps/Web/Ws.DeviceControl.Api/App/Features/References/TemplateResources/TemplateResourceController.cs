@@ -17,6 +17,10 @@ public class TemplateResourceController(ITemplateResourceService templateResourc
     [HttpGet("{id:guid}")]
     public Task<TemplateResourceDto> GetById([FromRoute] Guid id) => templateResourceService.GetByIdAsync(id);
 
+
+    [HttpGet("{id:guid}/body")]
+    public Task<TemplateResourceBodyDto> GetBodyById([FromRoute] Guid id) => templateResourceService.GetBodyByIdAsync(id);
+
     #endregion
 
     #region Commands

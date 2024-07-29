@@ -8,14 +8,17 @@ public interface IWebTemplateApi
 {
     #region Queries
 
-    [Get("/templates/proxy?plu={pluId}")]
-    Task<ProxyDto[]> GetProxyTemplatesByPlu(Guid pluId);
-
     [Get("/templates")]
     Task<TemplateDto[]> GetTemplates();
 
+    [Get("/templates/{id}/body")]
+    Task<TemplateBodyDto> GetTemplateBody(Guid id);
+
     [Get("/templates/{id}")]
     Task<TemplateDto> GetTemplateByUid(Guid id);
+
+    [Get("/templates/proxy?plu={pluId}")]
+    Task<ProxyDto[]> GetProxyTemplatesByPlu(Guid pluId);
 
     #endregion
 
