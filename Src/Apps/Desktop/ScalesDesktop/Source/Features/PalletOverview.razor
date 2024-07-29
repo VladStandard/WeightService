@@ -178,9 +178,16 @@
     {
       await DesktopApi.DeletePallet(armUid, palletUid);
       PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
-      DateTime? newDeletedAt = Pallet.DeletedAt == null ? DateTime.Now : null;
-      Dispatcher.Dispatch(new ChangePalletAction(Pallet with { DeletedAt = newDeletedAt }));
-      ToastService.ShowSuccess(newDeletedAt != null ? Localizer["ToastPalletMarkedDeleted"] : Localizer["ToastPalletMarkedNotDeleted"]);
+      if (Pallet.DeletedAt == null)
+      {
+        Dispatcher.Dispatch(new ResetPalletAction());
+        ToastService.ShowSuccess(Localizer["ToastPalletMarkedDeleted"]);
+      }
+      else
+      {
+        Dispatcher.Dispatch(new ChangePalletAction(Pallet with { DeletedAt = null }));
+        ToastService.ShowSuccess(Localizer["ToastPalletMarkedNotDeleted"]);
+      }
     }
     catch
     {
