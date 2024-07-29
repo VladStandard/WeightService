@@ -12,7 +12,7 @@ internal static class TemplateDtoExtensions
         {
             Name = dto.Name,
             Body = dto.Body,
-            IsWeight = dto.isWeight,
+            IsWeight = dto.IsWeight,
             Width = (short)dto.Width,
             Height = (short)dto.Height,
             Rotate = (short)dto.Rotate,

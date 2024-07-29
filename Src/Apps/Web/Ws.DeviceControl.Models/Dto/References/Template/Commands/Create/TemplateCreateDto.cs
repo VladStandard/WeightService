@@ -3,20 +3,20 @@ namespace Ws.DeviceControl.Models.Dto.References.Template.Commands.Create;
 public sealed record TemplateCreateDto
 {
     [JsonPropertyName("name")]
-    public required string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("width")]
-    public required ushort Width { get; set; }
+    public short Width { get; set; }
 
     [JsonPropertyName("height")]
-    public required ushort Height { get; set; }
+    public short Height { get; set; }
 
     [JsonPropertyName("rotate")]
-    public required ushort Rotate { get; set; }
+    public short Rotate { get; set; }
 
     [JsonPropertyName("body")]
-    public required string Body { get; set; }
+    public string Body { get; set; } = string.Empty;
 
     [JsonPropertyName("isWeight")]
-    public required bool isWeight { get; set; }
+    public bool IsWeight { get; set; }
 }

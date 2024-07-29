@@ -17,8 +17,8 @@ public interface IWebTemplateApi
     [Get("/templates/{id}")]
     Task<TemplateDto> GetTemplateByUid(Guid id);
 
-    [Get("/templates/proxy?plu={pluId}")]
-    Task<ProxyDto[]> GetProxyTemplatesByPlu(Guid pluId);
+    [Get("/templates/proxy?isWeight={isWeight}")]
+    Task<ProxyDto[]> GetProxyTemplatesByPluType(bool isWeight);
 
     #endregion
 

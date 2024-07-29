@@ -23,6 +23,7 @@ internal class WebRefitEndpoint : IRefitEndpoint
         builder.Services.AddScoped<DiagnosticEndpoints>();
         builder.Services.AddScoped<References1CEndpoints>();
         builder.Services.AddScoped<ReferencesEndpoints>();
+        builder.Services.AddScoped<PrintSettingsEndpoints>();
         builder.Services.AddScoped<OperationsEndpoints>();
     }
 }

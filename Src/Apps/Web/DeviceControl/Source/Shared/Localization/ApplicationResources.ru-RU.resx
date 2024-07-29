@@ -300,4 +300,7 @@
     <data name="SelectItemNotSelected" xml:space="preserve">
         <value>Не выбран</value>
     </data>
+    <data name="FormTemplateDefaultPlaceholder" xml:space="preserve">
+        <value>Выберите шаблон</value>
+    </data>
 </root>

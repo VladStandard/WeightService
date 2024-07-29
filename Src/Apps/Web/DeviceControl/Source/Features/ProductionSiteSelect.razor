@@ -4,48 +4,67 @@
 @using Ws.Shared.Extensions
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<SelectSingle
-  TItem="ProxyDto"
-  Items="ProductionSiteEntities"
-  SelectedItem="ProductionSiteState.Value.ProductionSite"
-  SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
-  ItemDisplayName="@(item => item.Name)"
-  IsDisabled="@(!IsSeniorSupport)"
-  IsFilterable
-/>
+<UseParameterlessEndpoint Endpoint="ReferencesEndpoints.ProxyProductionSiteEndpoint" Context="productionSiteQuery">
+  @if (productionSiteQuery.HasData)
+  {
+    <SelectSingle
+      TItem="ProxyDto"
+      Items="GetFilteredProductionSiteList(productionSiteQuery.Data)"
+      SelectedItem="ProductionSiteState.Value.ProductionSite"
+      SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
+      ItemDisplayName="@(item => item.Name)"
+      Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
+      EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+      SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+      IsDisabled="@(!IsSeniorSupport)"
+      IsFilterable
+    />
+  }
+  else
+  {
+    <Skeleton Class="h-10 w-full" />
+  }
+</UseParameterlessEndpoint>
 
 @code {
+  # region Injects
+
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  # endregion
 
   [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
   [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
   [Parameter] public bool AllowIsNew { get; set; }
 
-  private List<ProxyDto> ProductionSiteEntities { get; set; } = [];
   private bool IsSeniorSupport { get; set; }
+  private bool IsDeveloper { get; set; }
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    if (AllowIsNew == false && ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && UserProductionSite.Id != Guid.Empty)
+      Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
+  }
 
   protected override async Task OnInitializedAsync()
   {
     ClaimsPrincipal userPrincipal = (await AuthState).User;
-    bool isDeveloper = false;
+    if (userPrincipal.Identity == null || string.IsNullOrEmpty(userPrincipal.Identity.Name)) return;
+    IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+    IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
+                  ProductionSiteState.Value.ProductionSite.Id.IsMax();
+  }
 
-    if (userPrincipal.Identity?.Name != null)
-    {
-      IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport))
-        .Succeeded;
-      isDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer))
-        .Succeeded || ProductionSiteState.Value.ProductionSite.Id.IsMax();
-    }
-
-    if (IsSeniorSupport)
-      ProductionSiteEntities = [];
-
-    if (!isDeveloper)
-      ProductionSiteEntities.RemoveAll(i => i.Id.IsMax());
-
-    if (AllowIsNew)
-      ProductionSiteEntities = ProductionSiteEntities.Append(new() { Id = Guid.Empty, Name = "Без площадки" }).ToList();
+  private List<ProxyDto> GetFilteredProductionSiteList(ProxyDto[] productionSites)
+  {
+    List<ProxyDto> productionSitesList = productionSites.ToList();
+    if (!IsDeveloper) productionSitesList.RemoveAll(i => i.Id.IsMax());
+    if (AllowIsNew) productionSitesList = productionSitesList.Append(new() { Id = Guid.Empty, Name = "Без площадки" }).ToList();
+    return productionSitesList;
   }
 }

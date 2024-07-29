@@ -10,9 +10,9 @@ public static class TemplateMapper
         return new()
         {
             Name = item.Name,
-            Width = item.Width,
-            Height = item.Height,
-            Rotate = item.Rotate,
+            Width = (short) item.Width,
+            Height = (short) item.Height,
+            Rotate = (short) item.Rotate,
         };
     }
 }

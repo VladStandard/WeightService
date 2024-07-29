@@ -15,16 +15,45 @@ public class ReferencesEndpoints(IWebApi webApi)
         webApi.GetProductionSites,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
-    public void AddProductionSite(ProductionSiteDto productionSite) =>
+    public void AddProductionSite(ProductionSiteDto productionSite)
+    {
         ProductionSitesEndpoint.UpdateQueryData(new(), query =>
             query.Data == null ? query.Data! : query.Data.Prepend(productionSite).ToArray());
+        AddProxyProductionSite(new() { Id = productionSite.Id, Name = productionSite.Name });
+    }
 
-    public void UpdateProductionSite(ProductionSiteDto productionSite) =>
+    public void UpdateProductionSite(ProductionSiteDto productionSite)
+    {
         ProductionSitesEndpoint.UpdateQueryData(new(), query =>
             query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(productionSite, p => p.Id == productionSite.Id).ToArray());
+        UpdateProxyProductionSite(new() { Id = productionSite.Id, Name = productionSite.Name });
+    }
 
-    public void DeleteProductionSite(Guid productionSiteId) =>
+    public void DeleteProductionSite(Guid productionSiteId)
+    {
         ProductionSitesEndpoint.UpdateQueryData(new(), query =>
+            query.Data == null ? query.Data! : query.Data.Where(x => x.Id != productionSiteId).ToArray());
+        DeleteProxyProductionSite(productionSiteId);
+    }
+
+    # endregion
+
+    # region Proxy Production Site
+
+    public ParameterlessEndpoint<ProxyDto[]> ProxyProductionSiteEndpoint { get; } = new(
+        webApi.GetProxyProductionSites,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
+
+    public void AddProxyProductionSite(ProxyDto productionSite) =>
+        ProxyProductionSiteEndpoint.UpdateQueryData(new(), query =>
+            query.Data == null ? query.Data! : query.Data.Prepend(productionSite).ToArray());
+
+    public void UpdateProxyProductionSite(ProxyDto productionSite) =>
+        ProxyProductionSiteEndpoint.UpdateQueryData(new(), query =>
+            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(productionSite, p => p.Id == productionSite.Id).ToArray());
+
+    public void DeleteProxyProductionSite(Guid productionSiteId) =>
+        ProxyProductionSiteEndpoint.UpdateQueryData(new(), query =>
             query.Data == null ? query.Data! : query.Data.Where(x => x.Id != productionSiteId).ToArray());
 
     # endregion
@@ -58,7 +87,7 @@ public class ReferencesEndpoints(IWebApi webApi)
 
     # endregion
 
-    # region Proxt Warehouse
+    # region Proxy Warehouse
 
     public Endpoint<Guid, ProxyDto[]> ProxyWarehousesEndpoint { get; } = new(
         webApi.GetProxyWarehousesByProductionSite,

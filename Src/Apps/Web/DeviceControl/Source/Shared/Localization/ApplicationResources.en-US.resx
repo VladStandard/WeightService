@@ -300,4 +300,7 @@
     <data name="SelectItemNotSelected" xml:space="preserve">
         <value>Not selected</value>
     </data>
+    <data name="FormTemplateDefaultPlaceholder" xml:space="preserve">
+        <value>Select the template</value>
+    </data>
 </root>

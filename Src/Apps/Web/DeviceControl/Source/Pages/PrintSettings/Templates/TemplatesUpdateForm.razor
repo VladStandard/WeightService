@@ -1,67 +1,100 @@
-@* @inherits SectionFormBase<Ws.Domain.Models.Entities.Print.Template> *@
-@* *@
-@* <SectionForm *@
-@*   FormModel="@DialogItem" *@
-@*   ChangeDate="@DialogItem.ChangeDt" *@
-@*   CreateDate="@DialogItem.CreateDt" *@
-@*   Validator="@(new TemplatesUpdateFormValidator(WsDataLocalizer))" *@
-@*   OnCancelAction="@OnCancelAction" *@
-@*   OnSubmitAction="@UpdateItem" *@
-@* > *@
-@*   <FieldsContent> *@
-@*     <SectionAdminGuidField Value="@DialogItem.Uid" /> *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider> *@
-@* *@
-@*     <SectionTextField *@
-@*       Label="@WsDataLocalizer["ColName"]" *@
-@*       @bind-Value="@DialogItem.Name" *@
-@*       For="@(() => DialogItem.Name)" *@
-@*     /> *@
-@* *@
-@*     <SectionReadOnlyField *@
-@*       Label="@WsDataLocalizer["ColType"]" *@
-@*       Value="@GetTemplateTypeName(DialogItem.IsWeight)" *@
-@*     /> *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider> *@
-@* *@
-@*     <SectionNumericField *@
-@*       @bind-Value="@DialogItem.Width" *@
-@*       Max="255" *@
-@*       Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")" *@
-@*       For="@(() => DialogItem.Width)" *@
-@*     /> *@
-@* *@
-@*     <SectionNumericField *@
-@*       @bind-Value="@DialogItem.Height" *@
-@*       Max="255" *@
-@*       Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")" *@
-@*       For="@(() => DialogItem.Height)" *@
-@*     /> *@
-@* *@
-@*     <SectionSelectSingleField *@
-@*       TItem="short" *@
-@*       @bind-Value="@DialogItem.Rotate" *@
-@*       Items="@([0, 90])" *@
-@*       Label="@WsDataLocalizer["ColRotation"]" *@
-@*       ItemDisplayName="@(value => $"{value}°")" *@
-@*       For="@(() => DialogItem.Rotate)" *@
-@*     /> *@
-@* *@
-@*     <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider> *@
-@* *@
-@*     <SectionTextAreaField *@
-@*       Label="@WsDataLocalizer["ColTemplate"]" *@
-@*       @bind-Value="@DialogItem.Body" *@
-@*       For="@(() => DialogItem.Body)" *@
-@*       IsCopyable *@
-@*     /> *@
-@* *@
-@*   </FieldsContent> *@
-@*   <ActionsContent> *@
-@*     <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}/{DialogItem.Uid}")" /> *@
-@*     <SectionFormActionReset OnClick="@ResetAction" /> *@
-@*     <SectionFormActionDelete OnClick="@DeleteItem" /> *@
-@*   </ActionsContent> *@
-@* </SectionForm> *@
+@using DeviceControl.Source.Shared.Services
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Dto.References.Template.Commands.Update
+@using Ws.DeviceControl.Models.Dto.References.Template.Queries
+
+@inherits SectionFormBase<Ws.DeviceControl.Models.Dto.References.Template.Commands.Update.TemplateUpdateDto>
+
+<SectionForm
+  FormModel="@FormModel"
+  ChangeDate="@Model.ChangeDt"
+  CreateDate="@Model.CreateDt"
+  Validator="@(new TemplateUpdateValidator(WsDataLocalizer))"
+  OnCancelAction="@OnCancelAction"
+  OnSubmitAction="@UpdateItem"
+>
+  <FieldsContent>
+    <SectionAdminGuidField Value="@Model.Id" />
+
+    <FormDivider>@WsDataLocalizer["ColDescription"]</FormDivider>
+
+    <SectionTextField
+      Label="@WsDataLocalizer["ColName"]"
+      @bind-Value="@FormModel.Name"
+      For="@(() => FormModel.Name)"
+    />
+
+    <SectionReadOnlyField
+      Label="@WsDataLocalizer["ColType"]"
+      Value="@GetTemplateTypeName(Model.IsWeight)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColSize"]</FormDivider>
+
+    <SectionNumericField
+      @bind-Value="@FormModel.Width"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => FormModel.Width)"
+    />
+
+    <SectionNumericField
+      @bind-Value="@FormModel.Height"
+      Max="255"
+      Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")"
+      For="@(() => FormModel.Height)"
+    />
+
+    <SectionSelectSingleField
+      TItem="short"
+      @bind-Value="@FormModel.Rotate"
+      Items="@([0, 90])"
+      Label="@WsDataLocalizer["ColRotation"]"
+      ItemDisplayName="@(value => $"{value}°")"
+      For="@(() => FormModel.Rotate)"
+    />
+
+    <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider>
+
+    <SectionTextAreaField
+      Label="@WsDataLocalizer["ColTemplate"]"
+      @bind-Value="@FormModel.Body"
+      For="@(() => FormModel.Body)"
+      IsCopyable
+    />
+
+  </FieldsContent>
+  <ActionsContent>
+    <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}?id={Model.Id}")" />
+    <SectionFormActionReset OnClick="@ResetAction" />
+    <SectionFormActionDelete OnClick="@DeleteItem" />
+  </ActionsContent>
+</SectionForm>
+
+@code {
+  #region Inject
+
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private PrintSettingsEndpoints PrintSettingsEndpoints { get; set; } = default!;
+
+  #endregion
+
+  [Parameter] public TemplateDto Model { get; set; } = default!;
+
+  protected override async Task UpdateItemAction(TemplateUpdateDto item)
+  {
+    TemplateDto dto = await WebApi.UpdateTemplate(Model.Id, item);
+    PrintSettingsEndpoints.UpdateTemplate(dto);
+  }
+
+  protected override async Task DeleteItemAction()
+  {
+    await WebApi.DeleteTemplate(Model.Id);
+    PrintSettingsEndpoints.DeleteTemplate(Model.IsWeight, Model.Id);
+  }
+
+  private string GetTemplateTypeName(bool isWeight) =>
+    isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];
+}

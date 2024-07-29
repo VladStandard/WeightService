@@ -6,13 +6,13 @@ public sealed record TemplateUpdateDto
     public required string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("width")]
-    public required ushort Width { get; set; }
+    public required short Width { get; set; }
 
     [JsonPropertyName("height")]
-    public required ushort Height { get; set; }
+    public required short Height { get; set; }
 
     [JsonPropertyName("rotate")]
-    public required ushort Rotate { get; set; }
+    public required short Rotate { get; set; }
 
     [JsonPropertyName("body")]
     public string Body { get; set; } = string.Empty;

@@ -1,22 +1,20 @@
-@* @inherits SectionDialogBase<Ws.Domain.Models.Entities.Print.Template> *@
-@* *@
-@* *@
-@* <SectionDialog DialogItem="DialogItem" TabsList="@TabsList"> *@
-@*   <Tab Id="@typeof(TemplatesUpdateForm).ToString()"> *@
-@*     <TemplatesUpdateForm /> *@
-@*   </Tab> *@
-@*   <Tab Id="@typeof(TemplatesBarcodeForm).ToString()"> *@
-@*     <TemplatesBarcodeForm /> *@
-@*   </Tab> *@
-@* </SectionDialog> *@
-@* *@
-@* @code { *@
-@*   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!; *@
-@*   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!; *@
-@* *@
-@*   protected override List<KeyValuePair<string, string>> InitializeTabList() => *@
-@*   [ *@
-@*     new(typeof(TemplatesUpdateForm).ToString(), Localizer["SectionTemplates"]), *@
-@*     new(typeof(TemplatesBarcodeForm).ToString(), WsDataLocalizer["ColBarcode"]) *@
-@*   ]; *@
-@* } *@
+@using Ws.DeviceControl.Models.Dto.References.Template
+@using Ws.DeviceControl.Models.Dto.References.Template.Queries
+
+@implements IDialogContentComponent<TemplateDto>
+
+<SectionDialog>
+  <Tab Id="@typeof(TemplatesUpdateForm).ToString()" Title="@Localizer["SectionTemplates"]">
+    <TemplatesUpdateForm Model="Content" FormModel="@TemplateMapper.DtoToUpdateDto(Content)" />
+  </Tab>
+  @* <Tab Id="@typeof(TemplatesBarcodeForm).ToString()" Title="@WsDataLocalizer["ColBarcode"]"> *@
+  @*   <TemplatesBarcodeForm /> *@
+  @* </Tab> *@
+</SectionDialog>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  [Parameter] public TemplateDto Content { get; set; } = default!;
+}

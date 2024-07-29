@@ -393,6 +393,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the template.
+        /// </summary>
+        public static string FormTemplateDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormTemplateDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the warehouse.
         /// </summary>
         public static string FormWarehouseDefaultPlaceholder {

@@ -2,6 +2,7 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update
 @using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
 @inherits SectionFormBase<PluUpdateDto>
 
 <SectionForm
@@ -41,23 +42,37 @@
       Value="@Model.ShelfLifeDays"
     />
 
-    <SectionGuidField
+    <SectionInputWrapper
+      Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColTemplate"]"
-      Value="@FormModel.TemplateId"
-      Disabled="@(!IsSupport)"
-      For="@(() => FormModel.TemplateId)"
-    />
-
-    @* <SectionSelectSingleField *@
-    @*   TItem="Template?" *@
-    @*   Label="@WsDataLocalizer["ColTemplate"]" *@
-    @*   Items="@AllTemplates" *@
-    @*   Value="@AllTemplates.SingleOrDefault(i => i.Uid == FormModel.TemplateId)" *@
-    @*   ValueChanged="@(item => FormModel.TemplateId = item?.Uid ?? Guid.Empty)" *@
-    @*   ItemDisplayName="@(item => item!.Name)" *@
-    @*   Disabled="@(!IsSupport)" *@
-    @*   Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)" *@
-    @* /> *@
+    >
+      <UseEndpoint
+        Endpoint="@PrintSettingsEndpoints.ProxyTemplatesEndpoint"
+        Arg="@Model.IsWeight"
+        Context="templatesQuery"
+      >
+        @if (templatesQuery.HasData)
+        {
+          <SelectSingle
+            TItem="ProxyDto?"
+            Items="templatesQuery.Data"
+            SelectedItem="@templatesQuery.Data.SingleOrDefault(x => x.Id == FormModel.TemplateId)"
+            SelectedItemChanged="@(value => FormModel.TemplateId = value?.Id ?? Guid.Empty)"
+            Placeholder="@Localizer["FormTemplateDefaultPlaceholder"]"
+            EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+            SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+            ItemDisplayName="@(item => item!.Name)"
+            IsDisabled="@(!IsSupport)"
+            IsFilterable
+          />
+        }
+        else
+        {
+          <Skeleton class="h-10 w-full" />
+        }
+      </UseEndpoint>
+      <FieldValidation For="@(() => FormModel.TemplateId)" />
+    </SectionInputWrapper>
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColStorageMethod"]"
@@ -128,6 +143,7 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
+  [Inject] private PrintSettingsEndpoints PrintSettingsEndpoints { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 

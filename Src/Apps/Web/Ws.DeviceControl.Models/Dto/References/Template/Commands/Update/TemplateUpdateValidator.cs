@@ -10,11 +10,11 @@ public sealed class TemplateUpdateValidator : AbstractValidator<TemplateUpdateDt
             .WithName(wsDataLocalizer["ColName"]);
 
         RuleFor(item => item.Width)
-            .InclusiveBetween((ushort)1, (ushort)512)
-            .WithName(wsDataLocalizer["ColWidth"]);
+            .InclusiveBetween((short)1, (short)512)
+            .WithName(wsDataLocalizer["ColHeight"]);
 
         RuleFor(item => item.Height)
-            .InclusiveBetween((ushort)1, (ushort)512)
+            .InclusiveBetween((short)1, (short)512)
             .WithName(wsDataLocalizer["ColHeight"]);
 
         RuleFor(item => item.Rotate)

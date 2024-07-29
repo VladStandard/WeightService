@@ -395,6 +395,15 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string FormTemplateDefaultPlaceholder {
+            get {
+                return ResourceManager.GetString("FormTemplateDefaultPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string FormWarehouseDefaultPlaceholder {
             get {
                 return ResourceManager.GetString("FormWarehouseDefaultPlaceholder", resourceCulture);
