@@ -43,7 +43,7 @@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSiteState.Value.ProductionSite.Name"
+      Value="@Model.ProductionSite.Name"
     />
   </FieldsContent>
   <ActionsContent>
@@ -62,7 +62,6 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
   [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
 
@@ -78,18 +77,18 @@
   {
     await base.OnInitializedAsync();
     bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
+    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(Model.ProductionSite);
   }
 
   protected override async Task UpdateItemAction(PrinterUpdateDto item)
   {
     PrinterDto dto = await WebApi.UpdatePrinter(Model.Id, item);
-    DevicesEndpoints.UpdatePrinter(ProductionSiteState.Value.ProductionSite.Id, dto);
+    DevicesEndpoints.UpdatePrinter(Model.ProductionSite.Id, dto);
   }
 
   protected override async Task DeleteItemAction()
   {
     await WebApi.DeletePrinter(Model.Id);
-    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Id, Model.Id);
+    DevicesEndpoints.DeletePrinter(Model.ProductionSite.Id, Model.Id);
   }
 }

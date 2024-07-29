@@ -3,6 +3,8 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
+
 @inherits SectionPageBase<ArmDto>
 @attribute [Route(RouteUtils.SectionLines)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -71,15 +73,13 @@
           />
           <DataGridColumn
             Caption="@WsDataLocalizer["ColProductionSite"]"
+            Field="@($"{nameof(ArmDto.ProductionSite)}.{nameof(ProxyDto.Name)}")"
             Width="20%"
             FilterCellClass="!font-normal"
           >
             <FilterTemplate>
               <ProductionSiteSelect />
             </FilterTemplate>
-            <DisplayTemplate>
-              @ProductionSiteState.Value.ProductionSite.Name
-            </DisplayTemplate>
           </DataGridColumn>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColPcName"]"
@@ -134,6 +134,6 @@
   protected override async Task DeleteItemAction(ArmDto item)
   {
     await WebApi.DeleteArm(item.Id);
-    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Id, item.Id);
+    DevicesEndpoints.DeleteArm(item.ProductionSite.Id, item.Id);
   }
 }

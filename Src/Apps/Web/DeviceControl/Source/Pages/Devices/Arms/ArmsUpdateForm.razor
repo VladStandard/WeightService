@@ -72,7 +72,7 @@
     >
       <UseEndpoint
         Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
-        Arg="@ProductionSiteState.Value.ProductionSite.Id"
+        Arg="@Model.ProductionSite.Id"
         Context="printersQuery"
       >
         @if (printersQuery.HasData)
@@ -101,8 +101,8 @@
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColProductionSite"]"
-      Value="@ProductionSiteState.Value.ProductionSite.Name"
-      Path="@Redirector.ToProductionPath(ProductionSiteState.Value.ProductionSite.Id, UserPrincipal)"
+      Value="@Model.ProductionSite.Name"
+      Path="@Redirector.ToProductionPath(Model.ProductionSite.Id, UserPrincipal)"
     />
 
     <SectionInputWrapper
@@ -111,7 +111,7 @@
     >
       <UseEndpoint
         Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-        Arg="@ProductionSiteState.Value.ProductionSite.Id"
+        Arg="@Model.ProductionSite.Id"
         Context="warehousesQuery"
       >
         @if (warehousesQuery.HasData)
@@ -153,7 +153,6 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private Redirector Redirector { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
-  [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
@@ -170,18 +169,18 @@
   {
     await base.OnInitializedAsync();
     bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(ProductionSiteState.Value.ProductionSite);
+    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(Model.ProductionSite);
   }
 
   protected override async Task UpdateItemAction(ArmUpdateDto item)
   {
     ArmDto dto = await WebApi.UpdateArm(Model.Id, item);
-    DevicesEndpoints.UpdateArm(ProductionSiteState.Value.ProductionSite.Id, dto);
+    DevicesEndpoints.UpdateArm(Model.ProductionSite.Id, dto);
   }
 
   protected override async Task DeleteItemAction()
   {
     await WebApi.DeleteArm(Model.Id);
-    DevicesEndpoints.DeleteArm(ProductionSiteState.Value.ProductionSite.Id, Model.Id);
+    DevicesEndpoints.DeleteArm(Model.ProductionSite.Id, Model.Id);
   }
 }

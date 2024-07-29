@@ -48,15 +48,13 @@
           </DataGridColumn>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColProductionSite"]"
+            Field="@($"{nameof(PalletManDto.ProductionSite)}.{nameof(ProxyDto.Name)}")"
             Width="30%"
             FilterCellClass="!font-normal"
           >
             <FilterTemplate>
               <ProductionSiteSelect />
             </FilterTemplate>
-            <DisplayTemplate>
-              @ProductionSiteState.Value.ProductionSite.Name
-            </DisplayTemplate>
           </DataGridColumn>
           <DataGridColumn
             Caption="@WsDataLocalizer["ColWarehouse"]"
@@ -101,6 +99,6 @@
   protected override async Task DeleteItemAction(PalletManDto item)
   {
     await WebApi.DeletePalletMan(item.Id);
-    AdminEndpoints.DeletePalletMan(ProductionSiteState.Value.ProductionSite.Id, item.Id);
+    AdminEndpoints.DeletePalletMan(item.ProductionSite.Id, item.Id);
   }
 }

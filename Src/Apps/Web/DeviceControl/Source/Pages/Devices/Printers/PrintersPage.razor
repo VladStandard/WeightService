@@ -3,6 +3,7 @@
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
+@using Ws.DeviceControl.Models.Dto.Shared
 @inherits SectionPageBase<PrinterDto>
 @attribute [Route(RouteUtils.SectionPrinters)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
@@ -56,15 +57,13 @@
           />
           <DataGridColumn
             Caption="@WsDataLocalizer["ColProductionSite"]"
+            Field="@($"{nameof(PrinterDto.ProductionSite)}.{nameof(ProxyDto.Name)}")"
             Width="35%"
             FilterCellClass="!font-normal"
           >
             <FilterTemplate>
               <ProductionSiteSelect />
             </FilterTemplate>
-            <DisplayTemplate>
-              @ProductionSiteState.Value.ProductionSite.Name
-            </DisplayTemplate>
           </DataGridColumn>
           <DataGridColumn
             Caption="IP"
@@ -111,6 +110,6 @@
   protected override async Task DeleteItemAction(PrinterDto item)
   {
     await WebApi.DeletePrinter(item.Id);
-    DevicesEndpoints.DeletePrinter(ProductionSiteState.Value.ProductionSite.Id, item.Id);
+    DevicesEndpoints.DeletePrinter(item.ProductionSite.Id, item.Id);
   }
 }
