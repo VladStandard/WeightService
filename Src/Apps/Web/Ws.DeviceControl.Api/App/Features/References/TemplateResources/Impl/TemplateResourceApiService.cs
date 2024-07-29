@@ -8,6 +8,7 @@ using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Update;
 using Ws.DeviceControl.Models.Dto.References.TemplateResources.Queries;
 using Ws.Shared.Api.ApiException;
+using Ws.Shared.Enums;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;
 
@@ -44,7 +45,7 @@ public class TemplateResourceApiService(
     public async Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        ValidateSvg(dto.Body);
+        ValidateSvg(dto.Body, dto.Type);
         await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
@@ -57,7 +58,7 @@ public class TemplateResourceApiService(
     public async Task<TemplateResourceDto> CreateAsync(TemplateResourceCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        ValidateSvg(dto.Body);
+        ValidateSvg(dto.Body, dto.Type);
         await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
 
         ZplResourceEntity entity = dto.ToEntity();
@@ -70,8 +71,9 @@ public class TemplateResourceApiService(
 
     #endregion
 
-    private static void ValidateSvg(string svg)
+    private static void ValidateSvg(string svg, ZplResourceType type)
     {
+        if (type == ZplResourceType.Text) return;
         try
         {
             SvgDocument.FromSvg<SvgDocument>(svg);
