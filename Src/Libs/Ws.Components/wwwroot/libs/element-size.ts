@@ -7,20 +7,22 @@ import { ResizableElement } from './types/resizable-element-type.ts'
  * @return {void} This function does not return anything.
  */
 const resizeElement = (element: Element): void => {
-  const button = element.querySelector('.width-sub-element') as HTMLElement | null
-  const dropdown = element.querySelector('.width-ref-element') as HTMLElement | null
-  if (dropdown && button) dropdown.style.width = `${button.offsetWidth}px`
+  const button = element.querySelector('.width-sub-element') as HTMLElement | undefined
+  const dropdown = element.querySelector('.width-ref-element') as HTMLElement | undefined
+  if (dropdown && button) dropdown.style.width = `${button.offsetWidth.toString()}px`
 }
 
 /**
  * Subscribes to element resize events and updates the element's dropdown width based on the button width.
  *
- * @param {ResizableElement} element - The element to subscribe to resize events for.
+ * @param {ResizableElement | undefined} element - The element to subscribe to resize events for.
  * @return {void} This function does not return anything.
  */
-window.subscribeElementResize = (element: ResizableElement): void => {
+window.subscribeElementResize = (element: ResizableElement | undefined): void => {
   if (!element) return
-  const resizeHandler = () => resizeElement(element)
+  const resizeHandler = () => {
+    resizeElement(element)
+  }
   resizeHandler()
   window.addEventListener('resize', resizeHandler)
   element.resizeHandler = resizeHandler
@@ -32,7 +34,9 @@ window.subscribeElementResize = (element: ResizableElement): void => {
  * @param {Element} element - The element to update the size for.
  * @return {void} This function does not return anything.
  */
-window.updateElementSize = (element: Element): void => resizeElement(element)
+window.updateElementSize = (element: Element): void => {
+  resizeElement(element)
+}
 
 /**
  * Unsubscribes from element resize events and clears the resize handler for the given element.

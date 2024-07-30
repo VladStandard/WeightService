@@ -1,3 +1,3 @@
 export type DotNetObjectType = {
-  invokeMethodAsync<T>(methodIdentifier: string, ...args: unknown[]): Promise<T>
+  invokeMethodAsync<T>(methodIdentifier: string, ...arguments_: unknown[]): Promise<T>
 }

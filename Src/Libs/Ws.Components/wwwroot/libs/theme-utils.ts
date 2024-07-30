@@ -1,3 +1,5 @@
+const themeKey = 'color-theme'
+
 /**
  * Switches the theme of the application based on the provided theme name.
  *
@@ -9,10 +11,10 @@ window.switchTheme = (theme: string): void => {
   let isDarkMode = theme === 'dark'
 
   if (theme === 'system') {
-    localStorage.removeItem('color-theme')
+    localStorage.removeItem(themeKey)
     isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
   } else {
-    localStorage.setItem('color-theme', theme)
+    localStorage.setItem(themeKey, theme)
   }
 
   root.classList.toggle('dark', isDarkMode)
@@ -27,8 +29,8 @@ window.switchTheme = (theme: string): void => {
  */
 window.initializeTheme = (): void => {
   if (
-    localStorage.getItem('color-theme') === 'dark' ||
-    (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    localStorage.getItem(themeKey) === 'dark' ||
+    (!(themeKey in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
   )
     document.documentElement.classList.add('dark')
   else document.documentElement.classList.remove('dark')

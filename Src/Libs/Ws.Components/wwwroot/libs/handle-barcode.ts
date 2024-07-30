@@ -1,28 +1,28 @@
-import { DotNetObjectType } from './types/dotnet-object-type.ts'
+import { type DotNetObjectType } from './types/dotnet-object-type.ts'
 
 const TIMEOUT_INTERVAL = 20
 
-let timeoutId: ReturnType<typeof setInterval> | null = null
-let inputEventHandler: ((event: KeyboardEvent) => void) | null = null
+let timeoutId: ReturnType<typeof setInterval> | undefined
+let inputEventHandler: ((event: KeyboardEvent) => void) | undefined
 let barcode: string = ''
 
 /**
  * Handles the event when a barcode is entered.
  *
  * @param {KeyboardEvent} event - The keyboard event triggered by the barcode input.
- * @param {DotNetObjectType} dotNetObjReference - The reference to the DotNetObjectType.
+ * @param {DotNetObjectType} dotNetObjectReference - The reference to the DotNetObjectType.
  * @param {string} functionName - The name of the function to be invoked.
  * @return {Promise<void>} A promise that resolves when the barcode is handled.
  */
 const handleBarcodeEnter = async (
   event: KeyboardEvent,
-  dotNetObjReference: DotNetObjectType,
+  dotNetObjectReference: DotNetObjectType,
   functionName: string
 ): Promise<void> => {
   if (timeoutId) clearInterval(timeoutId)
 
   if (event.key === 'Enter') {
-    if (barcode) await dotNetObjReference.invokeMethodAsync(functionName, barcode)
+    if (barcode) await dotNetObjectReference.invokeMethodAsync(functionName, barcode)
     barcode = ''
     return
   }
@@ -35,12 +35,16 @@ const handleBarcodeEnter = async (
 /**
  * Subscribes to the barcode enter event.
  *
- * @param {DotNetObjectType} dotNetObjReference - The reference to the DotNetObjectType.
+ * @param {DotNetObjectType} dotNetObjectReference - The reference to the DotNetObjectType.
  * @param {string} functionName - The name of the function to be invoked.
  * @return {void} This function does not return anything.
  */
-window.subscribeBarcodeEnterEvent = (dotNetObjReference: DotNetObjectType, functionName: string): void => {
-  inputEventHandler = (event) => handleBarcodeEnter(event, dotNetObjReference, functionName)
+window.subscribeBarcodeEnterEvent = (dotNetObjectReference: DotNetObjectType, functionName: string): void => {
+  inputEventHandler = (event) => {
+    handleBarcodeEnter(event, dotNetObjectReference, functionName).catch((error: unknown) => {
+      console.error('Error handling barcode enter:', error)
+    })
+  }
   document.addEventListener('keypress', inputEventHandler)
 }
 
@@ -50,6 +54,6 @@ window.subscribeBarcodeEnterEvent = (dotNetObjReference: DotNetObjectType, funct
  * @return {void} This function does not return anything.
  */
 window.unsubscribeBarcodeEnterEvent = (): void => {
-  if (inputEventHandler === null) return
+  if (!inputEventHandler) return
   document.removeEventListener('keypress', inputEventHandler)
 }

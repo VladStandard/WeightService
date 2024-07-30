@@ -9,7 +9,7 @@ const ANIMATION_DURATION = 150
  * @return {Promise<void>} A promise that resolves when the animation is finished.
  */
 window.animateDialogOpening = async (dialogId: string): Promise<void> => {
-  const dialog = (document.querySelector(`#${dialogId}`) as ElementWithDialogType | null)?.dialog
+  const dialog = (document.querySelector(`#${dialogId}`) as ElementWithDialogType | undefined)?.dialog
   if (!dialog) return
 
   dialog.classList.add('ease-in-out')
@@ -32,7 +32,7 @@ window.animateDialogOpening = async (dialogId: string): Promise<void> => {
  * @return {Promise<void>} A promise that resolves when the animation is finished.
  */
 window.animateDialogClosing = async (dialogId: string): Promise<void> => {
-  const dialog = (document.querySelector(`#${dialogId}`) as ElementWithDialogType | null)?.dialog
+  const dialog = (document.querySelector(`#${dialogId}`) as ElementWithDialogType | undefined)?.dialog
   if (!dialog) return
 
   dialog.classList.add('ease-in-out')

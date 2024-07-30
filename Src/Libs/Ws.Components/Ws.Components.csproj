@@ -40,6 +40,7 @@
       <TypeScriptCompile Include="wwwroot\libs\focus-check.ts" />
       <TypeScriptCompile Include="wwwroot\libs\handle-barcode.ts" />
       <TypeScriptCompile Include="wwwroot\libs\handle-middle-mouse-click.ts" />
+      <TypeScriptCompile Include="wwwroot\libs\index.ts" />
       <TypeScriptCompile Include="wwwroot\libs\theme-utils.ts" />
       <TypeScriptCompile Include="wwwroot\libs\types\dotnet-object-type.ts" />
       <TypeScriptCompile Include="wwwroot\libs\types\element-with-dialog-type.ts" />

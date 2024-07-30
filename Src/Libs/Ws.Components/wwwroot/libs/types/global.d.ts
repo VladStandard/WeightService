@@ -11,9 +11,9 @@ declare global {
     updateElementSize: (element: Element) => void
     switchTheme: (theme: string) => void
     initializeTheme: () => void
-    subscribeBarcodeEnterEvent: (dotNetObjRef: DotNetObjectType, functionName: string) => void
+    subscribeBarcodeEnterEvent: (dotNetObjectReference: DotNetObjectType, functionName: string) => void
     unsubscribeBarcodeEnterEvent: () => void
-    subscribeMiddleMouseClickEvent: (dotNetObjReference: DotNetObjectType, functionName: string) => void
+    subscribeMiddleMouseClickEvent: (dotNetObjectReference: DotNetObjectType, functionName: string) => void
     unsubscribeMiddleMouseClickEvent: () => void
     copyBase64ToClipboard: (base64: string) => Promise<void>
   }
