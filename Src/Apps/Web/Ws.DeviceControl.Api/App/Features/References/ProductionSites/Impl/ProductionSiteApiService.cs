@@ -1,16 +1,16 @@
 using System.Net;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Shared.Expressions;
 using Ws.DeviceControl.Api.App.Shared.Internal;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Constants;
+using Ws.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 
@@ -39,22 +39,16 @@ public class ProductionSiteApiService(
         bool seniorSupport = await userManager.ValidatePolicyAsync(PolicyEnum.SeniorSupport);
         if (seniorSupport)
         {
-            List<ProxyDto> data = await dbContext.ProductionSites
+            bool developer = await userManager.ValidatePolicyAsync(PolicyEnum.Developer);
+            return await dbContext.ProductionSites
                 .AsNoTracking()
-                .Select(ProductionSiteExpressions.ToProxy)
+                .IfWhere(!developer, entity => entity.Id != BaseConsts.GuidMax)
+                .Select(ProductionSiteCommonExpressions.ToProxy)
                 .OrderBy(i => i.Name)
                 .ToListAsync();
-
-            bool developer = await userManager.ValidatePolicyAsync(PolicyEnum.Developer);
-
-            if (!developer) data.RemoveAll(i => i.Id == BaseConsts.GuidMax);
-
-            return data;
         }
         ProxyDto? userProductionSite = await userManager.GetUserProductionSiteAsync();
-        if (userProductionSite == null)
-            return [];
-        return [userProductionSite];
+        return userProductionSite != null ? [userProductionSite] : [];
     }
 
     public async Task<ProductionSiteDto> GetByIdAsync(Guid id) =>

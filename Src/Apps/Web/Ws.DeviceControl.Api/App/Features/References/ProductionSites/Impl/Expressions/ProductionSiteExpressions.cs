@@ -14,11 +14,4 @@ internal static class ProductionSiteExpressions
             CreateDt = productionSite.CreateDt,
             ChangeDt = productionSite.ChangeDt
         };
-
-    public static Expression<Func<ProductionSiteEntity, ProxyDto>> ToProxy =>
-        productionSite => new()
-        {
-            Id = productionSite.Id,
-            Name = productionSite.Name
-        };
 }

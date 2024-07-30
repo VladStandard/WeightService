@@ -4,6 +4,7 @@ using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Shared.Internal;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
@@ -13,7 +14,8 @@ namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;
 public class ArmApiService(
     WsDbContext dbContext,
     ArmCreateValidator createValidator,
-    ArmUpdateValidator updateValidator
+    ArmUpdateValidator updateValidator,
+    UserManager userManager
     ) : ApiService, IArmService
 {
     #region Queries
@@ -46,10 +48,12 @@ public class ArmApiService(
         await dbContext.Lines.SafeExistAsync(i => i.Number == dto.Number, "Ошибка уникальности");
         await dbContext.Lines.SafeExistAsync(i => i.PcName == dto.PcName, "Ошибка уникальности");
 
-        WarehouseEntity warehouseEntity = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
-        PrinterEntity printerEntity = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
+        LineEntity entity = dto.ToEntity(warehouse, printer);
 
-        LineEntity entity = dto.ToEntity(warehouseEntity, printerEntity);
+        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await LoadDefaultForeignKeysAsync(entity);
 
         await dbContext.Lines.AddAsync(entity);
         await dbContext.SaveChangesAsync();
@@ -67,6 +71,9 @@ public class ArmApiService(
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+
+        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await LoadDefaultForeignKeysAsync(entity);
 
         dto.UpdateEntity(entity, printer, warehouse);
         await dbContext.SaveChangesAsync();

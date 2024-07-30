@@ -1,5 +1,4 @@
 using System.Net;
-using System.Security.Claims;
 using FluentValidation;
 using Ws.Shared.Api.ApiException;
 

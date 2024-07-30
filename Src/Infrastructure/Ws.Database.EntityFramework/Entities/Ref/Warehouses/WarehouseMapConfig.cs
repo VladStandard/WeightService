@@ -21,11 +21,13 @@ internal sealed  class WarehouseMapConfig : IEntityTypeConfiguration<WarehouseEn
 
         #region FK
 
+        builder.Property(e => e.ProductionSiteId)
+            .HasColumnName("PRODUCTION_SITE_UID").IsRequired();
+
         builder.HasOne(e => e.ProductionSite)
             .WithMany()
-            .HasForeignKey("PRODUCTION_SITE_UID")
-            .HasConstraintName($"FK_{SqlTables.Warehouses}__PRODUCTION_SITE")
-            .IsRequired();
+            .HasForeignKey(plu => plu.ProductionSiteId)
+            .HasConstraintName($"FK_{SqlTables.Warehouses}__PRODUCTION_SITE");
 
         #endregion
 

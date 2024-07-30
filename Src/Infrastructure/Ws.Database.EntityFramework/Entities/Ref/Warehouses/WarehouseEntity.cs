@@ -6,7 +6,13 @@ public sealed class WarehouseEntity : EfEntityBase
 {
     public Guid Uid1C { get; set; }
     public string Name { get; set; } = string.Empty;
+
+    #region ProductionSite
+
+    public Guid ProductionSiteId { get; set; }
     public ProductionSiteEntity ProductionSite { get; set; } = new();
+
+    #endregion
 
     #region Date
 

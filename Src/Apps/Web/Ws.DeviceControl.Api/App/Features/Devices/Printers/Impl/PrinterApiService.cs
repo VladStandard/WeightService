@@ -3,6 +3,7 @@ using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Shared.Internal;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries;
@@ -12,7 +13,8 @@ namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl;
 public class PrinterApiService(
     WsDbContext dbContext,
     PrinterCreateValidator createValidator,
-    PrinterUpdateValidator updateValidator
+    PrinterUpdateValidator updateValidator,
+    UserManager userManager
     ) : ApiService, IPrinterService
 {
     #region Queries
@@ -53,8 +55,10 @@ public class PrinterApiService(
         await dbContext.Printers.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
         await dbContext.Printers.SafeExistAsync(i => i.Ip == dto.Ip, "Ошибка уникальности");
 
-        ProductionSiteEntity productionSiteEntity = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, "Не найдено");
-        PrinterEntity entity = dto.ToEntity(productionSiteEntity);
+        ProductionSiteEntity productionSite = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, "Не найдено");
+        await userManager.CanUserWorkWithProductionSiteAsync(productionSite.Id);
+
+        PrinterEntity entity = dto.ToEntity(productionSite);
 
         await dbContext.Printers.AddAsync(entity);
         await dbContext.SaveChangesAsync();
@@ -69,6 +73,8 @@ public class PrinterApiService(
         await dbContext.Printers.SafeExistAsync(i => i.Ip == dto.Ip && i.Id != id, "Ошибка уникальности");
 
         PrinterEntity entity = await dbContext.Printers.SafeGetById(id, "Не найдено");
+        await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
+
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 

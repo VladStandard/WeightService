@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
@@ -18,7 +17,7 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
     [HttpGet("proxy")]
     public Task<List<ProxyDto>> GetProxies() => productionSiteService.GetProxiesAsync();
 
-    [HttpGet, Authorize]
+    [HttpGet]
     public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
 
     [HttpGet("{id:guid}")]
@@ -29,10 +28,12 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
     #region Commamnds
 
     [HttpPost]
+    [Authorize(PolicyEnum.Admin)]
     public Task<ProductionSiteDto> Create([FromBody] ProductionSiteCreateDto dto) =>
         productionSiteService.CreateAsync(dto);
 
     [HttpPost("{id:guid}")]
+    [Authorize(PolicyEnum.Admin)]
     public Task<ProductionSiteDto> Update([FromRoute] Guid id, [FromBody] ProductionSiteUpdateDto dto) =>
         productionSiteService.UpdateAsync(id, dto);
 

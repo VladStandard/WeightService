@@ -18,13 +18,15 @@ internal sealed class PrinterMapConfig : IEntityTypeConfiguration<PrinterEntity>
 
         #endregion
 
-        #region FK
+        #region Fk
+
+        builder.Property(e => e.ProductionSiteId)
+            .HasColumnName("PRODUCTION_SITE_UID").IsRequired();
 
         builder.HasOne(e => e.ProductionSite)
             .WithMany()
-            .HasForeignKey("PRODUCTION_SITE_UID")
-            .HasConstraintName($"FK_{SqlTables.PalletMen}__PRODUCTION_SITE")
-            .IsRequired();
+            .HasForeignKey(plu => plu.ProductionSiteId)
+            .HasConstraintName($"FK_{SqlTables.Printers}__PRODUCTION_SITE");
 
         #endregion
 
