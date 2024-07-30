@@ -1,5 +1,4 @@
 using Ws.DeviceControl.Api.App.Middlewares;
-using Ws.DeviceControl.Api.App.Shared.Internal;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

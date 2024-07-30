@@ -22,7 +22,16 @@ public class UserApiService(WsDbContext dbContext) : IUserService
     {
         UserEntity? user = await dbContext.Users.FindAsync(id);
         if (user == null) throw new KeyNotFoundException();
+        await LoadDefaultForeignKeysAsync(user);
         return UserExpressions.ToDto.Compile().Invoke(user);
+    }
+
+    #endregion
+
+    #region Private
+
+    private async Task LoadDefaultForeignKeysAsync(UserEntity entity) {
+        await dbContext.Entry(entity).Reference(e => e.ProductionSite).LoadAsync();
     }
 
     #endregion

@@ -12,7 +12,8 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl;
 public class PalletManApiService(
     WsDbContext dbContext,
     PalletManCreateValidator createValidator,
-    PalletManUpdateValidator updateValidator
+    PalletManUpdateValidator updateValidator,
+    UserManager userManager
     ) : ApiService, IPalletManService
 {
     #region Queries
@@ -44,12 +45,14 @@ public class PalletManApiService(
         await dbContext.PalletMen.SafeExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
+        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         PalletManEntity entity = dto.ToEntity(warehouse);
 
         await dbContext.PalletMen.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
+        await LoadDefaultForeignKeysAsync(entity);
         return PalletManExpressions.ToDto.Compile().Invoke(entity);
     }
 
@@ -61,10 +64,12 @@ public class PalletManApiService(
 
         PalletManEntity entity = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
+        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         dto.UpdateEntity(entity, warehouse);
         await dbContext.SaveChangesAsync();
 
+        await LoadDefaultForeignKeysAsync(entity);
         return PalletManExpressions.ToDto.Compile().Invoke(entity);
     }
 

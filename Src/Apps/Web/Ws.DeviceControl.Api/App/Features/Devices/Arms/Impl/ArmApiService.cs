@@ -4,7 +4,6 @@ using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
-using Ws.DeviceControl.Api.App.Shared.Internal;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
 using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
@@ -53,11 +52,11 @@ public class ArmApiService(
         LineEntity entity = dto.ToEntity(warehouse, printer);
 
         await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
-        await LoadDefaultForeignKeysAsync(entity);
 
         await dbContext.Lines.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
+        await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 
@@ -73,11 +72,11 @@ public class ArmApiService(
         LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
 
         await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
-        await LoadDefaultForeignKeysAsync(entity);
 
         dto.UpdateEntity(entity, printer, warehouse);
         await dbContext.SaveChangesAsync();
 
+        await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 

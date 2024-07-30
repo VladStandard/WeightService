@@ -23,7 +23,7 @@
         Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
         EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
         SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-        IsDisabled="@(!productionSiteQuery.Data.Any())"
+        IsDisabled="@(productionSiteQuery.Data.Length <= 1)"
         IsFilterable
       />
     </UseParameterlessEndpoint>

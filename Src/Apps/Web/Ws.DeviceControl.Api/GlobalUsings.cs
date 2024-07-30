@@ -7,6 +7,7 @@ global using Ws.DeviceControl.Models.Dto.Shared;
 
 global using Ws.DeviceControl.Api.App.Common;
 global using Ws.DeviceControl.Api.App.Shared;
+global using Ws.DeviceControl.Api.App.Shared.Internal;
 global using Ws.DeviceControl.Api.App.Shared.Extensions;
 
 global using Microsoft.AspNetCore.Mvc;
