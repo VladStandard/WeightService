@@ -62,6 +62,15 @@
         </EmbeddedResource>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\font.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-300.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-500.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-600.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-700.woff2" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-regular.woff2" />
+    </ItemGroup>
+
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
         <Exec Command="npm -v" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
