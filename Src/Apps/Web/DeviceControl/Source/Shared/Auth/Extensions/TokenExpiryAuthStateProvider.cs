@@ -24,6 +24,10 @@ public class CustomRevalidatingAuthenticationStateProvider(ILoggerFactory logger
         );
         await cookieOidcRefresher.ValidateOrRefreshCookieAsync(context, "KeycloakOidc");
 
-        return context.Principal != null;
+        if (context.Principal == null) return false;
+
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(context.Principal)));
+        return true;
+
     }
 }
