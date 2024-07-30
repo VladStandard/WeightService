@@ -11,6 +11,9 @@ public interface IWebProductionSiteApi
     [Get("/production-sites/proxy")]
     Task<ProxyDto[]> GetProxyProductionSites();
 
+    [Get("/production-sites/user-proxy")]
+    Task<ProxyDto> GetUserProxyProductionSite();
+
     [Get("/production-sites")]
     Task<ProductionSiteDto[]> GetProductionSites();
 

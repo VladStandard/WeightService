@@ -1,9 +1,8 @@
 @using DeviceControl.Source.Features
 @using DeviceControl.Source.Shared.Api
 @using DeviceControl.Source.Shared.Services
-@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
-@using Ws.DeviceControl.Models.Dto.Shared
+
 @inherits SectionPageBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
@@ -76,12 +75,9 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private KeycloakEndpoints KeycloakEndpoints { get; set; } = default!;
   [Inject] private AdminEndpoints AdminEndpoints { get; set; } = default!;
-  [Inject] private IWebApi WebApi { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
 
   #endregion
-
-  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
 
   protected override async Task OpenUpdateFormModal(UserWithProductionSite item) =>
     await OpenModalWithItem<UsersUpdateDialog>(item);
