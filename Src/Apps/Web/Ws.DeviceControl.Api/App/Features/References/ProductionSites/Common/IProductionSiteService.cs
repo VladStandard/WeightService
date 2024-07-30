@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 public interface IProductionSiteService : IGetApiService<ProductionSiteDto>
 {
     #region Queries
-
+    Task<ProxyDto> GetProxyByUser();
     Task<List<ProxyDto>> GetProxiesAsync();
 
     #endregion

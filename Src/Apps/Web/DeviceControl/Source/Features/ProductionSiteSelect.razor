@@ -16,7 +16,7 @@
       Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
       EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
       SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-      IsDisabled="@(!IsSeniorSupport)"
+      IsDisabled="@(!productionSiteQuery.Data.Any())"
       IsFilterable
     />
   }
@@ -63,7 +63,6 @@
   private List<ProxyDto> GetFilteredProductionSiteList(ProxyDto[] productionSites)
   {
     List<ProxyDto> productionSitesList = productionSites.ToList();
-    if (!IsDeveloper) productionSitesList.RemoveAll(i => i.Id.IsMax());
     if (AllowIsNew) productionSitesList = productionSitesList.Append(new() { Id = Guid.Empty, Name = "Без площадки" }).ToList();
     return productionSitesList;
   }

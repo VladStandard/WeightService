@@ -12,6 +12,9 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
 {
     #region Queries
 
+    [HttpGet("user-proxy")]
+    public Task<ProxyDto> GetProxyByUser() => productionSiteService.GetProxyByUser();
+
     [HttpGet("proxy")]
     public Task<List<ProxyDto>> GetProxies() => productionSiteService.GetProxiesAsync();
 

@@ -1,23 +1,17 @@
 using System.Net.Mime;
 using System.Text.Json;
-using Keycloak.AuthServices.Authentication;
-using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Middlewares;
+using Ws.DeviceControl.Api.App.Shared.Internal;
 using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
 
-builder.Services.AddAuthorization()
-    .AddKeycloakAuthorization(options =>
-    {
-        options.EnableRolesMapping = RolesClaimTransformationSource.ResourceAccess;
-        options.RolesResource = builder.Configuration.GetSection("Keycloak").GetValue<string>("resource");
-    }).AddAuthorization(PolicyAuthUtils.RegisterAuthorization).AddAuthorizationBuilder();
+
+builder.Services.AddAuth(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -64,6 +58,8 @@ builder.Services
     });
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddScoped<UserManager>();
+
 
 WebApplication app = builder.Build();
 

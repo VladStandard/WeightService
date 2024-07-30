@@ -5,7 +5,7 @@ using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Common;
 
-public abstract class ApiService()
+public abstract class ApiService
 {
     protected static async Task ValidateAsync<T>(T dto, AbstractValidator<T> validator)
     {
