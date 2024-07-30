@@ -19,5 +19,6 @@
 
 @code {
   private bool IsProduction { get; set; }
+
   protected override void OnInitialized() => IsProduction = !ConfigurationUtil.IsDevelop;
 }

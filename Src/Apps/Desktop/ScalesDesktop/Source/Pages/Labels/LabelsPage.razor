@@ -1,12 +1,13 @@
-@attribute [Route(RouteUtils.Labels)]
 @using ScalesDesktop.Source.Features.DeviceStatusIcons
 @using ScalesDesktop.Source.Shared.Services.Stores
 @using ScalesDesktop.Source.Widgets.LabelConfig
 @using ScalesDesktop.Source.Widgets.LabelCreateForm
 @using ScalesDesktop.Source.Widgets.MainHeader
+
+@attribute [Route(RouteUtils.Labels)]
 @implements IDisposable
 
-<div class="flex flex-col select-none grow size-full">
+<div class="flex flex-col grow size-full">
   <MainHeader>
     <div class="size-full items-center justify-end flex pr-10">
       <ul class="flex justify-between items-center gap-3">
