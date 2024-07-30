@@ -40,6 +40,10 @@ public class ReferencesEndpoints(IWebApi webApi)
 
     # region Proxy Production Site
 
+    public ParameterlessEndpoint<ProxyDto> ProxyUserProductionSiteEndpoint { get; } = new(
+        webApi.GetUserProxyProductionSite,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
+
     public ParameterlessEndpoint<ProxyDto[]> ProxyProductionSiteEndpoint { get; } = new(
         webApi.GetProxyProductionSites,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });

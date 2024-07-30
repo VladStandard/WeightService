@@ -1,23 +1,32 @@
+@using DeviceControl.Source.Shared.Services
 @using Blazor.Heroicons.Outline
-@using Ws.DeviceControl.Models.Dto.Shared
 
-@if (UserProductionSite.Id == Guid.Empty)
-{
+<UseParameterlessEndpoint
+  Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
+  Context="userProductionSiteQuery"
+>
+  @if (userProductionSiteQuery.IsLoading)
+  {
+    <PageHeader />
+  }
+  else if (userProductionSiteQuery.IsError || !userProductionSiteQuery.HasData)
+  {
   <div class="size-full flex items-center justify-center p-6">
     <div class="max-w-md flex flex-col gap-2 text-center items-center">
       <ExclamationTriangleIcon class="size-16" />
       @Localizer["ProductionSiteSuspenseDescription"]
     </div>
   </div>
-}
-else
-{
-  @ChildContent
-}
+  }
+  else
+  {
+    @ChildContent
+  }
+</UseParameterlessEndpoint>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
+  [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
 
   [Parameter] public RenderFragment? ChildContent { get; set; }
 }

@@ -5,36 +5,41 @@
 @using Ws.DeviceControl.Models.Dto.Shared
 @inherits SectionFormBase<PalletManUpdateDto>
 
-<SectionForm
-  FormModel="@FormModel"
-  ChangeDate="@Model.ChangeDt"
-  CreateDate="@Model.CreateDt"
-  Validator="@(new PalletManUpdateValidator(WsDataLocalizer))"
-  OnCancelAction="@OnCancelAction"
-  OnSubmitAction="@UpdateItem"
+<UseParameterlessEndpoint
+  Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
+  Context="userProductionSiteQuery"
 >
-  <FieldsContent>
-    <SectionAdminGuidField Value="@Model.Id"/>
+  @{ bool isOnlyView = !IsSeniorSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id; }
+  <SectionForm
+    FormModel="@FormModel"
+    ChangeDate="@Model.ChangeDt"
+    CreateDate="@Model.CreateDt"
+    Validator="@(new PalletManUpdateValidator(WsDataLocalizer))"
+    OnCancelAction="@OnCancelAction"
+    OnSubmitAction="@UpdateItem"
+  >
+    <FieldsContent>
+      <SectionAdminGuidField Value="@Model.Id"/>
 
-    <SectionGuidField
-      Label="UID 1C"
-      @bind-Value="@FormModel.Id1C"
-      For="@(() => FormModel.Id1C)"
-      IsCopyable
-      Disabled="IsOnlyView"
-    />
+      <SectionGuidField
+        Label="UID 1C"
+        @bind-Value="@FormModel.Id1C"
+        For="@(() => FormModel.Id1C)"
+        IsCopyable
+        Disabled="isOnlyView"
+      />
 
-    <SectionInputWrapper
-      Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
-      Label="@WsDataLocalizer["ColWarehouse"]"
-    >
-      <UseEndpoint
-        Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
-        Arg="Model.ProductionSite.Id"
-        Context="warehousesQuery"
+      <SectionInputWrapper
+        Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+        Label="@WsDataLocalizer["ColWarehouse"]"
       >
-        @if (warehousesQuery.HasData)
-        {
+        <UseEndpoint
+          Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
+          Arg="Model.ProductionSite.Id"
+          Context="warehousesQuery"
+        >
+          @if (warehousesQuery.HasData)
+          {
           <SelectSingle
             TItem="ProxyDto?"
             Items="warehousesQuery.Data"
@@ -46,53 +51,54 @@
             ItemDisplayName="@(item => item!.Name)"
             IsFilterable
           />
-        }
-        else
-        {
+          }
+          else
+          {
           <Skeleton class="h-10 w-full" />
-        }
-      </UseEndpoint>
-      <FieldValidation For="@(() => FormModel.WarehouseId)" />
-    </SectionInputWrapper>
+          }
+        </UseEndpoint>
+        <FieldValidation For="@(() => FormModel.WarehouseId)" />
+      </SectionInputWrapper>
 
-    <FormDivider></FormDivider>
+      <FormDivider></FormDivider>
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColFirstName"]"
-      @bind-Value="@FormModel.Name"
-      For="@(() => FormModel.Name)"
-      Disabled="IsOnlyView"
-    />
+      <SectionTextField
+        Label="@WsDataLocalizer["ColFirstName"]"
+        @bind-Value="@FormModel.Name"
+        For="@(() => FormModel.Name)"
+        Disabled="isOnlyView"
+      />
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColSurname"]"
-      @bind-Value="@FormModel.Surname"
-      For="@(() => FormModel.Surname)"
-      Disabled="IsOnlyView"
-    />
+      <SectionTextField
+        Label="@WsDataLocalizer["ColSurname"]"
+        @bind-Value="@FormModel.Surname"
+        For="@(() => FormModel.Surname)"
+        Disabled="isOnlyView"
+      />
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPatronymic"]"
-      @bind-Value="@FormModel.Patronymic"
-      For="@(() => FormModel.Patronymic)"
-      Disabled="IsOnlyView"
-    />
+      <SectionTextField
+        Label="@WsDataLocalizer["ColPatronymic"]"
+        @bind-Value="@FormModel.Patronymic"
+        For="@(() => FormModel.Patronymic)"
+        Disabled="isOnlyView"
+      />
 
-    <FormDivider></FormDivider>
+      <FormDivider></FormDivider>
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPassword"]"
-      @bind-Value="@FormModel.Password"
-      For="@(() => FormModel.Password)"
-      Disabled="IsOnlyView"
-    />
-  </FieldsContent>
-  <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={Model.Id}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
-  </ActionsContent>
-</SectionForm>
+      <SectionTextField
+        Label="@WsDataLocalizer["ColPassword"]"
+        @bind-Value="@FormModel.Password"
+        For="@(() => FormModel.Password)"
+        Disabled="isOnlyView"
+      />
+    </FieldsContent>
+    <ActionsContent>
+      <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={Model.Id}")" />
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    </ActionsContent>
+  </SectionForm>
+</UseParameterlessEndpoint>
 
 @code {
   #region Inject
@@ -107,16 +113,14 @@
 
   #endregion
 
-  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
   [Parameter, EditorRequired] public PalletManDto Model { get; set; } = default!;
 
-  private bool IsOnlyView { get; set; }
+  private bool IsSeniorSupport { get; set; }
 
   protected override async Task OnInitializedAsync()
   {
     await base.OnInitializedAsync();
-    bool isSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-    IsOnlyView = !isSeniorSupport && !UserProductionSite.Equals(Model.ProductionSite);
+    IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
   }
 
   protected override async Task UpdateItemAction(PalletManUpdateDto item)

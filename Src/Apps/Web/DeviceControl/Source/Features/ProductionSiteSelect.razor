@@ -1,24 +1,32 @@
-@using System.Security.Claims
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Dto.Shared
-@using Ws.Shared.Extensions
+
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<UseParameterlessEndpoint Endpoint="ReferencesEndpoints.ProxyProductionSiteEndpoint" Context="productionSiteQuery">
+<UseParameterlessEndpoint
+  Endpoint="ReferencesEndpoints.ProxyProductionSiteEndpoint"
+  Context="productionSiteQuery"
+>
   @if (productionSiteQuery.HasData)
   {
-    <SelectSingle
-      TItem="ProxyDto"
-      Items="GetFilteredProductionSiteList(productionSiteQuery.Data)"
-      SelectedItem="ProductionSiteState.Value.ProductionSite"
-      SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
-      ItemDisplayName="@(item => item.Name)"
-      Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
-      EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
-      SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-      IsDisabled="@(!productionSiteQuery.Data.Any())"
-      IsFilterable
-    />
+    <UseParameterlessEndpoint
+      Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
+      Context="userProdSiteQuery"
+    >
+      @{ @if (userProdSiteQuery.HasData) InitializeProductionSite(userProdSiteQuery.Data); }
+      <SelectSingle
+        TItem="ProxyDto"
+        Items="GetFilteredProductionSiteList(productionSiteQuery.Data, userProdSiteQuery.Data)"
+        SelectedItem="ProductionSiteState.Value.ProductionSite"
+        SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
+        ItemDisplayName="@(item => item.Name)"
+        Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
+        EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+        SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+        IsDisabled="@(!productionSiteQuery.Data.Any())"
+        IsFilterable
+      />
+    </UseParameterlessEndpoint>
   }
   else
   {
@@ -37,33 +45,25 @@
 
   # endregion
 
-  [CascadingParameter] private ProxyDto UserProductionSite { get; set; } = default!;
-  [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
   [Parameter] public bool AllowIsNew { get; set; }
 
-  private bool IsSeniorSupport { get; set; }
-  private bool IsDeveloper { get; set; }
+  private bool IsFirstLoad { get; set; } = true;
 
-  protected override void OnInitialized()
+  private void InitializeProductionSite(ProxyDto userProductionSite)
   {
-    base.OnInitialized();
-    if (AllowIsNew == false && ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && UserProductionSite.Id != Guid.Empty)
-      Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
+    if (!IsFirstLoad) return;
+    IsFirstLoad = false;
+    if (ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && AllowIsNew) return;
+    if (ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && !AllowIsNew)
+      Dispatcher.Dispatch(new ChangeProductionSiteAction(userProductionSite));
   }
 
-  protected override async Task OnInitializedAsync()
-  {
-    ClaimsPrincipal userPrincipal = (await AuthState).User;
-    if (userPrincipal.Identity == null || string.IsNullOrEmpty(userPrincipal.Identity.Name)) return;
-    IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
-    IsDeveloper = (await AuthorizationService.AuthorizeAsync(userPrincipal, PolicyEnum.Developer)).Succeeded ||
-                  ProductionSiteState.Value.ProductionSite.Id.IsMax();
-  }
-
-  private List<ProxyDto> GetFilteredProductionSiteList(ProxyDto[] productionSites)
+  private List<ProxyDto> GetFilteredProductionSiteList(ProxyDto[] productionSites, ProxyDto? userProductionSite)
   {
     List<ProxyDto> productionSitesList = productionSites.ToList();
     if (AllowIsNew) productionSitesList = productionSitesList.Append(new() { Id = Guid.Empty, Name = "Без площадки" }).ToList();
+    if (userProductionSite != null && !productionSitesList.Contains(ProductionSiteState.Value.ProductionSite) && productionSitesList.Contains(userProductionSite))
+      Dispatcher.Dispatch(new ChangeProductionSiteAction(userProductionSite));
     return productionSitesList;
   }
 }

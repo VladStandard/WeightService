@@ -1,29 +1,30 @@
-@using System.Security.Claims
-@using DeviceControl.Source.Shared.Services
-@using Ws.DeviceControl.Models.Dto.Shared
-@using Ws.Shared.Constants
-
-<CascadingValue TValue="ProxyDto" Value="UserProductionSite">
-  @ChildContent
-</CascadingValue>
-
-@code {
-  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
-  [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!;
-  [Parameter] public RenderFragment? ChildContent { get; set; }
-
-  public ProxyDto UserProductionSite { get; set; } = new() { Id = Guid.Empty, Name = string.Empty };
-
-  protected override async Task OnInitializedAsync()
-  {
-    ClaimsPrincipal userPrincipal = (await AuthState).User;
-    Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-    if (Guid.TryParse(userIdClaim?.Value, out Guid userUid))
-    {
-      // User user = UserService.GetItemByUid(userUid);
-      // UserProductionSite = user.ProductionSite;
-      UserProductionSite = new() { Id = BaseConsts.GuidMax, Name = "Test Develop" };
-      Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite));
-    }
-  }
-}
+@* @using System.Security.Claims *@
+@* @using DeviceControl.Source.Shared.Services *@
+@* @using Ws.DeviceControl.Models.Dto.Shared *@
+@* @using Ws.Shared.Constants *@
+@* *@
+@* *@
+@* <CascadingValue TValue="ProxyDto" Value="UserProductionSite"> *@
+@*   @ChildContent *@
+@* </CascadingValue> *@
+@* *@
+@* @code { *@
+@*   [Inject] private IDispatcher Dispatcher { get; set; } = default!; *@
+@*   [CascadingParameter] private Task<AuthenticationState> AuthState { get; set; } = default!; *@
+@*   [Parameter] public RenderFragment? ChildContent { get; set; } *@
+@* *@
+@*   public ProxyDto UserProductionSite { get; set; } = new() { Id = Guid.Empty, Name = string.Empty }; *@
+@* *@
+@*   protected override async Task OnInitializedAsync() *@
+@*   { *@
+@*     ClaimsPrincipal userPrincipal = (await AuthState).User; *@
+@*     Claim? userIdClaim = userPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier); *@
+@*     if (Guid.TryParse(userIdClaim?.Value, out Guid userUid)) *@
+@*     { *@
+@*       // User user = UserService.GetItemByUid(userUid); *@
+@*       // UserProductionSite = user.ProductionSite; *@
+@*       UserProductionSite = new() { Id = BaseConsts.GuidMax, Name = "Test Develop" }; *@
+@*       Dispatcher.Dispatch(new ChangeProductionSiteAction(UserProductionSite)); *@
+@*     } *@
+@*   } *@
+@* } *@

@@ -24,11 +24,7 @@ builder.Services.AddSingleton<Redirector>();
 builder.Services.AddTransient<AcceptLanguageHandler>();
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
 
-builder.Services.AddFluxor(c =>
-{
-    c.WithLifetime(StoreLifetime.Singleton);
-    c.ScanAssemblies(typeof(Program).Assembly);
-});
+builder.Services.AddFluxor(c => c.ScanAssemblies(typeof(Program).Assembly));
 
 WebApplication app = builder.Build();
 
