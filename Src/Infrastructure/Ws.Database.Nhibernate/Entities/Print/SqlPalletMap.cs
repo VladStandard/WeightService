@@ -1,7 +1,7 @@
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Print;
 
-namespace Ws.Database.Nhibernate.Entities.Print.Pallets.Mappings;
+namespace Ws.Database.Nhibernate.Entities.Print;
 
 internal sealed class SqlPalletMap : ClassMapping<Pallet>
 {

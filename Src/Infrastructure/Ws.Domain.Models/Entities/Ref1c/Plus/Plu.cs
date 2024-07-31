@@ -21,7 +21,6 @@ public class Plu : EntityBase
     public virtual string StorageMethod { get; set; } = string.Empty;
 
     public virtual Clip Clip { get; set; } = new();
-    public virtual Brand Brand { get; set; } = new();
     public virtual Bundle Bundle { get; set; } = new();
     public virtual PluNesting PluNesting { get; set; } = new();
     public virtual ISet<PluCharacteristic> Characteristics { get; set; } = new HashSet<PluCharacteristic>();
@@ -54,8 +53,6 @@ public class Plu : EntityBase
         return Equals(StorageMethod, item.StorageMethod) &&
                Equals(Number, item.Number) &&
                Equals(Clip, item.Clip) &&
-               Equals(TemplateUid, item.TemplateUid) &&
-               Equals(Brand, item.Brand) &&
                Equals(Bundle, item.Bundle) &&
                Equals(FullName, item.FullName) &&
                Equals(ShelfLifeDays, item.ShelfLifeDays) &&

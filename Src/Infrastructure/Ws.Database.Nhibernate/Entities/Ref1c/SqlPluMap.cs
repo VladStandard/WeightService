@@ -87,13 +87,6 @@ internal sealed class SqlPluMap : ClassMapping<Plu>
             m.Lazy(LazyRelation.NoLazy);
         });
 
-        ManyToOne(x => x.Brand, m =>
-        {
-            m.Column("BRAND_UID");
-            m.NotNullable(true);
-            m.Lazy(LazyRelation.NoLazy);
-        });
-
         Property(x => x.TemplateUid, m =>
         {
             m.Column("TEMPLATE_UID");

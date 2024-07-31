@@ -1,7 +1,7 @@
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Ref;
 
-namespace Ws.Database.Nhibernate.Entities.Ref.Warehouses;
+namespace Ws.Database.Nhibernate.Entities.Ref;
 
 internal class SqlWarehouseMap : ClassMapping<Warehouse>
 {

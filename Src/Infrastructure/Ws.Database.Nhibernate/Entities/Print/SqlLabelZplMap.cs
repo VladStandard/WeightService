@@ -1,7 +1,7 @@
 using Ws.Database.Nhibernate.Utils;
 using Ws.Domain.Models.Entities.Print;
 
-namespace Ws.Database.Nhibernate.Entities.Print.LabelsZpl;
+namespace Ws.Database.Nhibernate.Entities.Print;
 
 public class SqlLabelZplMap : ClassMapping<LabelZpl>
 {
