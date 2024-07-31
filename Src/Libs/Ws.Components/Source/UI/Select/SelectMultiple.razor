@@ -4,7 +4,7 @@
   <SelectTrigger
     id="@Id"
     OnClick="@OpenDropdown"
-    IsDisabled="@IsDisabled"
+    IsDisabled="@(IsDisabled || !Items.Any())"
     IsActive="@IsOpen"
     Class="@Css.Class("width-sub-element", Class)"
   >
