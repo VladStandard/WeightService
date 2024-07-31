@@ -45,6 +45,7 @@
     <SectionInputWrapper
       Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColTemplate"]"
+      HtmlFor="plu-template"
     >
       <UseEndpoint
         Endpoint="@PrintSettingsEndpoints.ProxyTemplatesEndpoint"
@@ -55,6 +56,7 @@
         {
           <SelectSingle
             TItem="ProxyDto?"
+            HtmlId="plu-template"
             Items="templatesQuery.Data"
             SelectedItem="@templatesQuery.Data.SingleOrDefault(x => x.Id == FormModel.TemplateId)"
             SelectedItemChanged="@(value => FormModel.TemplateId = value?.Id ?? Guid.Empty)"

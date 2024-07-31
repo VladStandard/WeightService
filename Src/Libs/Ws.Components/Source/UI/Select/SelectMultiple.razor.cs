@@ -52,10 +52,15 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
     /// </summary>
     [Parameter] public string Class { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The html id for forms
+    /// </summary>
+    [Parameter] public string HtmlId { get; set; } = string.Empty;
+
     private ElementReference DropdownWrapper { get; set; }
     private bool IsOpen { get; set; }
     private string SearchString { get; set; } = string.Empty;
-    private string Id { get; } = $"id-{Guid.NewGuid()}";
+    private string AnchorId { get; } = $"id-{Guid.NewGuid()}";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

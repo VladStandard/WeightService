@@ -1,8 +1,16 @@
 @typeparam TItem
 
-<div @ref="DropdownWrapper" class="w-full">
+<div
+  @ref="DropdownWrapper"
+  id="@HtmlId"
+  class="w-full"
+  role="combobox"
+  aria-haspopup="listbox"
+  aria-expanded="@IsOpen"
+  aria-disabled="@(IsDisabled || !Items.Any())"
+>
   <SelectTrigger
-    id="@Id"
+    id="@AnchorId"
     OnClick="@OpenDropdown"
     IsDisabled="@(IsDisabled || !Items.Any())"
     IsActive="@IsOpen"
@@ -11,7 +19,7 @@
     <span class="pointer-events-none line-clamp-1">Выбрано @SelectedItems.Count объектов</span>
   </SelectTrigger>
   <Dropdown
-    Anchor="@Id"
+    Anchor="@AnchorId"
     @bind-IsOpen="IsOpen"
     Class="width-ref-element"
     VerticalThreshold="@(Math.Max(Items.Count, 8) * 40)"

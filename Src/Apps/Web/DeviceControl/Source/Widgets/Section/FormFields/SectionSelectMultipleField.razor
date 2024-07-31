@@ -5,6 +5,7 @@
   <SelectMultiple
     TItem="TItem"
     Items="Items"
+    HtmlId="@HtmlId"
     @bind-SelectedItems="@Value"
     @bind-SelectedItems:after="OnValueChanged"
     EmptyPlaceholder="@EmptyPlaceholder"

@@ -21,6 +21,7 @@
     <SectionInputWrapper
       Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColWarehouse"]"
+      HtmlFor="pallet-man-warehouse"
     >
       <UseEndpoint
         Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
@@ -31,6 +32,7 @@
         {
           <SelectSingle
             TItem="ProxyDto?"
+            HtmlId="pallet-man-warehouse"
             Items="warehousesQuery.Data"
             SelectedItem="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
             SelectedItemChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"

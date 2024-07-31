@@ -43,7 +43,8 @@
           </div>
           <form method="post" action="@($"{RouteUtils.Authorization}/logout")" class="shrink-0">
             <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Type="@ButtonType.Submit">
-              <ArrowLeftOnRectangleIcon class="size-5" />
+              <span class="sr-only">Logout</span>
+              <ArrowLeftOnRectangleIcon class="size-5"/>
             </Button>
             <AntiforgeryToken />
           </form>
