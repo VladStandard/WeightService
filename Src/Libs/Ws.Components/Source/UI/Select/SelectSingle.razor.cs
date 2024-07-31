@@ -74,7 +74,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
         await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 

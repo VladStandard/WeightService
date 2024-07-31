@@ -67,7 +67,7 @@ public sealed partial class SelectMultiple<TItem> : ComponentBase, IAsyncDisposa
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await InvokeAsync(StateHasChanged);
+        await Task.Yield();
         await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 
