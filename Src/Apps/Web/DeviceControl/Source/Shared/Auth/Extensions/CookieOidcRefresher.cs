@@ -77,7 +77,7 @@ public sealed class CookieOidcRefresher(IOptionsMonitor<OpenIdConnectOptions> oi
 
         ClaimsIdentity claimsIdentity = new(validationResult.ClaimsIdentity);
         Dictionary<string, string> claimsDict = validatedIdToken.Claims.ToDictionary(claim => claim.Type, claim => claim.Value);
-        ClaimsMapping.MapJwtClaims(claimsDict, claimsIdentity, oidcOptions.ClientId ?? "");
+        ClaimsMapping.MapJwtClaims(claimsDict, claimsIdentity, oidcOptions.ClientId ?? string.Empty);
 
         validateContext.ShouldRenew = true;
         validateContext.ReplacePrincipal(new(claimsIdentity));

@@ -1,0 +1,67 @@
+@using ScalesDesktop.Source.Shared.Services.Endpoints
+@using ScalesDesktop.Source.Shared.Services.Stores
+@using Ws.Desktop.Models
+@using Ws.Desktop.Models.Features.Pallets.Output
+@using Blazor.Heroicons.Outline
+
+<UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
+  @if (armQuery.HasData && PalletState.Value.Pallet != null)
+  {
+    <Button
+      Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariant.Destructive : ButtonVariant.Default)"
+      OnClick="@(() => DeletePallet(armQuery.Data.Id, PalletState.Value.Pallet))"
+    >
+      @if (PalletState.Value.Pallet.DeletedAt == null)
+      {
+        <TrashIcon class="size-4 mr-2" />
+        @Localizer["BtnDelete"]
+      }
+      else
+      {
+        <ArrowUturnRightIcon class="size-4 mr-2" />
+        @Localizer["BtnRestore"]
+      }
+    </Button>
+  }
+  else
+  {
+    <Skeleton Class="h-10 w-32" />
+  }
+</UseParameterlessEndpoint>
+
+@code {
+  # region Injects
+
+  [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
+  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+  [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
+  [Inject] private IDispatcher Dispatcher { get; set; } = default!;
+  [Inject] private IState<PalletState> PalletState { get; set; } = default!;
+
+  # endregion
+
+  private async void DeletePallet(Guid armUid, PalletInfo pallet)
+  {
+    try
+    {
+      await DesktopApi.DeletePallet(armUid, pallet.Id);
+      PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
+      if (PalletState.Value.Pallet?.DeletedAt == null)
+      {
+        Dispatcher.Dispatch(new ResetPalletAction());
+        ToastService.ShowSuccess(Localizer["ToastPalletMarkedDeleted"]);
+      }
+      else
+      {
+        Dispatcher.Dispatch(new SwitchPalletDeleteFlagAction());
+        ToastService.ShowSuccess(Localizer["ToastPalletMarkedNotDeleted"]);
+      }
+    }
+    catch
+    {
+      ToastService.ShowError(Localizer["UnknownError"]);
+    }
+  }
+}

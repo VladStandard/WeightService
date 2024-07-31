@@ -20,6 +20,7 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private IPrintingService PrintingService { get; set; } = default!;
     [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
     [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
     # endregion
 
@@ -44,6 +45,19 @@ public sealed partial class LabelsGrid : ComponentBase
         if (PreviousPallet == Pallet) return;
         PreviousPallet = Pallet;
         SelectedItems = [];
+    }
+
+    private async Task SaveToClipboard(string value)
+    {
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("navigator.clipboard.writeText", value);
+            ToastService.ShowInfo(Localizer["ToastValueCopiedToClipboard"]);
+        }
+        catch
+        {
+            ToastService.ShowError(Localizer["ToastValueCopiedToClipboardUnsuccessful"]);
+        }
     }
 
     private void ToggleAllLabels(DataItem[] labels) =>
