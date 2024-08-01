@@ -19,9 +19,6 @@ public static class DependencyInjection
         });
 
         services.AddScoped<ArmService>();
-        services.AddScoped<LabelService>();
-        services.AddScoped<PalletService>();
-        services.AddScoped<PalletManService>();
 
         services.AddScoped<PluService>();
     }

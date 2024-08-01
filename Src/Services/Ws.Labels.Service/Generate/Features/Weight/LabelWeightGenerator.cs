@@ -1,5 +1,4 @@
-using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features;
+using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
@@ -11,24 +10,16 @@ using Ws.Shared.Utils;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
-internal class LabelWeightGenerator(CacheService cacheService, LabelService labelService, ZplService zplService)
+internal class LabelWeightGenerator(CacheService cacheService, ZplService zplService)
 {
-    public (Label, LabelZpl) GenerateLabel(GenerateWeightLabelDto dto)
+    public LabelEntity GenerateLabel(GenerateWeightLabelDto dto)
     {
-        if (!dto.Plu.IsCheckWeight)
-            throw new ApiExceptionServer
-            {
-                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.Invalid),
-                ErrorInternalMessage = "Plu is piece, must be a weight"
-            };
-
         TemplateFromCache templateFromCache =
-            cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateUid ?? Guid.Empty) ??
+            cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
                 ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
             };
-
 
         BarcodeModel barcode = dto.ToBarcodeModel();
 
@@ -37,6 +28,9 @@ internal class LabelWeightGenerator(CacheService cacheService, LabelService labe
         BarcodeReadyModel barcodeTop = barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate);
         BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
         BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
+
+        decimal weightNet = dto.Plu.Weight;
+        decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);
 
         TemplateVars data = new(
             plu: new()
@@ -49,19 +43,19 @@ internal class LabelWeightGenerator(CacheService cacheService, LabelService labe
             {
                 Number = dto.Line.Number,
                 Name = dto.Line.Name,
-                Address = dto.Line.Warehouse.ProductionSite.Address
+                Address = dto.Line.Address
             },
             pallet: new()
             {
-                Number = "1",
+                Number = string.Empty,
                 Order = 0
             },
             productDt: dto.ProductDt,
-            expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
-            bundleCount: (ushort)dto.Plu.PluNesting.BundleCount,
+            expirationDt: dto.ExpirationDt,
+            bundleCount: (ushort)dto.Nesting.BundleCount,
             kneading: (ushort)dto.Kneading,
-            weightNet: dto.Weight,
-            weightGross: dto.Weight + dto.Plu.GetWeightWithNesting,
+            weightNet: weightNet,
+            weightGross: weightNet + weightTare,
 
             barcodeTop: barcodeTop,
             barcodeBottom: barcodeBottom,
@@ -76,35 +70,31 @@ internal class LabelWeightGenerator(CacheService cacheService, LabelService labe
 
         #endregion
 
-        LabelZpl zplLabel = new()
+        LabelEntity labelSql = new()
         {
-            Zpl = zpl,
-            Width = templateFromCache.Width,
-            Height = templateFromCache.Height,
-            Rotate = templateFromCache.Rotate
-        };
-        Label labelSql = new()
-        {
-            Line = dto.Line,
-            Plu = dto.Plu,
-
             BarcodeBottom = barcodeBottom.Clean,
             BarcodeRight = barcodeRight.Clean,
             BarcodeTop = barcodeTop.Clean,
 
-            ExpirationDt = dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
+            ExpirationDt = dto.ExpirationDt,
 
-            ProductDt = barcode.ProductDt,
+            ProductDt = dto.ProductDt,
             Kneading = dto.Kneading,
 
-            WeightNet = dto.Weight,
-            WeightTare = dto.Plu.GetWeightWithNesting,
+            WeightNet = weightNet,
+            WeightTare = weightTare,
             BundleCount = data.BundleCount,
-            IsWeight = true
+            IsWeight = true,
+
+            Zpl = new()
+            {
+                Zpl = zpl,
+                Width = templateFromCache.Width,
+                Height = templateFromCache.Height,
+                Rotate = templateFromCache.Rotate
+            }
         };
 
-        labelService.Create(labelSql, zplLabel);
-
-        return (labelSql, zplLabel);
+        return labelSql;
     }
 }

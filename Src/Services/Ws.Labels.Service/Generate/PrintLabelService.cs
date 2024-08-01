@@ -1,4 +1,4 @@
-using Ws.Domain.Models.Entities.Print;
+using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Output;
 using Ws.Labels.Service.Generate.Exceptions;
@@ -18,7 +18,7 @@ internal class PrintLabelService(
     )
     : IPrintLabelService
 {
-    public (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto) =>
+    public LabelEntity GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto) =>
         labelWeightGenerator.GenerateLabel(weightLabelDto);
 
     public async Task<bool> DeletePallet(string palletNumber, bool isDelete)
@@ -36,6 +36,6 @@ internal class PrintLabelService(
         };
     }
 
-    public Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount, uint counter) =>
-        labelPieceGenerator.GeneratePiecePallet(piecePalletDto, labelCount, counter);
+    public Task<PalletOutputData> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount) =>
+        labelPieceGenerator.GeneratePiecePallet(piecePalletDto, labelCount);
 }

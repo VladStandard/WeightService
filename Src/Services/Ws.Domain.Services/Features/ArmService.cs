@@ -10,13 +10,7 @@ namespace Ws.Domain.Services.Features;
 public class ArmService : BaseRepository
 {
     [Transactional]
-    public Arm GetItemByUid(Guid uid) => Session.Get<Arm>(uid) ?? new();
-
-    [Transactional]
     public IList<Plu> GetArmPiecePlus(Guid uid)  => GetPluListByArmAndSpec(uid, PluSpecs.GetPiece());
-
-    [Transactional]
-    public Arm Update(Arm line) { Session.Update(line); return line; }
 
     private IList<Plu> GetPluListByArmAndSpec(Guid uid, Specification<Plu> spec)
     {

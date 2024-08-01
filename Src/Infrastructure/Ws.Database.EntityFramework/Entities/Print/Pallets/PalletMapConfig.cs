@@ -8,6 +8,14 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
 
         builder.ToTable(SqlTables.Pallets, SqlSchemas.Print);
 
+        builder.Property(e => e.Id)
+            .HasColumnName("UID")
+            .IsRequired();
+
+        builder
+            .HasKey(e => e.Id)
+            .HasName($"PK_{SqlTables.Pallets}");
+
         builder.HasIndex(e => e.Barcode)
             .HasDatabaseName($"UQ_{SqlTables.Pallets}__BARCODE")
             .IsUnique();

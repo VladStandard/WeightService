@@ -32,10 +32,6 @@ public class Plu : EntityBase
     public virtual List<PluCharacteristic> CharacteristicsWithNesting =>
         Characteristics.Prepend(PluNesting.ToCharacteristic()).ToList();
 
-    public virtual string DisplayName => $"{Number} | {Name}";
-
-    public virtual decimal GetWeightWithNesting => CalculateTotalWeight(PluNesting.Box, PluNesting.BundleCount);
-
     #endregion
 
     public virtual decimal GetTareWeightByCharacteristic(PluCharacteristic pluCharacteristic) =>

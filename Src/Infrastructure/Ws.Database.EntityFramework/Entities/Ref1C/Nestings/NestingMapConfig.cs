@@ -20,7 +20,7 @@ internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
 
         builder.HasOne(e => e.Box)
             .WithMany()
-            .HasForeignKey(characteristic => characteristic.BoxId)
+            .HasForeignKey(nesting => nesting.BoxId)
             .HasConstraintName($"FK_{SqlTables.Nestings}__BOX")
             .IsRequired();
 

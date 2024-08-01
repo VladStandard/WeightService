@@ -14,6 +14,8 @@ public sealed class PluEntity : EfEntityBase
     public short ShelfLifeDays { get; set; }
     public string Ean13 { get; set; } = string.Empty;
     public string Itf14 { get; set; } = string.Empty;
+    public string Gtin => IsWeight ? $"0{Ean13}" : $"{Itf14}";
+
     public bool IsWeight { get; set; }
     public decimal Weight { get; set; }
     public string StorageMethod { get; set; } = string.Empty;

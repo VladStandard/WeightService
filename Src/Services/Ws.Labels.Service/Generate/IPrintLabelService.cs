@@ -1,4 +1,5 @@
-using Ws.Domain.Models.Entities.Print;
+using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 
@@ -10,7 +11,7 @@ public interface IPrintLabelService
     /// Создает весовую этикетку
     /// </summary>
     /// <exception cref="LabelGenerateException">Ошибка формирования.</exception>
-    (Label, LabelZpl) GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
+    LabelEntity GenerateWeightLabel(GenerateWeightLabelDto weightLabelDto);
 
     Task<bool> DeletePallet(string palletNumber, bool isDelete);
 
@@ -19,5 +20,5 @@ public interface IPrintLabelService
     /// Создает паллету
     /// </summary>
     /// <exception cref="LabelGenerateException">Ошибка формирования.</exception>
-    Task<Guid> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount, uint counter);
+    Task<PalletOutputData> GeneratePiecePallet(GeneratePiecePalletDto piecePalletDto, int labelCount);
 }

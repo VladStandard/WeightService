@@ -3,9 +3,9 @@ using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
-namespace Ws.Desktop.Api.App.Features.Pallets.Extensions;
+namespace Ws.Desktop.Api.App.Features.Pallets.Expressions;
 
-internal static class PalletExtensions
+internal static class PalletExpressions
 {
     public static IQueryable<PalletInfo> ToPalletInfo(this IQueryable<PalletEntity> query, DbSet<LabelEntity> labelContext)
     {
@@ -13,7 +13,7 @@ internal static class PalletExtensions
             .GroupJoin(
                 labelContext,
                 pallet => pallet.Id,
-                label => label.PalletEntityId,
+                label => label.PalletId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
             .Select(result => new PalletInfo
             {
@@ -55,7 +55,7 @@ internal static class PalletExtensions
             .GroupJoin(
                 labelContext,
                 pallet => pallet.Id,
-                label => label.PalletEntityId,
+                label => label.PalletId,
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
             .SelectMany(
                 result => result.Labels,

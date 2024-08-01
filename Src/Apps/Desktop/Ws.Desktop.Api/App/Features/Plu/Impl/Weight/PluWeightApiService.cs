@@ -1,12 +1,13 @@
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
+using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
-using Ws.Domain.Models.Entities.Devices.Arms;
-using Ws.Domain.Models.Entities.Print;
-using Ws.Domain.Services.Features;
-using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Generate;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 
@@ -14,8 +15,6 @@ namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
 public class PluWeightApiService(
     IPrintLabelService printLabelService,
-    PluService pluService,
-    ArmService armService,
     WsDbContext dbContext
     ) : IPluWeightService
 {
@@ -55,24 +54,62 @@ public class PluWeightApiService(
 
     #region Commands
 
-    public WeightLabel GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
+    public async Task<WeightLabel> GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
     {
-        Arm line = armService.GetItemByUid(armId);
+        NestingEntity nesting = await dbContext.Nestings
+            .Include(i => i.Box)
+            .SingleAsync(i => i.Id == pluId);
+
+        PluEntity plu = await dbContext.Plus
+            .Include(i => i.Clip)
+            .Include(i => i.Bundle)
+            .SingleAsync(i => i.Id == pluId);
+
+        LineEntity line = await dbContext.Lines
+            .Include(i => i.Warehouse)
+            .ThenInclude(i => i.ProductionSite)
+            .SingleAsync(i => i.Id == armId);
 
         GenerateWeightLabelDto dtoToCreate = new()
         {
-            Plu = pluService.GetItemByUid(pluId),
-            Line = line,
-            Weight = dto.WeightNet,
+            Plu = new(
+                plu.Id,
+                plu.TemplateId,
+                plu.Gtin,
+                plu.Number,
+                plu.ShelfLifeDays,
+                plu.Ean13,
+                plu.FullName,
+                plu.Description,
+                plu.StorageMethod,
+                dto.WeightNet,
+                plu.Clip.Weight,
+                plu.Bundle.Weight
+            ),
+            Line = new(
+                line.Id,
+                (short)line.Number,
+                line.Name,
+                line.Warehouse.ProductionSite.Address,
+                line.Counter
+            ),
+            Nesting = new(Guid.Empty, nesting.Box.Weight, nesting.BundleCount),
             Kneading = (short)dto.Kneading,
             ProductDt = dto.ProductDt
         };
-        (_, LabelZpl zpl) = printLabelService.GenerateWeightLabel(dtoToCreate);
 
-        line.Counter += 1;
-        armService.Update(line);
+        LabelEntity label = printLabelService.GenerateWeightLabel(dtoToCreate);
 
-        return new() { ArmCounter = (uint)line.Counter, Zpl = zpl.Zpl };
+        line.Counter = line.Counter % 1000000 + 1;
+
+        label.Plu = plu;
+        label.Line = line;
+
+        await dbContext.Labels.AddAsync(label);
+
+        await dbContext.SaveChangesAsync();
+
+        return new() { ArmCounter = (uint)line.Counter, Zpl = label.Zpl.Zpl };
     }
 
     #endregion

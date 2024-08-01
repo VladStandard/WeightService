@@ -1,15 +1,21 @@
+using System.Reflection.PortableExecutable;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;
+using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
+using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
-using Ws.Desktop.Api.App.Features.Pallets.Extensions;
+using Ws.Desktop.Api.App.Features.Pallets.Expressions;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Domain.Models.Entities.Ref1c.Plus;
-using Ws.Domain.Services.Features;
 using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Generate;
+using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
+using Ws.Labels.Service.Generate.Shared.Dto;
 using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
@@ -17,11 +23,10 @@ namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 public class PalletApiService(
     WsDbContext dbContext,
     PluService pluService,
-    ArmService armService,
-    PalletManService palletManService,
     IPrintLabelService printLabelService
     ): IPalletApiService
 {
+    public PluService PluService { get; } = pluService;
     #region Quieries
 
     public List<LabelInfo> GetAllZplByPallet(Guid palletId)
@@ -78,27 +83,95 @@ public class PalletApiService(
 
     public async Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
     {
-        uint maxCounter = dbContext.Pallets.Any() ? dbContext.Pallets.Max(i => i.Counter) : 0;
+        uint palletCounter = (dbContext.Pallets.Any() ? dbContext.Pallets.Max(i => i.Counter) : 0) + 1;
 
-        var plu = pluService.GetItemByUid(dto.PluId);
-        List<PluCharacteristic> characteristic = plu.CharacteristicsWithNesting.ToList();
+        NestingForLabel nestingForLabel;
+
+        if (dto.CharacteristicId == Guid.Empty)
+        {
+            NestingEntity data1 = await dbContext.Nestings
+                .Include(i => i.Box)
+                .SingleAsync(i => i.Id == dto.PluId);
+
+            nestingForLabel = new(Guid.Empty, data1.Box.Weight, data1.BundleCount);
+        }
+        else
+        {
+            CharacteristicEntity data2 = await dbContext.Characteristics
+                .Include(i => i.Box)
+                .SingleAsync(i => i.Id == dto.CharacteristicId);
+
+            nestingForLabel = new(dto.CharacteristicId, data2.Box.Weight, data2.BundleCount);
+        }
+
+        LineEntity line = await dbContext.Lines
+            .Include(i => i.Warehouse)
+            .ThenInclude(i => i.ProductionSite)
+            .SingleAsync(i => i.Id == armId);
+
+        PluEntity plu = await dbContext.Plus
+            .Include(i => i.Clip)
+            .Include(i => i.Bundle)
+            .SingleAsync(i => i.Id == dto.PluId);
+
+        PalletManEntity palletMan = await dbContext.PalletMen
+            .SingleAsync(i => i.Id == dto.PalletManId);
+
+        PalletEntity pallet = new()
+        {
+            Arm = line,
+            PalletMan = palletMan,
+            Counter = palletCounter,
+            IsShipped = false,
+            TrayWeight = dto.WeightTray,
+            ProductDt = dto.ProdDt,
+            Barcode = $"001460910023{palletCounter.ToString().PadLeft(7, '0')}",
+        };
 
         GeneratePiecePalletDto data = new()
         {
-            Plu = pluService.GetItemByUid(dto.PluId),
-            Line = armService.GetItemByUid(armId),
-            PalletMan = palletManService.GetItemByUid(dto.PalletManId),
-            PluCharacteristic = characteristic.Single(i => i.Uid == dto.CharacteristicId),
+            Plu = new(
+                plu.Id,
+                plu.TemplateId,
+                plu.Gtin,
+                plu.Number,
+                plu.ShelfLifeDays,
+                plu.Ean13,
+                plu.FullName,
+                plu.Description,
+                plu.StorageMethod,
+                plu.Weight,
+                plu.Clip.Weight,
+                plu.Bundle.Weight
+            ),
+            Line = new(
+                line.Id,
+                (short)line.Number,
+                line.Name,
+                line.Warehouse.ProductionSite.Address,
+                line.Counter
+                ),
+            Nesting = nestingForLabel,
+            Pallet = new(pallet.Barcode, line.Warehouse.Uid1C, palletMan.Uid1C),
             Kneading = (short)dto.Kneading,
-            Weight = dto.WeightTray,
-            ProductDt = dto.ProdDt,
-            ExpirationDt = dto.ProdDt.AddDays(plu.ShelfLifeDays),
+            TrayWeight = dto.WeightTray,
+            ProductDt = dto.ProdDt
         };
-        Guid palletId = await printLabelService.GeneratePiecePallet(data, dto.LabelCount, maxCounter);
+        PalletOutputData palletData = await printLabelService.GeneratePiecePallet(data, dto.LabelCount);
+
+        pallet.Id = palletData.Id;
+        pallet.Number = palletData.Number;
+
+        line.Counter += dto.LabelCount;
+
+        await dbContext.Pallets.AddAsync(pallet);
+        await dbContext.Labels.AddRangeAsync(palletData.labels);
+
+        await dbContext.SaveChangesAsync();
 
         return dbContext.Pallets
             .ToPalletInfo(dbContext.Labels)
-            .Single(p => p.Id == palletId);
+            .Single(p => p.Id ==  palletData.Id);
     }
 
     #endregion

@@ -37,7 +37,7 @@ internal static class LabelExpressions
                     Name = label.Plu.Number + " | " + label.Plu.Name
                 }
                 : null,
-            Pallet = label.PalletEntityId != null
+            Pallet = label.PalletId != null
                 ? new()
                 {
                     Id = label.Pallet.Id,

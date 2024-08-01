@@ -14,7 +14,7 @@ public interface IPluWeightService
 
     #region Commands
 
-    public WeightLabel GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto);
+    public Task<WeightLabel> GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto);
 
     #endregion
 }

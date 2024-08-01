@@ -12,11 +12,11 @@ internal static class GenerateWeightPluDtoExtension
             ProductDt = dto.ProductDt,
             PluGtin = dto.Plu.Gtin,
             PluNumber = dto.Plu.Number,
-            WeightNet = dto.Weight,
-            Kneading = dto.Kneading,
             PluEan13 = dto.Plu.Ean13,
-            ExpirationDt = dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
-            BundleCount = dto.Plu.PluNesting.BundleCount,
-            ExpirationDay =  dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays).DayOfYear
+            WeightNet = dto.Plu.Weight,
+            Kneading = dto.Kneading,
+            ExpirationDt = dto.ExpirationDt,
+            BundleCount = (short)dto.Nesting.BundleCount,
+            ExpirationDay =  dto.ExpirationDt.DayOfYear
         };
 }

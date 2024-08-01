@@ -3,8 +3,10 @@ using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 namespace Ws.Database.EntityFramework.Entities.Print.Pallets;
 
-public class PalletEntity : EfEntityBase
+public class PalletEntity
 {
+    public Guid Id { get; set; }
+
     #region FK
 
     public LineEntity Arm { get; set; } = new();

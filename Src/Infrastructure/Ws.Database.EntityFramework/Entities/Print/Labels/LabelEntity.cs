@@ -9,11 +9,17 @@ public sealed class LabelEntity : EfEntityBase
 {
     #region ForeignKeys
 
-    public Guid? PalletEntityId { get; set; }
-    public PalletEntity Pallet { get; set; } = new();
+    public Guid? PalletId { get; set; }
+    public PalletEntity? Pallet { get; set; }
 
+
+    public Guid? PluId { get; set; }
     public PluEntity? Plu { get; set; }
-    public LineEntity Line { get; set; } = new();
+
+
+    public Guid LineId { get; set; }
+    public LineEntity? Line { get; set; }
+
     public LabelZplEntity Zpl { get; set; } = new();
 
     #endregion

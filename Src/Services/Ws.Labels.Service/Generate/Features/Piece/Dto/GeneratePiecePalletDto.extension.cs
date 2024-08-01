@@ -9,16 +9,16 @@ public static class LabelPiecePalletDtoMapper
         return new()
         {
             Kneading = palletDto.Kneading,
-            BundleCount = palletDto.PluCharacteristic.BundleCount,
+            BundleCount = (short)palletDto.Nesting.BundleCount,
             ProductDt = palletDto.ProductDt,
             LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,
             PluNumber = palletDto.Plu.Number,
             PluGtin = palletDto.Plu.Gtin,
             PluEan13 = palletDto.Plu.Ean13,
-            WeightNet = palletDto.Plu.Weight*palletDto.PluCharacteristic.BundleCount,
-            ExpirationDt = palletDto.ProductDt.AddDays(palletDto.Plu.ShelfLifeDays),
-            ExpirationDay = palletDto.ProductDt.AddDays(palletDto.Plu.ShelfLifeDays).DayOfYear
+            WeightNet = palletDto.Nesting.CalculateWeightNet(palletDto.Plu),
+            ExpirationDt = palletDto.ExpirationDt,
+            ExpirationDay = palletDto.ExpirationDt.DayOfYear
         };
     }
 }

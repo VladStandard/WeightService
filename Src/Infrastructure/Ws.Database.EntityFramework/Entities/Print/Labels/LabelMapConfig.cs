@@ -16,28 +16,36 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
 
         #region FK
 
-        builder.Property(e => e.PalletEntityId)
+        builder.Property(e => e.PalletId)
             .HasColumnName("PALLET_UID");
 
         builder.HasOne(i => i.Pallet)
             .WithMany()
-            .HasForeignKey(e => e.PalletEntityId)
+            .HasForeignKey(e => e.PalletId)
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName($"FK_{SqlTables.Labels}__PALLET")
             .IsRequired(false);
 
+        //
+
+        builder.Property(e => e.PluId)
+            .HasColumnName("PLU_UID").IsRequired(false);
+
         builder.HasOne(e => e.Plu)
             .WithMany()
-            .HasForeignKey("PLU_UID")
+            .HasForeignKey(e => e.PluId)
             .OnDelete(DeleteBehavior.Restrict)
-            .HasConstraintName($"FK_{SqlTables.Labels}__PLU")
-            .IsRequired(false);
+            .HasConstraintName($"FK_{SqlTables.Labels}__PLU");
+
+        //
+
+        builder.Property(e => e.LineId)
+            .HasColumnName("ARM_UID").IsRequired();
 
         builder.HasOne(e => e.Line)
             .WithMany()
-            .HasForeignKey("ARM_UID")
-            .HasConstraintName($"FK_{SqlTables.Labels}__ARM")
-            .IsRequired();
+            .HasForeignKey(e => e.LineId)
+            .HasConstraintName($"FK_{SqlTables.Labels}__ARM");
 
         #endregion
 
