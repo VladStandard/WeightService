@@ -79,8 +79,8 @@
             <SelectSingle
               TItem="bool?"
               Items="@( [false, true, null])"
-              @bind-SelectedItem="@IsWeightFilter"
-              @bind-SelectedItem:after="@(() => context.TriggerFilterChange(IsWeightFilter))"
+              @bind-Value="@IsWeightFilter"
+              @bind-Value:after="@(() => context.TriggerFilterChange(IsWeightFilter))"
               Placeholder="@Localizer["SelectItemNotSelected"]"
               ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] :
                                  item.Value ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])"
@@ -108,8 +108,8 @@
                 <SelectSingle
                   TItem="BrandDto?"
                   Items="@(brandsQuery.Data.Concat([null]))"
-                  @bind-SelectedItem="@BrandFilter"
-                  @bind-SelectedItem:after="@(() => context.TriggerFilterChange(BrandFilter?.Name))"
+                  @bind-Value="@BrandFilter"
+                  @bind-Value:after="@(() => context.TriggerFilterChange(BrandFilter?.Name))"
                   Placeholder="@Localizer["SelectItemNotSelected"]"
                   ItemDisplayName="@(item => item?.Name ?? Localizer["SelectItemNotSelected"])"
                 />

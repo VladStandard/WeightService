@@ -53,8 +53,8 @@
             <SelectSingle
               TItem="bool?"
               Items="@([false, true, null])"
-              @bind-SelectedItem="@Type"
-              @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+              @bind-Value="@Type"
+              @bind-Value:after="@(() => context.TriggerFilterChange(Type))"
               Placeholder="@Localizer["SelectItemNotSelected"]"
               ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : GetTemplateTypeName(item.Value))"
             />

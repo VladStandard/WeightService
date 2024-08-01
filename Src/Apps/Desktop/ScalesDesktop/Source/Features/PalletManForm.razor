@@ -22,13 +22,13 @@
             {
               <SelectSingle
                 TItem="PalletMan"
-                @bind-SelectedItem="@FormModel.User"
+                @bind-Value="@FormModel.User"
                 ItemDisplayName="@(item => item.Fio.DisplayShortName)"
                 Items="@palletMenQuery.Data"
                 Placeholder="@Localizer["UserSelectPlaceholder"]"
                 EmptyPlaceholder="@Localizer["UserSelectEmptyPlaceholder"]"
                 SearchPlaceholder="@Localizer["UserSelectSearchPlaceholder"]"
-                IsFilterable
+                Filterable
               />
               <FieldValidation For="@(() => FormModel.User)" />
             }

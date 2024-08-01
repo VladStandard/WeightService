@@ -17,17 +17,22 @@
     <SelectSingle
       TItem="PalletFilterEnum"
       Items="@(Enum.GetValues(typeof(PalletFilterEnum)).Cast<PalletFilterEnum>())"
-      @bind-SelectedItem="Filter"
-      @bind-SelectedItem:after="OnSortingChanged"
+      @bind-Value="Filter"
+      @bind-Value:after="OnSortingChanged"
       ItemDisplayName="@(value => Localizer[EnumHelper.GetEnumDescription(value)])"
+      IgnoreWidth
     >
       <TriggerContent Context="select">
         <Button
-          Id="@select.DropdownAnchor"
+          Id="@select.HtmlId"
           Variant="ButtonVariant.Outline"
           Size="ButtonSize.Icon"
           Class="shrink-0"
-          OnClick="@(() => select.SetIsOpen.InvokeAsync(!select.IsOpen))"
+          OnClick="@(() => select.ToggleDropdown())"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded="@select.IsDropdownOpened.ToString()"
+          aria-disabled="false"
         >
           <FunnelIcon class="size-5" />
         </Button>

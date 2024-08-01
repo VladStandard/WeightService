@@ -17,14 +17,14 @@
       <SelectSingle
         TItem="ProxyDto"
         Items="GetFilteredProductionSiteList(productionSiteQuery.Data, userProdSiteQuery.Data)"
-        SelectedItem="ProductionSiteState.Value.ProductionSite"
-        SelectedItemChanged="@(item => Dispatcher.Dispatch(new ChangeProductionSiteAction(item)))"
+        Value="ProductionSiteState.Value.ProductionSite"
+        ValueChanged="@(item => { if (item != null) Dispatcher.Dispatch(new ChangeProductionSiteAction(item)); })"
         ItemDisplayName="@(item => item.Name)"
         Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
         EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
         SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-        IsDisabled="@(productionSiteQuery.Data.Length <= 1)"
-        IsFilterable
+        Disabled="@(productionSiteQuery.Data.Length <= 1)"
+        Filterable
       />
     </UseParameterlessEndpoint>
   }

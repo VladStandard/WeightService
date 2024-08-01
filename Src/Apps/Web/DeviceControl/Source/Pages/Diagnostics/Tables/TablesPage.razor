@@ -33,8 +33,8 @@
               <SelectSingle
                 TItem="string?"
                 Items="@(tablesQuery.Data.Select(x => x.Schema).ToHashSet().Union([null]))"
-                @bind-SelectedItem="@Scheme"
-                @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Scheme))"
+                @bind-Value="@Scheme"
+                @bind-Value:after="@(() => context.TriggerFilterChange(Scheme))"
                 Placeholder="@Localizer["SelectItemNotSelected"]"
                 ItemDisplayName="@(item => item ?? Localizer["SelectItemNotSelected"])"
               />

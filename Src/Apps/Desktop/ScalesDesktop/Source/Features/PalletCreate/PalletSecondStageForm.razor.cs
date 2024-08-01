@@ -22,7 +22,7 @@ public class PalletSecondStageFormValidator : AbstractValidator<PalletCreateMode
 {
     public PalletSecondStageFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.PalletWeight).GreaterThan(0).LessThanOrEqualTo(999).WithName(wsDataLocalizer["ColTrayWeight"]);
+        RuleFor(item => item.PalletWeight).GreaterThan(0).LessThanOrEqualTo(99).WithName(wsDataLocalizer["ColTrayWeight"]);
         RuleFor(item => item.Count).GreaterThanOrEqualTo(1).LessThanOrEqualTo(240).WithName(wsDataLocalizer["ColCount"]);
         RuleFor(item => item.Kneading).GreaterThanOrEqualTo((short)1).LessThanOrEqualTo((short)999).WithName(wsDataLocalizer["ColKneading"]);
     }

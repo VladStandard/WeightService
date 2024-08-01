@@ -58,14 +58,14 @@
             TItem="ProxyDto?"
             HtmlId="plu-template"
             Items="templatesQuery.Data"
-            SelectedItem="@templatesQuery.Data.SingleOrDefault(x => x.Id == FormModel.TemplateId)"
-            SelectedItemChanged="@(value => FormModel.TemplateId = value?.Id ?? Guid.Empty)"
+            Value="@templatesQuery.Data.SingleOrDefault(x => x.Id == FormModel.TemplateId)"
+            ValueChanged="@(value => FormModel.TemplateId = value?.Id ?? Guid.Empty)"
             Placeholder="@Localizer["FormTemplateDefaultPlaceholder"]"
             EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
             SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
             ItemDisplayName="@(item => item!.Name)"
-            IsDisabled="@(!IsSupport)"
-            IsFilterable
+            Disabled="@(!IsSupport)"
+            Filterable
           />
         }
         else

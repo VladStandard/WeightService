@@ -48,8 +48,8 @@
             <SelectSingle
               TItem="ZplResourceType?"
               Items="@(Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType?>().ToList().Union([null]))"
-              @bind-SelectedItem="@Type"
-              @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+              @bind-Value="@Type"
+              @bind-Value:after="@(() => context.TriggerFilterChange(Type))"
               Placeholder="@Localizer["SelectItemNotSelected"]"
               ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : Localizer[EnumHelper.GetEnumDescription(item.Value)])"
             />

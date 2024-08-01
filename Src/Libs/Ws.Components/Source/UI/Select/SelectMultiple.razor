@@ -1,53 +1,107 @@
 @typeparam TItem
 
-<div
-  @ref="DropdownWrapper"
-  id="@HtmlId"
-  class="w-full"
-  role="combobox"
-  aria-haspopup="listbox"
-  aria-expanded="@IsOpen"
-  aria-disabled="@(IsDisabled || !Items.Any())"
+<SelectMultipleWrapper
+  TSelectItem="TItem"
+  TSelectType="ISet<TItem>"
+  @bind-Value="Value"
+  @bind-Value:after="OnValueChanged"
+  ItemDisplayName="ItemDisplayName"
+  HtmlId="@HtmlId"
+  IgnoreWidth="@IgnoreWidth"
 >
-  <SelectTrigger
-    id="@AnchorId"
-    OnClick="@OpenDropdown"
-    IsDisabled="@(IsDisabled || !Items.Any())"
-    IsActive="@IsOpen"
-    Class="@Css.Class("width-sub-element", Class)"
-  >
-    <span class="pointer-events-none line-clamp-1">Выбрано @SelectedItems.Count объектов</span>
-  </SelectTrigger>
-  <Dropdown
-    Anchor="@AnchorId"
-    @bind-IsOpen="IsOpen"
-    Class="width-ref-element"
-    VerticalThreshold="@(Math.Max(Items.Count, 8) * 40)"
-  >
-    @if (IsFilterable)
-    {
-      <SelectSearch
-        @bind-Value="SearchString"
-        Placeholder="@SearchPlaceholder"
-      />
-    }
-    <div class="size-full overflow-x-hidden max-h-72 overflow-y-auto p-1">
-      <ul class="flex flex-col w-full">
-        @if (!GetFilteredList().Any())
+  @if (TriggerContent == null)
+  {
+    <SelectTrigger Disabled="Disabled">
+      <div class="flex w-full gap-1 overflow-hidden">
+        @foreach (TItem? item in Value)
         {
-          <div class="h-8 w-full flex items-center justify-center text-sm">
-            @EmptyPlaceholder
-          </div>
+          <Badge>@(item != null ? ItemDisplayName(item) : "default")</Badge>
         }
-        @foreach (TItem item in GetFilteredList())
-        {
-          <li>
-            <SelectItem OnClick="@(() => SwitchSelectedItem(item))" IsActive="@IsSelectedItem(item)">
-              @ItemDisplayName(item)
-            </SelectItem>
-          </li>
-        }
-      </ul>
-    </div>
-  </Dropdown>
-</div>
+      </div>
+    </SelectTrigger>
+  }
+  else
+  {
+    <SelectTriggerContext>
+      @TriggerContent(context)
+    </SelectTriggerContext>
+  }
+  <SelectContent>
+    <ChildContent>
+      @if (Filterable)
+      {
+        <SelectSearch Placeholder="@SearchPlaceholder"/>
+      }
+    </ChildContent>
+    <SelectEmptyPlaceholder>
+      @EmptyPlaceholder
+    </SelectEmptyPlaceholder>
+    <SelectGroup>
+      @foreach (TItem item in Items)
+      {
+        <SelectItem Item="@item" />
+      }
+    </SelectGroup>
+  </SelectContent>
+</SelectMultipleWrapper>
+
+@code {
+  /// <summary>
+  /// The collection of items to be displayed in the dropdown.
+  /// </summary>
+  [Parameter] public IEnumerable<TItem> Items { get; set; } = [];
+
+  /// <summary>
+  /// The currently selected value(s) from the dropdown.
+  /// </summary>
+  [Parameter] public ISet<TItem?> Value { get; set; } = new HashSet<TItem?>();
+
+  /// <summary>
+  /// Event called whenever the selection changed.
+  /// </summary>
+  [Parameter] public EventCallback<ISet<TItem?>> ValueChanged { get; set; }
+
+  /// <summary>
+  /// A function to determine the display text for each item in the dropdown.
+  /// </summary>
+  [Parameter] public Func<TItem, string> ItemDisplayName { get; set; } = item => item?.ToString() ?? string.Empty;
+
+  /// <summary>
+  /// The placeholder text displayed when no item is selected.
+  /// </summary>
+  [Parameter] public string Placeholder { get; set; } = string.Empty;
+
+  /// <summary>
+  /// The placeholder text displayed in the search input when filtering is enabled.
+  /// </summary>
+  [Parameter] public string SearchPlaceholder { get; set; } = string.Empty;
+
+  /// <summary>
+  /// The placeholder text displayed when no items match the filter criteria.
+  /// </summary>
+  [Parameter] public string EmptyPlaceholder { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Determines whether the dropdown allows filtering of items based on user input.
+  /// </summary>
+  [Parameter] public bool Filterable { get; set; }
+
+  /// <summary>
+  /// Determines whether the dropdown allows filtering of items based on user input.
+  /// </summary>
+  [Parameter] public bool Disabled { get; set; }
+
+  /// <summary>
+  /// Determines whether the dropdown allows filtering of items based on user input.
+  /// </summary>
+  [Parameter] public bool IgnoreWidth { get; set; }
+
+  /// <summary>
+  /// The html id for forms
+  /// </summary>
+  [Parameter] public string HtmlId { get; set; } = $"id-{Guid.NewGuid()}";
+
+  [Parameter] public RenderFragment<SelectBase<TItem, ISet<TItem>>>? TriggerContent { get; set; }
+
+  private Task OnValueChanged() => ValueChanged.InvokeAsync(Value);
+}

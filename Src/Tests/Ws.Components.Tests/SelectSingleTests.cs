@@ -28,19 +28,18 @@ public class SelectSingleTests : TestContext
         // Act
         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
             .Add(p => p.Items, items)
-            .Add(p => p.SelectedItemChanged, () => Task.CompletedTask)
+            .Add(p => p.ValueChanged, () => Task.CompletedTask)
             .Add(p => p.ItemDisplayName, item => item)
             .Add(p => p.Placeholder, "Select an item")
         );
 
-        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-        selectTrigger.Find("button").Click();
+        cut.Find("button").Click();
 
         cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
         cut.Render(); // re render component
 
         // Assert
-        cut.Instance.SelectedItem.Should().Be("Item2");
+        cut.Instance.Value.Should().Be("Item2");
     }
 
     [Fact]
@@ -56,8 +55,7 @@ public class SelectSingleTests : TestContext
             .Add(p => p.Placeholder, "Select an item")
         );
 
-        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-        selectTrigger.Find("button").Click();
+        cut.Find("button").Click();
 
         cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
         cut.Render(); // re render component
@@ -84,8 +82,7 @@ public class SelectSingleTests : TestContext
             .Add(p => p.Placeholder, "Select an item")
         );
 
-        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-        selectTrigger.Find("button").Click();
+        cut.Find("button").Click();
 
         // Assert
         cut.Find("[role='combobox']").Attributes["aria-expanded"]?.Value.Should().Be("True");
@@ -117,13 +114,12 @@ public class SelectSingleTests : TestContext
          // Act
          IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
              .Add(p => p.Items, [])
-             .Add(p => p.IsDisabled, true));
+             .Add(p => p.Disabled, true));
 
-         IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-         IElement button = selectTrigger.Find("button");
+         IElement trigger = cut.Find("button");
 
          // Assert
-         button.IsDisabled().Should().BeTrue();
+         trigger.IsDisabled().Should().BeTrue();
      }
 
      [Fact]
@@ -136,17 +132,16 @@ public class SelectSingleTests : TestContext
          // Act
          IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
              .Add(p => p.Items, items)
-             .Add(p => p.IsFilterable, true));
+             .Add(p => p.Filterable, true));
 
-         IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-         selectTrigger.Find("button").Click();
+         cut.Find("button").Click();
 
-         IRenderedComponent<SelectSearch> selectSearch = cut.FindComponent<SelectSearch>();
-         await cut.InvokeAsync(() => selectSearch.Find("input").Input(searchValue));
+         IElement selectSearch = cut.Find("input");
+         await cut.InvokeAsync(() => selectSearch.Input(searchValue));
+         cut.Render();
 
          // Assert
-         selectSearch.Instance.Value.Should().Be(searchValue);
-         selectSearch.Find("input").GetAttribute("value").Should().Be(searchValue);
+         selectSearch.GetAttribute("value").Should().Be(searchValue);
          cut.FindAll("li").Should().HaveCount(1);
      }
 
@@ -160,16 +155,16 @@ public class SelectSingleTests : TestContext
         // Act
         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
             .Add(p => p.Items, items)
-            .Add(p => p.SelectedItem, "Item1")
+            .Add(p => p.Value, "Item1")
             .Add(p => p.ItemDisplayName, item => item)
             .Add(p => p.Placeholder, "Select an item")
         );
 
         cut.SetParametersAndRender(parameters => parameters
-            .Add(p => p.SelectedItem, itemToFind));
+            .Add(p => p.Value, itemToFind));
 
         // Assert
-        cut.Instance.SelectedItem.Should().Be(itemToFind);
+        cut.Instance.Value.Should().Be(itemToFind);
     }
 
     [Fact]
@@ -186,8 +181,7 @@ public class SelectSingleTests : TestContext
             .Add(p => p.Placeholder, "Select an item")
         );
 
-        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
-        selectTrigger.Find("button").Click();
+        cut.Find("button").Click();
 
         // Assert
         string buttonText = cut.FindAll("li > button")[0].TextContent.Trim();

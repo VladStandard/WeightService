@@ -1,21 +1,27 @@
 @using Blazor.Heroicons.Outline
 
+@typeparam TSelectItem
+@typeparam TSelectType
+
 <button
+  id="@Parent.HtmlId"
+  @onclick="@Parent.ToggleDropdown"
+  class="@Css.Class("flex text-left h-10 w-full truncate transition-colors items-center justify-between rounded-md border border-input bg-background px-3 py-2 hover:bg-accent hover:text-accent-foreground text-sm disabled:cursor-not-allowed disabled:opacity-50", Class)"
+  disabled="@Disabled"
   type="button"
-  @attributes="@AdditionalAttributes"
-  @onclick="OnClick"
-  class="@Css.Class("flex text-left h-10 w-full transition-colors items-center justify-between rounded-md border border-input bg-background px-3 py-2 hover:bg-accent hover:text-accent-foreground text-sm disabled:cursor-not-allowed disabled:opacity-50", Class)"
-  disabled="@IsDisabled"
+  role="combobox"
+  aria-haspopup="listbox"
+  aria-expanded="@Parent.IsDropdownOpened.ToString()"
+  aria-disabled="@Disabled.ToString()"
 >
   @ChildContent
-  <ChevronDownIcon class="@Css.Class("transition-transform text-muted-foreground size-4", IsActive ? "rotate-180" : "rotate-0")"/>
+  <ChevronDownIcon class="@Css.Class("transition-transform text-muted-foreground size-4", Parent.IsDropdownOpened ? "rotate-180" : "rotate-0")"/>
 </button>
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [Parameter] public string Class { get; set; } = string.Empty;
-  [Parameter] public bool IsActive { get; set; }
-  [Parameter] public EventCallback OnClick { get; set; }
-  [Parameter] public bool IsDisabled { get; set; }
-  [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = new();
+  [Parameter] public bool Disabled { get; set; }
+
+  [CascadingParameter] public SelectBase<TSelectItem, TSelectType> Parent { get; set; } = default!;
 }

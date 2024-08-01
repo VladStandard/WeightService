@@ -43,8 +43,8 @@
               <SelectSingle
                 TItem="PrinterTypes?"
                 Items="@(Enum.GetValues(typeof(PrinterTypes)).Cast<PrinterTypes?>().Union([null]))"
-                @bind-SelectedItem="@Type"
-                @bind-SelectedItem:after="@(() => context.TriggerFilterChange(Type))"
+                @bind-Value="@Type"
+                @bind-Value:after="@(() => context.TriggerFilterChange(Type))"
                 Placeholder="@Localizer["SelectItemNotSelected"]"
                 ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : item.Value.ToString())"
               />

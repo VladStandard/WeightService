@@ -6,14 +6,14 @@
     TItem="TItem"
     Items="Items"
     HtmlId="@HtmlId"
-    @bind-SelectedItem="@Value"
-    @bind-SelectedItem:after="OnValueChanged"
+    @bind-Value="@Value"
+    @bind-Value:after="OnValueChanged"
     Placeholder="@Placeholder"
     EmptyPlaceholder="@EmptyPlaceholder"
     SearchPlaceholder="@SearchPlaceholder"
-    IsFilterable="IsFilterable"
+    Filterable="IsFilterable"
     ItemDisplayName="@ItemDisplayName"
-    IsDisabled="Disabled"
+    Disabled="Disabled"
   />
   @if (For != null)
   {

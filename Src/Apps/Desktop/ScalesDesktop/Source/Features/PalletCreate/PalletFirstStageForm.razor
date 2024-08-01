@@ -17,11 +17,11 @@
             <SelectSingle
               TItem="PluPiece"
               Items="@pluQuery.Data"
-              @bind-SelectedItem="@FormModel.Plu"
-              @bind-SelectedItem:after="OnPluSelected"
+              @bind-Value="@FormModel.Plu"
+              @bind-Value:after="OnPluSelected"
               Placeholder="@Localizer["PluSelectPlaceholder"]"
               ItemDisplayName="@(entity => $"{entity.Number} | {entity.Name}")"
-              IsFilterable
+              Filterable
             />
           }
           else
@@ -37,10 +37,10 @@
     <SelectSingle
       TItem="Nesting"
       Items="@(FormModel.Plu?.Nestings ?? [])"
-      @bind-SelectedItem="FormModel.Nesting"
+      @bind-Value="FormModel.Nesting"
       Placeholder="@Localizer["NestingSelectPlaceholder"]"
       ItemDisplayName="@(item => item.Name)"
-      IsDisabled="@(FormModel.Plu == null || !FormModel.Plu.Nestings.Any())"
+      Disabled="@(FormModel.Plu == null || !FormModel.Plu.Nestings.Any())"
     />
     <FieldValidation For="@(() => FormModel.Nesting)" />
   </FormFieldWrapper>

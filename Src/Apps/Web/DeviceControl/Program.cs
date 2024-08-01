@@ -13,7 +13,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.ApplyRefitConfigurations();
 
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents().AddCircuitOptions(options => {  options.DetailedErrors = true; });;
 builder.Services.AddBlazorise().AddEmptyProviders().AddFontAwesomeIcons();
 builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 builder.Services.ConfigureKeycloakAuthorization(builder.Configuration.GetSection("Oidc"), oidcScheme);

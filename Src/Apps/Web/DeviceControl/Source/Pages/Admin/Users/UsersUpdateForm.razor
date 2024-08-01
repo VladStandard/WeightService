@@ -36,16 +36,16 @@
         @if (productionSitesQuery.HasData)
         {
           <SelectSingle
-            TItem="ProductionSiteDto?"
+            TItem="ProductionSiteDto"
             HtmlId="user-warehouse"
             Items="productionSitesQuery.Data"
-            SelectedItem="@productionSitesQuery.Data.FirstOrDefault(x => x.Id == FormModel.ProductionSiteId)"
-            SelectedItemChanged="@(value => FormModel.ProductionSiteId = value?.Id ?? Guid.Empty)"
+            Value="@productionSitesQuery.Data.FirstOrDefault(x => x.Id == FormModel.ProductionSiteId)"
+            ValueChanged="@(value => FormModel.ProductionSiteId = value?.Id ?? Guid.Empty)"
             Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
             EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
             SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
             ItemDisplayName="@(item => item!.Name)"
-            IsFilterable
+            Filterable
           />
         }
         else

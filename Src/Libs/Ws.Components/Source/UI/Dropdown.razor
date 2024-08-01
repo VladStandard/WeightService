@@ -1,16 +1,16 @@
 <FluentPopover
+  Id="@Id"
   AnchorId="@Anchor"
   @bind-Open="IsOpen"
   @bind-Open:after="OnIsOpenChanged"
   VerticalThreshold="@VerticalThreshold"
   Class="@Css.Class("!bg-background rounded-md border !shadow-md", Class)"
+  Style="@Style"
 >
   <Header></Header>
   <Body>@ChildContent</Body>
   <Footer></Footer>
 </FluentPopover>
-
-@* Class="@Css.Class("!bg-inherit !min-w-[unset] [&>fluent-menu]:!p-0 [&>fluent-menu]:!max-w-[unset] [&>fluent-menu]:rounded-md [&>fluent-menu]:overflow-hidden [&>fluent-menu]:shadow-md [&>fluent-menu]:border [&>fluent-menu]:bg-background", Class)" *@
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -19,6 +19,8 @@
   [Parameter] public EventCallback<bool> IsOpenChanged { get; set; }
   [Parameter] public string Anchor { get; set; } = string.Empty;
   [Parameter] public int VerticalThreshold { get; set; }
+  [Parameter] public string? Id { get; set; }
+  [Parameter] public string? Style { get; set; }
 
   private async Task OnIsOpenChanged() => await IsOpenChanged.InvokeAsync(IsOpen);
 }

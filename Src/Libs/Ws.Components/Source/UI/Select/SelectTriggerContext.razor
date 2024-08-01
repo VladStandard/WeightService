@@ -1,0 +1,12 @@
+@typeparam TSelectItem
+@typeparam TSelectType
+
+@if (ChildContent != null)
+{
+  @ChildContent(Parent)
+}
+
+@code {
+  [Parameter] public RenderFragment<SelectBase<TSelectItem, TSelectType>>? ChildContent { get; set; }
+  [CascadingParameter] public SelectBase<TSelectItem, TSelectType> Parent { get; set; } = default!;
+}
