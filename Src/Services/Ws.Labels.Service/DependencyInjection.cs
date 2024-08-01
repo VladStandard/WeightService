@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate;
@@ -19,5 +20,13 @@ public static class DependencyInjection
         services.AddScoped<LabelWeightGenerator>();
 
         services.AddPalychApi();
+
+        services.AddEasyCaching(option =>
+        {
+            option.WithProtobuf();
+            option.UseRedis(
+            new ConfigurationBuilder()
+                .AddJsonFile("redis_config.json", optional: false, reloadOnChange: false).Build(), "ws-redis");
+        });
     }
 }

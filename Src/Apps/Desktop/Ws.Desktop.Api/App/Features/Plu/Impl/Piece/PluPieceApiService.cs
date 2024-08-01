@@ -1,34 +1,70 @@
+using System.Reflection.PortableExecutable;
+using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
+using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
-using Ws.Domain.Services.Features;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
-public class PluPieceApiService(ArmService armService, WsDbContext dbContext) : IPluPieceService
+public class PluPieceApiService(WsDbContext dbContext) : IPluPieceService
 {
     #region Queries
 
-    public List<PluPiece> GetAllPieceByArm(Guid uid)
+    public async Task<List<PluPiece>> GetAllPieceByArm(Guid uid)
     {
-        List<Domain.Models.Entities.Ref1c.Plus.Plu> plus = armService.GetArmPiecePlus(uid).ToList();
+        LineEntity line = await dbContext.Lines
+            .AsNoTracking()
+            .Include(i => i.Plus)
+            .ThenInclude(pluEntity => pluEntity.Bundle)
+            .SingleAsync(i => i.Id == uid);
+
+
+        Dictionary<PluEntity, List<Nesting>> data = new();
+
+        foreach (PluEntity plu in line.Plus.Where(i => i.IsWeight == false).OrderBy(i => i.Number))
+        {
+            List<Nesting> pluNesting = [];
+            NestingEntity nesting = await dbContext.Nestings.AsNoTracking()
+                .Include(i => i.Box).SingleAsync(i => i.Id == plu.Id);
+            List<CharacteristicEntity> characteristics = await dbContext.Characteristics.AsNoTracking()
+                .Include(i => i.Box).Where(i => i.PluId == plu.Id).ToListAsync();
+
+            pluNesting.Add(
+                new()
+                {
+                    Id = Guid.Empty,
+                    BundleCount = (byte)nesting.BundleCount,
+                    Box = nesting.Box.Name,
+                    Name = $"{nesting.BundleCount} (По умолчанию)"
+                }
+            );
+
+            pluNesting.AddRange(characteristics.Select(characteristic => new Nesting()
+            {
+                Id = characteristic.Id,
+                BundleCount = (byte)characteristic.BundleCount,
+                Box = characteristic.Box.Name,
+                Name = $"{characteristic.BundleCount} (Кор)"
+            }));
+
+            data.Add(plu, pluNesting);
+        }
 
         List<PluPiece> plusPiece = [];
-        plusPiece.AddRange(plus.Select(plu => new PluPiece
+        plusPiece.AddRange(data.Select(plu =>
+            new PluPiece
         {
-            Id = plu.Uid,
-            Number = (ushort)plu.Number,
-            Name = plu.Name,
-            FullName = plu.FullName,
-            Bundle = plu.Bundle.Name,
-            WeightNet = plu.Weight,
-            Nestings = plu.CharacteristicsWithNesting.Select(i => new Nesting
-            {
-                Id = i.Uid,
-                BundleCount = (byte)i.BundleCount,
-                Box = i.Box.Name,
-                Name = i.Uid == Guid.Empty ? $"{i.BundleCount} (По умолчанию)" : $"{i.BundleCount} (Кор)"
-            }).ToList()
+            Id = plu.Key.Id,
+            Number = (ushort)plu.Key.Number,
+            Name = plu.Key.Name,
+            FullName = plu.Key.FullName,
+            Bundle = plu.Key.Bundle.Name,
+            WeightNet = plu.Key.Weight,
+            Nestings = plu.Value
         }));
         return plusPiece;
     }

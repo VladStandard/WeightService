@@ -38,7 +38,6 @@ public sealed class PluEntity : EfEntityBase
     //
 
     public Guid? TemplateId { get; set; }
-
     public TemplateEntity Template { get; set; } = new();
 
     #region Date

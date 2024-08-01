@@ -4,5 +4,5 @@ namespace Ws.Desktop.Api.App.Features.Plu.Common;
 
 public interface IPluPieceService
 {
-    public List<PluPiece> GetAllPieceByArm(Guid uid);
+    public Task<List<PluPiece>> GetAllPieceByArm(Guid uid);
 }

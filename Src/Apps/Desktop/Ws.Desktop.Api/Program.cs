@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.Arms.Impl;
 using Ws.Desktop.Api.App.Middlewares;
-using Ws.Domain.Services;
 using Ws.Labels.Service;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -26,7 +25,6 @@ builder.Services.Scan(scan => scan
 #region Ready services
 
 builder.Services.AddEfCore();
-builder.Services.AddDomainServices();
 builder.Services.AddLabelsServices();
 
 #endregion

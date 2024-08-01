@@ -1,6 +1,5 @@
 using ProtoBuf;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
-using Ws.Domain.Models.Entities.Print;
 
 namespace Ws.Labels.Service.Generate.Models.Cache;
 

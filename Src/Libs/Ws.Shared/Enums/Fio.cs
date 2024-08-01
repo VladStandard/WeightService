@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace Ws.Domain.Models.ValueTypes;
+namespace Ws.Shared.Enums;
 
 [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
 public class Fio : IEquatable<Fio>

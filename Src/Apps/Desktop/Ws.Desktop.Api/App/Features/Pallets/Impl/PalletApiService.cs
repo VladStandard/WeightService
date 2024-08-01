@@ -11,7 +11,6 @@ using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Expressions;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Domain.Services.Features.Plus;
 using Ws.Labels.Service.Generate;
 using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
@@ -22,11 +21,9 @@ namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
 public class PalletApiService(
     WsDbContext dbContext,
-    PluService pluService,
     IPrintLabelService printLabelService
     ): IPalletApiService
 {
-    public PluService PluService { get; } = pluService;
     #region Quieries
 
     public List<LabelInfo> GetAllZplByPallet(Guid palletId)

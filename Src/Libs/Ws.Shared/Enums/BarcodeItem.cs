@@ -1,4 +1,4 @@
-namespace Ws.Domain.Models.ValueTypes;
+namespace Ws.Shared.Enums;
 
 public class BarcodeItem
 {

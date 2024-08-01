@@ -1,4 +1,4 @@
-using Ws.Shared.Api.ValueTypes;
+using Fio=Ws.Shared.Api.ValueTypes.Fio;
 
 namespace Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries;
 

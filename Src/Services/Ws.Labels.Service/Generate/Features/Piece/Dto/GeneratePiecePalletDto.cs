@@ -1,4 +1,3 @@
-using Ws.Domain.Models.Entities.Users;
 using Ws.Labels.Service.Generate.Shared.Dto;
 
 namespace Ws.Labels.Service.Generate.Features.Piece.Dto;

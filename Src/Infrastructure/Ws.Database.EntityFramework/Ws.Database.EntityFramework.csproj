@@ -18,7 +18,6 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj"/>
-        <ProjectReference Include="..\Ws.Domain.Models\Ws.Domain.Models.csproj" />
     </ItemGroup>
     <ItemGroup>
         <Folder Include="Migrations\"/>

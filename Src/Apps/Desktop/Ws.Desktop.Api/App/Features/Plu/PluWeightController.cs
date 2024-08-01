@@ -15,7 +15,7 @@ public class PluWeightController(IPluWeightService pluWeightService, IPluPieceSe
     #region Queries
 
     [HttpGet("piece")]
-    public List<PluPiece> GetAllPieceByArm([FromRoute] Guid armId)
+    public Task<List<PluPiece>> GetAllPieceByArm([FromRoute] Guid armId)
         => pluPieceService.GetAllPieceByArm(armId);
 
     [HttpGet("weight")]
