@@ -3,9 +3,7 @@ using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Middlewares;
 
-public class ExceptionHandlingMiddleware(
-    ILogger<ExceptionHandlingMiddleware> logger
-    ): IMiddleware
+public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger): IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

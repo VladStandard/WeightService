@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Desktop.Api.App.Features.Arms.Common;
-using Ws.Desktop.Api.App.Features.Arms.Extensions;
+using Ws.Desktop.Api.App.Features.Arms.Expressions;
 using Ws.Desktop.Models.Features.Arms.Input;
 using Ws.Desktop.Models.Features.Arms.Output;
 
@@ -16,7 +16,7 @@ public class ArmApiService(WsDbContext dbContext) : IArmService
         dbContext.Lines
             .AsNoTracking()
             .Where(i => i.PcName == armName)
-            .ToArmValue()
+            .Select(ArmExpressions.ToDto)
             .FirstOrDefault();
 
     #endregion

@@ -15,9 +15,9 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 
 public class ProductionSiteApiService(
     WsDbContext dbContext,
+    UserManager userManager,
     ProductionSiteCreateValidator createValidator,
-    ProductionSiteUpdateValidator updateValidator,
-    UserManager userManager
+    ProductionSiteUpdateValidator updateValidator
     ): ApiService, IProductionSiteService
 {
     #region Queries
