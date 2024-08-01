@@ -1,9 +1,9 @@
 @using Blazor.Heroicons.Outline
 
 <div class="space-y-2 relative">
-  <FieldLabel for="@HtmlId">@Label</FieldLabel>
+  <FieldLabel HtmlFor="@HtmlId">@Label</FieldLabel>
   <InputTextField
-    id="@HtmlId"
+    HtmlId="@HtmlId"
     Value="@Value"
     ReadOnly
   />

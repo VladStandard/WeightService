@@ -1,6 +1,7 @@
 @inherits BasicInput<DateTime?>
 
 <FluentDatePicker
+  Id="@HtmlId"
   @bind-Value="Value"
   @bind-Value:after="OnValueChanged"
   Style="background: inherit !important;"

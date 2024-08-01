@@ -7,7 +7,7 @@
   class="max-w-md mx-auto w-full flex flex-col space-y-4"
 >
   <FluentValidationValidator Validator="@(new PalletPluStageFormValidator(WsDataLocalizer, Localizer))" />
-  <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="plu">
+  <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="pallet-plu">
     <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
       @if (armQuery.HasData)
       {
@@ -16,6 +16,7 @@
           {
             <SelectSingle
               TItem="PluPiece"
+              HtmlId="pallet-plu"
               Items="@pluQuery.Data"
               @bind-Value="@FormModel.Plu"
               @bind-Value:after="OnPluSelected"
@@ -33,9 +34,10 @@
     </UseParameterlessEndpoint>
     <FieldValidation For="@(() => FormModel.Plu)"/>
   </FormFieldWrapper>
-  <FormFieldWrapper Label="@($"{Localizer["ColNestingPerBox"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="nesting">
+  <FormFieldWrapper Label="@($"{Localizer["ColNestingPerBox"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="pallet-nesting">
     <SelectSingle
       TItem="Nesting"
+      HtmlId="pallet-nesting"
       Items="@(FormModel.Plu?.Nestings ?? [])"
       @bind-Value="FormModel.Nesting"
       Placeholder="@Localizer["NestingSelectPlaceholder"]"

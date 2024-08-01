@@ -4,6 +4,8 @@
 @using Ws.Desktop.Models.Features.Pallets.Output
 @using Blazor.Heroicons.Outline
 
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
 <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
   @if (armQuery.HasData && PalletState.Value.Pallet != null)
   {

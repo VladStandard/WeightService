@@ -11,7 +11,7 @@
   <FormFieldWrapper Label="@($"{WsDataLocalizer["ColTrayWeight"]} ({WsDataLocalizer["MeasureKg"]})")" HtmlId="pallet-weight">
     <InputNumberField
       TValue="decimal"
-      id="pallet-weight"
+      HtmlId="pallet-weight"
       Step="0.001"
       Min="0"
       Max="99"
@@ -21,9 +21,16 @@
     <FieldValidation For="@(() => FormModel.PalletWeight)" />
   </FormFieldWrapper>
 
-  <FormFieldWrapper Label="@Localizer["СolPalletProductDt"]" HtmlId="create-dt">
+  <FormFieldWrapper
+    Label="@Localizer["СolPalletProductDt"]"
+    HtmlId="pallet-create-dt"
+  >
     <div class="flex gap-2 w-full">
-      <InputDateField class="w-full" @bind-Value="FormModel.CreateDt"/>
+      <InputDateField
+        class="w-full"
+        @bind-Value="FormModel.CreateDt"
+        HtmlId="pallet-create-dt"
+      />
       <Button
         Size="ButtonSize.Icon"
         Variant="ButtonVariant.Outline"
@@ -35,10 +42,13 @@
     <FieldValidation For="@(() => FormModel.CreateDt)"/>
   </FormFieldWrapper>
 
-  <FormFieldWrapper Label="@($"{WsDataLocalizer["ColBoxCount"]} ({WsDataLocalizer["MeasurePc"]})")" HtmlId="count">
+  <FormFieldWrapper
+    Label="@($"{WsDataLocalizer["ColBoxCount"]} ({WsDataLocalizer["MeasurePc"]})")"
+    HtmlId="pallet-count"
+  >
     <InputNumberField
       TValue="int"
-      id="count"
+      HtmlId="pallet-count"
       Step="1"
       Min="1"
       Placeholder="@Localizer["LabelCountInputPlaceholder"]"
@@ -46,10 +56,10 @@
     />
     <FieldValidation For="@(() => FormModel.Count)" />
   </FormFieldWrapper>
-  <FormFieldWrapper Label="@WsDataLocalizer["ColKneading"]" HtmlId="kneading">
+  <FormFieldWrapper Label="@WsDataLocalizer["ColKneading"]" HtmlId="pallet-kneading">
     <InputNumberField
       TValue="short"
-      id="kneading"
+      HtmlId="pallet-kneading"
       Step="1"
       Min="1"
       Placeholder="@Localizer["KneadingInputPlaceholder"]"

@@ -1,6 +1,7 @@
 <Dialog Class="max-w-screen-sm select-none p-3 md:p-6">
   <input
     type="text"
+    name="numeric-input"
     @bind="Number"
     @bind:event="oninput"
     @onkeydown="HandleKeyDown"
@@ -15,7 +16,7 @@
         Variant="ButtonVariant.Secondary"
         OnClick="@control.CalculatorAction"
         Class="!h-16 !text-xl !border"
-        >
+      >
         @control.Title
       </Button>
     }

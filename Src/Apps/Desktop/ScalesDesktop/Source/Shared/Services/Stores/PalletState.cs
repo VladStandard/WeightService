@@ -38,11 +38,11 @@ public class SwitchPalletDeleteFlagReducer : Reducer<PalletState, SwitchPalletDe
 }
 
 
-public record ChangePalletViewTabAction(PalletViewTab tab);
+public record ChangePalletViewTabAction(PalletViewTab Tab);
 
 public class ChangePalletViewTabReducer : Reducer<PalletState, ChangePalletViewTabAction>
 {
-    public override PalletState Reduce(PalletState state, ChangePalletViewTabAction action) => state with { PalletViewTab = action.tab };
+    public override PalletState Reduce(PalletState state, ChangePalletViewTabAction action) => state with { PalletViewTab = action.Tab };
 }
 
 public enum PalletViewTab

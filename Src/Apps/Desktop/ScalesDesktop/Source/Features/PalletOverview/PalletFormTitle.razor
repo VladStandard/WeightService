@@ -1,31 +1,42 @@
-@using Ws.Desktop.Models.Features.Pallets.Output
+@using ScalesDesktop.Source.Shared.Services.Stores
 
-<div class="flex gap-3 items-center">
-  <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number от @Pallet.ProdDt.ToString("dd.MM.yyyy")</h2>
-  @if (Pallet.IsShipped)
-  {
-    <Badge Class="pb-1">@Localizer["PalletFlagShipped"]</Badge>
-  }
-  else
-  {
-    <Badge Variant="BadgeVariant.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
-  }
-  @if (Pallet.DeletedAt != null)
-  {
-    <Badge Variant="BadgeVariant.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
-    <Tooltip Anchor="badge-deleted-pallet">
-      @Pallet.DeletedAt
-    </Tooltip>
-  }
-</div>
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@if (PalletState.Value.Pallet != null)
+{
+  <div class="flex gap-3 items-center">
+    <h2 class="font-medium text-xl">
+      @WsDataLocalizer["ColPallet"] №@PalletState.Value.Pallet.Number от @PalletState.Value.Pallet.ProdDt.ToString("dd.MM.yyyy")
+    </h2>
+    @if (PalletState.Value.Pallet.IsShipped)
+    {
+      <Badge Class="pb-1">@Localizer["PalletFlagShipped"]</Badge>
+    }
+    else
+    {
+      <Badge Variant="BadgeVariant.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
+    }
+    @if (PalletState.Value.Pallet.DeletedAt != null)
+    {
+      <Badge Variant="BadgeVariant.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
+      <Tooltip Anchor="badge-deleted-pallet">
+        @PalletState.Value.Pallet.DeletedAt
+      </Tooltip>
+    }
+  </div>
+}
+else
+{
+  <h2 class="text-destructive">Неизвестная паллета</h2>
+}
+
 
 @code {
   # region Injects
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IState<PalletState> PalletState { get; set; } = default!;
 
   # endregion
-
-  [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
 }
