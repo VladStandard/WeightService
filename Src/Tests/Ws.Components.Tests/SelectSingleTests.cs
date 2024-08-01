@@ -1,106 +1,197 @@
 using AngleSharp.Dom;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Ws.Components.Source.UI.Select;
 
 namespace Ws.Components.Tests;
 
-public class SelectSingleTests
+public class SelectSingleTests : TestContext
 {
-    [Fact]
-    public void RendersComponentWithProvidedItems()
+    [Inject] private LibraryConfiguration LibraryConfiguration { get; set; } = new();
+
+    public SelectSingleTests()
     {
-        // Arrange
-        string[] items = ["first", "second", "third"];
-
-        using TestContext ctx = new();
-        ctx.Services.AddSingleton<LibraryConfiguration>();
-        ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
-        IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
-            .Add(p => p.Items, items));
-
-        // Act
-        IRenderedComponent<SelectTrigger> selectTrigger = component.FindComponent<SelectTrigger>();
-        selectTrigger.Find("button").Click();
-
-        // Assert
-        component.FindAll("li").Count.Should().Be(items.Length);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton(LibraryConfiguration);
     }
 
+    private IRenderedComponent<SelectSingle<string>> RenderComponentWithParameters(Action<ComponentParameterCollectionBuilder<SelectSingle<string>>> parameters)
+        => RenderComponent(parameters);
+
     [Fact]
-    public void SetsSelectedItemOnClick()
+    public void WhenItemIsSelected_ValueShouldChange()
     {
         // Arrange
-        string[] items = ["first", "second", "third"];
-        string? selectedItem = null;
+        List<string> items = ["Item1", "Item2", "Item3"];
 
-        using TestContext ctx = new();
-        ctx.Services.AddSingleton<LibraryConfiguration>();
-        ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
-        IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
             .Add(p => p.Items, items)
-            .Add(p => p.SelectedItem, selectedItem)
-            .Add(p => p.SelectedItemChanged, value => selectedItem = value));
+            .Add(p => p.SelectedItemChanged, () => Task.CompletedTask)
+            .Add(p => p.ItemDisplayName, item => item)
+            .Add(p => p.Placeholder, "Select an item")
+        );
 
-        // Act
-        IRenderedComponent<SelectTrigger> selectTrigger =component.FindComponent<SelectTrigger>();
+        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
         selectTrigger.Find("button").Click();
 
-        IElement? secondItem = component.FindAll("li")[1].FirstElementChild;
-        secondItem?.Click();
+        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
+        cut.Render(); // re render component
 
         // Assert
-        component.Instance.SelectedItem.Should().Be("second");
-        selectedItem.Should().Be("second");
+        cut.Instance.SelectedItem.Should().Be("Item2");
     }
 
     [Fact]
-    public void DoesNotSetSelectedItemIfComponentIsDisabled()
+    public void WhenItemIsSelected_IsActiveShouldChange()
     {
         // Arrange
-        using TestContext ctx = new();
-        ctx.Services.AddSingleton<LibraryConfiguration>();
-        ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
-        IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
-            .Add(p => p.Items, [])
-            .Add(p => p.IsDisabled, true));
+        List<string> items = ["Item1", "Item2", "Item3"];
 
         // Act
-        IRenderedComponent<SelectTrigger> selectTrigger = component.FindComponent<SelectTrigger>();
-        IElement button = selectTrigger.Find("button");
-
-        // Assert
-        button.IsDisabled().Should().BeTrue();
-    }
-
-    [Fact]
-    public void FiltersItemsBasedOnSearchString()
-    {
-        // Arrange
-        string[] items = ["first", "second", "third"];
-
-        using TestContext ctx = new();
-        ctx.Services.AddSingleton<LibraryConfiguration>();
-        ctx.JSInterop.SetupVoid("subscribeElementResize", _ => true);
-        ctx.JSInterop.SetupModule("./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js?v=4.9.3.24205");
-        IRenderedComponent<SelectSingle<string>> component = ctx.RenderComponent<SelectSingle<string>>(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
             .Add(p => p.Items, items)
-            .Add(p => p.IsFilterable, true));
+            .Add(p => p.ItemDisplayName, item => item)
+            .Add(p => p.Placeholder, "Select an item")
+        );
 
-        // Act
-        IRenderedComponent<SelectTrigger> selectTrigger = component.FindComponent<SelectTrigger>();
+        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
         selectTrigger.Find("button").Click();
 
-        IRenderedComponent<SelectSearch> selectSearch = component.FindComponent<SelectSearch>();
-        IElement searchInput = selectSearch.Find("input");
-        searchInput.Input("sec");
+        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
+        cut.Render(); // re render component
+        cut.Find("button").Click(); // re-open dropdown
 
         // Assert
-        selectSearch.Instance.Value.Should().Be("sec");
-        searchInput.GetAttribute("value").Should().Be("sec");
-        component.FindAll("li").Count.Should().Be(1);
+        List<IElement> activeIcons = cut.FindAll("li > button > svg")
+            .Where(icon => icon.ClassList.Contains("visible"))
+            .ToList();
+
+        activeIcons.Should().HaveCount(1);
+    }
+
+    [Fact]
+    public void ShouldOpenDropdownMenu()
+    {
+        // Arrange
+        List<string> items = ["Item1", "Item2", "Item3"];
+
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.ItemDisplayName, item => item)
+            .Add(p => p.Placeholder, "Select an item")
+        );
+
+        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
+        selectTrigger.Find("button").Click();
+
+        // Assert
+        cut.Find("[role='combobox']").Attributes["aria-expanded"]?.Value.Should().Be("True");
+    }
+
+    [Fact]
+    public void ShouldSetAriaTagsCorrectly()
+    {
+        // Arrange
+        List<string> items = ["Item1", "Item2", "Item3"];
+
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.ItemDisplayName, item => item)
+            .Add(p => p.Placeholder, "Select an item")
+        );
+
+        IElement combobox = cut.Find("[role='combobox']");
+
+        // Assert
+        combobox.Attributes["aria-haspopup"]?.Value.Should().Be("listbox");
+        combobox.Attributes["aria-expanded"]?.Value.Should().Be("False");
+    }
+
+         [Fact]
+     public void DoesNotSetSelectedItemIfComponentIsDisabled()
+     {
+         // Act
+         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+             .Add(p => p.Items, [])
+             .Add(p => p.IsDisabled, true));
+
+         IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
+         IElement button = selectTrigger.Find("button");
+
+         // Assert
+         button.IsDisabled().Should().BeTrue();
+     }
+
+     [Fact]
+     public async Task FiltersItemsBasedOnSearchString()
+     {
+         // Arrange
+         string[] items = ["apple", "banana", "orange"];
+         const string searchValue = "ban";
+
+         // Act
+         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+             .Add(p => p.Items, items)
+             .Add(p => p.IsFilterable, true));
+
+         IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
+         selectTrigger.Find("button").Click();
+
+         IRenderedComponent<SelectSearch> selectSearch = cut.FindComponent<SelectSearch>();
+         await cut.InvokeAsync(() => selectSearch.Find("input").Input(searchValue));
+
+         // Assert
+         selectSearch.Instance.Value.Should().Be(searchValue);
+         selectSearch.Find("input").GetAttribute("value").Should().Be(searchValue);
+         cut.FindAll("li").Should().HaveCount(1);
+     }
+
+    [Fact]
+    public void ShouldUpdateValueWhenParameterChangesExternally()
+    {
+        // Arrange
+        List<string> items = ["Item1", "Item2", "Item3"];
+        const string itemToFind = "Item3";
+
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.SelectedItem, "Item1")
+            .Add(p => p.ItemDisplayName, item => item)
+            .Add(p => p.Placeholder, "Select an item")
+        );
+
+        cut.SetParametersAndRender(parameters => parameters
+            .Add(p => p.SelectedItem, itemToFind));
+
+        // Assert
+        cut.Instance.SelectedItem.Should().Be(itemToFind);
+    }
+
+    [Fact]
+    public void ShouldCallItemDisplayNameFunction()
+    {
+        // Arrange
+        List<string> items = ["Item1", "Item2", "Item3"];
+        Func<string, string> itemDisplayName = value => value.ToUpper();
+
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.ItemDisplayName, itemDisplayName)
+            .Add(p => p.Placeholder, "Select an item")
+        );
+
+        IRenderedComponent<SelectTrigger> selectTrigger = cut.FindComponent<SelectTrigger>();
+        selectTrigger.Find("button").Click();
+
+        // Assert
+        string buttonText = cut.FindAll("li > button")[0].TextContent.Trim();
+        buttonText.Should().Be("ITEM1");
+        itemDisplayName.Invoke("Item1").Should().Be("ITEM1");
     }
 }

@@ -61,6 +61,7 @@
     <SectionInputWrapper
       Path="@(FormModel.PrinterId != Guid.Empty ? Redirector.ToPrinterPath(FormModel.PrinterId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColPrinter"]"
+      HtmlFor="arm-printer"
     >
       <UseEndpoint
         Endpoint="@DevicesEndpoints.ProxyPrintersEndpoint"
@@ -71,6 +72,7 @@
         {
           <SelectSingle
             TItem="ProxyDto?"
+            HtmlId="arm-printer"
             Items="printersQuery.Data"
             SelectedItem="@printersQuery.Data.SingleOrDefault(x => x.Id == FormModel.PrinterId)"
             SelectedItemChanged="@(value => FormModel.PrinterId = value?.Id ?? Guid.Empty)"
@@ -100,6 +102,7 @@
     <SectionInputWrapper
       Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColWarehouse"]"
+      HtmlFor="arm-warehouse"
     >
       <UseEndpoint
         Endpoint="@ReferencesEndpoints.ProxyWarehousesEndpoint"
@@ -110,6 +113,7 @@
         {
           <SelectSingle
             TItem="ProxyDto?"
+            HtmlId="arm-warehouse"
             Items="warehousesQuery.Data"
             SelectedItem="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
             SelectedItemChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"

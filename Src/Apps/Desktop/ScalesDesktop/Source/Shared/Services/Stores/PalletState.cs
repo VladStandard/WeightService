@@ -24,6 +24,20 @@ public class ResetPalletReducer : Reducer<PalletState, ResetPalletAction>
     public override PalletState Reduce(PalletState state, ResetPalletAction action) => state with { Pallet = null };
 }
 
+public record SwitchPalletDeleteFlagAction;
+
+public class SwitchPalletDeleteFlagReducer : Reducer<PalletState, SwitchPalletDeleteFlagAction>
+{
+    public override PalletState Reduce(PalletState state, SwitchPalletDeleteFlagAction action)
+    {
+        PalletInfo? currentPallet = state.Pallet;
+        if (currentPallet == null) return state;
+        DateTime? newDeleteFlag = currentPallet.DeletedAt == null ? DateTime.Now : null;
+        return state with { Pallet = currentPallet with { DeletedAt = newDeleteFlag } };
+    }
+}
+
+
 public record ChangePalletViewTabAction(PalletViewTab tab);
 
 public class ChangePalletViewTabReducer : Reducer<PalletState, ChangePalletViewTabAction>

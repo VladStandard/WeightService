@@ -1,12 +1,16 @@
-<FluentMenu
-  Anchor="@Anchor"
+<FluentPopover
+  AnchorId="@Anchor"
   @bind-Open="IsOpen"
   @bind-Open:after="OnIsOpenChanged"
-  Class="@Css.Class("!bg-inherit !min-w-[unset] [&>fluent-menu]:!p-0 [&>fluent-menu]:!max-w-[unset] [&>fluent-menu]:rounded-md [&>fluent-menu]:overflow-hidden [&>fluent-menu]:shadow-md [&>fluent-menu]:border [&>fluent-menu]:bg-background", Class)"
   VerticalThreshold="@VerticalThreshold"
+  Class="@Css.Class("!bg-background rounded-md border !shadow-md", Class)"
 >
-  @ChildContent
-</FluentMenu>
+  <Header></Header>
+  <Body>@ChildContent</Body>
+  <Footer></Footer>
+</FluentPopover>
+
+@* Class="@Css.Class("!bg-inherit !min-w-[unset] [&>fluent-menu]:!p-0 [&>fluent-menu]:!max-w-[unset] [&>fluent-menu]:rounded-md [&>fluent-menu]:overflow-hidden [&>fluent-menu]:shadow-md [&>fluent-menu]:border [&>fluent-menu]:bg-background", Class)" *@
 
 @code {
   [Parameter] public RenderFragment? ChildContent { get; set; }

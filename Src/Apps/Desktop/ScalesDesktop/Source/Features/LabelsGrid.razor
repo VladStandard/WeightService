@@ -89,6 +89,15 @@
                 Property="@(p => p.Label.Barcode)"
                 Width="5fr"
               />
+              <TemplateColumn Width="4rem" Align="Align.Center">
+                <button
+                  type="button"
+                  onclick="@(() => SaveToClipboard(context.Label.Barcode))"
+                  class="text-muted-foreground opacity-50 hover:opacity-100"
+                >
+                  <ClipboardDocumentIcon class="size-5" />
+                </button>
+              </TemplateColumn>
             </FluentDataGrid>
           </UseEndpoint>
         }

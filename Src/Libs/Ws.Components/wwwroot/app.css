@@ -105,6 +105,18 @@
     @apply !bg-background !text-primary border
   }
 
+  .fluent-popover-content {
+    @apply !p-0
+  }
+
+  .fluent-popover-content div[part="header"] {
+    @apply hidden
+  }
+
+  .fluent-popover-content div[part="footer"] {
+    @apply hidden
+  }
+
   .fluent-toast-action > svg {
     @apply !fill-black dark:!fill-white
   }

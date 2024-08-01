@@ -344,4 +344,10 @@
     <data name="PalletFilterAll" xml:space="preserve">
         <value>All</value>
     </data>
+    <data name="ToastValueCopiedToClipboard" xml:space="preserve">
+        <value>The value is coped to the clipboard</value>
+    </data>
+    <data name="ToastValueCopiedToClipboardUnsuccessful" xml:space="preserve">
+        <value>The value can't be copied to the clipboard</value>
+    </data>
 </root>

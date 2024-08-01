@@ -344,4 +344,10 @@
     <data name="PalletFilterAll" xml:space="preserve">
         <value>Все</value>
     </data>
+    <data name="ToastValueCopiedToClipboard" xml:space="preserve">
+        <value>Значение сохранено в буфер обмена</value>
+    </data>
+    <data name="ToastValueCopiedToClipboardUnsuccessful" xml:space="preserve">
+        <value>Невозможно сохранить значение в буфер обмена</value>
+    </data>
 </root>

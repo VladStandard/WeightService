@@ -27,6 +27,7 @@
     <SectionInputWrapper
       Path="@(Redirector.ToProductionPath(Model.ProductionSiteId, UserPrincipal))"
       Label="@WsDataLocalizer["ColProductionSite"]"
+      HtmlFor="user-warehouse"
     >
       <UseParameterlessEndpoint
         Endpoint="@ReferencesEndpoints.ProductionSitesEndpoint"
@@ -36,6 +37,7 @@
         {
           <SelectSingle
             TItem="ProductionSiteDto?"
+            HtmlId="user-warehouse"
             Items="productionSitesQuery.Data"
             SelectedItem="@productionSitesQuery.Data.FirstOrDefault(x => x.Id == FormModel.ProductionSiteId)"
             SelectedItemChanged="@(value => FormModel.ProductionSiteId = value?.Id ?? Guid.Empty)"

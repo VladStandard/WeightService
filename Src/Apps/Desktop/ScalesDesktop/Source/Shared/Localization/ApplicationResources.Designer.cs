@@ -962,6 +962,24 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string ToastValueCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("ToastValueCopiedToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ToastValueCopiedToClipboardUnsuccessful {
+            get {
+                return ResourceManager.GetString("ToastValueCopiedToClipboardUnsuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string TrayWeightInputPlaceholder {
             get {
                 return ResourceManager.GetString("TrayWeightInputPlaceholder", resourceCulture);

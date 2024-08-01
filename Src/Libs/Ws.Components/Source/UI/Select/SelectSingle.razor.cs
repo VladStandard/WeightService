@@ -57,11 +57,15 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     /// </summary>
     [Parameter] public string Class { get; set; } = string.Empty;
 
+    /// <summary>
+    /// The html id for forms
+    /// </summary>
+    [Parameter] public string HtmlId { get; set; } = string.Empty;
+
     [Parameter] public RenderFragment<ButtonTriggerContext>? TriggerContent { get; set; }
 
-    private const int ResizeTimeout = 10;
     private ElementReference DropdownWrapper { get; set; }
-    private string Id { get; } = $"id-{Guid.NewGuid()}";
+    private string AnchorId { get; } = $"id-{Guid.NewGuid()}";
     private string SearchString { get; set; } = string.Empty;
     private bool IsOpen { get; set; }
 
@@ -75,7 +79,7 @@ public sealed partial class SelectSingle<TItem> : ComponentBase, IAsyncDisposabl
     {
         if (IsDisabled) return;
         IsOpen = !IsOpen;
-        await Task.Delay(ResizeTimeout);
+        await Task.Yield();
         await JsRuntime.InvokeVoidAsync("updateElementSize", DropdownWrapper);
     }
 

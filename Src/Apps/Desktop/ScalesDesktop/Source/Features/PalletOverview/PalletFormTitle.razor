@@ -1,0 +1,31 @@
+@using Ws.Desktop.Models.Features.Pallets.Output
+
+<div class="flex gap-3 items-center">
+  <h2 class="font-medium text-xl">@WsDataLocalizer["ColPallet"] №@Pallet.Number от @Pallet.ProdDt.ToString("dd.MM.yyyy")</h2>
+  @if (Pallet.IsShipped)
+  {
+    <Badge Class="pb-1">@Localizer["PalletFlagShipped"]</Badge>
+  }
+  else
+  {
+    <Badge Variant="BadgeVariant.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
+  }
+  @if (Pallet.DeletedAt != null)
+  {
+    <Badge Variant="BadgeVariant.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
+    <Tooltip Anchor="badge-deleted-pallet">
+      @Pallet.DeletedAt
+    </Tooltip>
+  }
+</div>
+
+@code {
+  # region Injects
+
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+
+  # endregion
+
+  [Parameter, EditorRequired] public PalletInfo Pallet { get; set; } = default!;
+}
