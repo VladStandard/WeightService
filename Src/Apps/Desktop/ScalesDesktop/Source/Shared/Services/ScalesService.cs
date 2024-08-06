@@ -7,12 +7,11 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class ScalesService : IDisposable
+public class ScalesService : IScalesService, IDisposable
 {
     private readonly IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
     private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
-
 
     public ScalesService(IDispatcher dispatcher)
     {
@@ -20,7 +19,7 @@ public class ScalesService : IDisposable
         Setup();
     }
 
-    private void Setup(string comPort = DefaultComPort)
+    public void Setup(string comPort = DefaultComPort)
     {
         Scales.OnStatusChanged -= ScalesOnStatusChanged;
         Scales.OnWeightChanged -= ScalesOnWeightChanged;

@@ -13,5 +13,5 @@ public record ChangeWeightAction(int Weight, bool IsStable);
 public class ChangeWeightReducer : Reducer<WeightState, ChangeWeightAction>
 {
     public override WeightState Reduce(WeightState state, ChangeWeightAction action) =>
-        state.Weight == action.Weight && state.IsStable == action.IsStable ? state : new(action.Weight, action.IsStable);
+        new(action.Weight, action.IsStable);
 }

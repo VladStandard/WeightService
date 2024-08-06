@@ -25,7 +25,7 @@
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private IScalesService ScalesService { get; set; } = default!;
 
   # endregion
 

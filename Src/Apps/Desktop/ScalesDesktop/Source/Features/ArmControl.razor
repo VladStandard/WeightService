@@ -54,7 +54,7 @@
 </div>
 
 @code {
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IPrinterService PrinterService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 

@@ -37,8 +37,16 @@ public static class MauiProgram
         });
 
         builder.Services.AddSingleton<PalletDocumentGenerator>();
-        builder.Services.AddSingleton<ScalesService>();
-        builder.Services.AddSingleton<PrinterService>();
+
+        if (builder.Configuration.GetValue<bool?>("MockPrinter") == true && ConfigurationUtil.IsDevelop)
+            builder.Services.AddSingleton<IPrinterService, MockPrinterService>();
+        else
+            builder.Services.AddSingleton<IPrinterService, PrinterService>();
+
+        if (builder.Configuration.GetValue<bool?>("MockScales") == true && ConfigurationUtil.IsDevelop)
+            builder.Services.AddSingleton<IScalesService, MockScalesService>();
+        else
+            builder.Services.AddSingleton<IScalesService ,ScalesService>();
 
         return builder;
     }

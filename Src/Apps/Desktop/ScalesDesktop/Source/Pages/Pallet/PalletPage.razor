@@ -47,7 +47,7 @@
   [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
   [Inject] private IState<PalletState> PalletState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IPrinterService PrinterService { get; set; } = default!;
 
   # endregion
 

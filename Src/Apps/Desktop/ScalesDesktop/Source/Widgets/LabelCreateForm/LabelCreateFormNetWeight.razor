@@ -27,7 +27,7 @@
   # region Injects
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
+  [Inject] private IScalesService ScalesService { get; set; } = default!;
   [Inject] private IState<WeightState> WeightState { get; set; } = default!;
   [Inject] private IState<ScalesState> ScalesState { get; set; } = default!;
   [Inject] private IState<PluState> PluState { get; set; } = default!;

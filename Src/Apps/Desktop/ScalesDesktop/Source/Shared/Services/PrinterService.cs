@@ -8,7 +8,7 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services;
 
-public class PrinterService(IDispatcher dispatcher): IDisposable
+public class PrinterService(IDispatcher dispatcher): IPrinterService, IDisposable
 {
     private IZplPrinter Printer { get; set; } = PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypes.Tsc);
 

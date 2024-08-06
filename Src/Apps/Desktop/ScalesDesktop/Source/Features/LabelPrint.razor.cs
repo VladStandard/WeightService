@@ -22,7 +22,7 @@ public sealed partial class LabelPrint : FluxorComponent
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
-    [Inject] private PrinterService PrinterService { get; set; } = default!;
+    [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;

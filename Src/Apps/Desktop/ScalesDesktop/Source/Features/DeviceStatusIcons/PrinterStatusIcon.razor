@@ -17,7 +17,7 @@
   # region Injects
 
   [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IPrinterService PrinterService { get; set; } = default!;
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 

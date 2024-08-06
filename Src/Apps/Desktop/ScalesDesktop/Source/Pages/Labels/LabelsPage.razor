@@ -28,8 +28,8 @@
   # region Injects
 
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
-  [Inject] private ScalesService ScalesService { get; set; } = default!;
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IScalesService ScalesService { get; set; } = default!;
+  [Inject] private IPrinterService PrinterService { get; set; } = default!;
 
   # endregion
 

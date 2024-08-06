@@ -53,7 +53,7 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
-  [Inject] private PrinterService PrinterService { get; set; } = default!;
+  [Inject] private IPrinterService PrinterService { get; set; } = default!;
   [Inject] private IState<PluState> PluState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
   [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
