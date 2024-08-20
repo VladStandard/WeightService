@@ -2,7 +2,7 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.TemplateResources.Queries
 
-@inherits SectionPageBase<TemplateResourceDto>
+@inherits SectionDataGridBase<TemplateResourceDto>
 @attribute [Route(RouteUtils.SectionResources)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

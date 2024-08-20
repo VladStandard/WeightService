@@ -2,9 +2,9 @@ using Fluxor.Blazor.Web.Components;
 using Microsoft.JSInterop;
 using Phetch.Core;
 
-namespace DeviceControl.Source.Widgets.Section;
+namespace DeviceControl.Source.Shared.UI.DataGrid;
 
-public class SectionPageBase<TItem>: FluxorComponent where TItem : notnull
+public class SectionDataGridBase<TItem>: FluxorComponent where TItem : notnull
 {
     # region Injects
 

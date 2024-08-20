@@ -1,4 +1,5 @@
 using System.Net;
+using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 

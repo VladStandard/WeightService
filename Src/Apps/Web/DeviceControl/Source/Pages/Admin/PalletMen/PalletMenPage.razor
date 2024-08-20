@@ -3,7 +3,8 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Admins.PalletMen.Queries
 @using Ws.DeviceControl.Models.Dto.Shared
-@inherits SectionPageBase<PalletManDto>
+
+@inherits SectionDataGridBase<PalletManDto>
 @attribute [Route(RouteUtils.SectionPalletMen)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer

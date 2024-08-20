@@ -56,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.DeviceControl.Api", "Src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.DeviceControl.Models", "Src\Apps\Web\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj", "{7C36C14A-BDAE-45D5-BF75-554D97BB6268}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Architecture.Tests", "Src\Tests\Ws.Architecture.Tests\Ws.Architecture.Tests.csproj", "{57039081-4AE0-4805-A02E-1C94EA09466B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DevelopVS|x64 = DevelopVS|x64
@@ -130,6 +132,10 @@ Global
 		{7C36C14A-BDAE-45D5-BF75-554D97BB6268}.DevelopVS|x64.Build.0 = DevelopVS|x64
 		{7C36C14A-BDAE-45D5-BF75-554D97BB6268}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
 		{7C36C14A-BDAE-45D5-BF75-554D97BB6268}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
+		{57039081-4AE0-4805-A02E-1C94EA09466B}.DevelopVS|x64.ActiveCfg = DevelopVS|x64
+		{57039081-4AE0-4805-A02E-1C94EA09466B}.DevelopVS|x64.Build.0 = DevelopVS|x64
+		{57039081-4AE0-4805-A02E-1C94EA09466B}.ReleaseVS|x64.ActiveCfg = ReleaseVS|x64
+		{57039081-4AE0-4805-A02E-1C94EA09466B}.ReleaseVS|x64.Build.0 = ReleaseVS|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{4734CDB8-AAC7-4E61-868A-6CC7779EC792} = {3C0634E1-694E-465E-93B0-AB5C636B1E7C}
 		{5E0F4E42-3307-4B3E-AE43-ACCC86F59846} = {11491EE8-B6F5-4754-A5C2-4774F69D6155}
 		{7C36C14A-BDAE-45D5-BF75-554D97BB6268} = {11491EE8-B6F5-4754-A5C2-4774F69D6155}
+		{57039081-4AE0-4805-A02E-1C94EA09466B} = {CC895F84-6AE9-4AE0-8DA4-21AAA3FE9811}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAF483B4-517E-4CBD-90A7-3F3FC76B238D}

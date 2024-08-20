@@ -1,4 +1,4 @@
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public interface IScalesService
 {

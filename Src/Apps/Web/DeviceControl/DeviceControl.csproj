@@ -71,6 +71,15 @@
       <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-regular.woff2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormAction.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionDelete.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionRelogin.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionReset.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionShare.razor" />
+      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionUnlock.razor" />
+    </ItemGroup>
+
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
         <Exec Command="npm -v" ContinueOnError="true">
             <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>

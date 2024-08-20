@@ -5,7 +5,7 @@
 @using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries
 @using Ws.DeviceControl.Models.Dto.Shared
 
-@inherits SectionPageBase<ArmDto>
+@inherits SectionDataGridBase<ArmDto>
 @attribute [Route(RouteUtils.SectionLines)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer

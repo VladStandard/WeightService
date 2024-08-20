@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace DeviceControl.Source.Widgets.Section.FormFields;
+namespace DeviceControl.Source.Shared.UI.Form.Fields;
 
 public abstract class SectionFieldBase<TValue> : ComponentBase
 {

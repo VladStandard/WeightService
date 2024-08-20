@@ -4,6 +4,7 @@ using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ScalesDesktop.Source.Shared.Extensions;
+using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Shared.Utils;
 
 namespace ScalesDesktop;

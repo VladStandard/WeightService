@@ -1,7 +1,8 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
-@inherits SectionPageBase<ProductionSiteDto>
+
+@inherits SectionDataGridBase<ProductionSiteDto>
 @attribute [Route(RouteUtils.SectionProductionSites)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

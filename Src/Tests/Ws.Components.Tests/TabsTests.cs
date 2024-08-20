@@ -1,7 +1,7 @@
 using AngleSharp.Dom;
 using Ws.Components.Source.UI.Tabs;
 
-namespace Ws.Components.Tests.TabsComponent;
+namespace Ws.Components.Tests;
 
 public class TabsTests : TestContext
 {

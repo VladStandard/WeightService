@@ -3,7 +3,8 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Commands.Create
 @using Ws.DeviceControl.Models.Dto.Devices.Printers.Queries
-@inherits SectionFormBase<PrinterCreateDto>
+
+@inherits DeviceControl.Source.Shared.UI.Form.SectionFormBase<PrinterCreateDto>
 
 <SectionForm
   FormModel="@FormModel"

@@ -1,5 +1,6 @@
 using Append.Blazor.Printing;
 using Fluxor;
+using ScalesDesktop.Source.Shared.Services.Devices;
 using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;

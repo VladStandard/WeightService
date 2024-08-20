@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 
-namespace DeviceControl.Source.Widgets.Section.FormFields;
+namespace DeviceControl.Source.Shared.UI.Form.Fields;
 
 public sealed partial class SectionInputWrapper : ComponentBase
 {

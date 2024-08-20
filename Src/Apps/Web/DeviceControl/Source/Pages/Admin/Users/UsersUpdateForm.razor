@@ -3,7 +3,8 @@
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Commands.Update
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
 @using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries
-@inherits SectionFormBase<UserUpdateDto>
+
+@inherits DeviceControl.Source.Shared.UI.Form.SectionFormBase<UserUpdateDto>
 
 <SectionForm
   FormModel="@FormModel"
@@ -44,7 +45,7 @@
             Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
             EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
             SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-            ItemDisplayName="@(item => item!.Name)"
+            ItemDisplayName="@(item => item.Name)"
             Filterable
           />
         }

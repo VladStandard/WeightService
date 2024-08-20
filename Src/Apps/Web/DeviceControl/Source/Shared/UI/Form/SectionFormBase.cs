@@ -4,7 +4,7 @@ using Force.DeepCloner;
 using Refit;
 using Ws.Shared.Api.ApiException;
 
-namespace DeviceControl.Source.Widgets.Section;
+namespace DeviceControl.Source.Shared.UI.Form;
 
 public abstract class SectionFormBase<TItem> : FluxorComponent where TItem : IEquatable<TItem>
 {

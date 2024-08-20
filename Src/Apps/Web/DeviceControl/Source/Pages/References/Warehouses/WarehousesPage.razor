@@ -4,7 +4,7 @@
 @using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries
 @using Ws.DeviceControl.Models.Dto.Shared
 
-@inherits SectionPageBase<WarehouseDto>
+@inherits SectionDataGridBase<WarehouseDto>
 @attribute [Route(RouteUtils.SectionWarehouses)]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer

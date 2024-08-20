@@ -6,7 +6,7 @@ using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
 using IDispatcher = Fluxor.IDispatcher;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public class PrinterService(IDispatcher dispatcher): IPrinterService, IDisposable
 {

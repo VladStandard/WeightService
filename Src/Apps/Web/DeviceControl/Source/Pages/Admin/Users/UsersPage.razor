@@ -3,7 +3,7 @@
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Dto.Admins.Users.Queries
 
-@inherits SectionPageBase<UserWithProductionSite>
+@inherits SectionDataGridBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
@@ -90,5 +90,4 @@
         return keycloakUser != null ? new UserWithProductionSite(keycloakUser, ProductionSiteState.Value.ProductionSite.Id) : null;
       })
       .OfType<UserWithProductionSite>();
-
 }

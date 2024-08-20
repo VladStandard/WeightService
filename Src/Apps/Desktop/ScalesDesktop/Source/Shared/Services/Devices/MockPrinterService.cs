@@ -3,7 +3,7 @@ using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
 using IDispatcher = Fluxor.IDispatcher;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public class MockPrinterService(IDispatcher dispatcher): IPrinterService
 {

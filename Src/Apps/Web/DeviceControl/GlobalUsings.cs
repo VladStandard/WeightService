@@ -15,5 +15,4 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 
 // INTERNAL
 global using DeviceControl.Source.Shared.Utils;
-global using DeviceControl.Source.Widgets.Section;
 global using DeviceControl.Source.Shared.Localization;

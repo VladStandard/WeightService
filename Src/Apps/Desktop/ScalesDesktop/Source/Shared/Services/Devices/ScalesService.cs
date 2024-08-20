@@ -5,7 +5,7 @@ using MassaK.Plugin.Impl;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using IDispatcher = Fluxor.IDispatcher;
 
-namespace ScalesDesktop.Source.Shared.Services;
+namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public class ScalesService : IScalesService, IDisposable
 {

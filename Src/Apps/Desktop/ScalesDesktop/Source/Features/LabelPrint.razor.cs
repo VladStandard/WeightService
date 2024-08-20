@@ -2,6 +2,7 @@ using Fluxor;
 using Fluxor.Blazor.Web.Components;
 using MassaK.Plugin.Abstractions.Enums;
 using ScalesDesktop.Source.Shared.Models;
+using ScalesDesktop.Source.Shared.Services.Devices;
 using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
