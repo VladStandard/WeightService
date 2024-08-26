@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ScalesDesktop.Source.Shared.Extensions;
 using ScalesDesktop.Source.Shared.Services.Devices;
+using Ws.Shared.Extensions;
 using Ws.Shared.Utils;
 
 namespace ScalesDesktop;
@@ -21,10 +22,10 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
-#if DEBUG
-        builder.Services.AddBlazorWebViewDeveloperTools();
-        builder.Logging.AddDebug();
-#endif
+        #if DEBUG
+                builder.Services.AddBlazorWebViewDeveloperTools();
+                builder.Logging.AddDebug();
+        #endif
 
         builder.UseMauiApp<App>().UseFullScreen();
         builder.SetupLocalizer();
@@ -39,15 +40,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<PalletDocumentGenerator>();
 
-        if (builder.Configuration.GetValue<bool?>("MockPrinter") == true && ConfigurationUtil.IsDevelop)
-            builder.Services.AddSingleton<IPrinterService, MockPrinterService>();
-        else
-            builder.Services.AddSingleton<IPrinterService, PrinterService>();
+        bool isPrinterMock = builder.Configuration.GetValue<bool?>("MockPrinter") ?? false;
+        bool isScalesMock = builder.Configuration.GetValue<bool?>("MockScales") ?? false;
 
-        if (builder.Configuration.GetValue<bool?>("MockScales") == true && ConfigurationUtil.IsDevelop)
-            builder.Services.AddSingleton<IScalesService, MockScalesService>();
-        else
-            builder.Services.AddSingleton<IScalesService ,ScalesService>();
+        builder.Services.AddServiceOrMock<IPrinterService, PrinterService, MockPrinterService>(isPrinterMock, ServiceLifetime.Singleton);
+        builder.Services.AddServiceOrMock<IScalesService, ScalesService, MockScalesService>(isScalesMock, ServiceLifetime.Singleton);
 
         return builder;
     }
