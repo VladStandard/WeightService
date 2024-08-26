@@ -4,10 +4,15 @@ namespace Ws.Architecture.Tests;
 
 public class FsdTests
 {
+    public static readonly TheoryData<string, string> TestData = new()
+    {
+        { "DeviceControl", DllConstants.DeviceControl },
+        { "ScalesDesktop", DllConstants.ScalesDesktop },
+        { "ScalesMobile", DllConstants.ScalesMobile }
+    };
+
     [Theory]
-    [InlineData("DeviceControl", @"..\..\..\..\..\Apps\Web\DeviceControl\bin\Develop_x64\net8.0-windows10.0.19041.0\DeviceControl.dll")]
-    [InlineData("ScalesDesktop", @"..\..\..\..\..\Apps\Desktop\ScalesDesktop\bin\Develop_x64\net8.0-windows10.0.19041.0\win10-x64\ScalesDesktop.dll")]
-    [InlineData("ScalesMobile", @"..\..\..\..\..\Apps\Mobile\ScalesMobile\bin\Develop_x64\net8.0-android34.0\ScalesMobile.dll")]
+    [MemberData(nameof(TestData))]
     public void Shared_Should_HaveNoDependencies(string projectName, string assemblyPath)
     {
         Types? types = Types.InAssembly(Assembly.LoadFrom(assemblyPath));
@@ -27,9 +32,7 @@ public class FsdTests
     }
 
     [Theory]
-    [InlineData("DeviceControl", @"..\..\..\..\..\Apps\Web\DeviceControl\bin\Develop_x64\net8.0-windows10.0.19041.0\DeviceControl.dll")]
-    [InlineData("ScalesDesktop", @"..\..\..\..\..\Apps\Desktop\ScalesDesktop\bin\Develop_x64\net8.0-windows10.0.19041.0\win10-x64\ScalesDesktop.dll")]
-    [InlineData("ScalesMobile", @"..\..\..\..\..\Apps\Mobile\ScalesMobile\bin\Develop_x64\net8.0-android34.0\ScalesMobile.dll")]
+    [MemberData(nameof(TestData))]
     public void Features_Should_OnlyReference_Shared(string projectName, string assemblyPath)
     {
         Types? assembly = Types.InAssembly(Assembly.LoadFrom(assemblyPath));
@@ -47,9 +50,7 @@ public class FsdTests
     }
 
     [Theory]
-    [InlineData("DeviceControl", @"..\..\..\..\..\Apps\Web\DeviceControl\bin\Develop_x64\net8.0-windows10.0.19041.0\DeviceControl.dll")]
-    [InlineData("ScalesDesktop", @"..\..\..\..\..\Apps\Desktop\ScalesDesktop\bin\Develop_x64\net8.0-windows10.0.19041.0\win10-x64\ScalesDesktop.dll")]
-    [InlineData("ScalesMobile", @"..\..\..\..\..\Apps\Mobile\ScalesMobile\bin\Develop_x64\net8.0-android34.0\ScalesMobile.dll")]
+    [MemberData(nameof(TestData))]
     public void Widgets_Should_OnlyReference_Shared_And_Features(string projectName, string assemblyPath)
     {
         Types? assembly = Types.InAssembly(Assembly.LoadFrom(assemblyPath));

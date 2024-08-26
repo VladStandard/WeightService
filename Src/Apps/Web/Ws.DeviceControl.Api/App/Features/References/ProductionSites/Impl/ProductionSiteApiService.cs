@@ -41,7 +41,7 @@ public class ProductionSiteApiService(
             bool developer = await userManager.ValidatePolicyAsync(PolicyEnum.Developer);
             return await dbContext.ProductionSites
                 .AsNoTracking()
-                .IfWhere(!developer, entity => entity.Id != BaseConsts.GuidMax)
+                .IfWhere(!developer, entity => entity.Id != BaseConstants.GuidMax)
                 .Select(ProductionSiteCommonExpressions.ToProxy)
                 .OrderBy(i => i.Name)
                 .ToListAsync();

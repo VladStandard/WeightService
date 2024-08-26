@@ -7,8 +7,11 @@ namespace Ws.Shared.Tests.Extensions;
 [SuppressMessage("Usage", "xUnit1044:Avoid using TheoryData type arguments that are not serializable")]
 public class GuidExtensionsTests
 {
-    public static TheoryData<Guid, bool> TestSepData() =>
-        new() { { new Guid(), false }, { BaseConsts.GuidMax, true } };
+    public static readonly TheoryData<Guid, bool> TestSepData = new()
+    {
+        { new(), false },
+        { BaseConstants.GuidMax, true }
+    };
 
     [Theory]
     [MemberData(nameof(TestSepData))]
