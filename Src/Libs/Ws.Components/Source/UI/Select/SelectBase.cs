@@ -36,7 +36,34 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     [JSInvokable("HandleResize")]
     public async Task HandleResize() => await SetDropdownWidthAsync();
 
-    public void ToggleDropdown() => IsDropdownOpened = !IsDropdownOpened;
+    public async Task ToggleDropdown()
+    {
+        IsDropdownOpened = !IsDropdownOpened;
+        await Task.Yield();
+        if (!IsDropdownOpened || SelectItems.Count == 0) return;
+        KeyValuePair<Guid, SelectItem<TItem, TValue>> firstItem = SelectItems.First();
+        await firstItem.Value.FocusAsync();
+    }
+
+    public async Task FocusNextItemAsync(Guid id)
+    {
+        List<Guid> keys = SelectItems.Keys.ToList();
+        int currentIndex = keys.IndexOf(id);
+        if (currentIndex == -1 || currentIndex >= keys.Count - 1) return;
+
+        Guid nextId = keys[currentIndex + 1];
+        await SelectItems[nextId].FocusAsync();
+    }
+
+    public async Task FocusPreviousItemAsync(Guid id)
+    {
+        List<Guid> keys = SelectItems.Keys.ToList();
+        int currentIndex = keys.IndexOf(id);
+        if (currentIndex <= 0) return;
+
+        Guid previousId = keys[currentIndex - 1];
+        await SelectItems[previousId].FocusAsync();
+    }
 
     private async Task SetDropdownWidthAsync()
     {

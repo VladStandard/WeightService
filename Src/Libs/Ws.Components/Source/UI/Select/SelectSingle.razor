@@ -12,7 +12,7 @@
   @if (TriggerContent == null)
   {
     <SelectTrigger Disabled="@Disabled">
-      @(Value == null ? Placeholder : ItemDisplayName(Value))
+      <span class="truncate">@(Value == null ? Placeholder : ItemDisplayName(Value))</span>
     </SelectTrigger>
   }
   else

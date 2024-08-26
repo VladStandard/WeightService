@@ -9,13 +9,15 @@
 {
   <li>
     <button
+      @ref="ButtonRef"
       type="button"
       @attributes="AdditionalAttributes"
       @onclick="@(_ => Parent.SetValue(Item))"
-      class="@Css.Class("relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors truncate hover:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50", Class)"
+      @onkeydown="HandleKeyDown"
+      class="@Css.Class("relative w-full flex items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors truncate hover:bg-accent focus:bg-accent/[.5] disabled:pointer-events-none disabled:opacity-50", Class)"
     >
       <CheckIcon class="@Css.Class("mr-2 size-4 shrink-0", IsActive ? "visible" : "invisible")"/>
-      <span class="line-clamp-1">@Parent.ItemDisplayName(Item)</span>
+      <span class="truncate">@Parent.ItemDisplayName(Item)</span>
     </button>
   </li>
 }
@@ -28,8 +30,34 @@
   [CascadingParameter] public SelectBase<TSelectItem, TSelectType> Parent { get; set; } = default!;
 
   public Guid Id { get; } = Guid.NewGuid();
+  private ElementReference ButtonRef { get; set; } = default!;
 
   protected override void OnInitialized() => Parent.Register(this);
+
+  public async Task FocusAsync()
+  {
+    try
+    {
+      await ButtonRef.FocusAsync();
+    }
+    catch
+    {
+      // pass
+    }
+  }
+
+  private async Task HandleKeyDown(KeyboardEventArgs e)
+  {
+    switch (e.Key)
+    {
+      case "ArrowDown":
+        await Parent.FocusNextItemAsync(Id);
+        break;
+      case "ArrowUp":
+        await Parent.FocusPreviousItemAsync(Id);
+        break;
+    }
+  }
 
   private bool IsActive => Parent.IsItemSelected(Item);
 
