@@ -137,11 +137,16 @@ public class SelectSingleTests : TestContext
          cut.Find("button").Click();
 
          IElement selectSearch = cut.Find("input");
-         await cut.InvokeAsync(() => selectSearch.Input(searchValue));
-         cut.Render();
+         await cut.InvokeAsync(() =>
+         {
+             selectSearch = cut.Find("input");
+             selectSearch.Input(searchValue);
+         });
 
          // Assert
          selectSearch.GetAttribute("value").Should().Be(searchValue);
+
+         cut.WaitForState(() => cut.FindAll("li").Count == 1); // wait for debounce
          cut.FindAll("li").Should().HaveCount(1);
      }
 

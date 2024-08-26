@@ -21,7 +21,7 @@ declare global {
       eventName: string,
       dotNetObjectReferencer: DotNetObjectType,
       functionName: string,
-      ...args: any[]
+      ...arguments_: unknown[]
     ) => void
     removeDotNetEventListener: (
       eventName: string,

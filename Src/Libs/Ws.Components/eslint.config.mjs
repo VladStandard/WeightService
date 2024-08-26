@@ -4,11 +4,11 @@ import globals from 'globals'
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import pluginPromise from 'eslint-plugin-promise'
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+import pluginSimpleImportSort from "eslint-plugin-simple-import-sort";
 import pluginSonarJs from "eslint-plugin-sonarjs"
 import pluginUnicorn from "eslint-plugin-unicorn"
 
-export default tseslint.config(
+const config = tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   pluginPromise.configs['flat/recommended'],
@@ -24,7 +24,7 @@ export default tseslint.config(
     },
     plugins: {
       pluginSonarJs,
-      "simple-import-sort": simpleImportSort
+      "simple-import-sort": pluginSimpleImportSort
     },
     rules: {
       "simple-import-sort/imports": "error",
@@ -32,3 +32,5 @@ export default tseslint.config(
     }
   },
 );
+
+export default config;
