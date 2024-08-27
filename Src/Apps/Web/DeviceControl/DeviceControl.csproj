@@ -2,8 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
         <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
@@ -32,13 +30,12 @@
         <None Include="package-lock.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
-        <None Remove="Properties\PublishProfiles\prod-preview.pubxml"/>
-        <None Remove="Properties\PublishProfiles\dev-preview.pubxml"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj"/>
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj"/>
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -60,24 +57,6 @@
         <EmbeddedResource Update="Source\Shared\Localization\ApplicationResources.ru-RU.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
         </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\font.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-300.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-500.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-600.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-700.woff2" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\inter-v13-cyrillic_latin-regular.woff2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormAction.razor" />
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionDelete.razor" />
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionRelogin.razor" />
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionReset.razor" />
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionShare.razor" />
-      <AdditionalFiles Include="Source\Shared\UI\Form\Actions\SectionFormActionUnlock.razor" />
     </ItemGroup>
 
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">

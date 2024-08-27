@@ -1,9 +1,8 @@
-using System.Reflection;
 using Microsoft.Build.Construction;
 
-namespace Ws.Architecture.Tests.Common;
+namespace Ws.Architecture.Tests.Utils;
 
-public class SolutionReader
+public static class SolutionUtils
 {
     public static TheoryData<string, Assembly> GetAllAssemblies()
     {
@@ -52,5 +51,22 @@ public class SolutionReader
             assemblies.Add(projectName, Assembly.LoadFrom(assemblyPath));
         }
         return assemblies;
+    }
+
+    public static TheoryData<string, string> GetProjectFiles()
+    {
+        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
+        string absolutePath = Path.GetFullPath(relativePath);
+        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
+
+        TheoryData<string, string> projects = [];
+
+        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
+        {
+            if (!project.AbsolutePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) continue;
+            if (project.AbsolutePath.Contains("Test", StringComparison.OrdinalIgnoreCase)) continue;
+            projects.Add(Path.GetFileName(project.AbsolutePath), project.AbsolutePath);
+        }
+        return projects;
     }
 }

@@ -1,11 +1,8 @@
-using System.Reflection;
-using Ws.Architecture.Tests.Common;
-
-namespace Ws.Architecture.Tests;
+namespace Ws.Architecture.Tests.Tests;
 
 public class FsdTests
 {
-    public static TheoryData<string, Assembly> TestData => SolutionReader.GetFrontendAssemblies();
+    public static TheoryData<string, Assembly> TestData => SolutionUtils.GetFrontendAssemblies();
 
     [Theory]
     [MemberData(nameof(TestData))]

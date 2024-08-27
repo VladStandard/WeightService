@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
         <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj"/>
+
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All"/>
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Scrutor" Version="4.2.2" />

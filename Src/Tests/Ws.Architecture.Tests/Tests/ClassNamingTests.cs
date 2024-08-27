@@ -1,11 +1,8 @@
-using System.Reflection;
-using Ws.Architecture.Tests.Common;
-
-namespace Ws.Architecture.Tests;
+namespace Ws.Architecture.Tests.Tests;
 
 public class ClassNamingTests
 {
-    public static TheoryData<string, Assembly> TestData => SolutionReader.GetAllAssemblies();
+    public static TheoryData<string, Assembly> TestData => SolutionUtils.GetAllAssemblies();
 
     [Theory]
     [MemberData(nameof(TestData))]

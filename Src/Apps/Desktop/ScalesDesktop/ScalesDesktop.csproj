@@ -66,6 +66,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -98,18 +99,6 @@
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Black.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Bold.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-ExtraBold.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-ExtraLight.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Light.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Medium.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Regular.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-SemiBold.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\font\Inter-Thin.ttf" />
     </ItemGroup>
 
     <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">

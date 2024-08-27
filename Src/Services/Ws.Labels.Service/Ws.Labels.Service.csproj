@@ -16,8 +16,8 @@
     </Target>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
 
     <Import Project="..\..\.targets\RedisSettings.targets"/>

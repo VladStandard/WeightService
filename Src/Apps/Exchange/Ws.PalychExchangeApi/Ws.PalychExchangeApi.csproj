@@ -6,6 +6,7 @@
         <PackageReference Include="Z.EntityFramework.Extensions.EFCore" Version="8.103.0" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
 </Project>
