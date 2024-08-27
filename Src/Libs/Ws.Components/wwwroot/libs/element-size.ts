@@ -1,5 +1,5 @@
-import { ResizableElement } from './types/resizable-element-type.ts'
-import { DotNetObjectType } from './types/dotnet-object-type.ts'
+import { type DotNetObjectType } from './types/dotnet-object-type.ts'
+import { type ResizableElement } from './types/resizable-element-type.ts'
 
 /**
  * Resizes the element by updating the width of the dropdown based on the width of the button.
@@ -53,9 +53,8 @@ window.unsubscribeElementResize = (element: ResizableElement): void => {
 }
 
 window.getElementWidthById = (id: string): number => {
-  const element = document.getElementById(id)
-  if (element) return element.offsetWidth
-  return 0
+  const element = document.querySelector(`#${id}`)
+  return element ? (element as HTMLElement).offsetWidth : 0
 }
 
 type EventHandler = {
@@ -71,10 +70,12 @@ window.addDotNetEventListener = (
   eventName: string,
   dotNetObjectReferencer: DotNetObjectType,
   functionName: string,
-  ...args: any[]
+  ...arguments_: unknown[]
 ): void => {
-  const handler: EventListener = (_: Event) => {
-    dotNetObjectReferencer.invokeMethodAsync(functionName, ...args).catch((exp) => console.log(exp))
+  const handler: EventListener = () => {
+    dotNetObjectReferencer.invokeMethodAsync(functionName, ...arguments_).catch((error: unknown) => {
+      console.log(error)
+    })
   }
   window.addEventListener(eventName, handler)
   eventHandlers.push({ dotNetObjectId: dotNetObjectReferencer._id, functionName, eventName, handler })
