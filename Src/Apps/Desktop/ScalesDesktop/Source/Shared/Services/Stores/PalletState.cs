@@ -4,9 +4,9 @@ using Ws.Desktop.Models.Features.Pallets.Output;
 namespace ScalesDesktop.Source.Shared.Services.Stores;
 
 [FeatureState]
-public record PalletState(PalletInfo? Pallet, PalletViewTab PalletViewTab)
+public record PalletState(PalletInfo? Pallet, PalletViewTabType PalletViewTabType)
 {
-    private PalletState() : this(null, PalletViewTab.Info) {}
+    private PalletState() : this(null, PalletViewTabType.Info) {}
 }
 
 public record ChangePalletAction(PalletInfo Pallet);
@@ -38,14 +38,14 @@ public class SwitchPalletDeleteFlagReducer : Reducer<PalletState, SwitchPalletDe
 }
 
 
-public record ChangePalletViewTabAction(PalletViewTab Tab);
+public record ChangePalletViewTabAction(PalletViewTabType TabType);
 
 public class ChangePalletViewTabReducer : Reducer<PalletState, ChangePalletViewTabAction>
 {
-    public override PalletState Reduce(PalletState state, ChangePalletViewTabAction action) => state with { PalletViewTab = action.Tab };
+    public override PalletState Reduce(PalletState state, ChangePalletViewTabAction action) => state with { PalletViewTabType = action.TabType };
 }
 
-public enum PalletViewTab
+public enum PalletViewTabType
 {
     Info,
     Labels

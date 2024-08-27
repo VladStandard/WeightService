@@ -6,16 +6,16 @@ public static class ConfigurationUtil
 {
     public static bool IsDevelop => Config switch
     {
-        EnumConfiguration.DevelopVs => true,
-        EnumConfiguration.ReleaseVs => false,
+        ConfigurationType.DevelopVs => true,
+        ConfigurationType.ReleaseVs => false,
         _ => throw new ArgumentOutOfRangeException(nameof(IsDevelop), IsDevelop.ToString())
     };
 
-    public static EnumConfiguration Config =>
+    public static ConfigurationType Config =>
 #if RELEASEVS
         EnumConfiguration.ReleaseVs;
 #else
-        EnumConfiguration.DevelopVs;
+        ConfigurationType.DevelopVs;
 #endif
 
 }

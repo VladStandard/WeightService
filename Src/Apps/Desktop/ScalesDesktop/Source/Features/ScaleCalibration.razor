@@ -4,8 +4,8 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <Button
-  Variant="ButtonVariant.Secondary"
-  Size="ButtonSize.Full"
+  Variant="ButtonVariantType.Secondary"
+  Size="ButtonSizeType.Full"
   OnClick="@HandleButtonOpenScalesTerminal"
   Disabled="@(!(ScalesState.Value.Status == MassaKStatus.Ready && !IsOnceClicked))"
   Class="border disabled:!opacity-70"

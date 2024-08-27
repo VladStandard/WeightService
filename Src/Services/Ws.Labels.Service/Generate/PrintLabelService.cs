@@ -31,7 +31,7 @@ internal class PrintLabelService(
 
         throw new ApiExceptionServer
         {
-            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.ExchangeFailed),
+            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.ExchangeFailed),
             ErrorInternalMessage = ans.Status.Message
         };
     }

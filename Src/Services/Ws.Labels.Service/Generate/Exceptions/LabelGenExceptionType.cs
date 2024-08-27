@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace Ws.Labels.Service.Generate.Exceptions;
 
-public enum LabelGenExceptions
+public enum LabelGenExceptionType
 {
     [Description("LabelGenExcInvalid")]
     Invalid,

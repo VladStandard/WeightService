@@ -38,17 +38,17 @@ public class ButtonTests : TestContext
     }
 
     [Theory]
-    [InlineData(ButtonVariant.Default, "bg-primary text-primary-foreground hover:bg-primary/90")]
-    [InlineData(ButtonVariant.Destructive, "bg-destructive text-destructive-foreground hover:bg-destructive/90")]
-    [InlineData(ButtonVariant.Outline, "border border-input bg-background hover:bg-accent hover:text-accent-foreground")]
-    [InlineData(ButtonVariant.Secondary, "bg-secondary text-secondary-foreground hover:bg-secondary/80")]
-    [InlineData(ButtonVariant.Ghost, "hover:bg-accent hover:text-accent-foreground")]
-    [InlineData(ButtonVariant.Link, "text-primary underline-offset-4 hover:underline")]
-    public void VariantClasses_AppliedCorrectly(ButtonVariant variant, string expectedClass)
+    [InlineData(ButtonVariantType.Default, "bg-primary text-primary-foreground hover:bg-primary/90")]
+    [InlineData(ButtonVariantType.Destructive, "bg-destructive text-destructive-foreground hover:bg-destructive/90")]
+    [InlineData(ButtonVariantType.Outline, "border border-input bg-background hover:bg-accent hover:text-accent-foreground")]
+    [InlineData(ButtonVariantType.Secondary, "bg-secondary text-secondary-foreground hover:bg-secondary/80")]
+    [InlineData(ButtonVariantType.Ghost, "hover:bg-accent hover:text-accent-foreground")]
+    [InlineData(ButtonVariantType.Link, "text-primary underline-offset-4 hover:underline")]
+    public void VariantClasses_AppliedCorrectly(ButtonVariantType variantType, string expectedClass)
     {
         // Arrange
         IRenderedComponent<Button> component = RenderComponent<Button>(parameters => parameters
-            .Add(p => p.Variant, variant)
+            .Add(p => p.Variant, variantType)
         );
 
         // Assert
@@ -57,16 +57,16 @@ public class ButtonTests : TestContext
     }
 
     [Theory]
-    [InlineData(ButtonSize.Default, "h-9 px-4 py-2")]
-    [InlineData(ButtonSize.Small, "h-8 rounded-md px-3 text-xs")]
-    [InlineData(ButtonSize.Large, "h-10 rounded-md px-8")]
-    [InlineData(ButtonSize.Full, "size-full")]
-    [InlineData(ButtonSize.Icon, "h-9 w-9")]
-    public void SizeClasses_AppliedCorrectly(ButtonSize size, string expectedClass)
+    [InlineData(ButtonSizeType.Default, "h-9 px-4 py-2")]
+    [InlineData(ButtonSizeType.Small, "h-8 rounded-md px-3 text-xs")]
+    [InlineData(ButtonSizeType.Large, "h-10 rounded-md px-8")]
+    [InlineData(ButtonSizeType.Full, "size-full")]
+    [InlineData(ButtonSizeType.Icon, "h-9 w-9")]
+    public void SizeClasses_AppliedCorrectly(ButtonSizeType sizeType, string expectedClass)
     {
         // Arrange
         IRenderedComponent<Button> component = RenderComponent<Button>(parameters => parameters
-            .Add(p => p.Size, size)
+            .Add(p => p.Size, sizeType)
         );
 
         // Assert

@@ -38,16 +38,16 @@
     </EmptyTemplate>
     <PageButtonTemplate>
       <Button
-        Variant="@(context.Active ? ButtonVariant.Secondary : ButtonVariant.Outline)"
-        Size="ButtonSize.Icon"
+        Variant="@(context.Active ? ButtonVariantType.Secondary : ButtonVariantType.Outline)"
+        Size="ButtonSizeType.Icon"
       >
         <span class="text-muted-foreground">@context.PageNumber</span>
       </Button>
     </PageButtonTemplate>
     <NextPageButtonTemplate>
       <Button
-        Variant="ButtonVariant.Outline"
-        Size="ButtonSize.Icon"
+        Variant="ButtonVariantType.Outline"
+        Size="ButtonSizeType.Icon"
       >
         <ChevronRightIcon class="size-5 text-muted-foreground" />
         <span class="sr-only">Next page</span>
@@ -55,8 +55,8 @@
     </NextPageButtonTemplate>
     <PreviousPageButtonTemplate>
       <Button
-        Variant="ButtonVariant.Outline"
-        Size="ButtonSize.Icon"
+        Variant="ButtonVariantType.Outline"
+        Size="ButtonSizeType.Icon"
       >
         <ChevronLeftIcon class="size-5 text-muted-foreground" />
         <span class="sr-only">Previous page</span>
@@ -64,8 +64,8 @@
     </PreviousPageButtonTemplate>
     <LastPageButtonTemplate>
       <Button
-        Variant="ButtonVariant.Outline"
-        Size="ButtonSize.Icon"
+        Variant="ButtonVariantType.Outline"
+        Size="ButtonSizeType.Icon"
       >
         <ChevronDoubleRightIcon class="size-5 text-muted-foreground" />
         <span class="sr-only">Last page</span>
@@ -73,8 +73,8 @@
     </LastPageButtonTemplate>
     <FirstPageButtonTemplate>
       <Button
-        Variant="ButtonVariant.Outline"
-        Size="ButtonSize.Icon"
+        Variant="ButtonVariantType.Outline"
+        Size="ButtonSizeType.Icon"
       >
         <ChevronDoubleLeftIcon class="size-5 text-muted-foreground" />
         <span class="sr-only">First page</span>

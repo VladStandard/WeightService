@@ -6,7 +6,7 @@
         {
           <li>
             <Button
-              Variant="@(TabComponent.ActiveTabId == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+              Variant="@(TabComponent.ActiveTabId == tab.Id ? ButtonVariantType.Secondary : ButtonVariantType.Outline)"
               OnClick="@(() => TabComponent.ChangeTab(tab.Id))"
             >
               @tab.Title

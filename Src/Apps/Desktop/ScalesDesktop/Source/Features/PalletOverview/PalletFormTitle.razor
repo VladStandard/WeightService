@@ -14,11 +14,11 @@
     }
     else
     {
-      <Badge Variant="BadgeVariant.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
+      <Badge Type="BadgeType.Secondary" Class="pb-1">@Localizer["PalletFlagNotShipped"]</Badge>
     }
     @if (PalletState.Value.Pallet.DeletedAt != null)
     {
-      <Badge Variant="BadgeVariant.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
+      <Badge Type="BadgeType.Destructive" Class="pb-1" id="badge-deleted-pallet">Удалено</Badge>
       <Tooltip Anchor="badge-deleted-pallet">
         @PalletState.Value.Pallet.DeletedAt
       </Tooltip>
