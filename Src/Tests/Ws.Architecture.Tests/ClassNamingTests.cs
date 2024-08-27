@@ -5,11 +5,11 @@ namespace Ws.Architecture.Tests;
 
 public class ClassNamingTests
 {
-    public static TheoryData<string, Assembly> TestData => SolutionReader.GetFrontendAssemblies();
+    public static TheoryData<string, Assembly> TestData => SolutionReader.GetAllAssemblies();
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void All_Utils_Classes_Should_Be_Static(string projectName, Assembly project)
+    public void All_Utils_Classes_Should_Be_Static(string _, Assembly project)
     {
         TestResult? result = Types.InAssembly(project)
             .That()
@@ -17,6 +17,7 @@ public class ClassNamingTests
             .Should()
             .BeStatic()
             .GetResult();
+
         result.IsSuccessful.Should().BeTrue();
     }
 
@@ -28,13 +29,13 @@ public class ClassNamingTests
 
         TestResult? result = types
             .That()
-            .ResideInNamespaceContaining(projectName)
+            .ResideInNamespace(projectName)
             .And()
-            .Inherit(typeof(Enum))
+            .AreEnums()
             .Should()
             .HaveNameEndingWith("Type")
             .GetResult();
 
-        result.IsSuccessful.Should().BeTrue();
+        result.FailingTypes.Should().BeEmpty();
     }
 }

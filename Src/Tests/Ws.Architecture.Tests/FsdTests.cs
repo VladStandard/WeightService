@@ -1,31 +1,27 @@
 using System.Reflection;
+using Ws.Architecture.Tests.Common;
 
 namespace Ws.Architecture.Tests;
 
 public class FsdTests
 {
-    public static readonly TheoryData<string, string> TestData = new()
-    {
-        { "DeviceControl", DllConstants.DeviceControl },
-        { "ScalesDesktop", DllConstants.ScalesDesktop },
-        { "ScalesMobile", DllConstants.ScalesMobile }
-    };
+    public static TheoryData<string, Assembly> TestData => SolutionReader.GetFrontendAssemblies();
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void Shared_Should_HaveNoDependencies(string projectName, string assemblyPath)
+    public void Shared_Should_HaveNoDependencies(string projectName, Assembly project)
     {
-        Types? types = Types.InAssembly(Assembly.LoadFrom(assemblyPath));
+        Types? types = Types.InAssembly(project);
 
         TestResult? result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Shared")
             .ShouldNot()
-            .HaveDependencyOn($"{projectName}.Source.Pages")
+            .HaveDependencyOnAll($"{projectName}.Source.Pages")
             .Or()
-            .HaveDependencyOn($"{projectName}.Source.Widgets")
+            .HaveDependencyOnAll($"{projectName}.Source.Widgets")
             .Or()
-            .HaveDependencyOn($"{projectName}.Source.Features")
+            .HaveDependencyOnAll($"{projectName}.Source.Features")
             .GetResult();
 
         result.IsSuccessful.Should().BeTrue();
@@ -33,17 +29,17 @@ public class FsdTests
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void Features_Should_OnlyReference_Shared(string projectName, string assemblyPath)
+    public void Features_Should_OnlyReference_Shared(string projectName, Assembly project)
     {
-        Types? assembly = Types.InAssembly(Assembly.LoadFrom(assemblyPath));
+        Types? types = Types.InAssembly(project);
 
-        TestResult? result = assembly
+        TestResult? result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Features")
             .ShouldNot()
-            .HaveDependencyOn($"{projectName}.Source.Pages")
+            .HaveDependencyOnAll($"{projectName}.Source.Pages")
             .Or()
-            .HaveDependencyOn($"{projectName}.Source.Widgets")
+            .HaveDependencyOnAll($"{projectName}.Source.Widgets")
             .GetResult();
 
         result.IsSuccessful.Should().BeTrue();
@@ -51,15 +47,15 @@ public class FsdTests
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void Widgets_Should_OnlyReference_Shared_And_Features(string projectName, string assemblyPath)
+    public void Widgets_Should_OnlyReference_Shared_And_Features(string projectName, Assembly project)
     {
-        Types? assembly = Types.InAssembly(Assembly.LoadFrom(assemblyPath));
+        Types? types = Types.InAssembly(project);
 
-        TestResult? result = assembly
+        TestResult? result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Widgets")
             .ShouldNot()
-            .HaveDependencyOn($"{projectName}.Source.Pages")
+            .HaveDependencyOnAll($"{projectName}.Source.Pages")
             .GetResult();
 
         result.IsSuccessful.Should().BeTrue();
