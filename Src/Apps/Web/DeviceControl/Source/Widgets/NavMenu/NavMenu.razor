@@ -42,7 +42,7 @@
             </div>
           </div>
           <form method="post" action="@($"{RouteUtils.Authorization}/logout")" class="shrink-0">
-            <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.Icon" Type="@ButtonType.Submit">
+            <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon" Type="@ButtonType.Submit">
               <span class="sr-only">Logout</span>
               <ArrowLeftOnRectangleIcon class="size-5"/>
             </Button>
@@ -53,7 +53,7 @@
       <NotAuthorized>
         <div class="flex w-full items-center justify-center">
           <a href="@($"{RouteUtils.Authorization}/login")">
-            <Button Variant="ButtonVariant.Outline">
+            <Button Variant="ButtonVariantType.Outline">
               Log in
             </Button>
           </a>

@@ -18,7 +18,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ZplService zplSer
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
+                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.TemplateNotFound),
             };
 
         BarcodeModel barcode = dto.ToBarcodeModel();

@@ -5,15 +5,15 @@
 
 <div class="size-full flex flex-col overflow-hidden">
   <Tabs
-    ActiveTabId="@PalletState.Value.PalletViewTab.ToString()"
+    ActiveTabId="@PalletState.Value.PalletViewTabType.ToString()"
     ActiveTabIdChanged="@(value => ChangeActiveId(value))"
     @ref="TabsComponent"
   >
     <div class="h-14 shrink-0 bg-background w-full grid grid-cols-4 border-b px-4">
       <div class="flex h-full items-center">
         <Button
-          Size="ButtonSize.Icon"
-          Variant="ButtonVariant.Ghost"
+          Size="ButtonSizeType.Icon"
+          Variant="ButtonVariantType.Ghost"
           OnClick="@CloseCurrentPallet"
         >
           <ArrowLeftIcon class="size-5 text-muted-foreground"/>
@@ -25,7 +25,7 @@
           {
             <li>
               <Button
-                Variant="@(PalletState.Value.PalletViewTab.ToString() == tab.Id ? ButtonVariant.Secondary : ButtonVariant.Outline)"
+                Variant="@(PalletState.Value.PalletViewTabType.ToString() == tab.Id ? ButtonVariantType.Secondary : ButtonVariantType.Outline)"
                 OnClick="@(() => ChangeActiveId(tab.Id))"
                 Disabled="@(TabsComponent.ActiveTabId == tab.Id)"
                 Class="disabled:!opacity-100"
@@ -38,10 +38,10 @@
       </div>
     </div>
     <div class="size-full bg-secondary/[.3] flex flex-col grow overflow-hidden">
-      <Tab Id="@PalletViewTab.Info.ToString()" Title="@WsDataLocalizer["ColPallet"]">
+      <Tab Id="@PalletViewTabType.Info.ToString()" Title="@WsDataLocalizer["ColPallet"]">
         <PalletOverview Pallet="Pallet" />
       </Tab>
-      <Tab Id="@PalletViewTab.Labels.ToString()" Title="@Localizer["ColPrint"]">
+      <Tab Id="@PalletViewTabType.Labels.ToString()" Title="@Localizer["ColPrint"]">
         <LabelsGrid Pallet="Pallet" />
       </Tab>
     </div>
@@ -70,7 +70,7 @@
 
   private void ChangeActiveId(string newActiveId)
   {
-    bool isParsed = Enum.TryParse(newActiveId, out PalletViewTab newViewTab);
+    bool isParsed = Enum.TryParse(newActiveId, out PalletViewTabType newViewTab);
     if (isParsed) Dispatcher.Dispatch(new ChangePalletViewTabAction(newViewTab));
   }
 

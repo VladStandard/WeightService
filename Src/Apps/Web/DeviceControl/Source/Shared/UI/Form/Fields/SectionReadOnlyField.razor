@@ -5,7 +5,7 @@
   HtmlFor="@HtmlId"
   Path="@Path"
   ValueToCopy="@(IsCopyable ? ValueToCopy ?? Value?.ToString() : string.Empty)"
-  Size="@(IsLarge ? SectionInputSize.Large : SectionInputSize.Default)"
+  Size="@(IsLarge ? SectionInputSizeType.Large : SectionInputSizeType.Default)"
 >
   @if (IsLarge)
   {

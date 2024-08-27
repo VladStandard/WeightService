@@ -29,15 +29,15 @@
         <div class="flex items-center gap-2">
           <UseEndpoint Endpoint="@PalletEndpoints.PiecePalletsEndpoint" Arg="@new(armQuery.Data.Id, StartDate, EndDate)" Context="palletQuery">
             <Button
-              Variant="ButtonVariant.Outline"
-              Size="ButtonSize.Icon"
+              Variant="ButtonVariantType.Outline"
+              Size="ButtonSizeType.Icon"
               OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluEndpoints.PiecePlusEndpoint.InvalidateAll(); })"
               Disabled="@palletQuery.IsFetching"
             >
               <ArrowPathIcon class="size-5 mx-2"/>
             </Button>
           </UseEndpoint>
-          <Button Size="ButtonSize.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
+          <Button Size="ButtonSizeType.Icon" OnClick="@(() => ShowCreateFormDialog(armQuery.Data))">
             <PlusIcon class="size-5 mx-2"/>
           </Button>
         </div>
@@ -131,7 +131,7 @@
 
   # endregion
 
-  private PalletFilterEnum PalletFilter { get; set; } = PalletFilterEnum.NotShipped;
+  private PalletFilterType PalletFilter { get; set; } = PalletFilterType.NotShipped;
   private DateTime? StartDate { get; set; } = GetStartOfWorkingShift();
   private DateTime? EndDate { get; set; } = GetEndOfWorkingShift();
   private string InputSearchCounter { get; set; } = string.Empty;
@@ -146,9 +146,9 @@
 
     filteredPallets = PalletFilter switch
     {
-      PalletFilterEnum.NotShipped => filteredPallets.Where(x => x is { IsShipped: false, DeletedAt: null }),
-      PalletFilterEnum.Shipped => filteredPallets.Where(x => x is { IsShipped: true, DeletedAt: null }),
-      PalletFilterEnum.Deleted => filteredPallets.Where(x => x.DeletedAt != null),
+      PalletFilterType.NotShipped => filteredPallets.Where(x => x is { IsShipped: false, DeletedAt: null }),
+      PalletFilterType.Shipped => filteredPallets.Where(x => x is { IsShipped: true, DeletedAt: null }),
+      PalletFilterType.Deleted => filteredPallets.Where(x => x.DeletedAt != null),
       _ => filteredPallets
     };
 
@@ -171,7 +171,7 @@
   {
     StartDate = GetStartOfWorkingShift();
     EndDate = GetEndOfWorkingShift();
-    PalletFilter = PalletFilterEnum.NotShipped;
+    PalletFilter = PalletFilterType.NotShipped;
     InputSearchCounter = string.Empty;
   }
 
@@ -197,7 +197,7 @@
     {
       PalletEndpoints.InsertPiecePallet(new(arm.Id, GetStartOfWorkingShift(), GetEndOfWorkingShift()), newPallet);
       Dispatcher.Dispatch(new ChangePalletAction(newPallet));
-      Dispatcher.Dispatch(new ChangePalletViewTabAction(PalletViewTab.Labels));
+      Dispatcher.Dispatch(new ChangePalletViewTabAction(PalletViewTabType.Labels));
       ResetSortsAndFilters();
     }
   }

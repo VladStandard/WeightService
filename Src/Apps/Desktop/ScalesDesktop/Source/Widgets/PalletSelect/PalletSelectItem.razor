@@ -34,11 +34,11 @@
       <div class="flex items-center gap-1">
         @if (Pallet.DeletedAt != null)
         {
-        <Badge Variant="BadgeVariant.Destructive" Class="!px-1">
+        <Badge Type="BadgeType.Destructive" Class="!px-1">
           <TrashIcon class="size-4" />
         </Badge>
         }
-        <Badge Variant="BadgeVariant.Secondary" Class="@Css.Class(IsSelected ? "!border-primary/[.1]" : "")">
+        <Badge Type="BadgeType.Secondary" Class="@Css.Class(IsSelected ? "!border-primary/[.1]" : "")">
           <CalculatorIcon class="size-3 mr-1"/>
           <span class="text-xs pt-px">@Pallet.BoxCount</span>
         </Badge>

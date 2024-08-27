@@ -19,8 +19,8 @@
       Value = (TSelectType?) item;
       await ValueChanged.InvokeAsync(Value);
       if (!withClose) return;
-      SearchString = string.Empty;
       IsDropdownOpened = false;
+      Reset();
     }
   }
 

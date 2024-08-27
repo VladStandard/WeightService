@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
-public enum PalletFilterEnum
+public enum PalletFilterType
 {
     [Description("PalletFilterNotShipped")]
     NotShipped,

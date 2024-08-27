@@ -22,7 +22,7 @@
     @if (OnCancelAction.HasDelegate)
     {
       <Button
-        Variant="ButtonVariant.Outline"
+        Variant="ButtonVariantType.Outline"
         OnClick="@OnCancelAction"
       >
         @Localizer["BtnCancel"]
@@ -31,7 +31,7 @@
     @if (OnSubmitAction.HasDelegate)
     {
       <Button
-        Variant="ButtonVariant.Secondary"
+        Variant="ButtonVariantType.Secondary"
         Type="@ButtonType.Submit"
       >
         @Localizer["BtnSubmit"]

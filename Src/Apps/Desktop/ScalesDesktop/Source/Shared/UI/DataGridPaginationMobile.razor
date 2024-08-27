@@ -1,6 +1,6 @@
 <div class="h-14 w-full flex items-center justify-center gap-2 md:h-16">
   <Button
-    Variant="ButtonVariant.Outline"
+    Variant="ButtonVariantType.Outline"
     OnClick="@(() => GoToPageAsync(Pagination.CurrentPageIndex - 1))"
     Disabled="@(Pagination.CurrentPageIndex == 0)"
     Class="md:!h-12 md:!px-4"
@@ -11,7 +11,7 @@
     @(Pagination.CurrentPageIndex + 1) / @(Pagination.LastPageIndex + 1)
   </div>
   <Button
-    Variant="ButtonVariant.Outline"
+    Variant="ButtonVariantType.Outline"
     OnClick="@(() => GoToPageAsync(Pagination.CurrentPageIndex + 1))"
     Disabled="@(Pagination.CurrentPageIndex == Pagination.LastPageIndex)"
     Class="md:!h-12 md:!px-4"

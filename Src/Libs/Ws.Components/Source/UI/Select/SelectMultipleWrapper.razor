@@ -17,8 +17,8 @@
     if (Value != null && !Value.Add(item)) Value.Remove(item);
     await ValueChanged.InvokeAsync(Value);
     if (!withClose) return;
-    SearchString = string.Empty;
     IsDropdownOpened = false;
+    Reset();
   }
 
   protected internal override bool IsItemSelected(TSelectItem item) => Value != null && Value.Contains(item);

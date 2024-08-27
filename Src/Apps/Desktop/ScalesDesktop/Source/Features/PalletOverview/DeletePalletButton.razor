@@ -10,7 +10,7 @@
   @if (armQuery.HasData && PalletState.Value.Pallet != null)
   {
     <Button
-      Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariant.Destructive : ButtonVariant.Default)"
+      Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariantType.Destructive : ButtonVariantType.Default)"
       OnClick="@(() => DeletePallet(armQuery.Data.Id, PalletState.Value.Pallet))"
     >
       @if (PalletState.Value.Pallet.DeletedAt == null)

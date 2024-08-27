@@ -13,7 +13,7 @@ public sealed partial class SectionInputWrapper : ComponentBase
     [Parameter] public string HtmlFor { get; set; } = string.Empty;
     [Parameter] public string Class { get; set; } = string.Empty;
     [Parameter] public string ValueToCopy { get; set; } = string.Empty;
-    [Parameter] public SectionInputSize Size { get; set; } = SectionInputSize.Default;
+    [Parameter] public SectionInputSizeType Size { get; set; } = SectionInputSizeType.Default;
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
     private async Task SaveToClipboard(string value)
@@ -33,7 +33,7 @@ public sealed partial class SectionInputWrapper : ComponentBase
     }
 }
 
-public enum SectionInputSize
+public enum SectionInputSizeType
 {
     Default,
     Large

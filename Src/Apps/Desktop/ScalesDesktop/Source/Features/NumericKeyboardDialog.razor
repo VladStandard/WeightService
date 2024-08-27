@@ -7,13 +7,14 @@
     @onkeydown="HandleKeyDown"
     maxlength="@MaxDigitCount"
     placeholder="1"
+    inputmode="none"
     class="w-full border px-3 py-2 focus:border-border focus:outline-none rounded-lg focus:ring-0 text-right text-4xl"
   />
   <div class="grid grid-cols-3 grid-rows-4 mt-6 w-full gap-2">
     @foreach (CalculatorControl control in CalculatorControls)
     {
       <Button
-        Variant="ButtonVariant.Secondary"
+        Variant="ButtonVariantType.Secondary"
         OnClick="@control.CalculatorAction"
         Class="!h-16 !text-xl !border"
       >

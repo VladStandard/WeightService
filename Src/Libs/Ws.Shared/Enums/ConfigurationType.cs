@@ -1,6 +1,6 @@
 namespace Ws.Shared.Enums;
 
-public enum EnumConfiguration
+public enum ConfigurationType
 {
     DevelopVs,
     ReleaseVs

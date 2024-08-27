@@ -9,7 +9,7 @@
         <h3 class="font-medium text-xl pb-1">@Localizer["ColPrint"]</h3>
         <div class="flex gap-2 items-center">
           <Button
-            Variant="ButtonVariant.Outline"
+            Variant="ButtonVariantType.Outline"
             OnClick="@PrintLabelsAsync"
             Disabled="@(!SelectedItems.Any() || IsPrinting)"
           >

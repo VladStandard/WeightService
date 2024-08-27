@@ -6,8 +6,8 @@ namespace Ws.Components.Source.UI;
 public sealed partial class Button : ComponentBase
 {
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
-    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public ButtonVariantType Variant { get; set; } = ButtonVariantType.Default;
+    [Parameter] public ButtonSizeType Size { get; set; } = ButtonSizeType.Default;
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
     [Parameter] public string Class { get; set; } = string.Empty;
@@ -22,22 +22,22 @@ public sealed partial class Button : ComponentBase
 
     private string VariantClasses => Variant switch
     {
-        ButtonVariant.Default => "bg-primary text-primary-foreground hover:bg-primary/90",
-        ButtonVariant.Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        ButtonVariant.Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
-        ButtonVariant.Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ButtonVariant.Ghost => "hover:bg-accent hover:text-accent-foreground",
-        ButtonVariant.Link => "text-primary underline-offset-4 hover:underline",
+        ButtonVariantType.Default => "bg-primary text-primary-foreground hover:bg-primary/90",
+        ButtonVariantType.Destructive => "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        ButtonVariantType.Outline => "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        ButtonVariantType.Secondary => "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ButtonVariantType.Ghost => "hover:bg-accent hover:text-accent-foreground",
+        ButtonVariantType.Link => "text-primary underline-offset-4 hover:underline",
         _ => string.Empty
     };
 
     private string SizeClasses => Size switch
     {
-        ButtonSize.Default => "h-9 px-4 py-2",
-        ButtonSize.Small => "h-8 rounded-md px-3 text-xs",
-        ButtonSize.Large => "h-10 rounded-md px-8",
-        ButtonSize.Full => "size-full",
-        ButtonSize.Icon => "h-9 w-9",
+        ButtonSizeType.Default => "h-9 px-4 py-2",
+        ButtonSizeType.Small => "h-8 rounded-md px-3 text-xs",
+        ButtonSizeType.Large => "h-10 rounded-md px-8",
+        ButtonSizeType.Full => "size-full",
+        ButtonSizeType.Icon => "h-9 w-9",
         _ => string.Empty
     };
 
@@ -49,7 +49,7 @@ public sealed partial class Button : ComponentBase
     };
 }
 
-public enum ButtonVariant
+public enum ButtonVariantType
 {
     Default,
     Destructive,
@@ -59,7 +59,7 @@ public enum ButtonVariant
     Link
 }
 
-public enum ButtonSize
+public enum ButtonSizeType
 {
     Default,
     Small,
