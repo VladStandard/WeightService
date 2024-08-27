@@ -20,7 +20,7 @@
       Items="@(Enum.GetValues(typeof(PalletFilterEnum)).Cast<PalletFilterEnum>())"
       @bind-Value="Filter"
       @bind-Value:after="OnSortingChanged"
-      ItemDisplayName="@(value => Localizer[EnumHelper.GetEnumDescription(value)])"
+      ItemDisplayName="@(value => Localizer[EnumUtils.GetEnumDescription(value)])"
       IgnoreWidth
     >
       <TriggerContent Context="select">

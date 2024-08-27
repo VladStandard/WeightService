@@ -23,7 +23,7 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="ZplResourceTypes"
       @bind-Value="@FormModel.Type"
-      ItemDisplayName="item => Localizer[EnumHelper.GetEnumDescription(item)]"
+      ItemDisplayName="item => Localizer[EnumUtils.GetEnumDescription(item)]"
       For="@(() => FormModel.Type)"
     />
 

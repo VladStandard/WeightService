@@ -1,5 +1,5 @@
 using ProtoBuf;
-using Ws.Shared.Enums;
+using Ws.Shared.ValueTypes;
 
 namespace Ws.Labels.Service.Generate.Models.Cache;
 

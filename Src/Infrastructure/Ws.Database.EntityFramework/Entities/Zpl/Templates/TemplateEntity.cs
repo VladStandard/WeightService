@@ -1,4 +1,4 @@
-using Ws.Shared.Enums;
+using Ws.Shared.ValueTypes;
 
 namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 

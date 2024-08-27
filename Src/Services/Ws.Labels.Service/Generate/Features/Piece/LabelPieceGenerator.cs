@@ -27,7 +27,7 @@ internal class LabelPieceGenerator(
         if (labelCount is > 240 or < 1)
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.Invalid),
+                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.Invalid),
                 ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
             };
 
@@ -35,7 +35,7 @@ internal class LabelPieceGenerator(
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
+                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.TemplateNotFound),
             };
 
         BarcodeModel barcodeTemplates = dto.ToBarcodeModel();
@@ -102,7 +102,7 @@ internal class LabelPieceGenerator(
         throw new ApiExceptionServer
         {
 
-            ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.ExchangeFailed),
+            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.ExchangeFailed),
             ErrorInternalMessage = response.Errors.First().Message
         };
     }

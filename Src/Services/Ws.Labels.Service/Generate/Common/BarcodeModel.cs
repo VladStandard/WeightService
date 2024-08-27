@@ -64,7 +64,7 @@ public partial record BarcodeModel : IBarcodeLabel
                     default:
                        throw new ApiExceptionServer
                        {
-                           ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
+                           ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
                         };
                 }
             }
@@ -73,7 +73,7 @@ public partial record BarcodeModel : IBarcodeLabel
         {
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
+                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.BarcodeInvalid),
                 ErrorInternalMessage = ex.Message,
             };
         }

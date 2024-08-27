@@ -1,4 +1,4 @@
-namespace Ws.Shared.Enums;
+namespace Ws.Shared.ValueTypes;
 
 public record Fio
 {

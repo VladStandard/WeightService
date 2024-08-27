@@ -27,7 +27,6 @@ public class MockPrinterService(IDispatcher dispatcher): IPrinterService
 
     public Task PrintZplAsync(string zpl) => Task.Delay(200);
 
-
     public void Disconnect()
     {
         Task.Delay(100);

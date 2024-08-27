@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Ws.Shared.Enums;
+using Ws.Shared.ValueTypes;
 
 // ReSharper disable ConvertToPrimaryConstructor
 // ReSharper disable MemberCanBePrivate.Global

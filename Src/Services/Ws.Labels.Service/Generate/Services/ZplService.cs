@@ -57,7 +57,7 @@ public partial class ZplService(CacheService cacheService)
         {
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumHelper.GetEnumDescription(LabelGenExceptions.BarcodeVarNotFound),
+                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptions.BarcodeVarNotFound),
                 ErrorInternalMessage = ex.Message
             };
         }

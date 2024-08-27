@@ -51,11 +51,11 @@
               @bind-Value="@Type"
               @bind-Value:after="@(() => context.TriggerFilterChange(Type))"
               Placeholder="@Localizer["SelectItemNotSelected"]"
-              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : Localizer[EnumHelper.GetEnumDescription(item.Value)])"
+              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] : Localizer[EnumUtils.GetEnumDescription(item.Value)])"
             />
           </FilterTemplate>
           <DisplayTemplate>
-            @Localizer[EnumHelper.GetEnumDescription(context.Type)]
+            @Localizer[EnumUtils.GetEnumDescription(context.Type)]
           </DisplayTemplate>
         </DataGridColumn>
 

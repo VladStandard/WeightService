@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Ws.Shared.Utils;
 
-public static class EnumHelper
+public static class EnumUtils
 {
     public static string GetEnumDescription(Enum value)
     {
