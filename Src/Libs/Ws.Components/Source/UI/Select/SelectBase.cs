@@ -13,7 +13,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     [Parameter] public bool IgnoreWidth { get; set; }
     [Parameter] public string HtmlId { get; set; } = $"id-{Guid.NewGuid()}";
 
-    internal Dictionary<Guid, SelectItem<TItem, TValue>> SelectItems { get; } = new();
+    internal Dictionary<Guid, SelectItem<TItem, TValue>> SelectItems { get; private set; } = new();
     internal double TriggerWidth { get; private set; }
     public bool IsDropdownOpened { get; set; }
     public string SearchString { get; set; } = string.Empty;
@@ -40,9 +40,6 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     {
         IsDropdownOpened = !IsDropdownOpened;
         await Task.Yield();
-        if (!IsDropdownOpened || SelectItems.Count == 0) return;
-        KeyValuePair<Guid, SelectItem<TItem, TValue>> firstItem = SelectItems.First();
-        await firstItem.Value.FocusAsync();
     }
 
     public async Task FocusNextItemAsync(Guid id)
@@ -52,7 +49,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
         if (currentIndex == -1 || currentIndex >= keys.Count - 1) return;
 
         Guid nextId = keys[currentIndex + 1];
-        await SelectItems[nextId].FocusAsync();
+        await SelectItems[nextId].TryFocusAsync();
     }
 
     public async Task FocusPreviousItemAsync(Guid id)
@@ -62,7 +59,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
         if (currentIndex <= 0) return;
 
         Guid previousId = keys[currentIndex - 1];
-        await SelectItems[previousId].FocusAsync();
+        await SelectItems[previousId].TryFocusAsync();
     }
 
     private async Task SetDropdownWidthAsync()
@@ -77,6 +74,12 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     {
         SearchString = search;
         StateHasChanged();
+    }
+
+    internal void Reset()
+    {
+        SearchString = string.Empty;
+        SelectItems = SelectItems.Reverse().ToDictionary(pair => pair.Key, pair => pair.Value);
     }
 
     internal void Register(SelectItem<TItem, TValue> item) => SelectItems.Add(item.Id, item);

@@ -4,6 +4,7 @@
 <Dropdown
   Anchor="@Parent.HtmlId"
   @bind-IsOpen="@Parent.IsDropdownOpened"
+  @bind-IsOpen:after="@(() => { if (!Parent.IsDropdownOpened) Parent.Reset(); })"
   VerticalThreshold="@DropdownHeight"
   Style="@(!Parent.IgnoreWidth ? $"width: {Parent.TriggerWidth}px" : null)"
 >
