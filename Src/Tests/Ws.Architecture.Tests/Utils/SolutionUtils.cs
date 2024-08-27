@@ -69,4 +69,24 @@ public static class SolutionUtils
         }
         return projects;
     }
+
+    public static TheoryData<Assembly> FindProjectAssembly(string projectName)
+    {
+        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
+        string absolutePath = Path.GetFullPath(relativePath);
+        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
+
+        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
+        {
+            string projectNameLocal = Path.GetFileName(project.AbsolutePath).Replace(".csproj", "");
+
+            if (!projectNameLocal.Equals(projectName, StringComparison.OrdinalIgnoreCase)) continue;
+
+            string outputDirectory = Path.GetDirectoryName(project.AbsolutePath) + @"\bin\Develop_x64";
+            string assemblyPath = Directory.GetFiles(outputDirectory, $"{projectNameLocal}.dll", SearchOption.AllDirectories).First();
+
+            return new(Assembly.LoadFrom(assemblyPath));
+        }
+        throw new FileNotFoundException(projectName);
+    }
 }

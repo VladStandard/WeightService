@@ -8,9 +8,9 @@ public class FsdTests
     [MemberData(nameof(TestData))]
     public void Shared_Should_HaveNoDependencies(string projectName, Assembly project)
     {
-        Types? types = Types.InAssembly(project);
+        Types types = Types.InAssembly(project);
 
-        TestResult? result = types
+        TestResult result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Shared")
             .ShouldNot()
@@ -28,9 +28,9 @@ public class FsdTests
     [MemberData(nameof(TestData))]
     public void Features_Should_OnlyReference_Shared(string projectName, Assembly project)
     {
-        Types? types = Types.InAssembly(project);
+        Types types = Types.InAssembly(project);
 
-        TestResult? result = types
+        TestResult result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Features")
             .ShouldNot()
@@ -46,9 +46,9 @@ public class FsdTests
     [MemberData(nameof(TestData))]
     public void Widgets_Should_OnlyReference_Shared_And_Features(string projectName, Assembly project)
     {
-        Types? types = Types.InAssembly(project);
+        Types types = Types.InAssembly(project);
 
-        TestResult? result = types
+        TestResult result = types
             .That()
             .ResideInNamespace($"{projectName}.Source.Widgets")
             .ShouldNot()
