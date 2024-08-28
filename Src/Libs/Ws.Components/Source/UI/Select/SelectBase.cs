@@ -27,22 +27,13 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
         await InitializeDropdownAsync();
     }
 
-    private async Task InitializeDropdownAsync()
-    {
-        await SetDropdownWidthAsync();
-        await JsRuntime.InvokeVoidAsync("addDotNetEventListener", "resize", DotNetObjRef, "HandleResize");
-    }
-
-    [JSInvokable("HandleResize")]
-    public async Task HandleResize() => await SetDropdownWidthAsync();
-
     public async Task ToggleDropdown()
     {
         IsDropdownOpened = !IsDropdownOpened;
         await Task.Yield();
     }
 
-    public async Task FocusNextItemAsync(Guid id)
+    internal async Task FocusNextItemAsync(Guid id)
     {
         List<Guid> keys = SelectItems.Keys.ToList();
         int currentIndex = keys.IndexOf(id);
@@ -52,7 +43,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
         await SelectItems[nextId].TryFocusAsync();
     }
 
-    public async Task FocusPreviousItemAsync(Guid id)
+    internal async Task FocusPreviousItemAsync(Guid id)
     {
         List<Guid> keys = SelectItems.Keys.ToList();
         int currentIndex = keys.IndexOf(id);
@@ -60,14 +51,6 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
 
         Guid previousId = keys[currentIndex - 1];
         await SelectItems[previousId].TryFocusAsync();
-    }
-
-    private async Task SetDropdownWidthAsync()
-    {
-        double width = await JsRuntime.InvokeAsync<double>("getElementWidthById", HtmlId);
-        if (Math.Abs(width - TriggerWidth) < 5) return;
-        TriggerWidth = width;
-        StateHasChanged();
     }
 
     internal void SetSearchingValue(string search)
@@ -88,6 +71,23 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
 
     protected internal abstract Task SetValue(TItem item, bool withClose = true);
     protected internal abstract bool IsItemSelected(TItem item);
+
+    private async Task SetDropdownWidthAsync()
+    {
+        double width = await JsRuntime.InvokeAsync<double>("getElementWidthById", HtmlId);
+        if (Math.Abs(width - TriggerWidth) < 5) return;
+        TriggerWidth = width;
+        StateHasChanged();
+    }
+
+    private async Task InitializeDropdownAsync()
+    {
+        await SetDropdownWidthAsync();
+        await JsRuntime.InvokeVoidAsync("addDotNetEventListener", "resize", DotNetObjRef, "HandleResize");
+    }
+
+    [JSInvokable("HandleResize")]
+    public async Task HandleResize() => await SetDropdownWidthAsync();
 
     public async ValueTask DisposeAsync()
     {

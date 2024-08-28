@@ -7,7 +7,9 @@
 >
   @if (userProductionSiteQuery.IsLoading)
   {
-    <PageHeader />
+    <PageHeader>
+      <Skeleton Class="h-8 w-32" />
+    </PageHeader>
   }
   else if (userProductionSiteQuery.IsError || !userProductionSiteQuery.HasData)
   {

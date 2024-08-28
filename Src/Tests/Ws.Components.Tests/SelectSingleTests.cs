@@ -16,7 +16,7 @@ public class SelectSingleTests : TestContext
         Services.AddSingleton(LibraryConfiguration);
     }
 
-    private IRenderedComponent<SelectSingle<string>> RenderComponentWithParameters(Action<ComponentParameterCollectionBuilder<SelectSingle<string>>> parameters)
+    private IRenderedComponent<SelectSingle<T>> RenderComponentWithParameters<T>(Action<ComponentParameterCollectionBuilder<SelectSingle<T>>> parameters)
         => RenderComponent(parameters);
 
     [Fact]
@@ -26,7 +26,7 @@ public class SelectSingleTests : TestContext
         List<string> items = ["Item1", "Item2", "Item3"];
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.ValueChanged, () => Task.CompletedTask)
             .Add(p => p.ItemDisplayName, item => item)
@@ -35,8 +35,8 @@ public class SelectSingleTests : TestContext
 
         cut.Find("button").Click();
 
-        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
-        cut.Render(); // re render component
+        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click());
+        cut.Render();
 
         // Assert
         cut.Instance.Value.Should().Be("Item2");
@@ -49,7 +49,7 @@ public class SelectSingleTests : TestContext
         List<string> items = ["Item1", "Item2", "Item3"];
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.ItemDisplayName, item => item)
             .Add(p => p.Placeholder, "Select an item")
@@ -57,9 +57,9 @@ public class SelectSingleTests : TestContext
 
         cut.Find("button").Click();
 
-        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click()); // select second item
-        cut.Render(); // re render component
-        cut.Find("button").Click(); // re-open dropdown
+        cut.InvokeAsync(() => cut.FindAll("li > button").ElementAt(1).Click());
+        cut.Render();
+        cut.Find("button").Click();
 
         // Assert
         List<IElement> activeIcons = cut.FindAll("li > button > svg")
@@ -76,7 +76,7 @@ public class SelectSingleTests : TestContext
         List<string> items = ["Item1", "Item2", "Item3"];
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.ItemDisplayName, item => item)
             .Add(p => p.Placeholder, "Select an item")
@@ -95,7 +95,7 @@ public class SelectSingleTests : TestContext
         List<string> items = ["Item1", "Item2", "Item3"];
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.ItemDisplayName, item => item)
             .Add(p => p.Placeholder, "Select an item")
@@ -112,7 +112,7 @@ public class SelectSingleTests : TestContext
      public void DoesNotSetSelectedItemIfComponentIsDisabled()
      {
          // Act
-         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
              .Add(p => p.Items, [])
              .Add(p => p.Disabled, true));
 
@@ -130,7 +130,7 @@ public class SelectSingleTests : TestContext
          const string searchValue = "ban";
 
          // Act
-         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
              .Add(p => p.Items, items)
              .Add(p => p.Filterable, true));
 
@@ -158,7 +158,7 @@ public class SelectSingleTests : TestContext
         const string itemToFind = "Item3";
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.Value, "Item1")
             .Add(p => p.ItemDisplayName, item => item)
@@ -180,7 +180,7 @@ public class SelectSingleTests : TestContext
         Func<string, string> itemDisplayName = value => value.ToUpper();
 
         // Act
-        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters(parameters => parameters
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
             .Add(p => p.Items, items)
             .Add(p => p.ItemDisplayName, itemDisplayName)
             .Add(p => p.Placeholder, "Select an item")
@@ -192,5 +192,59 @@ public class SelectSingleTests : TestContext
         string buttonText = cut.FindAll("li > button")[0].TextContent.Trim();
         buttonText.Should().Be("ITEM1");
         itemDisplayName.Invoke("Item1").Should().Be("ITEM1");
+    }
+
+
+    [Fact]
+    public async Task ShouldHandleNullValueSelection()
+    {
+        // Arrange
+        List<string?> items = ["Item1", "Item2", "Item3", null];
+
+        // Act
+        IRenderedComponent<SelectSingle<string?>> cut = RenderComponentWithParameters<string?>(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.Placeholder, "Select an item")
+            .Add(p => p.Value, null)
+        );
+
+        cut.Find("button").Click();
+        await cut.InvokeAsync(() => cut.FindAll("li > button").First().Click());
+        cut.WaitForAssertion(() => cut.Instance.Value.Should().Be("Item1"));
+
+        cut.Find("button").Click();
+        await cut.InvokeAsync(() => cut.FindAll("li > button").Last().Click());
+        cut.WaitForAssertion(() => cut.Instance.Value.Should().BeNull());
+    }
+
+    [Fact]
+    public async Task ShouldDisplayEmptyPlaceholderWhenNoItemsMatchFilter()
+    {
+        // Arrange
+        string[] items = ["apple", "banana", "orange"];
+        const string searchValue = "xyz";
+        const string emptyPlaceholderText = "No items found";
+
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.Filterable, true)
+            .Add(p => p.EmptyPlaceholder, emptyPlaceholderText)
+        );
+
+        cut.Find("button").Click();
+
+        IElement selectSearch = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            selectSearch = cut.Find("input");
+            selectSearch.Input(searchValue);
+        });
+
+        // Assert
+        selectSearch.GetAttribute("value").Should().Be(searchValue);
+        cut.WaitForState(() => cut.FindAll("li").Count == 0);
+        IElement emptyPlaceholderDiv = cut.Find($"div:contains('{emptyPlaceholderText}')");
+        emptyPlaceholderDiv.TextContent.Trim().Should().Be(emptyPlaceholderText);
     }
 }

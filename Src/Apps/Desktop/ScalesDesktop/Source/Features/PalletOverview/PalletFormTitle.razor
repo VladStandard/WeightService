@@ -4,8 +4,8 @@
 
 @if (PalletState.Value.Pallet != null)
 {
-  <div class="flex gap-3 items-center">
-    <h2 class="font-medium text-xl">
+  <div class="flex gap-3 overflow-hidden items-center">
+    <h2 class="font-medium truncate text-xl">
       @WsDataLocalizer["ColPallet"] №@PalletState.Value.Pallet.Number от @PalletState.Value.Pallet.ProdDt.ToString("dd.MM.yyyy")
     </h2>
     @if (PalletState.Value.Pallet.IsShipped)

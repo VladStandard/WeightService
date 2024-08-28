@@ -9,9 +9,9 @@
   OnClick="@(() => IsOpen = !IsOpen)"
   Class="shrink-0"
 >
-  <SunIcon class="size-5 dark:hidden" />
-  <MoonIcon class="size-5 hidden dark:block" />
-  <span class="sr-only">Toggle theme</span>
+   <SunIcon class="size-5 dark:hidden" />
+   <MoonIcon class="size-5 hidden dark:block" />
+   <span class="sr-only">Toggle theme</span>
 </Button>
 
 <Dropdown
@@ -22,30 +22,30 @@
   <ul class="flex flex-col p-1">
     <li>
       <DropdownItem OnClick="@(() => SetTheme("light"))">
-        <SunIcon class="size-4 mr-2"/>
-        <span>Светлая</span>
+        <SunIcon class="size-4 mr-2" />
+        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.Light)]</span>
       </DropdownItem>
     </li>
     <li>
       <DropdownItem OnClick="@(() => SetTheme("dark"))">
-        <MoonIcon class="size-4 mr-2"/>
-        <span>Темная</span>
+        <MoonIcon class="size-4 mr-2" />
+        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.Dark)]</span>
       </DropdownItem>
     </li>
     <li>
       <DropdownItem OnClick="@(() => SetTheme("system"))">
-        <ComputerDesktopIcon class="size-4 mr-2"/>
-        <span>Системная</span>
+        <ComputerDesktopIcon class="size-4 mr-2" />
+        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.System)]</span>
       </DropdownItem>
     </li>
   </ul>
 </Dropdown>
 
 @code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
   private bool IsOpen { get; set; }
 
-  private async Task SetTheme(string theme) =>
-    await JsRuntime.InvokeVoidAsync("switchTheme", theme);
+  private async Task SetTheme(string theme) => await JsRuntime.InvokeVoidAsync("switchTheme", theme);
 }

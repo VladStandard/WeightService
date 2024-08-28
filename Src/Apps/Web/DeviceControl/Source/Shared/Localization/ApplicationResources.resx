@@ -303,4 +303,13 @@
     <data name="FormTemplateDefaultPlaceholder" xml:space="preserve">
         <value />
     </data>
+    <data name="ThemeLight" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ThemeDark" xml:space="preserve">
+        <value />
+    </data>
+    <data name="ThemeSystem" xml:space="preserve">
+        <value />
+    </data>
 </root>

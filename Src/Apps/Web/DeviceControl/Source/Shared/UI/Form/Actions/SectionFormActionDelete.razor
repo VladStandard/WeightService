@@ -1,13 +1,19 @@
 @using Blazor.Heroicons.Outline
 
-<SectionFormAction OnClick="@OnClick" Class="@Css.Class("!bg-destructive !text-destructive-foreground",Class)">
+<Button
+  OnClick="@OnClick"
+  Variant="ButtonVariantType.Destructive"
+  Class="@Css.Class("!w-full !justify-start", Class)"
+  Disabled="Disabled"
+>
   <TrashIcon class="size-4 mr-2" />
   @Localizer["FormActionDelete"]
-</SectionFormAction>
+</Button>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
 
   [Parameter] public string Class { get; set; } = string.Empty;
+  [Parameter] public bool Disabled { get; set; }
   [Parameter] public EventCallback OnClick { get; set; }
 }
