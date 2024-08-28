@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Ws.Components.Source.UI.Form;
 
-public abstract class BasicInput<TValue> : ComponentBase
+public abstract class InputBase<TValue> : ComponentBase
 {
     [Parameter] public string HtmlId { get; set; } = string.Empty;
     [Parameter] public virtual TValue? Value { get; set; }
