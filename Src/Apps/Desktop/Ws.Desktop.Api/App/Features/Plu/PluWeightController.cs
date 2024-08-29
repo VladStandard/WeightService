@@ -19,7 +19,7 @@ public class PluWeightController(IPluWeightService pluWeightService, IPluPieceSe
         => pluPieceService.GetAllPieceByArm(armId);
 
     [HttpGet("weight")]
-    public List<PluWeight> GetAllWeightByArm([FromRoute] Guid armId)
+    public Task<List<PluWeight>> GetAllWeightByArm([FromRoute] Guid armId)
         => pluWeightService.GetAllWeightByArm(armId);
 
     #endregion

@@ -21,7 +21,6 @@ public class PluPieceApiService(WsDbContext dbContext) : IPluPieceService
             .ThenInclude(pluEntity => pluEntity.Bundle)
             .SingleAsync(i => i.Id == uid);
 
-
         Dictionary<PluEntity, List<Nesting>> data = new();
 
         foreach (PluEntity plu in line.Plus.Where(i => i.IsWeight == false).OrderBy(i => i.Number))

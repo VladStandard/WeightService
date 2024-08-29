@@ -8,7 +8,7 @@ public interface IPluWeightService
 {
     #region Queries
 
-    public List<PluWeight> GetAllWeightByArm(Guid uid);
+    public Task<List<PluWeight>> GetAllWeightByArm(Guid uid);
 
     #endregion
 

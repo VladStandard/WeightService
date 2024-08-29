@@ -18,6 +18,9 @@ public class ArmController(IArmService armService)
     [HttpGet("{id:guid}")]
     public Task<ArmDto> GetById([FromRoute] Guid id) => armService.GetByIdAsync(id);
 
+    [HttpGet("{id:guid}/plus")]
+    public Task<List<PluArmDto>> GetArmPlus([FromRoute] Guid id) => armService.GetArmPlus(id);
+
     #endregion
 
     #region Commands

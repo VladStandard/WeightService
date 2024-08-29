@@ -1,4 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
@@ -32,5 +33,16 @@ public static class ArmExpressions
             },
             CreateDt = arm.CreateDt,
             ChangeDt = arm.ChangeDt
+        };
+
+    public static Expression<Func<PluEntity, PluArmDto>> ToPluDto(List<Guid> plusId) =>
+        plu => new()
+        {
+            Id = plu.Id,
+            Name = plu.Name,
+            Number = (ushort)plu.Number,
+            IsWeight = plu.IsWeight,
+            Brand = plu.Brand.Name,
+            IsActive = plusId.Contains(plu.Id)
         };
 }

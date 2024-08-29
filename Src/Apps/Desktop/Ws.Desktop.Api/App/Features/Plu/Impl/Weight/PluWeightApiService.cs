@@ -20,34 +20,28 @@ public class PluWeightApiService(
 {
     #region Queries
 
-    public List<PluWeight> GetAllWeightByArm(Guid uid)
+    public Task<List<PluWeight>> GetAllWeightByArm(Guid uid)
     {
-        List<Guid> pluUidList = dbContext.Lines
+        return dbContext.Lines
+            .AsNoTracking()
             .Where(i => i.Id == uid)
-            .SelectMany(i => i.Plus.Where(p => p.IsWeight == true).Select(p => p.Id))
-            .DefaultIfEmpty()
-            .ToList();
-
-        List<PluWeight> data = dbContext.Plus
-            .Where(p => pluUidList.Contains(p.Id))
-            .OrderBy(result => result.Number)
+            .SelectMany(i => i.Plus.Where(p => p.IsWeight == true))
+            .OrderBy(i => i.Number)
             .Join(dbContext.Nestings,
-                plu => plu.Id,
-                nesting => nesting.Id,
-                (plu, nesting) => new PluWeight
-                {
-                    Id = plu.Id,
-                    Name = plu.Name,
-                    FullName = plu.FullName,
-                    Number = (ushort)Math.Abs(plu.Number),
-                    BundleCount = (byte)nesting.BundleCount,
-                    Box = nesting.Box.Name,
-                    Bundle = plu.Bundle.Name,
-                    TareWeight = (decimal)Math.Round((double)(plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + (double)nesting.Box.Weight, 3)
-                })
-            .ToList();
-
-        return data;
+            plu => plu.Id,
+            nesting => nesting.Id,
+            (plu, nesting) => new PluWeight
+            {
+                Id = plu.Id,
+                Name = plu.Name,
+                FullName = plu.FullName,
+                Number = (ushort)Math.Abs(plu.Number),
+                BundleCount = (byte)nesting.BundleCount,
+                Box = nesting.Box.Name,
+                Bundle = plu.Bundle.Name,
+                TareWeight = (decimal)Math.Round((double)(plu.Weight + plu.Clip.Weight + plu.Bundle.Weight) * nesting.BundleCount + (double)nesting.Box.Weight, 3)
+            })
+            .ToListAsync();
     }
 
     #endregion

@@ -1,4 +1,4 @@
-GET https://localhost:5138/api/warehouses?productionSite=ffffffff-ffff-ffff-ffff-ffffffffffff
+GET http://localhost:5000/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/plus
 
 ###
 GET https://localhost:5138/api/production-sites

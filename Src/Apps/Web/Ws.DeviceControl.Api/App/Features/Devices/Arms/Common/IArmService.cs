@@ -9,6 +9,7 @@ public interface IArmService
     #region Queries
 
     Task<ArmDto> GetByIdAsync(Guid id);
+    Task<List<PluArmDto>> GetArmPlus(Guid id);
     Task<List<ArmDto>> GetAllByProductionSiteAsync(Guid productionSiteId);
 
     #endregion

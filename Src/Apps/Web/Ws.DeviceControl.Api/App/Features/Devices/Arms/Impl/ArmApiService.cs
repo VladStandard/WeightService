@@ -7,6 +7,8 @@ using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
+using Ws.Shared.Enums;
+using Ws.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;
 
@@ -34,6 +36,32 @@ public class ArmApiService(
         LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
         await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
+    }
+
+    public async Task<List<PluArmDto>> GetArmPlus(Guid id)
+    {
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+
+        bool? isWeightFilter = entity.Type switch
+        {
+            ArmType.Pc => false,
+            ArmType.Tablet => true,
+            _ => null
+        };
+
+        List<Guid> linePluId = await dbContext.Lines
+            .AsNoTracking()
+            .Where(i => i.Id == id)
+            .SelectMany(i => i.Plus)
+            .Select(i => i.Id)
+            .ToListAsync();
+
+       return await dbContext.Plus
+           .AsNoTracking()
+           .IfWhere(isWeightFilter != null, p => p.IsWeight == isWeightFilter)
+           .Select(ArmExpressions.ToPluDto(linePluId))
+           .ToListAsync();
+
     }
 
     #endregion

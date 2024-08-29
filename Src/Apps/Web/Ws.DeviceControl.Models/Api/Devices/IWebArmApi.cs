@@ -14,6 +14,9 @@ public interface IWebArmApi
     [Get("/arms?productionSite={productionSiteUid}")]
     Task<ArmDto[]> GetArmsByProductionSite(Guid productionSiteUid);
 
+    [Get("/arms/{uid}/plus")]
+    Task<PluArmDto[]> GetArmPlus(Guid uid);
+
     #endregion
 
     #region Commands

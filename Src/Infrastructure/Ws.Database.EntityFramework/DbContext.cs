@@ -25,7 +25,6 @@ public class WsDbContext : DbContext
     #region DbSet
 
     public DbSet<DatabaseTableView> DatabaseTables { get; set; }
-
     public DbSet<ZplResourceEntity> ZplResources { get; set; }
     public DbSet<PalletManEntity> PalletMen { get; set; }
     public DbSet<BrandEntity> Brands { get; set; }

@@ -9,4 +9,7 @@ public static class EnumerableExtensions
         if (index != -1) itemList[index] = newItem;
         return itemList;
     }
+
+    public static IEnumerable<T> IfWhere<T>(this IEnumerable<T> source, bool condition, Func<T, bool> predicate)
+        => condition ? source.Where(predicate) : source;
 }
