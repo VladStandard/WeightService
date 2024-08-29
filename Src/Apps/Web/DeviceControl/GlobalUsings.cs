@@ -1,9 +1,8 @@
 // MODULES
-global using Ws.DeviceControl.Models.Auth;
-global using Ws.Shared.Resources;
 global using Ws.Shared.Utils;
-global using Ws.Shared.Enums;
-
+global using Ws.Shared.Resources;
+global using Ws.DeviceControl.Models.Auth;
+global using Ws.DeviceControl.Models.Shared;
 
 // EXTERNAL
 global using FluentValidation;

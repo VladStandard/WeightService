@@ -1,5 +1,7 @@
 global using System.Linq.Expressions;
-global using  System.Security.Claims;
+global using System.Security.Claims;
+
+global using Ws.DeviceControl.Models.Shared;
 
 global using Ws.Database.EntityFramework;
 global using Ws.DeviceControl.Models.Auth;

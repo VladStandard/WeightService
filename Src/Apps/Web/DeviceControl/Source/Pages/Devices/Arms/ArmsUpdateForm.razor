@@ -2,9 +2,7 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
-@using Ws.DeviceControl.Models.Shared
-
-@inherits DeviceControl.Source.Shared.UI.Form.SectionFormBase<ArmUpdateDto>
+@inherits SectionFormBase<ArmUpdateDto>
 
 <UseParameterlessEndpoint
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"

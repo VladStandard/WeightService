@@ -3,8 +3,6 @@
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Printers.Queries
-@using Ws.DeviceControl.Models.Shared
-
 @inherits SectionDataGridBase<PrinterDto>
 @attribute [Route(RouteUtils.SectionPrinters)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]

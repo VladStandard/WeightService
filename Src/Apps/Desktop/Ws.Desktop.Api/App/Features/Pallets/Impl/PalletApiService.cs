@@ -1,4 +1,3 @@
-using System.Reflection.PortableExecutable;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Print.Pallets;

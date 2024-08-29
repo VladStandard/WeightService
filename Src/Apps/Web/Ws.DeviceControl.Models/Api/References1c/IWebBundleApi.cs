@@ -1,5 +1,3 @@
-using Ws.DeviceControl.Models.Shared;
-
 namespace Ws.DeviceControl.Models.Api.References1c;
 
 public interface IWebBundleApi

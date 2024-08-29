@@ -2,7 +2,6 @@
 @using DeviceControl.Source.Shared.Api
 @using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Features.Admins.Users.Queries
-
 @inherits SectionDataGridBase<UserWithProductionSite>
 @attribute [Route($"{RouteUtils.SectionUsers}")]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]

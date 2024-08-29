@@ -1,7 +1,6 @@
 using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
-using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Common;
 

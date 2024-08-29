@@ -3,8 +3,7 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update
 @using Ws.DeviceControl.Models.Features.Devices.Printers.Queries
-
-@inherits DeviceControl.Source.Shared.UI.Form.SectionFormBase<PrinterUpdateDto>
+@inherits SectionFormBase<PrinterUpdateDto>
 
 <UseParameterlessEndpoint
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"

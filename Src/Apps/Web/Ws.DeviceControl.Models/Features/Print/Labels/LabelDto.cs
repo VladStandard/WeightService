@@ -1,5 +1,3 @@
-using Ws.DeviceControl.Models.Shared;
-
 namespace Ws.DeviceControl.Models.Features.Print.Labels;
 
 public record LabelDto

@@ -1,6 +1,5 @@
 using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 

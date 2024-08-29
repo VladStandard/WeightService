@@ -7,7 +7,6 @@ using Ws.DeviceControl.Api.App.Shared.Expressions;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
-using Ws.DeviceControl.Models.Shared;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Constants;
 using Ws.Shared.Extensions;

@@ -6,7 +6,6 @@ using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
-using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl;
 

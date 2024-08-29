@@ -2,7 +2,6 @@ using Phetch.Core;
 using Ws.DeviceControl.Models;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
-using Ws.DeviceControl.Models.Shared;
 using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;

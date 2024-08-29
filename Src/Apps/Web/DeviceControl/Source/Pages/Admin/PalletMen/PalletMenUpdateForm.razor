@@ -2,9 +2,7 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Update
 @using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries
-@using Ws.DeviceControl.Models.Shared
-
-@inherits DeviceControl.Source.Shared.UI.Form.SectionFormBase<PalletManUpdateDto>
+@inherits SectionFormBase<PalletManUpdateDto>
 
 <UseParameterlessEndpoint
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"

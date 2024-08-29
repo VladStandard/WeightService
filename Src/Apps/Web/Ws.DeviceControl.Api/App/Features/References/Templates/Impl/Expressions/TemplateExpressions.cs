@@ -1,6 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
-using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
 
