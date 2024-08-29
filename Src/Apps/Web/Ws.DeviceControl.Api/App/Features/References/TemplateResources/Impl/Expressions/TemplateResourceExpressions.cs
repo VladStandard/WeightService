@@ -1,5 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
-using Ws.DeviceControl.Models.Dto.References.TemplateResources.Queries;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
 

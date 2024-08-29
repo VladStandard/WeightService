@@ -1,6 +1,6 @@
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensions;
 

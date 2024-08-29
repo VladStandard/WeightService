@@ -1,7 +1,7 @@
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
-using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Create;
-using Ws.DeviceControl.Models.Dto.Devices.Arms.Commands.Update;
-using Ws.DeviceControl.Models.Dto.Devices.Arms.Queries;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms;
 

@@ -1,6 +1,7 @@
-using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create;
-using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Update;
-using Ws.DeviceControl.Models.Dto.References.Warehouses.Queries;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
+using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Models.Api.References;
 

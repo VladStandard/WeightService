@@ -1,5 +1,3 @@
-global using Ws.DeviceControl.Models.Dto.Shared;
-
 global using System.Text.Json.Serialization;
 global using Microsoft.Extensions.Localization;
 

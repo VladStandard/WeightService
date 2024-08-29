@@ -1,6 +1,6 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
-using Ws.DeviceControl.Models.Dto.Print.Labels;
+using Ws.DeviceControl.Models.Features.Print.Labels;
 
 namespace DeviceControl.Source.Shared.Services;
 

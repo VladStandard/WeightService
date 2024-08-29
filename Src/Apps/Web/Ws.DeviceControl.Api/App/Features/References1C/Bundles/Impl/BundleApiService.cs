@@ -1,5 +1,6 @@
 using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl.Expressions;
+using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl;
 

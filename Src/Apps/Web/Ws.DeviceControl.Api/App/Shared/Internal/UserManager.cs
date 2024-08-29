@@ -1,5 +1,6 @@
 using System.Net;
 using Ws.DeviceControl.Api.App.Shared.Expressions;
+using Ws.DeviceControl.Models.Shared;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Constants;
 

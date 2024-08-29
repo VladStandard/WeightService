@@ -1,4 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Clips.Impl.Expressions;
 

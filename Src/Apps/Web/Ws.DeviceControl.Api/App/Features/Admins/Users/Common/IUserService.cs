@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Dto.Admins.Users.Queries;
+using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Common;
 

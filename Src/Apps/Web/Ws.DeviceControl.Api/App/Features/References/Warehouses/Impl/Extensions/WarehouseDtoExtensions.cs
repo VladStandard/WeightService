@@ -1,7 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
-using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Create;
-using Ws.DeviceControl.Models.Dto.References.Warehouses.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Extensions;
 

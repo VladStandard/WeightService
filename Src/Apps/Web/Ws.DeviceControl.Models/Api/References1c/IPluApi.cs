@@ -1,5 +1,5 @@
-using Ws.DeviceControl.Models.Dto.References1C.Plus.Commands.Update;
-using Ws.DeviceControl.Models.Dto.References1C.Plus.Queries;
+using Ws.DeviceControl.Models.Features.References1C.Plus.Commands.Update;
+using Ws.DeviceControl.Models.Features.References1C.Plus.Queries;
 
 namespace Ws.DeviceControl.Models.Api.References1c;
 

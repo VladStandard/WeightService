@@ -1,5 +1,5 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
-using Ws.DeviceControl.Models.Dto.References1C.Brands;
+using Ws.DeviceControl.Models.Features.References1C.Brands;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Brands.Impl.Expressions;
 

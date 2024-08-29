@@ -1,5 +1,5 @@
 using Fluxor;
-using Ws.DeviceControl.Models.Dto.Shared;
+using Ws.DeviceControl.Models.Shared;
 
 namespace DeviceControl.Source.Shared.Services;
 

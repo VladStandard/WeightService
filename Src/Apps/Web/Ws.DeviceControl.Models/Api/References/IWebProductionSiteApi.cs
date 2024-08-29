@@ -1,6 +1,7 @@
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Update;
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Queries;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
+using Ws.DeviceControl.Models.Shared;
 
 namespace Ws.DeviceControl.Models.Api.References;
 

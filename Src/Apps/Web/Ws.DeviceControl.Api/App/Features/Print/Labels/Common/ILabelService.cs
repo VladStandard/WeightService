@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Dto.Print.Labels;
+using Ws.DeviceControl.Models.Features.Print.Labels;
 
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Common;
 

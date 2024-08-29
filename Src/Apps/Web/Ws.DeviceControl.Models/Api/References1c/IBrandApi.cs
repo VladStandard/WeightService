@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Dto.References1C.Brands;
+using Ws.DeviceControl.Models.Features.References1C.Brands;
 
 namespace Ws.DeviceControl.Models.Api.References1c;
 

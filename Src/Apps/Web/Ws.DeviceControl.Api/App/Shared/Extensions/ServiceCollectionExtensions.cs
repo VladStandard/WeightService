@@ -4,7 +4,7 @@ using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
-using Ws.DeviceControl.Models.Dto.References.ProductionSites.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 

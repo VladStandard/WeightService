@@ -1,6 +1,6 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
-using Ws.DeviceControl.Models.Dto.Database;
+using Ws.DeviceControl.Models.Features.Database;
 
 namespace DeviceControl.Source.Shared.Services;
 

@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Dto.Database;
+using Ws.DeviceControl.Models.Features.Database;
 
 namespace Ws.DeviceControl.Api.App.Features.Diag.Database.Common;
 

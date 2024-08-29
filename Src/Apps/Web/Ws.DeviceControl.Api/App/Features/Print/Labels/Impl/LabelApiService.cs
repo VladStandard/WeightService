@@ -1,7 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.DeviceControl.Api.App.Features.Print.Labels.Common;
 using Ws.DeviceControl.Api.App.Features.Print.Labels.Impl.Expressions;
-using Ws.DeviceControl.Models.Dto.Print.Labels;
+using Ws.DeviceControl.Models.Features.Print.Labels;
 
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Impl;
 

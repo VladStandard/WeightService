@@ -13,6 +13,5 @@ global using Phetch.Core;
 global using Ws.Shared.Resources;
 
 // INTERNAL
-global using ScalesDesktop.Source.Shared.Utils;
 global using ScalesDesktop.Source.Shared.Services;
 global using ScalesDesktop.Source.Shared.Localization;

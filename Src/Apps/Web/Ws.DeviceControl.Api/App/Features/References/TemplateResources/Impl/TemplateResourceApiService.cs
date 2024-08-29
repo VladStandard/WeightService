@@ -4,9 +4,9 @@ using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extensions;
-using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Create;
-using Ws.DeviceControl.Models.Dto.References.TemplateResources.Commands.Update;
-using Ws.DeviceControl.Models.Dto.References.TemplateResources.Queries;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Create;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 using Ws.Shared.Api.ApiException;
 using Ws.Shared.Enums;
 
