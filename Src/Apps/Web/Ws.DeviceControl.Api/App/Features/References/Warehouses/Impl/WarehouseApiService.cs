@@ -51,8 +51,8 @@ public class WarehouseApiService(
     public async Task<WarehouseDto> CreateAsync(WarehouseCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Warehouses.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
-        await dbContext.Warehouses.SafeExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
+        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
         ProductionSiteEntity productionSiteEntity = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, "Не найдено");
         WarehouseEntity entity = dto.ToEntity(productionSiteEntity);
@@ -68,8 +68,8 @@ public class WarehouseApiService(
     public async Task<WarehouseDto> UpdateAsync(Guid id, WarehouseUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Warehouses.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.Warehouses.SafeExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
+        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
 
         WarehouseEntity entity = await dbContext.Warehouses.SafeGetById(id, "Не найдено");
         await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);

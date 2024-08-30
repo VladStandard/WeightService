@@ -50,7 +50,7 @@ public class TemplateApiService(
     public async Task<TemplateDto> UpdateAsync(Guid id, TemplateUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Templates.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.Templates.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);
@@ -62,7 +62,7 @@ public class TemplateApiService(
     public async Task<TemplateDto> CreateAsync(TemplateCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Templates.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.Templates.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
 
         TemplateEntity entity = dto.ToEntity();
 

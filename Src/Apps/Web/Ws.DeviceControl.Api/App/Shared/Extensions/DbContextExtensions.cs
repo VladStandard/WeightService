@@ -5,10 +5,21 @@ namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 
 internal static class DbContextExtensions
 {
-    public static async Task SafeExistAsync<T>(this DbSet<T> dbSet, Expression<Func<T, bool>> predicate, string message) where T : class
+    public static async Task ThrowIfExistAsync<T>(this DbSet<T> dbSet, Expression<Func<T, bool>> predicate, string message) where T : class
     {
         bool isExist = await dbSet.AnyAsync(predicate);
         if (isExist)
+            throw new ApiExceptionServer
+            {
+                ErrorDisplayMessage = message,
+                StatusCode = HttpStatusCode.Conflict
+            };
+    }
+
+    public static async Task SafeExistAsync<T>(this DbSet<T> dbSet, Expression<Func<T, bool>> predicate, string message) where T : class
+    {
+        bool isExist = await dbSet.AnyAsync(predicate);
+        if (!isExist)
             throw new ApiExceptionServer
             {
                 ErrorDisplayMessage = message,

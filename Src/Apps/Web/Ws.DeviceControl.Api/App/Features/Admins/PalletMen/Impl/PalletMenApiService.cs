@@ -41,8 +41,8 @@ public class PalletManApiService(
     public async Task<PalletManDto> CreateAsync(PalletManCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.PalletMen.SafeExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic, "Ошибка уникальности");
-        await dbContext.PalletMen.SafeExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
+        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic, "Ошибка уникальности");
+        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
@@ -59,8 +59,8 @@ public class PalletManApiService(
     public async Task<PalletManDto> UpdateAsync(Guid id, PalletManUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.PalletMen.SafeExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic && i.Id != id, "Ошибка уникальности");
-        await dbContext.PalletMen.SafeExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
+        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic && i.Id != id, "Ошибка уникальности");
+        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
 
         PalletManEntity entity = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");

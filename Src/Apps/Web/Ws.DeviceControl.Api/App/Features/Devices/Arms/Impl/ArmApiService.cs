@@ -59,6 +59,7 @@ public class ArmApiService(
        return await dbContext.Plus
            .AsNoTracking()
            .IfWhere(isWeightFilter != null, p => p.IsWeight == isWeightFilter)
+           .OrderBy(i => i.Number)
            .Select(ArmExpressions.ToPluDto(linePluId))
            .ToListAsync();
 
@@ -71,9 +72,9 @@ public class ArmApiService(
     public async Task<ArmDto> CreateAsync(ArmCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Lines.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
-        await dbContext.Lines.SafeExistAsync(i => i.Number == dto.Number, "Ошибка уникальности");
-        await dbContext.Lines.SafeExistAsync(i => i.PcName == dto.PcName, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, "Ошибка уникальности");
 
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
@@ -91,9 +92,9 @@ public class ArmApiService(
     public async Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Lines.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.Lines.SafeExistAsync(i => i.Number == dto.Number && i.Id != id, "Ошибка уникальности");
-        await dbContext.Lines.SafeExistAsync(i => i.PcName == dto.PcName && i.Id != id, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, "Ошибка уникальности");
 
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");

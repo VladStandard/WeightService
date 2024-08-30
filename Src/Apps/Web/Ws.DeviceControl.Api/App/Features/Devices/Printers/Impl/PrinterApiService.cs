@@ -51,8 +51,8 @@ public class PrinterApiService(
     public async Task<PrinterDto> CreateAsync(PrinterCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Printers.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
-        await dbContext.Printers.SafeExistAsync(i => i.Ip == dto.Ip, "Ошибка уникальности");
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip, "Ошибка уникальности");
 
         ProductionSiteEntity productionSite = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, "Не найдено");
         await userManager.CanUserWorkWithProductionSiteAsync(productionSite.Id);
@@ -68,8 +68,8 @@ public class PrinterApiService(
     public async Task<PrinterDto> UpdateAsync(Guid id, PrinterUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Printers.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.Printers.SafeExistAsync(i => i.Ip == dto.Ip && i.Id != id, "Ошибка уникальности");
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip && i.Id != id, "Ошибка уникальности");
 
         PrinterEntity entity = await dbContext.Printers.SafeGetById(id, "Не найдено");
         await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);

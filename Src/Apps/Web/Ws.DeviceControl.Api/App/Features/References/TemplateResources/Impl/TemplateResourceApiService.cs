@@ -46,7 +46,7 @@ public class TemplateResourceApiService(
     {
         await ValidateAsync(dto, updateValidator);
         ValidateSvg(dto.Body, dto.Type);
-        await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await dbContext.ZplResources.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);
@@ -59,7 +59,7 @@ public class TemplateResourceApiService(
     {
         await ValidateAsync(dto, createValidator);
         ValidateSvg(dto.Body, dto.Type);
-        await dbContext.ZplResources.SafeExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await dbContext.ZplResources.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
 
         ZplResourceEntity entity = dto.ToEntity();
 
