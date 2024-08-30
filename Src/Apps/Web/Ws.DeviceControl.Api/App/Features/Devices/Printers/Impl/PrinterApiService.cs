@@ -81,6 +81,8 @@ public class PrinterApiService(
         return PrinterExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.Printers.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 
     #region Private

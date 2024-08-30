@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 
-public interface ITemplateResourceService : IGetApiService<TemplateResourceDto>
+public interface ITemplateResourceService : IGetApiService<TemplateResourceDto>, IDeleteService<Guid>
 {
     #region Queries
 
@@ -14,8 +14,8 @@ public interface ITemplateResourceService : IGetApiService<TemplateResourceDto>
 
     #region Commmands
 
-    Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto);
     Task<TemplateResourceDto> CreateAsync(TemplateResourceCreateDto dto);
+    Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto);
 
     #endregion
 }

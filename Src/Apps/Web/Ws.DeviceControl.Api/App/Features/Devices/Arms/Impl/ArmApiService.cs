@@ -1,6 +1,7 @@
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref.Printers;
 using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
@@ -109,6 +110,33 @@ public class ArmApiService(
         await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
+
+
+    public async Task DeletePluAsync(Guid armId, Guid pluId)
+    {
+        await dbContext.Lines.SafeExistAsync(i => i.Id == armId, "АРМ не найдено");
+        await dbContext.Plus.SafeExistAsync(i => i.Id == pluId, "ПЛУ не найдено");
+
+        LineEntity lineEntity = new() { Id = armId };
+        dbContext.Lines.Attach(lineEntity);
+
+        PluEntity pluEntity = new() { Id = pluId };
+        dbContext.Plus.Attach(pluEntity);
+
+        lineEntity.Plus.Remove(pluEntity);
+
+        var lineEntry = dbContext.Entry(lineEntity);
+        var pluEntry = dbContext.Entry(pluEntity);
+
+        await dbContext.SaveChangesAsync();
+    }
+
+    public Task<PluArmDto> AddPluAsync(Guid armId, Guid pluId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(Guid id) => dbContext.Lines.SafeDeleteAsync(i => i.Id == id);
 
     #endregion
 

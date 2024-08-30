@@ -2,7 +2,7 @@ using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Common;
 
-public interface IUserService
+public interface IUserService : IDeleteService<Guid>
 {
     #region Queries
 

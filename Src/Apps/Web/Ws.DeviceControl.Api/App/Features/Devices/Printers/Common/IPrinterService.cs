@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Common;
 
-public interface IPrinterService
+public interface IPrinterService : IDeleteService<Guid>
 {
     #region Queries
 

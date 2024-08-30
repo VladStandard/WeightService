@@ -17,6 +17,9 @@ public interface IWebUserApi
 
     #region Commands
 
+    [Post("/users/{uid}/delete")]
+    Task DeleteUser(Guid uid);
+
     [Post("/users/{uid}")]
     Task<UserDto> UpdateUser(Guid uid, [Body] UserUpdateDto updateDto);
 

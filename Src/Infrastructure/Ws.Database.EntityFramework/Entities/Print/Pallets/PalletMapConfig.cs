@@ -42,6 +42,7 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
             .WithMany()
             .HasForeignKey("PALLET_MAN_UID")
             .HasConstraintName($"FK_{SqlTables.Pallets}__PALLET_MAN")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         #endregion

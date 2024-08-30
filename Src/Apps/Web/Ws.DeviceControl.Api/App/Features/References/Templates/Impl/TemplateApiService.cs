@@ -72,5 +72,7 @@ public class TemplateApiService(
         return TemplateExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.Templates.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 }

@@ -26,6 +26,7 @@ internal sealed class PalletManMapConfig : IEntityTypeConfiguration<PalletManEnt
             .WithMany()
             .HasForeignKey("WAREHOUSE_UID")
             .HasConstraintName($"FK_{SqlTables.PalletMen}__WAREHOUSE")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         #endregion

@@ -24,8 +24,8 @@ public interface IWebTemplateApi
 
     #region Commands
 
-    [Delete("/templates/{id}")]
-    Task<bool> DeleteTemplate(Guid id);
+    [Post("/templates/{id}/delete")]
+    Task DeleteTemplate(Guid id);
 
     [Post("/templates")]
     Task<TemplateDto> CreateTemplate([Body] TemplateCreateDto createDto);

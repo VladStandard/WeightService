@@ -69,6 +69,8 @@ public class TemplateResourceApiService(
         return TemplateResourceExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.ZplResources.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 
     private static void ValidateSvg(string svg, ZplResourceType type)

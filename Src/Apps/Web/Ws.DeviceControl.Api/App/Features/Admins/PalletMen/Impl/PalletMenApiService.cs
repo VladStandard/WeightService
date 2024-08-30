@@ -73,6 +73,8 @@ public class PalletManApiService(
         return PalletManExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.PalletMen.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 
     #region Private

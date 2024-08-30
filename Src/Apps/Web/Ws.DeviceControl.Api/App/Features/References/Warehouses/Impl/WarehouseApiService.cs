@@ -81,6 +81,8 @@ public class WarehouseApiService(
         return WarehouseExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.Warehouses.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 
     #region Private
@@ -91,4 +93,5 @@ public class WarehouseApiService(
     }
 
     #endregion
+
 }

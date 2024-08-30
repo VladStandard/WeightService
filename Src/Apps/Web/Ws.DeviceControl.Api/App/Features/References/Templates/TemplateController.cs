@@ -36,5 +36,10 @@ public class TemplateController(ITemplateService templateService)
     public Task<TemplateDto> Update([FromRoute] Guid id, [FromBody] TemplateUpdateDto dto) =>
         templateService.UpdateAsync(id, dto);
 
+    [Authorize(PolicyEnum.Admin)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) =>
+        templateService.DeleteAsync(id);
+
     #endregion
 }

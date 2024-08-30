@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
 
-public interface IPalletManService
+public interface IPalletManService : IDeleteService<Guid>
 {
     #region Queries
 

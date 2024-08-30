@@ -26,13 +26,19 @@ public class PrinterController(IPrinterService printerService)
 
     #region Commands
 
+    [Authorize(PolicyEnum.Support)]
     [HttpPost]
     public Task<PrinterDto> Create([FromBody] PrinterCreateDto dto) =>
         printerService.CreateAsync(dto);
 
+    [Authorize(PolicyEnum.Support)]
     [HttpPost("{id:guid}")]
     public Task<PrinterDto> Update([FromRoute] Guid id, [FromBody] PrinterUpdateDto dto) =>
         printerService.UpdateAsync(id, dto);
+
+    [Authorize(PolicyEnum.Support)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) => printerService.DeleteAsync(id);
 
     #endregion
 }

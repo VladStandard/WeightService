@@ -21,8 +21,8 @@ public interface IWebArmApi
 
     #region Commands
 
-    [Delete("/arms/{uid}")]
-    Task<bool> DeleteArm(Guid uid);
+    [Post("/arms/{uid}/delete")]
+    Task DeleteArm(Guid uid);
 
     [Post("/arms")]
     Task<ArmDto> CreateArm([Body] ArmCreateDto createDto);

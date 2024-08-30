@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 
-public interface IArmService
+public interface IArmService : IDeleteService<Guid>
 {
     #region Queries
 
@@ -18,6 +18,8 @@ public interface IArmService
 
     Task<ArmDto> CreateAsync(ArmCreateDto dto);
     Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto);
+    Task<PluArmDto> AddPluAsync(Guid armId, Guid pluId);
+    Task DeletePluAsync(Guid armId, Guid pluId);
 
     #endregion
 }

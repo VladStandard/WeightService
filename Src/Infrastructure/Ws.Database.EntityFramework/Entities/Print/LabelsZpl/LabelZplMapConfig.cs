@@ -24,7 +24,8 @@ public class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
             .WithOne(l => l.Zpl)
             .HasForeignKey<LabelZplEntity>(n => n.Id)
             .HasPrincipalKey<LabelEntity>(p => p.Id)
-            .HasConstraintName($"FK_{SqlTables.LabelsZpl}__LABEL");
+            .HasConstraintName($"FK_{SqlTables.LabelsZpl}__LABEL")
+            .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
 

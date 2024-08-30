@@ -32,5 +32,9 @@ public class TemplateResourceController(ITemplateResourceService templateResourc
     public Task<TemplateResourceDto> Update([FromRoute] Guid id, [FromBody] TemplateResourceUpdateDto dto) =>
         templateResourceService.UpdateAsync(id, dto);
 
+    [Authorize(PolicyEnum.Admin)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) => templateResourceService.DeleteAsync(id);
+
     #endregion
 }
