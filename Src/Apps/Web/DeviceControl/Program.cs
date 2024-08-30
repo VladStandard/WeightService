@@ -39,8 +39,8 @@ app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-
 app.UseRequestLocalization(culture);
+
 app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();

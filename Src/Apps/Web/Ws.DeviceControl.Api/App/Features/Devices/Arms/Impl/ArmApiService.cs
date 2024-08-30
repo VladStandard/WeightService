@@ -16,7 +16,8 @@ public class ArmApiService(
     WsDbContext dbContext,
     ArmCreateValidator createValidator,
     ArmUpdateValidator updateValidator,
-    UserManager userManager
+    UserManager userManager,
+    ErrorMessages errorMessages
     ) : ApiService, IArmService
 {
     #region Queries
@@ -33,14 +34,14 @@ public class ArmApiService(
 
     public async Task<ArmDto> GetByIdAsync(Guid id)
     {
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
         await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public async Task<List<PluArmDto>> GetArmPlus(Guid id)
     {
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
 
         bool? isWeightFilter = entity.Type switch
         {
@@ -72,12 +73,12 @@ public class ArmApiService(
     public async Task<ArmDto> CreateAsync(ArmCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, "Ошибка уникальности");
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, errorMessages.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorMessages.Localize(ErrorType.Unique, "Number"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, errorMessages.Localize(ErrorType.Unique, "PcName"));
 
-        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
-        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorMessages.Localize(ErrorType.NotFound, "Warehouse"));
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorMessages.Localize(ErrorType.NotFound, "Printer"));
         LineEntity entity = dto.ToEntity(warehouse, printer);
 
         await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
@@ -92,13 +93,13 @@ public class ArmApiService(
     public async Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, "Ошибка уникальности");
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, "Ошибка уникальности");
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Number"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, errorMessages.Localize(ErrorType.Unique, "PcName"));
 
-        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, "Не найдено");
-        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, "Не найдено");
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorMessages.Localize(ErrorType.NotFound, "Printer"));
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorMessages.Localize(ErrorType.NotFound, "Warehouse"));
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
 
         await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
