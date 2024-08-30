@@ -17,4 +17,13 @@ public class UserController(IUserService userService)
     public Task<UserDto> GetById([FromRoute] Guid id) => userService.GetByIdAsync(id);
 
     #endregion
+
+    #region Commands
+
+    [Authorize(PolicyEnum.SeniorSupport)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) =>
+        userService.DeleteAsync(id);
+
+    #endregion
 }

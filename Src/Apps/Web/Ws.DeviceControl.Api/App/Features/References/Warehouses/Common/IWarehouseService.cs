@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Common;
 
-public interface IWarehouseService
+public interface IWarehouseService : IDeleteService<Guid>
 {
     #region Queries
 

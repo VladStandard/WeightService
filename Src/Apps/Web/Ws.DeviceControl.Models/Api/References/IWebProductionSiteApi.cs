@@ -24,8 +24,8 @@ public interface IWebProductionSiteApi
 
     #region Commands
 
-    [Delete("/production-sites/{uid}")]
-    Task<bool> DeleteProductionSite(Guid uid);
+    [Post("/production-sites/{uid}/delete")]
+    Task DeleteProductionSite(Guid uid);
 
     [Post("/production-sites")]
     Task<ProductionSiteDto> CreateProductionSite([Body] ProductionSiteCreateDto createDto);

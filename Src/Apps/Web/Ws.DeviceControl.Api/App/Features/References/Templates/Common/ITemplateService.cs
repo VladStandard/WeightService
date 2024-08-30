@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.References.Template.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 
-public interface ITemplateService : IGetApiService<TemplateDto>
+public interface ITemplateService : IGetApiService<TemplateDto>, IDeleteService<Guid>
 {
     #region Queries
 

@@ -21,8 +21,8 @@ public interface IWebPrinterApi
 
     #region Commands
 
-    [Delete("/printers/{uid}")]
-    Task<bool> DeletePrinter(Guid uid);
+    [Delete("/printers/{uid}/delete")]
+    Task DeletePrinter(Guid uid);
 
     [Post("/printers")]
     Task<PrinterDto> CreatePrinter([Body] PrinterCreateDto createDto);

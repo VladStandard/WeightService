@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 
-public interface IProductionSiteService : IGetApiService<ProductionSiteDto>
+public interface IProductionSiteService : IGetApiService<ProductionSiteDto>, IDeleteService<Guid>
 {
     #region Queries
 

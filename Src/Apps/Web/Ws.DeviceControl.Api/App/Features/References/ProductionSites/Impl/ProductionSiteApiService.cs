@@ -87,5 +87,7 @@ public class ProductionSiteApiService(
         return ProductionSiteExpressions.ToDto.Compile().Invoke(entity);
     }
 
+    public Task DeleteAsync(Guid id) => dbContext.ProductionSites.SafeDeleteAsync(i => i.Id == id);
+
     #endregion
 }

@@ -21,8 +21,8 @@ public interface IWebTemplateResourceApi
 
     #region Commands
 
-    [Delete("/template-resources/{id}")]
-    Task<bool> DeleteResource(Guid id);
+    [Post("/template-resources/{id}/delete")]
+    Task DeleteResource(Guid id);
 
     [Post("/template-resources")]
     Task<TemplateResourceDto> CreateResource([Body] TemplateResourceCreateDto createDto);

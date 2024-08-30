@@ -30,5 +30,10 @@ public class PalletManController(IPalletManService palletManService)
     public Task<PalletManDto> Update([FromRoute] Guid id, [FromBody] PalletManUpdateDto dto) =>
         palletManService.UpdateAsync(id, dto);
 
+    [Authorize(PolicyEnum.SeniorSupport)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) =>
+        palletManService.DeleteAsync(id);
+
     #endregion
 }

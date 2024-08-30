@@ -27,15 +27,20 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
 
     #region Commamnds
 
-    [HttpPost]
     [Authorize(PolicyEnum.Admin)]
+    [HttpPost]
     public Task<ProductionSiteDto> Create([FromBody] ProductionSiteCreateDto dto) =>
         productionSiteService.CreateAsync(dto);
 
-    [HttpPost("{id:guid}")]
     [Authorize(PolicyEnum.Admin)]
+    [HttpPost("{id:guid}")]
     public Task<ProductionSiteDto> Update([FromRoute] Guid id, [FromBody] ProductionSiteUpdateDto dto) =>
         productionSiteService.UpdateAsync(id, dto);
+
+    [Authorize(PolicyEnum.Admin)]
+    [HttpPost("{id:guid}/delete")]
+    public Task Delete([FromRoute] Guid id) =>
+        productionSiteService.DeleteAsync(id);
 
     #endregion
 }

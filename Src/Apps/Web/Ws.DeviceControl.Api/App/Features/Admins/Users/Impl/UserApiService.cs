@@ -28,6 +28,12 @@ public class UserApiService(WsDbContext dbContext) : IUserService
 
     #endregion
 
+    #region Commands
+
+    public Task DeleteAsync(Guid id) => dbContext.Users.SafeDeleteAsync(i => i.Id == id);
+
+    #endregion
+
     #region Private
 
     private async Task LoadDefaultForeignKeysAsync(UserEntity entity) {
