@@ -97,6 +97,10 @@
     @apply !bg-black/[.6]
   }
 
+  fluent-dialog::part(positioning-region) {
+    @apply !overflow-hidden
+  }
+
   fluent-anchored-region {
     @apply !fixed
   }

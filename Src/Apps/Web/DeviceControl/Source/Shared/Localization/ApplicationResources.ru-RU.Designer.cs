@@ -807,6 +807,24 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выкл.
+        /// </summary>
+        public static string StateOff {
+            get {
+                return ResourceManager.GetString("StateOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вкл.
+        /// </summary>
+        public static string StateOn {
+            get {
+                return ResourceManager.GetString("StateOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Темная.
         /// </summary>
         public static string ThemeDark {

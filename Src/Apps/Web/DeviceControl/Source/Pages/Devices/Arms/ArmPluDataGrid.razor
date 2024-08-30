@@ -1,85 +1,205 @@
-@* @using Ws.Domain.Models.Entities.Ref1c.Plus *@
-@* @using Blazor.Heroicons.Outline *@
-@* *@
-@* @inherits SectionDataGridPageBase<Ws.Domain.Models.Entities.Ref1c.Plus.Plu> *@
-@* @rendermode InteractiveServer *@
-@* *@
-@* <PageHeader Class="!static"> *@
-@*   <span>@Localizer["SectionLinePLU"]</span> *@
-@*   <DataGridItemsCounter ItemsCount="@SectionItems.Count()" IsLoading="IsLoading"/> *@
-@*   <DataGridActionReload OnClick="@UpdateData" IsLoading="IsLoading" /> *@
-@*   <div class="w-fit"> *@
-@*     <SelectSingle *@
-@*       TItem="Plu" *@
-@*       Items="@GetPluNotInSectionItems()" *@
-@*       @bind-SelectedItem="@SelectedPlu" *@
-@*       @bind-SelectedItem:after="@OnPluSelected" *@
-@*       ItemDisplayName="item => item.DisplayName" *@
-@*       IsFilterable *@
-@*     > *@
-@*       <TriggerContent Context="pluContext"> *@
-@*         <Button *@
-@*           Id="@pluContext.DropdownAnchor" *@
-@*           Variant="ButtonVariant.Outline" *@
-@*           OnClick="@(() => pluContext.SetIsOpen.InvokeAsync(!pluContext.IsOpen))" *@
-@*           Disabled="@(!IsAllowToEdit)" *@
-@*         > *@
-@*           Добавить ПЛУ *@
-@*         </Button> *@
-@*       </TriggerContent> *@
-@*     </SelectSingle> *@
-@*   </div> *@
-@* </PageHeader> *@
-@* *@
-@* <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit"> *@
-@*   <DataGridContainer *@
-@*     TItem="Plu" *@
-@*     Items="SectionItems" *@
-@*     ItemsPerPage="6" *@
-@*     IsForcePagination *@
-@*   > *@
-@*     <ColumnsContent> *@
-@*       <DataGridColumn *@
-@*         Caption="@WsDataLocalizer["ColNumber"]" *@
-@*         Field="@($"{nameof(Plu.Number)}")" *@
-@*         Width="10%" *@
-@*       /> *@
-@*       <DataGridColumn *@
-@*         Caption="@WsDataLocalizer["ColType"]" *@
-@*         Field="@($"{nameof(Plu.IsCheckWeight)}")" *@
-@*         Width="20%" *@
-@*       > *@
-@*         <DisplayTemplate> *@
-@*           <span> *@
-@*             @(context.IsCheckWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"]) *@
-@*           </span> *@
-@*         </DisplayTemplate> *@
-@*       </DataGridColumn> *@
-@*       <DataGridColumn *@
-@*         Caption="@WsDataLocalizer["ColName"]" *@
-@*         Field="@($"{nameof(Plu.Name)}")" *@
-@*         Width="60%" *@
-@*       /> *@
-@*       <DataGridColumn *@
-@*         Width="10%" *@
-@*       > *@
-@*         <DisplayTemplate> *@
-@*           <div class="size-full flex items-center justify-center"> *@
-@*             <Button *@
-@*               Variant="ButtonVariant.Outline" *@
-@*               Size="ButtonSize.Icon" *@
-@*               Class="mx-auto" *@
-@*               OnClick="@(() => DeleteArmPlu(context))" *@
-@*             > *@
-@*               <MinusIcon class="size-5"/> *@
-@*             </Button> *@
-@*           </div> *@
-@*         </DisplayTemplate> *@
-@*       </DataGridColumn> *@
-@*     </ColumnsContent> *@
-@*     <ContextMenuContent> *@
-@*       <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))" /> *@
-@*       <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteArmPlu(item)))" /> *@
-@*     </ContextMenuContent> *@
-@*   </DataGridContainer> *@
-@* </DataGridWrapper> *@
+@using DeviceControl.Source.Shared.Services
+@using Blazor.Heroicons.Outline
+@using Ws.DeviceControl.Models
+@using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
+@using Ws.DeviceControl.Models.Features.References1C.Brands
+
+@inherits SectionDataGridBase<PluArmDto>
+@rendermode InteractiveServer
+
+<UseEndpoint Endpoint="@DevicesEndpoints.ArmPluEndpoint" Arg="Arm.Id" Options="@(DefaultEndpointOptions)" Context="plusQuery">
+  <PageHeader Class="!static">
+    <span>@Localizer["SectionLinePLU"]</span>
+    <DataGridItemsSelected
+      Count="@(plusQuery.Data?.Length ?? 0)"
+      SelectedCount="@(plusQuery.Data?.Where(x => x.IsActive).Count() ?? 0)"
+      IsLoading="plusQuery.IsLoading"
+    />
+    <DataGridActionReload OnClick="@plusQuery.RefetchAsync" IsLoading="plusQuery.IsFetching"/>
+  </PageHeader>
+  <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
+    <DataGridContainer
+      TItem="PluArmDto"
+      Items="@(plusQuery.HasData ? plusQuery.Data : [])"
+      ItemsPerPage="6"
+      IsForcePagination
+      IsFilterable
+    >
+      <ColumnsContent>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColNumber"]"
+          Field="@($"{nameof(PluArmDto.Number)}")"
+          Width="10%"
+        />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColType"]"
+          Field="@nameof(PluArmDto.IsWeight)"
+          Width="15%"
+          Sortable="false"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            @{ context.SearchValue = IsWeightFilter; }
+            <SelectSingle
+              TItem="bool?"
+              Items="@( [false, true, null])"
+              @bind-Value="@IsWeightFilter"
+              @bind-Value:after="@(() => context.TriggerFilterChange(IsWeightFilter))"
+              Placeholder="@Localizer["SelectItemNotSelected"]"
+              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] :
+                                 item.Value ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])"
+            />
+          </FilterTemplate>
+          <DisplayTemplate>
+            <span>
+              @(context.IsWeight ? WsDataLocalizer["ColPluWeight"] : WsDataLocalizer["ColPluPiece"])
+            </span>
+          </DisplayTemplate>
+        </DataGridColumn>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColName"]"
+          Field="@($"{nameof(PluArmDto.Name)}")"
+          Width="30%"
+        />
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColBrand"]"
+          Field="@($"{nameof(PluArmDto.Brand)}")"
+          Width="30%"
+          Sortable="false"
+          FilterMethod="DataGridColumnFilterMethod.Equals"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            <UseParameterlessEndpoint Endpoint="@References1CEndpoints.BrandsEndpoint" Context="brandsQuery">
+              @if (brandsQuery.HasData)
+              {
+                <SelectSingle
+                  TItem="BrandDto?"
+                  Items="@(brandsQuery.Data.Concat([null]))"
+                  @bind-Value="@BrandFilter"
+                  @bind-Value:after="@(() => context.TriggerFilterChange(BrandFilter?.Name))"
+                  Placeholder="@Localizer["SelectItemNotSelected"]"
+                  ItemDisplayName="@(item => item?.Name ?? Localizer["SelectItemNotSelected"])"
+                  Filterable
+                />
+              }
+              else
+              {
+                <Skeleton Class="h-10 w-full" />
+              }
+            </UseParameterlessEndpoint>
+          </FilterTemplate>
+        </DataGridColumn>
+        <DataGridColumn
+          Caption="@WsDataLocalizer["ColPluActive"]"
+          Field="@($"{nameof(PluArmDto.IsActive)}")"
+          Width="15%"
+          Sortable="false"
+          FilterMethod="DataGridColumnFilterMethod.Equals"
+          FilterCellClass="!font-normal"
+        >
+          <FilterTemplate>
+            @{ context.SearchValue = IsActiveFilter; }
+            <SelectSingle
+              TItem="bool?"
+              Items="@( [false, true, null])"
+              @bind-Value="@IsActiveFilter"
+              @bind-Value:after="@(() => context.TriggerFilterChange(IsActiveFilter))"
+              Placeholder="@Localizer["SelectItemNotSelected"]"
+              ItemDisplayName="@(item => item == null ? Localizer["SelectItemNotSelected"] :
+              item.Value ? Localizer["StateOn"] : Localizer["StateOff"])"
+            />
+          </FilterTemplate>
+          <DisplayTemplate>
+            <div class="size-full gap-1.5 flex mx-auto items-center justify-center">
+              <Button
+                OnClick="@(() => AddArmPlu(context))"
+                Size="ButtonSizeType.Icon"
+                Disabled="@(context.IsActive)"
+                Class="!size-7"
+              >
+                <LockOpenIcon class="size-3.5" />
+              </Button>
+              <Button
+                OnClick="@(() => DeleteArmPlu(context))"
+                Size="ButtonSizeType.Icon"
+                Variant="ButtonVariantType.Destructive"
+                Disabled="@(!context.IsActive)"
+                Class="!size-7"
+              >
+                <LockClosedIcon class="size-3.5" />
+              </Button>
+            </div>
+          </DisplayTemplate>
+        </DataGridColumn>
+      </ColumnsContent>
+      <ContextMenuContent>
+        <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))"/>
+        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteArmPlu(item)))" />
+      </ContextMenuContent>
+    </DataGridContainer>
+  </DataGridWrapper>
+</UseEndpoint>
+
+@code {
+
+  # region Injects
+
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
+  [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+
+  # endregion
+
+  [Parameter, EditorRequired] public ArmDto Arm { get; set; } = default!;
+  private BrandDto? BrandFilter { get; set; }
+  private bool? IsWeightFilter { get; set; }
+  private bool? IsActiveFilter { get; set; }
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    IsWeightFilter = Arm.Type switch
+    {
+      ArmType.Pc => false,
+      ArmType.Tablet => true,
+      _ => IsWeightFilter
+    };
+  }
+
+  private async Task DeleteArmPlu(PluArmDto item)
+  {
+    try
+    {
+      await WebApi.DeleteArmPlu(Arm.Id, item.Id);
+      DevicesEndpoints.DeleteArmPlu(Arm.Id, item.Id);
+      ToastService.ShowSuccess(string.Format(Localizer["ArmPluRemoved"], item.Number));
+    }
+    catch
+    {
+      ToastService.ShowError(string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number));
+    }
+  }
+
+  private Task AddArmPlu(PluArmDto item)
+  {
+    try
+    {
+      throw new Exception();
+      ToastService.ShowSuccess(string.Format(Localizer["ArmPluAdded"], item.Number));
+    }
+    catch
+    {
+       ToastService.ShowError(string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number));
+    }
+
+    return Task.CompletedTask;
+  }
+
+  protected override async Task OpenItemInNewTab(PluArmDto item) =>
+    await OpenLinkInNewTab(Redirector.ToPluPath(item.Id));
+}
