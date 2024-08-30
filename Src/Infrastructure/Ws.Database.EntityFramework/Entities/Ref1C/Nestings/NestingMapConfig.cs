@@ -14,7 +14,6 @@ internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
 
         #region FK
 
-
         builder.Property(e => e.BoxId)
             .HasColumnName("BOX_UID");
 
@@ -22,6 +21,7 @@ internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
             .WithMany()
             .HasForeignKey(nesting => nesting.BoxId)
             .HasConstraintName($"FK_{SqlTables.Nestings}__BOX")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         //
@@ -30,7 +30,8 @@ internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>
             .WithOne()
             .HasForeignKey<NestingEntity>(n => n.Id)
             .HasPrincipalKey<PluEntity>(p => p.Id)
-            .HasConstraintName($"FK_{SqlTables.Nestings}__PLU");
+            .HasConstraintName($"FK_{SqlTables.Nestings}__PLU")
+            .OnDelete(DeleteBehavior.Cascade);
 
         #endregion
 

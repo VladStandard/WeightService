@@ -25,6 +25,7 @@ internal class CharacteristicMapConfig : IEntityTypeConfiguration<Characteristic
             .WithMany()
             .HasForeignKey(characteristic => characteristic.PluId)
             .HasConstraintName($"FK_{SqlTables.Characteristics}__PLU")
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
         builder.Property(e => e.BoxId)
@@ -34,6 +35,7 @@ internal class CharacteristicMapConfig : IEntityTypeConfiguration<Characteristic
             .WithMany()
             .HasForeignKey(characteristic => characteristic.BoxId)
             .HasConstraintName($"FK_{SqlTables.Characteristics}__BOX")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         #endregion

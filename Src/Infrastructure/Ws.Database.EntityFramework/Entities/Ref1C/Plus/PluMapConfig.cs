@@ -23,6 +23,7 @@ internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>
             .WithMany()
             .HasForeignKey(plu => plu.BundleId)
             .HasConstraintName($"FK_{SqlTables.Plus}__BUNDLE")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         //
@@ -34,6 +35,7 @@ internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>
             .WithMany()
             .HasForeignKey(plu => plu.ClipId)
             .HasConstraintName($"FK_{SqlTables.Plus}__CLIP")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         //
@@ -45,6 +47,7 @@ internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>
             .WithMany()
             .HasForeignKey(plu => plu.BrandId)
             .HasConstraintName($"FK_{SqlTables.Plus}__BRAND")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         //
@@ -56,6 +59,7 @@ internal sealed class PluMapConfig : IEntityTypeConfiguration<PluEntity>
             .WithMany()
             .HasForeignKey(e => e.TemplateId)
             .HasConstraintName($"FK_{SqlTables.Plus}__TEMPLATE")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired(false);
 
         #endregion

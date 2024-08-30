@@ -22,7 +22,7 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
         builder.HasOne(i => i.Pallet)
             .WithMany()
             .HasForeignKey(e => e.PalletId)
-            .OnDelete(DeleteBehavior.Restrict)
+            .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName($"FK_{SqlTables.Labels}__PALLET")
             .IsRequired(false);
 
@@ -34,7 +34,7 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
         builder.HasOne(e => e.Plu)
             .WithMany()
             .HasForeignKey(e => e.PluId)
-            .OnDelete(DeleteBehavior.Restrict)
+            .OnDelete(DeleteBehavior.SetNull)
             .HasConstraintName($"FK_{SqlTables.Labels}__PLU");
 
         //
@@ -45,7 +45,8 @@ internal sealed class LabelMapConfig : IEntityTypeConfiguration<LabelEntity>
         builder.HasOne(e => e.Line)
             .WithMany()
             .HasForeignKey(e => e.LineId)
-            .HasConstraintName($"FK_{SqlTables.Labels}__ARM");
+            .HasConstraintName($"FK_{SqlTables.Labels}__ARM")
+            .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
 

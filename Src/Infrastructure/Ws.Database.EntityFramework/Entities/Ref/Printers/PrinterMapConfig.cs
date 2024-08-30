@@ -13,7 +13,7 @@ internal sealed class PrinterMapConfig : IEntityTypeConfiguration<PrinterEntity>
             .IsUnique();
 
         builder.HasIndex(e => e.Ip)
-            .HasDatabaseName($"UQ_{SqlTables.PalletMen}__IP")
+            .HasDatabaseName($"UQ_{SqlTables.Printers}__IP")
             .IsUnique();
 
         #endregion
@@ -26,7 +26,8 @@ internal sealed class PrinterMapConfig : IEntityTypeConfiguration<PrinterEntity>
         builder.HasOne(e => e.ProductionSite)
             .WithMany()
             .HasForeignKey(plu => plu.ProductionSiteId)
-            .HasConstraintName($"FK_{SqlTables.Printers}__PRODUCTION_SITE");
+            .HasConstraintName($"FK_{SqlTables.Printers}__PRODUCTION_SITE")
+            .OnDelete(DeleteBehavior.Restrict);
 
         #endregion
 
