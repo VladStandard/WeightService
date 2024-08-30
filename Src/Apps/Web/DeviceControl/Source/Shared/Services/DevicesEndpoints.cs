@@ -28,6 +28,30 @@ public class DevicesEndpoints(IWebApi webApi)
 
     # endregion
 
+    # region ArmPlu
+
+    public Endpoint<Guid, PluArmDto[]> ArmPluEndpoint { get; } = new(
+        webApi.GetArmPlus,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
+
+    public void AddArmPlu(Guid armId, Guid pluId) =>
+        ArmPluEndpoint.UpdateQueryData(armId, query =>
+            query.Data?.Select(item =>
+            {
+                if (item.Id == pluId) item = item with { IsActive = true };
+                return item;
+            }).ToArray() ?? query.Data!);
+
+    public void DeleteArmPlu(Guid armId, Guid pluId) =>
+        ArmPluEndpoint.UpdateQueryData(armId, query =>
+            query.Data?.Select(item =>
+            {
+                if (item.Id == pluId) item = item with { IsActive = false };
+                return item;
+            }).ToArray() ?? query.Data!);
+
+    # endregion
+
     # region Printer
 
     public Endpoint<Guid, PrinterDto[]> PrintersEndpoint { get; } = new(

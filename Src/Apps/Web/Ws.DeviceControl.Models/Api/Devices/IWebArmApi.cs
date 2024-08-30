@@ -30,5 +30,8 @@ public interface IWebArmApi
     [Post("/arms/{uid}")]
     Task<ArmDto> UpdateArm(Guid uid, [Body] ArmUpdateDto updateDto);
 
+    [Post("/arms/{uid}/plus/{pluId}")]
+    Task<bool> DeleteArmPlu(Guid uid, Guid pluId);
+
     #endregion
 }

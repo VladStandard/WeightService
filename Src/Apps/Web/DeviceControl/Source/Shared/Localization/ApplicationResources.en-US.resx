@@ -312,4 +312,10 @@
     <data name="ThemeSystem" xml:space="preserve">
         <value>System</value>
     </data>
+    <data name="StateOff" xml:space="preserve">
+        <value>Off</value>
+    </data>
+    <data name="StateOn" xml:space="preserve">
+        <value>On</value>
+    </data>
 </root>

@@ -312,4 +312,7 @@
     <data name="ColWeightTotal" xml:space="preserve">
         <value>Weight (Total)</value>
     </data>
+    <data name="ColPluActive" xml:space="preserve">
+        <value>Active</value>
+    </data>
 </root>
