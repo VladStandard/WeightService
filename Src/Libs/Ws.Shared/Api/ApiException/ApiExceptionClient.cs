@@ -5,5 +5,5 @@ namespace Ws.Shared.Api.ApiException;
 public record ApiExceptionClient
 {
     [JsonPropertyName("localizeMessage")]
-    public required string LocalizeMessage { get; set; }
+    public required string LocalizeMessage { get; init; }
 }

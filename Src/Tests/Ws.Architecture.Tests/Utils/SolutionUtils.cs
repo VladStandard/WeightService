@@ -4,67 +4,24 @@ namespace Ws.Architecture.Tests.Utils;
 
 public static class SolutionUtils
 {
-    public static TheoryData<string, Assembly> GetAllAssemblies()
-    {
-        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
-        string absolutePath = Path.GetFullPath(relativePath);
-        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
+    private const string SolutionConfiguration = "Develop_x64";
+    private const string SolutionFileName = "WeightService.sln";
+    private const string SolutionRelativePath = $@"..\..\..\..\..\..\{SolutionFileName}";
+    private static readonly SolutionFile SolutionFile = SolutionFile.Parse(Path.GetFullPath(SolutionRelativePath));
 
-        TheoryData<string, Assembly> assemblies = [];
+    # region Public
 
-        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
-        {
-            if (!project.AbsolutePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) continue;
-            if (project.AbsolutePath.Contains("Test", StringComparison.OrdinalIgnoreCase)) continue;
+    public static TheoryData<string, Assembly> GetAllAssemblies() => GetAssemblies(FilterAllProjects);
 
-            string outputDirectory = Path.GetDirectoryName(project.AbsolutePath) + @"\bin\Develop_x64";
-            string projectName = Path.GetFileName(project.AbsolutePath).Replace(".csproj", "");
-            string assemblyString = Directory.GetFiles(outputDirectory, $"{projectName}.dll", SearchOption.AllDirectories).First();
-
-            assemblies.Add(projectName, Assembly.LoadFrom(assemblyString));
-        }
-        return assemblies;
-    }
-
-    public static TheoryData<string, Assembly> GetFrontendAssemblies()
-    {
-        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
-        string absolutePath = Path.GetFullPath(relativePath);
-        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
-
-        TheoryData<string, Assembly> assemblies = [];
-
-        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
-        {
-            if (project.AbsolutePath.Contains("Ws", StringComparison.OrdinalIgnoreCase)) continue;
-            if (project.AbsolutePath.Contains("Test", StringComparison.OrdinalIgnoreCase)) continue;
-            if (project.AbsolutePath.Contains("Api", StringComparison.OrdinalIgnoreCase)) continue;
-
-            if (!project.AbsolutePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) continue;
-            if (!project.AbsolutePath.Contains("Apps", StringComparison.OrdinalIgnoreCase)) continue;
-            if (!project.AbsolutePath.Contains('.', StringComparison.OrdinalIgnoreCase)) continue;
-
-            string outputDirectory = Path.GetDirectoryName(project.AbsolutePath) + @"\bin\Develop_x64";
-            string projectName = Path.GetFileName(project.AbsolutePath).Replace(".csproj", "");
-            string assemblyPath = Directory.GetFiles(outputDirectory, $"{projectName}.dll", SearchOption.AllDirectories).First();
-
-            assemblies.Add(projectName, Assembly.LoadFrom(assemblyPath));
-        }
-        return assemblies;
-    }
+    public static TheoryData<string, Assembly> GetFrontendAssemblies() => GetAssemblies(FilterFrontendProjects);
 
     public static TheoryData<string, string> GetProjectFiles()
     {
-        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
-        string absolutePath = Path.GetFullPath(relativePath);
-        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
-
         TheoryData<string, string> projects = [];
 
-        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
+        foreach (ProjectInSolution project in SolutionFile.ProjectsInOrder)
         {
-            if (!project.AbsolutePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase)) continue;
-            if (project.AbsolutePath.Contains("Test", StringComparison.OrdinalIgnoreCase)) continue;
+            if (!FilterAllProjects(project)) continue;
             projects.Add(Path.GetFileName(project.AbsolutePath), project.AbsolutePath);
         }
         return projects;
@@ -72,21 +29,49 @@ public static class SolutionUtils
 
     public static Assembly FindProjectAssembly(string projectName)
     {
-        const string relativePath = @"..\..\..\..\..\..\WeightService.sln";
-        string absolutePath = Path.GetFullPath(relativePath);
-        SolutionFile solutionFile = SolutionFile.Parse(absolutePath);
+        ProjectInSolution? project = SolutionFile.ProjectsInOrder.FirstOrDefault(p =>
+            string.Equals(Path.GetFileNameWithoutExtension(p.AbsolutePath), projectName, StringComparison.OrdinalIgnoreCase));
+        if (project == null) throw new FileNotFoundException($"Project {projectName} not found in solution.");
 
-        foreach (ProjectInSolution project in solutionFile.ProjectsInOrder)
-        {
-            string projectNameLocal = Path.GetFileName(project.AbsolutePath).Replace(".csproj", "");
-
-            if (!projectNameLocal.Equals(projectName, StringComparison.OrdinalIgnoreCase)) continue;
-
-            string outputDirectory = Path.GetDirectoryName(project.AbsolutePath) + @"\bin\Develop_x64";
-            string assemblyPath = Directory.GetFiles(outputDirectory, $"{projectNameLocal}.dll", SearchOption.AllDirectories).First();
-
-            return Assembly.LoadFrom(assemblyPath);
-        }
-        throw new FileNotFoundException(projectName);
+        string assemblyPath = FindAssemblyPath(project.AbsolutePath);
+        return Assembly.LoadFrom(assemblyPath);
     }
+
+    # endregion
+
+    # region Private
+
+    private static bool FilterAllProjects(ProjectInSolution project) =>
+        project.AbsolutePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) &&
+        !project.AbsolutePath.Contains("Test", StringComparison.OrdinalIgnoreCase);
+
+    private static bool FilterFrontendProjects(ProjectInSolution project) =>
+        FilterAllProjects(project) &&
+        project.AbsolutePath.Contains("Apps", StringComparison.OrdinalIgnoreCase) &&
+        project.AbsolutePath.Contains('.', StringComparison.OrdinalIgnoreCase) &&
+        !project.AbsolutePath.Contains("Ws", StringComparison.OrdinalIgnoreCase) &&
+        !project.AbsolutePath.Contains("Api", StringComparison.OrdinalIgnoreCase);
+
+    private static string FindAssemblyPath(string projectPath)
+    {
+        string outputDirectory = Path.Combine(Path.GetDirectoryName(projectPath)!, "bin", SolutionConfiguration);
+        string projectName = Path.GetFileNameWithoutExtension(projectPath).Replace(".csproj", "");
+        return Directory.GetFiles(outputDirectory, $"{projectName}.dll", SearchOption.AllDirectories).First();
+    }
+
+    private static TheoryData<string, Assembly> GetAssemblies(Func<ProjectInSolution, bool> projectFilter)
+    {
+        TheoryData<string, Assembly> assemblies = new();
+
+        foreach (ProjectInSolution project in SolutionFile.ProjectsInOrder)
+        {
+            if (!projectFilter(project)) continue;
+            string assemblyPath = FindAssemblyPath(project.AbsolutePath);
+            assemblies.Add(Path.GetFileNameWithoutExtension(project.AbsolutePath), Assembly.LoadFrom(assemblyPath));
+        }
+
+        return assemblies;
+    }
+
+    # endregion
 }

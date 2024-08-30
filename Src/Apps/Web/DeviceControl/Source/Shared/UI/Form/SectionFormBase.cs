@@ -2,7 +2,6 @@ using System.Security.Claims;
 using Fluxor.Blazor.Web.Components;
 using Force.DeepCloner;
 using Refit;
-using Ws.Shared.Api.ApiException;
 
 namespace DeviceControl.Source.Shared.UI.Form;
 
@@ -54,10 +53,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent where TItem : IEq
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
-                ToastService.ShowError(Localizer["UnknownError"]);
-            else
-                ToastService.ShowError(exception.LocalizeMessage);
+            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["UnknownError"]));
         }
         catch
         {

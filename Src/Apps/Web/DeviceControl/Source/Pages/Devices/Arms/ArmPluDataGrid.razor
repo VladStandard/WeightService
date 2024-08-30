@@ -1,5 +1,6 @@
 @using DeviceControl.Source.Shared.Services
 @using Blazor.Heroicons.Outline
+@using Refit
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
 @using Ws.DeviceControl.Models.Features.References1C.Brands
@@ -156,6 +157,7 @@
   # endregion
 
   [Parameter, EditorRequired] public ArmDto Arm { get; set; } = default!;
+
   private BrandDto? BrandFilter { get; set; }
   private bool? IsWeightFilter { get; set; }
   private bool? IsActiveFilter { get; set; }
@@ -179,9 +181,9 @@
       DevicesEndpoints.DeleteArmPlu(Arm.Id, item.Id);
       ToastService.ShowSuccess(string.Format(Localizer["ArmPluRemoved"], item.Number));
     }
-    catch
+    catch (ApiException ex)
     {
-      ToastService.ShowError(string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number));
+      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number)));
     }
   }
 
@@ -192,9 +194,13 @@
       throw new Exception();
       ToastService.ShowSuccess(string.Format(Localizer["ArmPluAdded"], item.Number));
     }
+    catch (ApiException ex)
+    {
+      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number)));
+    }
     catch
     {
-       ToastService.ShowError(string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number));
+      ToastService.ShowError(string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number));
     }
 
     return Task.CompletedTask;
