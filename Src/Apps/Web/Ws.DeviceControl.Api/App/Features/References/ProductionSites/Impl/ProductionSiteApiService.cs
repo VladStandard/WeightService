@@ -3,19 +3,15 @@ using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensions;
-using Ws.DeviceControl.Api.App.Shared.Expressions;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
-using Ws.Shared.Api.ApiException;
-using Ws.Shared.Constants;
-using Ws.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 
-public class ProductionSiteApiService(
+internal sealed class ProductionSiteApiService(
     WsDbContext dbContext,
-    UserManager userManager,
+    UserHelper userHelper,
     ProductionSiteCreateValidator createValidator,
     ProductionSiteUpdateValidator updateValidator
     ): ApiService, IProductionSiteService
@@ -24,7 +20,7 @@ public class ProductionSiteApiService(
 
     public async Task<ProxyDto> GetProxyByUser()
     {
-        ProxyDto? data = await userManager.GetUserProductionSiteAsync();
+        ProxyDto? data = await userHelper.GetUserProductionSiteAsync();
         if (data == null) throw new ApiExceptionServer
         {
             ErrorDisplayMessage = "Площадка не установлена",
@@ -35,10 +31,10 @@ public class ProductionSiteApiService(
 
     public async Task<List<ProxyDto>> GetProxiesAsync()
     {
-        bool seniorSupport = await userManager.ValidatePolicyAsync(PolicyEnum.SeniorSupport);
+        bool seniorSupport = await userHelper.ValidatePolicyAsync(PolicyEnum.SeniorSupport);
         if (seniorSupport)
         {
-            bool developer = await userManager.ValidatePolicyAsync(PolicyEnum.Developer);
+            bool developer = await userHelper.ValidatePolicyAsync(PolicyEnum.Developer);
             return await dbContext.ProductionSites
                 .AsNoTracking()
                 .IfWhere(!developer, entity => entity.Id != BaseConstants.GuidMax)
@@ -46,7 +42,7 @@ public class ProductionSiteApiService(
                 .OrderBy(i => i.Name)
                 .ToListAsync();
         }
-        ProxyDto? userProductionSite = await userManager.GetUserProductionSiteAsync();
+        ProxyDto? userProductionSite = await userHelper.GetUserProductionSiteAsync();
         return userProductionSite != null ? [userProductionSite] : [];
     }
 

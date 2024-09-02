@@ -9,11 +9,11 @@ using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl;
 
-public class PalletManApiService(
+internal sealed class PalletManApiService(
+    UserHelper userHelper,
     WsDbContext dbContext,
     PalletManCreateValidator createValidator,
-    PalletManUpdateValidator updateValidator,
-    UserManager userManager
+    PalletManUpdateValidator updateValidator
     ) : ApiService, IPalletManService
 {
     #region Queries
@@ -45,7 +45,7 @@ public class PalletManApiService(
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
-        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         PalletManEntity entity = dto.ToEntity(warehouse);
 
@@ -64,7 +64,7 @@ public class PalletManApiService(
 
         PalletManEntity entity = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
         WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
-        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         dto.UpdateEntity(entity, warehouse);
         await dbContext.SaveChangesAsync();

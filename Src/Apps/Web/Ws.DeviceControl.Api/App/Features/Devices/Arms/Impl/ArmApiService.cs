@@ -8,17 +8,15 @@ using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
-using Ws.Shared.Enums;
-using Ws.Shared.Extensions;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;
 
-public class ArmApiService(
+internal sealed class ArmApiService(
     WsDbContext dbContext,
     ArmCreateValidator createValidator,
     ArmUpdateValidator updateValidator,
-    UserManager userManager,
-    ErrorMessages errorMessages
+    UserHelper userHelper,
+    ErrorHelper errorHelper
     ) : ApiService, IArmService
 {
     #region Queries
@@ -35,14 +33,14 @@ public class ArmApiService(
 
     public async Task<ArmDto> GetByIdAsync(Guid id)
     {
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
         await LoadDefaultForeignKeysAsync(entity);
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public async Task<List<PluArmDto>> GetArmPlus(Guid id)
     {
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
 
         bool? isWeightFilter = entity.Type switch
         {
@@ -74,15 +72,15 @@ public class ArmApiService(
     public async Task<ArmDto> CreateAsync(ArmCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, errorMessages.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorMessages.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, errorMessages.Localize(ErrorType.Unique, "PcName"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, errorHelper.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorHelper.Localize(ErrorType.Unique, "Number"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, errorHelper.Localize(ErrorType.Unique, "PcName"));
 
-        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorMessages.Localize(ErrorType.NotFound, "Warehouse"));
-        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorMessages.Localize(ErrorType.NotFound, "Printer"));
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
         LineEntity entity = dto.ToEntity(warehouse, printer);
 
-        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         await dbContext.Lines.AddAsync(entity);
         await dbContext.SaveChangesAsync();
@@ -94,15 +92,15 @@ public class ArmApiService(
     public async Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, errorMessages.Localize(ErrorType.Unique, "PcName"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Number"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, errorHelper.Localize(ErrorType.Unique, "PcName"));
 
-        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorMessages.Localize(ErrorType.NotFound, "Printer"));
-        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorMessages.Localize(ErrorType.NotFound, "Warehouse"));
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Line"));
+        PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
 
-        await userManager.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         dto.UpdateEntity(entity, printer, warehouse);
         await dbContext.SaveChangesAsync();

@@ -7,12 +7,10 @@ using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extens
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
-using Ws.Shared.Api.ApiException;
-using Ws.Shared.Enums;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;
 
-public class TemplateResourceApiService(
+internal sealed class TemplateResourceApiService(
     WsDbContext dbContext,
     TemplateResourceUpdateValidator updateValidator,
     TemplateResourceCreateValidator createValidator

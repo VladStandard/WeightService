@@ -1,6 +1,5 @@
 using System.Net;
 using FluentValidation;
-using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Common;
 

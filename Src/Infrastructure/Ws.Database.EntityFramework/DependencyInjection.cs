@@ -4,8 +4,10 @@ namespace Ws.Database.EntityFramework;
 
 public static class DependencyInjection
 {
-    public static void AddEfCore(this IServiceCollection services)
+    public static IServiceCollection AddEfCore(this IServiceCollection services)
     {
         services.AddDbContext<WsDbContext>();
+
+        return services;
     }
 }

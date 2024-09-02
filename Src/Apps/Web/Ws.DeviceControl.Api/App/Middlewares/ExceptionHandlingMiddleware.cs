@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Middlewares;
 

@@ -4,7 +4,7 @@ using Ws.Shared.Resources;
 
 namespace Ws.DeviceControl.Api.App.Shared;
 
-public class ErrorMessages(
+public sealed class ErrorHelper(
     IStringLocalizer<ApplicationResources> localizer,
     IStringLocalizer<WsDataResources> wsDataLocalizer)
 {

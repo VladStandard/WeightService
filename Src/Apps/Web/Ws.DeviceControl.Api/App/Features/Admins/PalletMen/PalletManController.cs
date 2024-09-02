@@ -7,6 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;
 
 [ApiController]
 [Route("api/pallet-men/")]
+[Authorize(PolicyEnum.SeniorSupport)]
 public class PalletManController(IPalletManService palletManService)
 {
     #region Queries
@@ -16,7 +17,8 @@ public class PalletManController(IPalletManService palletManService)
         palletManService.GetAllByProductionSiteAsync(productionSiteId);
 
     [HttpGet("{id:guid}")]
-    public Task<PalletManDto> GetById([FromRoute] Guid id) => palletManService.GetByIdAsync(id);
+    public Task<PalletManDto> GetById([FromRoute] Guid id) =>
+        palletManService.GetByIdAsync(id);
 
     #endregion
 
@@ -30,7 +32,6 @@ public class PalletManController(IPalletManService palletManService)
     public Task<PalletManDto> Update([FromRoute] Guid id, [FromBody] PalletManUpdateDto dto) =>
         palletManService.UpdateAsync(id, dto);
 
-    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpPost("{id:guid}/delete")]
     public Task Delete([FromRoute] Guid id) =>
         palletManService.DeleteAsync(id);

@@ -5,7 +5,7 @@ using Ws.DeviceControl.Models.Features.References1C.Plus.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Plus.Impl;
 
-public class PluApiService(WsDbContext dbContext) : IPluService
+internal sealed class PluApiService(WsDbContext dbContext) : IPluService
 {
     #region Queries
 

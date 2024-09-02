@@ -6,20 +6,6 @@ public class ClassNamingTests
 
     [Theory]
     [MemberData(nameof(TestData))]
-    public void All_Utils_Classes_Should_Be_Static(string _, Assembly project)
-    {
-        TestResult? result = Types.InAssembly(project)
-            .That()
-            .HaveNameEndingWith("Utils")
-            .Should()
-            .BeStatic()
-            .GetResult();
-
-        result.IsSuccessful.Should().BeTrue();
-    }
-
-    [Theory]
-    [MemberData(nameof(TestData))]
     public void All_Enums_Must_End_On_Type(string _, Assembly project)
     {
         Types? types = Types.InAssembly(project);

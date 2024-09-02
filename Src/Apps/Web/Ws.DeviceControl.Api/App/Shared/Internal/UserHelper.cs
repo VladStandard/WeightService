@@ -1,11 +1,8 @@
 using System.Net;
-using Ws.DeviceControl.Api.App.Shared.Expressions;
-using Ws.Shared.Api.ApiException;
-using Ws.Shared.Constants;
 
 namespace Ws.DeviceControl.Api.App.Shared.Internal;
 
-public class UserManager(
+public sealed class UserHelper(
     IHttpContextAccessor httpContextAccessor,
     IAuthorizationService authorizationService,
     WsDbContext dbContext)

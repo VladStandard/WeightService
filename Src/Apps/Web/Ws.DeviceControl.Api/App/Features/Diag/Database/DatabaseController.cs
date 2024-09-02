@@ -4,6 +4,7 @@ using Ws.DeviceControl.Models.Features.Database;
 namespace Ws.DeviceControl.Api.App.Features.Diag.Database;
 
 [ApiController]
+[Authorize(PolicyEnum.Admin)]
 [Route("api/database/")]
 public class DatabaseController(IDatabaseService databaseService)
 {

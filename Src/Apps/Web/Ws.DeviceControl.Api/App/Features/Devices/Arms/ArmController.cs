@@ -25,20 +25,20 @@ public class ArmController(IArmService armService)
 
     #region Commands
 
-    [Authorize(PolicyEnum.Support)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpPost]
     public Task<ArmDto> Create([FromBody] ArmCreateDto dto) =>
         armService.CreateAsync(dto);
-
-    [Authorize(PolicyEnum.Support)]
-    [HttpPost("{id:guid}")]
-    public Task<ArmDto> Update([FromRoute] Guid id, [FromBody] ArmUpdateDto dto) =>
-        armService.UpdateAsync(id, dto);
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpPost("{id:guid}/delete")]
     public Task Delete([FromRoute] Guid id) =>
         armService.DeleteAsync(id);
+
+    [Authorize(PolicyEnum.Support)]
+    [HttpPost("{id:guid}")]
+    public Task<ArmDto> Update([FromRoute] Guid id, [FromBody] ArmUpdateDto dto) =>
+        armService.UpdateAsync(id, dto);
 
     [Authorize(PolicyEnum.Support)]
     [HttpPost("{id:guid}/plus/{pluId:guid}")]

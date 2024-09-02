@@ -9,11 +9,11 @@ using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl;
 
-public class WarehouseApiService(
+internal sealed class WarehouseApiService(
     WsDbContext dbContext,
+    UserHelper userHelper,
     WarehouseCreateValidator createValidator,
-    WarehouseUpdateValidator updateValidator,
-    UserManager userManager
+    WarehouseUpdateValidator updateValidator
     ) : ApiService, IWarehouseService
 {
     #region Queries
@@ -56,7 +56,7 @@ public class WarehouseApiService(
 
         ProductionSiteEntity productionSiteEntity = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, "Не найдено");
         WarehouseEntity entity = dto.ToEntity(productionSiteEntity);
-        await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
 
         await dbContext.Warehouses.AddAsync(entity);
         await dbContext.SaveChangesAsync();
@@ -72,7 +72,7 @@ public class WarehouseApiService(
         await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
 
         WarehouseEntity entity = await dbContext.Warehouses.SafeGetById(id, "Не найдено");
-        await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
+        await userHelper.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
 
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
@@ -93,5 +93,4 @@ public class WarehouseApiService(
     }
 
     #endregion
-
 }

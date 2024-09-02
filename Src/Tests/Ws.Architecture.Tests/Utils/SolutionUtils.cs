@@ -15,6 +15,8 @@ public static class SolutionUtils
 
     public static TheoryData<string, Assembly> GetFrontendAssemblies() => GetAssemblies(FilterFrontendProjects);
 
+    public static TheoryData<string, Assembly> GetApiAssemblies() => GetAssemblies(FilterApiProjects);
+
     public static TheoryData<string, string> GetProjectFiles()
     {
         TheoryData<string, string> projects = [];
@@ -51,6 +53,9 @@ public static class SolutionUtils
         project.AbsolutePath.Contains('.', StringComparison.OrdinalIgnoreCase) &&
         !project.AbsolutePath.Contains("Ws", StringComparison.OrdinalIgnoreCase) &&
         !project.AbsolutePath.Contains("Api", StringComparison.OrdinalIgnoreCase);
+
+    private static bool FilterApiProjects(ProjectInSolution project) =>
+        FilterAllProjects(project) && project.AbsolutePath.Contains(".Api", StringComparison.OrdinalIgnoreCase);
 
     private static string FindAssemblyPath(string projectPath)
     {

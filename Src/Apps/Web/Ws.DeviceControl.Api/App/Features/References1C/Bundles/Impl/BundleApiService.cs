@@ -3,7 +3,7 @@ using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl.Expressions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Bundles.Impl;
 
-public class BundleApiService(WsDbContext dbContext) : IBundleService
+internal sealed class BundleApiService(WsDbContext dbContext) : IBundleService
 {
     #region Queries
 
