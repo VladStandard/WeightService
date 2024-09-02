@@ -8,7 +8,7 @@ using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms.Impl;
 
-public class ArmApiService(WsDbContext dbContext) : IArmService
+internal sealed class ArmApiService(WsDbContext dbContext) : IArmService
 {
     #region Queries
 

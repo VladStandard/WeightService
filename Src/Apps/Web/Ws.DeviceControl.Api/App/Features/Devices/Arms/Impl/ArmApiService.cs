@@ -109,7 +109,6 @@ internal sealed class ArmApiService(
         return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 
-
     public async Task DeletePluAsync(Guid armId, Guid pluId)
     {
         await dbContext.Lines.SafeExistAsync(i => i.Id == armId, "АРМ не найдено");
