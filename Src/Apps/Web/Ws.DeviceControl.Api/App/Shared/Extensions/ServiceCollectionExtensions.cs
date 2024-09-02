@@ -65,7 +65,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddKeycloakWebApiAuthentication(configuration);
-
         services
             .AddAuthorization(PolicyAuthUtils.RegisterAuthorization)
             .AddKeycloakAuthorization(options =>

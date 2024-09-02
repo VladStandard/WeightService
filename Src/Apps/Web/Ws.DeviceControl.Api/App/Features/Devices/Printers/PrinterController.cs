@@ -27,7 +27,6 @@ public class PrinterController(IPrinterService printerService)
 
     #region Commands
 
-
     [HttpPost]
     public Task<PrinterDto> Create([FromBody] PrinterCreateDto dto) =>
         printerService.CreateAsync(dto);

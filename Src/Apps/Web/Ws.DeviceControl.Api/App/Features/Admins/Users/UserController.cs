@@ -21,7 +21,6 @@ public class UserController(IUserService userService)
 
     #region Commands
 
-    [Authorize(PolicyEnum.Admin)]
     [HttpPost("{id:guid}/delete")]
     public Task Delete([FromRoute] Guid id) => userService.DeleteAsync(id);
 
