@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{11491EE8-B6F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1C", "1C", "{4ECD8076-B7B3-4A85-9110-0F350B70BBF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.PalychExchangeApi", "Src\Apps\Exchange\Ws.PalychExchangeApi\Ws.PalychExchangeApi.csproj", "{D5EB39A2-ECFB-4FF9-919F-BEC1D52DA835}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.PalychExchange.Api", "Src\Apps\Exchange\Ws.PalychExchange.Api\Ws.PalychExchange.Api.csproj", "{D5EB39A2-ECFB-4FF9-919F-BEC1D52DA835}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Desktop.Models", "Src\Apps\Desktop\Ws.Desktop.Models\Ws.Desktop.Models.csproj", "{B3213DEA-EF03-4819-87C6-C334277FB7F5}"
 EndProject
