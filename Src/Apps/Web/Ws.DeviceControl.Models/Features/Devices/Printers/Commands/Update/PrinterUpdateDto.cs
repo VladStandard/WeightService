@@ -1,5 +1,6 @@
 using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
+using Ws.Shared.Constants;
 
 namespace Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
 
@@ -10,7 +11,7 @@ public sealed record PrinterUpdateDto
 
     [JsonPropertyName("ip")]
     [JsonConverter(typeof(IpAddressJsonConverter))]
-    public IPAddress Ip { get; set; } = IPAddress.Parse("127.0.0.1");
+    public IPAddress Ip { get; set; } = DefaultConsts.IpLocal;
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<PrinterTypes>))]

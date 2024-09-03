@@ -4,13 +4,14 @@ using TscZebra.Plugin;
 using TscZebra.Plugin.Abstractions;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
+using Ws.Shared.Constants;
 using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public class PrinterService(IDispatcher dispatcher): IPrinterService, IDisposable
 {
-    private IZplPrinter Printer { get; set; } = PrinterFactory.Create(IPAddress.Parse("127.0.0.1"), 9100, PrinterTypes.Tsc);
+    private IZplPrinter Printer { get; set; } = PrinterFactory.Create(DefaultConsts.IpLocal, 9100, PrinterTypes.Tsc);
 
     public void Setup(IPAddress ip, int port, PrinterTypes types)
     {

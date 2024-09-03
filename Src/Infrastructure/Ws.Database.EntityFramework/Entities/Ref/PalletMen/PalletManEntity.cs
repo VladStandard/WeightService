@@ -9,7 +9,12 @@ public sealed class PalletManEntity : EfEntityBase
     public string Surname { get; set; } = string.Empty;
     public string Patronymic { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+
+    #region Fk
+
     public WarehouseEntity Warehouse { get; set; } = new();
+
+    #endregion
 
     #region Date
 

@@ -11,17 +11,23 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
 {
     #region Queries
 
+    #region Admin
+
+    [Authorize(PolicyEnum.Admin)]
+    [HttpGet]
+    public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
+
+    [Authorize(PolicyEnum.Admin)]
+    [HttpGet("{id:guid}")]
+    public Task<ProductionSiteDto> GetById([FromRoute] Guid id) => productionSiteService.GetByIdAsync(id);
+
+    #endregion
+
     [HttpGet("user-proxy")]
     public Task<ProxyDto> GetProxyByUser() => productionSiteService.GetProxyByUser();
 
     [HttpGet("proxy")]
     public Task<List<ProxyDto>> GetProxies() => productionSiteService.GetProxiesAsync();
-
-    [HttpGet]
-    public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
-
-    [HttpGet("{id:guid}")]
-    public Task<ProductionSiteDto> GetById([FromRoute] Guid id) => productionSiteService.GetByIdAsync(id);
 
     #endregion
 

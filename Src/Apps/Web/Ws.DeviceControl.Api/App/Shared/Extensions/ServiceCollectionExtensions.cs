@@ -3,8 +3,7 @@ using System.Text.Json;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
-using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
+using Ws.DeviceControl.Models;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 
@@ -32,30 +31,35 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddValidators(this IServiceCollection services)
+    public static IServiceCollection AddInternalServices(this IServiceCollection services)
     {
-        return services.Scan(scan => scan
-            .FromAssembliesOf(typeof(ProductionSiteCreateValidator))
+         services.Scan(scan => scan
+            .FromAssembliesOf(typeof(DeviceControlModelsAssembly))
             .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
             .AsSelf()
             .WithScopedLifetime()
         );
-    }
 
-    public static IServiceCollection AddApiServices(this IServiceCollection services)
-    {
-        return services.Scan(scan => scan
-            .FromAssembliesOf(typeof(IProductionSiteService))
-            .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime()
+        services.Scan(scan => scan
+            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
+            .AddClasses(i => i.Where(type => type.Name.EndsWith("Helper")))
+            .AsSelf()
+            .WithTransientLifetime()
         );
+
+        services.Scan(scan => scan
+            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
+            .AddClasses(i => i.Where(type => type.Name.EndsWith("Middleware")))
+            .AsSelf()
+            .WithTransientLifetime()
+        );
+
+        return services.AddApiServices<IDeviceControlApiAssembly>();
     }
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddKeycloakWebApiAuthentication(configuration);
-
         services
             .AddAuthorization(PolicyAuthUtils.RegisterAuthorization)
             .AddKeycloakAuthorization(options =>

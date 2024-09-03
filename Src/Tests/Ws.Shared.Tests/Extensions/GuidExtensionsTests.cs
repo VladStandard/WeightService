@@ -10,7 +10,7 @@ public class GuidExtensionsTests
     public static readonly TheoryData<Guid, bool> TestSepData = new()
     {
         { new(), false },
-        { BaseConstants.GuidMax, true }
+        { DefaultConsts.GuidMax, true }
     };
 
     [Theory]

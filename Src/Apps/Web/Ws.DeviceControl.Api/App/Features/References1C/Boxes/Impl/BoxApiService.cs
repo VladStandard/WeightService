@@ -3,7 +3,7 @@ using Ws.DeviceControl.Api.App.Features.References1C.Boxes.Impl.Expressions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Boxes.Impl;
 
-public class BoxApiService(WsDbContext dbContext) : IBoxService
+internal sealed class BoxApiService(WsDbContext dbContext) : IBoxService
 {
     #region Queries
 

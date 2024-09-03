@@ -5,7 +5,7 @@ using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Impl;
 
-public class UserApiService(WsDbContext dbContext) : IUserService
+internal sealed class UserApiService(WsDbContext dbContext) : IUserService
 {
     #region Queries
 

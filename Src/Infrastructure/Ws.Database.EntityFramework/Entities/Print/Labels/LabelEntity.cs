@@ -7,7 +7,7 @@ namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 
 public sealed class LabelEntity : EfEntityBase
 {
-    #region ForeignKeys
+    #region FK
 
     public Guid? PalletId { get; set; }
     public PalletEntity? Pallet { get; set; }

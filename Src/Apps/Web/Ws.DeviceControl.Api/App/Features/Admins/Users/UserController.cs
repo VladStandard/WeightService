@@ -5,6 +5,7 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.Users;
 
 [ApiController]
 [Route("api/users/")]
+[Authorize(PolicyEnum.SeniorSupport)]
 public class UserController(IUserService userService)
 {
     #region Queries
@@ -20,10 +21,8 @@ public class UserController(IUserService userService)
 
     #region Commands
 
-    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpPost("{id:guid}/delete")]
-    public Task Delete([FromRoute] Guid id) =>
-        userService.DeleteAsync(id);
+    public Task Delete([FromRoute] Guid id) => userService.DeleteAsync(id);
 
     #endregion
 }

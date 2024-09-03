@@ -3,29 +3,21 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database.EntityFramework;
-using Ws.Desktop.Api.App.Features.Arms.Impl;
+using Ws.Desktop.Api;
 using Ws.Desktop.Api.App.Middlewares;
 using Ws.Labels.Service;
+using Ws.Shared.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 
-#region Internal services
-
-builder.Services.Scan(scan => scan
-    .FromAssembliesOf(typeof(ArmApiService))
-    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
-    .AsImplementedInterfaces()
-    .WithScopedLifetime()
-);
-
-#endregion
-
 #region Ready services
 
-builder.Services.AddEfCore();
-builder.Services.AddLabelsServices();
+builder.Services
+    .AddEfCore()
+    .AddLabelsServices()
+    .AddApiServices<IDesktopApiAssembly>();
 
 #endregion
 

@@ -10,7 +10,7 @@ namespace Ws.Labels.Service;
 
 public static class DependencyInjection
 {
-    public static void AddLabelsServices(this IServiceCollection services)
+    public static IServiceCollection AddLabelsServices(this IServiceCollection services)
     {
         services.AddScoped<IPrintLabelService, PrintLabelService>();
 
@@ -28,5 +28,7 @@ public static class DependencyInjection
             new ConfigurationBuilder()
                 .AddJsonFile("redis_config.json", optional: false, reloadOnChange: false).Build(), "ws-redis");
         });
+
+        return services;
     }
 }

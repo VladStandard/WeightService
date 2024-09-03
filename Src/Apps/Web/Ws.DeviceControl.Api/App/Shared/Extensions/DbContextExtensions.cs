@@ -1,6 +1,5 @@
 using System.Net;
 using Microsoft.Data.SqlClient;
-using Ws.Shared.Api.ApiException;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 

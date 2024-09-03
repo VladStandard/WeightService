@@ -6,7 +6,7 @@ using Ws.Desktop.Models.Features.PalletMen;
 
 namespace Ws.Desktop.Api.App.Features.PalletMen.Impl;
 
-public class PalletManApiService(WsDbContext dbContext) : IPalletManService
+internal sealed class PalletManApiService(WsDbContext dbContext) : IPalletManService
 {
     #region Queries
 

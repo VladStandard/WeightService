@@ -9,7 +9,7 @@ using Ws.Desktop.Models.Features.Plus.Piece.Output;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Piece;
 
-public class PluPieceApiService(WsDbContext dbContext) : IPluPieceService
+internal sealed class PluPieceApiService(WsDbContext dbContext) : IPluPieceService
 {
     #region Queries
 

@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text.RegularExpressions;
+using Ws.Shared.Constants;
 
 namespace Ws.Shared.Parsers;
 
@@ -12,6 +13,6 @@ public static partial class IpAddressParser
     {
         bool isIp = MyRegex().IsMatch(newIp);
         if (!isIp) return oldIp;
-        return IPAddress.TryParse(newIp, out IPAddress? ip) ?  ip : IPAddress.Parse("127.0.0.1");
+        return IPAddress.TryParse(newIp, out IPAddress? ip) ?  ip : DefaultConsts.IpLocal;
     }
 }

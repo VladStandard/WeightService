@@ -8,7 +8,7 @@ using Ws.DeviceControl.Models.Features.References.Template.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl;
 
-public class TemplateApiService(
+internal sealed class TemplateApiService(
     WsDbContext dbContext,
     TemplateUpdateValidator updateValidator,
     TemplateCreateValidator createValidator

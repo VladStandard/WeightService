@@ -6,6 +6,7 @@ using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources;
 
 [ApiController]
+[Authorize(PolicyEnum.Admin)]
 [Route("api/template-resources")]
 public class TemplateResourceController(ITemplateResourceService templateResourceService)
 {
@@ -32,7 +33,6 @@ public class TemplateResourceController(ITemplateResourceService templateResourc
     public Task<TemplateResourceDto> Update([FromRoute] Guid id, [FromBody] TemplateResourceUpdateDto dto) =>
         templateResourceService.UpdateAsync(id, dto);
 
-    [Authorize(PolicyEnum.Admin)]
     [HttpPost("{id:guid}/delete")]
     public Task Delete([FromRoute] Guid id) => templateResourceService.DeleteAsync(id);
 

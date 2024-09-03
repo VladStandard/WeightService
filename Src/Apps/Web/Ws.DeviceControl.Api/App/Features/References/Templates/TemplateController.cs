@@ -11,27 +11,32 @@ public class TemplateController(ITemplateService templateService)
 {
     #region Queries
 
-    [HttpGet("proxy")]
-    public Task<List<ProxyDto>> GetProxiesByIsWeight([FromQuery(Name = "isWeight")] bool isWeight)
-        => templateService.GetProxiesByIsWeightAsync(isWeight);
-
+    [Authorize(PolicyEnum.Admin)]
     [HttpGet]
     public Task<List<TemplateDto>> GetAll() => templateService.GetAllAsync();
 
+    [Authorize(PolicyEnum.Admin)]
     [HttpGet("{id:guid}")]
     public Task<TemplateDto> GetById([FromRoute] Guid id) => templateService.GetByIdAsync(id);
 
+    [Authorize(PolicyEnum.Admin)]
     [HttpGet("{id:guid}/body")]
     public Task<TemplateBodyDto> GetBodyById([FromRoute] Guid id) => templateService.GetBodyByIdAsync(id);
+
+    [HttpGet("proxy")]
+    public Task<List<ProxyDto>> GetProxiesByIsWeight([FromQuery(Name = "isWeight")] bool isWeight) =>
+        templateService.GetProxiesByIsWeightAsync(isWeight);
 
     #endregion
 
     #region Commands
 
+    [Authorize(PolicyEnum.Admin)]
     [HttpPost]
     public Task<TemplateDto> Create([FromBody] TemplateCreateDto dto) =>
         templateService.CreateAsync(dto);
 
+    [Authorize(PolicyEnum.Admin)]
     [HttpPost("{id:guid}")]
     public Task<TemplateDto> Update([FromRoute] Guid id, [FromBody] TemplateUpdateDto dto) =>
         templateService.UpdateAsync(id, dto);

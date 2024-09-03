@@ -9,12 +9,12 @@ using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl;
 
-public class PrinterApiService(
+internal sealed class PrinterApiService(
     WsDbContext dbContext,
     PrinterCreateValidator createValidator,
     PrinterUpdateValidator updateValidator,
-    UserManager userManager,
-    ErrorMessages errorMessages
+    UserHelper userHelper,
+    ErrorHelper errorHelper
     ) : ApiService, IPrinterService
 {
     #region Queries
@@ -40,7 +40,7 @@ public class PrinterApiService(
 
     public async Task<PrinterDto> GetByIdAsync(Guid id)
     {
-        PrinterEntity entity = await dbContext.Printers.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Printer"));
+        PrinterEntity entity = await dbContext.Printers.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Printer"));
         await LoadDefaultForeignKeysAsync(entity);
         return PrinterExpressions.ToDto.Compile().Invoke(entity);
     }
@@ -52,11 +52,11 @@ public class PrinterApiService(
     public async Task<PrinterDto> CreateAsync(PrinterCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
-        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name, errorMessages.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip, errorMessages.Localize(ErrorType.Unique, "Ip"));
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name, errorHelper.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip, errorHelper.Localize(ErrorType.Unique, "Ip"));
 
-        ProductionSiteEntity productionSite = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, errorMessages.Localize(ErrorType.NotFound, "ProductionSite"));
-        await userManager.CanUserWorkWithProductionSiteAsync(productionSite.Id);
+        ProductionSiteEntity productionSite = await dbContext.ProductionSites.SafeGetById(dto.ProductionSiteId, errorHelper.Localize(ErrorType.NotFound, "ProductionSite"));
+        await userHelper.CanUserWorkWithProductionSiteAsync(productionSite.Id);
 
         PrinterEntity entity = dto.ToEntity(productionSite);
 
@@ -69,11 +69,11 @@ public class PrinterApiService(
     public async Task<PrinterDto> UpdateAsync(Guid id, PrinterUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip && i.Id != id, errorMessages.Localize(ErrorType.Unique, "Ip"));
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Name"));
+        await dbContext.Printers.ThrowIfExistAsync(i => i.Ip == dto.Ip && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Ip"));
 
-        PrinterEntity entity = await dbContext.Printers.SafeGetById(id, errorMessages.Localize(ErrorType.NotFound, "Printer"));
-        await userManager.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
+        PrinterEntity entity = await dbContext.Printers.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Printer"));
+        await userHelper.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
 
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();

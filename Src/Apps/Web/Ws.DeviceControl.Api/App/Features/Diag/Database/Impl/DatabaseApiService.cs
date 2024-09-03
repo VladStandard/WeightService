@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Database;
 
 namespace Ws.DeviceControl.Api.App.Features.Diag.Database.Impl;
 
-public class DatabaseApiService(WsDbContext dbContext) : IDatabaseService
+internal sealed class DatabaseApiService(WsDbContext dbContext) : IDatabaseService
 {
     public List<MigrationHistoryDto> GetAllMigrations()
     {

@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.References1C.Brands;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Brands.Impl;
 
-public class BrandApiService(WsDbContext dbContext) : IBrandService
+internal sealed class BrandApiService(WsDbContext dbContext) : IBrandService
 {
     #region Queries
 

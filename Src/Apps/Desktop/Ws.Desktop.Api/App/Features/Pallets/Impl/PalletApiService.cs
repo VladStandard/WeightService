@@ -18,7 +18,7 @@ using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
-public class PalletApiService(
+internal sealed class PalletApiService(
     WsDbContext dbContext,
     IPrintLabelService printLabelService
     ): IPalletApiService

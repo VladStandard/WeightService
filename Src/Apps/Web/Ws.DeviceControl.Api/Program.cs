@@ -1,27 +1,21 @@
 using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Ws.DeviceControl.Api.App.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // INTERNAL
-builder.Services.BaseSetup();
-builder.Services.AddValidators();
-builder.Services.AddApiServices();
-builder.Services.AddAuth(builder.Configuration);
-
-builder.Services.AddScoped<UserManager>();
-builder.Services.AddScoped<ErrorMessages>();
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services
+    .BaseSetup()
+    .AddInternalServices()
+    .AddAuth(builder.Configuration);
 
 // EXTERNAL
-builder.Services.AddEfCore();
-builder.Services.AddLocalization();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddEndpointsApiExplorer();
+builder.Services
+    .AddEfCore()
+    .AddLocalization()
+    .AddHttpContextAccessor()
+    .AddEndpointsApiExplorer();
 
-// Localization
-builder.Services.AddLocalization();
 string[] supportedCultures = ["en-US", "ru-RU"];
 RequestLocalizationOptions localizationOptions = new()
 {

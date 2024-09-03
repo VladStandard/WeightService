@@ -3,7 +3,7 @@ using Ws.DeviceControl.Api.App.Features.References1C.Clips.Impl.Expressions;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Clips.Impl;
 
-public class ClipApiService(WsDbContext dbContext) : IClipService
+internal sealed class ClipApiService(WsDbContext dbContext) : IClipService
 {
     #region Queries
 
