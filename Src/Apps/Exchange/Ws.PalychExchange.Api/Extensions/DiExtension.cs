@@ -5,7 +5,7 @@ namespace Ws.PalychExchange.Api.Extensions;
 
 public static class DiExtension
 {
-    public static void AddValidators(this IServiceCollection services)
+    public static IServiceCollection AddValidators(this IServiceCollection services)
     {
         Type validatorType = typeof(AbstractValidator<>);
 
@@ -15,5 +15,7 @@ public static class DiExtension
 
         foreach (var validator in validatorTypes)
             services.AddTransient(validator);
+
+        return services;
     }
 }

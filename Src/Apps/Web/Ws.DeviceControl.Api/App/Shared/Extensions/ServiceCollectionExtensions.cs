@@ -41,25 +41,20 @@ public static class ServiceCollectionExtensions
         );
 
         services.Scan(scan => scan
-            .FromAssembliesOf(typeof(DeviceControlApiAssembly))
+            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
             .AddClasses(i => i.Where(type => type.Name.EndsWith("Helper")))
             .AsSelf()
             .WithTransientLifetime()
         );
 
         services.Scan(scan => scan
-            .FromAssembliesOf(typeof(DeviceControlApiAssembly))
+            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
             .AddClasses(i => i.Where(type => type.Name.EndsWith("Middleware")))
             .AsSelf()
             .WithTransientLifetime()
         );
 
-        return services.Scan(scan => scan
-            .FromAssembliesOf(typeof(DeviceControlApiAssembly))
-            .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime()
-        );
+        return services.AddApiServices<IDeviceControlApiAssembly>();
     }
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)

@@ -1,21 +1,19 @@
 using Ws.Database.EntityFramework;
+using Ws.PalychExchange.Api;
 using Ws.PalychExchange.Api.Extensions;
-using Ws.PalychExchange.Api.Features.Plus.Services;
 using Ws.PalychExchange.Api.Middlewares;
+using Ws.Shared.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddXmlSerializerFormatters();
+builder.Services
+    .AddControllers()
+    .AddXmlSerializerFormatters();
 
-builder.Services.AddEfCore();
-
-
-builder.Services.Scan(scan => scan
-    .FromAssembliesOf(typeof(PluApiService))
-    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("ApiService")))
-    .AsImplementedInterfaces()
-    .WithScopedLifetime()
-);
+builder.Services
+    .AddEfCore()
+    .AddValidators()
+    .AddApiServices<IPalychExchangeAssembly>();
 
 builder.Services.AddValidators();
 
