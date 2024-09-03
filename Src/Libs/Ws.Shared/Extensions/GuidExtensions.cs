@@ -4,5 +4,5 @@ namespace Ws.Shared.Extensions;
 
 public static class GuidExtensions
 {
-    public static bool IsMax(this Guid guid) => guid == BaseConstants.GuidMax;
+    public static bool IsMax(this Guid guid) => guid == DefaultConsts.GuidMax;
 }

@@ -37,7 +37,7 @@ internal sealed class ProductionSiteApiService(
             bool developer = await userHelper.ValidatePolicyAsync(PolicyEnum.Developer);
             return await dbContext.ProductionSites
                 .AsNoTracking()
-                .IfWhere(!developer, entity => entity.Id != BaseConstants.GuidMax)
+                .IfWhere(!developer, entity => entity.Id != DefaultConsts.GuidMax)
                 .Select(ProductionSiteCommonExpressions.ToProxy)
                 .OrderBy(i => i.Name)
                 .ToListAsync();

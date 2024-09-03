@@ -37,8 +37,8 @@ internal sealed partial class PluApiService
     {
         validDtos.ForEach(i =>
         {
-            i.ClipUid = i.ClipUid == Guid.Empty ? BaseConstants.GuidMax : i.ClipUid;
-            i.BundleUid = i.BundleUid == Guid.Empty ? BaseConstants.GuidMax : i.BundleUid;
+            i.ClipUid = i.ClipUid == Guid.Empty ? DefaultConsts.GuidMax : i.ClipUid;
+            i.BundleUid = i.BundleUid == Guid.Empty ? DefaultConsts.GuidMax : i.BundleUid;
         });
     }
 
@@ -100,7 +100,6 @@ internal sealed partial class PluApiService
             dtos.RemoveAll(dto => uidToDelete.Contains(dto.Uid));
         }
     }
-
 
     private void SaveNestings(IEnumerable<PluDto> validDtos)
     {
