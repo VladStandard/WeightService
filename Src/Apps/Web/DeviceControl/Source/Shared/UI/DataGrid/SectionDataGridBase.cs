@@ -1,6 +1,7 @@
 using Fluxor.Blazor.Web.Components;
 using Microsoft.JSInterop;
 using Phetch.Core;
+using Refit;
 
 namespace DeviceControl.Source.Shared.UI.DataGrid;
 
@@ -56,6 +57,10 @@ public abstract class SectionDataGridBase<TItem>: FluxorComponent where TItem : 
             await DeleteItemAction(item);
             ToastService.ShowSuccess(Localizer["ToastDeleteItem"]);
             StateHasChanged();
+        }
+        catch (ApiException ex)
+        {
+            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["ToastDeleteItemError"]));
         }
         catch
         {

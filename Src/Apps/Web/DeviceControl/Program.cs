@@ -24,6 +24,7 @@ builder.Services.AddSingleton<Redirector>();
 builder.Services.AddTransient<AcceptLanguageHandler>();
 builder.Services.AddTransient<ServerAuthorizationMessageHandler>();
 
+builder.Services.AddWMBOS();
 builder.Services.AddFluxor(c => c.ScanAssemblies(typeof(Program).Assembly));
 
 WebApplication app = builder.Build();
