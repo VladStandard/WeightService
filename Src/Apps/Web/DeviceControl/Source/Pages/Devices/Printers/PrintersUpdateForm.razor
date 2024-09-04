@@ -9,7 +9,7 @@
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
   Context="userProductionSiteQuery"
 >
-  @{ bool isOnlyView = !IsSeniorSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id; }
+  @{ bool isOnlyView = !((!IsSeniorSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id) || IsSeniorSupport); }
   <SectionForm
     FormModel="@FormModel"
     ChangeDate="@Model.ChangeDt"
@@ -25,7 +25,7 @@
         Label="@WsDataLocalizer["ColName"]"
         @bind-Value="FormModel.Name"
         For="@(() => FormModel.Name)"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
 
       <SectionIpField
@@ -33,7 +33,7 @@
         @bind-Value="@FormModel.Ip"
         For="@(() => FormModel.Ip)"
         Path="@($"http://{FormModel.Ip}")"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
 
       <SectionSelectSingleField
@@ -41,7 +41,7 @@
         Label="@WsDataLocalizer["ColType"]"
         Items="PrinterTypes"
         @bind-Value="@FormModel.Type"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
         For="@(() => FormModel.Type)"
       />
 
