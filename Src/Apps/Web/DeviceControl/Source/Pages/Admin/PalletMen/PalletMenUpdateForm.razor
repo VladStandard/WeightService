@@ -8,7 +8,7 @@
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
   Context="userProductionSiteQuery"
 >
-  @{ bool isOnlyView = !IsSeniorSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id; }
+  @{ bool isOnlyView = !IsSeniorSupport && Model.ProductionSite.Id != userProductionSiteQuery.Data?.Id; }
   <SectionForm
     FormModel="@FormModel"
     ChangeDate="@Model.ChangeDt"
@@ -25,7 +25,7 @@
         @bind-Value="@FormModel.Id1C"
         For="@(() => FormModel.Id1C)"
         IsCopyable
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
 
       <SectionInputWrapper
@@ -40,63 +40,65 @@
         >
           @if (warehousesQuery.HasData)
           {
-          <SelectSingle
-            TItem="ProxyDto"
-            HtmlId="pallet-man-warehouse"
-            Items="warehousesQuery.Data"
-            Value="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
-            ValueChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"
-            Placeholder="@Localizer["FormWarehouseDefaultPlaceholder"]"
-            EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
-            SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
-            ItemDisplayName="@(item => item.Name)"
-            Filterable
-          />
+            <SelectSingle
+              TItem="ProxyDto"
+              HtmlId="pallet-man-warehouse"
+              Items="warehousesQuery.Data"
+              Value="@warehousesQuery.Data.SingleOrDefault(x => x.Id == FormModel.WarehouseId)"
+              ValueChanged="@(value => FormModel.WarehouseId = value?.Id ?? Guid.Empty)"
+              Placeholder="@Localizer["FormWarehouseDefaultPlaceholder"]"
+              EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
+              SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
+              ItemDisplayName="@(item => item.Name)"
+              Filterable
+              Disabled="@isOnlyView"
+            />
           }
           else
           {
-          <Skeleton class="h-10 w-full" />
+            <Skeleton class="h-10 w-full" />
           }
         </UseEndpoint>
         <FieldValidation For="@(() => FormModel.WarehouseId)" />
       </SectionInputWrapper>
 
-      <FormDivider></FormDivider>
+      <SectionTextField
+        Label="@WsDataLocalizer["ColPassword"]"
+        @bind-Value="@FormModel.Password"
+        For="@(() => FormModel.Password)"
+        Disabled="@isOnlyView"
+      />
+
+      <FormDivider>@WsDataLocalizer["ColName"]</FormDivider>
 
       <SectionTextField
         Label="@WsDataLocalizer["ColFirstName"]"
         @bind-Value="@FormModel.Name"
         For="@(() => FormModel.Name)"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
 
       <SectionTextField
         Label="@WsDataLocalizer["ColSurname"]"
         @bind-Value="@FormModel.Surname"
         For="@(() => FormModel.Surname)"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
 
       <SectionTextField
         Label="@WsDataLocalizer["ColPatronymic"]"
         @bind-Value="@FormModel.Patronymic"
         For="@(() => FormModel.Patronymic)"
-        Disabled="isOnlyView"
-      />
-
-      <FormDivider></FormDivider>
-
-      <SectionTextField
-        Label="@WsDataLocalizer["ColPassword"]"
-        @bind-Value="@FormModel.Password"
-        For="@(() => FormModel.Password)"
-        Disabled="isOnlyView"
+        Disabled="@isOnlyView"
       />
     </FieldsContent>
     <ActionsContent>
       <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={Model.Id}")" />
-      <SectionFormActionReset OnClick="@ResetAction" />
-      <SectionFormActionDelete OnClick="@DeleteItem" />
+      @if (!isOnlyView)
+      {
+        <SectionFormActionReset OnClick="@ResetAction" />
+        <SectionFormActionDelete OnClick="@DeleteItem" />
+      }
     </ActionsContent>
   </SectionForm>
 </UseParameterlessEndpoint>

@@ -1,6 +1,7 @@
 {
   "name": "device-control",
   "version": "2.0.1",
+  "type": "module",
   "description": "Создан для управления устройствами в составе проекта Весовая Служба",
   "scripts": {
     "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify"

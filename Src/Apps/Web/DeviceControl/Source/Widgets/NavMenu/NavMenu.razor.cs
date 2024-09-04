@@ -61,7 +61,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuReferences"],
             Icon = HeroiconName.BookOpen,
-            RequiredClaim = PolicyEnum.Admin,
+            RequiredClaim = PolicyEnum.SeniorSupport,
             SubItems =
             [
                 new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
@@ -72,7 +72,7 @@ public sealed partial class NavMenu : ComponentBase
         {
             Label = Localizer["MenuPrintSettings"],
             Icon = HeroiconName.Printer,
-            RequiredClaim = PolicyEnum.Admin,
+            RequiredClaim = PolicyEnum.SeniorSupport,
             SubItems =
             [
                 new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),

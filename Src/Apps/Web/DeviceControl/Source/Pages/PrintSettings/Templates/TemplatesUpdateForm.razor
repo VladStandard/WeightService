@@ -21,6 +21,7 @@
       Label="@WsDataLocalizer["ColName"]"
       @bind-Value="@FormModel.Name"
       For="@(() => FormModel.Name)"
+      Disabled="@(!IsAdmin)"
     />
 
     <SectionReadOnlyField
@@ -35,6 +36,7 @@
       Max="255"
       Label="@($"{WsDataLocalizer["ColWidth"]} ({WsDataLocalizer["MeasureMm"]})")"
       For="@(() => FormModel.Width)"
+      Disabled="@(!IsAdmin)"
     />
 
     <SectionNumericField
@@ -42,6 +44,7 @@
       Max="255"
       Label="@($"{WsDataLocalizer["ColHeight"]} ({WsDataLocalizer["MeasureMm"]})")"
       For="@(() => FormModel.Height)"
+      Disabled="@(!IsAdmin)"
     />
 
     <SectionSelectSingleField
@@ -51,6 +54,7 @@
       Label="@WsDataLocalizer["ColRotation"]"
       ItemDisplayName="@(value => $"{value}°")"
       For="@(() => FormModel.Rotate)"
+      Disabled="@(!IsAdmin)"
     />
 
     <FormDivider>@WsDataLocalizer["ColTemplate"]</FormDivider>
@@ -71,6 +75,7 @@
           @bind-Value="@FormModel.Body"
           For="@(() => FormModel.Body)"
           IsCopyable
+          Disabled="@(!IsAdmin)"
         />
       }
       else
@@ -81,8 +86,11 @@
   </FieldsContent>
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}?id={Model.Id}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
-    <SectionFormActionDelete OnClick="@DeleteItem" />
+    @if (IsAdmin)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+      <SectionFormActionDelete OnClick="@DeleteItem" />
+    }
   </ActionsContent>
 </SectionForm>
 
@@ -93,10 +101,19 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
   [Inject] private PrintSettingsEndpoints PrintSettingsEndpoints { get; set; } = default!;
+  [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
 
   #endregion
 
   [Parameter] public TemplateDto Model { get; set; } = default!;
+
+  private bool IsAdmin { get; set; }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    IsAdmin = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Admin)).Succeeded;
+  }
 
   protected override async Task UpdateItemAction(TemplateUpdateDto item)
   {

@@ -1,6 +1,7 @@
 {
   "name": "scales-desktop",
   "version": "2.0.1.1",
+  "type": "module",
   "description": "",
   "scripts": {
     "build": "tailwindcss -i wwwroot/app.css -o wwwroot/app.min.css --minify"
