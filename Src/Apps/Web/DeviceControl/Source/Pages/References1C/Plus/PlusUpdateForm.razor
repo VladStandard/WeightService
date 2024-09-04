@@ -63,7 +63,7 @@
             EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
             SearchPlaceholder="@Localizer["FormSelectSearchDefaultPlaceholder"]"
             ItemDisplayName="@(item => item!.Name)"
-            Disabled="@(!IsSupport)"
+            Disabled="@(!IsSeniorSupport)"
             Filterable
           />
         }
@@ -133,7 +133,10 @@
 
   <ActionsContent>
     <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}?id={Model.Id}")" />
-    <SectionFormActionReset OnClick="@ResetAction" />
+    @if (IsSeniorSupport)
+    {
+      <SectionFormActionReset OnClick="@ResetAction" />
+    }
   </ActionsContent>
 </SectionForm>
 
@@ -152,12 +155,12 @@
 
   [Parameter, EditorRequired] public PluDto Model { get; set; } = default!;
 
-  private bool IsSupport { get; set; } = false;
+  private bool IsSeniorSupport { get; set; } = false;
 
   protected override async Task OnInitializedAsync()
   {
     await base.OnInitializedAsync();
-    IsSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
+    IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
   }
 
   protected override async Task UpdateItemAction(PluUpdateDto item)

@@ -4,7 +4,7 @@
 @using Ws.DeviceControl.Models.Features.References.Warehouses.Queries
 @inherits SectionDataGridBase<WarehouseDto>
 @attribute [Route(RouteUtils.SectionWarehouses)]
-@attribute [Authorize(Policy = PolicyEnum.Admin)]
+@attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionWarehouses"]</PageTitle>
@@ -20,7 +20,9 @@
       <span>@Localizer["SectionWarehouses"]</span>
       <DataGridItemsCounter ItemsCount="@(warehousesQuery.Data?.Length ?? 0)" IsLoading="warehousesQuery.IsLoading"/>
       <DataGridActionReload OnClick="@warehousesQuery.RefetchAsync" IsLoading="warehousesQuery.IsFetching" />
-      <DataGridActionCreate OnClick="@OpenCreateFormModal" />
+      <AuthorizeView Policy="@PolicyEnum.Admin">
+        <DataGridActionCreate OnClick="@OpenCreateFormModal" />
+      </AuthorizeView>
     </PageHeader>
 
   <DataGridWrapper>
@@ -49,7 +51,9 @@
       <ContextMenuContent>
         <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenUpdateFormModal(item)))"/>
         <DataGridActionOpenInNewTab OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenItemInNewTab(item)))"/>
-        <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/>
+        <AuthorizeView Policy="@PolicyEnum.Admin" Context="authContext">
+          <DataGridActionDeleteItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => DeleteItem(item)))"/>
+        </AuthorizeView>
       </ContextMenuContent>
     </DataGridContainer>
   </DataGridWrapper>

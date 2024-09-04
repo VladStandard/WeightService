@@ -1,6 +1,15 @@
 @inherits InputBase<Guid>
 
-<InputTextField @bind-Value="InputValue" @attributes="@AdditionalAttributes" />
+<InputTextField
+  HtmlId="@HtmlId"
+  @bind-Value="InputValue"
+  Disabled="@Disabled"
+  ReadOnly="@ReadOnly"
+  AutoFocus="@AutoFocus"
+  Placeholder="@Placeholder"
+  Class="@Class"
+  @attributes="@AdditionalAttributes"
+/>
 
 @code {
   private string InputValue

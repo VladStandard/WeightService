@@ -1,8 +1,6 @@
-const colors = require('tailwindcss/colors')
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  darkMode: ['class'],
+const config = {
+  darkMode: 'selector',
   content: ["./Source/**/*.{razor,razor.cs,html,cshtml}", "./wwwroot/index.html"],
   theme: {
     container: {
@@ -72,3 +70,4 @@ module.exports = {
   plugins: [],
 }
 
+export default config
