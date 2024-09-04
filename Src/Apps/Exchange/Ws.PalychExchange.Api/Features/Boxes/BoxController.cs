@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Boxes;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/boxes")]
+[Route(RouteUtil.Boxes)]
 public sealed class BoxController(IBoxService boxService) : ControllerBase
 {
     [HttpPost("load")]

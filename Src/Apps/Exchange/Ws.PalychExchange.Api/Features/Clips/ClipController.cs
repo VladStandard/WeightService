@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Clips;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/clips")]
+[Route(RouteUtil.Clips)]
 public sealed class ClipController(IClipService clipService) : ControllerBase
 {
     [HttpPost("load")]

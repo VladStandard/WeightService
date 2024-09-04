@@ -7,7 +7,7 @@ using Ws.Desktop.Models.Features.Pallets.Output;
 namespace Ws.Desktop.Api.App.Features.Pallets;
 
 [ApiController]
-[Route("api/arms/{armId:guid}/pallets")]
+[Route(RouteUtil.Pallets)]
 public class PalletController(IPalletApiService palletApiService) : ControllerBase
 {
     #region Queries

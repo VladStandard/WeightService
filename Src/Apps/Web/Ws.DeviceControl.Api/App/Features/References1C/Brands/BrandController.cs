@@ -5,7 +5,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Brands;
 
 
 [ApiController]
-[Route("api/brands/")]
+[Route(RouteUtil.Brands)]
 public class BrandController(IBrandService brandService)
 {
     #region Queries

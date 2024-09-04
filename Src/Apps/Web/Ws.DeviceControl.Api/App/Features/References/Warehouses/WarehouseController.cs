@@ -6,7 +6,7 @@ using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses;
 
 [ApiController]
-[Route("api/warehouses")]
+[Route(RouteUtil.Warehouses)]
 public class WarehouseController(IWarehouseService warehouseService)
 {
     #region Queries

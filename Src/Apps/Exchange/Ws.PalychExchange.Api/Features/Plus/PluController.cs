@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Plus;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/plus")]
+[Route(RouteUtil.Plu)]
 public sealed class ClipController(IPluService pluService)
 {
     [HttpPost("load")]

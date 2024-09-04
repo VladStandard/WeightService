@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Brands;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/brands/")]
+[Route(RouteUtil.Brands)]
 public sealed class BrandController(IBrandService brandService)
 {
     [HttpPost("load")]

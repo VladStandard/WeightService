@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.Devices.Printers;
 
 [ApiController]
 [Authorize(PolicyEnum.Support)]
-[Route("api/printers/")]
+[Route(RouteUtil.Printers)]
 public class PrinterController(IPrinterService printerService)
 {
     #region Queries

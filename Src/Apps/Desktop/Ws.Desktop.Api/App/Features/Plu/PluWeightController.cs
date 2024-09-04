@@ -9,7 +9,7 @@ namespace Ws.Desktop.Api.App.Features.Plu;
 
 
 [ApiController]
-[Route("api/arms/{armId:guid}/plu")]
+[Route(RouteUtil.Plu)]
 public class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
 {
     #region Queries

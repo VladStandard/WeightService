@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Bundles;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/bundles")]
+[Route(RouteUtil.Bundles)]
 public sealed class BundleController(IBundleService bundleService) : ControllerBase
 {
     [HttpPost("load")]

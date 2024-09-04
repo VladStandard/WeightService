@@ -5,7 +5,7 @@ using Ws.Desktop.Models.Features.PalletMen;
 namespace Ws.Desktop.Api.App.Features.PalletMen;
 
 [ApiController]
-[Route("api/arms/{armId:guid}/pallet-men/")]
+[Route(RouteUtil.PalletMen)]
 public class PalletManController(IPalletManService palletManService)
 {
     #region Queries

@@ -8,7 +8,7 @@ namespace Ws.PalychExchange.Api.Features.Characteristics;
 
 [AllowAnonymous]
 [ApiController]
-[Route("api/characteristics")]
+[Route(RouteUtil.Characteristics)]
 public sealed class CharacteristicController(ICharacteristicService characteristicService)
 {
 

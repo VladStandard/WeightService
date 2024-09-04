@@ -147,7 +147,7 @@
       </SectionInputWrapper>
     </FieldsContent>
     <ActionsContent>
-      <SectionFormActionShare Path="@Redirector.ToArmPath(Model.Id, UserPrincipal)" />
+      <SectionFormActionShare Path="@RedirectHelper.ToArm(Model.Id, UserPrincipal)" />
       @if (!isOnlyView)
       {
         <SectionFormActionReset OnClick="@ResetAction" />

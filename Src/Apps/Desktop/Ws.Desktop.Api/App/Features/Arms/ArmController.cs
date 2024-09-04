@@ -7,7 +7,7 @@ namespace Ws.Desktop.Api.App.Features.Arms;
 
 
 [ApiController]
-[Route("api/arms")]
+[Route(RouteUtil.Arms)]
 public class ArmController(IArmService armService) : ControllerBase
 {
     #region Queries

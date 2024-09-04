@@ -7,7 +7,7 @@ namespace Ws.PalychExchange.Api.Features.Pallets;
 
 [ApiController]
 [AllowAnonymous]
-[Route("api/pallets")]
+[Route(RouteUtil.Pallets)]
 public sealed class PalletController(IPalletService palletService) : ControllerBase
 {
     [HttpPost("update")]
