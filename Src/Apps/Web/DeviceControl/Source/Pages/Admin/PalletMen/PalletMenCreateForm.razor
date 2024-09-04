@@ -18,7 +18,7 @@
     />
 
     <SectionInputWrapper
-      Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+      Path="@(FormModel.WarehouseId != Guid.Empty ? RedirectHelper.ToWarehouse(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColWarehouse"]"
       HtmlFor="pallet-man-warehouse"
     >
@@ -85,7 +85,7 @@
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;
   [Inject] private AdminEndpoints AdminEndpoints { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;

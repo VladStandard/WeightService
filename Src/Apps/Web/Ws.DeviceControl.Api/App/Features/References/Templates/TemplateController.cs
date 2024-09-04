@@ -11,15 +11,15 @@ public class TemplateController(ITemplateService templateService)
 {
     #region Queries
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet]
     public Task<List<TemplateDto>> GetAll() => templateService.GetAllAsync();
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}")]
     public Task<TemplateDto> GetById([FromRoute] Guid id) => templateService.GetByIdAsync(id);
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}/body")]
     public Task<TemplateBodyDto> GetBodyById([FromRoute] Guid id) => templateService.GetBodyByIdAsync(id);
 

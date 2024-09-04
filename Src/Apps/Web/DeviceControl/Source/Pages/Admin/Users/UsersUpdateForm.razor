@@ -25,7 +25,7 @@
     />
 
     <SectionInputWrapper
-      Path="@(Redirector.ToProductionPath(Model.ProductionSiteId, UserPrincipal))"
+      Path="@(RedirectHelper.ToProductionSite(Model.ProductionSiteId, UserPrincipal))"
       Label="@WsDataLocalizer["ColProductionSite"]"
       HtmlFor="user-warehouse"
     >
@@ -65,7 +65,7 @@
 @code {
   #region Inject
 
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;

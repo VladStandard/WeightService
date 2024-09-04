@@ -13,11 +13,11 @@ public class ProductionSiteController(IProductionSiteService productionSiteServi
 
     #region Admin
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet]
     public Task<List<ProductionSiteDto>> GetAll() => productionSiteService.GetAllAsync();
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}")]
     public Task<ProductionSiteDto> GetById([FromRoute] Guid id) => productionSiteService.GetByIdAsync(id);
 

@@ -1,11 +1,10 @@
 using DeviceControl.Source.Shared.Auth;
-using DeviceControl.Source.Shared.Services;
 using Refit;
 using Ws.DeviceControl.Models;
 
-namespace DeviceControl.Source.Shared.Refit.Endpoints;
+namespace DeviceControl.Source.Shared.Refit.Clients;
 
-internal class WebRefitEndpoint : IRefitEndpoint
+internal class WebRefitClient : IRefitClient
 {
     public void Configure(WebApplicationBuilder builder)
     {
@@ -19,13 +18,5 @@ internal class WebRefitEndpoint : IRefitEndpoint
             })
             .AddHttpMessageHandler<AcceptLanguageHandler>()
             .AddHttpMessageHandler<ServerAuthorizationMessageHandler>();
-
-        builder.Services.AddScoped<AdminEndpoints>();
-        builder.Services.AddScoped<DevicesEndpoints>();
-        builder.Services.AddScoped<DiagnosticEndpoints>();
-        builder.Services.AddScoped<References1CEndpoints>();
-        builder.Services.AddScoped<ReferencesEndpoints>();
-        builder.Services.AddScoped<PrintSettingsEndpoints>();
-        builder.Services.AddScoped<OperationsEndpoints>();
     }
 }

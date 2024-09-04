@@ -7,16 +7,20 @@ namespace Ws.Database.EntityFramework.Entities.Ref.Lines;
 
 public sealed class LineEntity : EfEntityBase
 {
-    public WarehouseEntity Warehouse { get; set; } = new();
+    public int Number { get; set; }
+    public int Counter { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string PcName { get; set; } = string.Empty;
+    public string Version { get; set; } = string.Empty;
+    public ArmType Type { get; set; } = ArmType.Tablet;
+
+    #region FK
+
     public PrinterEntity Printer { get; set; } = new();
+    public WarehouseEntity Warehouse { get; set; } = new();
     public ICollection<PluEntity> Plus { get; set; } = [];
 
-    public string Name { get; set; } = string.Empty;
-    public int Counter { get; set; }
-    public int Number { get; set; }
-    public string PcName { get; set; } = string.Empty;
-    public ArmType Type { get; set; } = ArmType.Tablet;
-    public string Version { get; set; } = string.Empty;
+    #endregion
 
     #region Date
 

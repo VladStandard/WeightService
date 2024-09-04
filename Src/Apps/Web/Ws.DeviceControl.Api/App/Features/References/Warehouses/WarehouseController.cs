@@ -11,12 +11,12 @@ public class WarehouseController(IWarehouseService warehouseService)
 {
     #region Queries
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet]
     public Task<List<WarehouseDto>> GetAllByProductionSite([FromQuery(Name = "productionSite")] Guid productionSiteId) =>
         warehouseService.GetAllByProductionSiteAsync(productionSiteId);
 
-    [Authorize(PolicyEnum.Admin)]
+    [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}")]
     public Task<WarehouseDto> GetById([FromRoute] Guid id) => warehouseService.GetByIdAsync(id);
 

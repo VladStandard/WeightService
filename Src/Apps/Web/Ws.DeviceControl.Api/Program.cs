@@ -1,4 +1,5 @@
 using System.Globalization;
+using Ws.DeviceControl.Api;
 using Ws.DeviceControl.Api.App.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // INTERNAL
 builder.Services
     .BaseSetup()
-    .AddInternalServices()
+    .AddHelpers<IDeviceControlApiAssembly>()
+    .AddApiServices<IDeviceControlApiAssembly>()
+    .AddMiddlewares<IDeviceControlApiAssembly>()
     .AddAuth(builder.Configuration);
 
 // EXTERNAL
@@ -32,6 +35,7 @@ app.UseRequestLocalization(localizationOptions);
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();

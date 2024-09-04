@@ -2,7 +2,8 @@ using System.Security.Claims;
 
 namespace DeviceControl.Source.Shared.Utils;
 
-public class Redirector(IAuthorizationService authorizationService)
+// ReSharper disable once ClassNeverInstantiated.Global
+public class RedirectHelper(IAuthorizationService authorizationService)
 {
     #region Private
 
@@ -16,27 +17,27 @@ public class Redirector(IAuthorizationService authorizationService)
 
     #endregion
 
-    public string ToPrinterPath(Guid uid, ClaimsPrincipal user) =>
+    public string ToPrinter(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionPrinters, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToWarehousePath(Guid uid, ClaimsPrincipal user) =>
+    public string ToWarehouse(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionWarehouses, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToTemplatePath(Guid uid, ClaimsPrincipal user) =>
+    public string ToTemplate(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionTemplates, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToArmPath(Guid uid, ClaimsPrincipal user) =>
+    public string ToArm(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionLines, CheckPolicy(user, PolicyEnum.Support));
 
-    public string ToPluPath(Guid uid) =>
+    public string ToPlu(Guid uid) =>
         Link(uid, RouteUtils.SectionPlus);
 
-    public string ToProductionPath(Guid uid, ClaimsPrincipal user) =>
+    public string ToProductionSite(Guid uid, ClaimsPrincipal user) =>
         Link(uid, RouteUtils.SectionProductionSites, CheckPolicy(user, PolicyEnum.Admin));
 
-    public string ToBrandPath(Guid uid) => Link(uid, RouteUtils.SectionBrands);
+    public string ToBrand(Guid uid) => Link(uid, RouteUtils.SectionBrands);
 
-    public string ToBundlePath(Guid uid) => Link(uid, RouteUtils.SectionBundles);
+    public string ToBundle(Guid uid) => Link(uid, RouteUtils.SectionBundles);
 
-    public string ToClipPath(Guid uid) => Link(uid, RouteUtils.SectionClips);
+    public string ToClip(Guid uid) => Link(uid, RouteUtils.SectionClips);
 }

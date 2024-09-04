@@ -115,9 +115,9 @@ internal sealed class ArmApiService(
         await dbContext.Plus.SafeExistAsync(i => i.Id == pluId, "ПЛУ не найдено");
 
         LineEntity lineEntity = new() { Id = armId };
-        dbContext.Lines.Attach(lineEntity);
-
         PluEntity pluEntity = new() { Id = pluId };
+
+        dbContext.Lines.Attach(lineEntity);
         dbContext.Plus.Attach(pluEntity);
 
         lineEntity.Plus.Remove(pluEntity);

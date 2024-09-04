@@ -32,6 +32,7 @@ public class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
         builder.Property(e => e.Zpl)
             .HasColumnName("ZPL")
             .IsUnicode(false)
+            .HasColumnType("varchar(8000)")
             .IsRequired();
 
         builder.Property(e => e.Rotate)

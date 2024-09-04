@@ -28,33 +28,12 @@ public static class ServiceCollectionExtensions
                 options.JsonSerializerOptions.WriteIndented = true;
             });
 
-        return services;
-    }
-
-    public static IServiceCollection AddInternalServices(this IServiceCollection services)
-    {
-         services.Scan(scan => scan
+        return services.Scan(scan => scan
             .FromAssembliesOf(typeof(DeviceControlModelsAssembly))
             .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
             .AsSelf()
             .WithScopedLifetime()
         );
-
-        services.Scan(scan => scan
-            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
-            .AddClasses(i => i.Where(type => type.Name.EndsWith("Helper")))
-            .AsSelf()
-            .WithTransientLifetime()
-        );
-
-        services.Scan(scan => scan
-            .FromAssembliesOf(typeof(IDeviceControlApiAssembly))
-            .AddClasses(i => i.Where(type => type.Name.EndsWith("Middleware")))
-            .AsSelf()
-            .WithTransientLifetime()
-        );
-
-        return services.AddApiServices<IDeviceControlApiAssembly>();
     }
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)

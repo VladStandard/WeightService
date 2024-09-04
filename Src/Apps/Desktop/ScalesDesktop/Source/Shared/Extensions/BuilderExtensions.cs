@@ -14,18 +14,18 @@ public static class BuilderExtensions
         builder.Services.AddLocalization();
     }
 
-    public static void ApplyRefitConfigurations(this MauiAppBuilder builder)
+    public static void RegisterRefitClients(this MauiAppBuilder builder)
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        Type configurationType = typeof(IRefitEndpoint);
-        List<IRefitEndpoint> configurations = assembly.GetTypes()
+        Type configurationType = typeof(IRefitClient);
+        List<IRefitClient> configurations = assembly.GetTypes()
             .Where(t => configurationType.IsAssignableFrom(t) && t is { IsInterface: false, IsAbstract: false })
             .Select(Activator.CreateInstance)
-            .Cast<IRefitEndpoint>()
+            .Cast<IRefitClient>()
             .ToList();
 
-        foreach (IRefitEndpoint config in configurations)
+        foreach (IRefitClient config in configurations)
             config.Configure(builder);
     }
 }

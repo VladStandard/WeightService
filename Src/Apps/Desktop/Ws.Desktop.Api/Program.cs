@@ -10,19 +10,15 @@ using Ws.Shared.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-
-#region Ready services
 
 builder.Services
     .AddEfCore()
     .AddLabelsServices()
+    .AddMiddlewares<IDesktopApiAssembly>()
     .AddApiServices<IDesktopApiAssembly>();
 
-#endregion
-
-
 builder.Services
+    .AddEndpointsApiExplorer()
     .AddControllers(options => {
         options.Filters.Add(new AllowAnonymousFilter());
         options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
@@ -37,9 +33,6 @@ builder.Services
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
-
-
-builder.Services.AddTransient<GenerateLabelExceptionHandlingMiddleware>();
 
 WebApplication app = builder.Build();
 

@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Database;
 
 namespace DeviceControl.Source.Shared.Services;
 
-public class DiagnosticEndpoints(IWebApi webApi)
+public sealed class DiagnosticEndpoints(IWebApi webApi)
 {
     public ParameterlessEndpoint<MigrationHistoryDto[]> MigrationsEndpoint { get; } = new(
         webApi.GetMigrations,

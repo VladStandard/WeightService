@@ -9,13 +9,13 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColLine"]"
       Value="@FormModel.Arm.Name"
-      Path="@Redirector.ToArmPath(FormModel.Arm.Id, UserPrincipal)"
+      Path="@RedirectHelper.ToArm(FormModel.Arm.Id, UserPrincipal)"
     />
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColWarehouse"]"
       Value="@FormModel.Warehouse.Name"
-      Path="@Redirector.ToWarehousePath(FormModel.Warehouse.Id, UserPrincipal)"
+      Path="@RedirectHelper.ToWarehouse(FormModel.Warehouse.Id, UserPrincipal)"
     />
 
     <FormDivider>@WsDataLocalizer["ColPlu"]</FormDivider>
@@ -25,7 +25,7 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColPlu"]"
         Value="@FormModel.Plu.Name"
-        Path="@Redirector.ToPluPath(FormModel.Plu.Id)"
+        Path="@RedirectHelper.ToPlu(FormModel.Plu.Id)"
       />
 
       <SectionReadOnlyField
@@ -120,7 +120,7 @@
 @code {
   # region Injects
 
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
 
   # endregion

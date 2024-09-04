@@ -71,7 +71,7 @@
       />
 
       <SectionInputWrapper
-        Path="@(FormModel.PrinterId != Guid.Empty ? Redirector.ToPrinterPath(FormModel.PrinterId, UserPrincipal) : string.Empty)"
+        Path="@(FormModel.PrinterId != Guid.Empty ? RedirectHelper.ToPrinter(FormModel.PrinterId, UserPrincipal) : string.Empty)"
         Label="@WsDataLocalizer["ColPrinter"]"
         HtmlFor="arms-printer"
       >
@@ -108,11 +108,11 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColProductionSite"]"
         Value="@Model.ProductionSite.Name"
-        Path="@Redirector.ToProductionPath(Model.ProductionSite.Id, UserPrincipal)"
+        Path="@RedirectHelper.ToProductionSite(Model.ProductionSite.Id, UserPrincipal)"
       />
 
       <SectionInputWrapper
-        Path="@(FormModel.WarehouseId != Guid.Empty ? Redirector.ToWarehousePath(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+        Path="@(FormModel.WarehouseId != Guid.Empty ? RedirectHelper.ToWarehouse(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
         Label="@WsDataLocalizer["ColWarehouse"]"
         HtmlFor="arm-warehouse"
       >
@@ -160,7 +160,7 @@
 
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IAuthorizationService AuthorizationService { get; set; } = default!;
   [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
   [Inject] private ReferencesEndpoints ReferencesEndpoints { get; set; } = default!;

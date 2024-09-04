@@ -64,8 +64,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 

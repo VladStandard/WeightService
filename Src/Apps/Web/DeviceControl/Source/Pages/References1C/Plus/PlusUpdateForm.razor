@@ -33,7 +33,7 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColBrand"]"
       Value="@Model.Brand.Name"
-      Path="@Redirector.ToBrandPath(Model.Brand.Id)"
+      Path="@RedirectHelper.ToBrand(Model.Brand.Id)"
     />
 
     <SectionReadOnlyField
@@ -42,7 +42,7 @@
     />
 
     <SectionInputWrapper
-      Path="@(FormModel.TemplateId != Guid.Empty ? Redirector.ToTemplatePath(FormModel.TemplateId, UserPrincipal) : string.Empty)"
+      Path="@(FormModel.TemplateId != Guid.Empty ? RedirectHelper.ToTemplate(FormModel.TemplateId, UserPrincipal) : string.Empty)"
       Label="@WsDataLocalizer["ColTemplate"]"
       HtmlFor="plu-template"
     >
@@ -104,7 +104,7 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColBundle"]"
         Value="@Model.Bundle.Name"
-        Path="@Redirector.ToBundlePath(Model.Bundle.Id)"
+        Path="@RedirectHelper.ToBundle(Model.Bundle.Id)"
       />
     }
 
@@ -113,7 +113,7 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColClip"]"
         Value="@Model.Clip.Name"
-        Path="@Redirector.ToClipPath(Model.Clip.Id)"
+        Path="@RedirectHelper.ToClip(Model.Clip.Id)"
       />
     }
 
@@ -140,7 +140,7 @@
 @code {
   # region Injects
 
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;

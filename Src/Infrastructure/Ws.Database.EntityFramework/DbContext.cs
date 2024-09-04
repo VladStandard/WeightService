@@ -72,12 +72,12 @@ public class WsDbContext : DbContext
 
     private static SqlSettingsModel LoadJsonConfig()
     {
-        IConfigurationRoot sql_configuration = new ConfigurationBuilder()
+        IConfigurationRoot sqlConfiguration = new ConfigurationBuilder()
             .AddJsonFile("sql_config.json", optional: false, reloadOnChange: false)
             .Build();
 
         SqlSettingsModel sqlSettingsModel = new();
-        sql_configuration.GetSection("SqlSettings").Bind(sqlSettingsModel);
+        sqlConfiguration.GetSection("SqlSettings").Bind(sqlSettingsModel);
         return sqlSettingsModel;
     }
 }

@@ -1,5 +1,5 @@
-@using DeviceControl.Source.Shared.Services
 @using Blazor.Heroicons.Outline
+@using DeviceControl.Source.Shared.Services
 @using Refit
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
@@ -148,7 +148,7 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-  [Inject] private Redirector Redirector { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;
   [Inject] private References1CEndpoints References1CEndpoints { get; set; } = default!;
   [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
@@ -207,5 +207,5 @@
   }
 
   protected override async Task OpenItemInNewTab(PluArmDto item) =>
-    await OpenLinkInNewTab(Redirector.ToPluPath(item.Id));
+    await OpenLinkInNewTab(RedirectHelper.ToPlu(item.Id));
 }

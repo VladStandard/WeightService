@@ -1,10 +1,9 @@
 using Microsoft.Extensions.Configuration;
-using ScalesDesktop.Source.Shared.Services.Endpoints;
 using Ws.Desktop.Models;
 
-namespace ScalesDesktop.Source.Shared.Refit.Endpoints;
+namespace ScalesDesktop.Source.Shared.Refit.Clients;
 
-internal class DesktopRefitEndpoint : IRefitEndpoint
+internal class DesktopRefitClient : IRefitClient
 {
     public void Configure(MauiAppBuilder builder)
     {
@@ -13,11 +12,8 @@ internal class DesktopRefitEndpoint : IRefitEndpoint
             .ConfigureHttpClient(c => c.BaseAddress = new($"{oidcConfiguration.GetValue<string>("BaseUrl") ?? ""}"))
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             });
-
-        builder.Services.AddScoped<PalletEndpoints>();
-        builder.Services.AddScoped<ArmEndpoints>();
-        builder.Services.AddScoped<PluEndpoints>();
     }
 }

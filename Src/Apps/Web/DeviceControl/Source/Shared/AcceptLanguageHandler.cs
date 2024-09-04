@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace DeviceControl.Source.Shared.Refit;
+namespace DeviceControl.Source.Shared;
 
 public class AcceptLanguageHandler : DelegatingHandler
 {

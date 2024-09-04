@@ -13,9 +13,8 @@ builder.Services
 builder.Services
     .AddEfCore()
     .AddValidators()
+    .AddMiddlewares<IPalychExchangeAssembly>()
     .AddApiServices<IPalychExchangeAssembly>();
-
-builder.Services.AddValidators();
 
 #pragma warning disable CA1416
 
