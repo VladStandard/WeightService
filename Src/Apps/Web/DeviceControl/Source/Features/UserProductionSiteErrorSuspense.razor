@@ -13,12 +13,12 @@
   }
   else if (userProductionSiteQuery.IsError || !userProductionSiteQuery.HasData)
   {
-  <div class="size-full flex items-center justify-center p-6">
-    <div class="max-w-md flex flex-col gap-2 text-center items-center">
-      <ExclamationTriangleIcon class="size-16" />
-      @Localizer["ProductionSiteSuspenseDescription"]
+    <div class="size-full flex items-center justify-center p-6">
+      <div class="max-w-md flex flex-col gap-2 text-center items-center">
+        <ExclamationTriangleIcon class="size-16"/>
+        @Localizer["ProductionSiteSuspenseDescription"]
+      </div>
     </div>
-  </div>
   }
   else
   {

@@ -8,7 +8,7 @@
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
   Context="userProductionSiteQuery"
 >
-  @{ bool isOnlyView = !IsSeniorSupport && Model.ProductionSite.Id != userProductionSiteQuery.Data?.Id; }
+  @{ bool isOnlyView = !((IsSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id) || IsSeniorSupport); }
   <SectionForm
     FormModel="@FormModel"
     ChangeDate="@Model.ChangeDt"
@@ -94,7 +94,7 @@
     </FieldsContent>
     <ActionsContent>
       <SectionFormActionShare Path="@($"{RouteUtils.SectionPalletMen}?id={Model.Id}")" />
-      @if (!isOnlyView)
+      @if (IsSeniorSupport)
       {
         <SectionFormActionReset OnClick="@ResetAction" />
         <SectionFormActionDelete OnClick="@DeleteItem" />
@@ -119,10 +119,12 @@
   [Parameter, EditorRequired] public PalletManDto Model { get; set; } = default!;
 
   private bool IsSeniorSupport { get; set; }
+  private bool IsSupport { get; set; }
 
   protected override async Task OnInitializedAsync()
   {
     await base.OnInitializedAsync();
+    IsSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Support)).Succeeded;
     IsSeniorSupport = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.SeniorSupport)).Succeeded;
   }
 
