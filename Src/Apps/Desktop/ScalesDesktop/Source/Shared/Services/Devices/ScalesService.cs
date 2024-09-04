@@ -13,6 +13,8 @@ public class ScalesService : IScalesService, IDisposable
     private const string DefaultComPort = "COM6";
     private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
 
+    public bool IsMock() => false;
+
     public ScalesService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;

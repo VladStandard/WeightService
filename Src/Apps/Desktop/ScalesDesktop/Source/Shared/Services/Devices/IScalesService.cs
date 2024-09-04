@@ -14,4 +14,5 @@ public interface IScalesService
 
     public void StartPolling();
 
+    public bool IsMock();
 }

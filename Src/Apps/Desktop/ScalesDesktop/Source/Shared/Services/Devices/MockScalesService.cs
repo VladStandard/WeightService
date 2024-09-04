@@ -9,6 +9,8 @@ public class MockScalesService : IScalesService
     private readonly IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
 
+    public bool IsMock() => true;
+
     public MockScalesService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;

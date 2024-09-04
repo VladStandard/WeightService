@@ -7,6 +7,8 @@ namespace ScalesDesktop.Source.Shared.Services.Devices;
 
 public class MockPrinterService(IDispatcher dispatcher): IPrinterService
 {
+    public bool IsMock() => true;
+
     public void Setup(IPAddress ip, int port, PrinterTypes types)
     {
         Task.Delay(300);

@@ -24,19 +24,33 @@
 
   # endregion
 
-  private string GetIconStyle => PrinterState.Value.Status switch
+  private string GetIconStyle
   {
-    PrinterStatus.Disconnected => "text-red-500",
-    PrinterStatus.Busy or PrinterStatus.Ready => "text-green-500",
-    _ => "text-amber-500"
-  };
+    get
+    {
+      if (PrinterService.IsMock()) return "text-blue-500";
+      return PrinterState.Value.Status switch
+      {
+        PrinterStatus.Disconnected => "text-red-500",
+        PrinterStatus.Busy or PrinterStatus.Ready => "text-green-500",
+        _ => "text-amber-500"
+      };
+    }
+  }
 
-  private string GetIndicatorStyle => PrinterState.Value.Status switch
+  private string GetIndicatorStyle
   {
-  PrinterStatus.Disconnected => "bg-red-500 animate-ping",
-  PrinterStatus.Busy or PrinterStatus.Ready => "bg-green-500",
-    _ => "bg-amber-500 animate-ping"
-  };
+    get
+    {
+      if (PrinterService.IsMock()) return "bg-blue-500";
+      return PrinterState.Value.Status switch
+      {
+        PrinterStatus.Disconnected => "bg-red-500 animate-ping",
+        PrinterStatus.Busy or PrinterStatus.Ready => "bg-green-500",
+        _ => "bg-amber-500 animate-ping"
+      };
+    }
+  }
 
   private async Task PrintStatusMessage()
   {

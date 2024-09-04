@@ -14,4 +14,6 @@ public interface IPrinterService
     public Task RequestStatusAsync();
 
     public Task PrintZplAsync(string zpl);
+
+    public bool IsMock();
 }
