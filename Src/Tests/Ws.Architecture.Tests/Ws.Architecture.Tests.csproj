@@ -1,23 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="coverlet.collector" Version="6.0.2">
+    <ItemGroup Label="Directory.Build.props">
+        <PackageReference Include="xunit" />
+        <PackageReference Include="FluentAssertions" />
+        <PackageReference Include="Microsoft.Build" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="NetArchTest.eNhancedEdition"  />
+    </ItemGroup>
+
+    <ItemGroup Label="Packages">
+        <PackageReference Include="coverlet.collector" VersionOverride="6.0.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FluentAssertions" Version="6.12.0" />
-        <PackageReference Include="Microsoft.Build" Version="17.11.4" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
-        <PackageReference Include="NetArchTest.eNhancedEdition" Version="1.4.3" />
-        <PackageReference Include="xunit" Version="2.9.0" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+
+        <PackageReference Include="coverlet.collector" VersionOverride="6.0.2">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="xunit.runner.visualstudio" VersionOverride="2.8.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>

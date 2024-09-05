@@ -1,22 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Refit" />
+        <PackageReference Include="FluentValidation" />
+    </ItemGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Refit" />
-      <PackageReference Include="FluentValidation" />
-
+    <ItemGroup Label="Packages">
       <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.8" />
       <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="8.0.8" />
-
       <PackageReference Include="TscZebra.Plugin.Abstractions" Version="1.0.4" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Projects">
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 

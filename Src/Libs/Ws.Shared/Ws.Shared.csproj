@@ -2,9 +2,9 @@
     <PropertyGroup>
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Scrutor" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" PrivateAssets="All" />
 
-  </ItemGroup>
+    <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Scrutor" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" PrivateAssets="All" />
+    </ItemGroup>
 </Project>

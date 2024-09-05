@@ -2,7 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-
+        
+        <!-- / Delete FUTURE -->
+        <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
+        <!-- Delete FUTURE \ -->
+        
         <OutputType>Exe</OutputType>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
@@ -42,37 +46,37 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />
         <PackageReference Include="Refit.HttpClientFactory" />
-
-
-        <PackageReference Include="Append.Blazor.Printing" Version="6.3.0" />
-        <PackageReference Include="FullScreenStatus.Maui" Version="1.0.5" />
-        <PackageReference Include="itext7" Version="8.0.5" />
-        <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
-        <PackageReference Include="MassaK.Plugin" Version="1.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.8" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240802000" />
-
-        <PackageReference Include="TscZebra.Plugin" Version="1.0.4" />
-        <PackageReference Include="vNext.BlazorComponents.FluentValidation" Version="1.1.3" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.82" />
+        <PackageReference Include="Microsoft.Extensions.Localization" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+        <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Packages">
+        <PackageReference Include="Append.Blazor.Printing" VersionOverride="6.3.0" />
+        <PackageReference Include="FullScreenStatus.Maui" VersionOverride="1.0.5" />
+        <PackageReference Include="itext7" VersionOverride="8.0.5" />
+        <PackageReference Include="itext7.bouncy-castle-adapter" VersionOverride="8.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Options" VersionOverride="8.0.2" />
+        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.82" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.82" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" VersionOverride="1.6.240829007" />
+        <PackageReference Include="MassaK.Plugin" VersionOverride="1.0.2" />
+        <PackageReference Include="TscZebra.Plugin" VersionOverride="1.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.82" />
+    </ItemGroup>
+
+    <ItemGroup Label="Projects">
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Publish scrtipts">
         <Content Include=".Publish\dev.cmd" />
         <Content Include=".Publish\prod.cmd" />
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />

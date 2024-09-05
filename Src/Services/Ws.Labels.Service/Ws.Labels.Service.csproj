@@ -1,25 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <ItemGroup>
+    <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Svg" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Refit.HttpClientFactory" />
+    </ItemGroup>
 
-        <PackageReference Include="BinaryKits.Zpl.Label" Version="3.2.1" />
-        <PackageReference Include="EasyCaching.Redis" Version="1.9.2" />
-        <PackageReference Include="EasyCaching.Serialization.Protobuf" Version="1.9.2" />
-        <PackageReference Include="Refit.Xml" Version="7.1.2" />
-        <PackageReference Include="Scriban" Version="5.10.0" />
+    <ItemGroup Label="Packages">
+        <PackageReference Include="BinaryKits.Zpl.Label" VersionOverride="3.2.1" />
+        <PackageReference Include="EasyCaching.Redis" VersionOverride="1.9.2" />
+        <PackageReference Include="EasyCaching.Serialization.Protobuf" VersionOverride="1.9.2" />
+        <PackageReference Include="Refit.Xml" VersionOverride="7.1.2" />
+        <PackageReference Include="Scriban" VersionOverride="5.10.0" />
+    </ItemGroup>
+
+    <ItemGroup Label="Projects">
+        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
 
     <Target Name="CleanGenerated">
         <Delete Files="@(Generated)" />
     </Target>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-        <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
-    </ItemGroup>
 
     <Import Project="..\..\.targets\RedisSettings.targets"/>
 

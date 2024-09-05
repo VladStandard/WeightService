@@ -1,27 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <ItemGroup>
+    <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Svg" />
+        <PackageReference Include="Scrutor" />
+    </ItemGroup>
+
+    <ItemGroup Label="Packages">
+        <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.5.3" />
+        <PackageReference Include="Keycloak.AuthServices.Authorization" Version="2.5.3" />
+        <PackageReference Include="Keycloak.AuthServices.Common" Version="2.5.3" />
+        <PackageReference Include="ProjectionTools" Version="1.0.17" />
+    </ItemGroup>
+
+    <ItemGroup Label="Projects">
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="Properties\PublishProfiles\prod.pubxml">
-        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Svg" />
-      <PackageReference Include="Scrutor" />
-        
-      <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.5.3" />
-      <PackageReference Include="Keycloak.AuthServices.Authorization" Version="2.5.3" />
-      <PackageReference Include="Keycloak.AuthServices.Common" Version="2.5.3" />
-      <PackageReference Include="ProjectionTools" Version="1.0.17" />
     </ItemGroup>
 
     <ItemGroup>

@@ -8,13 +8,13 @@
         <SupportedPlatform Include="browser" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Blazor.Heroicons" Version="2.1.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
-        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.3" />
+    <ItemGroup Label="Packages">
+        <PackageReference Include="Blazor.Heroicons" VersionOverride="2.1.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="8.0.8" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" VersionOverride="4.9.3" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Projects">
       <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
 
