@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
+    <PropertyGroup Label="Primary">
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
         <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>

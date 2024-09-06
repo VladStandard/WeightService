@@ -1,50 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
+    <PropertyGroup Label="Primary">
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
         
         <!-- / Delete FUTURE -->
         <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
         <!-- Delete FUTURE \ -->
+        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+        <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
         
         <OutputType>Exe</OutputType>
+        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">true</UseInterpreter>
+        
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
-        <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>true</SelfContained>
-        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">True</UseInterpreter>
 
-        <IncludeSymbols>False</IncludeSymbols>
-        <GenerateTestArtifacts>False</GenerateTestArtifacts>
-        <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-        <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+        <IncludeSymbols>false</IncludeSymbols>
+        <GenerateTestArtifacts>false</GenerateTestArtifacts>
+        <EnableDefaultCssItems>false</EnableDefaultCssItems>
 
-        <AppxBundle>Never</AppxBundle>
-        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
-        <UapAppxPackageBuildMode>SideLoadOnly</UapAppxPackageBuildMode>
-        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
-
-        <ApplicationTitle>Весовой пост</ApplicationTitle>
-        <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
-        <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
-        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-        <ApplicationVersion>1</ApplicationVersion>
-
-        <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
-        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-
-        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
-        <NoWarn>CA1806,CA1416</NoWarn>
         <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
-    <ItemGroup>
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-    </ItemGroup>
+
+    <PropertyGroup Label="appInstaller/Msix">
+        <ApplicationTitle>Весовой пост</ApplicationTitle>
+        <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
+        <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
+
+        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
+        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
+        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+
+        <AppxBundle Label="Only for x64">Never</AppxBundle>
+        <UapAppxPackageBuildMode Label="For local usage (no MsStore)">SideLoadOnly</UapAppxPackageBuildMode>
+
+        <AppxSymbolPackageEnabled>false</AppxSymbolPackageEnabled>
+        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
+        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
+    </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Phetch.Blazor" />
@@ -81,7 +77,13 @@
         <Content Include=".Publish\prod.cmd" />
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
     </ItemGroup>
-
+    
+    <ItemGroup>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+    
     <ItemGroup>
       <Content Remove="package.json" />
       <None Include="package.json">
