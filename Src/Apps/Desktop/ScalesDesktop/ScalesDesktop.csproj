@@ -58,7 +58,7 @@
         <PackageReference Include="Microsoft.Extensions.Options" VersionOverride="8.0.2" />
         <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.82" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.82" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" VersionOverride="1.6.240829007" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" VersionOverride="1.5.240802000" />
         <PackageReference Include="MassaK.Plugin" VersionOverride="1.0.2" />
         <PackageReference Include="TscZebra.Plugin" VersionOverride="1.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.82" />
