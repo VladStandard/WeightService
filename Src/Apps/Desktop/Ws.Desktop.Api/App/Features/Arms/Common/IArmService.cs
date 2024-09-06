@@ -13,7 +13,7 @@ public interface IArmService
 
     #region Commands
 
-    public bool Update(Guid armId, UpdateArmDto dto);
+    public bool Update(UpdateArmDto dto);
 
     #endregion
 }

@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Ref.Lines;
@@ -25,9 +24,9 @@ internal sealed class ArmApiService(WsDbContext dbContext, UserHelper userHelper
 
     #region Commands
 
-    public bool Update(Guid armId, UpdateArmDto dto)
+    public bool Update(UpdateArmDto dto)
     {
-        LineEntity? arm = dbContext.Lines.Find(armId);
+        LineEntity? arm = dbContext.Lines.Find(userHelper.UserId);
         if (arm == null)
             return false;
 

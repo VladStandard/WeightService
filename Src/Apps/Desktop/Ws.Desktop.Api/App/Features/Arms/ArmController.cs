@@ -22,9 +22,9 @@ public class ArmController(IArmService armService) : ControllerBase
 
     #region Commands
 
-    [HttpPost("{armId:guid}")]
-    public ActionResult Update([FromRoute] Guid armId, [FromBody] UpdateArmDto dto) =>
-        armService.Update(armId, dto) ? Ok() : NotFound();
+    [HttpPost]
+    public ActionResult Update([FromBody] UpdateArmDto dto) =>
+        armService.Update(dto) ? Ok() : NotFound();
 
     #endregion
 }
