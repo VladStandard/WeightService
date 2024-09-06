@@ -1,4 +1,3 @@
-using System.Net;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
@@ -8,7 +7,7 @@ namespace ScalesDesktop.Source.Shared.Services.Endpoints;
 public class ArmEndpoints(IDesktopApi desktopApi, IPrinterService printerService)
 {
     public ParameterlessEndpoint<ArmValue> ArmEndpoint { get; } = new(
-        () => desktopApi.GetArmByName(Dns.GetHostName()),
+        desktopApi.GetArmByName,
         options: new()
         {
             DefaultStaleTime = TimeSpan.FromHours(1),
