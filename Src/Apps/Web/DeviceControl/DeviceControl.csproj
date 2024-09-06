@@ -2,7 +2,6 @@
 
     <PropertyGroup Label="Primary">
         <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
-        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
@@ -31,18 +30,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Remove="package.json" />
-        <None Include="package.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </None>
-
-        <Content Remove="package-lock.json" />
-        <None Include="package-lock.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
         <Compile Update="Source\Shared\Localization\ApplicationResources.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -63,19 +50,9 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
-        <Exec Command="npm -v" ContinueOnError="true">
-            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-        </Exec>
-        <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
-    </Target>
+    <Import Project="..\..\..\.targets\NodePackages.targets" />
 
-    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
-        <Exec Command="npm install" />
-        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
-    </Target>
-
-    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
+    <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
 

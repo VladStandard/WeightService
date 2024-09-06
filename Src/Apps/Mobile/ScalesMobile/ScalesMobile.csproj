@@ -3,45 +3,25 @@
     <PropertyGroup>
         <TargetFramework>net8.0-android34.0</TargetFramework>
 
-        <OutputType>Exe</OutputType>
-        <RootNamespace>ScalesMobile</RootNamespace>
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>false</SelfContained>
 
-        <!-- Display name -->
         <ApplicationTitle>ScalesMobile</ApplicationTitle>
-
-        <!-- App Identifier -->
         <ApplicationId>ru.vladstandart.scalesmobile</ApplicationId>
         <ApplicationIdGuid>C663D42A-C3A4-4848-AD9A-D10C23EE4ED1</ApplicationIdGuid>
-
-        <!-- Versions -->
-        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
-        <ApplicationVersion>1</ApplicationVersion>
-        <NpmLastInstall>node_modules/.last-install</NpmLastInstall>
-
-        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">24.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
-    <ItemGroup>
-        <!-- App Icon -->
+    <ItemGroup Label="Static assets">
         <MauiAsset Include="wwwroot\app.css" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-
-        <!-- Splash Screen -->
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-
-        <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
         <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-
-        <!-- Custom Fonts -->
         <MauiFont Include="Resources\Fonts\*" />
-
-        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
@@ -60,19 +40,9 @@
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
     </ItemGroup>
 
-    <Target Name="CheckForNpm" BeforeTargets="RunNpmInstall">
-        <Exec Command="npm -v" ContinueOnError="true">
-            <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
-        </Exec>
-        <Error Text="Node.js is not installed. Please install it from https://nodejs.org/" Condition="'$(ErrorCode)' != '0'" />
-    </Target>
+    <Import Project="..\..\..\.targets\NodePackages.targets" />
 
-    <Target Name="RunNpmInstall" BeforeTargets="CompileTailwindCss" Inputs="package.json" Outputs="$(NpmLastInstall)">
-        <Exec Command="npm install" />
-        <Touch Files="$(NpmLastInstall)" AlwaysCreate="true" />
-    </Target>
-
-    <Target Name="CompileTailwindCss" BeforeTargets="PreBuildEvent">
+    <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
 
