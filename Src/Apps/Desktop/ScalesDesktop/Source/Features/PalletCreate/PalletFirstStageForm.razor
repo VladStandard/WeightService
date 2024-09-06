@@ -8,28 +8,23 @@
 >
   <FluentValidationValidator Validator="@(new PalletPluStageFormValidator(WsDataLocalizer, Localizer))" />
   <FormFieldWrapper Label="@WsDataLocalizer["ColPlu"]" HtmlId="pallet-plu">
-    <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
-      @if (armQuery.HasData)
+    <UseParameterlessEndpoint Endpoint="@PluEndpoints.PiecePlusEndpoint" Context="pluQuery">
+      @if (pluQuery.HasData)
       {
-        <UseEndpoint Endpoint="@PluEndpoints.PiecePlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
-          @if (pluQuery.HasData)
-          {
-            <SelectSingle
-              TItem="PluPiece"
-              HtmlId="pallet-plu"
-              Items="@pluQuery.Data"
-              @bind-Value="@FormModel.Plu"
-              @bind-Value:after="OnPluSelected"
-              Placeholder="@Localizer["PluSelectPlaceholder"]"
-              ItemDisplayName="@(entity => $"{entity.Number} | {entity.Name}")"
-              Filterable
-            />
-          }
-          else
-          {
-            <Skeleton Class="h-10 w-full" />
-          }
-        </UseEndpoint>
+        <SelectSingle
+          TItem="PluPiece"
+          HtmlId="pallet-plu"
+          Items="@pluQuery.Data"
+          @bind-Value="@FormModel.Plu"
+          @bind-Value:after="OnPluSelected"
+          Placeholder="@Localizer["PluSelectPlaceholder"]"
+          ItemDisplayName="@(entity => $"{entity.Number} | {entity.Name}")"
+          Filterable
+        />
+      }
+      else
+      {
+        <Skeleton Class="h-10 w-full" />
       }
     </UseParameterlessEndpoint>
     <FieldValidation For="@(() => FormModel.Plu)"/>

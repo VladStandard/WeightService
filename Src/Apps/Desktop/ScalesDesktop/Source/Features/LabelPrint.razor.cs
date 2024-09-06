@@ -78,7 +78,7 @@ public sealed partial class LabelPrint : FluxorComponent
 
         try
         {
-            WeightLabel label = await DesktopApi.CreatePluWeightLabel(Arm.Id, PluState.Value.Plu!.Id, createDto);
+            WeightLabel label = await DesktopApi.CreatePluWeightLabel(PluState.Value.Plu!.Id, createDto);
             ArmEndpoints.UpdateArmCounter(label.ArmCounter);
             await PrinterService.PrintZplAsync(label.Zpl);
         }

@@ -15,7 +15,6 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
-    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
     # endregion
 

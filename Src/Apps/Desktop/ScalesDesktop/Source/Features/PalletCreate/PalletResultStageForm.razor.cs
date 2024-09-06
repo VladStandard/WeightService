@@ -1,8 +1,6 @@
 using Fluxor;
-using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
 using Ws.Desktop.Models;
-using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Shared.Api.ApiException;
@@ -19,7 +17,6 @@ public sealed partial class PalletResultStageForm : ComponentBase
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
     [Inject] private IState<PalletManState> PalletManState { get; set; } = default!;
-    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
 
     # endregion
 
@@ -30,7 +27,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
 
     private bool IsLoading { get; set; }
 
-    private async Task CreatePallet(ArmValue arm)
+    private async Task CreatePallet()
     {
         if (IsLoading) return;
         IsLoading = true;
@@ -59,7 +56,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
 
         try
         {
-            PalletInfo data = await DesktopApi.CreatePiecePallet(arm.Id, createDto);
+            PalletInfo data = await DesktopApi.CreatePiecePallet(createDto);
             await OnSubmitAction.InvokeAsync(data);
             ToastService.ShowSuccess(Localizer["PalletCreateDialogSuccess"]);
         }

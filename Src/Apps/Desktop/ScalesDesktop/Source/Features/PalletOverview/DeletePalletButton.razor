@@ -5,30 +5,28 @@
 @using Ws.Desktop.Models.Features.Pallets.Output
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
-<UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
-  @if (armQuery.HasData && PalletState.Value.Pallet != null)
-  {
-    <Button
-      Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariantType.Destructive : ButtonVariantType.Default)"
-      OnClick="@(() => DeletePallet(armQuery.Data.Id, PalletState.Value.Pallet))"
-    >
-      @if (PalletState.Value.Pallet.DeletedAt == null)
-      {
-        <TrashIcon class="size-4 mr-2" />
-        @Localizer["BtnDelete"]
-      }
-      else
-      {
-        <ArrowUturnRightIcon class="size-4 mr-2" />
-        @Localizer["BtnRestore"]
-      }
-    </Button>
-  }
-  else
-  {
-    <Skeleton Class="h-10 w-32" />
-  }
-</UseParameterlessEndpoint>
+@if (PalletState.Value.Pallet != null)
+{
+  <Button
+    Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariantType.Destructive : ButtonVariantType.Default)"
+    OnClick="@(() => DeletePallet(PalletState.Value.Pallet))"
+  >
+    @if (PalletState.Value.Pallet.DeletedAt == null)
+    {
+      <TrashIcon class="size-4 mr-2" />
+      @Localizer["BtnDelete"]
+    }
+    else
+    {
+      <ArrowUturnRightIcon class="size-4 mr-2" />
+      @Localizer["BtnRestore"]
+    }
+  </Button>
+}
+else
+{
+  <Skeleton Class="h-10 w-32" />
+}
 
 @code {
   # region Injects
@@ -43,11 +41,11 @@
 
   # endregion
 
-  private async void DeletePallet(Guid armUid, PalletInfo pallet)
+  private async void DeletePallet(PalletInfo pallet)
   {
     try
     {
-      await DesktopApi.DeletePallet(armUid, pallet.Id);
+      await DesktopApi.DeletePallet(pallet.Id);
       PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
       if (PalletState.Value.Pallet?.DeletedAt == null)
       {

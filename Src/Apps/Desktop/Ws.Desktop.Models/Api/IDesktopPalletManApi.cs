@@ -7,7 +7,7 @@ public interface IDesktopPalletManApi
     #region Queries
 
     [Get("/pallet-men")]
-    Task<PalletMan[]> GetPalletMenByArm(Guid armUid);
+    Task<PalletMan[]> GetPalletMenByArm();
 
     #endregion
 }

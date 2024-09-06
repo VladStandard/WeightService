@@ -9,7 +9,6 @@ public sealed partial class PalletFirstStageForm : ComponentBase
 
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
-    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
     [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
 
     # endregion

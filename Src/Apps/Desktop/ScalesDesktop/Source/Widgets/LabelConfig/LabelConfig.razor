@@ -14,29 +14,21 @@
   </div>
   <div class="flex flex-col gap-3 size-full p-4 overflow-hidden justify-between xl:p-6 xl:gap-4">
     <div class="w-full h-10 lg:h-12 shrink-0">
-      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
-        @if (armQuery.HasData)
+      <UseParameterlessEndpoint Endpoint="@PluEndpoints.WeightPlusEndpoint" Context="pluQuery">
+        @if (pluQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PluEndpoints.WeightPlusEndpoint" Arg="armQuery.Data.Id" Context="pluQuery">
-            @if (pluQuery.HasData)
-            {
-              <Button
-                Size="ButtonSizeType.Full"
-                Variant="ButtonVariantType.Outline"
-                OnClick="@(() => ShowPluSelectDialog(pluQuery.Data))">
-                <div class="size-full font-normal px-5 flex items-center justify-between lg:text-lg">
-                  <span class="truncate">
-                    @(PluState.Value.Plu == null ? Localizer["PluSelectPlaceholder"] : PluState.Value.Plu.Name)
-                  </span>
-                  <ChevronDownIcon class="size-5"/>
-                </div>
-              </Button>
-            }
-            else
-            {
-              <Skeleton Class="size-full" />
-            }
-          </UseEndpoint>
+        <Button
+          Size="ButtonSizeType.Full"
+          Variant="ButtonVariantType.Outline"
+          OnClick="@(() => ShowPluSelectDialog(pluQuery.Data))"
+        >
+          <div class="size-full font-normal px-5 flex items-center justify-between lg:text-lg">
+            <span class="truncate">
+              @(PluState.Value.Plu == null ? Localizer["PluSelectPlaceholder"] : PluState.Value.Plu.Name)
+            </span>
+            <ChevronDownIcon class="size-5" />
+          </div>
+        </Button>
         }
         else
         {
@@ -57,7 +49,6 @@
   [Inject] private IPrinterService PrinterService { get; set; } = default!;
   [Inject] private IState<PluState> PluState { get; set; } = default!;
   [Inject] private IDispatcher Dispatcher { get; set; } = default!;
-  [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
   [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
 
   # endregion

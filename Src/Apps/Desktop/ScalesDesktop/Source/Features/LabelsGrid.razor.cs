@@ -16,7 +16,6 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
     [Inject] private IToastService ToastService { get; set; } = default!;
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
-    [Inject] private ArmEndpoints ArmEndpoints { get; set; } = default!;
     [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
     [Inject] private IPrintingService PrintingService { get; set; } = default!;
     [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;

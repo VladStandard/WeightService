@@ -13,7 +13,7 @@ public class ArmEndpoints(IDesktopApi desktopApi, IPrinterService printerService
             DefaultStaleTime = TimeSpan.FromHours(1),
             OnSuccess = data =>
             {
-                desktopApi.UpdateArm(data.Result.Id, new() { Version = VersionTracking.CurrentVersion });
+                desktopApi.UpdateArm(new() { Version = VersionTracking.CurrentVersion });
                 printerService.Setup(data.Result.Printer.Ip, 9100, data.Result.Printer.Type);
             }
         });

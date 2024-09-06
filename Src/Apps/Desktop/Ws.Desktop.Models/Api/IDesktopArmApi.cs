@@ -14,8 +14,8 @@ public interface IDesktopArmApi
 
     #region Commands
 
-    [Post("/arms/{armUid}")]
-    Task UpdateArm(Guid armUid, [Body] UpdateArmDto updateDto);
+    [Post("/arms")]
+    Task UpdateArm([Body] UpdateArmDto updateDto);
 
     #endregion
 }

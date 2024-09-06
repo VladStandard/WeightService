@@ -14,37 +14,27 @@
   >
     <FluentValidationValidator Validator="@(new PalletManFormValidator(Localizer, WsDataLocalizer))" />
     <FormFieldWrapper Label="@WsDataLocalizer["ColUser"]" HtmlId="login-user">
-      <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="armQuery">
-        @if (armQuery.HasData)
+      <UseParameterlessEndpoint Endpoint="@PalletEndpoints.PalletMenEndpoint" Context="palletMenQuery">
+        @if (palletMenQuery.HasData)
         {
-          <UseEndpoint Endpoint="@PalletEndpoints.PalletMenEndpoint" Arg="armQuery.Data.Id" Context="palletMenQuery">
-            @if (palletMenQuery.HasData)
-            {
-              <SelectSingle
-                TItem="PalletMan"
-                HtmlId="login-user"
-                @bind-Value="@FormModel.User"
-                ItemDisplayName="@(item => item.Fio.DisplayShortName)"
-                Items="@palletMenQuery.Data"
-                Placeholder="@Localizer["UserSelectPlaceholder"]"
-                EmptyPlaceholder="@Localizer["UserSelectEmptyPlaceholder"]"
-                SearchPlaceholder="@Localizer["UserSelectSearchPlaceholder"]"
-                Filterable
-              />
-              <FieldValidation For="@(() => FormModel.User)" />
-            }
-            else
-            {
-              <Skeleton Class="h-10 w-full"/>
-            }
-          </UseEndpoint>
+          <SelectSingle
+            TItem="PalletMan"
+            HtmlId="login-user"
+            @bind-Value="@FormModel.User"
+            ItemDisplayName="@(item => item.Fio.DisplayShortName)"
+            Items="@palletMenQuery.Data"
+            Placeholder="@Localizer["UserSelectPlaceholder"]"
+            EmptyPlaceholder="@Localizer["UserSelectEmptyPlaceholder"]"
+            SearchPlaceholder="@Localizer["UserSelectSearchPlaceholder"]"
+            Filterable
+          />
+          <FieldValidation For="@(() => FormModel.User)" />
         }
         else
         {
           <Skeleton Class="h-10 w-full"/>
         }
       </UseParameterlessEndpoint>
-
     </FormFieldWrapper>
     <FormFieldWrapper Label="@WsDataLocalizer["ColPassword"]" HtmlId="login-password">
       <InputTextField

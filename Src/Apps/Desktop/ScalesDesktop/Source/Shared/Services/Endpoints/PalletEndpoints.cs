@@ -6,20 +6,20 @@ namespace ScalesDesktop.Source.Shared.Services.Endpoints;
 
 public class PalletEndpoints(IDesktopApi desktopApi)
 {
-    public Endpoint<Guid, PalletMan[]> PalletMenEndpoint { get; } = new(
+    public ParameterlessEndpoint<PalletMan[]> PalletMenEndpoint { get; } = new(
         desktopApi.GetPalletMenByArm,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 
     public Endpoint<PiecePalletsArgs, PalletInfo[]> PiecePalletsEndpoint { get; } = new(
-        value => desktopApi.GetPalletsByArm(value.ArmUid, value.StartDt, value.EndDt),
+        value => desktopApi.GetPalletsByArm(value.StartDt, value.EndDt),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 
     public Endpoint<LabelEndpointArgs, LabelInfo[]> PalletLabelsEndpoint { get; } = new(
-        value => desktopApi.GetPalletLabels(value.ArmUid, value.PalletUid),
+        value => desktopApi.GetPalletLabels(value.PalletUid),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(30) });
 
     public Endpoint<PiecePalletsNumberArgs, PalletInfo[]> PiecePalletsNumberEndpoint { get; } = new(
-        value => desktopApi.GetPalletByNumber(value.ArmUid, value.Number),
+        value => desktopApi.GetPalletByNumber(value.Number),
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) }
     );
 
@@ -32,8 +32,8 @@ public class PalletEndpoints(IDesktopApi desktopApi)
         });
 }
 
-public record LabelEndpointArgs(Guid ArmUid, Guid PalletUid);
+public record LabelEndpointArgs(Guid PalletUid);
 
-public record PiecePalletsArgs(Guid ArmUid, DateTime? StartDt, DateTime? EndDt);
+public record PiecePalletsArgs(DateTime? StartDt, DateTime? EndDt);
 
-public record PiecePalletsNumberArgs(Guid ArmUid, uint Number);
+public record PiecePalletsNumberArgs(uint Number);
