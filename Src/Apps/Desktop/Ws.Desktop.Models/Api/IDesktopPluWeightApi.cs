@@ -8,14 +8,14 @@ public interface IDesktopPluWeightApi
 {
     #region Queries
 
-    [Get("/arms/{armUid}/plu/weight")]
+    [Get("/plu/weight")]
     Task<PluWeight[]> GetPlusWeightByArm(Guid armUid);
 
     #endregion
 
     #region Commands
 
-    [Post("/arms/{armUid}/plu/weight/{pluUid}/label")]
+    [Post("/plu/weight/{pluUid}/label")]
     Task<WeightLabel> CreatePluWeightLabel(Guid armUid, Guid pluUid, [Body] CreateWeightLabelDto createDto);
 
     #endregion

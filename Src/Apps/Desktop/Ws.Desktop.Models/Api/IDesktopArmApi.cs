@@ -8,7 +8,7 @@ public interface IDesktopArmApi
     #region Queries
 
     [Get("/arms")]
-    Task<ArmValue> GetArmByName([AliasAs("name")] string armName);
+    Task<ArmValue> GetArmByName();
 
     #endregion
 

@@ -6,7 +6,7 @@ public interface IDesktopPluPieceApi
 {
     #region Queries
 
-    [Get("/arms/{armUid}/plu/piece")]
+    [Get("/plu/piece")]
     Task<PluPiece[]> GetPlusPieceByArm(Guid armUid);
 
     #endregion
