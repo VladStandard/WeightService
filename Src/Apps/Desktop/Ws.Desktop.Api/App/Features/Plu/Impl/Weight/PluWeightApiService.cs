@@ -5,6 +5,7 @@ using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
+using Ws.Desktop.Api.App.Shared.Helpers;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
@@ -15,16 +16,17 @@ namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 
 internal sealed class PluWeightApiService(
     IPrintLabelService printLabelService,
-    WsDbContext dbContext
+    WsDbContext dbContext,
+    UserHelper userHelper
     ) : IPluWeightService
 {
     #region Queries
 
-    public Task<List<PluWeight>> GetAllWeightByArm(Guid uid)
+    public Task<List<PluWeight>> GetAllWeightByArm()
     {
         return dbContext.Lines
             .AsNoTracking()
-            .Where(i => i.Id == uid)
+            .Where(i => i.Id == userHelper.UserId)
             .SelectMany(i => i.Plus.Where(p => p.IsWeight == true))
             .OrderBy(i => i.Number)
             .Join(dbContext.Nestings,
@@ -48,7 +50,7 @@ internal sealed class PluWeightApiService(
 
     #region Commands
 
-    public async Task<WeightLabel> GenerateLabel(Guid armId, Guid pluId, CreateWeightLabelDto dto)
+    public async Task<WeightLabel> GenerateLabel(Guid pluId, CreateWeightLabelDto dto)
     {
         NestingEntity nesting = await dbContext.Nestings
             .Include(i => i.Box)
@@ -62,7 +64,7 @@ internal sealed class PluWeightApiService(
         LineEntity line = await dbContext.Lines
             .Include(i => i.Warehouse)
             .ThenInclude(i => i.ProductionSite)
-            .SingleAsync(i => i.Id == armId);
+            .SingleAsync(i => i.Id == userHelper.UserId);
 
         GenerateWeightLabelDto dtoToCreate = new()
         {

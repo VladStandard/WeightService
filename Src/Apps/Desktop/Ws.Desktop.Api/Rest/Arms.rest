@@ -1,1 +1,2 @@
-GET {{url}}/arms?name=PC208
+GET {{url}}/arms
+Authorization: ArmAuthenticationScheme PC473

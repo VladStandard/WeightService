@@ -2,17 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using Ws.Database.EntityFramework;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
 using Ws.Desktop.Api.App.Features.PalletMen.Expressions;
+using Ws.Desktop.Api.App.Shared.Helpers;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace Ws.Desktop.Api.App.Features.PalletMen.Impl;
 
-internal sealed class PalletManApiService(WsDbContext dbContext) : IPalletManService
+internal sealed class PalletManApiService(WsDbContext dbContext, UserHelper userHelper) : IPalletManService
 {
     #region Queries
 
-    public List<PalletMan> GetAllByArm(Guid armId)
+    public List<PalletMan> GetAll()
     {
-        Guid warehouse = dbContext.Lines.Where(i => i.Id == armId).Select(i => i.Warehouse.Id).Single();
+        Guid warehouse = dbContext
+            .Lines.Where(i => i.Id == userHelper.UserId)
+            .Select(i => i.Warehouse.Id).Single();
+
         List<PalletMan> palletMen = dbContext.PalletMen
             .AsNoTracking()
             .Where(i => i.Warehouse.Id == warehouse)

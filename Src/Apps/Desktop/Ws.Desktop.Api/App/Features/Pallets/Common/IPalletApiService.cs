@@ -9,14 +9,14 @@ public interface IPalletApiService
 
     public List<PalletInfo> GetByNumber(string number);
     public List<LabelInfo> GetAllZplByPallet(Guid palletId);
-    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime);
+    public List<PalletInfo> GetAllByDate(DateTime startTime, DateTime endTime);
 
     #endregion
 
     #region Commands
 
     public Task Delete(Guid id);
-    public Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto);
+    public Task<PalletInfo> CreatePiecePallet(PalletPieceCreateDto dto);
 
     #endregion
 }

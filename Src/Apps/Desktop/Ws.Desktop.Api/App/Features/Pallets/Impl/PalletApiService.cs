@@ -8,6 +8,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Expressions;
+using Ws.Desktop.Api.App.Shared.Helpers;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Labels.Service.Generate;
@@ -20,7 +21,8 @@ namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 
 internal sealed class PalletApiService(
     WsDbContext dbContext,
-    IPrintLabelService printLabelService
+    IPrintLabelService printLabelService,
+    UserHelper userHelper
     ): IPalletApiService
 {
     #region Quieries
@@ -35,7 +37,7 @@ internal sealed class PalletApiService(
         return labels;
     }
 
-    public List<PalletInfo> GetAllByDate(Guid armId, DateTime startTime, DateTime endTime)
+    public List<PalletInfo> GetAllByDate(DateTime startTime, DateTime endTime)
     {
         bool dateCondition =
             startTime != DateTime.MinValue &&
@@ -45,7 +47,7 @@ internal sealed class PalletApiService(
         return dbContext.Pallets
             .AsNoTracking()
             .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
-            .Where(p => p.Arm.Id == armId)
+            .Where(p => p.Arm.Id == userHelper.UserId)
             .OrderByDescending(p => p.CreateDt)
             .ToPalletInfo(dbContext.Labels).ToList();
     }
@@ -77,7 +79,7 @@ internal sealed class PalletApiService(
 
     #region Commands
 
-    public async Task<PalletInfo> CreatePiecePallet(Guid armId, PalletPieceCreateDto dto)
+    public async Task<PalletInfo> CreatePiecePallet(PalletPieceCreateDto dto)
     {
         uint palletCounter = (dbContext.Pallets.Any() ? dbContext.Pallets.Max(i => i.Counter) : 0) + 1;
 
@@ -103,7 +105,7 @@ internal sealed class PalletApiService(
         LineEntity line = await dbContext.Lines
             .Include(i => i.Warehouse)
             .ThenInclude(i => i.ProductionSite)
-            .SingleAsync(i => i.Id == armId);
+            .SingleAsync(i => i.Id == userHelper.UserId);
 
         PluEntity plu = await dbContext.Plus
             .Include(i => i.Clip)

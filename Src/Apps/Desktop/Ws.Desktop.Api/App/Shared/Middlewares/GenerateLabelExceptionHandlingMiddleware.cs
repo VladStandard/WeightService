@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Ws.Shared.Api.ApiException;
 
-namespace Ws.Desktop.Api.App.Middlewares;
+namespace Ws.Desktop.Api.App.Shared.Middlewares;
 
 public class GenerateLabelExceptionHandlingMiddleware(
     ILogger<GenerateLabelExceptionHandlingMiddleware> logger

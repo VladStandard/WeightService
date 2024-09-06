@@ -7,7 +7,7 @@ public interface IArmService
 {
     #region Queries
 
-    public ArmValue? GetByPcName(string armName);
+    public ArmValue? Get();
 
     #endregion
 

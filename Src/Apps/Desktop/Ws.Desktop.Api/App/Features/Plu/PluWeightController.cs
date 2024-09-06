@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.Plu.Common;
+using Ws.Desktop.Api.App.Shared.Auth;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
@@ -9,26 +11,30 @@ namespace Ws.Desktop.Api.App.Features.Plu;
 
 
 [ApiController]
+[Authorize]
 [Route(RouteUtil.Plu)]
 public class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
 {
     #region Queries
 
+    [Authorize(PolicyEnum.Pc)]
     [HttpGet("piece")]
-    public Task<List<PluPiece>> GetAllPieceByArm([FromRoute] Guid armId)
-        => pluPieceService.GetAllPieceByArm(armId);
+    public Task<List<PluPiece>> GetAllPieceByArm()
+        => pluPieceService.GetAllPieceByArm();
 
+    [Authorize(PolicyEnum.Tablet)]
     [HttpGet("weight")]
-    public Task<List<PluWeight>> GetAllWeightByArm([FromRoute] Guid armId)
-        => pluWeightService.GetAllWeightByArm(armId);
+    public Task<List<PluWeight>> GetAllWeightByArm()
+        => pluWeightService.GetAllWeightByArm();
 
     #endregion
 
     #region Commands
 
+    [Authorize(PolicyEnum.Tablet)]
     [HttpPost("weight/{pluId:guid}/label")]
-    public Task<WeightLabel> GenerateLabel([FromRoute] Guid armId, Guid pluId, [FromBody] CreateWeightLabelDto dto) =>
-        pluWeightService.GenerateLabel(armId, pluId, dto);
+    public Task<WeightLabel> GenerateLabel(Guid pluId, [FromBody] CreateWeightLabelDto dto) =>
+        pluWeightService.GenerateLabel(pluId, dto);
 
     #endregion
 }
