@@ -1,7 +1,7 @@
 namespace Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 
 
-internal sealed  class WarehouseMapConfig : IEntityTypeConfiguration<WarehouseEntity>
+internal sealed class WarehouseMapConfig : IEntityTypeConfiguration<WarehouseEntity>
 {
     public void Configure(EntityTypeBuilder<WarehouseEntity> builder)
     {

@@ -22,6 +22,6 @@ internal static class TemplateExpressions
             Height = (ushort)template.Height,
             Rotate = (ushort)template.Rotate,
             CreateDt = template.CreateDt,
-            ChangeDt =  template.ChangeDt
+            ChangeDt = template.ChangeDt
         };
 }

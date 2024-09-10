@@ -13,7 +13,7 @@ public sealed record ArmUpdateDto
     public int Number { get; set; }
 
     [JsonPropertyName("counter")]
-    public int Counter  { get; set; }
+    public int Counter { get; set; }
 
     [JsonPropertyName("pc")]
     public string PcName { get; set; } = string.Empty;

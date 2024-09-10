@@ -13,17 +13,20 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection BaseSetup(this IServiceCollection services)
     {
         services
-            .AddControllers(options => {
+            .AddControllers(options =>
+            {
                 options.Filters.Add(new AllowAnonymousFilter());
                 options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
             })
-            .ConfigureApiBehaviorOptions(options => {
+            .ConfigureApiBehaviorOptions(options =>
+            {
                 options.SuppressConsumesConstraintForFormFileParameters = true;
                 options.SuppressInferBindingSourcesForParameters = true;
                 options.SuppressModelStateInvalidFilter = true;
                 options.SuppressMapClientErrors = true;
             })
-            .AddJsonOptions(options => {
+            .AddJsonOptions(options =>
+            {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.WriteIndented = true;
             });

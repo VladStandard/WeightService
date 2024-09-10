@@ -44,7 +44,7 @@ internal sealed class PalletManApiService(
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic, "Ошибка уникальности");
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
-        WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         PalletManEntity entity = dto.ToEntity(warehouse);
@@ -63,7 +63,7 @@ internal sealed class PalletManApiService(
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
 
         PalletManEntity entity = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
-        WarehouseEntity warehouse  = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
         await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 
         dto.UpdateEntity(entity, warehouse);
@@ -79,7 +79,8 @@ internal sealed class PalletManApiService(
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity) {
+    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity)
+    {
         await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
         await dbContext.Entry(entity.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
     }

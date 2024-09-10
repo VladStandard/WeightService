@@ -62,9 +62,9 @@ public partial record BarcodeModel : IBarcodeLabel
                         barcodeZplBuilder.Append(dateValue.ToString(item.FormatStr));
                         break;
                     default:
-                       throw new ApiExceptionServer
-                       {
-                           ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.BarcodeInvalid),
+                        throw new ApiExceptionServer
+                        {
+                            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.BarcodeInvalid),
                         };
                 }
             }

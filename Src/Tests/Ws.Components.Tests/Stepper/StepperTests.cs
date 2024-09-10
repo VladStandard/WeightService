@@ -35,7 +35,7 @@ public class StepperTests : TestContext
         IReadOnlyList<IRenderedComponent<StepperItem>> items = cut.FindComponents<StepperItem>();
 
         items.Count.Should().Be(itemsCount);
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0 ; i < items.Count ; i++)
             items[i].Instance.Index.Should().Be(i + 1);
         items[^1].Instance.Index.Should().Be(itemsCount);
     }

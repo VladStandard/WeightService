@@ -42,5 +42,5 @@ public class MockScalesService : IScalesService
         _dispatcher.Dispatch(new ChangeWeightAction(9999, true));
     }
 
-    public void StopPolling()  => Task.Delay(300);
+    public void StopPolling() => Task.Delay(300);
 }

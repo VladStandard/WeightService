@@ -13,25 +13,28 @@ internal static class DiApiBuilder
         const string password = "111";
         string authorizationToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{login}:{password}"));
 
-        services.AddRefitClient<IPalychApi>(new() {
-                ContentSerializer = new XmlContentSerializer(new()
+        services.AddRefitClient<IPalychApi>(new()
+        {
+            ContentSerializer = new XmlContentSerializer(new()
+            {
+                XmlReaderWriterSettings = new()
                 {
-                    XmlReaderWriterSettings = new()
+                    ReaderSettings = new()
                     {
-                        ReaderSettings = new()
-                        {
-                            IgnoreWhitespace = true,
-                            IgnoreComments = true,
-                        }
+                        IgnoreWhitespace = true,
+                        IgnoreComments = true,
                     }
-                })
+                }
             })
-            .ConfigureHttpClient(c => {
+        })
+            .ConfigureHttpClient(c =>
+            {
                 c.Timeout = TimeSpan.FromSeconds(10);
                 c.BaseAddress = new("http://dev1c.kolbasa-vs.local/palych_spe/hs/Exchange/");
                 c.DefaultRequestHeaders.Authorization = new("Basic", authorizationToken);
             })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler {
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
                 AllowAutoRedirect = false,
                 ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             });

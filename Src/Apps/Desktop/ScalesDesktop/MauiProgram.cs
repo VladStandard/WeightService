@@ -23,7 +23,7 @@ public static class MauiProgram
         builder.UseMauiApp<App>().UseFullScreen();
 
         builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtil.IsDevelop ?  "DevelopVS" : "ReleaseVS")}.json");
+            .AddJsonFile($"appsettings.{(ConfigurationUtil.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
 
         builder.Services.AddMauiBlazorWebView();
 
@@ -33,10 +33,10 @@ public static class MauiProgram
             .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);
 
-        #if DEBUG
-                builder.Services.AddBlazorWebViewDeveloperTools();
-                builder.Logging.AddDebug();
-        #endif
+#if DEBUG
+        builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Logging.AddDebug();
+#endif
 
         builder.Services.AddFluxor(options =>
         {

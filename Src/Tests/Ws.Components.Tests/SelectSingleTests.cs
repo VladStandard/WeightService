@@ -108,47 +108,47 @@ public class SelectSingleTests : TestContext
         combobox.Attributes["aria-expanded"]?.Value.Should().Be("False");
     }
 
-         [Fact]
-     public void DoesNotSetSelectedItemIfComponentIsDisabled()
-     {
-         // Act
-         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
-             .Add(p => p.Items, [])
-             .Add(p => p.Disabled, true));
+    [Fact]
+    public void DoesNotSetSelectedItemIfComponentIsDisabled()
+    {
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
+            .Add(p => p.Items, [])
+            .Add(p => p.Disabled, true));
 
-         IElement trigger = cut.Find("button");
+        IElement trigger = cut.Find("button");
 
-         // Assert
-         trigger.IsDisabled().Should().BeTrue();
-     }
+        // Assert
+        trigger.IsDisabled().Should().BeTrue();
+    }
 
-     [Fact]
-     public async Task FiltersItemsBasedOnSearchString()
-     {
-         // Arrange
-         string[] items = ["apple", "banana", "orange"];
-         const string searchValue = "ban";
+    [Fact]
+    public async Task FiltersItemsBasedOnSearchString()
+    {
+        // Arrange
+        string[] items = ["apple", "banana", "orange"];
+        const string searchValue = "ban";
 
-         // Act
-         IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
-             .Add(p => p.Items, items)
-             .Add(p => p.Filterable, true));
+        // Act
+        IRenderedComponent<SelectSingle<string>> cut = RenderComponentWithParameters<string>(parameters => parameters
+            .Add(p => p.Items, items)
+            .Add(p => p.Filterable, true));
 
-         cut.Find("button").Click();
+        cut.Find("button").Click();
 
-         IElement selectSearch = cut.Find("input");
-         await cut.InvokeAsync(() =>
-         {
-             selectSearch = cut.Find("input");
-             selectSearch.Input(searchValue);
-         });
+        IElement selectSearch = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            selectSearch = cut.Find("input");
+            selectSearch.Input(searchValue);
+        });
 
-         // Assert
-         selectSearch.GetAttribute("value").Should().Be(searchValue);
+        // Assert
+        selectSearch.GetAttribute("value").Should().Be(searchValue);
 
-         cut.WaitForState(() => cut.FindAll("li").Count == 1); // wait for debounce
-         cut.FindAll("li").Should().HaveCount(1);
-     }
+        cut.WaitForState(() => cut.FindAll("li").Count == 1); // wait for debounce
+        cut.FindAll("li").Should().HaveCount(1);
+    }
 
     [Fact]
     public void ShouldUpdateValueWhenParameterChangesExternally()

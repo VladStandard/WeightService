@@ -14,7 +14,7 @@ internal sealed class ProductionSiteApiService(
     UserHelper userHelper,
     ProductionSiteCreateValidator createValidator,
     ProductionSiteUpdateValidator updateValidator
-    ): ApiService, IProductionSiteService
+    ) : ApiService, IProductionSiteService
 {
     #region Queries
 
@@ -68,7 +68,7 @@ internal sealed class ProductionSiteApiService(
         await dbContext.ProductionSites.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-       return ProductionSiteExpressions.ToDto.Compile().Invoke(entity);
+        return ProductionSiteExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public async Task<ProductionSiteDto> UpdateAsync(Guid id, ProductionSiteUpdateDto dto)

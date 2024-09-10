@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record ScalesState(MassaKStatus Status)
 {
-    private ScalesState() : this(MassaKStatus.Disabled) {}
+    private ScalesState() : this(MassaKStatus.Disabled) { }
 }
 
 public record ChangeScalesStatusAction(MassaKStatus Status);

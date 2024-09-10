@@ -1,17 +1,14 @@
 // SYSTEM
-global using Microsoft.JSInterop;
-
-// LIBS
-global using Microsoft.Extensions.Localization;
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Components.Web;
+// LIBS
+global using Microsoft.Extensions.Localization;
 global using Microsoft.FluentUI.AspNetCore.Components;
-global using Refit;
+global using Microsoft.JSInterop;
 global using Phetch.Core;
-
-// MODULES
-global using Ws.Shared.Resources;
-
+global using Refit;
+global using ScalesDesktop.Source.Shared.Localization;
 // INTERNAL
 global using ScalesDesktop.Source.Shared.Services;
-global using ScalesDesktop.Source.Shared.Localization;
+// MODULES
+global using Ws.Shared.Resources;

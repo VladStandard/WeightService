@@ -14,7 +14,7 @@ internal sealed class TemplateResourceApiService(
     WsDbContext dbContext,
     TemplateResourceUpdateValidator updateValidator,
     TemplateResourceCreateValidator createValidator
-    ): ApiService, ITemplateResourceService
+    ) : ApiService, ITemplateResourceService
 {
     #region Queries
 

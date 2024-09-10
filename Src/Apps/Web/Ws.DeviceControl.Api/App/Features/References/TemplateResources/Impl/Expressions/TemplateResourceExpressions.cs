@@ -12,6 +12,6 @@ internal static class TemplateResourceExpressions
             Name = templateResource.Name,
             Type = templateResource.Type,
             CreateDt = templateResource.CreateDt,
-            ChangeDt =  templateResource.ChangeDt
+            ChangeDt = templateResource.ChangeDt
         };
 }

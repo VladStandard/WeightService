@@ -27,14 +27,14 @@ public static class BitMapUtils
     {
         Bitmap newBitmap = new(original.Width, original.Height, PixelFormat.Format32bppArgb);
 
-        for (int y = 0; y < original.Height; y++)
-        for (int x = 0; x < original.Width; x++)
-        {
-            Color pixelColor = original.GetPixel(x, y);
-            Color newColor = pixelColor.A == 0 ?
-                Color.FromArgb(255, 255, 255) : Color.FromArgb(0, 0, 0);
-            newBitmap.SetPixel(x, y, newColor);
-        }
+        for (int y = 0 ; y < original.Height ; y++)
+            for (int x = 0 ; x < original.Width ; x++)
+            {
+                Color pixelColor = original.GetPixel(x, y);
+                Color newColor = pixelColor.A == 0 ?
+                    Color.FromArgb(255, 255, 255) : Color.FromArgb(0, 0, 0);
+                newBitmap.SetPixel(x, y, newColor);
+            }
 
         using MemoryStream memoryStream = new();
         newBitmap.Save(memoryStream, ImageFormat.Png);

@@ -17,11 +17,11 @@ public record PrinterDto
 
     [JsonPropertyName("ip")]
     [JsonConverter(typeof(IpAddressJsonConverter))]
-    public required IPAddress Ip  { get; set; }
+    public required IPAddress Ip { get; set; }
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<PrinterTypes>))]
-    public required PrinterTypes Type  { get; set; }
+    public required PrinterTypes Type { get; set; }
 
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }

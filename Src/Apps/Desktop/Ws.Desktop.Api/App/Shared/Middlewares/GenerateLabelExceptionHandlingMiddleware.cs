@@ -5,7 +5,7 @@ namespace Ws.Desktop.Api.App.Shared.Middlewares;
 
 public class GenerateLabelExceptionHandlingMiddleware(
     ILogger<GenerateLabelExceptionHandlingMiddleware> logger
-    ): IMiddleware
+    ) : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

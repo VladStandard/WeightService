@@ -34,9 +34,10 @@ public class BarcodeItemListConverter : ValueConverter<List<BarcodeItem>, string
         list => SerializeJson(list),
         json => DeserializeJson(json),
         DefaultHints.With(mappingHints)
-        ) {}
+        )
+    { }
 
-    public BarcodeItemListConverter() : this(DefaultHints) {}
+    public BarcodeItemListConverter() : this(DefaultHints) { }
 
     private static List<BarcodeItem> DeserializeJson(string? json)
     {

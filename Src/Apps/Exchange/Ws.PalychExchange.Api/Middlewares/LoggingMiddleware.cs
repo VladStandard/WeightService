@@ -30,7 +30,7 @@ public class LoggingMiddleware(
 
                     foreach (ResponseError error in responseDto.Errors)
                         errors.AppendLine($"{error.Uid} : {error.Message}\n");
-                    logger.LogWarning("Endpoint: {RequestPath} \n{Errors}",  context.Request.Path, errors.ToString());
+                    logger.LogWarning("Endpoint: {RequestPath} \n{Errors}", context.Request.Path, errors.ToString());
                 }
         }
         responseBody.Seek(0, SeekOrigin.Begin);
@@ -44,7 +44,7 @@ public class LoggingMiddleware(
         {
             using var reader = new StringReader(responseText);
 
-            responseDto = (ResponseDto) new XmlSerializer(typeof(ResponseDto)).Deserialize(reader)!;
+            responseDto = (ResponseDto)new XmlSerializer(typeof(ResponseDto)).Deserialize(reader)!;
             return true;
         }
         catch (Exception)

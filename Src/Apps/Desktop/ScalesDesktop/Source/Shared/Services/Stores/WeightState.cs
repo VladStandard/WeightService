@@ -5,7 +5,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record WeightState(int Weight, bool IsStable)
 {
-    private WeightState() : this(0, false) {}
+    private WeightState() : this(0, false) { }
 }
 
 public record ChangeWeightAction(int Weight, bool IsStable);

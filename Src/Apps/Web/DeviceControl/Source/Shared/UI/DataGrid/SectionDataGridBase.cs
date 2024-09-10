@@ -5,7 +5,7 @@ using Refit;
 
 namespace DeviceControl.Source.Shared.UI.DataGrid;
 
-public abstract class SectionDataGridBase<TItem>: FluxorComponent where TItem : notnull
+public abstract class SectionDataGridBase<TItem> : FluxorComponent where TItem : notnull
 {
     # region Injects
 

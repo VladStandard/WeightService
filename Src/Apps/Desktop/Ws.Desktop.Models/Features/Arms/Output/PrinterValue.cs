@@ -3,7 +3,8 @@ using TscZebra.Plugin.Abstractions.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
-public sealed record PrinterValue {
+public sealed record PrinterValue
+{
 
     [JsonPropertyName("name")]
     public required string Name { get; init; }

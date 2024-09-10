@@ -23,7 +23,7 @@ internal sealed class PalletApiService(
     WsDbContext dbContext,
     IPrintLabelService printLabelService,
     UserHelper userHelper
-    ): IPalletApiService
+    ) : IPalletApiService
 {
     #region Quieries
 
@@ -169,7 +169,7 @@ internal sealed class PalletApiService(
 
         return dbContext.Pallets
             .ToPalletInfo(dbContext.Labels)
-            .Single(p => p.Id ==  palletData.Id);
+            .Single(p => p.Id == palletData.Id);
     }
 
     #endregion

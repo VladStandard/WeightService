@@ -36,7 +36,8 @@ internal sealed class UserApiService(WsDbContext dbContext) : IUserService
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(UserEntity entity) {
+    private async Task LoadDefaultForeignKeysAsync(UserEntity entity)
+    {
         await dbContext.Entry(entity).Reference(e => e.ProductionSite).LoadAsync();
     }
 

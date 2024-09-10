@@ -2,7 +2,7 @@ using System.Text.Json;
 
 namespace Ws.DeviceControl.Api.App.Middlewares;
 
-public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger): IMiddleware
+public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {

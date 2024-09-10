@@ -10,11 +10,11 @@ internal static class ModelBuilderExtensions
     public static void SetDefaultTypeForString(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
-        foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
-        {
-            int? maxValue = property.GetMaxLength();
-            property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
-        }
+            foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
+            {
+                int? maxValue = property.GetMaxLength();
+                property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
+            }
     }
 
     public static void UseIpAddressConversion(this ModelBuilder modelBuilder)

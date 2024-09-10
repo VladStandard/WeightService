@@ -56,15 +56,15 @@ internal sealed class PluPieceApiService(WsDbContext dbContext, UserHelper userH
         List<PluPiece> plusPiece = [];
         plusPiece.AddRange(data.Select(plu =>
             new PluPiece
-        {
-            Id = plu.Key.Id,
-            Number = (ushort)plu.Key.Number,
-            Name = plu.Key.Name,
-            FullName = plu.Key.FullName,
-            Bundle = plu.Key.Bundle.Name,
-            WeightNet = plu.Key.Weight,
-            Nestings = plu.Value
-        }));
+            {
+                Id = plu.Key.Id,
+                Number = (ushort)plu.Key.Number,
+                Name = plu.Key.Name,
+                FullName = plu.Key.FullName,
+                Bundle = plu.Key.Bundle.Name,
+                WeightNet = plu.Key.Weight,
+                Nestings = plu.Value
+            }));
         return plusPiece;
     }
 

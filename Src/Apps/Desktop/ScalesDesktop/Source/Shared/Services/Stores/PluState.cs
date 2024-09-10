@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record PluState(PluWeight? Plu)
 {
-    private PluState() : this(Plu: null) {}
+    private PluState() : this(Plu: null) { }
 }
 
 public record ChangePluAction(PluWeight Plu);

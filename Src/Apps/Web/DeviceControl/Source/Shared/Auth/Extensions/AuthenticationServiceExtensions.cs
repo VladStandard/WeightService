@@ -21,7 +21,7 @@ public static class AuthenticationServiceExtensions
                     return Task.CompletedTask;
                 };
 
-                opt.Events.OnRedirectToAccessDenied  = context =>
+                opt.Events.OnRedirectToAccessDenied = context =>
                 {
                     context.Response.Redirect(RouteUtils.Home);
                     return Task.CompletedTask;
