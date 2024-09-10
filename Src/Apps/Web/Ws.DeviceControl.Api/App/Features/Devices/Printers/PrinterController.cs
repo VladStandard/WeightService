@@ -31,11 +31,11 @@ public class PrinterController(IPrinterService printerService)
     public Task<PrinterDto> Create([FromBody] PrinterCreateDto dto) =>
         printerService.CreateAsync(dto);
 
-    [HttpPost("{id:guid}")]
+    [HttpPut("{id:guid}")]
     public Task<PrinterDto> Update([FromRoute] Guid id, [FromBody] PrinterUpdateDto dto) =>
         printerService.UpdateAsync(id, dto);
 
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     public Task Delete([FromRoute] Guid id) => printerService.DeleteAsync(id);
 
     #endregion

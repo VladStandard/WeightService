@@ -24,13 +24,13 @@ public interface IWebProductionSiteApi
 
     #region Commands
 
-    [Post("/production-sites/{uid}/delete")]
+    [Delete("/production-sites/{uid}")]
     Task DeleteProductionSite(Guid uid);
 
     [Post("/production-sites")]
     Task<ProductionSiteDto> CreateProductionSite([Body] ProductionSiteCreateDto createDto);
 
-    [Post("/production-sites/{uid}")]
+    [Put("/production-sites/{uid}")]
     Task<ProductionSiteDto> UpdateProductionSite(Guid uid, [Body] ProductionSiteUpdateDto updateDto);
 
     #endregion

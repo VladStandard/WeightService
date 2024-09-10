@@ -21,13 +21,13 @@ public interface IWebTemplateResourceApi
 
     #region Commands
 
-    [Post("/template-resources/{id}/delete")]
+    [Delete("/template-resources/{id}")]
     Task DeleteResource(Guid id);
 
     [Post("/template-resources")]
     Task<TemplateResourceDto> CreateResource([Body] TemplateResourceCreateDto createDto);
 
-    [Post("/template-resources/{id}")]
+    [Put("/template-resources/{id}")]
     Task<TemplateResourceDto> UpdateResource(Guid id, [Body] TemplateResourceUpdateDto updateDto);
 
     #endregion

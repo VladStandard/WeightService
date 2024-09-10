@@ -24,7 +24,7 @@ public class PalletManController(IPalletManService palletManService)
 
     #region Commands
 
-    [HttpPost("{id:guid}")]
+    [HttpPut("{id:guid}")]
     public Task<PalletManDto> Update([FromRoute] Guid id, [FromBody] PalletManUpdateDto dto) =>
         palletManService.UpdateAsync(id, dto);
 
@@ -32,7 +32,7 @@ public class PalletManController(IPalletManService palletManService)
     [Authorize(PolicyEnum.SeniorSupport)]
     public Task<PalletManDto> Create([FromBody] PalletManCreateDto dto) => palletManService.CreateAsync(dto);
 
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     [Authorize(PolicyEnum.SeniorSupport)]
     public Task Delete([FromRoute] Guid id) => palletManService.DeleteAsync(id);
 

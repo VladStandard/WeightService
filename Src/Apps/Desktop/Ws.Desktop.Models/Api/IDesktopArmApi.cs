@@ -14,7 +14,7 @@ public interface IDesktopArmApi
 
     #region Commands
 
-    [Post("/arms")]
+    [Put("/arms")]
     Task UpdateArm([Body] UpdateArmDto updateDto);
 
     #endregion

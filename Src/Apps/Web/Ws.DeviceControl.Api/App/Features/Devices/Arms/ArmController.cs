@@ -26,11 +26,11 @@ public class ArmController(IArmService armService)
 
     #region Commands
 
-    [HttpPost("{id:guid}")]
+    [HttpPut("{id:guid}")]
     public Task<ArmDto> Update([FromRoute] Guid id, [FromBody] ArmUpdateDto dto) =>
         armService.UpdateAsync(id, dto);
 
-    [HttpPost("{id:guid}/plus/{pluId:guid}")]
+    [HttpDelete("{id:guid}/plus/{pluId:guid}")]
     public Task DeletePlu([FromRoute] Guid id, [FromRoute] Guid pluId) =>
         armService.DeletePluAsync(id, pluId);
 
@@ -42,7 +42,7 @@ public class ArmController(IArmService armService)
         armService.CreateAsync(dto);
 
     [Authorize(PolicyEnum.SeniorSupport)]
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     public Task Delete([FromRoute] Guid id) =>
         armService.DeleteAsync(id);
 

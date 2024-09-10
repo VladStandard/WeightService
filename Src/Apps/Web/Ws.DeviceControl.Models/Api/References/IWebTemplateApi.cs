@@ -24,13 +24,13 @@ public interface IWebTemplateApi
 
     #region Commands
 
-    [Post("/templates/{id}/delete")]
+    [Delete("/templates/{id}")]
     Task DeleteTemplate(Guid id);
 
     [Post("/templates")]
     Task<TemplateDto> CreateTemplate([Body] TemplateCreateDto createDto);
 
-    [Post("/templates/{id}")]
+    [Put("/templates/{id}")]
     Task<TemplateDto> UpdateTemplate(Guid id, [Body] TemplateUpdateDto updateDto);
 
     #endregion

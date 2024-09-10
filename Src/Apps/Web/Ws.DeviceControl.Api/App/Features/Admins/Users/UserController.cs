@@ -21,7 +21,7 @@ public class UserController(IUserService userService)
 
     #region Commands
 
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     public Task Delete([FromRoute] Guid id) => userService.DeleteAsync(id);
 
     #endregion

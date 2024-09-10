@@ -18,13 +18,13 @@ public interface IWebPalletManApi
 
     #region Commands
 
-    [Post("/pallet-men/{uid}/delete")]
+    [Delete("/pallet-men/{uid}")]
     Task DeletePalletMan(Guid uid);
 
     [Post("/pallet-men")]
     Task<PalletManDto> CreatePalletMan([Body] PalletManCreateDto createDto);
 
-    [Post("/pallet-men/{uid}")]
+    [Put("/pallet-men/{uid}")]
     Task<PalletManDto> UpdatePalletMan(Guid uid, [Body] PalletManUpdateDto updateDto);
 
     #endregion

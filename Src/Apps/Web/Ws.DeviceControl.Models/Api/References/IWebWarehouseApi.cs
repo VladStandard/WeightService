@@ -21,7 +21,7 @@ public interface IWebWarehouseApi
 
     #region Commands
 
-    [Post("/warehouses/{uid}/delete")]
+    [Delete("/warehouses/{uid}")]
     Task DeleteWarehouse(Guid uid);
 
     [Post("/warehouses")]

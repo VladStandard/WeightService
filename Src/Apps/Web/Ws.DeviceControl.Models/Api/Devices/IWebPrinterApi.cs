@@ -21,13 +21,13 @@ public interface IWebPrinterApi
 
     #region Commands
 
-    [Post("/printers/{uid}/delete")]
+    [Delete("/printers/{uid}")]
     Task DeletePrinter(Guid uid);
 
     [Post("/printers")]
     Task<PrinterDto> CreatePrinter([Body] PrinterCreateDto createDto);
 
-    [Post("/printers/{uid}")]
+    [Put("/printers/{uid}")]
     Task<PrinterDto> UpdatePrinter(Guid uid, [Body] PrinterUpdateDto updateDto);
 
     #endregion

@@ -34,12 +34,12 @@ public class WarehouseController(IWarehouseService warehouseService)
         warehouseService.CreateAsync(dto);
 
     [Authorize(PolicyEnum.Admin)]
-    [HttpPost("{id:guid}")]
+    [HttpPut("{id:guid}")]
     public Task<WarehouseDto> Update([FromRoute] Guid id, [FromBody] WarehouseUpdateDto dto) =>
         warehouseService.UpdateAsync(id, dto);
 
     [Authorize(PolicyEnum.Admin)]
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     public Task Delete([FromRoute] Guid id) =>
         warehouseService.DeleteAsync(id);
 

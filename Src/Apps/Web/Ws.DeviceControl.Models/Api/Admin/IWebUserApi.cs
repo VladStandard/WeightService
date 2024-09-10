@@ -17,10 +17,10 @@ public interface IWebUserApi
 
     #region Commands
 
-    [Post("/users/{uid}/delete")]
+    [Delete("/users/{uid}")]
     Task DeleteUser(Guid uid);
 
-    [Post("/users/{uid}")]
+    [Put("/users/{uid}")]
     Task<UserDto> UpdateUser(Guid uid, [Body] UserUpdateDto updateDto);
 
     #endregion

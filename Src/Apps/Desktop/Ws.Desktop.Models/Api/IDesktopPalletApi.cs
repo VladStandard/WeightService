@@ -20,7 +20,7 @@ public interface IDesktopPalletApi
 
     #region Commands
 
-    [Post("/pallets/{palletId}")]
+    [Delete("/pallets/{palletId}")]
     Task DeletePallet(Guid palletId);
 
     [Post("/pallets")]

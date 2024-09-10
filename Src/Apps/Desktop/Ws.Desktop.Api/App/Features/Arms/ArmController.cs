@@ -22,7 +22,7 @@ public class ArmController(IArmService armService) : ControllerBase
 
     #region Commands
 
-    [HttpPost]
+    [HttpPut]
     public ActionResult Update([FromBody] UpdateArmDto dto) =>
         armService.Update(dto) ? Ok() : NotFound();
 

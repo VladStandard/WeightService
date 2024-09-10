@@ -33,12 +33,12 @@ public class TemplateResourceController(ITemplateResourceService templateResourc
         templateResourceService.CreateAsync(dto);
 
     [Authorize(PolicyEnum.Admin)]
-    [HttpPost("{id:guid}")]
+    [HttpPut("{id:guid}")]
     public Task<TemplateResourceDto> Update([FromRoute] Guid id, [FromBody] TemplateResourceUpdateDto dto) =>
         templateResourceService.UpdateAsync(id, dto);
 
     [Authorize(PolicyEnum.Admin)]
-    [HttpPost("{id:guid}/delete")]
+    [HttpDelete("{id:guid}")]
     public Task Delete([FromRoute] Guid id) => templateResourceService.DeleteAsync(id);
 
     #endregion

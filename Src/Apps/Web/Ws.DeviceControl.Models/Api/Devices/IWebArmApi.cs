@@ -21,16 +21,16 @@ public interface IWebArmApi
 
     #region Commands
 
-    [Post("/arms/{uid}/delete")]
+    [Delete("/arms/{uid}")]
     Task DeleteArm(Guid uid);
 
     [Post("/arms")]
     Task<ArmDto> CreateArm([Body] ArmCreateDto createDto);
 
-    [Post("/arms/{uid}")]
+    [Put("/arms/{uid}")]
     Task<ArmDto> UpdateArm(Guid uid, [Body] ArmUpdateDto updateDto);
 
-    [Post("/arms/{uid}/plus/{pluId}")]
+    [Delete("/arms/{uid}/plus/{pluId}")]
     Task DeleteArmPlu(Guid uid, Guid pluId);
 
     #endregion

@@ -13,7 +13,7 @@ public interface IPluApi
     [Get("/plu/{uid}")]
     Task<PluDto> GetPluByUid(Guid uid);
 
-    [Post("/plu/{uid}")]
+    [Put("/plu/{uid}")]
     Task<PluDto> UpdatePlu(Guid uid, [Body] PluUpdateDto updateDto);
 
     #endregion
