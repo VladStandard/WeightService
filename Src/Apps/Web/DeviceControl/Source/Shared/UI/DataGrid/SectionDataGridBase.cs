@@ -5,7 +5,7 @@ using Refit;
 
 namespace DeviceControl.Source.Shared.UI.DataGrid;
 
-public abstract class SectionDataGridBase<TItem>: FluxorComponent where TItem : notnull
+public abstract class SectionDataGridBase<TItem> : FluxorComponent where TItem : notnull
 {
     # region Injects
 
@@ -20,6 +20,7 @@ public abstract class SectionDataGridBase<TItem>: FluxorComponent where TItem : 
 
     protected QueryOptions DefaultEndpointOptions { get; } =
         new() { RefetchInterval = TimeSpan.FromMinutes(1), StaleTime = TimeSpan.FromMinutes(1) };
+
     protected DialogParameters DialogParameters { get; set; } = new();
 
     protected override void OnInitialized()
@@ -50,7 +51,10 @@ public abstract class SectionDataGridBase<TItem>: FluxorComponent where TItem : 
         }
     }
 
-    protected async Task DeleteItem(TItem item)
+    protected async Task DeleteItem(TItem item) =>
+        await DialogService.ShowDialogAsync<DeleteItemDialog>(EventCallback.Factory.Create(this, () => DeleteItemCallback(item)), DialogParameters);
+
+    private async Task DeleteItemCallback(TItem item)
     {
         try
         {

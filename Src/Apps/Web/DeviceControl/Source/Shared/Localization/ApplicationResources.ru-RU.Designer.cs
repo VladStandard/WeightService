@@ -249,6 +249,24 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Это действие невозможно отменить. Это приведет к безвозвратному удалению элемента с сервера..
+        /// </summary>
+        public static string DeleteDialogDescription {
+            get {
+                return ResourceManager.GetString("DeleteDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверен что хотите удалить элемент?.
+        /// </summary>
+        public static string DeleteDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Местоположение.
         /// </summary>
         public static string FieldLocation {

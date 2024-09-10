@@ -318,4 +318,10 @@
     <data name="StateOff" xml:space="preserve">
         <value />
     </data>
+    <data name="DeleteDialogTitle" xml:space="preserve">
+        <value />
+    </data>
+    <data name="DeleteDialogDescription" xml:space="preserve">
+        <value />
+    </data>
 </root>

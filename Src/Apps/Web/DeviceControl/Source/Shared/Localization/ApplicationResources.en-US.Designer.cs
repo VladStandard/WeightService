@@ -249,6 +249,24 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action cannot be undone. This will permanently delete the item from the server..
+        /// </summary>
+        public static string DeleteDialogDescription {
+            get {
+                return ResourceManager.GetString("DeleteDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the item?.
+        /// </summary>
+        public static string DeleteDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string FieldLocation {

@@ -318,4 +318,10 @@
     <data name="StateOn" xml:space="preserve">
         <value>Вкл</value>
     </data>
+    <data name="DeleteDialogTitle" xml:space="preserve">
+        <value>Вы уверен что хотите удалить элемент?</value>
+    </data>
+    <data name="DeleteDialogDescription" xml:space="preserve">
+        <value>Это действие невозможно отменить. Это приведет к безвозвратному удалению элемента с сервера.</value>
+    </data>
 </root>

@@ -251,6 +251,24 @@ namespace DeviceControl.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string DeleteDialogDescription {
+            get {
+                return ResourceManager.GetString("DeleteDialogDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DeleteDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string FieldLocation {
             get {
                 return ResourceManager.GetString("FieldLocation", resourceCulture);

@@ -318,4 +318,10 @@
     <data name="StateOn" xml:space="preserve">
         <value>On</value>
     </data>
+    <data name="DeleteDialogTitle" xml:space="preserve">
+        <value>Are you sure you want to delete the item?</value>
+    </data>
+    <data name="DeleteDialogDescription" xml:space="preserve">
+        <value>This action cannot be undone. This will permanently delete the item from the server.</value>
+    </data>
 </root>
