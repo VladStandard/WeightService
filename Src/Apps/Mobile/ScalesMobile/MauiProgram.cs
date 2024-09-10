@@ -14,10 +14,10 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
-        #if DEBUG
-            builder.Services.AddBlazorWebViewDeveloperTools();
-            builder.Logging.AddDebug();
-        #endif
+#if DEBUG
+        builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Logging.AddDebug();
+#endif
 
         const string currentLanguage = "ru-RU";
         CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);

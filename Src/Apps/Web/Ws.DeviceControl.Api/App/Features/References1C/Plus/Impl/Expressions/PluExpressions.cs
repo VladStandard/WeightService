@@ -9,7 +9,7 @@ public static class PluExpressions
         plu => new()
         {
             Id = plu.Id,
-            Number = (ushort) plu.Number,
+            Number = (ushort)plu.Number,
             IsWeight = plu.IsWeight,
             Weight = plu.Weight,
             Brand = new()
@@ -17,12 +17,12 @@ public static class PluExpressions
                 Id = plu.Brand.Id,
                 Name = plu.Brand.Name
             },
-            ShelfLifeDays = (ushort) plu.ShelfLifeDays,
+            ShelfLifeDays = (ushort)plu.ShelfLifeDays,
             Template = plu.TemplateId != null ? new()
             {
                 Id = plu.Template.Id,
                 Name = plu.Template.Name
-            } : null ,
+            } : null,
             StorageMethod = plu.StorageMethod,
             Name = plu.Name,
             FullName = plu.FullName,

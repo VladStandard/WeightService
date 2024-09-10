@@ -23,7 +23,8 @@ public sealed partial class PalletManForm : ComponentBase
     private void OnSubmit() => Dispatcher.Dispatch(new ChangePalletManAction(FormModel.User!));
 }
 
-public class PalletManFormModel {
+public class PalletManFormModel
+{
     public PalletMan? User { get; set; }
     public string Password { get; set; } = string.Empty;
 }

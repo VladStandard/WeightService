@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record PrinterState(PrinterStatus Status)
 {
-    private PrinterState() : this(PrinterStatus.Disconnected) {}
+    private PrinterState() : this(PrinterStatus.Disconnected) { }
 }
 
 public record ChangePrinterStatusAction(PrinterStatus Status);

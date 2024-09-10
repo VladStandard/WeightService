@@ -88,7 +88,7 @@ public class PalletDocumentGenerator(IStringLocalizer<WsDataResources> wsDataLoc
         ITable pluTable = CreateTable([60f, 10f, 10f, 10f, 10f]).SetMarginBottom(20);
 
         AddPluTableHeaders(pluTable);
-        foreach(PluPalletInfo plu in pallet.Plus)
+        foreach (PluPalletInfo plu in pallet.Plus)
             AddPluTableData(pluTable, plu);
         AddPluTableFooter(pluTable, pallet);
 

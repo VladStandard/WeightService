@@ -24,7 +24,7 @@ internal class PrintLabelService(
     public async Task<bool> DeletePallet(string palletNumber, bool isDelete)
     {
         PalletDeleteWrapperMsg ans =
-            await palychApi.Delete(new() { Pallet = new() { IsDelete = isDelete, Number = palletNumber }});
+            await palychApi.Delete(new() { Pallet = new() { IsDelete = isDelete, Number = palletNumber } });
 
         if (ans.Status.IsSuccess)
             return true;

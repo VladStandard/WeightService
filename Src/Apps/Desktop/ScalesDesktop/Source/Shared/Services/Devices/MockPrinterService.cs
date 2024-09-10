@@ -5,7 +5,7 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;
 
-public class MockPrinterService(IDispatcher dispatcher): IPrinterService
+public class MockPrinterService(IDispatcher dispatcher) : IPrinterService
 {
     public bool IsMock() => true;
 

@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record PalletState(PalletInfo? Pallet, PalletViewTabType PalletViewTabType)
 {
-    private PalletState() : this(null, PalletViewTabType.Info) {}
+    private PalletState() : this(null, PalletViewTabType.Info) { }
 }
 
 public record ChangePalletAction(PalletInfo Pallet);

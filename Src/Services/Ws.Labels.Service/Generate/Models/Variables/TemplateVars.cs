@@ -42,8 +42,8 @@ public class TemplateVars(
 
     #region Other
 
-    public readonly string WeightNet =  weightNet.ToSepStr(',');
-    public readonly string WeightGross =  weightGross.ToSepStr(',');
+    public readonly string WeightNet = weightNet.ToSepStr(',');
+    public readonly string WeightGross = weightGross.ToSepStr(',');
 
     public readonly ushort BundleCount = bundleCount;
     public readonly string Kneading = $"{kneading:D3}";

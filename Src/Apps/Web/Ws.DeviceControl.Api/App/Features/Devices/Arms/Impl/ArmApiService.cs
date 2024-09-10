@@ -56,12 +56,12 @@ internal sealed class ArmApiService(
             .Select(i => i.Id)
             .ToListAsync();
 
-       return await dbContext.Plus
-           .AsNoTracking()
-           .IfWhere(isWeightFilter != null, p => p.IsWeight == isWeightFilter)
-           .OrderBy(i => i.Number)
-           .Select(ArmExpressions.ToPluDto(linePluId))
-           .ToListAsync();
+        return await dbContext.Plus
+            .AsNoTracking()
+            .IfWhere(isWeightFilter != null, p => p.IsWeight == isWeightFilter)
+            .OrderBy(i => i.Number)
+            .Select(ArmExpressions.ToPluDto(linePluId))
+            .ToListAsync();
 
     }
 

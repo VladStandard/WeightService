@@ -15,6 +15,9 @@ trim_trailing_whitespace = true
 dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
 
+[**/{Migrations}/**]
+generated_code = true
+
 [**.{html,css,scss,js,cshtml,razor,json}]
 indent_size = 2
 

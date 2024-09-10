@@ -9,29 +9,29 @@ public sealed record ArmDto
     public required string Name { get; set; }
 
     [JsonPropertyName("version")]
-    public required string Version  { get; set; }
+    public required string Version { get; set; }
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<ArmType>))]
-    public required ArmType Type  { get; set; }
+    public required ArmType Type { get; set; }
 
     [JsonPropertyName("number")]
-    public required int Number  { get; set; }
+    public required int Number { get; set; }
 
     [JsonPropertyName("counter")]
-    public required int Counter  { get; set; }
+    public required int Counter { get; set; }
 
     [JsonPropertyName("pc")]
-    public required string PcName  { get; set; }
+    public required string PcName { get; set; }
 
     [JsonPropertyName("printer")]
-    public required ProxyDto Printer  { get; set; }
+    public required ProxyDto Printer { get; set; }
 
     [JsonPropertyName("warehouse")]
-    public required ProxyDto Warehouse  { get; set; }
+    public required ProxyDto Warehouse { get; set; }
 
     [JsonPropertyName("productionSite")]
-    public required ProxyDto ProductionSite  { get; set; }
+    public required ProxyDto ProductionSite { get; set; }
 
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }

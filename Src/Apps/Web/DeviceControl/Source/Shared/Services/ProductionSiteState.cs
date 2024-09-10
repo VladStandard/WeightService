@@ -6,7 +6,7 @@ namespace DeviceControl.Source.Shared.Services;
 public record ProductionSiteState(ProxyDto ProductionSite)
 {
     public static ProxyDto EmptyProductionSite { get; } = new() { Id = Guid.Empty, Name = string.Empty };
-    private ProductionSiteState() : this(EmptyProductionSite) {}
+    private ProductionSiteState() : this(EmptyProductionSite) { }
 }
 
 public record ChangeProductionSiteAction(ProxyDto ProductionSite);

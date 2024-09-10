@@ -16,8 +16,8 @@ public sealed record ArmCreateDto
     public string PcName { get; set; } = string.Empty;
 
     [JsonPropertyName("printerId")]
-    public Guid PrinterId  { get; set; }
+    public Guid PrinterId { get; set; }
 
     [JsonPropertyName("warehouse")]
-    public Guid WarehouseId  { get; set; }
+    public Guid WarehouseId { get; set; }
 }

@@ -36,11 +36,11 @@ public sealed partial class PalletResultStageForm : ComponentBase
         string toastUid = Guid.NewGuid().ToString();
         ToastService.ShowProgressToast(new()
         {
-          Id = toastUid,
-          Intent = ToastIntent.Progress,
-          Title = Localizer["PalletCreateDialogProgressToastTitle"],
-          Timeout = null,
-          Content = new() { Details = Localizer["PalletCreateDialogProgressToastDescription"] }
+            Id = toastUid,
+            Intent = ToastIntent.Progress,
+            Title = Localizer["PalletCreateDialogProgressToastTitle"],
+            Timeout = null,
+            Content = new() { Details = Localizer["PalletCreateDialogProgressToastDescription"] }
         });
 
         PalletPieceCreateDto createDto = new()

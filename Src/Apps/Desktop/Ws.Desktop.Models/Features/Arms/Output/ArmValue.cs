@@ -2,7 +2,8 @@ using Ws.Shared.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
-public sealed record ArmValue {
+public sealed record ArmValue
+{
 
     [JsonPropertyName("id")]
     public required Guid Id { get; init; }

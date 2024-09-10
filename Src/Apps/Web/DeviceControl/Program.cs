@@ -20,7 +20,7 @@ builder.Services
 builder.Services
     .AddRazorComponents()
     .AddInteractiveServerComponents()
-    .AddCircuitOptions(options => {  options.DetailedErrors = true; });
+    .AddCircuitOptions(options => { options.DetailedErrors = true; });
 
 builder.Services
     .AddBlazorise()

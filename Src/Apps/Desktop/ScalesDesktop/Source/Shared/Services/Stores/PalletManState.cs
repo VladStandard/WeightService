@@ -6,7 +6,7 @@ namespace ScalesDesktop.Source.Shared.Services.Stores;
 [FeatureState]
 public record PalletManState(PalletMan? PalletMan)
 {
-    private PalletManState() : this(PalletMan: null) {}
+    private PalletManState() : this(PalletMan: null) { }
 }
 
 public record ChangePalletManAction(PalletMan PalletMan);

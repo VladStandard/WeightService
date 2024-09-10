@@ -9,7 +9,7 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;
 
-public class PrinterService(IDispatcher dispatcher): IPrinterService, IDisposable
+public class PrinterService(IDispatcher dispatcher) : IPrinterService, IDisposable
 {
     public bool IsMock() => false;
     private IZplPrinter Printer { get; set; } = PrinterFactory.Create(DefaultConsts.IpLocal, 9100, PrinterTypes.Tsc);

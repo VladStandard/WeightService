@@ -62,7 +62,7 @@ internal class LabelPieceGenerator(
                 BarcodeRight = label.BarcodeRight,
                 BarcodeBottom = label.BarcodeBottom,
                 NetWeightKg = label.WeightNet,
-                GrossWeightKg = label.WeightNet+label.WeightTare,
+                GrossWeightKg = label.WeightNet + label.WeightTare,
                 Kneading = (ushort)label.Kneading
             });
 
@@ -111,7 +111,7 @@ internal class LabelPieceGenerator(
     {
         BarcodeModel barcode = barcodeTemplates with
         {
-            LineCounter =  dto.Line.Counter + index + 1,
+            LineCounter = dto.Line.Counter + index + 1,
             ProductDt = barcodeTemplates.ProductDt.AddSeconds(index)
         };
 

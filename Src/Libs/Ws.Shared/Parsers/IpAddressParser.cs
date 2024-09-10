@@ -13,6 +13,6 @@ public static partial class IpAddressParser
     {
         bool isIp = MyRegex().IsMatch(newIp);
         if (!isIp) return oldIp;
-        return IPAddress.TryParse(newIp, out IPAddress? ip) ?  ip : DefaultConsts.IpLocal;
+        return IPAddress.TryParse(newIp, out IPAddress? ip) ? ip : DefaultConsts.IpLocal;
     }
 }
