@@ -1,7 +1,7 @@
 using Ws.Database.EntityFramework;
 using Ws.PalychExchange.Api;
-using Ws.PalychExchange.Api.Extensions;
-using Ws.PalychExchange.Api.Middlewares;
+using Ws.PalychExchange.Api.App.Shared.Extensions;
+using Ws.PalychExchange.Api.App.Shared.Middlewares;
 using Ws.Shared.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

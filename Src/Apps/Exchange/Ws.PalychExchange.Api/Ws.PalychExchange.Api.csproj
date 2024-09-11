@@ -12,4 +12,8 @@
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="App\" />
+    </ItemGroup>
 </Project>

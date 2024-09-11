@@ -1,6 +1,6 @@
 using System.Globalization;
 using Ws.DeviceControl.Api;
-using Ws.DeviceControl.Api.App.Middlewares;
+using Ws.DeviceControl.Api.App.Shared.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
