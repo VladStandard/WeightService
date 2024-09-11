@@ -1,7 +1,7 @@
 using Ws.PalychExchange.Api.App.Features.Plus.Common;
 using Ws.PalychExchange.Api.App.Features.Plus.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Plus.Services;
+namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
 internal sealed partial class PluApiService(PluDtoValidator validator) : BaseService<PluDto>(validator), IPluService
 {

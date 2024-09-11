@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.PalychExchange.Api.App.Features.Bundles.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Bundles.Services;
+namespace Ws.PalychExchange.Api.App.Features.Bundles.Impl;
 
 internal partial class BundleApiService
 {

@@ -3,7 +3,7 @@ using Ws.DeviceControl.Api.App.Features.References1C.Boxes.Common;
 namespace Ws.DeviceControl.Api.App.Features.References1C.Boxes;
 
 [ApiController]
-[Route(RouteUtil.Boxes)]
+[Route(ApiEndpoints.Boxes)]
 public class BoxController(IBoxService boxService)
 {
     #region Queries

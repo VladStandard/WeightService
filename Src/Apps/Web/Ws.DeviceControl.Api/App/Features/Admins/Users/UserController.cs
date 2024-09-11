@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users;
 
 [ApiController]
-[Route(RouteUtil.Users)]
+[Route(ApiEndpoints.Users)]
 [Authorize(PolicyEnum.SeniorSupport)]
 public class UserController(IUserService userService)
 {

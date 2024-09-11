@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.PalychExchange.Api.App.Features.Brands.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Brands.Services;
+namespace Ws.PalychExchange.Api.App.Features.Brands.Impl;
 
 internal partial class BrandApiService
 {

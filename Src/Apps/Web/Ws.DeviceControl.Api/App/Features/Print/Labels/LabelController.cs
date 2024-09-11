@@ -4,7 +4,7 @@ using Ws.DeviceControl.Models.Features.Print.Labels;
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels;
 
 [ApiController]
-[Route(RouteUtil.Labels)]
+[Route(ApiEndpoints.Labels)]
 public class LabelController(ILabelService labelService)
 {
     #region Queries

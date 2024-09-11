@@ -1,6 +1,6 @@
-namespace Ws.DeviceControl.Api;
+namespace Ws.DeviceControl.Api.App.Shared;
 
-public static class RouteUtil
+public static class ApiEndpoints
 {
     public const string Arms = "api/arms";
     public const string Brands = "api/brands";

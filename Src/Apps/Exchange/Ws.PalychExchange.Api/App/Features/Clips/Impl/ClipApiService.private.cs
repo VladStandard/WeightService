@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.PalychExchange.Api.App.Features.Clips.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Clips.Services;
+namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;
 
 internal partial class ClipApiService
 {

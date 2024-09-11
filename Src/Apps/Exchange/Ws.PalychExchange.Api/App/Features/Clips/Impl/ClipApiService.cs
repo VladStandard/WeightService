@@ -1,7 +1,7 @@
 using Ws.PalychExchange.Api.App.Features.Clips.Common;
 using Ws.PalychExchange.Api.App.Features.Clips.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Clips.Services;
+namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;
 
 internal sealed partial class ClipApiService(ClipDtoValidator validator) : BaseService<ClipDto>(validator), IClipService
 {

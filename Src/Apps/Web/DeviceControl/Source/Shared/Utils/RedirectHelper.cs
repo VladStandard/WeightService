@@ -3,7 +3,7 @@ using System.Security.Claims;
 namespace DeviceControl.Source.Shared.Utils;
 
 // ReSharper disable once ClassNeverInstantiated.Global
-public class RedirectHelper(IAuthorizationService authorizationService)
+public sealed class RedirectHelper(IAuthorizationService authorizationService)
 {
     #region Private
 

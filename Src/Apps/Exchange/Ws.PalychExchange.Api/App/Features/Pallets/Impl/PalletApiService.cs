@@ -3,7 +3,7 @@ using Ws.Database.EntityFramework.Entities.Print.Pallets;
 using Ws.PalychExchange.Api.App.Features.Pallets.Common;
 using Ws.PalychExchange.Api.App.Features.Pallets.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Pallets.Services;
+namespace Ws.PalychExchange.Api.App.Features.Pallets.Impl;
 
 internal sealed class PalletApiService(WsDbContext context) : IPalletService
 {

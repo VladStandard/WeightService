@@ -2,7 +2,7 @@ using Microsoft.Extensions.Localization;
 using Ws.DeviceControl.Api.App.Shared.Localization;
 using Ws.Shared.Resources;
 
-namespace Ws.DeviceControl.Api.App.Shared;
+namespace Ws.DeviceControl.Api.App.Shared.Helpers;
 
 public sealed class ErrorHelper(
     IStringLocalizer<ApplicationResources> localizer,

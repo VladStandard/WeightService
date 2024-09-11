@@ -6,7 +6,7 @@ using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;
 
 [ApiController]
-[Route(RouteUtil.PalletMen)]
+[Route(ApiEndpoints.PalletMen)]
 [Authorize(PolicyEnum.Support)]
 public class PalletManController(IPalletManService palletManService)
 {

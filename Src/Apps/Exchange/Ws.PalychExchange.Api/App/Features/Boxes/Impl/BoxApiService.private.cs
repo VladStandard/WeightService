@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchange.Api.App.Features.Boxes.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Boxes.Services;
+namespace Ws.PalychExchange.Api.App.Features.Boxes.Impl;
 
 internal partial class BoxApiService
 {

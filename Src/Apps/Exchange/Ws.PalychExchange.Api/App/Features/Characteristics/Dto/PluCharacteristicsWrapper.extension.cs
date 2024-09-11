@@ -1,3 +1,4 @@
+using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Dto;

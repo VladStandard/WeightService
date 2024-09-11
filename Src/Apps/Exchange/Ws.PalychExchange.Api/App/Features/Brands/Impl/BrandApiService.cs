@@ -1,7 +1,7 @@
 using Ws.PalychExchange.Api.App.Features.Brands.Common;
 using Ws.PalychExchange.Api.App.Features.Brands.Dto;
 
-namespace Ws.PalychExchange.Api.App.Features.Brands.Services;
+namespace Ws.PalychExchange.Api.App.Features.Brands.Impl;
 
 internal sealed partial class BrandApiService(BrandDtoValidator validator) : BaseService<BrandDto>(validator), IBrandService
 {

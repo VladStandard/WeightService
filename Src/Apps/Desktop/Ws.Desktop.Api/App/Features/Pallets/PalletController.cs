@@ -1,8 +1,5 @@
 using System.ComponentModel;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
-using Ws.Desktop.Api.App.Shared.Auth;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
@@ -10,7 +7,7 @@ namespace Ws.Desktop.Api.App.Features.Pallets;
 
 [ApiController]
 [Authorize(PolicyEnum.Pc)]
-[Route(RouteUtil.Pallets)]
+[Route(ApiEndpoints.Pallets)]
 public class PalletController(IPalletApiService palletApiService) : ControllerBase
 {
     #region Queries

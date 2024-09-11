@@ -1,6 +1,6 @@
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
-namespace Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
+namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 
 internal record GroupedCharacteristic : BaseDto
 {

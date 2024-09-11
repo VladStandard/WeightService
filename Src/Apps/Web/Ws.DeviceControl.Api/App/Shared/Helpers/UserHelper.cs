@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace Ws.DeviceControl.Api.App.Shared.Internal;
+namespace Ws.DeviceControl.Api.App.Shared.Helpers;
 
 public sealed class UserHelper(
     IHttpContextAccessor httpContextAccessor,

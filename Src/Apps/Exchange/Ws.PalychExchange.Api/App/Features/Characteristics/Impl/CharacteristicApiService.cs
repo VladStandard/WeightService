@@ -1,8 +1,9 @@
 using Ws.PalychExchange.Api.App.Features.Characteristics.Common;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Dto;
+using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
-namespace Ws.PalychExchange.Api.App.Features.Characteristics.Services;
+namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl;
 
 internal sealed partial class CharacteristicApiService(GroupedCharacteristicValidator validator) :
     BaseService<GroupedCharacteristic>(validator), ICharacteristicService

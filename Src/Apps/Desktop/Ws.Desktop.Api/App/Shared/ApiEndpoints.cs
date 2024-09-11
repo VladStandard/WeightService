@@ -1,6 +1,6 @@
-namespace Ws.Desktop.Api;
+namespace Ws.Desktop.Api.App.Shared;
 
-public static class RouteUtil
+public static class ApiEndpoints
 {
     public const string Arms = "api/arms";
     public const string Plu = "api/plu";

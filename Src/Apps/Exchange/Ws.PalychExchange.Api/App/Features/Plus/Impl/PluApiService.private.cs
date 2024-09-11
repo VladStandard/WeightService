@@ -6,7 +6,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.PalychExchange.Api.App.Features.Plus.Dto;
 using Ws.Shared.Constants;
 
-namespace Ws.PalychExchange.Api.App.Features.Plus.Services;
+namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
 
 internal sealed partial class PluApiService
