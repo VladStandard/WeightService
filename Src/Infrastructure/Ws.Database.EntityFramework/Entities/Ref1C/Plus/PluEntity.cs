@@ -46,6 +46,4 @@ public sealed class PluEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
-    [NotMapped] public override bool IsNew => CreateDt.Equals(DateTime.MinValue);
 }

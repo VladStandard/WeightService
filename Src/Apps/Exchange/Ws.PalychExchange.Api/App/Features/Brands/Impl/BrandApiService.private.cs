@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
 using Ws.PalychExchange.Api.App.Features.Brands.Dto;
@@ -39,13 +40,14 @@ internal partial class BrandApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(brands, options =>
+            DbContext.BulkInsertOrUpdate(brands, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.UpdateByProperties = [nameof(BrandEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(BrandEntity.CreateDt)];
             });
+
             transaction.Commit();
+
             OutputDto.AddSuccess(brands.Select(i => i.Id).ToList());
         }
         catch (Exception)

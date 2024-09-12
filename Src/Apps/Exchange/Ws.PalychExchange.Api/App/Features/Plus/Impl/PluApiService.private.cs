@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -50,17 +51,17 @@ internal sealed partial class PluApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(plus, options =>
+            DbContext.BulkInsertOrUpdate(plus, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt, TemplateEntityId = c.TemplateId };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt, TemplateEntityId = c.TemplateId };
+                options.UpdateByProperties = [nameof(PluEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(PluEntity.CreateDt), nameof(PluEntity.TemplateId)];
             });
+
             transaction.Commit();
             SaveNestings(validDtos);
             OutputDto.AddSuccess(plus.Select(i => i.Id).ToList());
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             transaction.Rollback();
             OutputDto.AddError(plus.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
@@ -109,12 +110,10 @@ internal sealed partial class PluApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(nestings, options =>
+            DbContext.BulkInsertOrUpdate(nestings, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
-                options.MergeKeepIdentity = true;
+                options.UpdateByProperties = [nameof(NestingEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(NestingEntity.CreateDt)];
             });
             transaction.Commit();
         }

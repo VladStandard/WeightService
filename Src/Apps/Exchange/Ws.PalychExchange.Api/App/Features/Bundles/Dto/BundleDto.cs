@@ -11,12 +11,13 @@ public sealed record BundleDto : BaseDto
     [XmlAttribute("Weight")]
     public decimal Weight;
 
-    public BundleEntity ToEntity(DateTime updateDt) => new()
+    public BundleEntity ToEntity(DateTime dateTime) => new()
     {
         Id = Uid,
         Name = Name,
         Weight = Weight,
-        ChangeDt = updateDt
+        ChangeDt = dateTime,
+        CreateDt = dateTime
     };
 }
 

@@ -8,5 +8,5 @@ public static class ApiEndpoints
     public const string Clips = "api/clips";
     public const string Characteristics = "api/characteristics";
     public const string Pallets = "api/pallets";
-    public const string Plu = "api/plu";
+    public const string Plu = "api/plus";
 }

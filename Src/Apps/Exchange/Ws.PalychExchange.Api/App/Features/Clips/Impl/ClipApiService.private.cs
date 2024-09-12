@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 using Ws.PalychExchange.Api.App.Features.Clips.Dto;
@@ -14,12 +15,12 @@ internal partial class ClipApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(clips, options =>
+            DbContext.BulkInsertOrUpdate(clips, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.UpdateByProperties = [nameof(ClipEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(ClipEntity.CreateDt)];
             });
+
             transaction.Commit();
             OutputDto.AddSuccess(clips.Select(i => i.Id).ToList());
         }

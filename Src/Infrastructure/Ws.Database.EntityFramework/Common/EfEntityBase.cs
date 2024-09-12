@@ -8,6 +8,4 @@ public abstract class EfEntityBase
     [Column(SqlColumns.Uid)]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; }
-
-    [NotMapped] public virtual bool IsNew => Id.Equals(Guid.Empty);
 }

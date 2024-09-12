@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 using Ws.PalychExchange.Api.App.Features.Boxes.Dto;
@@ -14,11 +15,10 @@ internal partial class BoxApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(boxes, options =>
+            DbContext.BulkInsertOrUpdate(boxes, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.UpdateByProperties = [nameof(BoxEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(BoxEntity.CreateDt)];
             });
             transaction.Commit();
             OutputDto.AddSuccess(boxes.Select(i => i.Id).ToList());

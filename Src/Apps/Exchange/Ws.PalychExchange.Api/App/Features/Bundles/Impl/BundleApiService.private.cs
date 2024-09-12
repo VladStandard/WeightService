@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
 using Ws.PalychExchange.Api.App.Features.Bundles.Dto;
@@ -14,11 +15,10 @@ internal partial class BundleApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(bundles, options =>
+            DbContext.BulkInsertOrUpdate(bundles, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.UpdateByProperties = [nameof(BundleEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(BundleEntity.CreateDt)];
             });
             transaction.Commit();
             OutputDto.AddSuccess(bundles.Select(i => i.Id).ToList());

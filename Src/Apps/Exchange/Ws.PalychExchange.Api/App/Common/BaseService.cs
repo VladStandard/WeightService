@@ -12,59 +12,72 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
     protected readonly WsDbContext DbContext = new();
     protected readonly ResponseDto OutputDto = new();
 
-    # region ResolveUniqueLocal
-    protected void ResolveUniqueUidLocal<T>(HashSet<T> dtos) where T : BaseDto =>
+    # region ResolveLocal
+
+    protected void FilterValidDtos(HashSet<TDto> dtos)
+    {
+        dtos.RemoveWhere(IsNotValid);
+        return;
+
+        bool IsNotValid(TDto dto)
+        {
+            ValidationResult validationResult = _validator.Validate(new ValidationContext<TDto>(dto));
+            if (validationResult.IsValid) return false;
+
+            OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
+            return true;
+        }
+    }
+
+    protected void ResolveUniqueUidLocal(HashSet<TDto> dtos) =>
         ResolveUniqueLocal(dtos, arg => arg.Uid, "Uid - не уникален");
 
-    protected void ResolveUniqueLocal<T, TKey>(HashSet<T> dtos, Func<T, TKey> groupBy, string msg) where T : BaseDto
+    protected void ResolveUniqueLocal<TKey>(HashSet<TDto> dtos, Func<TDto, TKey> groupBy, string msg)
     {
-        List<Guid> duplicates = dtos
-            .GroupBy(groupBy)
-            .Where(group => group.Count() > 1)
-            .SelectMany(group => group)
-            .Select(dto => dto.Uid)
-            .ToList();
+        HashSet<TKey> seenKeys = [];
+        HashSet<Guid> duplicatesKeys = [];
 
-        dtos.RemoveWhere(dto =>
+        foreach (TDto dto in dtos)
         {
-            if (!duplicates.Contains(dto.Uid)) return false;
+            TKey key = groupBy(dto);
+            if (!seenKeys.Add(key))
+                duplicatesKeys.Add(dto.Uid);
+        }
+
+        dtos.RemoveWhere(IsNotValid);
+        return;
+
+        bool IsNotValid(TDto dto)
+        {
+            if (!duplicatesKeys.Contains(dto.Uid))
+                return false;
             OutputDto.AddError(dto.Uid, msg);
             return true;
-        });
+        }
     }
 
     # endregion
 
-    protected void ResolveNotExistsFkDb<T, TEntity>(HashSet<T> dtos, DbSet<TEntity> dbSet, Func<T, Guid> select, string msg)
-        where T : BaseDto where TEntity : EfEntityBase
+    protected void ResolveNotExistsFkDb<TEntity>(HashSet<TDto> dtos, DbSet<TEntity> dbSet, Func<TDto, Guid> select, string msg)
+        where TEntity : EfEntityBase
     {
         HashSet<Guid> uidsFkList = dtos.Select(select).ToHashSet();
 
-        HashSet<Guid> existing = dbSet
+        HashSet<Guid> existingInDb = dbSet
             .Where(entity => uidsFkList.Contains(entity.Id))
             .Select(entity => entity.Id)
             .ToHashSet();
 
-        dtos.RemoveWhere(dto =>
+        dtos.RemoveWhere(IsNotValid);
+        return;
+
+        bool IsNotValid(TDto dto)
         {
-            if (existing.Contains(select(dto)))
+            Guid id = select(dto);
+            if (existingInDb.Contains(id))
                 return false;
-            OutputDto.AddError(select(dto), msg);
+            OutputDto.AddError(id, msg);
             return true;
-        });
-    }
-
-    protected void FilterValidDtos(HashSet<TDto> dtos)
-    {
-        dtos.RemoveWhere(i =>
-        {
-            ValidationContext<TDto> context = new(i);
-            ValidationResult validationResult = _validator.Validate(context);
-
-            if (validationResult.IsValid) return false;
-
-            OutputDto.AddError(i.Uid, validationResult.Errors.First().ErrorMessage);
-            return true;
-        });
+        }
     }
 }

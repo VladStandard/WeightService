@@ -11,12 +11,13 @@ public sealed record ClipDto : BaseDto
     [XmlAttribute("Weight")]
     public decimal Weight;
 
-    public ClipEntity ToEntity(DateTime updateDt) => new()
+    public ClipEntity ToEntity(DateTime dateTime) => new()
     {
         Id = Uid,
         Name = Name,
         Weight = Weight,
-        ChangeDt = updateDt
+        ChangeDt = dateTime,
+        CreateDt = dateTime
     };
 }
 

@@ -1,3 +1,4 @@
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
@@ -79,11 +80,10 @@ internal partial class CharacteristicApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkMerge(characteristics, options =>
+            DbContext.BulkInsertOrUpdate(characteristics, options =>
             {
-                options.InsertIfNotExists = true;
-                options.IgnoreOnMergeInsertExpression = c => new { c.CreateDt, c.ChangeDt };
-                options.IgnoreOnMergeUpdateExpression = c => new { c.CreateDt };
+                options.UpdateByProperties = [nameof(CharacteristicEntity.Id)];
+                options.PropertiesToExcludeOnUpdate = [nameof(CharacteristicEntity.CreateDt)];
             });
             transaction.Commit();
             OutputDto.AddSuccess(characteristics.Select(i => i.Id).ToList());
