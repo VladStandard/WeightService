@@ -2,11 +2,25 @@ using System.Text;
 
 namespace Ws.PalychExchange.Api.App.Shared.Middlewares;
 
-public class LoggingMiddleware(
-    RequestDelegate next,
-    ILogger<LoggingMiddleware> logger)
+public class LoggingMiddleware(ILogger<LoggingMiddleware> logger) : IMiddleware
 {
-    public async Task InvokeAsync(HttpContext context)
+    private static bool TryDeserializeResponseDto(string responseText, out ResponseDto responseDto)
+    {
+        try
+        {
+            using var reader = new StringReader(responseText);
+
+            responseDto = (ResponseDto)new XmlSerializer(typeof(ResponseDto)).Deserialize(reader)!;
+            return true;
+        }
+        catch (Exception)
+        {
+            responseDto = new();
+            return false;
+        }
+    }
+
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         Stream originalBodyStream = context.Response.Body;
 
@@ -34,21 +48,5 @@ public class LoggingMiddleware(
         responseBody.Seek(0, SeekOrigin.Begin);
         await responseBody.CopyToAsync(originalBodyStream);
         context.Response.Body = originalBodyStream;
-    }
-
-    private static bool TryDeserializeResponseDto(string responseText, out ResponseDto responseDto)
-    {
-        try
-        {
-            using var reader = new StringReader(responseText);
-
-            responseDto = (ResponseDto)new XmlSerializer(typeof(ResponseDto)).Deserialize(reader)!;
-            return true;
-        }
-        catch (Exception)
-        {
-            responseDto = new();
-            return false;
-        }
     }
 }
