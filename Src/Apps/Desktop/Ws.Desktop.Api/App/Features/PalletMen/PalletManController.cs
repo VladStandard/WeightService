@@ -6,7 +6,7 @@ namespace Ws.Desktop.Api.App.Features.PalletMen;
 [ApiController]
 [Authorize(PolicyEnum.Pc)]
 [Route(ApiEndpoints.PalletMen)]
-public class PalletManController(IPalletManService palletManService)
+public sealed class PalletManController(IPalletManService palletManService)
 {
     #region Queries
 

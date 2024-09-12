@@ -5,15 +5,14 @@ namespace Ws.PalychExchange.Api.App.Features.Brands.Impl;
 
 internal sealed partial class BrandApiService(BrandDtoValidator validator) : BaseService<BrandDto>(validator), IBrandService
 {
-    public ResponseDto Load(BrandsWrapper dtoWrapper)
+    public ResponseDto Load(HashSet<BrandDto> dtos)
     {
-        ResolveUniqueUidLocal(dtoWrapper.Brands);
-        ResolveUniqueLocal(dtoWrapper.Brands, dto => dto.Name, "Name - не уникален");
+        ResolveUniqueUidLocal(dtos);
+        ResolveUniqueLocal(dtos, dto => dto.Name, "Name - не уникален");
 
-        List<BrandDto> validDtos = FilterValidDtos(dtoWrapper.Brands);
-
-        ResolveUniqueNameDb(validDtos);
-        SaveBrands(validDtos);
+        FilterValidDtos(dtos);
+        ResolveUniqueNameDb(dtos);
+        SaveBrands(dtos);
 
         return OutputDto;
     }

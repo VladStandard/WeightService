@@ -8,7 +8,7 @@ internal partial class BrandApiService
 {
     #region Resolve uniques db
 
-    private void ResolveUniqueNameDb(List<BrandDto> dtos)
+    private void ResolveUniqueNameDb(HashSet<BrandDto> dtos)
     {
         HashSet<string> namesList = dtos.Select(dto => dto.Name).ToHashSet();
         HashSet<Guid> uidList = dtos.Select(dto => dto.Uid).ToHashSet();
@@ -21,7 +21,7 @@ internal partial class BrandApiService
             .Select(brand => brand.Name)
             .ToHashSet();
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (!existingNames.Contains(dto.Name)) return false;
             OutputDto.AddError(dto.Uid, "Наименование не уникально (бд)");
@@ -31,7 +31,7 @@ internal partial class BrandApiService
 
     #endregion
 
-    private void SaveBrands(IEnumerable<BrandDto> validDtos)
+    private void SaveBrands(HashSet<BrandDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();

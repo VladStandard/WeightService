@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Clips.Dto;
 public sealed class ClipsWrapper
 {
     [XmlElement("Clip")]
-    public List<ClipDto> Clips { get; set; } = [];
+    public HashSet<ClipDto> Clips { get; set; } = [];
 }

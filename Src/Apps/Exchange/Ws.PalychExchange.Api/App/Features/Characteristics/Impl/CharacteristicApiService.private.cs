@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage;
 using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
-using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl;
 
@@ -9,7 +8,7 @@ internal partial class CharacteristicApiService
 {
     #region Resolve uniques Db
 
-    private void ResolveUniqueDb(List<GroupedCharacteristic> dtos)
+    private void ResolveUniqueDb(HashSet<GroupedCharacteristic> dtos)
     {
         HashSet<Guid> boxUids = dtos.Select(x => x.BoxUid).ToHashSet();
         HashSet<Guid> pluUids = dtos.Select(x => x.PluUid).ToHashSet();
@@ -35,7 +34,7 @@ internal partial class CharacteristicApiService
             .ToList();
 
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (!existingPairs.Any(uniq =>
                     dto.Uid == uniq.PluUid &&
@@ -48,7 +47,7 @@ internal partial class CharacteristicApiService
         });
     }
 
-    private void ResolveIsWeightDb(List<GroupedCharacteristic> dtos)
+    private void ResolveIsWeightDb(HashSet<GroupedCharacteristic> dtos)
     {
         HashSet<Guid> charUids = dtos.Select(x => x.Uid).ToHashSet();
 
@@ -62,7 +61,7 @@ internal partial class CharacteristicApiService
             .ToList();
 
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (!weightPlu.Contains(dto.PluUid)) return false;
             OutputDto.AddError(dto.Uid, "Характеристика - принадлежит весовой плу");
@@ -72,7 +71,7 @@ internal partial class CharacteristicApiService
 
     #endregion
 
-    private void SaveCharacteristics(IEnumerable<GroupedCharacteristic> dtos)
+    private void SaveCharacteristics(HashSet<GroupedCharacteristic> dtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<CharacteristicEntity> characteristics = dtos.Select(i => i.ToEntity(updateDt)).ToList();
@@ -96,7 +95,7 @@ internal partial class CharacteristicApiService
         }
     }
 
-    private void DeleteCharacteristics(List<GroupedCharacteristic> dtos)
+    private void DeleteCharacteristics(HashSet<GroupedCharacteristic> dtos)
     {
         List<CharacteristicEntity> characteristicToDelete =
             dtos.Where(dto => dto.IsDelete)
@@ -121,7 +120,7 @@ internal partial class CharacteristicApiService
         }
         finally
         {
-            dtos.RemoveAll(dto => deletedUid.Contains(dto.Uid));
+            dtos.RemoveWhere(dto => deletedUid.Contains(dto.Uid));
         }
     }
 }

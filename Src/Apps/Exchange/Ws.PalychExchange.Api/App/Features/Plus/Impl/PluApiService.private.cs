@@ -13,7 +13,7 @@ internal sealed partial class PluApiService
 {
     #region Resolve uniques db
 
-    private void ResolveUniqueNumberDb(List<PluDto> dtos)
+    private void ResolveUniqueNumberDb(HashSet<PluDto> dtos)
     {
         HashSet<short> numbers = dtos.Select(dto => dto.Number).ToHashSet();
         HashSet<Guid> plusUid = dtos.Select(dto => dto.Uid).ToHashSet();
@@ -23,7 +23,7 @@ internal sealed partial class PluApiService
             .Select(i => i.Number)
             .ToList();
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (!existingNumbers.Contains(dto.Number)) return false;
             OutputDto.AddError(dto.Uid, $"Номер плу - ({dto.Number}) не уникален (бд)");
@@ -33,16 +33,16 @@ internal sealed partial class PluApiService
 
     #endregion
 
-    private void SetDefaultFk(List<PluDto> validDtos)
+    private void SetDefaultFk(HashSet<PluDto> validDtos)
     {
-        validDtos.ForEach(i =>
+        foreach (PluDto i in validDtos)
         {
             i.ClipUid = i.ClipUid == Guid.Empty ? DefaultConsts.GuidMax : i.ClipUid;
             i.BundleUid = i.BundleUid == Guid.Empty ? DefaultConsts.GuidMax : i.BundleUid;
-        });
+        }
     }
 
-    private void SavePlus(IReadOnlyCollection<PluDto> validDtos)
+    private void SavePlus(HashSet<PluDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<PluEntity> plus = validDtos.Select(dto => dto.ToPluEntity(updateDt)).ToList();
@@ -67,7 +67,7 @@ internal sealed partial class PluApiService
         }
     }
 
-    private void DeleteNestings(List<PluDto> dtos)
+    private void DeleteNestings(HashSet<PluDto> dtos)
     {
         List<Guid> uidToDelete = dtos.Where(dto => dto.IsDelete).Select(dto => dto.Uid).ToList();
 
@@ -97,11 +97,11 @@ internal sealed partial class PluApiService
         }
         finally
         {
-            dtos.RemoveAll(dto => uidToDelete.Contains(dto.Uid));
+            dtos.RemoveWhere(dto => uidToDelete.Contains(dto.Uid));
         }
     }
 
-    private void SaveNestings(IEnumerable<PluDto> validDtos)
+    private void SaveNestings(HashSet<PluDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<NestingEntity> nestings = validDtos.Select(dto => dto.ToNestingEntity(updateDt)).ToList();

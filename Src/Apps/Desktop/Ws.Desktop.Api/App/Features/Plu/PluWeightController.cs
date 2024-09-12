@@ -10,7 +10,7 @@ namespace Ws.Desktop.Api.App.Features.Plu;
 [ApiController]
 [Authorize]
 [Route(ApiEndpoints.Plu)]
-public class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
+public sealed class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
 {
     #region Queries
 

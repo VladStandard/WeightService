@@ -4,7 +4,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Bundles;
 
 [ApiController]
 [Route(ApiEndpoints.Bundles)]
-public class BundleController(IBundleService bundleService)
+public sealed class BundleController(IBundleService bundleService)
 {
     #region Queries
 

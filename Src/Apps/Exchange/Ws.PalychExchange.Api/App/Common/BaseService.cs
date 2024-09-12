@@ -13,10 +13,10 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
     protected readonly ResponseDto OutputDto = new();
 
     # region ResolveUniqueLocal
-    protected void ResolveUniqueUidLocal<T>(List<T> dtos) where T : BaseDto =>
+    protected void ResolveUniqueUidLocal<T>(HashSet<T> dtos) where T : BaseDto =>
         ResolveUniqueLocal(dtos, arg => arg.Uid, "Uid - не уникален");
 
-    protected void ResolveUniqueLocal<T, TKey>(List<T> dtos, Func<T, TKey> groupBy, string msg) where T : BaseDto
+    protected void ResolveUniqueLocal<T, TKey>(HashSet<T> dtos, Func<T, TKey> groupBy, string msg) where T : BaseDto
     {
         List<Guid> duplicates = dtos
             .GroupBy(groupBy)
@@ -25,7 +25,7 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
             .Select(dto => dto.Uid)
             .ToList();
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (!duplicates.Contains(dto.Uid)) return false;
             OutputDto.AddError(dto.Uid, msg);
@@ -35,7 +35,7 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
 
     # endregion
 
-    protected void ResolveNotExistsFkDb<T, TEntity>(List<T> dtos, DbSet<TEntity> dbSet, Func<T, Guid> select, string msg)
+    protected void ResolveNotExistsFkDb<T, TEntity>(HashSet<T> dtos, DbSet<TEntity> dbSet, Func<T, Guid> select, string msg)
         where T : BaseDto where TEntity : EfEntityBase
     {
         HashSet<Guid> uidsFkList = dtos.Select(select).ToHashSet();
@@ -45,7 +45,7 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
             .Select(entity => entity.Id)
             .ToHashSet();
 
-        dtos.RemoveAll(dto =>
+        dtos.RemoveWhere(dto =>
         {
             if (existing.Contains(select(dto)))
                 return false;
@@ -54,17 +54,17 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
         });
     }
 
-    protected List<TDto> FilterValidDtos(IEnumerable<TDto> dtos)
+    protected void FilterValidDtos(HashSet<TDto> dtos)
     {
-        return dtos.Where(i =>
+        dtos.RemoveWhere(i =>
         {
             ValidationContext<TDto> context = new(i);
             ValidationResult validationResult = _validator.Validate(context);
 
-            if (validationResult.IsValid) return true;
+            if (validationResult.IsValid) return false;
 
             OutputDto.AddError(i.Uid, validationResult.Errors.First().ErrorMessage);
-            return false;
-        }).ToList();
+            return true;
+        });
     }
 }

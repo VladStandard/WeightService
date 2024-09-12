@@ -5,7 +5,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Plus;
 
 [ApiController]
 [Route(ApiEndpoints.Plu)]
-public class PluController(IPluService pluService)
+public sealed class PluController(IPluService pluService)
 {
     #region Queries
 

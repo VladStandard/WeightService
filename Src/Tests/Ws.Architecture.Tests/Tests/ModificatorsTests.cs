@@ -28,12 +28,28 @@ public class ModificatorsTests
             .AreClasses()
             .And()
             .HaveNameEndingWith("ApiService")
-            .And()
-            .AreNotAbstract()
             .Should()
             .BeSealed()
             .And()
             .BeInternal()
+            .GetResult();
+
+        result.FailingTypes.Should().BeEmpty();
+    }
+
+    [Theory]
+    [MemberData(nameof(ApiAssemblies))]
+    public void All_Controllers_Should_Be_Sealed_And_Public(string _, Assembly project)
+    {
+        TestResult? result = Types.InAssembly(project)
+            .That()
+            .AreClasses()
+            .And()
+            .HaveNameEndingWith("Controller")
+            .Should()
+            .BeSealed()
+            .And()
+            .BePublic()
             .GetResult();
 
         result.FailingTypes.Should().BeEmpty();
@@ -54,5 +70,4 @@ public class ModificatorsTests
 
         result.FailingTypes.Should().BeEmpty();
     }
-
 }

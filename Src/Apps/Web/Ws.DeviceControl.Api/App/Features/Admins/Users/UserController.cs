@@ -6,7 +6,7 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.Users;
 [ApiController]
 [Route(ApiEndpoints.Users)]
 [Authorize(PolicyEnum.SeniorSupport)]
-public class UserController(IUserService userService)
+public sealed class UserController(IUserService userService)
 {
     #region Queries
 

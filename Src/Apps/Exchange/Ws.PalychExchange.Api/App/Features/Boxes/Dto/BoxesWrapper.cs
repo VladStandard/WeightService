@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Boxes.Dto;
 public sealed record BoxesWrapper
 {
     [XmlElement("Box")]
-    public List<BoxDto> Boxes { get; set; } = [];
+    public HashSet<BoxDto> Boxes { get; set; } = [];
 }

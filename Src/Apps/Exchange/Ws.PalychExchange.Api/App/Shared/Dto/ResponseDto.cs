@@ -18,15 +18,15 @@ public sealed class ResponseDto
     }
 
     [XmlArray("Successes"), XmlArrayItem("Record")]
-    public List<ResponseSuccesses> Successes { get; set; } = [];
+    public HashSet<ResponseSuccesses> Successes { get; set; } = [];
 
     [XmlArray("Errors"), XmlArrayItem("Record")]
-    public List<ResponseError> Errors { get; set; } = [];
+    public HashSet<ResponseError> Errors { get; set; } = [];
 
     public void AddSuccess(IEnumerable<Guid> uidList)
     {
-        uidList = uidList.ToHashSet();
-        Successes.AddRange(uidList.Select(uid => new ResponseSuccesses(uid)));
+        foreach (Guid uid in uidList.ToHashSet())
+            Successes.Add(new(uid));
     }
 
     public void AddError(Guid uid, string msg)
@@ -36,7 +36,7 @@ public sealed class ResponseDto
 
     public void AddError(IEnumerable<Guid> uidList, string msg)
     {
-        uidList = uidList.ToHashSet();
-        Errors.AddRange(uidList.Select(uid => new ResponseError(uid, msg)));
+        foreach (Guid uid in uidList.ToHashSet())
+            AddError(uid, msg);
     }
 }

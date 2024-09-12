@@ -4,7 +4,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Boxes;
 
 [ApiController]
 [Route(ApiEndpoints.Boxes)]
-public class BoxController(IBoxService boxService)
+public sealed class BoxController(IBoxService boxService)
 {
     #region Queries
 

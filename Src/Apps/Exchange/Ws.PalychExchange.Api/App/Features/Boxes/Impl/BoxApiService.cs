@@ -5,11 +5,11 @@ namespace Ws.PalychExchange.Api.App.Features.Boxes.Impl;
 
 internal sealed partial class BoxApiService(BoxDtoValidator validator) : BaseService<BoxDto>(validator), IBoxService
 {
-    public ResponseDto Load(BoxesWrapper dtoWrapper)
+    public ResponseDto Load(HashSet<BoxDto> dtos)
     {
-        ResolveUniqueUidLocal(dtoWrapper.Boxes);
-        IEnumerable<BoxDto> validDtos = FilterValidDtos(dtoWrapper.Boxes);
-        SaveBoxes(validDtos);
+        ResolveUniqueUidLocal(dtos);
+        FilterValidDtos(dtos);
+        SaveBoxes(dtos);
         return OutputDto;
     }
 }

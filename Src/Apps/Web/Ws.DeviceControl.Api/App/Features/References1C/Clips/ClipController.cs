@@ -4,7 +4,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Clips;
 
 [ApiController]
 [Route(ApiEndpoints.Clips)]
-public class ClipController(IClipService clipService)
+public sealed class ClipController(IClipService clipService)
 {
     #region Queries
 

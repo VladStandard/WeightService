@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Clips.Common;
 
 public interface IClipService
 {
-    ResponseDto Load(ClipsWrapper dtoWrapper);
+    ResponseDto Load(HashSet<ClipDto> dtos);
 }

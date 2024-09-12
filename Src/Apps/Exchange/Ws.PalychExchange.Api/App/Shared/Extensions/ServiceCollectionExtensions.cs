@@ -8,12 +8,11 @@ public static class DiExtension
     {
         Type validatorType = typeof(AbstractValidator<>);
 
-        List<Type> validatorTypes = typeof(BoxDtoValidator).Assembly.GetTypes().Where(t =>
-                t.BaseType is { IsGenericType: true } && t.BaseType.GetGenericTypeDefinition() == validatorType
-            ).ToList();
-
-        foreach (var validator in validatorTypes)
-            services.AddTransient(validator);
+        typeof(BoxDtoValidator).Assembly.GetTypes()
+            .Where(t => t.BaseType is { IsGenericType: true }
+                        && t.BaseType.GetGenericTypeDefinition() == validatorType)
+            .ToList().
+            ForEach(i => services.AddTransient(i));
 
         return services;
     }

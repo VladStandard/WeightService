@@ -6,7 +6,7 @@ namespace Ws.PalychExchange.Api.App.Features.Bundles.Impl;
 
 internal partial class BundleApiService
 {
-    private void SaveBundles(IEnumerable<BundleDto> validDtos)
+    private void SaveBundles(HashSet<BundleDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<BundleEntity> bundles = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();

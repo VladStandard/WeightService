@@ -1,5 +1,4 @@
 using Ws.PalychExchange.Api.App.Features.Characteristics.Common;
-using Ws.PalychExchange.Api.App.Features.Characteristics.Dto;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
@@ -8,28 +7,26 @@ namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl;
 internal sealed partial class CharacteristicApiService(GroupedCharacteristicValidator validator) :
     BaseService<GroupedCharacteristic>(validator), ICharacteristicService
 {
-    public ResponseDto Load(PluCharacteristicsWrapper dtoWrapper)
+    public ResponseDto Load(HashSet<GroupedCharacteristic> dtos)
     {
-        List<GroupedCharacteristic> grouped = dtoWrapper.ToGrouped();
-        ResolveUniqueUidLocal(grouped);
-
-        DeleteCharacteristics(grouped);
+        ResolveUniqueUidLocal(dtos);
+        DeleteCharacteristics(dtos);
 
         ResolveUniqueLocal(
-            grouped,
+            dtos,
             dto => (dto.PluUid, dto.BoxUid, dto.BundleCount),
             "Характеристика - (Box, Plu, BundleCount) не уникальна"
         );
 
-        List<GroupedCharacteristic> validDtos = FilterValidDtos(grouped);
+        FilterValidDtos(dtos);
 
-        ResolveUniqueDb(validDtos);
-        ResolveIsWeightDb(validDtos);
+        ResolveUniqueDb(dtos);
+        ResolveIsWeightDb(dtos);
 
-        ResolveNotExistsFkDb(validDtos, DbContext.Plus, dto => dto.PluUid, "Плу - не найдена");
-        ResolveNotExistsFkDb(validDtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
+        ResolveNotExistsFkDb(dtos, DbContext.Plus, dto => dto.PluUid, "Плу - не найдена");
+        ResolveNotExistsFkDb(dtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
 
-        SaveCharacteristics(validDtos);
+        SaveCharacteristics(dtos);
         return OutputDto;
     }
 }

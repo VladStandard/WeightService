@@ -5,11 +5,11 @@ namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;
 
 internal sealed partial class ClipApiService(ClipDtoValidator validator) : BaseService<ClipDto>(validator), IClipService
 {
-    public ResponseDto Load(ClipsWrapper dtoWrapper)
+    public ResponseDto Load(HashSet<ClipDto> dtos)
     {
-        ResolveUniqueUidLocal(dtoWrapper.Clips);
-        IEnumerable<ClipDto> validDtos = FilterValidDtos(dtoWrapper.Clips);
-        SaveClips(validDtos);
+        ResolveUniqueUidLocal(dtos);
+        FilterValidDtos(dtos);
+        SaveClips(dtos);
         return OutputDto;
     }
 }

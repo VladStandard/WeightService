@@ -6,7 +6,7 @@ namespace Ws.PalychExchange.Api.App.Features.Boxes.Impl;
 
 internal partial class BoxApiService
 {
-    private void SaveBoxes(IEnumerable<BoxDto> validDtos)
+    private void SaveBoxes(HashSet<BoxDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();

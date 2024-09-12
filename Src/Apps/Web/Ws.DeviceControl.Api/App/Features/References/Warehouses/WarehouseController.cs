@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.References.Warehouses;
 
 [ApiController]
 [Route(ApiEndpoints.Warehouses)]
-public class WarehouseController(IWarehouseService warehouseService)
+public sealed class WarehouseController(IWarehouseService warehouseService)
 {
     #region Queries
 

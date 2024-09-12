@@ -8,7 +8,7 @@ namespace Ws.DeviceControl.Api.App.Features.Devices.Arms;
 [ApiController]
 [Route(ApiEndpoints.Arms)]
 [Authorize(PolicyEnum.Support)]
-public class ArmController(IArmService armService)
+public sealed class ArmController(IArmService armService)
 {
     #region Queries
 

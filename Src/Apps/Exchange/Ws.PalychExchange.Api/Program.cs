@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database.EntityFramework;
 using Ws.PalychExchange.Api;
 using Ws.PalychExchange.Api.App.Shared.Extensions;
@@ -7,7 +8,11 @@ using Ws.Shared.Extensions;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddControllers()
+    .AddControllers(options =>
+    {
+        options.Filters.Add(new AllowAnonymousFilter());
+        options.Filters.Add(new ProducesAttribute("application/xml"));
+    })
     .AddXmlSerializerFormatters();
 
 builder.Services
@@ -34,6 +39,7 @@ app.UseMiddleware<LoggingMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
+app.UseRouting();
 app.MapControllers();
 
 app.Run();

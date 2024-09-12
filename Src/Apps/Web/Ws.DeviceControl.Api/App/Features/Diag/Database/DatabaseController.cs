@@ -6,7 +6,7 @@ namespace Ws.DeviceControl.Api.App.Features.Diag.Database;
 [ApiController]
 [Authorize(PolicyEnum.Admin)]
 [Route(ApiEndpoints.Database)]
-public class DatabaseController(IDatabaseService databaseService)
+public sealed class DatabaseController(IDatabaseService databaseService)
 {
     #region Queries
 

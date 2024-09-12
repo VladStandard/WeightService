@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Bundles.Dto;
 public sealed class BundlesWrapper
 {
     [XmlElement("Bundle")]
-    public List<BundleDto> Bundles { get; set; } = [];
+    public HashSet<BundleDto> Bundles { get; set; } = [];
 }

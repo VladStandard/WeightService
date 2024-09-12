@@ -6,7 +6,7 @@ namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;
 
 internal partial class ClipApiService
 {
-    private void SaveClips(IEnumerable<ClipDto> validDtos)
+    private void SaveClips(HashSet<ClipDto> validDtos)
     {
         DateTime updateDt = DateTime.UtcNow.AddHours(3);
         List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();

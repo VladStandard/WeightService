@@ -5,25 +5,25 @@ namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
 internal sealed partial class PluApiService(PluDtoValidator validator) : BaseService<PluDto>(validator), IPluService
 {
-    public ResponseDto Load(PlusWrapper dtoWrapper)
+    public ResponseDto Load(HashSet<PluDto> dtos)
     {
-        ResolveUniqueUidLocal(dtoWrapper.Plus);
-        DeleteNestings(dtoWrapper.Plus);
+        ResolveUniqueUidLocal(dtos);
+        DeleteNestings(dtos);
 
-        ResolveUniqueLocal(dtoWrapper.Plus, dto => dto.Number, "Номер (внутри запроса) - не уникален");
+        ResolveUniqueLocal(dtos, dto => dto.Number, "Номер (внутри запроса) - не уникален");
 
-        List<PluDto> validDtos = FilterValidDtos(dtoWrapper.Plus);
+        FilterValidDtos(dtos);
 
-        ResolveUniqueNumberDb(validDtos);
+        ResolveUniqueNumberDb(dtos);
 
-        SetDefaultFk(validDtos);
+        SetDefaultFk(dtos);
 
-        ResolveNotExistsFkDb(validDtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
-        ResolveNotExistsFkDb(validDtos, DbContext.Clips, dto => dto.ClipUid, "Клипса - не найдена");
-        ResolveNotExistsFkDb(validDtos, DbContext.Brands, dto => dto.BrandUid, "Бренд - не найден");
-        ResolveNotExistsFkDb(validDtos, DbContext.Bundles, dto => dto.BundleUid, "Пакет - не найден");
+        ResolveNotExistsFkDb(dtos, DbContext.Boxes, dto => dto.BoxUid, "Коробка - не найдена");
+        ResolveNotExistsFkDb(dtos, DbContext.Clips, dto => dto.ClipUid, "Клипса - не найдена");
+        ResolveNotExistsFkDb(dtos, DbContext.Brands, dto => dto.BrandUid, "Бренд - не найден");
+        ResolveNotExistsFkDb(dtos, DbContext.Bundles, dto => dto.BundleUid, "Пакет - не найден");
 
-        SavePlus(validDtos);
+        SavePlus(dtos);
         return OutputDto;
     }
 }

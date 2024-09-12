@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Plus.Dto;
 public sealed class PlusWrapper
 {
     [XmlElement("Plu")]
-    public List<PluDto> Plus { get; set; } = [];
+    public HashSet<PluDto> Plus { get; set; } = [];
 }

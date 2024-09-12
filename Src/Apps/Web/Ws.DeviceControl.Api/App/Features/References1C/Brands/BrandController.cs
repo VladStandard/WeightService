@@ -6,7 +6,7 @@ namespace Ws.DeviceControl.Api.App.Features.References1C.Brands;
 
 [ApiController]
 [Route(ApiEndpoints.Brands)]
-public class BrandController(IBrandService brandService)
+public sealed class BrandController(IBrandService brandService)
 {
     #region Queries
 

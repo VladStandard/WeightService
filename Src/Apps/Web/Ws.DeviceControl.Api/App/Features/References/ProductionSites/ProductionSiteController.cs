@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites;
 
 [ApiController]
 [Route(ApiEndpoints.ProductionSites)]
-public class ProductionSiteController(IProductionSiteService productionSiteService)
+public sealed class ProductionSiteController(IProductionSiteService productionSiteService)
 {
     #region Queries
 

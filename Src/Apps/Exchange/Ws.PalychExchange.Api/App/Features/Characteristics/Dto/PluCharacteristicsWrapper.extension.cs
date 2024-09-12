@@ -1,11 +1,10 @@
 using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
-using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Dto;
 
 internal static class PluCharacteristicsWrapperExtensions
 {
-    internal static List<GroupedCharacteristic> ToGrouped(this PluCharacteristicsWrapper dto)
+    internal static HashSet<GroupedCharacteristic> ToGrouped(this PluCharacteristicsWrapper dto)
     {
         return dto.PluCharacteristics.SelectMany(plu => plu.Characteristics
             .GroupBy(characteristic => new GroupedCharacteristic
@@ -18,6 +17,6 @@ internal static class PluCharacteristicsWrapperExtensions
                 BundleCount = characteristic.BundleCount
             })
             .Select(group => group.Key))
-        .ToList();
+        .ToHashSet();
     }
 }

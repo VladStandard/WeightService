@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Characteristics.Dto;
 public sealed record PluCharacteristicsWrapper
 {
     [XmlElement("Plu")]
-    public List<PluCharacteristicsDto> PluCharacteristics { get; set; } = [];
+    public HashSet<PluCharacteristicsDto> PluCharacteristics { get; set; } = [];
 }

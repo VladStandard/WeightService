@@ -5,7 +5,7 @@ namespace Ws.DeviceControl.Api.App.Features.Print.Labels;
 
 [ApiController]
 [Route(ApiEndpoints.Labels)]
-public class LabelController(ILabelService labelService)
+public sealed class LabelController(ILabelService labelService)
 {
     #region Queries
 

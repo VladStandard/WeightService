@@ -4,5 +4,5 @@ namespace Ws.PalychExchange.Api.App.Features.Plus.Common;
 
 public interface IPluService
 {
-    public ResponseDto Load(PlusWrapper dtoWrapper);
+    public ResponseDto Load(HashSet<PluDto> dtos);
 }

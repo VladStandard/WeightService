@@ -6,5 +6,5 @@ public sealed record PluCharacteristicsDto
     public Guid Uid { get; set; }
 
     [XmlElement("Characteristic")]
-    public List<CharacteristicDto> Characteristics { get; set; } = [];
+    public HashSet<CharacteristicDto> Characteristics { get; set; } = [];
 }

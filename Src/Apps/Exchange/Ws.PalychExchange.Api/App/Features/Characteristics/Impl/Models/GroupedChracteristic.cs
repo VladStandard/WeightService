@@ -2,7 +2,7 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 
-internal record GroupedCharacteristic : BaseDto
+public record GroupedCharacteristic : BaseDto
 {
     public required Guid PluUid { get; set; }
     public required Guid BoxUid { get; set; }

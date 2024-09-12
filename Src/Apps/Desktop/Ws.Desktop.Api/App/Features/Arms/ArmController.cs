@@ -8,7 +8,7 @@ namespace Ws.Desktop.Api.App.Features.Arms;
 [Authorize]
 [ApiController]
 [Route(ApiEndpoints.Arms)]
-public class ArmController(IArmService armService) : ControllerBase
+public sealed class ArmController(IArmService armService) : ControllerBase
 {
     #region Queries
 

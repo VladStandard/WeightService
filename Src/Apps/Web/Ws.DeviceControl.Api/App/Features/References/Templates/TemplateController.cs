@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.References.Templates;
 
 [ApiController]
 [Route(ApiEndpoints.Templates)]
-public class TemplateController(ITemplateService templateService)
+public sealed class TemplateController(ITemplateService templateService)
 {
     #region Queries
 

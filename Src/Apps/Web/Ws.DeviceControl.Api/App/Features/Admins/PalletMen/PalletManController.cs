@@ -8,7 +8,7 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;
 [ApiController]
 [Route(ApiEndpoints.PalletMen)]
 [Authorize(PolicyEnum.Support)]
-public class PalletManController(IPalletManService palletManService)
+public sealed class PalletManController(IPalletManService palletManService)
 {
     #region Queries
 
