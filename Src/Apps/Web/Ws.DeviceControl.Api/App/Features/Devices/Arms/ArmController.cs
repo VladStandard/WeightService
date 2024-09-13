@@ -26,9 +26,15 @@ public sealed class ArmController(IArmService armService)
 
     #region Commands
 
+    // Support
+
     [HttpPut("{id:guid}")]
     public Task<ArmDto> Update([FromRoute] Guid id, [FromBody] ArmUpdateDto dto) =>
         armService.UpdateAsync(id, dto);
+
+    [HttpPost("{id:guid}/plus/{pluId:guid}")]
+    public Task AddPlu([FromRoute] Guid id, [FromRoute] Guid pluId) =>
+        armService.AddPluAsync(id, pluId);
 
     [HttpDelete("{id:guid}/plus/{pluId:guid}")]
     public Task DeletePlu([FromRoute] Guid id, [FromRoute] Guid pluId) =>

@@ -33,5 +33,8 @@ public interface IWebArmApi
     [Delete("/arms/{uid}/plus/{pluId}")]
     Task DeleteArmPlu(Guid uid, Guid pluId);
 
+    [Post("/arms/{uid}/plus/{pluId}")]
+    Task AddArmPlu(Guid uid, Guid pluId);
+
     #endregion
 }

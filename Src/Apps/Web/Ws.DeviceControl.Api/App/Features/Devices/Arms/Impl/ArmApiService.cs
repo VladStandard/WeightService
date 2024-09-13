@@ -111,26 +111,31 @@ internal sealed class ArmApiService(
 
     public async Task DeletePluAsync(Guid armId, Guid pluId)
     {
-        await dbContext.Lines.SafeExistAsync(i => i.Id == armId, "АРМ не найдено");
-        await dbContext.Plus.SafeExistAsync(i => i.Id == pluId, "ПЛУ не найдено");
+        LineEntity line = await dbContext.Lines
+                              .Include(l => l.Plus) // Загрузить коллекцию Plus
+                              .FirstOrDefaultAsync(l => l.Id == armId)
+                          ?? throw new("АРМ не найдено");
 
-        LineEntity lineEntity = new() { Id = armId };
-        PluEntity pluEntity = new() { Id = pluId };
-
-        dbContext.Lines.Attach(lineEntity);
-        dbContext.Plus.Attach(pluEntity);
-
-        lineEntity.Plus.Remove(pluEntity);
-
-        var lineEntry = dbContext.Entry(lineEntity);
-        var pluEntry = dbContext.Entry(pluEntity);
-
+        PluEntity plu = await dbContext.Plus.SafeGetById(pluId, "ПЛУ не найдено");
+        line.Plus.Remove(plu);
         await dbContext.SaveChangesAsync();
     }
 
-    public Task<PluArmDto> AddPluAsync(Guid armId, Guid pluId)
+    public async Task AddPluAsync(Guid armId, Guid pluId)
     {
-        throw new NotImplementedException();
+        LineEntity line = await dbContext.Lines
+                              .Include(l => l.Plus) // Загрузить коллекцию Plus
+                              .FirstOrDefaultAsync(l => l.Id == armId)
+                          ?? throw new("АРМ не найдено");
+
+        PluEntity plu = await dbContext.Plus.SafeGetById(pluId, "ПЛУ не найдено");
+
+        if (line.Plus.Any(i => i.Id == pluId) == false)
+            return;
+
+        line.Plus.Add(plu);
+
+        await dbContext.SaveChangesAsync();
     }
 
     public Task DeleteAsync(Guid id) => dbContext.Lines.SafeDeleteAsync(i => i.Id == id);
