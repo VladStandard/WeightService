@@ -1,5 +1,6 @@
 using Append.Blazor.Printing;
 using Fluxor;
+using Microsoft.AspNetCore.Components.Web.HtmlRendering;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using ScalesDesktop.Source.Shared.Services.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Stores;
@@ -18,7 +19,7 @@ public sealed partial class LabelsGrid : ComponentBase
     [Inject] private IPrinterService PrinterService { get; set; } = default!;
     [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
     [Inject] private IPrintingService PrintingService { get; set; } = default!;
-    [Inject] private PalletDocumentGenerator PalletDocumentGenerator { get; set; } = default!;
+    [Inject] private HtmlRenderer HtmlRenderer { get; set; } = default!;
     [Inject] private IState<PrinterState> PrinterState { get; set; } = default!;
     [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
 
@@ -163,17 +164,18 @@ public sealed partial class LabelsGrid : ComponentBase
             _ => Localizer["PrinterStatusUnknown"]
         });
 
-    private async Task PrintPalletCard()
+    private Task PrintPalletCard()
     {
-        try
+        return HtmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
-            string palletCardBase64 = PalletDocumentGenerator.CreateBase64(Pallet);
-            await PrintingService.Print(new(palletCardBase64) { Base64 = true });
-        }
-        catch
-        {
-            ToastService.ShowError(Localizer["PalletDocumentGenerationError"]);
-        }
+            Dictionary<string, object?> parameters = new()
+            {
+                { nameof(PalletDocument.Pallet), Pallet }
+            };
+
+            HtmlRootComponent output = await HtmlRenderer.RenderComponentAsync<PalletDocument>(ParameterView.FromDictionary(parameters));
+            await PrintingService.Print(output.ToHtmlString(), PrintType.RawHtml);
+        });
     }
 }
 

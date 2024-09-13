@@ -28,7 +28,7 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
 
         builder.Services
-            .AddSingleton<PalletDocumentGenerator>()
+            .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintingService, PrintingService>()
             .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);

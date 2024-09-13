@@ -53,8 +53,6 @@
     <ItemGroup Label="Packages">
         <PackageReference Include="Append.Blazor.Printing" VersionOverride="6.3.0" />
         <PackageReference Include="FullScreenStatus.Maui" VersionOverride="1.0.5" />
-        <PackageReference Include="itext7" VersionOverride="8.0.5" />
-        <PackageReference Include="itext7.bouncy-castle-adapter" VersionOverride="8.0.5" />
         <PackageReference Include="Microsoft.Extensions.Options" VersionOverride="8.0.2" />
         <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.82" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.82" />
@@ -62,6 +60,7 @@
         <PackageReference Include="MassaK.Plugin" VersionOverride="1.0.2" />
         <PackageReference Include="TscZebra.Plugin" VersionOverride="1.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.82" />
+        <PackageReference Include="barcodelib" VersionOverride="3.1.4" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">
