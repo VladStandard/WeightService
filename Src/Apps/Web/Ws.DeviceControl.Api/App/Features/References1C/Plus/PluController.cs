@@ -4,8 +4,8 @@ using Ws.DeviceControl.Models.Features.References1C.Plus.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References1C.Plus;
 
 [ApiController]
-[Route(RouteUtil.Plu)]
-public class PluController(IPluService pluService)
+[Route(ApiEndpoints.Plu)]
+public sealed class PluController(IPluService pluService)
 {
     #region Queries
 

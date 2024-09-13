@@ -64,6 +64,7 @@ public class WsDbContext : DbContext
     {
         modelBuilder.SetDefaultTypeForString();
         modelBuilder.UseIpAddressConversion();
+        modelBuilder.UseDateTimeConversion();
         modelBuilder.UseEnumStringConversion();
         modelBuilder.MapCreateOrChangeDt();
 

@@ -18,7 +18,7 @@ public interface IArmService : IDeleteService<Guid>
 
     Task<ArmDto> CreateAsync(ArmCreateDto dto);
     Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto);
-    Task<PluArmDto> AddPluAsync(Guid armId, Guid pluId);
+    Task AddPluAsync(Guid id, Guid pluId);
     Task DeletePluAsync(Guid armId, Guid pluId);
 
     #endregion

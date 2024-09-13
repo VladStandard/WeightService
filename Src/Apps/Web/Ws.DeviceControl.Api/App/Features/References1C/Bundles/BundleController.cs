@@ -3,8 +3,8 @@ using Ws.DeviceControl.Api.App.Features.References1C.Bundles.Common;
 namespace Ws.DeviceControl.Api.App.Features.References1C.Bundles;
 
 [ApiController]
-[Route(RouteUtil.Bundles)]
-public class BundleController(IBundleService bundleService)
+[Route(ApiEndpoints.Bundles)]
+public sealed class BundleController(IBundleService bundleService)
 {
     #region Queries
 

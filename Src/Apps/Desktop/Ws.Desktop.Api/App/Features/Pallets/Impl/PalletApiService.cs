@@ -8,7 +8,6 @@ using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Api.App.Features.Pallets.Expressions;
-using Ws.Desktop.Api.App.Shared.Helpers;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
 using Ws.Labels.Service.Generate;

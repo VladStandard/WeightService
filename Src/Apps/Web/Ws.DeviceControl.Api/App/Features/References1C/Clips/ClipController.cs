@@ -3,8 +3,8 @@ using Ws.DeviceControl.Api.App.Features.References1C.Clips.Common;
 namespace Ws.DeviceControl.Api.App.Features.References1C.Clips;
 
 [ApiController]
-[Route(RouteUtil.Clips)]
-public class ClipController(IClipService clipService)
+[Route(ApiEndpoints.Clips)]
+public sealed class ClipController(IClipService clipService)
 {
     #region Queries
 

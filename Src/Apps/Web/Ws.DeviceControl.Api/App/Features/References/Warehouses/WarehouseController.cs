@@ -6,8 +6,8 @@ using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses;
 
 [ApiController]
-[Route(RouteUtil.Warehouses)]
-public class WarehouseController(IWarehouseService warehouseService)
+[Route(ApiEndpoints.Warehouses)]
+public sealed class WarehouseController(IWarehouseService warehouseService)
 {
     #region Queries
 

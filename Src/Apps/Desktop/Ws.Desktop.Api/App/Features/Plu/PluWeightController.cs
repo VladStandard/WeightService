@@ -1,7 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Ws.Desktop.Api.App.Features.Plu.Common;
-using Ws.Desktop.Api.App.Shared.Auth;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
@@ -12,8 +9,8 @@ namespace Ws.Desktop.Api.App.Features.Plu;
 
 [ApiController]
 [Authorize]
-[Route(RouteUtil.Plu)]
-public class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
+[Route(ApiEndpoints.Plu)]
+public sealed class PluWeightController(IPluWeightService pluWeightService, IPluPieceService pluPieceService) : ControllerBase
 {
     #region Queries
 

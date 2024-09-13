@@ -5,7 +5,7 @@
 
     <ItemGroup Label="Packages">
         <PackageReference Include="Microsoft.Extensions.Logging.EventLog" VersionOverride="8.0.0" />
-        <PackageReference Include="Z.EntityFramework.Extensions.EFCore" VersionOverride="8.103.0" />
+        <PackageReference Include="EFCore.BulkExtensions" VersionOverride="8.1.1" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">

@@ -5,7 +5,6 @@ using Ws.Database.EntityFramework.Entities.Ref.Lines;
 using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
-using Ws.Desktop.Api.App.Shared.Helpers;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;

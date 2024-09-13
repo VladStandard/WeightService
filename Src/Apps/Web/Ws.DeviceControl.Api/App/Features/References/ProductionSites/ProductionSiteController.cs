@@ -6,8 +6,8 @@ using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites;
 
 [ApiController]
-[Route(RouteUtil.ProductionSites)]
-public class ProductionSiteController(IProductionSiteService productionSiteService)
+[Route(ApiEndpoints.ProductionSites)]
+public sealed class ProductionSiteController(IProductionSiteService productionSiteService)
 {
     #region Queries
 

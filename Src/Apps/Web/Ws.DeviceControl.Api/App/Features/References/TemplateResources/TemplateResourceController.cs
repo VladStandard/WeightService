@@ -6,8 +6,8 @@ using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources;
 
 [ApiController]
-[Route(RouteUtil.TemplateResources)]
-public class TemplateResourceController(ITemplateResourceService templateResourceService)
+[Route(ApiEndpoints.TemplateResources)]
+public sealed class TemplateResourceController(ITemplateResourceService templateResourceService)
 {
     #region Queries
 
