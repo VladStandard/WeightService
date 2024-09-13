@@ -30,6 +30,19 @@ internal static class ModelBuilderExtensions
         }
     }
 
+    public static void UseDateTimeConversion(this ModelBuilder modelBuilder)
+    {
+        foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            IEnumerable<PropertyInfo> dateTimeProperties = entityType.ClrType.GetProperties()
+                .Where(p => p.PropertyType == typeof(DateTime) || p.PropertyType == typeof(DateTime?));
+
+            foreach (PropertyInfo property in dateTimeProperties)
+                modelBuilder.Entity(entityType.Name).Property(property.Name)
+                    .HasConversion(new UtcDateTimeConverter());
+        }
+    }
+
     public static void UseEnumStringConversion(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())

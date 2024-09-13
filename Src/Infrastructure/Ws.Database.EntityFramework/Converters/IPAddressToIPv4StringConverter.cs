@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ws.Database.EntityFramework.Converters;
 
 internal class IpAddressToIPv4StringConverter(ConverterMappingHints? mappingHints)
-    : ValueConverter<IPAddress?, string?>(ToString(), ToIpAddress(), DefaultHints.With(mappingHints))
+    : ValueConverter<IPAddress?, string?>(ToDatabase(), FromDatabase(), DefaultHints.With(mappingHints))
 {
     private static readonly ConverterMappingHints DefaultHints = new(size: 15);
 
@@ -14,9 +14,9 @@ internal class IpAddressToIPv4StringConverter(ConverterMappingHints? mappingHint
     {
     }
 
-    private new static Expression<Func<IPAddress?, string?>> ToString()
+    private static Expression<Func<IPAddress?, string?>> ToDatabase()
         => v => v!.MapToIPv4().ToString();
 
-    private static Expression<Func<string?, IPAddress?>> ToIpAddress()
+    private static Expression<Func<string?, IPAddress?>> FromDatabase()
         => v => v != null ? IPAddress.Parse(v).MapToIPv4() : null;
 }

@@ -34,8 +34,7 @@ internal partial class BrandApiService
 
     private void SaveBrands(HashSet<BrandDto> validDtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
+        List<BrandEntity> brands = validDtos.Select(dto => dto.ToEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try

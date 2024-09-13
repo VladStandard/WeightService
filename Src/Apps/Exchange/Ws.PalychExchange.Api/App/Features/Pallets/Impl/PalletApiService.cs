@@ -19,7 +19,7 @@ internal sealed class PalletApiService(WsDbContext context) : IPalletService
             };
 
         pallet.IsShipped = dto.IsShipped;
-        pallet.DeletedAt = dto.IsDelete ? DateTime.UtcNow : null;
+        pallet.DeletedAt = dto.IsDelete ? DateTime.Now : null;
         context.SaveChanges();
 
         return new() { IsSuccess = true };

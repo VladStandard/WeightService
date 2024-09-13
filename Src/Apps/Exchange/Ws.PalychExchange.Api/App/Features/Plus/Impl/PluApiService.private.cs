@@ -45,8 +45,7 @@ internal sealed partial class PluApiService
 
     private void SavePlus(HashSet<PluDto> validDtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<PluEntity> plus = validDtos.Select(dto => dto.ToPluEntity(updateDt)).ToList();
+        List<PluEntity> plus = validDtos.Select(dto => dto.ToPluEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
@@ -104,8 +103,7 @@ internal sealed partial class PluApiService
 
     private void SaveNestings(HashSet<PluDto> validDtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<NestingEntity> nestings = validDtos.Select(dto => dto.ToNestingEntity(updateDt)).ToList();
+        List<NestingEntity> nestings = validDtos.Select(dto => dto.ToNestingEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try

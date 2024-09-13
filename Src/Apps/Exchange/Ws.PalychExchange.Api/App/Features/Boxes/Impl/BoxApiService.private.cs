@@ -9,8 +9,7 @@ internal partial class BoxApiService
 {
     private void SaveBoxes(HashSet<BoxDto> validDtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
+        List<BoxEntity> boxes = validDtos.Select(dto => dto.ToEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try

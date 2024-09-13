@@ -9,8 +9,7 @@ internal partial class ClipApiService
 {
     private void SaveClips(HashSet<ClipDto> validDtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity(updateDt)).ToList();
+        List<ClipEntity> clips = validDtos.Select(dto => dto.ToEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try

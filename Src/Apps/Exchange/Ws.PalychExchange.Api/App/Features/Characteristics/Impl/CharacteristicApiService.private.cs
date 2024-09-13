@@ -74,8 +74,7 @@ internal partial class CharacteristicApiService
 
     private void SaveCharacteristics(HashSet<GroupedCharacteristic> dtos)
     {
-        DateTime updateDt = DateTime.UtcNow.AddHours(3);
-        List<CharacteristicEntity> characteristics = dtos.Select(i => i.ToEntity(updateDt)).ToList();
+        List<CharacteristicEntity> characteristics = dtos.Select(i => i.ToEntity(DateTime.Now)).ToList();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
