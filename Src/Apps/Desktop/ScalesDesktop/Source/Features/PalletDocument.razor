@@ -83,7 +83,11 @@
 
   @if (!string.IsNullOrEmpty(Base64BarcodeImage))
   {
-    <img src="data:image/png;base64,@Base64BarcodeImage" alt="Barcode Image" style="padding-top: 1rem;" />
+    <div style="width: 100%; gap: 0.4rem; display: flex; flex-direction: column;">
+      <img src="data:image/png;base64,@Base64BarcodeImage" alt="Barcode Image" style="padding-top: 1rem;" />
+      <span style="text-align: center; font-size: 2.2rem;">@Pallet.Barcode</span>
+    </div>
+
   }
 </div>
 
@@ -96,8 +100,8 @@
   protected override void OnInitialized()
   {
     base.OnInitialized();
-    Barcode b = new() { IncludeLabel = true };
-    SKImage? img = b.Encode(Type.Code128, Pallet.Barcode, 400, 110);
+    Barcode b = new();
+    SKImage? img = b.Encode(Type.Code128, Pallet.Barcode, 500, 70);
 
     if (img == null) return;
     using SKData data = img.Encode(SKEncodedImageFormat.Png, 100);
