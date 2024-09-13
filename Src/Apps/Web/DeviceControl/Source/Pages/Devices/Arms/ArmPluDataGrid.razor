@@ -187,11 +187,12 @@
     }
   }
 
-  private Task AddArmPlu(PluArmDto item)
+  private async Task AddArmPlu(PluArmDto item)
   {
     try
     {
-      throw new Exception();
+      await WebApi.AddArmPlu(Arm.Id, item.Id);
+      DevicesEndpoints.AddArmPlu(Arm.Id, item.Id);
       ToastService.ShowSuccess(string.Format(Localizer["ArmPluAdded"], item.Number));
     }
     catch (ApiException ex)
@@ -202,8 +203,6 @@
     {
       ToastService.ShowError(string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number));
     }
-
-    return Task.CompletedTask;
   }
 
   protected override async Task OpenItemInNewTab(PluArmDto item) =>
