@@ -1,4 +1,3 @@
-using Fluxor;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
 namespace ScalesDesktop.Source.Shared.Services.Stores;

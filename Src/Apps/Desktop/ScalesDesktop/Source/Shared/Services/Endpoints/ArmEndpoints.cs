@@ -1,5 +1,4 @@
 using ScalesDesktop.Source.Shared.Services.Devices;
-using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace ScalesDesktop.Source.Shared.Services.Endpoints;

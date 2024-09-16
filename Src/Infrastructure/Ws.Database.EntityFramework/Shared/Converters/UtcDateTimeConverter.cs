@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Ws.Database.EntityFramework.Converters;
+namespace Ws.Database.EntityFramework.Shared.Converters;
 
 internal class UtcDateTimeConverter() : ValueConverter<DateTime?, DateTime?>(ToDatabase(), FromDatabase())
 {

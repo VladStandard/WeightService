@@ -1,5 +1,4 @@
 using MassaK.Plugin.Abstractions.Enums;
-using ScalesDesktop.Source.Shared.Services.Stores;
 using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;

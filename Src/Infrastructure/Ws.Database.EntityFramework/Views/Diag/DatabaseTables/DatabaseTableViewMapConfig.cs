@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Views.Diag.DatabaseTables;
 
-public class DatabaseTableViewMapConfig : IEntityTypeConfiguration<DatabaseTableView>
+internal sealed class DatabaseTableViewMapConfig : IEntityTypeConfiguration<DatabaseTableView>
 {
 
     public void Configure(EntityTypeBuilder<DatabaseTableView> builder)

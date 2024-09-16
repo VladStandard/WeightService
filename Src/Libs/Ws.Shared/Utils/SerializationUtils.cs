@@ -4,7 +4,7 @@ namespace Ws.Shared.Utils;
 
 public static class SerializationUtils
 {
-    public static bool TryDeserialize<T>(string json, out T? result)
+    public static bool TryDeserializeFromJson<T>(string json, out T? result)
     {
         try
         {

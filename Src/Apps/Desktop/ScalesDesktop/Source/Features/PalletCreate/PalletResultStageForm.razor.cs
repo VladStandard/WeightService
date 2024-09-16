@@ -1,10 +1,5 @@
-using Fluxor;
-using ScalesDesktop.Source.Shared.Services.Stores;
-using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Shared.Api.ApiException;
-using Ws.Shared.Utils;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -62,7 +57,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception) || exception == null)
                 ToastService.ShowError(Localizer["ToastPalletCreateError"]);
             else
                 ToastService.ShowError(Localizer[exception.LocalizeMessage]);

@@ -1,8 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
-using Ws.Database.EntityFramework.Entities.Print.Pallets;
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-
 namespace Ws.Database.EntityFramework.Entities.Print.Labels;
 
 public sealed class LabelEntity : EfEntityBase

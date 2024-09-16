@@ -1,5 +1,4 @@
 using FluentValidation;
-using ScalesDesktop.Source.Shared.Services.Endpoints;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 

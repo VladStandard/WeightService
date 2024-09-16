@@ -1,5 +1,3 @@
-using Fluxor;
-
 namespace ScalesDesktop.Source.Shared.Services.Stores;
 
 [FeatureState]

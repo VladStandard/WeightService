@@ -1,23 +1,54 @@
 using System.Net;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Ws.Database.EntityFramework.Converters;
+using Ws.Database.EntityFramework.Shared.Converters;
 
-namespace Ws.Database.EntityFramework.Extensions;
+namespace Ws.Database.EntityFramework.Shared.Extensions;
 
 internal static class ModelBuilderExtensions
 {
+    #region Set
+
     public static void SetDefaultTypeForString(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
-            foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
-            {
-                int? maxValue = property.GetMaxLength();
-                property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
-            }
+        foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
+        {
+            int? maxValue = property.GetMaxLength();
+            property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
+        }
     }
 
-    public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
+    public static void SetAutoCreateOrChangeDt(this ModelBuilder modelBuilder)
+    {
+        const string getDateCmd = "GETDATE()";
+        foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            IMutableProperty? createDtProperty = entityType.FindProperty(nameof(SqlColumns.CreateDt)) ?? null;
+            IMutableProperty? changeDtProperty = entityType.FindProperty(nameof(SqlColumns.ChangeDt)) ?? null;
+
+            if (createDtProperty != null)
+            {
+                createDtProperty.ValueGenerated = ValueGenerated.OnAdd;
+                createDtProperty.SetColumnName(SqlColumns.CreateDt);
+                createDtProperty.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
+                createDtProperty.SetDefaultValueSql(getDateCmd);
+            }
+
+            if (changeDtProperty != null)
+            {
+                changeDtProperty.SetColumnName(SqlColumns.ChangeDt);
+                changeDtProperty.SetDefaultValueSql(getDateCmd);
+            }
+        }
+    }
+
+
+    #endregion
+
+    #region Use
+
+        public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
@@ -65,27 +96,5 @@ internal static class ModelBuilderExtensions
         }
     }
 
-    public static void MapCreateOrChangeDt(this ModelBuilder modelBuilder)
-    {
-        const string getDateCmd = "GETDATE()";
-        foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            IMutableProperty? createDtProperty = entityType.FindProperty(nameof(SqlColumns.CreateDt)) ?? null;
-            IMutableProperty? changeDtProperty = entityType.FindProperty(nameof(SqlColumns.ChangeDt)) ?? null;
-
-            if (createDtProperty != null)
-            {
-                createDtProperty.ValueGenerated = ValueGenerated.OnAdd;
-                createDtProperty.SetColumnName(SqlColumns.CreateDt);
-                createDtProperty.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
-                createDtProperty.SetDefaultValueSql(getDateCmd);
-            }
-
-            if (changeDtProperty != null)
-            {
-                changeDtProperty.SetColumnName(SqlColumns.ChangeDt);
-                changeDtProperty.SetDefaultValueSql(getDateCmd);
-            }
-        }
-    }
+    #endregion
 }

@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Converters;
+using Ws.Database.EntityFramework.Shared.Converters;
 
 namespace Ws.Database.EntityFramework.Entities.Zpl.Templates;
 

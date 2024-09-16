@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using Ws.Desktop.Models;
 
 namespace ScalesDesktop.Source.Shared.Refit.Clients;
 

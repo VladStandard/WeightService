@@ -1,5 +1,4 @@
 using Append.Blazor.Printing;
-using Fluxor;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -7,7 +6,6 @@ using ScalesDesktop.Source.Shared.Extensions;
 using ScalesDesktop.Source.Shared.Refit;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Shared.Extensions;
-using Ws.Shared.Utils;
 
 namespace ScalesDesktop;
 

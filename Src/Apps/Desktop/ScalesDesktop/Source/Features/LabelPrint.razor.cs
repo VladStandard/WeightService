@@ -1,18 +1,11 @@
-using Fluxor;
-using Fluxor.Blazor.Web.Components;
 using MassaK.Plugin.Abstractions.Enums;
 using ScalesDesktop.Source.Shared.Models;
 using ScalesDesktop.Source.Shared.Services.Devices;
-using ScalesDesktop.Source.Shared.Services.Endpoints;
-using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
-using Ws.Desktop.Models;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
-using Ws.Shared.Api.ApiException;
-using Ws.Shared.Utils;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -96,7 +89,7 @@ public sealed partial class LabelPrint : FluxorComponent
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) || exception == null)
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception) || exception == null)
                 ToastService.ShowError(Localizer["UnknownError"]);
             else
                 ToastService.ShowError($"{Localizer[exception.LocalizeMessage]}");

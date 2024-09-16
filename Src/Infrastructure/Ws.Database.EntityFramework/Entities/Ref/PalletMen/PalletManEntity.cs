@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
-
 namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 public sealed class PalletManEntity : EfEntityBase

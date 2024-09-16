@@ -1,4 +1,3 @@
-using Fluxor;
 using Ws.Desktop.Models.Features.PalletMen;
 
 namespace ScalesDesktop.Source.Shared.Services.Stores;

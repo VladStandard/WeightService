@@ -1,8 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Print.Labels;
-
 namespace Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 
-public class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
+internal sealed class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
 {
 
     public void Configure(EntityTypeBuilder<LabelZplEntity> builder)

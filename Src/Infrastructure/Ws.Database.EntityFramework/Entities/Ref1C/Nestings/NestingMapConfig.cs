@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
 internal sealed class NestingMapConfig : IEntityTypeConfiguration<NestingEntity>

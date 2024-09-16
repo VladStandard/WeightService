@@ -1,6 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
-
 namespace Ws.Database.EntityFramework.Entities.Print.Pallets;
 
 public class PalletEntity

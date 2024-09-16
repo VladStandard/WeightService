@@ -5,10 +5,9 @@ using Ws.Shared.ValueTypes;
 
 // ReSharper disable ConvertToPrimaryConstructor
 // ReSharper disable MemberCanBePrivate.Global
+namespace Ws.Database.EntityFramework.Shared.Converters;
 
-namespace Ws.Database.EntityFramework.Converters;
-
-public class BarcodeItemListComparer : ValueComparer<List<BarcodeItem>>
+internal class BarcodeItemListComparer : ValueComparer<List<BarcodeItem>>
 {
     public BarcodeItemListComparer()
         : base(

@@ -1,6 +1,5 @@
 using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.Shared.Constants;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Printers;

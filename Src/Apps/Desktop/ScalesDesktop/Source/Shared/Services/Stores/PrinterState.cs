@@ -1,4 +1,3 @@
-using Fluxor;
 using TscZebra.Plugin.Abstractions.Enums;
 
 namespace ScalesDesktop.Source.Shared.Services.Stores;

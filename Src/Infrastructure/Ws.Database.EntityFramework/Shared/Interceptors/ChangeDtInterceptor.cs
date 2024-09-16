@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Ws.Database.EntityFramework.Interceptors;
+namespace Ws.Database.EntityFramework.Shared.Interceptors;
 
-public class ChangeDtInterceptor : SaveChangesInterceptor
+internal class ChangeDtInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {

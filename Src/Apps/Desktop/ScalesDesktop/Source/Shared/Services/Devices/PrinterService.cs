@@ -1,5 +1,4 @@
 using System.Net;
-using ScalesDesktop.Source.Shared.Services.Stores;
 using TscZebra.Plugin;
 using TscZebra.Plugin.Abstractions;
 using TscZebra.Plugin.Abstractions.Enums;

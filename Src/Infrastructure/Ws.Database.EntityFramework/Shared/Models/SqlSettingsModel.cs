@@ -1,4 +1,4 @@
-namespace Ws.Database.EntityFramework.Models;
+namespace Ws.Database.EntityFramework.Shared.Models;
 
 internal class SqlSettingsModel
 {

@@ -8,7 +8,7 @@ public static class ApiExceptionSerialization
     public static string GetMessage(ApiException ex, string fallbackMessage = "") =>
         ex.HasContent &&
         !string.IsNullOrEmpty(ex.Content) &&
-        SerializationUtils.TryDeserialize(ex.Content, out ApiExceptionClient? exception) &&
+        SerializationUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception) &&
         exception != null
             ? exception.LocalizeMessage
             : fallbackMessage;

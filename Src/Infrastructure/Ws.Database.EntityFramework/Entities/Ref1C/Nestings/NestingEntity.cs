@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 
 public sealed class NestingEntity : EfEntityBase

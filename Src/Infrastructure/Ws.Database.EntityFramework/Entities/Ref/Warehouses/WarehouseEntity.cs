@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
-
 namespace Ws.Database.EntityFramework.Entities.Ref.Warehouses;
 
 public sealed class WarehouseEntity : EfEntityBase

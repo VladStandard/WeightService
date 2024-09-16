@@ -1,5 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
 public sealed class CharacteristicEntity : EfEntityBase
@@ -22,5 +20,4 @@ public sealed class CharacteristicEntity : EfEntityBase
     public DateTime ChangeDt { get; init; }
 
     #endregion
-
 }

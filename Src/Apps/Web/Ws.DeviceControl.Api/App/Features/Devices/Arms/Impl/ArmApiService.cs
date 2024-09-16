@@ -62,7 +62,6 @@ internal sealed class ArmApiService(
             .OrderBy(i => i.Number)
             .Select(ArmExpressions.ToPluDto(linePluId))
             .ToListAsync();
-
     }
 
     #endregion
@@ -112,9 +111,9 @@ internal sealed class ArmApiService(
     public async Task DeletePluAsync(Guid armId, Guid pluId)
     {
         LineEntity line = await dbContext.Lines
-                              .Include(l => l.Plus) // Загрузить коллекцию Plus
-                              .FirstOrDefaultAsync(l => l.Id == armId)
-                          ?? throw new("АРМ не найдено");
+          .Include(l => l.Plus)
+          .FirstOrDefaultAsync(l => l.Id == armId)
+                ?? throw new("АРМ не найдено");
 
         PluEntity plu = await dbContext.Plus.SafeGetById(pluId, "ПЛУ не найдено");
         line.Plus.Remove(plu);
@@ -124,13 +123,13 @@ internal sealed class ArmApiService(
     public async Task AddPluAsync(Guid armId, Guid pluId)
     {
         LineEntity line = await dbContext.Lines
-                              .Include(l => l.Plus) // Загрузить коллекцию Plus
-                              .FirstOrDefaultAsync(l => l.Id == armId)
-                          ?? throw new("АРМ не найдено");
+          .Include(l => l.Plus)
+          .FirstOrDefaultAsync(l => l.Id == armId)
+                ?? throw new("АРМ не найдено");
 
         PluEntity plu = await dbContext.Plus.SafeGetById(pluId, "ПЛУ не найдено");
 
-        if (line.Plus.Any(i => i.Id == pluId) == false)
+        if (line.Plus.Any(i => i.Id == pluId))
             return;
 
         line.Plus.Add(plu);

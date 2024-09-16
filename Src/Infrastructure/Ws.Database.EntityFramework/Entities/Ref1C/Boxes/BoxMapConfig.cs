@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
 
-public class BoxMapConfig : IEntityTypeConfiguration<BoxEntity>
+internal sealed class BoxMapConfig : IEntityTypeConfiguration<BoxEntity>
 {
     public void Configure(EntityTypeBuilder<BoxEntity> builder)
     {

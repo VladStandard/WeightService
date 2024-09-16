@@ -70,4 +70,21 @@ public class ModificatorsTests
 
         result.FailingTypes.Should().BeEmpty();
     }
+
+    [Fact]
+    public void All_EfMappings_Should_Be_Sealed_And_Internal()
+    {
+        TestResult? result = Types.InAssembly(SolutionUtils.FindProjectAssembly("Ws.Database.EntityFramework"))
+            .That()
+            .AreClasses()
+            .And()
+            .HaveNameEndingWith("MapConfig")
+            .Should()
+            .BeSealed()
+            .And()
+            .BeInternal()
+            .GetResult();
+
+        result.FailingTypes.Should().BeEmpty();
+    }
 }

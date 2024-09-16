@@ -1,8 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
-
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
 
-internal class CharacteristicMapConfig : IEntityTypeConfiguration<CharacteristicEntity>
+internal sealed class CharacteristicMapConfig : IEntityTypeConfiguration<CharacteristicEntity>
 {
     public void Configure(EntityTypeBuilder<CharacteristicEntity> builder)
     {

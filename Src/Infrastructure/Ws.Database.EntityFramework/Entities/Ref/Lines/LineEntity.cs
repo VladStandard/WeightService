@@ -1,6 +1,3 @@
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.Shared.Enums;
 
 namespace Ws.Database.EntityFramework.Entities.Ref.Lines;

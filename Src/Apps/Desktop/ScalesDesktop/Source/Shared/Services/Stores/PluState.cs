@@ -1,4 +1,3 @@
-using Fluxor;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
 namespace ScalesDesktop.Source.Shared.Services.Stores;

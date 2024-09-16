@@ -1,6 +1,6 @@
-namespace Ws.Database.EntityFramework.Constants;
+namespace Ws.Database.EntityFramework.Shared.Constants;
 
-public static class SqlSchemas
+internal static class SqlSchemas
 {
     public const string Diag = "DIAG";
     public const string Print = "PRINT";

@@ -1,4 +1,4 @@
-namespace Ws.Database.EntityFramework.Constants;
+namespace Ws.Database.EntityFramework.Shared.Constants;
 
 internal static class SqlTables
 {

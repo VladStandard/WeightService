@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using System.Net;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Ws.Database.EntityFramework.Converters;
+namespace Ws.Database.EntityFramework.Shared.Converters;
 
 internal class IpAddressToIPv4StringConverter(ConverterMappingHints? mappingHints)
     : ValueConverter<IPAddress?, string?>(ToDatabase(), FromDatabase(), DefaultHints.With(mappingHints))

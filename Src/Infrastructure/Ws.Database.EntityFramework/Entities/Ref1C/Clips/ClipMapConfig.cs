@@ -1,6 +1,6 @@
 namespace Ws.Database.EntityFramework.Entities.Ref1C.Clips;
 
-public class ClipMapConfig : IEntityTypeConfiguration<ClipEntity>
+internal sealed class ClipMapConfig : IEntityTypeConfiguration<ClipEntity>
 {
     public void Configure(EntityTypeBuilder<ClipEntity> builder)
     {
