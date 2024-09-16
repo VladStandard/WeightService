@@ -228,9 +228,6 @@
     <data name="ColBox" xml:space="preserve">
         <value>Box</value>
     </data>
-    <data name="ColTareWeightTotal" xml:space="preserve">
-        <value>Tare weight (Total) </value>
-    </data>
     <data name="ColWeightGross" xml:space="preserve">
         <value>Weight gross</value>
     </data>

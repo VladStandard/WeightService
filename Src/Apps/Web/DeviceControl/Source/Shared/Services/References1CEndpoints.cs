@@ -28,6 +28,10 @@ public class References1CEndpoints(IWebApi webApi)
         webApi.GetBrands,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
+    public Endpoint<Guid, CharacteristicDto[]> CharacteristicsEndpoint { get; } = new(
+        webApi.GetPluCharacteristics,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
+
     public void UpdatePlu(PluDto plu) => PlusEndpoint.UpdateQueryData(new(),
         query => query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(plu, p => p.Id == plu.Id).ToArray());
 }
