@@ -1,4 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.References1C.Plus.Common;
+using Ws.DeviceControl.Models.Features.References1C.Plus.Commands.Update;
 using Ws.DeviceControl.Models.Features.References1C.Plus.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Plus;
@@ -14,6 +15,16 @@ public sealed class PluController(IPluService pluService)
 
     [HttpGet("{id:guid}")]
     public Task<PluDto> GetById([FromRoute] Guid id) => pluService.GetByIdAsync(id);
+
+    [HttpGet("{id:guid}/characteristics")]
+    public Task<List<CharacteristicDto>> GetCharacteristics([FromRoute] Guid id) => pluService.GetCharacteristics(id);
+
+    #endregion
+
+    #region Commands
+
+    [HttpPut("{id:guid}")]
+    public Task<PluDto> Update([FromRoute] Guid id, [FromBody] PluUpdateDto dto) => pluService.Update(id, dto);
 
     #endregion
 }

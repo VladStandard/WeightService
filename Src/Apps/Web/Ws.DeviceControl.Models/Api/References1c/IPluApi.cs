@@ -13,6 +13,9 @@ public interface IPluApi
     [Get("/plu/{uid}")]
     Task<PluDto> GetPluByUid(Guid uid);
 
+    [Get("/plu/{uid}/characteristics")]
+    Task<CharacteristicDto> GetPluCharacteristics(Guid uid);
+
     [Put("/plu/{uid}")]
     Task<PluDto> UpdatePlu(Guid uid, [Body] PluUpdateDto updateDto);
 

@@ -1,6 +1,9 @@
+using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
+using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
 using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.References1C.Plus.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Plus.Impl.Expressions;
+using Ws.DeviceControl.Models.Features.References1C.Plus.Commands.Update;
 using Ws.DeviceControl.Models.Features.References1C.Plus.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Plus.Impl;
@@ -24,6 +27,65 @@ internal sealed class PluApiService(WsDbContext dbContext) : IPluService
             .Select(PluExpressions.ToDto)
             .OrderBy(i => i.Number)
             .ToListAsync();
+    }
+
+    public async Task<List<CharacteristicDto>> GetCharacteristics(Guid id)
+    {
+        PluEntity plu = await dbContext.Plus.SafeGetById(id, "Не найдено");
+        NestingEntity? nesting = await dbContext.Nestings
+            .Include(i => i.Box)
+            .SingleOrDefaultAsync(i => i.Id == id);
+
+        List<CharacteristicDto> characteristics = [];
+
+        CharacteristicPackageDto bundle = new() { Id = plu.Bundle.Id, Weight = plu.Bundle.Weight };
+        CharacteristicPackageDto clip = new() { Id = plu.Clip.Id, Weight = plu.Clip.Weight };
+
+
+        if (nesting != null)
+            characteristics.Add(new()
+            {
+                Name = "По умолчанию",
+                Count = (ushort)nesting.BundleCount,
+                PluWeight = plu.Weight,
+                Bundle = bundle,
+                Clip = clip,
+                Box = new() { Id = nesting.Box.Id, Weight = nesting.Box.Weight }
+            });
+
+        if (plu.IsWeight)
+            return characteristics;
+
+        List<CharacteristicEntity> characteristicsEntities = await dbContext.Characteristics
+            .Include(i => i.Box)
+            .Where(i => i.PluId == id).ToListAsync();
+
+        characteristics.AddRange(
+        characteristicsEntities.Select(characteristic => new CharacteristicDto
+        {
+            Name = characteristic.Name,
+            Count = (ushort)characteristic.BundleCount,
+            PluWeight = plu.Weight,
+            Bundle = bundle,
+            Clip = clip,
+            Box = new() { Id = characteristic.Box.Id, Weight = characteristic.Box.Weight }
+        }));
+
+        return characteristics;
+    }
+
+    #endregion
+
+    #region Commands
+
+    public async Task<PluDto> Update(Guid id, PluUpdateDto dto)
+    {
+        await dbContext.Templates.SafeExistAsync(i => i.Id == dto.TemplateId, "Шаблон не найден");
+        PluEntity entity = await dbContext.Plus.SafeGetById(id, "Не найдено");
+        entity.TemplateId = dto.TemplateId;
+        await LoadDefaultForeignKeysAsync(entity);
+        await dbContext.SaveChangesAsync();
+        return PluExpressions.ToDto.Compile().Invoke(entity);
     }
 
     #endregion
