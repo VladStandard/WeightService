@@ -1,6 +1,6 @@
 namespace Ws.Labels.Service.Generate.Common;
 
-internal interface IBarcodeLabel
+public interface IBarcodeLabel
 {
     public int LineNumber { get; init; }
     public int LineCounter { get; init; }

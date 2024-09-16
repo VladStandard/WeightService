@@ -9,7 +9,7 @@ public static class LabelPiecePalletDtoMapper
         return new()
         {
             Kneading = palletDto.Kneading,
-            BundleCount = (short)palletDto.Nesting.BundleCount,
+            BundleCount = palletDto.Nesting.BundleCount,
             ProductDt = palletDto.ProductDt,
             LineNumber = palletDto.Line.Number,
             LineCounter = palletDto.Line.Counter,

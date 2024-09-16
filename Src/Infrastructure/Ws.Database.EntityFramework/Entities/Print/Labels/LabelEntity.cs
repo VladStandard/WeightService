@@ -13,7 +13,7 @@ public sealed class LabelEntity : EfEntityBase
 
 
     public Guid LineId { get; set; }
-    public LineEntity? Line { get; set; }
+    public LineEntity Line { get; set; } = null!;
 
     public LabelZplEntity Zpl { get; set; } = new();
 

@@ -1,3 +1,4 @@
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
@@ -9,8 +10,8 @@ public interface ITemplateService : IGetApiService<TemplateDto>, IDeleteService<
     #region Queries
 
     Task<List<ProxyDto>> GetProxiesByIsWeightAsync(bool isWeight);
-
     Task<TemplateBodyDto> GetBodyByIdAsync(Guid id);
+    Task<List<BarcodeVar>> GetBarcodeVariables();
 
     #endregion
 

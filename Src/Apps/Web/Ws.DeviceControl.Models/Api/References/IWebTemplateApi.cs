@@ -1,3 +1,4 @@
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
@@ -19,6 +20,13 @@ public interface IWebTemplateApi
 
     [Get("/templates/proxy?isWeight={isWeight}")]
     Task<ProxyDto[]> GetProxyTemplatesByPluType(bool isWeight);
+
+    #region Barcodes
+
+    [Get("/templates/{id}/barcodes/vars")]
+    Task<BarcodeVar> GetBarcodeVariables(Guid id);
+
+    #endregion
 
     #endregion
 

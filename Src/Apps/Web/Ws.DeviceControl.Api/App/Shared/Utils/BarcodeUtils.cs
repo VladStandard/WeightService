@@ -1,7 +1,7 @@
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.Labels.Service.Generate.Common;
-using Ws.Labels.Service.Generate.Models;
 
-namespace Ws.Labels.Service.Generate.Utils;
+namespace Ws.DeviceControl.Api.App.Shared.Utils;
 
 #region File scope
 
@@ -22,9 +22,9 @@ file class BarcodeLabelBaseTemp : IBarcodeLabel
 
 #endregion
 
-public static class TemplateTypesUtils
+public static class BarcodeUtils
 {
-    public static List<BarcodeVariable> GetVariables()
+    public static List<BarcodeVar> GetVariables()
     {
         BarcodeLabelBaseTemp data = new();
         return

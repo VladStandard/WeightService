@@ -2,6 +2,8 @@ using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Shared.Utils;
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
@@ -42,6 +44,8 @@ internal sealed class TemplateApiService(
             Body = entity.Body
         };
     }
+
+    public Task<List<BarcodeVar>> GetBarcodeVariables() => Task.FromResult(BarcodeUtils.GetVariables());
 
     #endregion
 

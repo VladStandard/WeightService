@@ -32,6 +32,10 @@ internal sealed class PluApiService(WsDbContext dbContext) : IPluService
     public async Task<List<CharacteristicDto>> GetCharacteristics(Guid id)
     {
         PluEntity plu = await dbContext.Plus.SafeGetById(id, "Не найдено");
+
+        await dbContext.Entry(plu).Reference(e => e.Clip).LoadAsync();
+        await dbContext.Entry(plu).Reference(e => e.Bundle).LoadAsync();
+
         NestingEntity? nesting = await dbContext.Nestings
             .Include(i => i.Box)
             .SingleOrDefaultAsync(i => i.Id == id);
@@ -80,12 +84,14 @@ internal sealed class PluApiService(WsDbContext dbContext) : IPluService
 
     public async Task<PluDto> Update(Guid id, PluUpdateDto dto)
     {
-        await dbContext.Templates.SafeExistAsync(i => i.Id == dto.TemplateId, "Шаблон не найден");
-        PluEntity entity = await dbContext.Plus.SafeGetById(id, "Не найдено");
-        entity.TemplateId = dto.TemplateId;
-        await LoadDefaultForeignKeysAsync(entity);
+        PluEntity plu = await dbContext.Plus.SafeGetById(id, "Не найдено");
+
+        await dbContext.Templates.SafeExistAsync(i => i.Id == dto.TemplateId && i.IsWeight == plu.IsWeight, "Шаблон не найден");
+
+        plu.TemplateId = dto.TemplateId;
+        await LoadDefaultForeignKeysAsync(plu);
         await dbContext.SaveChangesAsync();
-        return PluExpressions.ToDto.Compile().Invoke(entity);
+        return PluExpressions.ToDto.Compile().Invoke(plu);
     }
 
     #endregion

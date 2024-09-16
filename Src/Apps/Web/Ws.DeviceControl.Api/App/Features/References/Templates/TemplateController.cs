@@ -1,4 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
@@ -17,15 +18,21 @@ public sealed class TemplateController(ITemplateService templateService)
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}")]
-    public Task<TemplateDto> GetById([FromRoute] Guid id) => templateService.GetByIdAsync(id);
+    public Task<TemplateDto> GetById([FromRoute] Guid id) =>
+        templateService.GetByIdAsync(id);
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}/body")]
-    public Task<TemplateBodyDto> GetBodyById([FromRoute] Guid id) => templateService.GetBodyByIdAsync(id);
+    public Task<TemplateBodyDto> GetBodyById([FromRoute] Guid id) =>
+        templateService.GetBodyByIdAsync(id);
 
     [HttpGet("proxy")]
     public Task<List<ProxyDto>> GetProxiesByIsWeight([FromQuery(Name = "isWeight")] bool isWeight) =>
         templateService.GetProxiesByIsWeightAsync(isWeight);
+
+    [HttpGet("{id:guid}/barcodes/vars")]
+    public Task<List<BarcodeVar>> GetBarcodeVariables([FromRoute] Guid id) =>
+        templateService.GetBarcodeVariables();
 
     #endregion
 

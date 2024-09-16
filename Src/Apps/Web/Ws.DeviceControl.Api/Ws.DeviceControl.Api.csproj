@@ -14,10 +14,15 @@
 
     <ItemGroup Label="Projects">
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
+        <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
-
+    
+    <ItemGroup Label="For testing additional files">
+        <Content Include="zHttp\.profiles\*" />
+    </ItemGroup>
+    
     <ItemGroup>
       <EmbeddedResource Update="App\Shared\Localization\ApplicationResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
@@ -36,7 +41,7 @@
         <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
-
+    
     <ItemGroup>
       <Compile Update="App\Shared\Localization\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>
@@ -59,5 +64,4 @@
         <DependentUpon>ApplicationResources.ru-RU.resx</DependentUpon>
       </Compile>
     </ItemGroup>
-
 </Project>
