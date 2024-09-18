@@ -1,5 +1,6 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
+using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 using Ws.Shared.Extensions;
@@ -120,6 +121,14 @@ public class PrintSettingsEndpoints(IWebApi webApi)
 
     public void DeleteResourceBody(Guid resourceId) =>
         ResourceBodyEndpoint.Invalidate(resourceId);
+
+    # endregion
+
+    # region Variables
+
+    public Endpoint<Guid, BarcodeVar[]> VariablesEndpoint { get; } = new(
+        webApi.GetBarcodeVariables,
+        options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     # endregion
 }
