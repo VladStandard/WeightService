@@ -11,7 +11,7 @@
 >
   @if (TriggerContent == null)
   {
-    <SelectTrigger Disabled="@Disabled">
+    <SelectTrigger Disabled="@Disabled" Class="@Class">
       <span class="truncate">@(Value == null ? Placeholder : ItemDisplayName(Value))</span>
     </SelectTrigger>
   }
@@ -21,7 +21,7 @@
       @TriggerContent(context)
     </SelectTriggerContext>
   }
-  <SelectContent>
+  <SelectContent Class="@DropdownClass">
     <ChildContent>
       @if (Filterable)
       {
@@ -95,6 +95,10 @@
   /// The html id for forms
   /// </summary>
   [Parameter] public string HtmlId { get; set; } = $"id-{Guid.NewGuid()}";
+
+  [Parameter] public string Class { get; set; } = string.Empty;
+
+  [Parameter] public string DropdownClass { get; set; } = string.Empty;
 
   [Parameter] public RenderFragment<SelectBase<TItem, TItem>>? TriggerContent { get; set; }
 

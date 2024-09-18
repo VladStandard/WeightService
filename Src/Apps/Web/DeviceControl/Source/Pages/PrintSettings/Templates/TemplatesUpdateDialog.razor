@@ -1,3 +1,4 @@
+@using DeviceControl.Source.Shared.Services
 @using Ws.DeviceControl.Models.Features.References.Template
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 @implements IDialogContentComponent<TemplateDto>
@@ -6,14 +7,21 @@
   <Tab Id="@typeof(TemplatesUpdateForm).ToString()" Title="@Localizer["SectionTemplates"]">
     <TemplatesUpdateForm Model="Content" FormModel="@TemplateMapper.DtoToUpdateDto(Content)" />
   </Tab>
+
   <Tab Id="@typeof(TemplatesBarcodeForm).ToString()" Title="@WsDataLocalizer["ColBarcode"]">
-    <TemplatesBarcodeForm Template="Content" />
+    <UseEndpoint Endpoint="PrintSettingsEndpoints.BarcodesEndpoint" Arg="@Content.Id" Context="barcodesQuery">
+      @if (barcodesQuery.HasData)
+      {
+        <TemplatesBarcodeForm Template="Content" Barcodes="@barcodesQuery.Data"/>
+      }
+    </UseEndpoint>
   </Tab>
 </SectionDialog>
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private PrintSettingsEndpoints PrintSettingsEndpoints { get; set; } = default!;
 
   [Parameter] public TemplateDto Content { get; set; } = default!;
 }

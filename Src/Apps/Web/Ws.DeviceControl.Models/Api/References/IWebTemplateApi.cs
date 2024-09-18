@@ -27,8 +27,8 @@ public interface IWebTemplateApi
     [Get("/templates/{id}/barcodes/vars")]
     Task<BarcodeVarDto[]> GetBarcodeVariables(Guid id);
 
-    [Put("/templates/{id}/barcodes")]
-    Task<BarcodeItemWrapper[]> GetBarcodeVariables(Guid id, [Body] BarcodeItemWrapper body);
+    [Get("/templates/{id}/barcodes")]
+    Task<BarcodeItemWrapper> GetBarcodes(Guid id);
 
     #endregion
 
@@ -44,6 +44,9 @@ public interface IWebTemplateApi
 
     [Put("/templates/{id}")]
     Task<TemplateDto> UpdateTemplate(Guid id, [Body] TemplateUpdateDto updateDto);
+
+    [Put("/templates/{id}/barcodes")]
+    Task<BarcodeItemWrapper[]> UpdateBarcodeVariables(Guid id, [Body] BarcodeItemWrapper body);
 
     #endregion
 }

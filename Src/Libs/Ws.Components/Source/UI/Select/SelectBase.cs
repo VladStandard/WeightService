@@ -31,6 +31,8 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     {
         IsDropdownOpened = !IsDropdownOpened;
         await Task.Yield();
+        if (IsDropdownOpened && TriggerWidth == 0)
+            await SetDropdownWidthAsync();
     }
 
     internal async Task FocusNextItemAsync(Guid id)

@@ -1,62 +1,61 @@
 @using DeviceControl.Source.Shared.Services
 
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
+@using DeviceControl.Source.Features.BarcodeConfigurator
+@using Ws.DeviceControl.Models.Features.References.Template.Universal
 
 <UseEndpoint
   Endpoint="PrintSettingsEndpoints.VariablesEndpoint"
   Arg="@Template.Id"
   Context="variablesQuery"
 >
-<div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
-  <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
+  <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
+    <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
 
-    @if (variablesQuery.IsLoading)
-    {
-      <Skeleton Class="w-full h-32" />
-    }
-    else
-    {
-      <p>Waiting for template</p>
-      @* <BarcodeConfigurator *@
-      @*   @bind-BarcodeDictionary="DialogItem.BarcodeTopTemplate" *@
-      @*   BarcodeVariables="BarcodeVariables" *@
-      @*  /> *@
-    }
-  </Accordion>
-  <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
-    @if (variablesQuery.IsLoading || !variablesQuery.HasData)
-    {
-      <Skeleton Class="w-full h-32" />
-    }
-    else
-    {
-      <p>Waiting for template</p>
-      @* <BarcodeConfigurator *@
-      @*   @bind-BarcodeDictionary="DialogItem.BarcodeBottomTemplate" *@
-      @*   BarcodeVariables="BarcodeVariables" *@
-      @* /> *@
-    }
-  </Accordion>
-  <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
-    @if (variablesQuery.IsLoading || !variablesQuery.HasData)
-    {
-      <Skeleton Class="w-full h-32" />
-    }
-    else
-    {
-      <p>Waiting for template</p>
-      @* <BarcodeConfigurator *@
-      @*   @bind-BarcodeDictionary="DialogItem.BarcodeRightTemplate" *@
-      @*   BarcodeVariables="BarcodeVariables"/> *@
-    }
-
-  </Accordion>
-  <div class="pt-4 flex justify-end">
-    <Button>
-      @Localizer["BtnSubmit"]
-    </Button>
+      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
+      {
+        <Skeleton Class="w-full h-32"/>
+      }
+      else
+      {
+        <BarcodeConfigurator
+          BarcodeVariables="variablesQuery.Data"
+          @bind-BarcodeDictionary="BarcodesCopy.Top"
+        />
+      }
+    </Accordion>
+    <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
+      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
+      {
+        <Skeleton Class="w-full h-32"/>
+      }
+      else
+      {
+        <BarcodeConfigurator
+          BarcodeVariables="variablesQuery.Data"
+          @bind-BarcodeDictionary="BarcodesCopy.Bottom"
+        />
+      }
+    </Accordion>
+    <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
+      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
+      {
+        <Skeleton Class="w-full h-32"/>
+      }
+      else
+      {
+        <BarcodeConfigurator
+          BarcodeVariables="variablesQuery.Data"
+          @bind-BarcodeDictionary="BarcodesCopy.Right"
+        />
+      }
+    </Accordion>
+    <div class="pt-4 flex justify-end">
+      <Button>
+        @Localizer["BtnSubmit"]
+      </Button>
+    </div>
   </div>
-</div>
 </UseEndpoint>
 
 @code {
@@ -69,7 +68,12 @@
   # endregion
 
   [Parameter, EditorRequired] public TemplateDto Template { get; set; } = default!;
+  [Parameter, EditorRequired] public BarcodeItemWrapper Barcodes { get; set; } = default!;
   [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
+
+  private BarcodeItemWrapper BarcodesCopy { get; set; } = default!;
+
+  protected override void OnInitialized() => BarcodesCopy = Barcodes with {};
 
   // private async Task SubmitForm()
   // {

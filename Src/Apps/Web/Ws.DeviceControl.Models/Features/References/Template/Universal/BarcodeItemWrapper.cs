@@ -1,6 +1,6 @@
 namespace Ws.DeviceControl.Models.Features.References.Template.Universal;
 
-public class BarcodeItemWrapper
+public record BarcodeItemWrapper
 {
     [JsonPropertyName("top")]
     public required List<BarcodeItemDto> Top { get; set; }
