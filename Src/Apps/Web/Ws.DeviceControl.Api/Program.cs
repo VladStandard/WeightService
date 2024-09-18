@@ -1,12 +1,15 @@
 using System.Globalization;
 using Ws.DeviceControl.Api;
 using Ws.DeviceControl.Api.App.Shared.Middlewares;
+using Ws.DeviceControl.Models;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // INTERNAL
 builder.Services
     .BaseSetup()
+    .AddValidators<IDeviceControlModelsAssembly>()
+    .AddValidators<IDeviceControlApiAssembly>()
     .AddHelpers<IDeviceControlApiAssembly>()
     .AddApiServices<IDeviceControlApiAssembly>()
     .AddMiddlewares<IDeviceControlApiAssembly>()

@@ -21,8 +21,12 @@ public interface IWebTemplateApi
     [Get("/templates/proxy?isWeight={isWeight}")]
     Task<ProxyDto[]> GetProxyTemplatesByPluType(bool isWeight);
 
+    #region Barcodes
+
     [Get("/templates/{id}/barcodes/vars")]
-    Task<BarcodeVar[]> GetBarcodeVariables(Guid id);
+    Task<BarcodeVarDto[]> GetBarcodeVariables(Guid id);
+
+    #endregion
 
     #endregion
 

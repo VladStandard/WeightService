@@ -13,18 +13,18 @@ internal static class TemplateDtoExtensions
             Name = dto.Name,
             Body = dto.Body,
             IsWeight = dto.IsWeight,
-            Width = (short)dto.Width,
-            Height = (short)dto.Height,
-            Rotate = (short)dto.Rotate,
+            Width = dto.Width,
+            Height = dto.Height,
+            Rotate = dto.Rotate,
         };
     }
 
     public static void UpdateEntity(this TemplateUpdateDto dto, TemplateEntity entity)
     {
         entity.Name = dto.Name;
-        entity.Rotate = (short)dto.Rotate;
-        entity.Width = (short)dto.Width;
-        entity.Height = (short)dto.Height;
+        entity.Rotate = dto.Rotate;
+        entity.Width = dto.Width;
+        entity.Height = dto.Height;
         entity.Body = dto.Body;
     }
 }

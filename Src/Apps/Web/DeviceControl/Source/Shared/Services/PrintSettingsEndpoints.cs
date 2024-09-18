@@ -126,7 +126,7 @@ public class PrintSettingsEndpoints(IWebApi webApi)
 
     # region Variables
 
-    public Endpoint<Guid, BarcodeVar[]> VariablesEndpoint { get; } = new(
+    public Endpoint<Guid, BarcodeVarDto[]> VariablesEndpoint { get; } = new(
         webApi.GetBarcodeVariables,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 

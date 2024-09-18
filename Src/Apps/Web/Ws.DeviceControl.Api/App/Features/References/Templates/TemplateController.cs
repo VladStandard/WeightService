@@ -1,8 +1,8 @@
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
-using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
+using Ws.DeviceControl.Models.Features.References.Template.Universal;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates;
 
@@ -31,8 +31,12 @@ public sealed class TemplateController(ITemplateService templateService)
         templateService.GetProxiesByIsWeightAsync(isWeight);
 
     [HttpGet("{id:guid}/barcodes/vars")]
-    public Task<List<BarcodeVar>> GetBarcodeVariables([FromRoute] Guid id) =>
+    public Task<List<BarcodeVarDto>> GetBarcodeVariables([FromRoute] Guid id) =>
         templateService.GetBarcodeVariables();
+
+    [HttpGet("{id:guid}/barcodes")]
+    public Task<BarcodeItemWrapper> GetBarcodes([FromRoute] Guid id) =>
+        templateService.GetBarcodeTemplates(id);
 
     #endregion
 

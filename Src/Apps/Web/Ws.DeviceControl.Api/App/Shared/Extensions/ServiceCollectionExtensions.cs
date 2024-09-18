@@ -30,13 +30,7 @@ public static class ServiceCollectionExtensions
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.WriteIndented = true;
             });
-
-        return services.Scan(scan => scan
-            .FromAssembliesOf(typeof(DeviceControlModelsAssembly))
-            .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
-            .AsSelf()
-            .WithScopedLifetime()
-        );
+        return services;
     }
 
     public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)

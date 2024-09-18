@@ -20,6 +20,16 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    public static IServiceCollection AddValidators<T>(this IServiceCollection services)
+    {
+        return services.Scan(scan => scan
+            .FromAssembliesOf(typeof(T))
+            .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Validator")))
+            .AsSelf()
+            .WithScopedLifetime()
+        );
+    }
+
     public static IServiceCollection AddMiddlewares<T>(this IServiceCollection services)
     {
         return services.Scan(scan => scan
