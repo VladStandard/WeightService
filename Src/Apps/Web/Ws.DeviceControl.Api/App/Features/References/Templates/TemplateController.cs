@@ -57,5 +57,10 @@ public sealed class TemplateController(ITemplateService templateService)
     public Task Delete([FromRoute] Guid id) =>
         templateService.DeleteAsync(id);
 
+    [Authorize(PolicyEnum.Admin)]
+    [HttpPut("{id:guid}/barcodes")]
+    public Task<BarcodeItemWrapper> UpdateBarcodes([FromRoute] Guid id, [FromBody] BarcodeItemWrapper dto) =>
+        templateService.UpdateBarcodeTemplates(id, dto);
+
     #endregion
 }

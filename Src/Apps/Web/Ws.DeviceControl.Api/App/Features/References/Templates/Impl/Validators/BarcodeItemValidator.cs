@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FluentValidation;
 using Ws.DeviceControl.Api.App.Shared.Utils;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
@@ -15,16 +16,16 @@ internal sealed class BarcodeItemWrapperValidator : AbstractValidator<BarcodeIte
     }
 }
 
-internal sealed class BarcodeItemValidator : AbstractValidator<BarcodeItemDto>
+internal sealed partial class BarcodeItemValidator : AbstractValidator<BarcodeItemDto>
 {
+    [GeneratedRegex(@"^(\#\(\d{1,5}\)|\(\d{1,5}\)|\d{1,5})$")]
+    private static partial Regex IsConstantRegex();
+
     public BarcodeItemValidator()
     {
         List<BarcodeVarDto> vars = BarcodeUtils.GetVariables();
 
         RuleFor(item => item.Property)
-            .Must(i => i.IsDigitsOnly() || vars.Any(j => j.Name == i));
-
-        RuleFor(item => item.FormatStr)
-            .NotNull();
+            .Must(i => IsConstantRegex().IsMatch(i) || vars.Any(j => j.Name == i));
     }
 }

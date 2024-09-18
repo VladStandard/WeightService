@@ -2,6 +2,7 @@ using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
+using Ws.DeviceControl.Models.Features.References.Template.Universal;
 
 namespace Ws.DeviceControl.Models.Api.References;
 
@@ -25,6 +26,9 @@ public interface IWebTemplateApi
 
     [Get("/templates/{id}/barcodes/vars")]
     Task<BarcodeVarDto[]> GetBarcodeVariables(Guid id);
+
+    [Put("/templates/{id}/barcodes")]
+    Task<BarcodeItemWrapper[]> GetBarcodeVariables(Guid id, [Body] BarcodeItemWrapper body);
 
     #endregion
 

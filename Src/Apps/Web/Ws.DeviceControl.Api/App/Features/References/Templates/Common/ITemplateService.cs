@@ -22,5 +22,7 @@ public interface ITemplateService : IGetApiService<TemplateDto>, IDeleteService<
 
     Task<TemplateDto> CreateAsync(TemplateCreateDto dto);
 
+    Task<BarcodeItemWrapper> UpdateBarcodeTemplates(Guid id, BarcodeItemWrapper barcodes);
+
     #endregion
 }

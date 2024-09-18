@@ -2,6 +2,7 @@ using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Validators;
 using Ws.DeviceControl.Api.App.Shared.Utils;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
@@ -14,6 +15,7 @@ namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl;
 internal sealed class TemplateApiService(
     WsDbContext dbContext,
     TemplateUpdateValidator updateValidator,
+    BarcodeItemWrapperValidator barcodeItemWrapperValidator,
     TemplateCreateValidator createValidator
     ) : ApiService, ITemplateService
 {
@@ -90,6 +92,26 @@ internal sealed class TemplateApiService(
     }
 
     public Task DeleteAsync(Guid id) => dbContext.Templates.SafeDeleteAsync(i => i.Id == id);
+
+    public async Task<BarcodeItemWrapper> UpdateBarcodeTemplates(Guid id, BarcodeItemWrapper barcodes)
+    {
+        await barcodeItemWrapperValidator.ValidateAsync(barcodes);
+
+        TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
+
+        entity.BarcodeTopBody = barcodes.Top.ToItem();
+        entity.BarcodeRightBody = barcodes.Right.ToItem();
+        entity.BarcodeBottomBody = barcodes.Bottom.ToItem();
+
+        await dbContext.SaveChangesAsync();
+
+        return new()
+        {
+            Top = entity.BarcodeTopBody.ToDto(),
+            Bottom = entity.BarcodeBottomBody.ToDto(),
+            Right = entity.BarcodeRightBody.ToDto()
+        };
+    }
 
     #endregion
 }
