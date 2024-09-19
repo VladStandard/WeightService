@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using Ws.Labels.Service.Generate.Common;
+using Ws.Barcodes.Models;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Models.Variables;
@@ -12,9 +12,9 @@ public class TemplateVars(
     PluVars plu,
     ArmVars arm,
     PalletVars pallet,
-    BarcodeReadyModel barcodeTop,
-    BarcodeReadyModel barcodeRight,
-    BarcodeReadyModel barcodeBottom,
+    BarcodeResult barcodeTop,
+    BarcodeResult barcodeRight,
+    BarcodeResult barcodeBottom,
     ushort bundleCount,
     ushort kneading,
     decimal weightNet,
@@ -26,9 +26,9 @@ public class TemplateVars(
 
     #region Barcodes
 
-    public readonly BarcodeReadyModel BarcodeTop = barcodeTop;
-    public readonly BarcodeReadyModel BarcodeRight = barcodeRight;
-    public readonly BarcodeReadyModel BarcodeBottom = barcodeBottom;
+    public readonly BarcodeResult BarcodeTop = barcodeTop;
+    public readonly BarcodeResult BarcodeRight = barcodeRight;
+    public readonly BarcodeResult BarcodeBottom = barcodeBottom;
 
     #endregion
 

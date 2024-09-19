@@ -1,4 +1,5 @@
 using ProtoBuf;
+using Ws.Barcodes.Models;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 
 namespace Ws.Labels.Service.Generate.Models.Cache;
@@ -11,13 +12,13 @@ public class TemplateFromCache
     public string Template { get; set; } = string.Empty;
 
     [ProtoMember(2)]
-    public List<BarcodeItemTemplateFromCache> BarcodeTopTemplate { get; set; } = [];
+    public List<BarcodeVar> BarcodeTopTemplate { get; set; } = [];
 
     [ProtoMember(3)]
-    public List<BarcodeItemTemplateFromCache> BarcodeRightTemplate { get; set; } = [];
+    public List<BarcodeVar> BarcodeRightTemplate { get; set; } = [];
 
     [ProtoMember(4)]
-    public List<BarcodeItemTemplateFromCache> BarcodeBottomTemplate { get; set; } = [];
+    public List<BarcodeVar> BarcodeBottomTemplate { get; set; } = [];
 
     [ProtoMember(5)]
     public short Width { get; set; }
@@ -34,9 +35,9 @@ public class TemplateFromCache
         Width = template.Width;
         Height = template.Height;
         Rotate = template.Rotate;
-        BarcodeTopTemplate.AddRange(template.BarcodeTopBody.Select(data => new BarcodeItemTemplateFromCache(data)));
-        BarcodeRightTemplate.AddRange(template.BarcodeRightBody.Select(data => new BarcodeItemTemplateFromCache(data)));
-        BarcodeBottomTemplate.AddRange(template.BarcodeBottomBody.Select(data => new BarcodeItemTemplateFromCache(data)));
+        BarcodeTopTemplate = template.BarcodeTopBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
+        BarcodeRightTemplate = template.BarcodeRightBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
+        BarcodeBottomTemplate = template.BarcodeBottomBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
     }
 
     // FOR PROTOBUF

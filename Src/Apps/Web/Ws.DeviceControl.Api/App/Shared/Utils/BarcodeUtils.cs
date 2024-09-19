@@ -1,25 +1,24 @@
+using Ws.Barcodes.Common;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
-using Ws.Labels.Service.Generate.Common;
-
 namespace Ws.DeviceControl.Api.App.Shared.Utils;
 
 public static class BarcodeUtils
 {
     #region Private
 
-    private class BarcodeLabelBaseTemp : IBarcodeLabel
+    private class BarcodeLabelBaseTemp : IBarcodeVariables
     {
-        public int LineNumber { get; init; }
-        public int LineCounter { get; init; }
-        public short Kneading { get; init; }
-        public short PluNumber { get; init; }
+        public uint LineNumber { get; init; }
+        public uint LineCounter { get; init; }
+        public ushort Kneading { get; init; }
+        public ushort PluNumber { get; init; }
         public string PluEan13 { get; init; } = null!;
         public string PluGtin { get; init; } = null!;
         public DateTime ProductDt { get; init; }
         public DateTime ExpirationDt { get; init; }
-        public short BundleCount { get; init; }
+        public ushort BundleCount { get; init; }
         public decimal WeightNet { get; init; }
-        public int ExpirationDay { get; init; }
+        public ushort ExpirationDay { get; init; }
     }
 
     private static BarcodeVarDto Build(Expression<Func<object>> expr, short length, bool isRepeatable = false)

@@ -4,8 +4,6 @@ public class BarcodeItem
 {
     public string Property { get; set; } = string.Empty;
     public string FormatStr { get; set; } = string.Empty;
-    public ushort Length { get; set; }
-    public bool IsConst { get; set; }
 
     public override bool Equals(object? obj)
     {

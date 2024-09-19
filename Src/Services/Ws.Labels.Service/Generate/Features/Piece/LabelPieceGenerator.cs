@@ -1,9 +1,9 @@
+using Ws.Barcodes.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
-using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Models.Cache;
@@ -38,7 +38,7 @@ internal class LabelPieceGenerator(
                 ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.TemplateNotFound),
             };
 
-        BarcodeModel barcodeTemplates = dto.ToBarcodeModel();
+        BarcodeBuilder barcodeTemplates = dto.ToBarcodeBuilder();
 
 
         if (templateFromCache.Template.Contains("storage_method"))
@@ -107,17 +107,17 @@ internal class LabelPieceGenerator(
         };
     }
 
-    private (LabelEntity, TemplateVars) GenerateLabel(BarcodeModel barcodeTemplates, int index, TemplateFromCache templateFromCache, GeneratePiecePalletDto dto)
+    private (LabelEntity, TemplateVars) GenerateLabel(BarcodeBuilder barcodeTemplates, int index, TemplateFromCache templateFromCache, GeneratePiecePalletDto dto)
     {
-        BarcodeModel barcode = barcodeTemplates with
+        BarcodeBuilder barcode = barcodeTemplates with
         {
-            LineCounter = dto.Line.Counter + index + 1,
+            LineCounter = (uint)(dto.Line.Counter + index + 1),
             ProductDt = barcodeTemplates.ProductDt.AddSeconds(index)
         };
 
-        BarcodeReadyModel barcodeTop = barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate);
-        BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
-        BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
+        BarcodeResult barcodeTop = barcode.Build(templateFromCache.BarcodeTopTemplate);
+        BarcodeResult barcodeRight = barcode.Build(templateFromCache.BarcodeRightTemplate);
+        BarcodeResult barcodeBottom = barcode.Build(templateFromCache.BarcodeBottomTemplate);
 
         decimal weightNet = dto.Nesting.CalculateWeightNet(dto.Plu);
         decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);

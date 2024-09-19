@@ -1,5 +1,5 @@
+using Ws.Barcodes.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
-using Ws.Labels.Service.Generate.Common;
 using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Generate.Models.Cache;
@@ -21,13 +21,13 @@ internal class LabelWeightGenerator(CacheService cacheService, ZplService zplSer
                 ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.TemplateNotFound),
             };
 
-        BarcodeModel barcode = dto.ToBarcodeModel();
+        BarcodeBuilder barcode = dto.ToBarcodeBuilder();
 
         #region label parse
 
-        BarcodeReadyModel barcodeTop = barcode.GenerateBarcode(templateFromCache.BarcodeTopTemplate);
-        BarcodeReadyModel barcodeRight = barcode.GenerateBarcode(templateFromCache.BarcodeRightTemplate);
-        BarcodeReadyModel barcodeBottom = barcode.GenerateBarcode(templateFromCache.BarcodeBottomTemplate);
+        BarcodeResult barcodeTop = barcode.Build(templateFromCache.BarcodeTopTemplate);
+        BarcodeResult barcodeRight = barcode.Build(templateFromCache.BarcodeRightTemplate);
+        BarcodeResult barcodeBottom = barcode.Build(templateFromCache.BarcodeBottomTemplate);
 
         decimal weightNet = dto.Plu.Weight;
         decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);

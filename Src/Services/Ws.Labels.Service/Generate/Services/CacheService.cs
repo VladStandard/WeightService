@@ -12,7 +12,6 @@ namespace Ws.Labels.Service.Generate.Services;
 
 public partial class CacheService(
     WsDbContext dbContext,
-    IEasyCachingProvider easyCachingProvider,
     IRedisCachingProvider redisCachingProvider)
 {
     [GeneratedRegex(",([^,]+),")]
@@ -20,16 +19,15 @@ public partial class CacheService(
 
     public TemplateFromCache? GetTemplateByUidFromCacheOrDb(Guid templateUid)
     {
-        string zplKey = $"TEMPLATES:{templateUid}";
-
-        if (easyCachingProvider.Exists(zplKey))
-            return easyCachingProvider.Get<TemplateFromCache>(zplKey).Value;
-
         TemplateEntity? temp = dbContext.Templates.Find(templateUid);
         if (temp is null) return null;
         TemplateFromCache tempFromCache = new(temp);
 
-        easyCachingProvider.Set($"{zplKey}", tempFromCache, TimeSpan.FromHours(1));
+        // IEasyCachingProvider easyCachingProvider;
+        // string zplKey = $"TEMPLATES:{templateUid}";
+        // if (easyCachingProvider.Exists(zplKey))
+        //     return easyCachingProvider.Get<TemplateFromCache>(zplKey).Value;
+        // easyCachingProvider.Set($"{zplKey}", tempFromCache, TimeSpan.FromHours(1));
         return tempFromCache;
     }
 

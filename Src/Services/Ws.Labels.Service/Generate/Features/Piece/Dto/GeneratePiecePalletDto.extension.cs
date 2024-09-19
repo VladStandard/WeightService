@@ -1,24 +1,24 @@
-using Ws.Labels.Service.Generate.Common;
+using Ws.Barcodes.Models;
 
 namespace Ws.Labels.Service.Generate.Features.Piece.Dto;
 
 public static class LabelPiecePalletDtoMapper
 {
-    public static BarcodeModel ToBarcodeModel(this GeneratePiecePalletDto palletDto)
+    public static BarcodeBuilder ToBarcodeBuilder(this GeneratePiecePalletDto palletDto)
     {
         return new()
         {
-            Kneading = palletDto.Kneading,
-            BundleCount = palletDto.Nesting.BundleCount,
+            Kneading = (ushort)palletDto.Kneading,
+            BundleCount = (ushort)palletDto.Nesting.BundleCount,
             ProductDt = palletDto.ProductDt,
-            LineNumber = palletDto.Line.Number,
-            LineCounter = palletDto.Line.Counter,
-            PluNumber = palletDto.Plu.Number,
+            LineNumber = (uint)palletDto.Line.Number,
+            LineCounter = (uint)palletDto.Line.Counter,
+            PluNumber = (ushort)palletDto.Plu.Number,
             PluGtin = palletDto.Plu.Gtin,
             PluEan13 = palletDto.Plu.Ean13,
             WeightNet = palletDto.Nesting.CalculateWeightNet(palletDto.Plu),
             ExpirationDt = palletDto.ExpirationDt,
-            ExpirationDay = palletDto.ExpirationDt.DayOfYear
+            ExpirationDay = (ushort)palletDto.ExpirationDt.DayOfYear
         };
     }
 }

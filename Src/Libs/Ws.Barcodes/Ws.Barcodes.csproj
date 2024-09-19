@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    
+    <ItemGroup Label="Projects">
+      <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+</Project>
