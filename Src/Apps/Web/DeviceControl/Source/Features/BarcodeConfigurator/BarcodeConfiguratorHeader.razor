@@ -1,0 +1,12 @@
+@foreach (string title in Titles)
+{
+  <div class="h-10 w-full flex items-center truncate px-3">
+    @WsDataLocalizer[title]
+  </div>
+}
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  private IEnumerable<string> Titles { get; } = ["ColSequence", "ColName", "ColType", "ColMask", "ColLength", ""];
+}

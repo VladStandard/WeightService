@@ -2,6 +2,7 @@
 
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 @using DeviceControl.Source.Features.BarcodeConfigurator
+@using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Template.Universal
 
 <UseEndpoint
@@ -51,7 +52,7 @@
       }
     </Accordion>
     <div class="pt-4 flex justify-end">
-      <Button>
+      <Button OnClick="@UpdateBarcode">
         @Localizer["BtnSubmit"]
       </Button>
     </div>
@@ -64,61 +65,29 @@
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private PrintSettingsEndpoints PrintSettingsEndpoints { get; set; } = default!;
+  [Inject] private IWebApi WebApi { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
 
   # endregion
 
   [Parameter, EditorRequired] public TemplateDto Template { get; set; } = default!;
   [Parameter, EditorRequired] public BarcodeItemWrapper Barcodes { get; set; } = default!;
-  [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
 
   private BarcodeItemWrapper BarcodesCopy { get; set; } = default!;
 
   protected override void OnInitialized() => BarcodesCopy = Barcodes with {};
 
-  // private async Task SubmitForm()
-  // {
-  //   if (!ValidateBarcodes())
-  //     return;
-  //
-  //   try
-  //   {
-  //     TemplateService.Update(DialogItem);
-  //     ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
-  //     await Dialog.CloseAsync(new SectionDialogContent<Template>
-  //       { Item = DialogItem, DataAction = SectionDialogResultEnum.Update });
-  //   }
-  //   catch
-  //   {
-  //     ToastService.ShowError(Localizer["UnknownError"]);
-  //   }
-  // }
-  //
-  // private bool ValidateBarcodes()
-  // {
-  //   BarcodeItemValidator validator = new(BarcodeVariables);
-  //   List<BarcodeError> validationErrors = [];
-  //
-  //   validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeTopTemplate, WsDataLocalizer["ColBarcodeTop"], validator));
-  //   validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeBottomTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
-  //   validationErrors.AddRange(ValidateBarcodeItems(DialogItem.BarcodeRightTemplate, WsDataLocalizer["ColBarcodeBottom"], validator));
-  //
-  //   if (!validationErrors.Any()) return true;
-  //
-  //   foreach (BarcodeError barcodeError in validationErrors)
-  //     ToastService.ShowError($"{barcodeError.Barcode} - {barcodeError.ItemName} {barcodeError.Error}");
-  //
-  //   return false;
-  // }
-  //
-  // private List<BarcodeError> ValidateBarcodeItems(IEnumerable<BarcodeItem> barcodeItems, string barcodeType, BarcodeItemValidator validator) =>
-  //   barcodeItems
-  //     .Select(item => new { Item = item, validator.Validate(item).Errors })
-  //     .Where(x => x.Errors != null && x.Errors.Any())
-  //     .Select(x => new BarcodeError
-  //     {
-  //       Barcode = barcodeType,
-  //       ItemName = x.Item.Property,
-  //       Error = x.Errors.First().ErrorMessage
-  //     })
-  //     .ToList();
+  private async Task UpdateBarcode()
+  {
+    try
+    {
+      BarcodeItemWrapper newBarcodes = await WebApi.UpdateBarcodeVariables(Template.Id, BarcodesCopy);
+      PrintSettingsEndpoints.UpdateBarcodes(Template.Id, newBarcodes);
+      ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
+    }
+    catch
+    {
+      ToastService.ShowError(Localizer["UnknownError"]);
+    }
+  }
 }

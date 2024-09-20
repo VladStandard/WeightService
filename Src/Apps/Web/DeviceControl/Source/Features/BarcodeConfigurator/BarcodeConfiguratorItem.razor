@@ -1,0 +1,135 @@
+@using Ws.DeviceControl.Models.Features.References.Template.Queries
+@using Blazor.Heroicons.Outline
+
+<div class="size-full flex items-center px-3 text-sm">
+  <div class="flex items-center w-full justify-between">
+    @(Index + 1)
+    <div class="flex gap-px">
+      <Button
+        Variant="ButtonVariantType.Ghost"
+        Size="ButtonSizeType.Icon"
+        OnClick="@(() => Parent.SwapItems(Index, Index - 1))"
+        Disabled="@(Index == 0)"
+      >
+        <ChevronUpIcon class="size-4"/>
+      </Button>
+      <Button
+        Variant="ButtonVariantType.Ghost"
+        Size="ButtonSizeType.Icon"
+        OnClick="@(() => Parent.SwapItems(Index, Index + 1))"
+        Disabled="@(Index == Parent.BarcodeDictionary.Count - 1)"
+      >
+        <ChevronDownIcon class="size-4"/>
+      </Button>
+    </div>
+  </div>
+</div>
+<div>
+  @if (Value.IsConst)
+  {
+    <InputTextField
+      @bind-Value="@Value.Property"
+      @bind-Value:after="@OnConstInputValue"
+      Placeholder="@Localizer["BarcodeEditorConstInputPlaceholder"]"
+      Class="!border-none !rounded-none"
+    />
+  }
+  else
+  {
+    <SelectSingle
+      TItem="string"
+      Items="@GetFilteredValues()"
+      @bind-Value="@Value.Property"
+      @bind-Value:after="@OnVarSelect"
+      ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item)"
+      Class="!border-none !rounded-none"
+    />
+  }
+</div>
+<div>
+  <SelectSingle
+    TItem="bool"
+    Items="[true, false]"
+    ItemDisplayName="@(item => item ? WsDataLocalizer["ColConst"] : WsDataLocalizer["ColVariable"])"
+    @bind-Value="@Value.IsConst"
+    @bind-Value:after="@OnTypeSelect"
+    Class="!border-none !rounded-none"
+  />
+</div>
+<div class="!bg-background/[.8]">
+  @if (GetTypedBarcode()?.Type == typeof(DateTime))
+  {
+  <div class="size-full flex gap-1 !bg-background items-center">
+    <InputTextField
+      @bind-Value="@Value.FormatStr"
+      Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
+      Class="!border-none !rounded-none"
+    />
+    <InformationCircleIcon
+      id="@($"mask-info-{Index}")"
+      class="text-muted-foreground size-5 mr-2 shrink-0 cursor-pointer"
+    />
+    <Tooltip Anchor="@($"mask-info-{Index}")" >
+      <b>yy</b>: Год (00-99)<br />
+      <b>MM</b>: Месяц (01-12)<br />
+      <b>dd</b>: День (01-31)<br />
+      <b>HH</b>: Часы (00-23)<br />
+      <b>ss</b>: Секунды (00-59)<br />
+      <b>mm</b>: Минуты (00-59)<br />
+    </Tooltip>
+  </div>
+  }
+</div>
+<div class="size-full flex items-center px-3 text-sm">
+  @Value.Length
+</div>
+<div class="size-full flex items-center justify-center">
+  <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon" OnClick="@(() => Parent.DeleteBarcodeItem(Index))">
+    <TrashIcon class="size-5 text-destructive" />
+  </Button>
+</div>
+
+@code {
+  [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  [CascadingParameter] public BarcodeConfigurator Parent { get; set; } = default!;
+
+  [Parameter, EditorRequired] public int Index { get; set; }
+  [Parameter, EditorRequired] public ExtendedBarcodeItemDto Value { get; set; } = default!;
+  [Parameter] public EventCallback<ExtendedBarcodeItemDto> ValueChanged { get; set; }
+
+
+  private async Task UpdateValueAsync() => await ValueChanged.InvokeAsync(Value);
+
+  private BarcodeVarDto? GetTypedBarcode() =>
+    Parent.BarcodeVariables.FirstOrDefault(x => x.Name == Value.Property);
+
+  private IEnumerable<string> GetFilteredValues()
+  {
+    IEnumerable<string> currentValues = Parent.BarcodeDictionary.Select(y => y.Property);
+    return Parent.BarcodeVariables.Where(x => x.IsRepeatable || !currentValues.Contains(x.Name)).Select(x => x.Name);
+  }
+
+  private async Task OnVarSelect()
+  {
+    BarcodeVarDto? selectedVariable = GetTypedBarcode();
+    Value.Length = (ushort)(selectedVariable?.Length ?? 0);
+    await UpdateValueAsync();
+  }
+
+  private async Task OnTypeSelect()
+  {
+    Value.Length = 0;
+    if (!Value.IsConst) Value.Property = GetFilteredValues().FirstOrDefault() ?? string.Empty;
+    else Value.Property = string.Empty;
+    await UpdateValueAsync();
+  }
+
+  private async Task OnConstInputValue()
+  {
+    Value.Property = new(Value.Property.Where(c => char.IsDigit(c) || "#()".Contains(c)).ToArray());
+    Value.Length = (ushort)Value.Property.Length;
+    await UpdateValueAsync();
+  }
+}

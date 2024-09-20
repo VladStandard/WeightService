@@ -46,7 +46,7 @@ public interface IWebTemplateApi
     Task<TemplateDto> UpdateTemplate(Guid id, [Body] TemplateUpdateDto updateDto);
 
     [Put("/templates/{id}/barcodes")]
-    Task<BarcodeItemWrapper[]> UpdateBarcodeVariables(Guid id, [Body] BarcodeItemWrapper body);
+    Task<BarcodeItemWrapper> UpdateBarcodeVariables(Guid id, [Body] BarcodeItemWrapper body);
 
     #endregion
 }

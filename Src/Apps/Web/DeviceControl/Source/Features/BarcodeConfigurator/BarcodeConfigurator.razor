@@ -2,125 +2,25 @@
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 @using Blazor.Heroicons.Outline
 
-<div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
-  <div class="h-10 w-full flex items-center truncate px-3">
-    @WsDataLocalizer["ColSequence"]
-  </div>
-  <div class="h-10 w-full flex items-center truncate px-3">
-    @WsDataLocalizer["ColName"]
-  </div>
-  <div class="h-10 w-full flex items-center truncate px-3">
-    @WsDataLocalizer["ColType"]
-  </div>
-  <div class="h-10 w-full flex items-center truncate px-3">
-    @WsDataLocalizer["ColMask"]
-  </div>
-  <div class="h-10 w-full flex items-center truncate px-3">
-    @WsDataLocalizer["ColLength"]
-  </div>
-  <div></div>
-  @if (!ExtendedBarcodeDictionary.Any())
-  {
-    <div class="col-span-6 flex w-full h-10 items-center justify-center">
-      @Localizer["BarcodeEditorEmptyPlaceholder"]
-    </div>
-  }
-  @foreach ((ExtendedBarcodeItemDto value, int index) in ExtendedBarcodeDictionary.Select((value, index) => (value, index)))
-  {
-    <div class="size-full flex items-center px-3 text-sm">
-      <div class="flex items-center w-full justify-between">
-        @(index + 1)
-        <div class="flex gap-px">
-          <Button
-            Variant="ButtonVariantType.Ghost"
-            Size="ButtonSizeType.Icon"
-            OnClick="@(() => SwapItems(index, index - 1))"
-            Disabled="@(index == 0)"
-          >
-            <ChevronUpIcon class="size-4"/>
-          </Button>
-          <Button
-            Variant="ButtonVariantType.Ghost"
-            Size="ButtonSizeType.Icon"
-            OnClick="@(() => SwapItems(index, index + 1))"
-            Disabled="@(index == ExtendedBarcodeDictionary.Count - 1)"
-          >
-            <ChevronDownIcon class="size-4"/>
-          </Button>
-        </div>
-      </div>
-    </div>
-    <div>
-      @if (value.IsConst)
-      {
-        <InputTextField
-          @bind-Value="@value.Property"
-          @bind-Value:after="@(() => OnConstInput(value))"
-          Placeholder="@Localizer["BarcodeEditorConstInputPlaceholder"]"
-          Class="!border-none !rounded-none"
-        />
-      }
-      else
-      {
-        <SelectSingle
-          TItem="string"
-          Items="@GetFilteredValues()"
-          @bind-Value="@value.Property"
-          @bind-Value:after="@(() => OnVarSelect(value))"
-          ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item)"
-          Class="!border-none !rounded-none"
-        />
-      }
-    </div>
-    <div>
-      <SelectSingle
-        TItem="bool"
-        Items="[true, false]"
-        ItemDisplayName="@(item => item ? WsDataLocalizer["ColConst"] : WsDataLocalizer["ColVariable"])"
-        @bind-Value="@value.IsConst"
-        @bind-Value:after="@(() => OnTypeSelect(value))"
-        Class="!border-none !rounded-none"
+<CascadingValue Value="this">
+  <div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
+    <BarcodeConfiguratorHeader />
+    @if (!BarcodeDictionary.Any())
+    {
+      <BarcodeConfiguratorEmptyPlaceholder Placeholder="@Placeholder" />
+    }
+    @foreach ((BarcodeItemDto value, int index) in BarcodeDictionary.Select((value, index) => (value, index)))
+    {
+      <BarcodeConfiguratorItem
+        Value="@(BarcodeMapper.DtoToExtendedDto(value, BarcodeVariables))"
+        ValueChanged="@(barcode => BarcodeDictionary[index] = BarcodeMapper.ExtendedDtoToDto(barcode))"
+        Index="@index"
       />
-    </div>
-    <div class="!bg-background/[.8]">
-      @if (BarcodeVariables.FirstOrDefault(x => x.Name == value.Property)?.Type == typeof(DateTime))
-      {
-        <div class="size-full flex gap-1 !bg-background items-center">
-          <InputTextField
-            @bind-Value="@value.FormatStr"
-            Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
-            Class="!border-none !rounded-none"
-          />
-          <InformationCircleIcon
-            id="@($"mask-info-{index}")"
-            class="text-muted-foreground size-5 mr-2 shrink-0 cursor-pointer"
-          />
-          <Tooltip Anchor="@($"mask-info-{index}")" >
-            <b>yy</b>: Год (00-99)<br />
-            <b>MM</b>: Месяц (01-12)<br />
-            <b>dd</b>: День (01-31)<br />
-            <b>HH</b>: Часы (00-23)<br />
-            <b>ss</b>: Секунды (00-59)<br />
-            <b>mm</b>: Минуты (00-59)<br />
-          </Tooltip>
-        </div>
-      }
-    </div>
-    <div class="size-full flex items-center px-3 text-sm">
-      @value.Length
-    </div>
-    <div class="size-full flex items-center justify-center">
-      <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon" OnClick="@(() => DeleteBarcodeItem(index))">
-        <TrashIcon class="size-5 text-destructive" />
-      </Button>
-    </div>
-  }
-</div>
-<div class="flex w-full py-4 gap-2 justify-between items-center overflow-hidden flex-wrap gap-y-8">
-  <BarcodePreview
-    BarcodeDictionary="ExtendedBarcodeDictionary"
-    BarcodeVariables="BarcodeVariables"
-  />
+    }
+  </div>
+</CascadingValue>
+
+<div class="flex w-full py-4 gap-2 justify-end items-center overflow-hidden flex-wrap gap-y-8">
   <div class="gap-2 flex">
     <Button Variant="ButtonVariantType.Destructive" OnClick="@CleanBarcode">
       <TrashIcon class="size-5 md:mr-2"/>
@@ -139,97 +39,33 @@
 
   [Parameter] public List<BarcodeItemDto> BarcodeDictionary { get; set; } = [];
   [Parameter] public EventCallback<List<BarcodeItemDto>> BarcodeDictionaryChanged { get; set; }
+  [Parameter] public BarcodeVarDto[] BarcodeVariables { get; set; } = [];
+
   [Parameter] public string Class { get; set; } = string.Empty;
-  [Parameter] public IList<BarcodeVarDto> BarcodeVariables { get; set; } = [];
-
-  public IList<ExtendedBarcodeItemDto> ExtendedBarcodeDictionary { get; set; } = [];
-
-  protected override void OnInitialized()
-  {
-    ExtendedBarcodeDictionary = BarcodeDictionary
-      .Select(item =>
-      {
-        BarcodeVarDto? typedVariable = BarcodeVariables.FirstOrDefault(x => x.Name == item.Property);
-        ushort varLength = (ushort)item.Property.Length;
-        if (typedVariable != null)
-        {
-          if (typedVariable.Type == typeof(DateTime)) varLength = (ushort) item.FormatStr.Length;
-          else varLength = (ushort)typedVariable.Length;
-        }
-
-        return new ExtendedBarcodeItemDto
-        {
-          Property = item.Property,
-          FormatStr = item.FormatStr,
-          Length = varLength,
-          IsConst = typedVariable == null
-        };
-      })
-      .ToList();
-  }
-
-  private async Task SyncBarcodeDictionary()
-  {
-    BarcodeDictionary = ExtendedBarcodeDictionary
-      .Select(item => new BarcodeItemDto
-      {
-        Property = item.Property,
-        FormatStr = item.FormatStr
-      })
-      .ToList();
-
-    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
-  }
-
-  private async Task DeleteBarcodeItem(int itemIndex)
-  {
-    ExtendedBarcodeDictionary.RemoveAt(itemIndex);
-    await SyncBarcodeDictionary();
-  }
+  [Parameter] public string Placeholder { get; set; } = string.Empty;
 
   private async Task AddBarcodeItem()
   {
-    ExtendedBarcodeDictionary.Add(new());
-    await SyncBarcodeDictionary();
+    BarcodeDictionary.Add(new());
+    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
   }
 
   private async Task CleanBarcode()
   {
-    ExtendedBarcodeDictionary = [];
-    await SyncBarcodeDictionary();
+    BarcodeDictionary = [];
+    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
   }
 
-  private async Task OnVarSelect(ExtendedBarcodeItemDto item)
+  internal async Task DeleteBarcodeItem(int itemIndex)
   {
-    BarcodeVarDto? selectedVariable = BarcodeVariables.FirstOrDefault(x => x.Name == item.Property);
-    item.Length = (ushort)(selectedVariable?.Length ?? 0);
-    await SyncBarcodeDictionary();
+    BarcodeDictionary.RemoveAt(itemIndex);
+    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
   }
 
-  private async Task OnTypeSelect(ExtendedBarcodeItemDto item)
+  internal async Task SwapItems(int oldIndex, int newIndex)
   {
-    item.Property = string.Empty;
-    item.Length = 0;
-    await SyncBarcodeDictionary();
+    (BarcodeDictionary[oldIndex], BarcodeDictionary[newIndex]) =
+      (BarcodeDictionary[newIndex], BarcodeDictionary[oldIndex]);
+    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
   }
-
-  private async Task OnConstInput(ExtendedBarcodeItemDto item)
-  {
-    item.Length = (ushort)item.Property.Length;
-    await SyncBarcodeDictionary();
-  }
-
-  private IEnumerable<string> GetFilteredValues()
-  {
-    IEnumerable<string> currentValues = ExtendedBarcodeDictionary.Select(y => y.Property);
-    return BarcodeVariables.Where(x => x.IsRepeatable || !currentValues.Contains(x.Name)).Select(x => x.Name);
-  }
-
-  private async Task SwapItems(int oldIndex, int newIndex)
-  {
-    (ExtendedBarcodeDictionary[oldIndex], ExtendedBarcodeDictionary[newIndex]) =
-      (ExtendedBarcodeDictionary[newIndex], ExtendedBarcodeDictionary[oldIndex]);
-    await SyncBarcodeDictionary();
-  }
-
 }

@@ -139,5 +139,8 @@ public class PrintSettingsEndpoints(IWebApi webApi)
         webApi.GetBarcodes,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
+    public void UpdateBarcodes(Guid templateId, BarcodeItemWrapper barcodes) =>
+        BarcodesEndpoint.UpdateQueryData(templateId, query => query.Data == null ? query.Data! : barcodes);
+
     # endregion
 }
