@@ -3,20 +3,25 @@
 @using Blazor.Heroicons.Outline
 
 <CascadingValue Value="this">
-  <div class="@Css.Class("border gap-px rounded-md overflow-hidden bg-border grid grid-cols-[10rem_1fr_1fr_1fr_10rem_5rem] [&>div]:bg-background", Class)">
+  <div class="@Css.Class("border gap-px rounded-md overflow-hidden", Class)">
     <BarcodeConfiguratorHeader />
     @if (!BarcodeDictionary.Any())
     {
       <BarcodeConfiguratorEmptyPlaceholder Placeholder="@Placeholder" />
     }
-    @foreach ((BarcodeItemDto value, int index) in BarcodeDictionary.Select((value, index) => (value, index)))
-    {
-      <BarcodeConfiguratorItem
-        Value="@(BarcodeMapper.DtoToExtendedDto(value, BarcodeVariables))"
-        ValueChanged="@(barcode => BarcodeDictionary[index] = BarcodeMapper.ExtendedDtoToDto(barcode))"
-        Index="@index"
-      />
-    }
+    <FluentSortableList
+      Items="BarcodeDictionary"
+      OnUpdate="@SortList"
+      Class="!pb-0 !p-1 !rounded-none !border-none [&_.sortable-item]:!mb-1 [&_.sortable-item]:!border-border [&_.sortable-item]:!rounded-md [&_.sortable-item]:!overflow-hidden"
+      Style="--fluent-sortable-list-item-height: 4;"
+    >
+      <ItemTemplate>
+        <BarcodeConfiguratorItem
+          Value="@(BarcodeMapper.DtoToExtendedDto(context, BarcodeVariables))"
+          ValueChanged="@(value => BarcodeDictionary[BarcodeDictionary.FindIndex(x => x == context)] = value)"
+        />
+      </ItemTemplate>
+    </FluentSortableList>
   </div>
 </CascadingValue>
 
@@ -67,5 +72,28 @@
     (BarcodeDictionary[oldIndex], BarcodeDictionary[newIndex]) =
       (BarcodeDictionary[newIndex], BarcodeDictionary[oldIndex]);
     await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
+  }
+
+  private async Task SortList(FluentSortableListEventArgs? args)
+  {
+    if (args is null || args.OldIndex == args.NewIndex) return;
+
+    int oldIndex = args.OldIndex;
+    int newIndex = args.NewIndex;
+
+    List<BarcodeItemDto> items = BarcodeDictionary;
+    BarcodeItemDto itemToMove = items[oldIndex];
+    items.RemoveAt(oldIndex);
+
+    if (newIndex < items.Count)
+    {
+      items.Insert(newIndex, itemToMove);
+    }
+    else
+    {
+      items.Add(itemToMove);
+    }
+
+    BarcodeDictionary = items;
   }
 }

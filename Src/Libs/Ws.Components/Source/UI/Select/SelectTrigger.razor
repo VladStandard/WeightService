@@ -18,9 +18,9 @@
 </button>
 
 @code {
+  [CascadingParameter] public SelectBase<TSelectItem, TSelectType> Parent { get; set; } = default!;
+
   [Parameter] public RenderFragment? ChildContent { get; set; }
   [Parameter] public string Class { get; set; } = string.Empty;
   [Parameter] public bool Disabled { get; set; }
-
-  [CascadingParameter] public SelectBase<TSelectItem, TSelectType> Parent { get; set; } = default!;
 }

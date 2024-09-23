@@ -31,7 +31,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     {
         IsDropdownOpened = !IsDropdownOpened;
         await Task.Yield();
-        if (IsDropdownOpened && TriggerWidth == 0)
+        if (IsDropdownOpened && TriggerWidth <= 10)
             await SetDropdownWidthAsync();
     }
 
@@ -65,6 +65,7 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
     {
         SearchString = string.Empty;
         SelectItems = SelectItems.Reverse().ToDictionary(pair => pair.Key, pair => pair.Value);
+        StateHasChanged();
     }
 
     internal void Register(SelectItem<TItem, TValue> item) => SelectItems.Add(item.Id, item);
