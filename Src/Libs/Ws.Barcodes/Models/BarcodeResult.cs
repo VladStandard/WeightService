@@ -1,3 +1,3 @@
 namespace Ws.Barcodes.Models;
 
-public record BarcodeResult(string Clean, string Friendly, string Zpl);
+public sealed record BarcodeResult(string Clean, string Friendly, string Zpl);

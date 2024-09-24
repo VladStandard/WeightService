@@ -47,12 +47,12 @@ internal partial class BrandApiService
 
             transaction.Commit();
 
-            OutputDto.AddSuccess(brands.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(brands.ConvertAll(i => i.Id));
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(brands.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(brands.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 }

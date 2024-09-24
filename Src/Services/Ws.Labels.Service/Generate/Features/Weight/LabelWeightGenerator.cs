@@ -1,3 +1,4 @@
+using Ws.Barcodes;
 using Ws.Barcodes.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Generate.Exceptions;

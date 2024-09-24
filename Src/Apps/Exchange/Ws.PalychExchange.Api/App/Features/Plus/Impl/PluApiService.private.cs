@@ -58,12 +58,12 @@ internal sealed partial class PluApiService
 
             transaction.Commit();
             SaveNestings(validDtos);
-            OutputDto.AddSuccess(plus.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(plus.ConvertAll(i => i.Id));
         }
         catch (Exception ex)
         {
             transaction.Rollback();
-            OutputDto.AddError(plus.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(plus.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 

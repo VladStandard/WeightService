@@ -85,12 +85,12 @@ internal partial class CharacteristicApiService
                 options.PropertiesToExcludeOnUpdate = [nameof(CharacteristicEntity.CreateDt)];
             });
             transaction.Commit();
-            OutputDto.AddSuccess(characteristics.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(characteristics.ConvertAll(i => i.Id));
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(characteristics.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(characteristics.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 
@@ -103,7 +103,7 @@ internal partial class CharacteristicApiService
 
         if (characteristicToDelete.Count == 0) return;
 
-        HashSet<Guid> deletedUid = characteristicToDelete.Select(i => i.Id).ToHashSet();
+        HashSet<Guid> deletedUid = characteristicToDelete.ConvertAll(i => i.Id).ToHashSet();
 
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try

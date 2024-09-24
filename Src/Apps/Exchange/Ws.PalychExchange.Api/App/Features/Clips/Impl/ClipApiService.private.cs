@@ -21,12 +21,12 @@ internal partial class ClipApiService
             });
 
             transaction.Commit();
-            OutputDto.AddSuccess(clips.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(clips.ConvertAll(i => i.Id));
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(clips.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(clips.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 }

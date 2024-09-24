@@ -20,12 +20,12 @@ internal partial class BundleApiService
                 options.PropertiesToExcludeOnUpdate = [nameof(BundleEntity.CreateDt)];
             });
             transaction.Commit();
-            OutputDto.AddSuccess(bundles.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(bundles.ConvertAll(i => i.Id));
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(bundles.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(bundles.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 }

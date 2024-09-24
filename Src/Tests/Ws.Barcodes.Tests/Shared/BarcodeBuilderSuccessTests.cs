@@ -1,8 +1,6 @@
-using FluentAssertions;
 using Ws.Barcodes.Models;
-using Xunit;
 
-namespace Ws.Barcodes.Tests;
+namespace Ws.Barcodes.Tests.Shared;
 
 public class BarcodeBuilderSuccessTests
 {
@@ -32,19 +30,19 @@ public class BarcodeBuilderSuccessTests
         [
             new List<BarcodeVar>
             {
-                new("01", "({0})"),
+                new("01", "({0:C})"),
                 new(nameof(BarcodeBuilder.PluGtin), "{0:D14}"),
-                new("3103", "({0})"),
+                new("3103", "({0:C})"),
                 new(nameof(BarcodeBuilder.WeightNet), "{0:D6}"),
-                new("11", "({0})"),
+                new("11", "({0:C})"),
                 new(nameof(BarcodeBuilder.ProductDt), "{0:yyMMdd}"),
-                new("17", "({0})"),
+                new("17", "({0:C})"),
                 new(nameof(BarcodeBuilder.ExpirationDt), "{0:yyMMdd}"),
-                new("37", "({0})"),
+                new("37", "({0:C})"),
                 new(nameof(BarcodeBuilder.BundleCount), "{0:D2}"),
-                new("10", "#({0})"),
+                new("10", "#({0:C})"),
                 new(nameof(BarcodeBuilder.ProductDt), "{0:MMdd}"),
-                new("250", "#({0})"),
+                new("250", "#({0:C})"),
                 new(nameof(BarcodeBuilder.LineNumber), "{0:D5}"),
                 new(nameof(BarcodeBuilder.LineCounter), "{0:D6}"),
             },
@@ -55,7 +53,7 @@ public class BarcodeBuilderSuccessTests
         [
             new List<BarcodeVar>
             {
-                new("233"),
+                new("233", "{0:C}"),
                 new(nameof(BarcodeBuilder.LineNumber), "{0:D5}"),
                 new(nameof(BarcodeBuilder.BundleCount), "{0:D2}"),
                 new(nameof(BarcodeBuilder.LineCounter), "{0:D6}"),
@@ -70,7 +68,7 @@ public class BarcodeBuilderSuccessTests
         [
             new List<BarcodeVar>
             {
-                new("233"),
+                new("233", "{0:C}"),
                 new(nameof(BarcodeBuilder.LineNumber), "{0:D5}"),
                 new(nameof(BarcodeBuilder.BundleCount), "{0:D2}"),
                 new(nameof(BarcodeBuilder.LineCounter), "{0:D6}"),

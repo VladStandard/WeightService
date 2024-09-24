@@ -1,4 +1,3 @@
-using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;

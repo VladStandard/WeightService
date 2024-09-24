@@ -7,20 +7,20 @@ internal static class BarcodeItemExtensions
 {
     public static List<BarcodeItemDto> ToDto(this List<BarcodeItem> item)
     {
-        return item.Select(i => new BarcodeItemDto
+        return item.ConvertAll(i => new BarcodeItemDto
         {
             Property = i.Property,
             FormatStr = i.FormatStr,
-        }).ToList();
+        });
     }
 
     public static List<BarcodeItem> ToItem(this List<BarcodeItemDto> item)
     {
-        return item.Select(i => new BarcodeItem
+        return item.ConvertAll(i => new BarcodeItem
         {
             Property = i.Property,
             FormatStr = i.FormatStr
-        }).ToList();
+        });
     }
 
 }

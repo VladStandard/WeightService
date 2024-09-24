@@ -35,9 +35,9 @@ public class TemplateFromCache
         Width = template.Width;
         Height = template.Height;
         Rotate = template.Rotate;
-        BarcodeTopTemplate = template.BarcodeTopBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
-        BarcodeRightTemplate = template.BarcodeRightBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
-        BarcodeBottomTemplate = template.BarcodeBottomBody.Select(data => new BarcodeVar(data.Property, data.FormatStr)).ToList();
+        BarcodeTopTemplate = template.BarcodeTopBody.ConvertAll(data => new BarcodeVar(data.Property, data.FormatStr));
+        BarcodeRightTemplate = template.BarcodeRightBody.ConvertAll(data => new BarcodeVar(data.Property, data.FormatStr));
+        BarcodeBottomTemplate = template.BarcodeBottomBody.ConvertAll(data => new BarcodeVar(data.Property, data.FormatStr));
     }
 
     // FOR PROTOBUF

@@ -20,7 +20,7 @@ internal class BarcodeItemListComparer : ValueComparer<List<BarcodeItem>>
     private static bool SequenceEqual(List<BarcodeItem>? c1, List<BarcodeItem>? c2)
     {
         if (c1 == null || c2 == null) return c1 == c2;
-        return c1.Count == c2.Count && !c1.Where((t, i) => !t.Equals(c2[i])).Any();
+        return c1.SequenceEqual(c2);
     }
 }
 

@@ -1,4 +1,4 @@
-using Ws.Barcodes.Models;
+using Ws.Barcodes;
 
 namespace Ws.Labels.Service.Generate.Features.Piece.Dto;
 

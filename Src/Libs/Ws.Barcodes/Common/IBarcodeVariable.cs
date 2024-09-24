@@ -13,7 +13,7 @@ public interface IBarcodeVariables
     public DateTime ExpirationDt { get; init; }
     public ushort ExpirationDay { get; init; }
 
+    public decimal WeightNet { get; init; }
     public ushort BundleCount { get; init; }
     public ushort Kneading { get; init; }
-    public decimal WeightNet { get; init; }
 }

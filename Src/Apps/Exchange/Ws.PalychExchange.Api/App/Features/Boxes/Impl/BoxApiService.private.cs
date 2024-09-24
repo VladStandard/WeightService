@@ -20,12 +20,12 @@ internal partial class BoxApiService
                 options.PropertiesToExcludeOnUpdate = [nameof(BoxEntity.CreateDt)];
             });
             transaction.Commit();
-            OutputDto.AddSuccess(boxes.Select(i => i.Id).ToList());
+            OutputDto.AddSuccess(boxes.ConvertAll(i => i.Id));
         }
         catch (Exception)
         {
             transaction.Rollback();
-            OutputDto.AddError(boxes.Select(i => i.Id).ToList(), "Не предвиденная ошибка");
+            OutputDto.AddError(boxes.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }
 }

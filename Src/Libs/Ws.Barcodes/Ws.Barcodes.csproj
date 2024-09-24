@@ -3,5 +3,9 @@
     <ItemGroup Label="Projects">
       <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
     </ItemGroup>
+    
+    <ItemGroup Label="Directory.Packages.props">
+      <PackageReference Include="FluentValidation" />
+    </ItemGroup>
 
 </Project>
