@@ -38,14 +38,6 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
 
     #region Private
 
-    private static readonly Dictionary<Type, object?> TypeDefaults = new()
-    {
-        { typeof(uint), 0u },
-        { typeof(ushort), 0 },
-        { typeof(string), "0" },
-        { typeof(DateTime), DateTime.Now }
-    };
-
     #region IsValid
 
     private static bool IsValidPropertyOrDigits(string property) =>
@@ -69,14 +61,11 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
         oldMask = string.Empty;
         readyPropValue = barcodeVar.Property;
 
-        var propInfo = BarcodeVarUtils.BarcodeVarInfos.FirstOrDefault(info => info.Property == barcodeVar.Property);
+        BarcodeVarInfo? propInfo = BarcodeVarUtils.BarcodeVarInfos.FirstOrDefault(info => info.Property == barcodeVar.Property);
         if (propInfo == null || mask.Contains(":C"))
             return false;
 
-        if (!TypeDefaults.TryGetValue(propInfo.Type, out var defaultValue))
-            return false;
-
-        readyPropValue = defaultValue ?? barcodeVar.Property;
+        readyPropValue = propInfo.Example;
         oldMask = propInfo.Mask;
         return true;
     }
