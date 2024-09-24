@@ -5,14 +5,7 @@ namespace DeviceControl.Source.Features.BarcodeConfigurator;
 
 public static class BarcodeMapper
 {
-    public static BarcodeItemDto ExtendedDtoToDto(ExtendedBarcodeItemDto item)
-    {
-        return new()
-        {
-            Property = item.Property,
-            FormatStr = item.FormatStr
-        };
-    }
+    public static BarcodeItemDto ExtendedDtoToDto(ExtendedBarcodeItemDto item) => item;
 
     public static ExtendedBarcodeItemDto DtoToExtendedDto(BarcodeItemDto item, BarcodeVarDto[] vars)
     {

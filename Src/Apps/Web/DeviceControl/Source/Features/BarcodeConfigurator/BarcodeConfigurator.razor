@@ -1,5 +1,6 @@
 @using Ws.DeviceControl.Models.Features.References.Template.Universal
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
+@using Force.DeepCloner
 @using Blazor.Heroicons.Outline
 
 <CascadingValue Value="this">
@@ -10,16 +11,15 @@
       <BarcodeConfiguratorEmptyPlaceholder Placeholder="@Placeholder" />
     }
     <FluentSortableList
-      Items="BarcodeDictionary"
+      Items="ExtendedBarcodeDictionary"
       OnUpdate="@SortList"
       Class="!pb-0 !p-1 !rounded-none !border-none [&_.sortable-item]:!mb-1 [&_.sortable-item]:!border-border [&_.sortable-item]:!rounded-md [&_.sortable-item]:!overflow-hidden"
       Style="--fluent-sortable-list-item-height: 4;"
+      Context="item"
+      Handle
     >
       <ItemTemplate>
-        <BarcodeConfiguratorItem
-          Value="@(BarcodeMapper.DtoToExtendedDto(context, BarcodeVariables))"
-          ValueChanged="@(value => BarcodeDictionary[BarcodeDictionary.FindIndex(x => x == context)] = value)"
-        />
+        <BarcodeConfiguratorItem Value="@item" ValueChanged="@OnItemChanged" />
       </ItemTemplate>
     </FluentSortableList>
   </div>
@@ -27,9 +27,9 @@
 
 <div class="flex w-full py-4 gap-2 justify-end items-center overflow-hidden flex-wrap gap-y-8">
   <div class="gap-2 flex">
-    <Button Variant="ButtonVariantType.Destructive" OnClick="@CleanBarcode">
-      <TrashIcon class="size-5 md:mr-2"/>
-      <span class="hidden md:block">@Localizer["BtnClear"]</span>
+    <Button Variant="ButtonVariantType.Outline" OnClick="@ResetBarcode">
+      <ArrowUturnLeftIcon class="size-[1.1rem] md:mr-2"/>
+      <span class="hidden md:block">@Localizer["BtnReset"]</span>
     </Button>
     <Button OnClick="@AddBarcodeItem">
       <PlusIcon class="size-5 md:mr-2"/>
@@ -49,51 +49,54 @@
   [Parameter] public string Class { get; set; } = string.Empty;
   [Parameter] public string Placeholder { get; set; } = string.Empty;
 
+  private List<ExtendedBarcodeItemDto> ExtendedBarcodeDictionary { get; set; } = [];
+  private List<ExtendedBarcodeItemDto> ExtendedBarcodeDictionaryCopy { get; set; } = [];
+
+  protected override void OnInitialized()
+  {
+    ExtendedBarcodeDictionary = BarcodeDictionary.Select(x => BarcodeMapper.DtoToExtendedDto(x, BarcodeVariables)).ToList();
+    ExtendedBarcodeDictionaryCopy = ExtendedBarcodeDictionary.DeepClone();
+  }
+
+  private Task SyncBarcodeDictionary() =>
+    BarcodeDictionaryChanged.InvokeAsync(ExtendedBarcodeDictionary.Select(BarcodeMapper.ExtendedDtoToDto).ToList());
+
   private async Task AddBarcodeItem()
   {
-    BarcodeDictionary.Add(new());
-    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
+    ExtendedBarcodeDictionary.Add(new());
+    await SyncBarcodeDictionary();
   }
 
-  private async Task CleanBarcode()
+  private async Task ResetBarcode()
   {
-    BarcodeDictionary = [];
-    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
+    ExtendedBarcodeDictionary = ExtendedBarcodeDictionaryCopy.DeepClone();
+    await SyncBarcodeDictionary();
   }
 
-  internal async Task DeleteBarcodeItem(int itemIndex)
+  internal async Task DeleteBarcodeItem(ExtendedBarcodeItemDto item)
   {
-    BarcodeDictionary.RemoveAt(itemIndex);
-    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
+    int index = ExtendedBarcodeDictionary.FindIndex(x => x.Id.Equals(item.Id));
+    if (index == -1) return;
+    ExtendedBarcodeDictionary.RemoveAt(index);
+    await SyncBarcodeDictionary();
   }
 
-  internal async Task SwapItems(int oldIndex, int newIndex)
+  private async Task OnItemChanged(ExtendedBarcodeItemDto item)
   {
-    (BarcodeDictionary[oldIndex], BarcodeDictionary[newIndex]) =
-      (BarcodeDictionary[newIndex], BarcodeDictionary[oldIndex]);
-    await BarcodeDictionaryChanged.InvokeAsync(BarcodeDictionary);
+    int index = ExtendedBarcodeDictionary.FindIndex(x => x.Id.Equals(item.Id));
+    if (index == -1) return;
+    ExtendedBarcodeDictionary[index] = item;
+    await SyncBarcodeDictionary();
   }
 
   private async Task SortList(FluentSortableListEventArgs? args)
   {
     if (args is null || args.OldIndex == args.NewIndex) return;
 
-    int oldIndex = args.OldIndex;
-    int newIndex = args.NewIndex;
+    ExtendedBarcodeItemDto itemToMove = ExtendedBarcodeDictionary[args.OldIndex];
+    ExtendedBarcodeDictionary.RemoveAt(args.OldIndex);
+    ExtendedBarcodeDictionary.Insert(Math.Min(args.NewIndex, ExtendedBarcodeDictionary.Count), itemToMove);
 
-    List<BarcodeItemDto> items = BarcodeDictionary;
-    BarcodeItemDto itemToMove = items[oldIndex];
-    items.RemoveAt(oldIndex);
-
-    if (newIndex < items.Count)
-    {
-      items.Insert(newIndex, itemToMove);
-    }
-    else
-    {
-      items.Add(itemToMove);
-    }
-
-    BarcodeDictionary = items;
+    await SyncBarcodeDictionary();
   }
 }

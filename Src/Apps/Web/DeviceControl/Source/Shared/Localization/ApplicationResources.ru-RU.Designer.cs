@@ -204,6 +204,15 @@ namespace DeviceControl.Source.Shared.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Восстановить.
+        /// </summary>
+        public static string BtnReset {
+            get {
+                return ResourceManager.GetString("BtnReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подтвердить.
         /// </summary>
         public static string BtnSubmit {

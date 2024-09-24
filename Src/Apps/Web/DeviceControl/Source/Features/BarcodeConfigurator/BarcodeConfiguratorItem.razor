@@ -1,85 +1,87 @@
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 @using Blazor.Heroicons.Outline
 
-<li class="size-full grid grid-cols-[3rem_14rem_1fr_1fr_7rem_3rem] divide-x bg-background">
-  <div class="size-full bg-secondary/[.5] flex items-center justify-center px-3 text-sm">
-    <ChevronUpDownIcon class="size-5" />
+<li class="size-full h-10 flex bg-background divide-x">
+  <div class="sortable-grab shrink-0 !w-12 !bg-secondary flex items-center justify-center px-3 text-sm opacity-75 hover:opacity-100">
+    <ChevronUpDownIcon class="size-5"/>
   </div>
-  <div class="size-full flex items-center justify-center px-2">
-    <div class="h-9 rounded-md p-1 grid grid-cols-2">
-      <button
-        type="button"
-        class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", Value.IsConst ? "bg-secondary" : "")"
-        @onclick="@(() => OnTypeSelect(true))"
-        disabled="@Value.IsConst"
-      >
-        @WsDataLocalizer["ColConst"]
-      </button>
-      <button
-        type="button"
-        class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", !Value.IsConst ? "bg-secondary" : "")"
-        @onclick="@(() => OnTypeSelect(false))"
-        disabled="@(!Value.IsConst)"
-      >
-        @WsDataLocalizer["ColVariable"]
-      </button>
+  <div class="sortable-item-content grid grid-cols-[14rem_1fr_1fr_7rem_3rem] divide-x size-full">
+    <div class="size-full flex items-center justify-center px-2">
+      <div class="h-9 rounded-md p-1 grid grid-cols-2">
+        <button
+          type="button"
+          class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", Value.IsConst ? "bg-secondary" : "hover:bg-secondary/[.5]")"
+          @onclick="@(() => OnTypeSelect(true))"
+          disabled="@Value.IsConst">
+          @WsDataLocalizer["ColConst"]
+        </button>
+        <button
+          type="button"
+          class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", !Value.IsConst ? "bg-secondary" : "hover:bg-secondary/[.5]")"
+          @onclick="@(() => OnTypeSelect(false))"
+          disabled="@(!Value.IsConst)">
+          @WsDataLocalizer["ColVariable"]
+        </button>
+      </div>
     </div>
-  </div>
-  <div class="size-full overflow-hidden">
-    @if (Value.IsConst)
-    {
-      <InputTextField
-        @bind-Value="@Value.Property"
-        @bind-Value:after="@OnConstInputValue"
-        Placeholder="@Localizer["BarcodeEditorConstInputPlaceholder"]"
-        Class="!border-none !rounded-none"
-      />
-    }
-    else
-    {
-      <Combobox
-        Items="@GetFilteredValues()"
-        @bind-Value="@Value.Property"
-        @bind-Value:after="@OnVarSelect"
-        ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item.ToString())"
-        Class="!border-none !rounded-none"
-      />
-    }
-  </div>
-  <div class="!bg-background/[.8]">
-    @if (GetTypedBarcode()?.Type == typeof(DateTime))
-    {
-    <div class="size-full flex gap-1 !bg-background items-center">
-      <InputTextField
-        @bind-Value="@Value.FormatStr"
-        Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
-        Class="!border-none !rounded-none disabled:!opacity-100 disabled:!bg-muted-foreground"
-      />
-      <InformationCircleIcon
-        id="@MaskId"
-        class="text-muted-foreground size-5 mr-2 shrink-0 cursor-pointer"
-      />
-      <Tooltip Anchor="@MaskId" >
-        <b>yy</b>: Год (00-99)<br />
-        <b>MM</b>: Месяц (01-12)<br />
-        <b>dd</b>: День (01-31)<br />
-        <b>HH</b>: Часы (00-23)<br />
-        <b>ss</b>: Секунды (00-59)<br />
-        <b>mm</b>: Минуты (00-59)<br />
-      </Tooltip>
+    <div class="size-full overflow-hidden">
+      @if (Value.IsConst)
+      {
+        <InputTextField
+          @bind-Value="@Value.Property"
+          @bind-Value:after="@OnConstInputValue"
+          Placeholder="@Localizer["BarcodeEditorConstInputPlaceholder"]"
+          Class="!border-none !rounded-none"
+        />
+      }
+      else
+      {
+        <SelectSingle
+          TItem="string"
+          Items="@GetFilteredValues()"
+          @bind-Value="@Value.Property"
+          @bind-Value:after="@OnVarSelect"
+          ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item.ToString())"
+          Class="!border-none !rounded-none"
+        />
+      }
     </div>
-    }
-  </div>
-  <div class="size-full flex items-center px-3 text-sm">
-    @Value.Length
-  </div>
-  <div class="size-full flex items-center justify-center">
-    <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon">
-      <TrashIcon class="size-5 text-destructive" />
-    </Button>
+    <div class="!bg-background/[.8]">
+      @if (GetTypedBarcode()?.Type == typeof(DateTime))
+      {
+      <div class="size-full flex gap-1 !bg-background items-center">
+        <InputTextField
+          @bind-Value="@Value.FormatStr"
+          Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
+          Class="!border-none !rounded-none disabled:!opacity-100 disabled:!bg-muted-foreground"
+        />
+        <InformationCircleIcon
+          id="@MaskId"
+          class="text-muted-foreground size-5 mr-2 shrink-0 cursor-pointer"/>
+        <Tooltip Anchor="@MaskId">
+          <b>yy</b>: Год (00-99)<br/>
+          <b>MM</b>: Месяц (01-12)<br/>
+          <b>dd</b>: День (01-31)<br/>
+          <b>HH</b>: Часы (00-23)<br/>
+          <b>ss</b>: Секунды (00-59)<br/>
+          <b>mm</b>: Минуты (00-59)<br/>
+        </Tooltip>
+      </div>
+      }
+    </div>
+    <div class="size-full flex items-center px-3 text-sm">
+      @Value.Length
+    </div>
+    <div class="size-full flex items-center justify-center">
+      <Button
+        Variant="ButtonVariantType.Ghost"
+        Size="ButtonSizeType.Icon"
+        OnClick="@(() => Parent.DeleteBarcodeItem(Value))">
+        <TrashIcon class="size-5 text-destructive"/>
+      </Button>
+    </div>
   </div>
 </li>
-
 
 @code {
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
@@ -87,11 +89,9 @@
 
   [CascadingParameter] public BarcodeConfigurator Parent { get; set; } = default!;
 
-  // [Parameter, EditorRequired] public int Index { get; set; }
   [Parameter, EditorRequired] public ExtendedBarcodeItemDto Value { get; set; } = default!;
   [Parameter] public EventCallback<ExtendedBarcodeItemDto> ValueChanged { get; set; }
 
-  private int DraggedItemIndex { get; set; } = 0;
   private string MaskId { get; set; } = $"mask-info-{Guid.NewGuid()}";
 
   private async Task UpdateValueAsync() => await ValueChanged.InvokeAsync(Value);
