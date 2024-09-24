@@ -5,7 +5,6 @@ namespace DeviceControl.Source.Features.BarcodeConfigurator;
 public sealed record ExtendedBarcodeItemDto: BarcodeItemDto
 {
     public Guid Id { get; } = Guid.NewGuid();
-    public ushort Length { get; set; } = 0;
-
+    public string Example { get; set; } = string.Empty;
     public bool IsConst { get; set; } = true;
 }

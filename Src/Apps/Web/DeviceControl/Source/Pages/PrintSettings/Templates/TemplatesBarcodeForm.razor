@@ -2,62 +2,36 @@
 
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 @using DeviceControl.Source.Features.BarcodeConfigurator
+@using Ws.Barcodes.Utils
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Template.Universal
 
-<UseEndpoint
-  Endpoint="PrintSettingsEndpoints.VariablesEndpoint"
-  Arg="@Template.Id"
-  Context="variablesQuery"
->
-  <div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
-    <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
-
-      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
-      {
-        <Skeleton Class="w-full h-32"/>
-      }
-      else
-      {
-        <BarcodeConfigurator
-          BarcodeVariables="variablesQuery.Data"
-          @bind-BarcodeDictionary="BarcodesCopy.Top"
-        />
-      }
-    </Accordion>
-    <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
-      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
-      {
-        <Skeleton Class="w-full h-32"/>
-      }
-      else
-      {
-        <BarcodeConfigurator
-          BarcodeVariables="variablesQuery.Data"
-          @bind-BarcodeDictionary="BarcodesCopy.Bottom"
-        />
-      }
-    </Accordion>
-    <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
-      @if (variablesQuery.IsLoading || !variablesQuery.HasData)
-      {
-        <Skeleton Class="w-full h-32"/>
-      }
-      else
-      {
-        <BarcodeConfigurator
-          BarcodeVariables="variablesQuery.Data"
-          @bind-BarcodeDictionary="BarcodesCopy.Right"
-        />
-      }
-    </Accordion>
-    <div class="pt-4 flex justify-end">
-      <Button OnClick="@UpdateBarcode">
-        @Localizer["BtnSubmit"]
-      </Button>
-    </div>
+<div class="w-full bg-secondary/[.3] pt-6 pb-8 px-5 overflow-y-auto dark:bg-inherit">
+  <Accordion Title="@WsDataLocalizer["ColBarcodeTop"]">
+    <BarcodeConfigurator
+      BarcodeVariables="@BarcodeVarUtils.BarcodeVarInfos"
+      @bind-BarcodeDictionary="BarcodesCopy.Top"
+    />
+  </Accordion>
+  <Accordion Title="@WsDataLocalizer["ColBarcodeBottom"]">
+    <BarcodeConfigurator
+      BarcodeVariables="@BarcodeVarUtils.BarcodeVarInfos"
+      @bind-BarcodeDictionary="BarcodesCopy.Bottom"
+    />
+  </Accordion>
+  <Accordion Title="@WsDataLocalizer["ColBarcodeRight"]">
+    <BarcodeConfigurator
+      BarcodeVariables="@BarcodeVarUtils.BarcodeVarInfos"
+      @bind-BarcodeDictionary="BarcodesCopy.Right"
+    />
+  </Accordion>
+  <div class="pt-4 flex justify-end">
+    <Button OnClick="@UpdateBarcode">
+      @Localizer["BtnSubmit"]
+    </Button>
   </div>
-</UseEndpoint>
+</div>
+
 
 @code {
   # region Injects

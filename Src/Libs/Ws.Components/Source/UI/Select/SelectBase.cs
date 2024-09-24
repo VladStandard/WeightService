@@ -68,6 +68,8 @@ public abstract class SelectBase<TItem, TValue> : ComponentBase, IAsyncDisposabl
         StateHasChanged();
     }
 
+    internal Task TriggerValueChanged() => ValueChanged.InvokeAsync(Value);
+
     internal void Register(SelectItem<TItem, TValue> item) => SelectItems.Add(item.Id, item);
 
     internal void Unregister(SelectItem<TItem, TValue> item) => SelectItems.Remove(item.Id);

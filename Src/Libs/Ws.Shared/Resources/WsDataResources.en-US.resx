@@ -312,4 +312,7 @@
     <data name="ColPluActive" xml:space="preserve">
         <value>Active</value>
     </data>
+    <data name="ColExample" xml:space="preserve">
+        <value>Example</value>
+    </data>
 </root>

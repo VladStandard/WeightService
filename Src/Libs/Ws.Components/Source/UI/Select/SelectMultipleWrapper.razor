@@ -15,7 +15,7 @@
   protected internal override async Task SetValue(TSelectItem item, bool withClose = true)
   {
     if (Value != null && !Value.Add(item)) Value.Remove(item);
-    await ValueChanged.InvokeAsync(Value);
+    await TriggerValueChanged();
     if (!withClose) return;
     IsDropdownOpened = false;
     Reset();

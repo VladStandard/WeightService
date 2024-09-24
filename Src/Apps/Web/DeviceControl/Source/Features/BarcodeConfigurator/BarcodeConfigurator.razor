@@ -1,6 +1,6 @@
 @using Ws.DeviceControl.Models.Features.References.Template.Universal
-@using Ws.DeviceControl.Models.Features.References.Template.Queries
 @using Force.DeepCloner
+@using Ws.Barcodes.Models
 @using Blazor.Heroicons.Outline
 
 <CascadingValue Value="this">
@@ -13,7 +13,7 @@
     <FluentSortableList
       Items="ExtendedBarcodeDictionary"
       OnUpdate="@SortList"
-      Class="!pb-0 !p-1 !rounded-none !border-none [&_.sortable-item]:!mb-1 [&_.sortable-item]:!border-border [&_.sortable-item]:!rounded-md [&_.sortable-item]:!overflow-hidden"
+      Class="!pb-0 !p-1 !rounded-none !border-none [&_.sortable-item]:!mb-1 [&_.sortable-item]:!border-border [&_.sortable-item]:!rounded-md [&_.sortable-item]:!overflow-hidden [&_.sortable-item]:!select-auto"
       Style="--fluent-sortable-list-item-height: 4;"
       Context="item"
       Handle
@@ -44,7 +44,7 @@
 
   [Parameter] public List<BarcodeItemDto> BarcodeDictionary { get; set; } = [];
   [Parameter] public EventCallback<List<BarcodeItemDto>> BarcodeDictionaryChanged { get; set; }
-  [Parameter] public BarcodeVarDto[] BarcodeVariables { get; set; } = [];
+  [Parameter] public List<BarcodeVarInfo> BarcodeVariables { get; set; } = [];
 
   [Parameter] public string Class { get; set; } = string.Empty;
   [Parameter] public string Placeholder { get; set; } = string.Empty;
@@ -63,7 +63,7 @@
 
   private async Task AddBarcodeItem()
   {
-    ExtendedBarcodeDictionary.Add(new());
+    ExtendedBarcodeDictionary.Add(new() { FormatStr = "({0:C})" });
     await SyncBarcodeDictionary();
   }
 

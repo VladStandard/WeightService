@@ -31,7 +31,7 @@ public static partial class BarcodeVarUtils
             CreateVariable(nameof(BarcodeBuilder.PluNumber), "{0:D3}", (ushort)100),
             CreateVariable(nameof(BarcodeBuilder.PluGtin), "{0:D14}", "14607100238871"),
             CreateVariable(nameof(BarcodeBuilder.PluEan13), "{0:D13}", "4607100238874"),
-            CreateVariable(nameof(BarcodeBuilder.Kneading), "{0:D3}", (ushort)1),
+            CreateVariable(nameof(BarcodeBuilder.Kneading), "{0:D3}", (ushort)123),
             CreateVariable(nameof(BarcodeBuilder.WeightNet), "{0:D5}", 1m),
             CreateVariable(nameof(BarcodeBuilder.BundleCount), "{0:D2}", (ushort)10),
             CreateVariable(nameof(BarcodeBuilder.ExpirationDay), "{0:D3}", (ushort)1),

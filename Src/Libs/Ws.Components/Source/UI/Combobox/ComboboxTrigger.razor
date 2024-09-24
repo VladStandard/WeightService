@@ -8,7 +8,12 @@
   aria-haspopup="listbox"
   aria-expanded="@Parent.IsDropdownOpened.ToString()"
 >
-  <input disabled="@Disabled" @bind-value="Parent.Value" class="bg-inherit focus:outline-none pl-3 w-full text-sm" />
+  <input
+    @bind-value="Parent.Value"
+    @bind-value:after="@Parent.TriggerValueChanged"
+    class="bg-inherit focus:outline-none pl-3 w-full text-sm"
+    disabled="@Disabled"
+  />
   <button type="button" disabled="@Disabled" @onclick="@Parent.ToggleDropdown" class="pr-3 pl-2">
     <ChevronDownIcon class="@Css.Class("transition-transform text-muted-foreground size-4", Parent.IsDropdownOpened ? "rotate-180" : "rotate-0")"/>
   </button>

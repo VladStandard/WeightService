@@ -17,7 +17,7 @@
     if (item is TSelectType or null)
     {
       Value = (TSelectType?) item;
-      await ValueChanged.InvokeAsync(Value);
+      await TriggerValueChanged();
       if (!withClose) return;
       IsDropdownOpened = false;
       Reset();
