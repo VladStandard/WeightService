@@ -324,4 +324,7 @@
     <data name="DeleteDialogDescription" xml:space="preserve">
         <value>Это действие невозможно отменить. Это приведет к безвозвратному удалению элемента с сервера.</value>
     </data>
+    <data name="BtnReset" xml:space="preserve">
+        <value>Восстановить</value>
+    </data>
 </root>

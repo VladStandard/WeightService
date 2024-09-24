@@ -324,4 +324,7 @@
     <data name="DeleteDialogDescription" xml:space="preserve">
         <value>This action cannot be undone. This will permanently delete the item from the server.</value>
     </data>
+    <data name="BtnReset" xml:space="preserve">
+        <value>Reset</value>
+    </data>
 </root>
