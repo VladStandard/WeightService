@@ -7,6 +7,7 @@ public static class TestData
     public static IEnumerable<object[]> GetSuccessFormatters()
     {
         yield return ["01", "#({0:C})", "#(01)"];
+        yield return [1m, "{0:D6}", "000001"];
         yield return [172.2m, "{0:D5}", "01722"];
         yield return [(ushort)5, "{0:D5}", "00005"];
         yield return [(uint)10, "{0:D7}", "0000010"];

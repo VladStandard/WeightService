@@ -58,7 +58,10 @@ public partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
         string numberStr = Convert.ToString(arg) ??
                            throw new FormatException($"Lenght of  {arg.GetType()} not suppoerted for BarcodeFormatter");
 
-        int numberLen = numberStr.Length - (arg is decimal ? 1 : 0);
+        int numberLen = numberStr.Length;
+
+        if (arg is decimal && numberLen != 1)
+            numberLen -= 1;
 
         string digits = new(numberStr.Where(char.IsDigit).ToArray());
 
