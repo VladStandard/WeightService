@@ -8,24 +8,10 @@
   </div>
   <div class="sortable-item-content grid grid-cols-[14rem_1fr_1fr_7rem_1fr_3rem] divide-x size-full">
     <div class="size-full flex items-center justify-center px-2">
-      <div class="h-9 rounded-md p-1 grid grid-cols-2">
-        <button
-          type="button"
-          class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", Value.IsConst ? "bg-secondary" : "hover:bg-secondary/[.5]")"
-          @onclick="@(() => OnTypeSelect(true))"
-          disabled="@Value.IsConst"
-        >
-          @WsDataLocalizer["ColConst"]
-        </button>
-        <button
-          type="button"
-          class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", !Value.IsConst ? "bg-secondary" : "hover:bg-secondary/[.5]")"
-          @onclick="@(() => OnTypeSelect(false))"
-          disabled="@(!Value.IsConst)"
-        >
-          @WsDataLocalizer["ColVariable"]
-        </button>
-      </div>
+      <BarcodeTypeSwitcher
+        @bind-Value="@Value.IsConst"
+        @bind-Value:after="@OnTypeSelect"
+      />
     </div>
     <div class="size-full overflow-hidden">
       @if (Value.IsConst)
@@ -53,7 +39,7 @@
       @if (!Value.IsConst)
       {
         <Combobox
-          Items="@([CachedMask])"
+          Items="@([Value.CachedMask])"
           @bind-Value="@Value.FormatStr"
           @bind-Value:after="@OnMaskEnter"
           Placeholder="@Localizer["BarcodeEditorMaskPlaceholder"]"
@@ -88,9 +74,9 @@
       <span>
         @Value.Example.Where(char.IsDigit).ToList().Count
       </span>
-      @if (DefaultLength != -1)
+      @if (Value.DefaultLength != -1 && !Value.IsConst)
       {
-        <span class="text-muted-foreground text-xs pt-0.5">(мин. @DefaultLength)</span>
+        <span class="text-muted-foreground text-xs pt-0.5">(мин. @Value.DefaultLength)</span>
       }
     </div>
     <div class="size-full flex items-center px-3 text-sm truncate">
@@ -124,28 +110,11 @@
   [Parameter] public EventCallback<ExtendedBarcodeItemDto> ValueChanged { get; set; }
 
   private string MaskId { get; set; } = $"mask-info-{Guid.NewGuid()}";
-  private string CachedMask { get; set; } = string.Empty;
-  private int DefaultLength { get; set; } = 0;
-
-  protected override void OnInitialized()
-  {
-    CachedMask = Value.FormatStr;
-    DefaultLength = GetDefaultMaskLength();
-  }
 
   private async Task UpdateValueAsync() => await ValueChanged.InvokeAsync(Value);
 
   private BarcodeVarInfo? GetTypedBarcode() =>
     Parent.BarcodeVariables.FirstOrDefault(x => x.Property == Value.Property);
-
-  private int GetDefaultMaskLength()
-  {
-    if (Value.IsConst) return -1;
-    BarcodeVarInfo? barcode = Parent.BarcodeVariables.FirstOrDefault(x => x.Property == Value.Property);
-    if (barcode == null || barcode.Type == typeof(DateTime)) return -1;
-    string defaultExample = BarcodeMapper.TryGetFormatedValue(barcode.Mask, barcode.Example);
-    return string.IsNullOrEmpty(defaultExample) ? -1 : defaultExample.Length;
-  }
 
   private IEnumerable<BarcodeVarInfo> GetFilteredValues()
   {
@@ -156,14 +125,7 @@
   private async Task OnVarSelect()
   {
     BarcodeVarInfo? typedVar = Parent.BarcodeVariables.FirstOrDefault(x => x.Property == Value.Property);
-    if (typedVar != null)
-    {
-      Value.Property = typedVar.Property;
-      Value.FormatStr = typedVar.Mask;
-      Value.Example = BarcodeMapper.GetBarcodeExample(Value, Parent.BarcodeVariables);
-      DefaultLength = GetDefaultMaskLength();
-    }
-    await UpdateValueAsync();
+    if (typedVar != null) await SetTypedBarcode(typedVar);
   }
 
   private async Task OnMaskEnter()
@@ -172,31 +134,35 @@
     await UpdateValueAsync();
   }
 
-  private async Task OnTypeSelect(bool value)
+  private async Task OnTypeSelect()
   {
-    Value.IsConst = value;
-    BarcodeVarInfo? typedVar = !value ? GetFilteredValues().FirstOrDefault() : null;
-    if (typedVar != null)
-    {
-      Value.Property = typedVar.Property;
-      Value.FormatStr = CachedMask = typedVar.Mask;
-      Value.Example = BarcodeMapper.GetBarcodeExample(Value, Parent.BarcodeVariables);
-      DefaultLength = GetDefaultMaskLength();
-    }
-    else
-    {
-      Value.Property = Value.Example = string.Empty;
-      Value.FormatStr = "{0:D1}";
-      Value.IsConst = true;
-      DefaultLength = -1;
-    }
-    await UpdateValueAsync();
+    BarcodeVarInfo? typedVar = !Value.IsConst ? GetFilteredValues().FirstOrDefault() : null;
+    if (typedVar != null) await SetTypedBarcode(typedVar);
+    else await ResetBarcode();
   }
 
   private async Task OnConstInputValue()
   {
-    Value.Property = new(Value.Property.Where(char.IsDigit).ToArray());
+    Value.Property = string.Concat(Value.Property.Where(char.IsDigit));
     Value.Example = BarcodeMapper.GetBarcodeExample(Value, Parent.BarcodeVariables);
+    await UpdateValueAsync();
+  }
+
+  private async Task SetTypedBarcode(BarcodeVarInfo typedVar)
+  {
+    Value.Property = typedVar.Property;
+    Value.FormatStr = Value.CachedMask = typedVar.Mask;
+    Value.Example = BarcodeMapper.GetBarcodeExample(Value, Parent.BarcodeVariables);
+    Value.DefaultLength = BarcodeMapper.GetDefaultMaskLength(Value, Parent.BarcodeVariables);
+    await UpdateValueAsync();
+  }
+
+  private async Task ResetBarcode()
+  {
+    Value.Property = Value.Example = Value.CachedMask = string.Empty;
+    Value.FormatStr = BarcodeVarUtils.BarcodeVarConstantsFormats.First();
+    Value.IsConst = true;
+    Value.DefaultLength = -1;
     await UpdateValueAsync();
   }
 }

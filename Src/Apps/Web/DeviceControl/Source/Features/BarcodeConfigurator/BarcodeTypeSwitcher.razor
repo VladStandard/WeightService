@@ -1,0 +1,31 @@
+<div class="h-9 rounded-md p-1 grid grid-cols-2">
+  <button
+    type="button"
+    class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", Value ? "bg-secondary" : "hover:bg-secondary/[.5]")"
+    @onclick="@(() => OnValueChanged(true))"
+    disabled="@Value"
+  >
+    @WsDataLocalizer["ColConst"]
+  </button>
+  <button
+    type="button"
+    class="@Css.Class("px-2 py-1 truncate transition-colors text-xs rounded-md", !Value ? "bg-secondary" : "hover:bg-secondary/[.5]")"
+    @onclick="@(() => OnValueChanged(false))"
+    disabled="@(!Value)"
+  >
+    @WsDataLocalizer["ColVariable"]
+  </button>
+</div>
+
+@code {
+  [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+
+  [Parameter] public bool Value { get; set; }
+  [Parameter] public EventCallback<bool> ValueChanged { get; set; }
+
+  private async Task OnValueChanged(bool value)
+  {
+    Value = value;
+    await ValueChanged.InvokeAsync(Value);
+  }
+}
