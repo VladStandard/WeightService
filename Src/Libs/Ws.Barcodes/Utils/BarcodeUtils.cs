@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Ws.Barcodes.Utils;
 
-public static partial class BarcodeRegexUtils
+internal static partial class BarcodeRegexUtils
 {
     #region Regex
 
@@ -17,7 +17,7 @@ public static partial class BarcodeRegexUtils
 
     #endregion
 
-    public static string GetFriendlyChars(string barcode) =>
+    internal static string GetFriendlyChars(string barcode) =>
         NotFriendlyChars().Replace(barcode, string.Empty);
 
     internal static string GetOnlyDigits(string barcode) =>

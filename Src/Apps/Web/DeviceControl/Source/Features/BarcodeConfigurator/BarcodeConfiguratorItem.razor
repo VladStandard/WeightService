@@ -72,7 +72,7 @@
     </div>
     <div class="size-full flex items-center px-3 gap-1 text-sm">
       <span>
-        @Value.Example.Where(char.IsDigit).ToList().Count
+        @Value.Example.Count(char.IsDigit)
       </span>
       @if (Value.DefaultLength != -1 && !Value.IsConst)
       {

@@ -1,4 +1,3 @@
-using Ws.Barcodes.Formatters;
 using Ws.Barcodes.Models;
 using Ws.Barcodes.Utils;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
@@ -30,14 +29,14 @@ public static class BarcodeMapper
         BarcodeVarInfo? barcode = GetTypedVariable(item, vars);
         if (barcode == null || barcode.Type == typeof(DateTime)) return -1;
         string defaultExample = TryGetFormatedValue(barcode.Mask, barcode.Example);
-        return string.IsNullOrEmpty(defaultExample) ? -1 : defaultExample.Length;
+        return string.IsNullOrEmpty(defaultExample) ? -1 : defaultExample.Count(char.IsDigit);
     }
 
     public static string GetBarcodeExample(BarcodeItemDto item, List<BarcodeVarInfo> vars)
     {
         BarcodeVarInfo? typedVariable = GetTypedVariable(item, vars);
         object objectToFormat = typedVariable == null ? item.Property : typedVariable.Example;
-        return BarcodeRegexUtils.GetFriendlyChars(TryGetFormatedValue(item.FormatStr, objectToFormat));
+        return new BarcodeResult(TryGetFormatedValue(item.FormatStr, objectToFormat)).Friendly;
     }
 
     private static BarcodeVarInfo? GetTypedVariable(BarcodeItemDto item, List<BarcodeVarInfo> vars) =>
@@ -47,7 +46,7 @@ public static class BarcodeMapper
     {
         try
         {
-            return string.Format(BarcodeFormatter.Default, mask, value);
+            return BarcodeVarUtils.GetVariableResult(value, mask);
         }
         catch
         {

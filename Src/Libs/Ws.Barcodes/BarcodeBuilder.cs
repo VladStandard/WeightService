@@ -33,18 +33,10 @@ public record BarcodeBuilder : IBarcodeVariables
         foreach (BarcodeVar barcodeVar in barcodeVars)
         {
             object value = GetType().GetProperty(barcodeVar.Property)?.GetValue(this) ?? barcodeVar.Property;
-            string formatString = string.IsNullOrWhiteSpace(barcodeVar.FormatStr) ? "{0}" : barcodeVar.FormatStr;
-
-            string valueStr = BarcodeVarUtils.GetVariableResult(value, formatString);
-            barcodeBuilder.Append(valueStr);
+            barcodeBuilder.Append(
+                BarcodeVarUtils.GetVariableResult(value,  barcodeVar.FormatStr)
+            );
         }
-
-        string initialBarcode = barcodeBuilder.ToString();
-
-        string zplBarcode = BarcodeRegexUtils.GetZplChars(initialBarcode);
-        string cleanBarcode = BarcodeRegexUtils.GetOnlyDigits(initialBarcode);
-        string friendlyBarcode = BarcodeRegexUtils.GetFriendlyChars(initialBarcode);
-
-        return new(cleanBarcode, friendlyBarcode, zplBarcode);
+        return new(barcodeBuilder.ToString());
     }
 }

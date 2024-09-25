@@ -11,7 +11,6 @@ public interface ITemplateService : IGetApiService<TemplateDto>, IDeleteService<
 
     Task<List<ProxyDto>> GetProxiesByIsWeightAsync(bool isWeight);
     Task<TemplateBodyDto> GetBodyByIdAsync(Guid id);
-    Task<List<BarcodeVarDto>> GetBarcodeVariables();
     Task<BarcodeItemWrapper> GetBarcodeTemplates(Guid id);
 
     #endregion

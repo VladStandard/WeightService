@@ -6,7 +6,7 @@ using Match=System.Text.RegularExpressions.Match;
 
 namespace Ws.Barcodes.Formatters;
 
-public partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
+internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
 {
     #region Private
 
@@ -16,10 +16,12 @@ public partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
     [GeneratedRegex(@"^(?!.*(\b(?:yy|MM|dd|HH|ss|mm)\b).*\1)(?=(?:yy|MM|dd|HH|ss|mm)+$).+$")]
     private static partial Regex IsDateTimeFormat();
 
-    private static readonly ReadOnlyCollection<Type> SupportNumberTypes =
+    private static readonly ReadOnlyCollection<Type> SupportTypes =
         new([typeof(uint), typeof(ushort), typeof(decimal), typeof(string)]);
 
     #endregion
+
+    #region Public
 
     public static readonly BarcodeFormatter Default = new();
 
@@ -45,7 +47,7 @@ public partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
             }
         }
 
-        if (!SupportNumberTypes.Contains(arg.GetType()))
+        if (!SupportTypes.Contains(arg.GetType()))
             throw new FormatException($"is not in the correct format.");
 
         Match match = IsDFormat().Match(format);
@@ -76,4 +78,6 @@ public partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
         return digitsNew.Length >= digits.Length ? digitsNew :
             throw new FormatException($"{digits}:{format} is not in the correct format.");
     }
+
+    #endregion
 }

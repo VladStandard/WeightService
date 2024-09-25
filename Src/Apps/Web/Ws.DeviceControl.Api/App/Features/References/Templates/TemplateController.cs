@@ -30,10 +30,6 @@ public sealed class TemplateController(ITemplateService templateService)
     public Task<List<ProxyDto>> GetProxiesByIsWeight([FromQuery(Name = "isWeight")] bool isWeight) =>
         templateService.GetProxiesByIsWeightAsync(isWeight);
 
-    [HttpGet("{id:guid}/barcodes/vars")]
-    public Task<List<BarcodeVarDto>> GetBarcodeVariables([FromRoute] Guid id) =>
-        templateService.GetBarcodeVariables();
-
     [HttpGet("{id:guid}/barcodes")]
     public Task<BarcodeItemWrapper> GetBarcodes([FromRoute] Guid id) =>
         templateService.GetBarcodeTemplates(id);

@@ -1,6 +1,6 @@
 namespace Ws.Barcodes.Common;
 
-public interface IBarcodeVariables
+internal interface IBarcodeVariables
 {
     public uint LineCounter { get; init; }
     public uint LineNumber { get; init; }

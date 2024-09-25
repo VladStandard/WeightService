@@ -11,6 +11,9 @@ public class BarcodeVarValidatorTests
         new object[] { nameof(BarcodeBuilder.PluEan13), "{0:C}", false},
         new object[] { nameof(BarcodeBuilder.PluGtin), "{0:D13}", false},
         new object[] { nameof(BarcodeBuilder.PluEan13), "{0:D12}", false},
+        new object[] { nameof(BarcodeBuilder.ExpirationDt), "{0:yyMMdd}", true},
+        new object[] { nameof(BarcodeBuilder.ProductDt), "{0:yyMM}", true},
+        new object[] { "", "{0:C}", false},
     };
 
 

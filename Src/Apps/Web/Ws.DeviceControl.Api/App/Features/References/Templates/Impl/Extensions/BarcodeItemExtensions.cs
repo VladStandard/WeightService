@@ -1,3 +1,4 @@
+using Ws.Barcodes.Models;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 using Ws.Shared.ValueTypes;
 
@@ -23,4 +24,6 @@ internal static class BarcodeItemExtensions
         });
     }
 
+    public static List<BarcodeVar> ToBarcodeVar(this List<BarcodeItemDto> item) =>
+        item.ConvertAll(i => new BarcodeVar(i.Property, i.FormatStr));
 }

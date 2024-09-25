@@ -1,7 +1,6 @@
-using System.Text.RegularExpressions;
 using FluentValidation;
-using Ws.DeviceControl.Api.App.Shared.Utils;
-using Ws.DeviceControl.Models.Features.References.Template.Queries;
+using Ws.Barcodes.Models;
+using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Validators;
@@ -10,22 +9,11 @@ internal sealed class BarcodeItemWrapperValidator : AbstractValidator<BarcodeIte
 {
     public BarcodeItemWrapperValidator()
     {
-        RuleForEach(i => i.Top).SetValidator(new BarcodeItemValidator());
-        RuleForEach(i => i.Bottom).SetValidator(new BarcodeItemValidator());
-        RuleForEach(i => i.Right).SetValidator(new BarcodeItemValidator());
-    }
-}
-
-internal sealed partial class BarcodeItemValidator : AbstractValidator<BarcodeItemDto>
-{
-    [GeneratedRegex(@"^(\#\(\d{1,5}\)|\(\d{1,5}\)|\d{1,5})$")]
-    private static partial Regex IsConstantRegex();
-
-    public BarcodeItemValidator()
-    {
-        List<BarcodeVarDto> vars = BarcodeUtils.GetVariables();
-
-        RuleFor(item => item.Property)
-            .Must(i => IsConstantRegex().IsMatch(i) || vars.Any(j => j.Name == i));
+        RuleForEach(i => i.Top.ToBarcodeVar()).SetValidator(new BarcodeVarValidator())
+            .OverridePropertyName(nameof(BarcodeItemWrapper.Top));
+        RuleForEach(i => i.Bottom.ToBarcodeVar()).SetValidator(new BarcodeVarValidator())
+            .OverridePropertyName(nameof(BarcodeItemWrapper.Bottom));
+        RuleForEach(i => i.Right.ToBarcodeVar()).SetValidator(new BarcodeVarValidator())
+            .OverridePropertyName(nameof(BarcodeItemWrapper.Right));
     }
 }

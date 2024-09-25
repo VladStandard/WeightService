@@ -24,14 +24,11 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
         {
             RuleFor(x => x.FormatStr)
                 .Must(IsValidDigitsOnlyFormat);
-        });
-
-        When(x => !x.Property.IsDigitsOnly(), () =>
-        {
+        }).Otherwise(
+            () =>
             RuleFor(x => x)
                 .Must(IsValidCustomPropertyFormat)
-                .WithMessage("Invalid format for custom property.");
-        });
+        );
     }
 
     #endregion
@@ -79,6 +76,8 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
             if (string.IsNullOrEmpty(oldMask))
                 return true;
 
+            if (readyPropValue is DateTime) return true;
+
             string oldFormattedValue = BarcodeVarUtils.GetVariableResult(readyPropValue, oldMask);
             return oldFormattedValue.Length <= newFormattedValue.Length;
         }
@@ -87,7 +86,6 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
             return false;
         }
     }
-
 
     #endregion
 
