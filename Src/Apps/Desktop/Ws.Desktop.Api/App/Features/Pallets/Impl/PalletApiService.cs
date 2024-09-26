@@ -122,7 +122,7 @@ internal sealed class PalletApiService(
             IsShipped = false,
             TrayWeight = dto.WeightTray,
             ProductDt = dto.ProdDt,
-            Barcode = $"001460910023{palletCounter.ToString().PadLeft(7, '0')}",
+            Barcode = $"001460910023{palletCounter:D7}",
         };
 
         GeneratePiecePalletDto data = new()

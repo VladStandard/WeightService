@@ -141,7 +141,7 @@ internal class LabelPieceGenerator(
                 Number = string.Empty,
                 Order = (ushort)(index + 1)
             },
-            productDt: dto.ProductDt,
+            productDt: barcode.ProductDt,
             expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays),
 
             bundleCount: (ushort)dto.Nesting.BundleCount,
@@ -164,7 +164,7 @@ internal class LabelPieceGenerator(
             WeightNet = weightNet,
             WeightTare = weightTare,
             Kneading = dto.Kneading,
-            ProductDt = dto.ProductDt,
+            ProductDt = barcode.ProductDt,
             ExpirationDt = dto.ExpirationDt,
             LineId = dto.Line.Id,
             PluId = dto.Plu.Id,

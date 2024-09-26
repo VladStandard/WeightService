@@ -65,9 +65,12 @@ internal sealed class TemplateApiService(
     public async Task<TemplateDto> UpdateAsync(Guid id, TemplateUpdateDto dto)
     {
         await ValidateAsync(dto, updateValidator);
-        await dbContext.Templates.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
 
         TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
+
+        await dbContext.Templates.ThrowIfExistAsync(
+            i => i.Name == dto.Name && i.IsWeight == entity.IsWeight && i.Id != id, "Ошибка уникальности");
+
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 

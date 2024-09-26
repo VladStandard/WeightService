@@ -1,4 +1,4 @@
-namespace Ws.DeviceControl.Api.App.Shared;
+namespace Ws.DeviceControl.Api.App.Common;
 
 public interface IGetApiService<T>
 {

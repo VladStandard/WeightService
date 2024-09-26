@@ -59,8 +59,8 @@ internal static class PalletExpressions
                 (pallet, labels) => new { Pallet = pallet, Labels = labels })
             .SelectMany(
                 result => result.Labels,
-                (result, label) => new { label.Zpl, label.BarcodeTop, label.CreateDt })
-            .OrderBy(temp => temp.CreateDt)
+                (result, label) => new { label.Zpl, label.BarcodeTop, label.ProductDt })
+            .OrderBy(temp => temp.ProductDt)
             .Select(temp => new LabelInfo
             {
                 Zpl = temp.Zpl.Zpl,
