@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using Ws.Barcodes.Formatters;
@@ -14,10 +15,18 @@ public static partial class BarcodeVarUtils
 
     public static List<string> BarcodeVarConstantsFormats => ["{0:C}", "({0:C})", "#({0:C})"];
 
-    public static string GetVariableResult(object? value, string format)
+    public static bool TryFormat(object? value, string format, [NotNullWhen(true)] out string? result)
     {
-        string result = string.Format(BarcodeFormatter.Default, format, value);
-        return AllowedChars().IsMatch(result) ? result : throw new FormatException(result);
+        try
+        {
+            result = string.Format(BarcodeFormatter.Default, format, value);
+            return AllowedChars().IsMatch(result);
+        }
+        catch
+        {
+            result = null;
+            return false;
+        }
     }
 
     #endregion

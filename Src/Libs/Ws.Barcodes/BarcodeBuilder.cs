@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using Ws.Barcodes.Common;
 using Ws.Barcodes.Models;
@@ -30,12 +31,15 @@ public record BarcodeBuilder : IBarcodeVariables
     {
         StringBuilder barcodeBuilder = new();
 
-        foreach (BarcodeVar barcodeVar in barcodeVars)
+        foreach (var barcodeVar in barcodeVars)
         {
-            object value = GetType().GetProperty(barcodeVar.Property)?.GetValue(this) ?? barcodeVar.Property;
-            barcodeBuilder.Append(
-                BarcodeVarUtils.GetVariableResult(value,  barcodeVar.FormatStr)
-            );
+            PropertyInfo? propertyInfo = GetType().GetProperty(barcodeVar.Property);
+            object value = propertyInfo?.GetValue(this) ?? barcodeVar.Property;
+
+            if (!BarcodeVarUtils.TryFormat(value, barcodeVar.FormatStr, out var result))
+                throw new FormatException($"{barcodeVar.Property}: not valid format - {barcodeVar.FormatStr}");
+
+            barcodeBuilder.Append(result);
         }
         return new(barcodeBuilder.ToString());
     }

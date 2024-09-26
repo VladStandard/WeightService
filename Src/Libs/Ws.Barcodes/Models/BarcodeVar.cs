@@ -69,22 +69,18 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
 
     private static bool TryValidateFormat(object readyPropValue, string formatStr, string oldMask)
     {
-        try
-        {
-            string newFormattedValue = BarcodeVarUtils.GetVariableResult(readyPropValue, formatStr);
-
-            if (string.IsNullOrEmpty(oldMask))
-                return true;
-
-            if (readyPropValue is DateTime) return true;
-
-            string oldFormattedValue = BarcodeVarUtils.GetVariableResult(readyPropValue, oldMask);
-            return oldFormattedValue.Length <= newFormattedValue.Length;
-        }
-        catch
-        {
+        if (!BarcodeVarUtils.TryFormat(readyPropValue, formatStr, out string? newFormattedValue))
             return false;
-        }
+
+        if (string.IsNullOrEmpty(oldMask))
+            return true;
+
+        if (readyPropValue is DateTime) return true;
+
+        if (!BarcodeVarUtils.TryFormat(readyPropValue, oldMask, out string? oldFormattedValue))
+            return false;
+
+        return oldFormattedValue.Length <= newFormattedValue.Length;
     }
 
     #endregion

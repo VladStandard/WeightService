@@ -1,10 +1,34 @@
-using Ws.Barcodes.Formatters;
+using Ws.Barcodes.Utils;
 
 namespace Ws.Barcodes.Tests.Shared;
 
-public static class TestData
+public class BarcodeFormatterTests
 {
-    public static IEnumerable<object[]> GetSuccessFormatters()
+    [Theory]
+    [MemberData(nameof(TestCases.FormatSuccessTestCases), MemberType = typeof(TestCases))]
+    public void Test_Success_Format(object? obj, string mask, string expected)
+    {
+        bool isSuccess = BarcodeVarUtils.TryFormat(obj, mask, out string? result);
+        isSuccess.Should().BeTrue();
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(TestCases.FormatInvalidTestCases), MemberType = typeof(TestCases))]
+    public void Test_Failed_Format(object? obj, string mask)
+    {
+        bool isSuccess = BarcodeVarUtils.TryFormat(obj, mask, out string? result);
+        isSuccess.Should().BeFalse();
+        result.Should().BeNull();
+    }
+}
+
+
+#region Test cases
+
+file static class TestCases
+{
+    public static IEnumerable<object[]> FormatSuccessTestCases()
     {
         yield return ["01", "#({0:C})", "#(01)"];
         yield return [1m, "{0:D6}", "000001"];
@@ -19,8 +43,9 @@ public static class TestData
         yield return [DateTime.Now, "{0:yyMMddHHmmss}", DateTime.Now.ToString("yyMMddHHmmss")];
     }
 
-    public static IEnumerable<object[]> GetFailedFormatters()
+    public static IEnumerable<object[]> FormatInvalidTestCases()
     {
+        yield return ["(46071002388741)", "{0:С}"];
         yield return ["46071002388741", "{0:D5}"];
         yield return [172.2m, "{0:D3}"];
         yield return [-10, "{0:D7}"];
@@ -31,24 +56,4 @@ public static class TestData
     }
 }
 
-public class BarcodeFormatterTests
-{
-    [Theory]
-    [MemberData(nameof(TestData.GetSuccessFormatters), MemberType = typeof(TestData))]
-    public void Test_Success_Format(object? obj, string mask, string expected)
-    {
-        string.Format(BarcodeFormatter.Default, mask, obj).Should().Be(expected);
-    }
-
-    [Theory]
-    [MemberData(nameof(TestData.GetFailedFormatters), MemberType = typeof(TestData))]
-    public void Test_Failed_Format(object? obj, string mask)
-    {
-        Action act = () =>
-        {
-            string _ = string.Format(BarcodeFormatter.Default, mask, obj);
-        };
-
-        act.Should().Throw<FormatException>();
-    }
-}
+#endregion
