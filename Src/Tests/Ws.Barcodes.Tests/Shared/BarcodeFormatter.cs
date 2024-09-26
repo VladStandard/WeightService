@@ -31,8 +31,10 @@ file static class TestCases
     public static IEnumerable<object[]> FormatSuccessTestCases()
     {
         yield return ["01", "#({0:C})", "#(01)"];
-        yield return [1m, "{0:D6}", "000001"];
-        yield return [172.2m, "{0:D5}", "01722"];
+        yield return [1m, "{0:D6}", "001000"];
+        yield return [172.2m, "{0:D6}", "172200"];
+        yield return [72m, "{0:D5}", "72000"];
+        yield return [1.23m, "{0:D5}", "01230"];
         yield return [(ushort)5, "{0:D5}", "00005"];
         yield return [(uint)10, "{0:D7}", "0000010"];
         yield return [(uint)10, "{0:D7}", "0000010"];
@@ -47,7 +49,7 @@ file static class TestCases
     {
         yield return ["(46071002388741)", "{0:С}"];
         yield return ["46071002388741", "{0:D5}"];
-        yield return [172.2m, "{0:D3}"];
+        yield return [172.2m, "{0:D5}"];
         yield return [-10, "{0:D7}"];
         yield return [null!, "{0:D7}"];
         yield return [DateTime.Now, "{0:T}"];
