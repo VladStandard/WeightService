@@ -2,7 +2,6 @@ using Phetch.Core;
 using Ws.DeviceControl.Models;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
-using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;
 

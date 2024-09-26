@@ -1,5 +1,4 @@
 using Ws.Barcodes;
-using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Features.Weight.Dto;
 

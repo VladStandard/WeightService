@@ -7,7 +7,7 @@ using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Shared.Api.ApiException;
-using Ws.Shared.Utils;
+using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate;
 
@@ -31,7 +31,7 @@ internal class PrintLabelService(
 
         throw new ApiExceptionServer
         {
-            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.ExchangeFailed),
+            ErrorDisplayMessage = LabelGenExceptionType.ExchangeFailed.GetDescription(),
             ErrorInternalMessage = ans.Status.Message
         };
     }

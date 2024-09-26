@@ -7,7 +7,7 @@ using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
 using Ws.Shared.Api.ApiException;
-using Ws.Shared.Utils;
+using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
@@ -19,7 +19,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ZplService zplSer
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.TemplateNotFound),
+                ErrorDisplayMessage = LabelGenExceptionType.TemplateNotFound.GetDescription(),
             };
 
         BarcodeBuilder barcode = dto.ToBarcodeBuilder();
@@ -65,7 +65,7 @@ internal class LabelWeightGenerator(CacheService cacheService, ZplService zplSer
 
         if (templateFromCache.Template.Contains("storage_method"))
             templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
-                $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
+                $"{dto.Plu.StorageMethod.Transliterate().ToLower()}_sql");
 
         string zpl = zplService.GenerateZpl(templateFromCache, data);
 

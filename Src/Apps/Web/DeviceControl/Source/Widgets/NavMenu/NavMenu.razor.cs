@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
-using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Widgets.NavMenu;
 

@@ -44,7 +44,7 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="LineTypes"
       @bind-Value="@FormModel.Type"
-      ItemDisplayName="item => Localizer[EnumUtils.GetEnumDescription(item)]"
+      ItemDisplayName="item => Localizer[item.GetDescription()]"
       For="@(() => FormModel.Type)"
     />
 

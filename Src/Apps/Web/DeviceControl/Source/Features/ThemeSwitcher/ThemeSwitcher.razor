@@ -22,19 +22,19 @@
     <li>
       <DropdownItem OnClick="@(() => SetTheme("light"))">
         <SunIcon class="size-4 mr-2" />
-        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.Light)]</span>
+        <span>@Localizer[ThemeType.Light.GetDescription()]</span>
       </DropdownItem>
     </li>
     <li>
       <DropdownItem OnClick="@(() => SetTheme("dark"))">
         <MoonIcon class="size-4 mr-2" />
-        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.Dark)]</span>
+        <span>@Localizer[ThemeType.Dark.GetDescription()]</span>
       </DropdownItem>
     </li>
     <li>
       <DropdownItem OnClick="@(() => SetTheme("system"))">
         <ComputerDesktopIcon class="size-4 mr-2" />
-        <span>@Localizer[EnumUtils.GetEnumDescription(ThemeType.System)]</span>
+        <span>@Localizer[ThemeType.System.GetDescription()]</span>
       </DropdownItem>
     </li>
   </ul>

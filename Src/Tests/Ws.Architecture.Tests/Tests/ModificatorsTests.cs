@@ -28,6 +28,8 @@ public class ModificatorsTests
             .AreClasses()
             .And()
             .HaveNameEndingWith("ApiService")
+            .And()
+            .AreNotAbstract()
             .Should()
             .BeSealed()
             .And()

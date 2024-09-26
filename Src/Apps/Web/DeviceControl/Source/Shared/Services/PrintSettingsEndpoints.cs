@@ -1,10 +1,8 @@
 using Phetch.Core;
 using Ws.DeviceControl.Models;
-using Ws.DeviceControl.Models.Features.References.Template;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
-using Ws.Shared.Extensions;
 
 namespace DeviceControl.Source.Shared.Services;
 

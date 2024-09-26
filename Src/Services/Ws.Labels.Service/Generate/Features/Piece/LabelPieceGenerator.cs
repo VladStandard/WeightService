@@ -11,7 +11,7 @@ using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
 using Ws.Shared.Api.ApiException;
-using Ws.Shared.Utils;
+using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Features.Piece;
 
@@ -28,7 +28,7 @@ internal class LabelPieceGenerator(
         if (labelCount is > 240 or < 1)
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.Invalid),
+                ErrorDisplayMessage = LabelGenExceptionType.Invalid.GetDescription(),
                 ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
             };
 
@@ -36,7 +36,7 @@ internal class LabelPieceGenerator(
             cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.TemplateNotFound),
+                ErrorDisplayMessage = LabelGenExceptionType.TemplateNotFound.GetDescription()
             };
 
         BarcodeBuilder barcodeTemplates = dto.ToBarcodeBuilder();
@@ -44,7 +44,7 @@ internal class LabelPieceGenerator(
 
         if (templateFromCache.Template.Contains("storage_method"))
             templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
-            $"{TranslitUtil.Transliterate(dto.Plu.StorageMethod).ToLower()}_sql");
+            $"{dto.Plu.StorageMethod.Transliterate().ToLower()}_sql");
 
         // FOR TESTING VARS BEFORE 1C (don't touch)
         (LabelEntity, TemplateVars) testData = GenerateLabel(barcodeTemplates, 0, templateFromCache, dto);
@@ -103,7 +103,7 @@ internal class LabelPieceGenerator(
         throw new ApiExceptionServer
         {
 
-            ErrorDisplayMessage = EnumUtils.GetEnumDescription(LabelGenExceptionType.ExchangeFailed),
+            ErrorDisplayMessage = LabelGenExceptionType.ExchangeFailed.GetDescription(),
             ErrorInternalMessage = response.Errors.First().Message
         };
     }

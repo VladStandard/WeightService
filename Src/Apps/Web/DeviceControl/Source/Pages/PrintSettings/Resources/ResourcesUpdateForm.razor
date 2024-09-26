@@ -29,7 +29,7 @@
       Label="@WsDataLocalizer["ColType"]"
       Items="ZplResourceTypes"
       @bind-Value="@FormModel.Type"
-      ItemDisplayName="item => Localizer[EnumUtils.GetEnumDescription(item)]"
+      ItemDisplayName="item => Localizer[item.GetDescription()]"
       For="@(() => FormModel.Type)"
       Disabled="@(!IsAdmin)"
     />

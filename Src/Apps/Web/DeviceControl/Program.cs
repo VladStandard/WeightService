@@ -5,7 +5,6 @@ using DeviceControl.Source.App;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.Refit;
 using Fluxor;
-using Ws.Shared.Extensions;
 
 const string oidcScheme = "KeycloakOidc";
 const string culture = "ru-RU";

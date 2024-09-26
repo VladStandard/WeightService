@@ -18,5 +18,6 @@ global using DeviceControl.Source.Shared.Localization;
 // 5. Modules
 global using Ws.Shared.Resources;
 global using Ws.Shared.Utils;
+global using Ws.Shared.Extensions;
 global using Ws.DeviceControl.Models.Auth;
 global using Ws.DeviceControl.Models.Shared;

@@ -5,29 +5,17 @@ namespace Ws.Shared.Tests.Extensions;
 public class StrExtensionsTests
 {
     [Theory]
-    [InlineData("0", true)]
-    [InlineData("1234567890", true)]
-    [InlineData("", false)]
-    [InlineData("12ab34cd", false)]
-    [InlineData("191230123o", false)]
-    public void Test_Is_Digit_Only(string input, bool expected)
+    [MemberData(nameof(TestCases.IsDigitTestCases), MemberType = typeof(TestCases))]
+    public void Test_Is_Digits_Only(string input, bool expected)
     {
         input.IsDigitsOnly().Should().Be(expected);
     }
 
     [Theory]
-    [InlineData("ddMMyy", true)]
-    [InlineData("HHmmss", true)]
-    [InlineData("", false)]
-    [InlineData("HH:mm", false)]
-    [InlineData("dd/MM/yy", false)]
-    [InlineData("HH.mm.ss", false)]
-    [InlineData("yyyy.MM.dd", false)]
-    [InlineData("MM-dd-yyyy", false)]
-    [InlineData("yyyy-MM-dd HH:mm:ss", false)]
-    public void Test_Is_Date_Format(string input, bool expected)
+    [MemberData(nameof(TestCases.TranslitTestCases), MemberType = typeof(TestCases))]
+    public void Test_Translit(string input, string result)
     {
-        input.IsDateFormat().Should().Be(expected);
+        input.Transliterate().Should().Be(result);
     }
 
     [Theory]
@@ -38,3 +26,34 @@ public class StrExtensionsTests
         input.Capitalize().Should().Be(expected);
     }
 }
+
+#region Test cases
+
+file static class TestCases
+{
+    public static IEnumerable<object[]> TranslitTestCases()
+    {
+        // VALID
+        yield return ["Замороженное", "Zamorozhennoe"];
+        yield return ["Охлаждённое", "Okhlazhdennoe"];
+        yield return ["Александров Даниил Дмитриевич", "Aleksandrov Daniil Dmitrievich"];
+        yield return ["Власов Артём Алексеевич", "Vlasov Artem Alekseevich"];
+        yield return ["Государство", "Gosudarstvo"];
+        yield return ["Помещение", "Pomeshchenie"];
+        yield return ["Объект", "Obieekt"];
+    }
+
+    public static IEnumerable<object[]> IsDigitTestCases()
+    {
+        // VALID
+        yield return ["0", true];
+        yield return ["1234567890", true];
+
+        // INVALID
+        yield return ["", false];
+        yield return ["12ab34cd", false];
+        yield return ["191230123o", false];
+    }
+}
+
+#endregion

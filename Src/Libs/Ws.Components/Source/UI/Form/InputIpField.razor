@@ -1,4 +1,5 @@
-@using Ws.Shared.Parsers
+@using System.Net
+@using Ws.Shared.Utils
 @inherits InputBase<System.Net.IPAddress>
 
 <InputTextField
@@ -14,7 +15,7 @@
     set
     {
       if (Value == null) return;
-      Value = IpAddressParser.Parse(value, Value);
+      Value = StrUtils.TryParseToIpV4Address(value, out IPAddress? address) ? address : Value;
       ValueChanged.InvokeAsync(Value);
     }
   }

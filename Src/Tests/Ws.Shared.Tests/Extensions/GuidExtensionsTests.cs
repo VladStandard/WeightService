@@ -1,22 +1,27 @@
-using System.Diagnostics.CodeAnalysis;
 using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 
 namespace Ws.Shared.Tests.Extensions;
 
-[SuppressMessage("Usage", "xUnit1044:Avoid using TheoryData type arguments that are not serializable")]
 public class GuidExtensionsTests
 {
-    public static readonly TheoryData<Guid, bool> TestSepData = new()
-    {
-        { new(), false },
-        { DefaultConsts.GuidMax, true }
-    };
-
     [Theory]
-    [MemberData(nameof(TestSepData))]
+    [MemberData(nameof(TestCases.IsMaxTestCases), MemberType = typeof(TestCases))]
     public void Test_Guid_Max_Equal(Guid input, bool expected)
     {
         input.IsMax().Should().Be(expected);
     }
 }
+
+#region Test cases
+
+file static class TestCases
+{
+    public static IEnumerable<object[]> IsMaxTestCases()
+    {
+        yield return [new Guid(), false];
+        yield return [DefaultConsts.GuidMax, true];
+    }
+}
+
+#endregion
