@@ -43,12 +43,11 @@ internal static class ModelBuilderExtensions
         }
     }
 
-
     #endregion
 
     #region Use
 
-        public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
+    public static void UseIpAddressConversion(this ModelBuilder modelBuilder)
     {
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {

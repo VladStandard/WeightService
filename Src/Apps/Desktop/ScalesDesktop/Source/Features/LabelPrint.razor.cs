@@ -89,7 +89,7 @@ public sealed partial class LabelPrint : FluxorComponent
         }
         catch (ApiException ex)
         {
-            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !SerializationUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception) || exception == null)
+            if (!ex.HasContent || string.IsNullOrEmpty(ex.Content) || !StrUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception))
                 ToastService.ShowError(Localizer["UnknownError"]);
             else
                 ToastService.ShowError($"{Localizer[exception.LocalizeMessage]}");

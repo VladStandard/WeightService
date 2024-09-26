@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Ws.Shared.Utils;
@@ -17,5 +18,19 @@ public static partial class StrUtils
             return IPAddress.TryParse(str, out ipAddress);
 
         return false;
+    }
+
+    public static bool TryDeserializeFromJson<T>(string json, [NotNullWhen(true)] out T? result)
+    {
+        try
+        {
+            result = JsonSerializer.Deserialize<T>(json);
+            return result != null;
+        }
+        catch
+        {
+            result = default;
+            return false;
+        }
     }
 }

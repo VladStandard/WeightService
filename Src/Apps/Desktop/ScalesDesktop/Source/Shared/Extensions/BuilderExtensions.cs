@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using ScalesDesktop.Source.Shared.Refit;
+using Ws.Shared.Constants;
 
 namespace ScalesDesktop.Source.Shared.Extensions;
 
@@ -8,9 +9,8 @@ public static class BuilderExtensions
 {
     public static void SetupLocalizer(this MauiAppBuilder builder)
     {
-        const string currentLanguage = "ru-RU";
-        CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);
-        CultureInfo.DefaultThreadCurrentUICulture = new(currentLanguage);
+        CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
+        CultureInfo.DefaultThreadCurrentUICulture = Cultures.Ru;
         builder.Services.AddLocalization();
     }
 

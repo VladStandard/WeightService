@@ -2,7 +2,6 @@ namespace Ws.Database.EntityFramework.Views.Diag.DatabaseTables;
 
 internal sealed class DatabaseTableViewMapConfig : IEntityTypeConfiguration<DatabaseTableView>
 {
-
     public void Configure(EntityTypeBuilder<DatabaseTableView> builder)
     {
         builder.HasNoKey();

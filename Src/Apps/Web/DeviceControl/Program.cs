@@ -5,9 +5,9 @@ using DeviceControl.Source.App;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.Refit;
 using Fluxor;
+using Ws.Shared.Constants;
 
 const string oidcScheme = "KeycloakOidc";
-const string culture = "ru-RU";
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +46,7 @@ app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
-app.UseRequestLocalization(culture);
+app.UseRequestLocalization(Cultures.Ru.Name);
 
 app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();

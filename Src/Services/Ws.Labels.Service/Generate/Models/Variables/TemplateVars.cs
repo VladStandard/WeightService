@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Ws.Barcodes.Models;
-using Ws.Shared.Extensions;
+using Ws.Shared.Constants;
 
 namespace Ws.Labels.Service.Generate.Models.Variables;
 
@@ -23,7 +23,6 @@ public class TemplateVars(
     DateTime expirationDt
     )
 {
-
     #region Barcodes
 
     public readonly BarcodeResult BarcodeTop = barcodeTop;
@@ -42,8 +41,8 @@ public class TemplateVars(
 
     #region Other
 
-    public readonly string WeightNet = weightNet.ToSepStr(',');
-    public readonly string WeightGross = weightGross.ToSepStr(',');
+    public readonly string WeightNet = weightNet.ToString("0.000", Cultures.Ru);
+    public readonly string WeightGross = weightGross.ToString("0.000", Cultures.Ru);
 
     public readonly ushort BundleCount = bundleCount;
     public readonly string Kneading = $"{kneading:D3}";
