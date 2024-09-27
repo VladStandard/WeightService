@@ -11,7 +11,7 @@ internal static class BarcodeItemExtensions
         return item.ConvertAll(i => new BarcodeItemDto
         {
             Property = i.Property,
-            FormatStr = i.FormatStr,
+            FormatStr = i.Format,
         });
     }
 
@@ -20,7 +20,7 @@ internal static class BarcodeItemExtensions
         return item.ConvertAll(i => new BarcodeItem
         {
             Property = i.Property,
-            FormatStr = i.FormatStr
+            Format = i.FormatStr
         });
     }
 

@@ -151,7 +151,7 @@
   private async Task SetTypedBarcode(BarcodeVarInfo typedVar)
   {
     Value.Property = typedVar.Property;
-    Value.FormatStr = Value.CachedMask = typedVar.Mask;
+    Value.FormatStr = Value.CachedMask = typedVar.Format;
     Value.Example = BarcodeMapper.GetBarcodeExample(Value, Parent.BarcodeVariables);
     Value.DefaultLength = BarcodeMapper.GetDefaultMaskLength(Value, Parent.BarcodeVariables);
     await UpdateValueAsync();

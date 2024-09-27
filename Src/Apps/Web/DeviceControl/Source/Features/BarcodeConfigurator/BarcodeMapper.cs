@@ -28,7 +28,7 @@ public static class BarcodeMapper
     {
         BarcodeVarInfo? barcode = GetTypedVariable(item, vars);
         if (barcode == null || barcode.Type == typeof(DateTime)) return -1;
-        string defaultExample = TryGetFormatedValue(barcode.Mask, barcode.Example);
+        string defaultExample = TryGetFormatedValue(barcode.Format, barcode.Example);
         return string.IsNullOrWhiteSpace(defaultExample) ? -1 : defaultExample.Count(char.IsDigit);
     }
 

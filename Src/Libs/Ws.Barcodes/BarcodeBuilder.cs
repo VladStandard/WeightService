@@ -36,8 +36,8 @@ public record BarcodeBuilder : IBarcodeVariables
             PropertyInfo? propertyInfo = GetType().GetProperty(barcodeVar.Property);
             object value = propertyInfo?.GetValue(this) ?? barcodeVar.Property;
 
-            if (!BarcodeVarUtils.TryFormat(value, barcodeVar.FormatStr, out var result))
-                throw new FormatException($"{barcodeVar.Property}: not valid format - {barcodeVar.FormatStr}");
+            if (!BarcodeVarUtils.TryFormat(value, barcodeVar.Format, out var result))
+                throw new FormatException($"{barcodeVar.Property}: not valid format - {barcodeVar.Format}");
 
             barcodeBuilder.Append(result);
         }

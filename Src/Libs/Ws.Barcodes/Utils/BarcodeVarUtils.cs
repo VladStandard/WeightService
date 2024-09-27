@@ -11,7 +11,7 @@ public static partial class BarcodeVarUtils
 {
     #region Public
 
-    public static List<BarcodeVarInfo> BarcodeVarInfos => VariablesInfo.Value;
+    public static readonly List<BarcodeVarInfo> BarcodeVarInfos = GenerateVariablesInfo();
 
     public static List<string> BarcodeVarConstantsFormats => ["{0:C}", "({0:C})", "#({0:C})"];
 
@@ -32,8 +32,6 @@ public static partial class BarcodeVarUtils
     #endregion
 
     #region Private
-
-    private static readonly Lazy<List<BarcodeVarInfo>> VariablesInfo = new(GenerateVariablesInfo);
 
     [GeneratedRegex(@"^(?=.*\d)([0-9#]*\([0-9#]+\)[0-9#]*|[0-9#]+)$")]
     private static partial Regex AllowedChars();

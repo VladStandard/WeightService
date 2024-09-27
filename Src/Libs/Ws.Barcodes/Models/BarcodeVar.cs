@@ -4,7 +4,7 @@ using Ws.Shared.Extensions;
 
 namespace Ws.Barcodes.Models;
 
-public sealed record BarcodeVar(string Property, string FormatStr);
+public sealed record BarcodeVar(string Property, string Format);
 
 public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
 {
@@ -17,12 +17,12 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
             .MaximumLength(20)
             .Must(IsValidPropertyOrDigits);
 
-        RuleFor(x => x.FormatStr)
+        RuleFor(x => x.Format)
             .NotEmpty();
 
         When(x => x.Property.IsDigitsOnly(), () =>
         {
-            RuleFor(x => x.FormatStr)
+            RuleFor(x => x.Format)
                 .Must(IsValidDigitsOnlyFormat);
         }).Otherwise(
             () =>
@@ -45,8 +45,8 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
 
     private static bool IsValidCustomPropertyFormat(BarcodeVar barcodeVar)
     {
-        return TryGetReadyPropValue(barcodeVar, barcodeVar.FormatStr, out var readyPropValue, out var oldMask) &&
-               TryValidateFormat(readyPropValue, barcodeVar.FormatStr, oldMask);
+        return TryGetReadyPropValue(barcodeVar, barcodeVar.Format, out var readyPropValue, out var oldMask) &&
+               TryValidateFormat(readyPropValue, barcodeVar.Format, oldMask);
     }
 
     #endregion
@@ -63,7 +63,7 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
             return false;
 
         readyPropValue = propInfo.Example;
-        oldMask = propInfo.Mask;
+        oldMask = propInfo.Format;
         return true;
     }
 
