@@ -78,7 +78,7 @@
 
   protected override async Task UpdateItemAction(UserUpdateDto item)
   {
-    UserDto dto = await WebApi.UpdateUser(Model.User.Id, item);
+    UserDto dto = await WebApi.SaveOrUpdateUser(Model.User.Id, item);
     AdminEndpoints.UpdateUserRelationship(Model.ProductionSiteId, dto);
   }
 }

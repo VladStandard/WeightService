@@ -8,7 +8,7 @@ public interface IWebUserApi
     #region Queries
 
     [Get("/users/{uid}")]
-    Task<UserDto> GetUsersByUid(Guid uid);
+    Task<UserDto> GetUserByUid(Guid uid);
 
     [Get("/users?productionSite={productionSiteUid}")]
     Task<UserDto[]> GetUsersByProductionSite(Guid productionSiteUid);
@@ -20,8 +20,8 @@ public interface IWebUserApi
     [Delete("/users/{uid}")]
     Task DeleteUser(Guid uid);
 
-    [Put("/users/{uid}")]
-    Task<UserDto> UpdateUser(Guid uid, [Body] UserUpdateDto updateDto);
+    [Post("/users/{uid}")]
+    Task<UserDto> SaveOrUpdateUser(Guid uid, [Body] UserUpdateDto updateDto);
 
     #endregion
 }

@@ -1,11 +1,13 @@
+using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
 using Ws.Database.EntityFramework.Entities.Ref.Users;
 using Ws.DeviceControl.Api.App.Features.Admins.Users.Common;
 using Ws.DeviceControl.Api.App.Features.Admins.Users.Impl.Expressions;
+using Ws.DeviceControl.Models.Features.Admins.Users.Commands.Update;
 using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Impl;
 
-internal sealed class UserApiService(WsDbContext dbContext) : IUserService
+internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelper) : IUserService
 {
     #region Queries
 
@@ -17,12 +19,32 @@ internal sealed class UserApiService(WsDbContext dbContext) : IUserService
             .Select(UserExpressions.ToDto)
             .ToListAsync();
     }
+    public async Task<UserDto> SaveOrUpdateUser(Guid uid, UserUpdateDto updateDto)
+    {
+        UserEntity? user = await dbContext.Users.FindAsync(uid);
+
+        ProductionSiteEntity site = await dbContext.ProductionSites.SafeGetById(updateDto.ProductionSiteId, "Не найдено");
+
+        if (user is null)
+        {
+            user = new()
+            {
+                Id = uid,
+                ProductionSite = site
+            };
+
+            await dbContext.AddAsync(user);
+        }
+        else
+            user.ProductionSite = site;
+
+        await dbContext.SaveChangesAsync();
+        return UserExpressions.ToDto.Compile().Invoke(user);
+    }
 
     public async Task<UserDto> GetByIdAsync(Guid id)
     {
-        UserEntity? user = await dbContext.Users.FindAsync(id);
-        if (user == null) throw new KeyNotFoundException();
-        await LoadDefaultForeignKeysAsync(user);
+        UserEntity user = await dbContext.Users.SafeGetById(id, "Пользователь не найден");
         return UserExpressions.ToDto.Compile().Invoke(user);
     }
 
