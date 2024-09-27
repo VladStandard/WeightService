@@ -11,17 +11,17 @@ internal static class ModelBuilderExtensions
 
     public static void SetDefaultTypeForString(this ModelBuilder modelBuilder)
     {
-        foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
-        foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
-        {
-            int? maxValue = property.GetMaxLength();
-            property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
-        }
+         foreach (IMutableEntityType entity in modelBuilder.Model.GetEntityTypes())
+         foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
+         {
+             int? maxValue = property.GetMaxLength();
+             property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
+         }
     }
 
     public static void SetAutoCreateOrChangeDt(this ModelBuilder modelBuilder)
     {
-        const string getDateCmd = "GETDATE()";
+        const string getDateCmd = "GETUTCDATE()";
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
             IMutableProperty? createDtProperty = entityType.FindProperty(nameof(SqlColumns.CreateDt)) ?? null;

@@ -22,9 +22,9 @@ public static class DependencyInjection
         services.AddScoped<LabelPieceGenerator>();
         services.AddScoped<LabelWeightGenerator>();
 
-        if (StrUtils.TryDeserializeFromJson(palychConfiguration.Value, out PalychSettingsModel? palychSettingsModel))
-            services.AddPalychApi(palychSettingsModel);
-        else throw new InvalidDataException("Invalid configuration");
+        services.AddPalychApi(
+        palychConfiguration.Get<PalychSettingsModel>() ?? throw new NullReferenceException()
+        );
 
 
         // services.AddEasyCaching(option =>

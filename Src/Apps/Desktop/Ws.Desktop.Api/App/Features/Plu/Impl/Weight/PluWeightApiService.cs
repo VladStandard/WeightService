@@ -86,7 +86,7 @@ internal sealed class PluWeightApiService(
                 (short)line.Number,
                 line.Name,
                 line.Warehouse.ProductionSite.Address,
-                line.Counter
+                line.Counter % 1000000 + 1
             ),
             Nesting = new(Guid.Empty, nesting.Box.Weight, nesting.BundleCount),
             Kneading = (short)dto.Kneading,
@@ -95,7 +95,7 @@ internal sealed class PluWeightApiService(
 
         LabelEntity label = printLabelService.GenerateWeightLabel(dtoToCreate);
 
-        line.Counter = line.Counter % 1000000 + 1;
+        line.Counter = dtoToCreate.Line.Counter;
 
         label.Plu = plu;
         label.Line = line;

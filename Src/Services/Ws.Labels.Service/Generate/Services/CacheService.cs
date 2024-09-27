@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
-using EasyCaching.Core;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Labels.Service.Generate.Models.Cache;
@@ -10,9 +9,7 @@ using Ws.Shared.Enums;
 
 namespace Ws.Labels.Service.Generate.Services;
 
-public partial class CacheService(
-    WsDbContext dbContext,
-    IRedisCachingProvider redisCachingProvider)
+public partial class CacheService(WsDbContext dbContext)
 {
     [GeneratedRegex(",([^,]+),")]
     private static partial Regex MyRegex();
@@ -33,16 +30,18 @@ public partial class CacheService(
 
     public Dictionary<string, string> GetResourcesFromCacheOrDb(List<string> resourcesName, ushort rotate)
     {
-        HashSet<string> resourceNameUniq = resourcesName.ToHashSet();
-        Dictionary<string, string?> cached = redisCachingProvider
-            .HMGet($"ZPL_RESOURCES:{rotate}", resourceNameUniq.ToList());
+        // HashSet<string> resourceNameUniq = resourcesName.ToHashSet();
+        // Dictionary<string, string?> cached = redisCachingProvider
+        //     .HMGet($"ZPL_RESOURCES:{rotate}", resourceNameUniq.ToList());
+        //
+        // bool allValuesNonNull = cached != null && cached.Values.All(value => value != null);
+        //
+        // if (allValuesNonNull)
+        //     return cached!;
 
-        bool allValuesNonNull = cached != null && cached.Values.All(value => value != null);
+        // IRedisCachingProvider redisCachingProvider;
 
-        if (allValuesNonNull)
-            return cached!;
-
-        cached = dbContext.ZplResources.ToDictionary(
+        Dictionary<string, string?> cached = dbContext.ZplResources.ToDictionary(
             i => $"{i.Name.ToLower()}_sql",
             i =>
             {
@@ -67,7 +66,7 @@ public partial class CacheService(
                 return zpl;
             })!;
 
-        redisCachingProvider.HMSet($"ZPL_RESOURCES:{rotate}", cached, TimeSpan.FromHours(1));
+        // redisCachingProvider.HMSet($"ZPL_RESOURCES:{rotate}", cached, TimeSpan.FromHours(1));
 
         return cached!;
     }
