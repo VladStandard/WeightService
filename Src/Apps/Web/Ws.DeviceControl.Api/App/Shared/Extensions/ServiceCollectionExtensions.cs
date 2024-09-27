@@ -3,7 +3,6 @@ using System.Text.Json;
 using Keycloak.AuthServices.Authentication;
 using Keycloak.AuthServices.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.DeviceControl.Models;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 

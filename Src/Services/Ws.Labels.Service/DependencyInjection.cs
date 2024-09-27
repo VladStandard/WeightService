@@ -1,19 +1,16 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Extensions;
 using Ws.Labels.Service.Generate;
 using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Weight;
 using Ws.Labels.Service.Generate.Services;
-using Ws.Shared.Utils;
+using Ws.Labels.Service.Settings;
 
 namespace Ws.Labels.Service;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddLabelsServices(this IServiceCollection services,
-        IConfigurationSection palychConfiguration)
+    public static IServiceCollection AddLabelsServices(this IServiceCollection services, PalychSettings palychConfiguration)
     {
         services.AddScoped<IPrintLabelService, PrintLabelService>();
 
@@ -22,10 +19,7 @@ public static class DependencyInjection
         services.AddScoped<LabelPieceGenerator>();
         services.AddScoped<LabelWeightGenerator>();
 
-        services.AddPalychApi(
-        palychConfiguration.Get<PalychSettingsModel>() ?? throw new NullReferenceException()
-        );
-
+        services.AddPalychApi(palychConfiguration);
 
         // services.AddEasyCaching(option =>
         // {

@@ -5,9 +5,13 @@ using Ws.Database.EntityFramework;
 using Ws.Desktop.Api;
 using Ws.Desktop.Api.App.Shared.Middlewares;
 using Ws.Labels.Service;
+using Ws.Labels.Service.Settings;
 using Ws.Shared.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+PalychSettings palychSettings = builder.Configuration
+    .GetSection("Palych").Get<PalychSettings>() ?? throw new NullReferenceException();
 
 builder.Services
     .AddAuthorization(PolicyAuthUtils.RegisterAuthorization)
@@ -18,7 +22,7 @@ builder.Services
 
 builder.Services
     .AddEfCore()
-        .AddLabelsServices(builder.Configuration.GetSection("Palych"))
+    .AddLabelsServices(palychSettings)
     .AddHelpers<IDesktopApiAssembly>()
     .AddMiddlewares<IDesktopApiAssembly>()
     .AddApiServices<IDesktopApiAssembly>();

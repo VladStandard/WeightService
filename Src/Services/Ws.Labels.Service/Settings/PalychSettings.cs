@@ -1,9 +1,9 @@
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace Ws.Labels.Service.Api;
+namespace Ws.Labels.Service.Settings;
 
-public class PalychSettingsModel
+public class PalychSettings
 {
     [JsonPropertyName("Login")]
     public string Login { get; set; } = string.Empty;

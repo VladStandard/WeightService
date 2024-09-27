@@ -27,7 +27,7 @@ public interface IWebWarehouseApi
     [Post("/warehouses")]
     Task<WarehouseDto> CreateWarehouse([Body] WarehouseCreateDto createDto);
 
-    [Post("/warehouses/{uid}")]
+    [Put("/warehouses/{uid}")]
     Task<WarehouseDto> UpdateWarehouse(Guid uid, [Body] WarehouseUpdateDto updateDto);
 
     #endregion

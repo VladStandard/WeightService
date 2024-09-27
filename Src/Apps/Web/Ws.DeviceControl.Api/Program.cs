@@ -22,12 +22,12 @@ builder.Services
     .AddHttpContextAccessor()
     .AddEndpointsApiExplorer();
 
-string[] supportedCultures = ["en-US", "ru-RU"];
+CultureInfo[] supportedCultures = [Cultures.Ru, Cultures.En];
 RequestLocalizationOptions localizationOptions = new()
 {
-    SupportedCultures = supportedCultures.Select(c => new CultureInfo(c)).ToList(),
-    SupportedUICultures = supportedCultures.Select(c => new CultureInfo(c)).ToList(),
-    DefaultRequestCulture = new("en-US")
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    DefaultRequestCulture = new(Cultures.En.Name)
 };
 
 WebApplication app = builder.Build();

@@ -1,13 +1,13 @@
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using Ws.Labels.Service.Api;
+using Ws.Labels.Service.Settings;
 
 namespace Ws.Labels.Service.Extensions;
 
 internal static class DiApiBuilder
 {
-    internal static void AddPalychApi(this IServiceCollection services, PalychSettingsModel serviceSettings)
+    internal static void AddPalychApi(this IServiceCollection services, PalychSettings serviceSettings)
     {
         services.AddRefitClient<IPalychApi>(new()
         {

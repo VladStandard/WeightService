@@ -4,12 +4,14 @@ using DeviceControl;
 using DeviceControl.Source.App;
 using DeviceControl.Source.Shared.Auth.Extensions;
 using DeviceControl.Source.Shared.Refit;
+using DeviceControl.Source.Shared.Settings;
 using Fluxor;
 using Ws.Shared.Constants;
 
-const string oidcScheme = "KeycloakOidc";
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+OidcSettings oidcSettings = builder.Configuration
+    .GetSection("Oidc").Get<OidcSettings>() ?? throw new NullReferenceException();
 
 builder.Services
     .AddHelpers<IDeviceControlAssembly>()
@@ -29,7 +31,7 @@ builder.Services
     .AddLocalization()
     .AddFluxor(c => c.ScanAssemblies(typeof(IDeviceControlAssembly).Assembly))
     .AddFluentUIComponents(c => c.ValidateClassNames = false)
-    .ConfigureKeycloakAuthorization(builder.Configuration.GetSection("Oidc"), oidcScheme);
+    .ConfigureKeycloakAuthorization(oidcSettings);
 
 builder.RegisterRefitClients();
 
@@ -48,6 +50,6 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 app.UseRequestLocalization(Cultures.Ru.Name);
 
-app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcScheme);
+app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcSettings.Scheme);
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
