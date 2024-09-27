@@ -18,7 +18,7 @@ builder.Services
 
 builder.Services
     .AddEfCore()
-    .AddLabelsServices()
+        .AddLabelsServices(builder.Configuration.GetSection("Palych"))
     .AddHelpers<IDesktopApiAssembly>()
     .AddMiddlewares<IDesktopApiAssembly>()
     .AddApiServices<IDesktopApiAssembly>();

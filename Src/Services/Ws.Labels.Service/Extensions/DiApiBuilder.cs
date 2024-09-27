@@ -7,12 +7,8 @@ namespace Ws.Labels.Service.Extensions;
 
 internal static class DiApiBuilder
 {
-    internal static void AddPalychApi(this IServiceCollection services)
+    internal static void AddPalychApi(this IServiceCollection services, PalychSettingsModel serviceSettings)
     {
-        const string login = "Администратор";
-        const string password = "111";
-        string authorizationToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{login}:{password}"));
-
         services.AddRefitClient<IPalychApi>(new()
         {
             ContentSerializer = new XmlContentSerializer(new()
@@ -30,8 +26,8 @@ internal static class DiApiBuilder
             .ConfigureHttpClient(c =>
             {
                 c.Timeout = TimeSpan.FromSeconds(10);
-                c.BaseAddress = new("http://dev1c.kolbasa-vs.local/palych_spe/hs/Exchange/");
-                c.DefaultRequestHeaders.Authorization = new("Basic", authorizationToken);
+                c.BaseAddress = new(serviceSettings.Url);
+                c.DefaultRequestHeaders.Authorization = new("Basic", serviceSettings.AuthorizationToken);
             })
             .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
             {

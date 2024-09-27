@@ -9,6 +9,6 @@ internal interface IPalychApi
     [Post("/ExchangeVesovayaPalletCard")]
     Task<PalletResponseDto> CreatePallet([Body] PalletCreateApiDto dto);
 
-    [Post("/ExchangeVesovayaPalletCardStatus/")]
+    [Post("/ExchangeVesovayaPalletCardStatus")]
     Task<PalletDeleteWrapperMsg> Delete([Body] PalletDeleteWrapper dto);
 }
