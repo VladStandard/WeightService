@@ -11,11 +11,10 @@ internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelpe
 {
     #region Queries
 
-    public Task<List<UserDto>> GetAllByProductionSiteAsync(Guid productionSiteId)
+    public Task<List<UserDto>> GetAllUsers()
     {
         return dbContext.Users
             .AsNoTracking()
-            .Where(i => i.ProductionSite.Id == productionSiteId)
             .Select(UserExpressions.ToDto)
             .ToListAsync();
     }
@@ -45,6 +44,7 @@ internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelpe
     public async Task<UserDto> GetByIdAsync(Guid id)
     {
         UserEntity user = await dbContext.Users.SafeGetById(id, "Пользователь не найден");
+        await LoadDefaultForeignKeysAsync(user);
         return UserExpressions.ToDto.Compile().Invoke(user);
     }
 

@@ -13,8 +13,7 @@ public sealed class UserController(IUserService userService)
     #region Queries
 
     [HttpGet]
-    public Task<List<UserDto>> GetAllByProductionSite([FromQuery(Name = "productionSite")] Guid productionSiteId) =>
-        userService.GetAllByProductionSiteAsync(productionSiteId);
+    public Task<List<UserDto>> GetAllUsers() => userService.GetAllUsers();
 
     [HttpGet("{id:guid}")]
     public Task<UserDto> GetById([FromRoute] Guid id) => userService.GetByIdAsync(id);

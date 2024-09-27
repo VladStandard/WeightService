@@ -8,7 +8,7 @@ public interface IUserService : IDeleteService<Guid>
     #region Queries
 
     Task<UserDto> GetByIdAsync(Guid id);
-    Task<List<UserDto>> GetAllByProductionSiteAsync(Guid productionSiteId);
+    Task<List<UserDto>> GetAllUsers();
 
     #endregion
 

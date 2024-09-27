@@ -10,8 +10,8 @@ public interface IWebUserApi
     [Get("/users/{uid}")]
     Task<UserDto> GetUserByUid(Guid uid);
 
-    [Get("/users?productionSite={productionSiteUid}")]
-    Task<UserDto[]> GetUsersByProductionSite(Guid productionSiteUid);
+    [Get("/users")]
+    Task<UserDto[]> GetAllUsers();
 
     #endregion
 

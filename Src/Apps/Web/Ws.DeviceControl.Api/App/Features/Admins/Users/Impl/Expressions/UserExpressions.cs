@@ -9,5 +9,6 @@ public static class UserExpressions
         user => new()
         {
             Id = user.Id,
+            ProductionSiteId = user.ProductionSite.Id
         };
 }
