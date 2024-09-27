@@ -40,7 +40,7 @@ public class BarcodeItemListConverter : ValueConverter<List<BarcodeItem>, string
 
     private static List<BarcodeItem> DeserializeJson(string? json)
     {
-        if (string.IsNullOrEmpty(json)) return [];
+        if (string.IsNullOrWhiteSpace(json)) return [];
         return JsonSerializer.Deserialize<List<BarcodeItem>>(json) ?? [];
     }
 

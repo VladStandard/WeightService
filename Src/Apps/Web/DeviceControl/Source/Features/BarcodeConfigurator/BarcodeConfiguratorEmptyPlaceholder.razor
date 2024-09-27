@@ -1,5 +1,5 @@
 <div class="col-span-6 flex w-full h-10 items-center justify-center">
-  @if (string.IsNullOrEmpty(Placeholder))
+  @if (string.IsNullOrWhiteSpace(Placeholder))
   {
     <span>@Localizer["BarcodeEditorEmptyPlaceholder"]</span>
   }

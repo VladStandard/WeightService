@@ -81,7 +81,7 @@
     </tbody>
   </table>
 
-  @if (!string.IsNullOrEmpty(Base64BarcodeImage))
+  @if (!string.IsNullOrWhiteSpace(Base64BarcodeImage))
   {
     <div style="width: 100%; gap: 0.4rem; display: flex; flex-direction: column;">
       <img src="data:image/png;base64,@Base64BarcodeImage" alt="Barcode Image" style="padding-top: 1rem;" />

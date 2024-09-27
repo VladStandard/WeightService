@@ -18,7 +18,7 @@ public sealed partial class SectionInputWrapper : ComponentBase
 
     private async Task SaveToClipboard(string value)
     {
-        if (string.IsNullOrEmpty(value)) return;
+        if (string.IsNullOrWhiteSpace(value)) return;
 
         try
         {

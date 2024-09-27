@@ -107,7 +107,7 @@ public sealed partial class NavMenu : ComponentBase
     {
         string fullName = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value ?? "";
         string[] nameParts = fullName.Split(" ");
-        IEnumerable<string> initialChar = nameParts.Skip(1).Select(s => string.IsNullOrEmpty(s) ? "" : $"{char.ToUpper(s[0])}.");
+        IEnumerable<string> initialChar = nameParts.Skip(1).Select(s => string.IsNullOrWhiteSpace(s) ? "" : $"{char.ToUpper(s[0])}.");
         return $"{nameParts[0]} {string.Join("", initialChar)}".Capitalize();
     }
 }

@@ -67,8 +67,8 @@
       @if (templateBodyQuery.HasData)
       {
         {
-          if (string.IsNullOrEmpty(FormModel.Body)) FormModel.Body = templateBodyQuery.Data;
-          if (string.IsNullOrEmpty(DialogItemCopy.Body)) DialogItemCopy.Body = templateBodyQuery.Data;
+          if (string.IsNullOrWhiteSpace(FormModel.Body)) FormModel.Body = templateBodyQuery.Data;
+          if (string.IsNullOrWhiteSpace(DialogItemCopy.Body)) DialogItemCopy.Body = templateBodyQuery.Data;
         }
         <SectionTextAreaField
           Label="@WsDataLocalizer["ColTemplate"]"

@@ -48,7 +48,7 @@ public static class AuthenticationServiceExtensions
                         string clientId = context.Options.ClientId ?? "";
                         Dictionary<string, string> claimsDict = context.User.RootElement.EnumerateObject()
                             .ToDictionary(claim => claim.Name, claim => claim.Value.ToString());
-                        if (string.IsNullOrEmpty(clientId) || claimsIdentity == null) return Task.CompletedTask;
+                        if (string.IsNullOrWhiteSpace(clientId) || claimsIdentity == null) return Task.CompletedTask;
 
                         ClaimsMapping.MapJwtClaims(claimsDict, claimsIdentity, clientId);
                         return Task.CompletedTask;

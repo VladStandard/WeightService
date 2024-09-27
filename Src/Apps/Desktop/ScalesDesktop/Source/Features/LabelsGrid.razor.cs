@@ -66,7 +66,7 @@ public sealed partial class LabelsGrid : ComponentBase
     private IQueryable<DataItem> GetOrderedLabels(LabelInfo[] labels)
     {
         IEnumerable<DataItem> indexedLabels = labels.Select((label, index) => new DataItem { Id = index + 1, Label = label });
-        if (string.IsNullOrEmpty(SearchingNumber)) return indexedLabels.AsQueryable();
+        if (string.IsNullOrWhiteSpace(SearchingNumber)) return indexedLabels.AsQueryable();
         indexedLabels = indexedLabels.Where(x => x.Id.ToString().Contains(SearchingNumber));
         return indexedLabels.AsQueryable();
     }

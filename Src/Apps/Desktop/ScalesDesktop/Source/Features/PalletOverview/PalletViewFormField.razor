@@ -7,7 +7,7 @@
     Value="@Value"
     ReadOnly
   />
-  @if (IsCopyable && !string.IsNullOrEmpty(Value))
+  @if (IsCopyable && !string.IsNullOrWhiteSpace(Value))
   {
     <button
       type="button"

@@ -3,7 +3,7 @@
 <div class="@Css.Class("space-y-2 w-full relative flex-col flex", Size == SectionInputSizeType.Large ? "col-span-2" : string.Empty, Class)">
   <FieldLabel HtmlFor="@HtmlFor" Url="@Path">@Label</FieldLabel>
   @ChildContent
-  @if (!string.IsNullOrEmpty(ValueToCopy))
+  @if (!string.IsNullOrWhiteSpace(ValueToCopy))
   {
     <button
       type="button"

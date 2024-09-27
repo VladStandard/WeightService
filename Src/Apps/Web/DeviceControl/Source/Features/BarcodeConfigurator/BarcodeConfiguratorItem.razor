@@ -30,7 +30,7 @@
           Items="@GetFilteredValues().Select(x => x.Property)"
           @bind-Value="@Value.Property"
           @bind-Value:after="@OnVarSelect"
-          ItemDisplayName="@(item => string.IsNullOrEmpty(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item.ToString())"
+          ItemDisplayName="@(item => string.IsNullOrWhiteSpace(item) ? Localizer["BarcodeEditorVariableSelectPlaceholder"] : item.ToString())"
           Class="!border-none !rounded-none"
         />
       }
@@ -80,7 +80,7 @@
       }
     </div>
     <div class="size-full flex items-center px-3 text-sm truncate">
-      @if (string.IsNullOrEmpty(Value.Example))
+      @if (string.IsNullOrWhiteSpace(Value.Example))
       {
         <span class="text-destructive text-sm">Ошибка</span>
       }

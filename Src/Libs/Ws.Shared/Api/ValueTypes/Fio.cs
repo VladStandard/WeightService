@@ -22,7 +22,7 @@ public sealed record Fio
 
     #region Private
 
-    private static string GetInitialChar(string s) => string.IsNullOrEmpty(s) ? "" : $"{char.ToUpper(s[0])}.";
+    private static string GetInitialChar(string s) => string.IsNullOrWhiteSpace(s) ? "" : $"{char.ToUpper(s[0])}.";
 
     #endregion
 }

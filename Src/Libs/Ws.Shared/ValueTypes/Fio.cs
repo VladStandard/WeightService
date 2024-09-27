@@ -10,8 +10,8 @@ public record Fio
 
     public virtual string DisplayFull => $"{Surname} {Name} {Patronymic}";
     public virtual string DisplayShort =>
-        $"{Surname} {(string.IsNullOrEmpty(Name) ? "" : Name[..1].ToUpper())}." +
-        $"{(string.IsNullOrEmpty(Patronymic) ? "" : Patronymic[..1].ToUpper())}.";
+        $"{Surname} {(string.IsNullOrWhiteSpace(Name) ? "" : Name[..1].ToUpper())}." +
+        $"{(string.IsNullOrWhiteSpace(Patronymic) ? "" : Patronymic[..1].ToUpper())}.";
 
     #endregion
 }

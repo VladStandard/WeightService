@@ -29,7 +29,7 @@
       <span class="sr-only">Step @Index</span>
     </button>
   </div>
-  @if (!string.IsNullOrEmpty(Label))
+  @if (!string.IsNullOrWhiteSpace(Label))
   {
     <div class="absolute text-sm bottom-0 left-0 translate-x-[calc(-50%+1rem)] translate-y-full">
       @Label

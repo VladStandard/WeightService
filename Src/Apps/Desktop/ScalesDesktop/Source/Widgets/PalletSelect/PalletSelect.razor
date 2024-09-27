@@ -12,14 +12,14 @@
         <CompactDatePicker
           @bind-Value="@StartDate"
           DisabledDateFunc="@(date => date < EndDate?.AddDays(-4) || date >= EndDate?.AddDays(-1))"
-          IsDisabled="@(!string.IsNullOrEmpty(InputSearchCounter))"
+          IsDisabled="@(!string.IsNullOrWhiteSpace(InputSearchCounter))"
         />
         <span>-</span>
         <CompactDatePicker
           @bind-Value="@EndDate"
           @bind-Value:after="@(() => StartDate = EndDate?.AddDays(-1))"
           DisabledDateFunc="@(date => date < DateTime.Today.AddDays(-2) || date > DateTime.Today.AddDays(1))"
-          IsDisabled="@(!string.IsNullOrEmpty(InputSearchCounter))"
+          IsDisabled="@(!string.IsNullOrWhiteSpace(InputSearchCounter))"
         />
       </div>
       <div class="flex items-center gap-2">
@@ -27,7 +27,7 @@
           <Button
             Variant="ButtonVariantType.Outline"
             Size="ButtonSizeType.Icon"
-            OnClick="@(() => { if (string.IsNullOrEmpty(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluEndpoints.PiecePlusEndpoint.InvalidateAll(); })"
+            OnClick="@(() => { if (string.IsNullOrWhiteSpace(InputSearchCounter)) palletQuery.Refetch(); ResetSortsAndFilters(); PluEndpoints.PiecePlusEndpoint.InvalidateAll(); })"
             Disabled="@palletQuery.IsFetching"
           >
             <ArrowPathIcon class="size-5 mx-2"/>
@@ -42,7 +42,7 @@
         @bind-Filter="PalletFilter"
         @bind-SearchingString="InputSearchCounter"
       />
-      @if (string.IsNullOrEmpty(InputSearchCounter))
+      @if (string.IsNullOrWhiteSpace(InputSearchCounter))
       {
         <UseEndpoint Endpoint="@PalletEndpoints.PiecePalletsEndpoint" Arg="@new(StartDate, EndDate)" Context="palletQuery">
           @if (palletQuery.IsLoading)
@@ -134,7 +134,7 @@
   {
     IEnumerable<PalletInfo> filteredPallets = pallets.AsEnumerable();
 
-    if (!string.IsNullOrEmpty(InputSearchCounter))
+    if (!string.IsNullOrWhiteSpace(InputSearchCounter))
       filteredPallets = pallets.Where(x => x.Number.ToString().Contains(InputSearchCounter));
 
     filteredPallets = PalletFilter switch

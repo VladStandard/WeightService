@@ -16,7 +16,7 @@ public sealed class ErrorHelper(
             ErrorType.NotFound => "errorNotFound",
             _ => "errorUnknown"
         };
-        return string.IsNullOrEmpty(fieldName) ? localizer[localizeErrorKey] :
+        return string.IsNullOrWhiteSpace(fieldName) ? localizer[localizeErrorKey] :
             string.Format(localizer[$"{localizeErrorKey}ByField"], wsDataLocalizer[$"Col{fieldName}"]);
     }
 }

@@ -20,8 +20,9 @@ public static partial class StrUtils
         return false;
     }
 
-    public static bool TryDeserializeFromJson<T>(string json, [NotNullWhen(true)] out T? result)
+    public static bool TryDeserializeFromJson<T>(string? json, [NotNullWhen(true)] out T? result)
     {
+        json ??= string.Empty;
         try
         {
             result = JsonSerializer.Deserialize<T>(json);

@@ -8,7 +8,7 @@
     {
       <Spinner Class="size-14 text-muted animate-spin fill-blue-600"/>
     }
-    else if (labelZplQuery.HasData && !string.IsNullOrEmpty(labelZplQuery.Data.Zpl))
+    else if (labelZplQuery.HasData && !string.IsNullOrWhiteSpace(labelZplQuery.Data.Zpl))
     {
       <UseEndpoint
         Endpoint="@ZplEndpoints.ZplEndpoint"

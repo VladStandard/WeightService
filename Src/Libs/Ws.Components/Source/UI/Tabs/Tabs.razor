@@ -12,7 +12,7 @@
 
   protected override async Task OnInitializedAsync()
   {
-    if (!string.IsNullOrEmpty(DefaultTab))
+    if (!string.IsNullOrWhiteSpace(DefaultTab))
       await ChangeActiveTabId(DefaultTab);
   }
 
@@ -22,7 +22,7 @@
   {
     if (!TabsList.Contains(tab))
       TabsList.Add(tab);
-    if (string.IsNullOrEmpty(ActiveTabId))
+    if (string.IsNullOrWhiteSpace(ActiveTabId))
       await ChangeActiveTabId(tab.Id);
   }
 

@@ -14,7 +14,7 @@ public static class StringExtensions
     };
 
     public static bool IsDigitsOnly(this string str)
-        => !string.IsNullOrEmpty(str) && str.All(char.IsDigit);
+        => !string.IsNullOrWhiteSpace(str) && str.All(char.IsDigit);
 
     public static string Capitalize(this string str)
         => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);

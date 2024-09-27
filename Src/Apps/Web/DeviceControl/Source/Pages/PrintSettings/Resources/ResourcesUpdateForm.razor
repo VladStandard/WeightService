@@ -42,8 +42,8 @@
       @if (resourceBodyQuery.HasData)
       {
         {
-          if (string.IsNullOrEmpty(FormModel.Body)) FormModel.Body = resourceBodyQuery.Data;
-          if (string.IsNullOrEmpty(DialogItemCopy.Body)) DialogItemCopy.Body = resourceBodyQuery.Data;
+          if (string.IsNullOrWhiteSpace(FormModel.Body)) FormModel.Body = resourceBodyQuery.Data;
+          if (string.IsNullOrWhiteSpace(DialogItemCopy.Body)) DialogItemCopy.Body = resourceBodyQuery.Data;
         }
         <SectionTextAreaField
           Label="@WsDataLocalizer["ColTemplate"]"

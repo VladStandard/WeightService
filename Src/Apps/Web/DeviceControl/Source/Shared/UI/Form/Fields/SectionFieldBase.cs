@@ -18,7 +18,7 @@ public abstract class SectionFieldBase<TValue> : ComponentBase
     [Parameter] public string? ValueToCopy { get; set; }
 
     protected override void OnInitialized() =>
-        Placeholder = string.IsNullOrEmpty(Placeholder) ? Localizer["InputDefaultPlaceholder"] : Placeholder;
+        Placeholder = string.IsNullOrWhiteSpace(Placeholder) ? Localizer["InputDefaultPlaceholder"] : Placeholder;
 
     protected async Task OnValueChanged() => await ValueChanged.InvokeAsync(Value);
 }

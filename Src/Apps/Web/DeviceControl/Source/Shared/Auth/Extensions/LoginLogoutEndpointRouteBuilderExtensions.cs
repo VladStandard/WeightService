@@ -24,7 +24,7 @@ internal static class LoginLogoutEndpointRouteBuilderExtensions
         const string pathBase = "/";
         string redirectUri = string.Empty;
 
-        if (string.IsNullOrEmpty(returnUrl))
+        if (string.IsNullOrWhiteSpace(returnUrl))
             redirectUri = pathBase;
         else if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
             redirectUri = new Uri(returnUrl, UriKind.Absolute).PathAndQuery;

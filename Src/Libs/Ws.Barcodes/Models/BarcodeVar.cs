@@ -72,7 +72,7 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
         if (!BarcodeVarUtils.TryFormat(readyPropValue, formatStr, out string? newFormattedValue))
             return false;
 
-        if (string.IsNullOrEmpty(oldMask))
+        if (string.IsNullOrWhiteSpace(oldMask))
             return true;
 
         if (readyPropValue is DateTime) return true;
