@@ -11,25 +11,37 @@ namespace ScalesDesktop;
 
 public static class MauiProgram
 {
-    public static MauiAppBuilder CreateMauiApp()
+    public static MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
         builder.SetupLocalizer();
         builder.Services.AddTransient<HostNameMessageHandler>();
-        builder.RegisterRefitClients();
-        builder.UseMauiApp<App>().UseFullScreen();
+        // builder.RegisterRefitClients();
 
-        builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtil.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
+        builder.UseMauiApp<App>();
+        builder.Services.AddRefitClient<IDesktopApi>()
+            .ConfigureHttpClient(c => c.BaseAddress = new("https://scales-api-dev.kolbasa-vs.local/api/desktop"))
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            })
+            .AddHttpMessageHandler<HostNameMessageHandler>();
+
+        // builder.Configuration
+        //     .AddJsonFile($"appsettings.{(ConfigurationUtil.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
 
         builder.Services.AddMauiBlazorWebView();
 
         builder.Services
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintingService, PrintingService>()
-            .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);
+
+        builder.Services.AddScoped<ArmEndpoints>();
+        builder.Services.AddScoped<PalletEndpoints>();
+        builder.Services.AddScoped<PluEndpoints>();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
@@ -42,13 +54,9 @@ public static class MauiProgram
             options.ScanAssemblies(typeof(IScalesDesktopAssembly).Assembly);
         });
 
-        bool isPrinterMock = builder.Configuration.GetValue<bool?>("MockPrinter") ?? false;
-        bool isScalesMock = builder.Configuration.GetValue<bool?>("MockScales") ?? false;
+        builder.Services.AddSingleton<IPrinterService, MockPrinterService>();
+        builder.Services.AddSingleton<IScalesService, MockScalesService>();
 
-        builder.Services
-            .AddServiceOrMock<IScalesService, ScalesService, MockScalesService>(isScalesMock, ServiceLifetime.Singleton)
-            .AddServiceOrMock<IPrinterService, PrinterService, MockPrinterService>(isPrinterMock, ServiceLifetime.Singleton);
-
-        return builder;
+        return builder.Build();
     }
 }

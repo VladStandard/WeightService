@@ -1,3 +1,4 @@
+@using System.Net
 @using Blazor.Heroicons.Outline
 @using ScalesDesktop.Source.Shared.Services.Endpoints
 
@@ -10,7 +11,7 @@
         <div class="flex flex-col text-center gap-2">
           <h2 class="text-xl font-semibold">@Localizer["LineIsNewWarningTitle"]</h2>
           <p class="text-sm">
-            @Localizer["LineIsNewWarningDescription"]
+            @Localizer["LineIsNewWarningDescription"] (@Dns.GetHostName())
           </p>
         </div>
         <div class="w-full max-w-xs mx-auto flex flex-col space-y-2">

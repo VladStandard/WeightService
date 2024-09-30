@@ -1,4 +1,4 @@
-using MassaK.Plugin.Abstractions.Enums;
+using ScalesDesktop.Source.Shared.Services.Devices;
 
 namespace ScalesDesktop.Source.Shared.Services.Stores;
 

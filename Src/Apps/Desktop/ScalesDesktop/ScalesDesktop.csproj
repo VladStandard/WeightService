@@ -1,44 +1,69 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup Label="Primary">
-        <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+<!--    <PropertyGroup Label="Primary">-->
+<!--        <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>-->
 
-        <!-- / Delete FUTURE -->
-        <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
-        <!-- Delete FUTURE \ -->
-        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-        <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+<!--        &lt;!&ndash; / Delete FUTURE &ndash;&gt;-->
+<!--        <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>-->
+<!--        &lt;!&ndash; Delete FUTURE \ &ndash;&gt;-->
+<!--        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>-->
+<!--        <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>-->
+
+<!--        <OutputType>Exe</OutputType>-->
+<!--        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">true</UseInterpreter>-->
+
+<!--        <UseMaui>true</UseMaui>-->
+<!--        <SingleProject>true</SingleProject>-->
+<!--        <SelfContained>true</SelfContained>-->
+
+<!--        <IncludeSymbols>false</IncludeSymbols>-->
+<!--        <GenerateTestArtifacts>false</GenerateTestArtifacts>-->
+<!--        <EnableDefaultCssItems>false</EnableDefaultCssItems>-->
+<!--    </PropertyGroup>-->
+    <PropertyGroup>
+        <TargetFramework>net8.0-android34.0</TargetFramework>
 
         <OutputType>Exe</OutputType>
-        <UseInterpreter Condition="'$(Configuration)' == 'DevelopVS'">true</UseInterpreter>
-
         <UseMaui>true</UseMaui>
         <SingleProject>true</SingleProject>
-        <SelfContained>true</SelfContained>
-
-        <IncludeSymbols>false</IncludeSymbols>
-        <GenerateTestArtifacts>false</GenerateTestArtifacts>
+        <ImplicitUsings>enable</ImplicitUsings>
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
+        <SelfContained>false</SelfContained>
+
+        <ApplicationTitle>ScalesDesktop</ApplicationTitle>
+        <ApplicationId>ru.vladstandart.scalesdesktop</ApplicationId>
+        <ApplicationIdGuid>71b7b772-bf6d-42d7-906c-390fab773124</ApplicationIdGuid>
+        <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
+    <ItemGroup Label="Static assets">
+        <MauiAsset Include="wwwroot\app.min.css" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiImage Include="Resources\Images\*" />
+        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+        <MauiFont Include="Resources\Fonts\*" />
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
 
-    <PropertyGroup Label="appInstaller/Msix">
-        <ApplicationTitle>Весовой пост</ApplicationTitle>
-        <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
-        <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>
 
-        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>
-        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>
-        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+<!--    <PropertyGroup Label="appInstaller/Msix">-->
+<!--        <ApplicationTitle>Весовой пост</ApplicationTitle>-->
+<!--        <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>-->
+<!--        <ApplicationIdGuid>D30D9BEB-99CC-4116-B15D-F73CFDE9CAB6</ApplicationIdGuid>-->
 
-        <AppxBundle Label="Only for x64">Never</AppxBundle>
-        <UapAppxPackageBuildMode Label="For local usage (no MsStore)">SideLoadOnly</UapAppxPackageBuildMode>
+<!--        <GenerateAppInstallerFile>true</GenerateAppInstallerFile>-->
+<!--        <ForceUpdateFromAnyVersion>true</ForceUpdateFromAnyVersion>-->
+<!--        <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>-->
 
-        <AppxSymbolPackageEnabled>false</AppxSymbolPackageEnabled>
-        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
-        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>
-    </PropertyGroup>
+<!--        <AppxBundle Label="Only for x64">Never</AppxBundle>-->
+<!--        <UapAppxPackageBuildMode Label="For local usage (no MsStore)">SideLoadOnly</UapAppxPackageBuildMode>-->
+
+<!--        <AppxSymbolPackageEnabled>false</AppxSymbolPackageEnabled>-->
+<!--        <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>-->
+<!--        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>-->
+<!--        <PackageCertificateThumbprint>60D25C0106434F55B5A2D2089C7009A542A4C854</PackageCertificateThumbprint>-->
+<!--    </PropertyGroup>-->
 
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Phetch.Blazor" />
@@ -56,11 +81,9 @@
         <PackageReference Include="Microsoft.Extensions.Options" VersionOverride="8.0.2" />
         <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.82" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.82" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" VersionOverride="1.5.240802000" />
-        <PackageReference Include="MassaK.Plugin" VersionOverride="1.0.2" />
-        <PackageReference Include="TscZebra.Plugin" VersionOverride="1.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.82" />
         <PackageReference Include="barcodelib" VersionOverride="3.1.4" />
+        <PackageReference Include="TscZebra.Plugin" VersionOverride="1.0.4" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">
@@ -73,12 +96,6 @@
         <Content Include=".Publish\dev.cmd" />
         <Content Include=".Publish\prod.cmd" />
         <Content Include=".Publish\Utils\UpdateAppInstaller.ps1" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" BaseSize="64,64" />
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" BaseSize="128,128" />
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>

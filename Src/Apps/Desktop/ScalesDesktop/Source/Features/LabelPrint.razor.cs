@@ -1,4 +1,3 @@
-using MassaK.Plugin.Abstractions.Enums;
 using ScalesDesktop.Source.Shared.Models;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using TscZebra.Plugin.Abstractions.Enums;

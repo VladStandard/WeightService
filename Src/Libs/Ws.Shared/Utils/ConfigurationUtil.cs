@@ -13,7 +13,7 @@ public static class ConfigurationUtil
 
     public static ConfigurationType Config =>
 #if RELEASEVS
-        EnumConfiguration.ReleaseVs;
+        ConfigurationType.ReleaseVs;
 #else
         ConfigurationType.DevelopVs;
 #endif

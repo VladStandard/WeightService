@@ -6,10 +6,10 @@
     </ItemGroup>
 
     <ItemGroup Label="Packages">
-        <PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.5.3" />
-        <PackageReference Include="Keycloak.AuthServices.Authorization" Version="2.5.3" />
-        <PackageReference Include="Keycloak.AuthServices.Common" Version="2.5.3" />
-        <PackageReference Include="ProjectionTools" Version="1.0.17" />
+        <PackageReference Include="Keycloak.AuthServices.Authentication" VersionOverride="2.5.3" />
+        <PackageReference Include="Keycloak.AuthServices.Authorization" VersionOverride="2.5.3" />
+        <PackageReference Include="Keycloak.AuthServices.Common" VersionOverride="2.5.3" />
+        <PackageReference Include="ProjectionTools" VersionOverride="1.0.17" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">
@@ -18,11 +18,11 @@
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
-    
+
     <ItemGroup Label="For testing additional files">
         <Content Include="zHttp\.profiles\*" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <EmbeddedResource Update="App\Shared\Localization\ApplicationResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
@@ -41,7 +41,7 @@
         <LastGenOutput>ApplicationResources.ru-RU.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
-    
+
     <ItemGroup>
       <Compile Update="App\Shared\Localization\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>

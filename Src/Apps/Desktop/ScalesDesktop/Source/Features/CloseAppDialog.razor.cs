@@ -6,6 +6,11 @@ public sealed partial class CloseAppDialog : ComponentBase, IDialogContentCompon
 
     [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 
-    private static void ExitApp() => MauiWinUIApplication.Current.Exit();
+    private static void ExitApp()
+    {
+        if (Application.Current == null) return;
+        Application.Current.Quit();
+    }
+
     private async Task CloseDialog() => await Dialog.CloseAsync();
 }
