@@ -72,7 +72,7 @@ public static partial class BarcodeVarUtils
         List<Type> typesWhiteList = [typeof(uint), typeof(ushort), typeof(string), typeof(decimal), typeof(DateTime)];
 
         if (propertyExpression.Body is not MemberExpression memberExpression)
-            throw new ArgumentException($"Barcode variable expression is not a property");
+            throw new ArgumentException("Barcode variable expression is not a property");
 
         string propertyName = memberExpression.Member.Name;
 

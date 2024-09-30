@@ -7,7 +7,7 @@ using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Impl;
 
-internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelper) : IUserService
+internal sealed class UserApiService(WsDbContext dbContext) : IUserService
 {
     #region Queries
 
@@ -22,7 +22,7 @@ internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelpe
     {
         UserEntity? user = await dbContext.Users.FindAsync(uid);
 
-        ProductionSiteEntity site = await dbContext.ProductionSites.SafeGetById(updateDto.ProductionSiteId, $"Площадка не найдено");
+        ProductionSiteEntity site = await dbContext.ProductionSites.SafeGetById(updateDto.ProductionSiteId, "Площадка не найдено");
 
         if (user is null)
         {

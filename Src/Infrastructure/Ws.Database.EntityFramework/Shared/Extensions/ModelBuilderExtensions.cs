@@ -15,7 +15,7 @@ internal static class ModelBuilderExtensions
          foreach (IMutableProperty property in entity.GetProperties().Where(i => i.ClrType == typeof(string)))
          {
              int? maxValue = property.GetMaxLength();
-             property.SetColumnType($"varchar({(maxValue.HasValue ? maxValue : "max")})");
+             property.SetColumnType($"varchar({(object?)maxValue ?? "max"})");
          }
     }
 

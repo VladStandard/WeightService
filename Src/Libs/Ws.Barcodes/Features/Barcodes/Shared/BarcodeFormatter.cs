@@ -37,7 +37,7 @@ internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
         {
             case string str when format.Equals("C", StringComparison.OrdinalIgnoreCase):
             {
-                if (str.IsDigitsOnly() == false)
+                if (!str.IsDigitsOnly())
                     throw new FormatException();
                 return str;
             }
@@ -49,7 +49,7 @@ internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
         }
 
         if (!SupportTypes.Contains(arg.GetType()))
-            throw new FormatException($"is not in the correct format.");
+            throw new FormatException("is not in the correct format.");
 
         Match match = IsDFormat().Match(format);
 

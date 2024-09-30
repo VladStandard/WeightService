@@ -34,7 +34,6 @@ internal partial class CharacteristicApiService
                 })
             .ToList();
 
-
         dtos.RemoveWhere(dto =>
         {
             if (!existingPairs.Any(uniq =>
@@ -57,10 +56,9 @@ internal partial class CharacteristicApiService
                 DbContext.Plus, characteristic => characteristic.PluId, plu => plu.Id,
                 (characteristic, plu) => new { Characteristic = characteristic, Plu = plu }
             )
-            .Where(pair => charUids.Contains(pair.Characteristic.Id) && pair.Plu.IsWeight == true)
+            .Where(pair => charUids.Contains(pair.Characteristic.Id) && pair.Plu.IsWeight)
             .Select(pair => pair.Plu.Id)
             .ToList();
-
 
         dtos.RemoveWhere(dto =>
         {

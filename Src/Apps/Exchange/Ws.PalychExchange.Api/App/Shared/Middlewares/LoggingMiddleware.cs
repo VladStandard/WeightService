@@ -24,7 +24,7 @@ public class LoggingMiddleware(ILogger<LoggingMiddleware> logger) : IMiddleware
     {
         Stream originalBodyStream = context.Response.Body;
 
-        using MemoryStream responseBody = new();
+        await using MemoryStream responseBody = new();
 
         context.Response.Body = responseBody;
 

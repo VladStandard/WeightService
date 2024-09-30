@@ -40,10 +40,7 @@ public class WsDbContext : DbContext
 
         if (ConfigurationUtil.IsDevelop && sqlCfg.IsShowSql)
             optionsBuilder.UseLoggerFactory(
-                LoggerFactory.Create(builder =>
-                {
-                    builder.AddConsole();
-                })
+                LoggerFactory.Create(builder => builder.AddConsole())
             );
     }
 

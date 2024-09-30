@@ -22,5 +22,4 @@ public static partial class TemplateUtils
 
     public static string SetupPluStorageMethod(string template, string storageName) =>
         template.Replace("storage_method", $"{storageName.Transliterate().ToLower()}_sql");
-
 }

@@ -56,7 +56,7 @@ internal sealed class PalletApiService(
         PalletEntity? pallet = await dbContext.Pallets.FindAsync(id);
         if (pallet != null)
         {
-            bool isDelete = !(pallet.DeletedAt != null);
+            bool isDelete = pallet.DeletedAt == null;
             await printLabelService.DeletePallet(pallet.Number, isDelete);
             pallet.DeletedAt = isDelete ? DateTime.Now : null;
             await dbContext.SaveChangesAsync();
@@ -67,12 +67,11 @@ internal sealed class PalletApiService(
     {
         return dbContext.Pallets
             .AsNoTracking()
-            .Where(p => p.Number.ToString().Contains(number))
+            .Where(p => p.Number.Contains(number))
             .ToPalletInfo(dbContext.Labels)
             .Take(10)
             .ToList();
     }
-
 
     #endregion
 

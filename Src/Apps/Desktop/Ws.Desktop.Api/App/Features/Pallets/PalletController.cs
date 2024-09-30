@@ -14,7 +14,6 @@ public sealed class PalletController(IPalletApiService palletApiService) : Contr
 
     [HttpGet]
     public List<PalletInfo> GetByDate(
-        [FromRoute] Guid armId,
         [FromQuery, DefaultValue(typeof(DateTime), "0001-01-01T00:00:00")] DateTime startDt,
         [FromQuery, DefaultValue(typeof(DateTime), "9999-12-31T23:59:59")] DateTime endDt
     ) => palletApiService.GetAllByDate(startDt, endDt);

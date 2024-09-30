@@ -23,7 +23,7 @@ internal sealed class PluPieceApiService(WsDbContext dbContext, UserHelper userH
 
         Dictionary<PluEntity, List<Nesting>> data = new();
 
-        foreach (PluEntity plu in line.Plus.Where(i => i.IsWeight == false).OrderBy(i => i.Number))
+        foreach (PluEntity plu in line.Plus.Where(i => !i.IsWeight).OrderBy(i => i.Number))
         {
             List<Nesting> pluNesting = [];
             NestingEntity nesting = await dbContext.Nestings.AsNoTracking()

@@ -4,7 +4,7 @@ namespace Ws.Desktop.Api.App.Shared.Auth;
 
 public static class RoleEnum
 {
-    public static readonly string Pc = ArmType.Pc.ToString();
-    public static readonly string Tablet = ArmType.Tablet.ToString();
-    public static readonly string Universal = ArmType.Universal.ToString();
+    public const string Pc = nameof(ArmType.Pc);
+    public const string Tablet = nameof(ArmType.Tablet);
+    public const string Universal = nameof(ArmType.Universal);
 }

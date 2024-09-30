@@ -58,7 +58,7 @@ public class BarcodeVarValidator : AbstractValidator<BarcodeVar>
         oldMask = string.Empty;
         readyPropValue = barcodeVar.Property;
 
-        BarcodeVarInfo? propInfo = BarcodeVarUtils.BarcodeVarInfos.FirstOrDefault(info => info.Property == barcodeVar.Property);
+        BarcodeVarInfo? propInfo = BarcodeVarUtils.BarcodeVarInfos.Find(info => info.Property == barcodeVar.Property);
         if (propInfo == null || mask.Contains(":C"))
             return false;
 

@@ -24,7 +24,7 @@ internal abstract class BaseService<TDto>(IValidator<TDto> validator) where TDto
             ValidationResult validationResult = _validator.Validate(new ValidationContext<TDto>(dto));
             if (validationResult.IsValid) return false;
 
-            OutputDto.AddError(dto.Uid, validationResult.Errors.First().ErrorMessage);
+            OutputDto.AddError(dto.Uid, validationResult.Errors[0].ErrorMessage);
             return true;
         }
     }

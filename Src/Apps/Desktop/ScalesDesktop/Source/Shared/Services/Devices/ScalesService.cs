@@ -1,3 +1,5 @@
+// ReSharper disable ClassNeverInstantiated.Global
+
 using MassaK.Plugin.Abstractions.Enums;
 using MassaK.Plugin.Abstractions.Events;
 using MassaK.Plugin.Impl;
@@ -23,7 +25,7 @@ public class ScalesService : IScalesService, IDisposable
     {
         Scales.OnStatusChanged -= ScalesOnStatusChanged;
         Scales.OnWeightChanged -= ScalesOnWeightChanged;
-        Scales = new MassaUsb(comPort);
+        Scales = new(comPort);
         Scales.OnStatusChanged += ScalesOnStatusChanged;
         Scales.OnWeightChanged += ScalesOnWeightChanged;
     }
