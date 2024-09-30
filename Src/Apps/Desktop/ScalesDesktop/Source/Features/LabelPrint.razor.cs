@@ -129,7 +129,7 @@ public sealed partial class LabelPrint : FluxorComponent
     private void PrintPrinterStatusMessage() =>
         ToastService.ShowWarning(PrinterState.Value.Status switch
         {
-            PrinterStatus.Disconnected => Localizer["PrinterStatusIsForceDisconnected"],
+            PrinterStatus.Disconnected => Localizer["PrinterStatusDisconnected"],
             PrinterStatus.Paused => Localizer["PrinterStatusPaused"],
             PrinterStatus.HeadOpen => Localizer["PrinterStatusHeadOpen"],
             PrinterStatus.PaperOut => Localizer["PrinterStatusPaperOut"],

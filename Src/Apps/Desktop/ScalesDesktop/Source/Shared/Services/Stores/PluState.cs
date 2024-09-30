@@ -13,7 +13,7 @@ public record ChangePluAction(PluWeight Plu);
 public class ChangePluReducer : Reducer<PluState, ChangePluAction>
 {
     public override PluState Reduce(PluState state, ChangePluAction action) =>
-        state.Plu != null && state.Plu.Equals(action.Plu) ? state : new(action.Plu);
+        state.Plu?.Equals(action.Plu) == true ? state : new(action.Plu);
 }
 
 public record ResetPluAction;

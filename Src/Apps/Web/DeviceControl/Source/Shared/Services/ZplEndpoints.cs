@@ -15,7 +15,7 @@ public class ZplEndpoints(ILabelaryApi labelary)
             content.Headers.ContentType = new("application/x-www-form-urlencoded");
             HttpResponseMessage response = await labelary.RenderZpl(widthInch, heightInch, content, value.RotateDegrees);
 
-            using MemoryStream ms = new();
+            await using MemoryStream ms = new();
             await response.Content.CopyToAsync(ms);
             return Convert.ToBase64String(ms.ToArray());
         },

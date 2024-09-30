@@ -10,9 +10,7 @@ internal static class CookieOidcServiceCollectionExtensions
     {
         services.AddSingleton<CookieOidcRefresher>();
         services.AddOptions<CookieAuthenticationOptions>(cookieScheme).Configure<CookieOidcRefresher>((cookieOptions, refresher) =>
-        {
-            cookieOptions.Events.OnValidatePrincipal = context => refresher.ValidateOrRefreshCookieAsync(context, oidcScheme);
-        });
+            cookieOptions.Events.OnValidatePrincipal = context => refresher.ValidateOrRefreshCookieAsync(context, oidcScheme));
         services.AddOptions<OpenIdConnectOptions>(oidcScheme).Configure(oidcOptions =>
         {
             oidcOptions.Scope.Add(OpenIdConnectScope.OfflineAccess);

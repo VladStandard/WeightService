@@ -13,7 +13,7 @@ public record ChangePalletManAction(PalletMan PalletMan);
 public class ChangePalletManReducer : Reducer<PalletManState, ChangePalletManAction>
 {
     public override PalletManState Reduce(PalletManState state, ChangePalletManAction action) =>
-        state.PalletMan != null && state.PalletMan.Equals(action.PalletMan) ? state : new(action.PalletMan);
+        state.PalletMan?.Equals(action.PalletMan) == true ? state : new(action.PalletMan);
 }
 
 public record ResetPalletManAction;

@@ -116,7 +116,7 @@ public sealed partial class LabelsGrid : ComponentBase
                     await PrinterService.PrintZplAsync(item.Label.Zpl);
                     itemsToDelete.Add(item);
                     isPrintedSuccessfully = true;
-                    printedLabelsCount += 1;
+                    printedLabelsCount++;
                     toastData.Content.Progress = (int)(printedLabelsCount * percentagesPerLabel);
                     ToastService.UpdateToast(toastUid, toastData);
                     break;

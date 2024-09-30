@@ -29,7 +29,6 @@ public sealed partial class SectionInputWrapper : ComponentBase
         {
             ToastService.ShowError("Ваш браузер не потдерживает копирование");
         }
-
     }
 }
 

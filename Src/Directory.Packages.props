@@ -5,6 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!--Microsoft.Extensions-->
+    <PackageVersion Include="DNTCaptcha.Blazor" Version="1.2.3" />
     <PackageVersion Include="Microsoft.Extensions.Localization" Version="8.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />

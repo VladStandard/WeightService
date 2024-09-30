@@ -21,6 +21,5 @@ internal static class ArmExpressions
                 Name = arm.Printer.Name,
                 Type = arm.Printer.Type,
             }
-
         };
 }

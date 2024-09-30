@@ -27,7 +27,8 @@
       @bind-BarcodeDictionary="BarcodesCopy.Right"
     />
   </Accordion>
-  <div class="pt-4 flex justify-end">
+  <div class="pt-4 flex justify-end gap-3">
+    <SectionCaptcha @bind-Valid="CaptchaValid" Class="!w-48" />
     <Button OnClick="@UpdateBarcode">
       @Localizer["BtnSubmit"]
     </Button>
@@ -46,16 +47,32 @@
 
   # endregion
 
+  [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
+
   [Parameter, EditorRequired] public TemplateDto Template { get; set; } = default!;
   [Parameter, EditorRequired] public BarcodeItemWrapper Barcodes { get; set; } = default!;
 
   private BarcodeItemWrapper BarcodesCopy { get; set; } = default!;
   private BarcodeVarValidator Validator { get; } = new();
 
+  private bool CaptchaValid { get; set; }
+
   protected override void OnInitialized() => BarcodesCopy = Barcodes with {};
 
   private async Task UpdateBarcode()
   {
+    if (Barcodes.Equals(BarcodesCopy))
+    {
+      await Dialog.CloseAsync();
+      return;
+    }
+
+    if (!CaptchaValid)
+    {
+      ToastService.ShowError("Введена неправильная капча");
+      return;
+    }
+
     try
     {
       List<BarcodeError> topBarcodeError = await ValidateBarcode(BarcodesCopy.Top, WsDataLocalizer["ColBarcodeTop"]);
@@ -73,6 +90,7 @@
       BarcodeItemWrapper newBarcodes = await WebApi.UpdateBarcodeVariables(Template.Id, BarcodesCopy);
       PrintSettingsEndpoints.UpdateBarcodes(Template.Id, newBarcodes);
       ToastService.ShowSuccess(Localizer["ToastUpdateItem"]);
+      await Dialog.CloseAsync();
     }
     catch
     {

@@ -1,4 +1,3 @@
-using MassaK.Plugin;
 using MassaK.Plugin.Abstractions.Enums;
 using MassaK.Plugin.Abstractions.Events;
 using MassaK.Plugin.Impl;
@@ -6,15 +5,15 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;
 
-public class ScalesService : IScalesService, IDisposable
+public abstract class ScalesService : IScalesService, IDisposable
 {
     private readonly IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
-    private IMassaK Scales { get; set; } = new MassaUsb(DefaultComPort);
+    private MassaUsb Scales { get; set; } = new(DefaultComPort);
 
     public bool IsMock() => false;
 
-    public ScalesService(IDispatcher dispatcher)
+    protected ScalesService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
         Setup();

@@ -42,6 +42,6 @@ public static class BarcodeMapper
     private static BarcodeVarInfo? GetTypedVariable(BarcodeItemDto item, List<BarcodeVarInfo> vars) =>
         vars.FirstOrDefault(x => x.Property == item.Property);
 
-    private static string TryGetFormatedValue(string mask, object value)
-        => BarcodeVarUtils.TryFormat(value, mask, out string? result) ? result : string.Empty;
+    private static string TryGetFormatedValue(string mask, object value) =>
+        BarcodeVarUtils.TryFormat(value, mask, out string? result) ? result : string.Empty;
 }

@@ -40,7 +40,7 @@ public sealed partial class NumericKeyboardDialog : ComponentBase, IDialogConten
 
     private async void SubmitInput()
     {
-        ushort.TryParse(Number, out ushort resultInt);
+        _ = ushort.TryParse(Number, out ushort resultInt);
         await Dialog.CloseAsync(ushort.Max(resultInt, 1));
     }
 

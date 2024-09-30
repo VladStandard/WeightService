@@ -22,9 +22,9 @@ public sealed partial class PalletFirstStageForm : ComponentBase
 
 public class PalletPluStageFormValidator : AbstractValidator<PalletCreateModel>
 {
-    public PalletPluStageFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer, IStringLocalizer<ApplicationResources> Localizer)
+    public PalletPluStageFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer, IStringLocalizer<ApplicationResources> localizer)
     {
         RuleFor(item => item.Plu).NotNull().WithName(wsDataLocalizer["ColPlu"]);
-        RuleFor(item => item.Nesting).NotNull().WithName(Localizer["ColNestingPerBox"]); ;
+        RuleFor(item => item.Nesting).NotNull().WithName(localizer["ColNestingPerBox"]);
     }
 }

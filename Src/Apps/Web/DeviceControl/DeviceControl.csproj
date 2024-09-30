@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="DNTCaptcha.Blazor" />
         <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />

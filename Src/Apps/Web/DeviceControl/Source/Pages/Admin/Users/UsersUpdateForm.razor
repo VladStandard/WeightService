@@ -59,6 +59,7 @@
   <ActionsContent>
     <SectionFormActionReset OnClick="@ResetAction" />
     <SectionFormActionRelogin UserUid="Model.User.Id" />
+    <SectionFormActionDelete OnClick="@DeleteItemAction" />
   </ActionsContent>
 </SectionForm>
 
@@ -79,6 +80,12 @@
   protected override async Task UpdateItemAction(UserUpdateDto item)
   {
     UserDto dto = await WebApi.SaveOrUpdateUser(Model.User.Id, item);
-    AdminEndpoints.UpdateUserRelationship(Model.ProductionSiteId, dto);
+    AdminEndpoints.UpdateUserRelationship(dto);
+  }
+
+  protected override async Task DeleteItemAction()
+  {
+    await WebApi.DeleteUser(Model.User.Id);
+    AdminEndpoints.DeleteUserRelationship(Model.User.Id);
   }
 }

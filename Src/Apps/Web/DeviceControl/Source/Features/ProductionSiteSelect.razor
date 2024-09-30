@@ -16,7 +16,7 @@
         TItem="ProxyDto"
         Items="GetFilteredProductionSiteList(productionSiteQuery.Data, userProdSiteQuery.Data)"
         Value="ProductionSiteState.Value.ProductionSite"
-        ValueChanged="@(item => { if (item != null) Dispatcher.Dispatch(new ChangeProductionSiteAction(item)); })"
+        ValueChanged="@(OnSelectedChanged)"
         ItemDisplayName="@(item => item.Name)"
         Placeholder="@Localizer["FormProductionSiteDefaultPlaceholder"]"
         EmptyPlaceholder="@Localizer["FormSelectEmptyDefaultPlaceholder"]"
@@ -43,8 +43,18 @@
   # endregion
 
   [Parameter] public bool AllowIsNew { get; set; }
+  [Parameter] public EventCallback<ProxyDto> ValueChanged { get; set; }
 
   private bool IsFirstLoad { get; set; } = true;
+
+  private Task OnValueChanged() => ValueChanged.InvokeAsync(ProductionSiteState.Value.ProductionSite);
+
+  private async Task OnSelectedChanged(ProxyDto? value)
+  {
+    if (value == null) return;
+    Dispatcher.Dispatch(new ChangeProductionSiteAction(value));
+    await OnValueChanged();
+  }
 
   private void InitializeProductionSite(ProxyDto userProductionSite)
   {

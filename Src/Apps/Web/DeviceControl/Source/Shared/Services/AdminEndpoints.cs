@@ -7,13 +7,21 @@ namespace DeviceControl.Source.Shared.Services;
 
 public class AdminEndpoints(IWebApi webApi)
 {
-    public Endpoint<Guid, UserDto[]> UserRelationshipEndpoint { get; } = new(
-        webApi.GetUsersByProductionSite,
+    public ParameterlessEndpoint<UserDto[]> UserRelationshipEndpoint { get; } = new(
+        webApi.GetAllUsers,
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(5) });
 
-    public void UpdateUserRelationship(Guid productionSiteId, UserDto user) =>
-        UserRelationshipEndpoint.UpdateQueryData(productionSiteId, query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(user, p => p.Id == user.Id).ToArray());
+    public void UpdateUserRelationship(UserDto user) =>
+        UserRelationshipEndpoint.UpdateQueryData(new(), query =>
+        {
+            if (query.Data == null) return query.Data!;
+            UserDto? dto = query.Data.FirstOrDefault(item => item.Id == user.Id);
+            return dto == null ? query.Data.Append(user).ToArray() : query.Data.ReplaceItemByKey(user, p => p.Id == user.Id).ToArray();
+        });
+
+    public void DeleteUserRelationship(Guid userId) =>
+        UserRelationshipEndpoint.UpdateQueryData(new(), query =>
+            query.Data == null ? query.Data! : query.Data.Where(x => x.Id != userId).ToArray());
 
     public Endpoint<Guid, PalletManDto[]> PalletMenEndpoint { get; } = new(
         webApi.GetPalletMenByProductionSite,

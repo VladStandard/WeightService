@@ -26,7 +26,7 @@ internal sealed class PluWeightApiService(
         return dbContext.Lines
             .AsNoTracking()
             .Where(i => i.Id == userHelper.UserId)
-            .SelectMany(i => i.Plus.Where(p => p.IsWeight == true))
+            .SelectMany(i => i.Plus.Where(p => p.IsWeight))
             .OrderBy(i => i.Number)
             .Join(dbContext.Nestings,
             plu => plu.Id,

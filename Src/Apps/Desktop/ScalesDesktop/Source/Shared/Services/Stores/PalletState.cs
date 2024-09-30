@@ -13,7 +13,7 @@ public record ChangePalletAction(PalletInfo Pallet);
 public class ChangePalletReducer : Reducer<PalletState, ChangePalletAction>
 {
     public override PalletState Reduce(PalletState state, ChangePalletAction action) =>
-        state.Pallet != null && state.Pallet.Equals(action.Pallet) ? state : state with { Pallet = action.Pallet };
+        state.Pallet?.Equals(action.Pallet) == true ? state : state with { Pallet = action.Pallet };
 }
 
 public record ResetPalletAction;
@@ -35,7 +35,6 @@ public class SwitchPalletDeleteFlagReducer : Reducer<PalletState, SwitchPalletDe
         return state with { Pallet = currentPallet with { DeletedAt = newDeleteFlag } };
     }
 }
-
 
 public record ChangePalletViewTabAction(PalletViewTabType TabType);
 

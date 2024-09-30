@@ -27,6 +27,5 @@ public class CustomRevalidatingAuthenticationStateProvider(ILoggerFactory logger
         if (context.Principal == null) return false;
         if (context.ShouldRenew) NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(context.Principal)));
         return true;
-
     }
 }
