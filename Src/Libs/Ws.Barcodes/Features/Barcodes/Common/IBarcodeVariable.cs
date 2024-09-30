@@ -1,4 +1,4 @@
-namespace Ws.Barcodes.Common;
+namespace Ws.Barcodes.Features.Barcodes.Common;
 
 internal interface IBarcodeVariables
 {

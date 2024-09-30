@@ -1,5 +1,6 @@
 using FluentValidation.TestHelper;
-using Ws.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes;
+using Ws.Barcodes.Features.Barcodes.Models;
 
 namespace Ws.Barcodes.Tests.Shared;
 

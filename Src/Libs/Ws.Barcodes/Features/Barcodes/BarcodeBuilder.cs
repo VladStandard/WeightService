@@ -1,10 +1,11 @@
 using System.Reflection;
 using System.Text;
-using Ws.Barcodes.Common;
-using Ws.Barcodes.Models;
-using Ws.Barcodes.Utils;
+using Ws.Barcodes.Features.Barcodes.Common;
+using Ws.Barcodes.Features.Barcodes.Models;
+using Ws.Barcodes.Shared.Models;
+using BarcodeVarUtils=Ws.Barcodes.Features.Barcodes.Utils.BarcodeVarUtils;
 
-namespace Ws.Barcodes;
+namespace Ws.Barcodes.Features.Barcodes;
 
 public record BarcodeBuilder : IBarcodeVariables
 {

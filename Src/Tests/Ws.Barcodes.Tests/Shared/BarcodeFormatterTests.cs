@@ -1,4 +1,4 @@
-using Ws.Barcodes.Utils;
+using BarcodeVarUtils=Ws.Barcodes.Features.Barcodes.Utils.BarcodeVarUtils;
 
 namespace Ws.Barcodes.Tests.Shared;
 
@@ -22,7 +22,6 @@ public class BarcodeFormatterTests
         result.Should().BeNull();
     }
 }
-
 
 #region Test cases
 

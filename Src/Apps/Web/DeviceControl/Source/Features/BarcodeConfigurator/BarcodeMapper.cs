@@ -1,5 +1,6 @@
-using Ws.Barcodes.Models;
-using Ws.Barcodes.Utils;
+using Ws.Barcodes.Features.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes.Utils;
+using Ws.Barcodes.Shared.Models;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 
 namespace DeviceControl.Source.Features.BarcodeConfigurator;
@@ -12,7 +13,7 @@ public static class BarcodeMapper
 
     public static ExtendedBarcodeItemDto DtoToExtendedDto(BarcodeItemDto item, List<BarcodeVarInfo> vars)
     {
-        bool isConst = vars.FirstOrDefault(x => x.Property == item.Property) == null;
+        bool isConst = vars.Find(x => x.Property == item.Property) == null;
         return new()
         {
             Property = item.Property,
@@ -40,7 +41,7 @@ public static class BarcodeMapper
     }
 
     private static BarcodeVarInfo? GetTypedVariable(BarcodeItemDto item, List<BarcodeVarInfo> vars) =>
-        vars.FirstOrDefault(x => x.Property == item.Property);
+        vars.Find(x => x.Property == item.Property);
 
     private static string TryGetFormatedValue(string mask, object value) =>
         BarcodeVarUtils.TryFormat(value, mask, out string? result) ? result : string.Empty;

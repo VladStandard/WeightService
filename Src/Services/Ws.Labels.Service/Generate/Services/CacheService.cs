@@ -1,10 +1,13 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
+using Ws.Barcodes.Features.Barcodes.Models;
+using Ws.Barcodes.Features.Templates.Models;
+using Ws.Barcodes.Features.Templates.Utils;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
-using Ws.Labels.Service.Generate.Models.Cache;
 using Ws.Labels.Service.Generate.Utils;
+using Ws.Shared.Api.ApiException;
 using Ws.Shared.Enums;
 
 namespace Ws.Labels.Service.Generate.Services;
@@ -14,18 +17,30 @@ public partial class CacheService(WsDbContext dbContext)
     [GeneratedRegex(",([^,]+),")]
     private static partial Regex MyRegex();
 
-    public TemplateFromCache? GetTemplateByUidFromCacheOrDb(Guid templateUid)
+    public TemplateInfo GetTemplateByUidFromCacheOrDb(Guid templateUid, string pluStorageName)
     {
         TemplateEntity? temp = dbContext.Templates.Find(templateUid);
-        if (temp is null) return null;
-        TemplateFromCache tempFromCache = new(temp);
+        if (temp is null)
+            throw new ApiExceptionServer
+            {
+                ErrorDisplayMessage = "Шаблон не установлен"
+            };
+
+        return new(
+            TemplateUtils.SetupPluStorageMethod(temp.Body, pluStorageName),
+            (ushort)temp.Width,
+            (ushort)temp.Height,
+            (ushort)temp.Rotate,
+            temp.BarcodeTopBody.ConvertAll(i => new BarcodeVar(i.Property, i.Format)),
+            temp.BarcodeRightBody.ConvertAll(i => new BarcodeVar(i.Property, i.Format)),
+            temp.BarcodeBottomBody.ConvertAll(i => new BarcodeVar(i.Property, i.Format))
+        );
 
         // IEasyCachingProvider easyCachingProvider;
         // string zplKey = $"TEMPLATES:{templateUid}";
         // if (easyCachingProvider.Exists(zplKey))
         //     return easyCachingProvider.Get<TemplateFromCache>(zplKey).Value;
         // easyCachingProvider.Set($"{zplKey}", tempFromCache, TimeSpan.FromHours(1));
-        return tempFromCache;
     }
 
     public Dictionary<string, string> GetResourcesFromCacheOrDb(List<string> resourcesName, ushort rotate)
@@ -55,15 +70,11 @@ public partial class CacheService(WsDbContext dbContext)
 
                 Match match = MyRegex().Match(zpl);
 
-                if (match.Success)
-                {
-                    string firstValue = match.Groups[1].Value;
-                    zpl = $"^GFA,{firstValue}{zpl}";
-                }
-                else
+                if (!match.Success)
                     throw new NotImplementedException();
 
-                return zpl;
+                string firstValue = match.Groups[1].Value;
+                return $"^GFA,{firstValue}{zpl}";
             })!;
 
         // redisCachingProvider.HMSet($"ZPL_RESOURCES:{rotate}", cached, TimeSpan.FromHours(1));

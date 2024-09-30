@@ -1,8 +1,8 @@
 using FluentValidation;
-using Ws.Barcodes.Utils;
 using Ws.Shared.Extensions;
+using BarcodeVarUtils=Ws.Barcodes.Features.Barcodes.Utils.BarcodeVarUtils;
 
-namespace Ws.Barcodes.Models;
+namespace Ws.Barcodes.Features.Barcodes.Models;
 
 public sealed record BarcodeVar(string Property, string Format);
 

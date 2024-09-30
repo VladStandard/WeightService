@@ -162,7 +162,7 @@ internal sealed class PalletApiService(
         line.Counter += dto.LabelCount;
 
         await dbContext.Pallets.AddAsync(pallet);
-        await dbContext.Labels.AddRangeAsync(palletData.labels);
+        await dbContext.Labels.AddRangeAsync(palletData.Labels);
 
         await dbContext.SaveChangesAsync();
 

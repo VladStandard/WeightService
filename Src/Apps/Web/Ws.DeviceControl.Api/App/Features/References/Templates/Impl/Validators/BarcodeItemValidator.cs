@@ -1,5 +1,5 @@
 using FluentValidation;
-using Ws.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes.Models;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 

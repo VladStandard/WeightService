@@ -23,16 +23,16 @@ internal static class DiApiBuilder
                 }
             })
         })
-            .ConfigureHttpClient(c =>
-            {
-                c.Timeout = TimeSpan.FromSeconds(10);
-                c.BaseAddress = new(serviceSettings.Url);
-                c.DefaultRequestHeaders.Authorization = new("Basic", serviceSettings.AuthorizationToken);
-            })
-            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-            {
-                AllowAutoRedirect = false,
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            });
+        .ConfigureHttpClient(c =>
+        {
+            c.Timeout = TimeSpan.FromSeconds(10);
+            c.BaseAddress = new(serviceSettings.Url);
+            c.DefaultRequestHeaders.Authorization = new("Basic", serviceSettings.AuthorizationToken);
+        })
+        .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+        {
+            AllowAutoRedirect = false,
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        });
     }
 }

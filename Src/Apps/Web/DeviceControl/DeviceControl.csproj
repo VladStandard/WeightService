@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
-        <PackageReference Include="DNTCaptcha.Blazor" />
         <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />
@@ -15,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Packages">
+        <PackageReference Include="DNTCaptcha.Blazor" VersionOverride="1.2.3"/>
         <PackageReference Include="Blazorise" VersionOverride="1.6.1" />
         <PackageReference Include="Blazorise.Charts" VersionOverride="1.6.1" />
         <PackageReference Include="Blazorise.DataGrid" VersionOverride="1.6.1" />

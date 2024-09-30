@@ -1,13 +1,11 @@
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Output;
-using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Shared.Api.ApiException;
-using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate;
 
@@ -31,7 +29,7 @@ internal class PrintLabelService(
 
         throw new ApiExceptionServer
         {
-            ErrorDisplayMessage = LabelGenExceptionType.ExchangeFailed.GetDescription(),
+            ErrorDisplayMessage = "Ошибка в палыч",
             ErrorInternalMessage = ans.Status.Message
         };
     }

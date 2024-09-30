@@ -22,7 +22,7 @@ internal sealed class UserApiService(WsDbContext dbContext, UserHelper userHelpe
     {
         UserEntity? user = await dbContext.Users.FindAsync(uid);
 
-        ProductionSiteEntity site = await dbContext.ProductionSites.SafeGetById(updateDto.ProductionSiteId, "Не найдено");
+        ProductionSiteEntity site = await dbContext.ProductionSites.SafeGetById(updateDto.ProductionSiteId, $"Площадка не найдено");
 
         if (user is null)
         {

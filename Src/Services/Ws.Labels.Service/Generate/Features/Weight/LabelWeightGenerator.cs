@@ -1,73 +1,55 @@
-using Ws.Barcodes;
-using Ws.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes;
+using Ws.Barcodes.Features.Templates;
+using Ws.Barcodes.Features.Templates.Models;
+using Ws.Barcodes.Features.Templates.Utils;
+using Ws.Barcodes.Features.Templates.Variables;
+using Ws.Barcodes.Shared.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
-using Ws.Labels.Service.Generate.Exceptions;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
-using Ws.Labels.Service.Generate.Models.Cache;
-using Ws.Labels.Service.Generate.Models.Variables;
 using Ws.Labels.Service.Generate.Services;
-using Ws.Shared.Api.ApiException;
 using Ws.Shared.Extensions;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
-internal class LabelWeightGenerator(CacheService cacheService, ZplService zplService)
+internal class LabelWeightGenerator(CacheService cacheService)
 {
     public LabelEntity GenerateLabel(GenerateWeightLabelDto dto)
     {
-        TemplateFromCache templateFromCache =
-            cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty) ??
-            throw new ApiExceptionServer
-            {
-                ErrorDisplayMessage = LabelGenExceptionType.TemplateNotFound.GetDescription(),
-            };
-
         BarcodeBuilder barcode = dto.ToBarcodeBuilder();
 
         #region label parse
 
-        BarcodeResult barcodeTop = barcode.Build(templateFromCache.BarcodeTopTemplate);
-        BarcodeResult barcodeRight = barcode.Build(templateFromCache.BarcodeRightTemplate);
-        BarcodeResult barcodeBottom = barcode.Build(templateFromCache.BarcodeBottomTemplate);
+        TemplateInfo templateInfo =
+            cacheService.GetTemplateByUidFromCacheOrDb(dto.Plu.TemplateId ?? Guid.Empty, dto.Plu.StorageMethod);
+
+        Dictionary<string, string> zplResources =
+            cacheService.GetResourcesFromCacheOrDb(TemplateUtils.GetResourcesKeys(templateInfo.Template), templateInfo.Rotate);
+
+        PrintSettings printSettings = new(templateInfo, zplResources);
+
+        BarcodeResult barcodeTop = barcode.Build(templateInfo.BarcodeTopTemplate);
+        BarcodeResult barcodeRight = barcode.Build(templateInfo.BarcodeRightTemplate);
+        BarcodeResult barcodeBottom = barcode.Build(templateInfo.BarcodeBottomTemplate);
 
         decimal weightNet = dto.Plu.Weight;
         decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);
 
         TemplateVars data = new(
-            plu: new()
-            {
-                Name = dto.Plu.FullName,
-                Number = (ushort)dto.Plu.Number,
-                Description = dto.Plu.Description
-            },
-            arm: new()
-            {
-                Number = dto.Line.Number,
-                Name = dto.Line.Name,
-                Address = dto.Line.Address
-            },
-            pallet: new()
-            {
-                Number = string.Empty,
-                Order = 0
-            },
+            plu: new(dto.Plu.FullName, (ushort)dto.Plu.Number, dto.Plu.Description),
+            arm: new(dto.Line.Number, dto.Line.Name, dto.Line.Address),
+            pallet: new(0,string.Empty),
+            barcodes: new(barcodeTop, barcodeBottom, barcodeRight),
             productDt: dto.ProductDt,
             expirationDt: dto.ExpirationDt,
-            bundleCount: (ushort)dto.Nesting.BundleCount,
-            kneading: (ushort)dto.Kneading,
-            weightNet: weightNet,
-            weightGross: weightNet + weightTare,
 
-            barcodeTop: barcodeTop,
-            barcodeBottom: barcodeBottom,
-            barcodeRight: barcodeRight
+            kneading: (ushort)dto.Kneading,
+
+            bundleCount: (ushort)dto.Nesting.BundleCount,
+            weightNet: weightNet,
+            weightGross: weightNet + weightTare
         );
 
-        if (templateFromCache.Template.Contains("storage_method"))
-            templateFromCache.Template = templateFromCache.Template.Replace("storage_method",
-                $"{dto.Plu.StorageMethod.Transliterate().ToLower()}_sql");
-
-        string zpl = zplService.GenerateZpl(templateFromCache, data);
+        string zpl = ZplBuilder.GenerateZpl(printSettings, data);
 
         #endregion
 
@@ -90,9 +72,9 @@ internal class LabelWeightGenerator(CacheService cacheService, ZplService zplSer
             Zpl = new()
             {
                 Zpl = zpl,
-                Width = templateFromCache.Width,
-                Height = templateFromCache.Height,
-                Rotate = templateFromCache.Rotate
+                Width = (short)printSettings.Settings.Width,
+                Height = (short)printSettings.Settings.Height,
+                Rotate = (short)printSettings.Settings.Rotate
             }
         };
 

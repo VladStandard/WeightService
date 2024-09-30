@@ -15,7 +15,6 @@ public static class DependencyInjection
         services.AddScoped<IPrintLabelService, PrintLabelService>();
 
         services.AddScoped<CacheService>();
-        services.AddTransient<ZplService>();
         services.AddScoped<LabelPieceGenerator>();
         services.AddScoped<LabelWeightGenerator>();
 

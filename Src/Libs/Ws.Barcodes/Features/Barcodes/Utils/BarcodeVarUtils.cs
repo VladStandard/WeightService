@@ -1,11 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using Ws.Barcodes.Formatters;
-using Ws.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes.Models;
+using BarcodeFormatter=Ws.Barcodes.Features.Barcodes.Shared.BarcodeFormatter;
 
-namespace Ws.Barcodes.Utils;
-
+namespace Ws.Barcodes.Features.Barcodes.Utils;
 
 public static partial class BarcodeVarUtils
 {

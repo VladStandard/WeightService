@@ -20,10 +20,6 @@
         <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
     </ItemGroup>
 
-    <Target Name="CleanGenerated">
-        <Delete Files="@(Generated)" />
-    </Target>
-
     <Import Project="..\..\.targets\RedisSettings.targets"/>
 
 </Project>

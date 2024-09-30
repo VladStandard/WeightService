@@ -1,4 +1,6 @@
-using Ws.Barcodes.Models;
+using Ws.Barcodes.Features.Barcodes;
+using Ws.Barcodes.Features.Barcodes.Models;
+using Ws.Barcodes.Shared.Models;
 
 namespace Ws.Barcodes.Tests.Shared;
 
@@ -19,7 +21,6 @@ public class BarcodeBuilderTests
         barcodeResult.Friendly.Should().Be(barcodeFriendly);
     }
 }
-
 
 #region Test cases
 

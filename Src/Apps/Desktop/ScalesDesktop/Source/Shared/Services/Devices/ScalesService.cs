@@ -5,7 +5,7 @@ using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;
 
-public abstract class ScalesService : IScalesService, IDisposable
+public class ScalesService : IScalesService, IDisposable
 {
     private readonly IDispatcher _dispatcher;
     private const string DefaultComPort = "COM6";
@@ -13,7 +13,7 @@ public abstract class ScalesService : IScalesService, IDisposable
 
     public bool IsMock() => false;
 
-    protected ScalesService(IDispatcher dispatcher)
+    public ScalesService(IDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
         Setup();

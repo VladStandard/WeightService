@@ -5,7 +5,7 @@ using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 using Match=System.Text.RegularExpressions.Match;
 
-namespace Ws.Barcodes.Formatters;
+namespace Ws.Barcodes.Features.Barcodes.Shared;
 
 internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
 {
@@ -53,7 +53,7 @@ internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
 
         Match match = IsDFormat().Match(format);
 
-        if (match.Success == false)
+        if (!match.Success)
             throw new FormatException($"{arg} is not a valid format.");
 
         int length = int.Parse(match.Groups[1].Value);
