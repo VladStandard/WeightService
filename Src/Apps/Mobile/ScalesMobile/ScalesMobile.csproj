@@ -31,9 +31,9 @@
     </ItemGroup>
 
     <ItemGroup Label="Packages">
-        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.82" />
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.82" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.82" />
+        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.91" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">

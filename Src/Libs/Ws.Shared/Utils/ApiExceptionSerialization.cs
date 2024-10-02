@@ -1,7 +1,7 @@
 using Refit;
 using Ws.Shared.Api.ApiException;
 
-namespace DeviceControl.Source.Shared.Utils;
+namespace Ws.Shared.Utils;
 
 public static class ApiExceptionSerialization
 {

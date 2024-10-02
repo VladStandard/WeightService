@@ -4,6 +4,7 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Refit" PrivateAssets="all" />
         <PackageReference Include="Scrutor" PrivateAssets="all" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" PrivateAssets="All" />
     </ItemGroup>

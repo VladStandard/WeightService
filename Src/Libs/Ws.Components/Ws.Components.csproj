@@ -6,7 +6,7 @@
     <ItemGroup Label="Packages">
         <PackageReference Include="Blazor.Heroicons" VersionOverride="2.1.5" />
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="8.0.8" />
-        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" VersionOverride="4.10.0" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" VersionOverride="4.10.1" />
     </ItemGroup>
 
     <ItemGroup Label="Projects">

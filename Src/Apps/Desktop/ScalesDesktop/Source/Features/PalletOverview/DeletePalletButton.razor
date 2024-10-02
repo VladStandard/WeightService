@@ -58,6 +58,10 @@ else
         ToastService.ShowSuccess(Localizer["ToastPalletMarkedNotDeleted"]);
       }
     }
+    catch (ApiException ex)
+    {
+      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["UnknownError"]));
+    }
     catch
     {
       ToastService.ShowError(Localizer["UnknownError"]);

@@ -57,10 +57,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch (ApiException ex)
         {
-            if (!StrUtils.TryDeserializeFromJson(ex.Content, out ApiExceptionClient? exception))
-                ToastService.ShowError(Localizer["ToastPalletCreateError"]);
-            else
-                ToastService.ShowError(Localizer[exception.LocalizeMessage]);
+            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["ToastPalletCreateError"]));
         }
         catch (Exception)
         {
