@@ -17,7 +17,6 @@ public sealed record BrandDto : BaseDto
     };
 }
 
-
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed class BrandDtoValidator : AbstractValidator<BrandDto>
 {

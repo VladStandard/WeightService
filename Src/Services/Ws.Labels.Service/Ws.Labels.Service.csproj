@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" />
         <PackageReference Include="Svg" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Refit.HttpClientFactory" />
@@ -18,6 +19,21 @@
         <ProjectReference Include="..\..\Libs\Ws.Barcodes\Ws.Barcodes.csproj" />
         <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\..\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="LabelGenResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LabelGenResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="LabelGenResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LabelGenResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <Import Project="..\..\.targets\RedisSettings.targets"/>

@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
+using Microsoft.Extensions.Localization;
 using Ws.Barcodes.Features.Barcodes.Models;
 using Ws.Barcodes.Features.Templates.Models;
 using Ws.Barcodes.Features.Templates.Utils;
@@ -12,7 +13,7 @@ using Ws.Shared.Enums;
 
 namespace Ws.Labels.Service.Generate.Services;
 
-public partial class CacheService(WsDbContext dbContext)
+public partial class CacheService(WsDbContext dbContext, IStringLocalizer<LabelGenResources> localizer)
 {
     [GeneratedRegex(",([^,]+),")]
     private static partial Regex MyRegex();
@@ -23,7 +24,7 @@ public partial class CacheService(WsDbContext dbContext)
         if (temp is null)
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = "Шаблон не установлен"
+                ErrorDisplayMessage = localizer["TemplateNotFound"],
             };
 
         return new(

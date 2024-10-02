@@ -15,8 +15,8 @@ trim_trailing_whitespace = true
 dotnet_sort_system_directives_first = true
 dotnet_separate_import_directive_groups = false
 
-# [**/{Migrations}/**]
-# generated_code = true
+[**/{Migrations}/**]
+generated_code = true
 
 [**.{html,css,scss,js,cshtml,razor,json}]
 indent_size = 2
@@ -138,3 +138,4 @@ dotnet_naming_symbols.types.applicable_accessibilities = public, internal, priva
 dotnet_diagnostic.rcs1123.severity = none
 dotnet_diagnostic.rcs1001.severity = none
 dotnet_diagnostic.rcs1003.severity = none
+dotnet_diagnostic.ca1824.severity = none

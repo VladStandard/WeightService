@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Ws.Barcodes.Features.Barcodes;
 using Ws.Barcodes.Features.Templates;
 using Ws.Barcodes.Features.Templates.Models;
@@ -18,6 +19,7 @@ public record PalletOutputData(Guid Id, string Number, List<LabelEntity> Labels)
 
 internal class LabelPieceGenerator(
     IPalychApi api,
+    IStringLocalizer<LabelGenResources> localizer,
     CacheService cacheService)
 {
     public async Task<PalletOutputData> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
@@ -25,7 +27,7 @@ internal class LabelPieceGenerator(
         if (labelCount is > 240 or < 1)
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = "Не правильное кол-во этикеток",
+                ErrorDisplayMessage = localizer["ValidationFailed"],
                 ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
             };
 
@@ -60,7 +62,7 @@ internal class LabelPieceGenerator(
 
         PalletCreateApiDto data = new()
         {
-            Organization = "ООО Владимирский стандарт",
+            Organization = PalychConsts.Organization,
             PluUid = dto.Plu.Id,
             PalletManUid = dto.Pallet.PalletManId1C,
             WarehouseUid = dto.Pallet.WarehouseId1C,
@@ -80,7 +82,7 @@ internal class LabelPieceGenerator(
         if (response.Successes.Count == 0)
             throw new ApiExceptionServer
             {
-                ErrorDisplayMessage = "Ошибка в палыч",
+                ErrorDisplayMessage = localizer["ExchangeFailed"],
                 ErrorInternalMessage = response.Errors[0].Message
             };
 
@@ -104,9 +106,22 @@ internal class LabelPieceGenerator(
             ProductDt = barcodeTemplates.ProductDt.AddSeconds(index)
         };
 
-        BarcodeResult barcodeTop = barcode.Build(printSettings.Settings.BarcodeTopTemplate);
-        BarcodeResult barcodeRight = barcode.Build(printSettings.Settings.BarcodeRightTemplate);
-        BarcodeResult barcodeBottom = barcode.Build(printSettings.Settings.BarcodeBottomTemplate);
+        BarcodeResult barcodeTop, barcodeRight, barcodeBottom;
+
+        try
+        {
+            barcodeTop = barcode.Build(printSettings.Settings.BarcodeTopTemplate);
+            barcodeRight = barcode.Build(printSettings.Settings.BarcodeRightTemplate);
+            barcodeBottom = barcode.Build(printSettings.Settings.BarcodeBottomTemplate);
+        }
+        catch (Exception ex)
+        {
+            throw new ApiExceptionServer
+            {
+                ErrorDisplayMessage = localizer["BarcodeInvalid"],
+                ErrorInternalMessage = ex.Message
+            };
+        }
 
         decimal weightNet = dto.Nesting.CalculateWeightNet(dto.Plu);
         decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);
@@ -124,7 +139,8 @@ internal class LabelPieceGenerator(
             weightGross: weightNet + weightTare,
 
             productDt: barcode.ProductDt,
-            expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays));
+            expirationDt: dto.ProductDt.AddDays(dto.Plu.ShelfLifeDays)
+        );
 
         LabelEntity label = new()
         {

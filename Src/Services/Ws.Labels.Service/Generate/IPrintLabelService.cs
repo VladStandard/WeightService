@@ -15,7 +15,6 @@ public interface IPrintLabelService
 
     Task<bool> DeletePallet(string palletNumber, bool isDelete);
 
-
     /// <summary>
     /// Создает паллету
     /// </summary>

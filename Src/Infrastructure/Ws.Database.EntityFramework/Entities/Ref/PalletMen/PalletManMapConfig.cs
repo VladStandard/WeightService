@@ -2,7 +2,6 @@ namespace Ws.Database.EntityFramework.Entities.Ref.PalletMen;
 
 internal sealed class PalletManMapConfig : IEntityTypeConfiguration<PalletManEntity>
 {
-
     public void Configure(EntityTypeBuilder<PalletManEntity> builder)
     {
         #region Base
@@ -12,7 +11,6 @@ internal sealed class PalletManMapConfig : IEntityTypeConfiguration<PalletManEnt
         builder.HasIndex(e => new { e.Name, e.Surname, e.Patronymic })
             .HasDatabaseName($"UQ_{SqlTables.PalletMen}__FIO")
             .IsUnique();
-
 
         builder.HasIndex(e => e.Uid1C)
             .HasDatabaseName($"UQ_{SqlTables.PalletMen}__UID_1C")

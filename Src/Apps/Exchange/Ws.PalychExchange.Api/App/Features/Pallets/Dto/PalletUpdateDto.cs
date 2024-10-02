@@ -1,6 +1,5 @@
 namespace Ws.PalychExchange.Api.App.Features.Pallets.Dto;
 
-
 [XmlRoot(ElementName = "PalletType")]
 public class PalletUpdateWrapper
 {

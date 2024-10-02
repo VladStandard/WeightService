@@ -2,7 +2,6 @@ namespace Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
 
 internal sealed class LabelZplMapConfig : IEntityTypeConfiguration<LabelZplEntity>
 {
-
     public void Configure(EntityTypeBuilder<LabelZplEntity> builder)
     {
         #region Base

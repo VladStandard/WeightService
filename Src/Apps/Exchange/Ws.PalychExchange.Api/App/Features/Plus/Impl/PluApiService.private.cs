@@ -9,7 +9,6 @@ using Ws.Shared.Constants;
 
 namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
-
 internal sealed partial class PluApiService
 {
     #region Resolve uniques db
@@ -34,7 +33,7 @@ internal sealed partial class PluApiService
 
     #endregion
 
-    private void SetDefaultFk(HashSet<PluDto> validDtos)
+    private static void SetDefaultFk(HashSet<PluDto> validDtos)
     {
         foreach (PluDto i in validDtos)
         {
@@ -79,7 +78,7 @@ internal sealed partial class PluApiService
         {
             List<object> parameters = uidToDelete.Select((uid, index) => new SqlParameter($"@p{index}", uid)).ToList<object>();
 
-            string inClause = string.Join(", ", parameters.Select((p, index) => $"@p{index}"));
+            string inClause = string.Join(", ", parameters.Select((_, index) => $"@p{index}"));
             string sql = $@"
                 DELETE FROM [dbo].[ARMS_PLUS_FK] WHERE PLU_UID IN ({inClause});
                 UPDATE [PRINT].[LABELS] SET PLU_UID = NULL WHERE PLU_UID IN ({inClause});

@@ -15,7 +15,6 @@ global using Phetch.Core;
 global using Refit;
 
 // 4. Internal
-global using ScalesDesktop.Source.Shared.Services;
 global using ScalesDesktop.Source.Shared.Localization;
 global using ScalesDesktop.Source.Shared.Services.Endpoints;
 global using ScalesDesktop.Source.Shared.Services.Stores;

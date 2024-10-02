@@ -3,7 +3,6 @@ using Ws.Shared.Utils;
 
 namespace Ws.Shared.Tests.Utils;
 
-
 public class StrUtilsTests
 {
     [Theory]

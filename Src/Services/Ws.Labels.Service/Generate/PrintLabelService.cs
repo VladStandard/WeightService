@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Output;
@@ -12,6 +13,7 @@ namespace Ws.Labels.Service.Generate;
 internal class PrintLabelService(
     LabelPieceGenerator labelPieceGenerator,
     LabelWeightGenerator labelWeightGenerator,
+    IStringLocalizer<LabelGenResources> localizer,
     IPalychApi palychApi
     )
     : IPrintLabelService
@@ -29,7 +31,7 @@ internal class PrintLabelService(
 
         throw new ApiExceptionServer
         {
-            ErrorDisplayMessage = "Ошибка в палыч",
+            ErrorDisplayMessage = localizer["ExchangeFailed"],
             ErrorInternalMessage = ans.Status.Message
         };
     }

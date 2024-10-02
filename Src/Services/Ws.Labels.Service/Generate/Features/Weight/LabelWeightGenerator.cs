@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Ws.Barcodes.Features.Barcodes;
 using Ws.Barcodes.Features.Templates;
 using Ws.Barcodes.Features.Templates.Models;
@@ -7,11 +8,11 @@ using Ws.Barcodes.Shared.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Generate.Services;
-using Ws.Shared.Extensions;
+using Ws.Shared.Api.ApiException;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
-internal class LabelWeightGenerator(CacheService cacheService)
+internal class LabelWeightGenerator(CacheService cacheService, IStringLocalizer<LabelGenResources> localizer)
 {
     public LabelEntity GenerateLabel(GenerateWeightLabelDto dto)
     {
@@ -27,9 +28,22 @@ internal class LabelWeightGenerator(CacheService cacheService)
 
         PrintSettings printSettings = new(templateInfo, zplResources);
 
-        BarcodeResult barcodeTop = barcode.Build(templateInfo.BarcodeTopTemplate);
-        BarcodeResult barcodeRight = barcode.Build(templateInfo.BarcodeRightTemplate);
-        BarcodeResult barcodeBottom = barcode.Build(templateInfo.BarcodeBottomTemplate);
+        BarcodeResult barcodeTop, barcodeRight, barcodeBottom;
+
+        try
+        {
+            barcodeTop = barcode.Build(printSettings.Settings.BarcodeTopTemplate);
+            barcodeRight = barcode.Build(printSettings.Settings.BarcodeRightTemplate);
+            barcodeBottom = barcode.Build(printSettings.Settings.BarcodeBottomTemplate);
+        }
+        catch (Exception ex)
+        {
+            throw new ApiExceptionServer
+            {
+                ErrorDisplayMessage = localizer["BarcodeInvalid"],
+                ErrorInternalMessage = ex.Message
+            };
+        }
 
         decimal weightNet = dto.Plu.Weight;
         decimal weightTare = dto.Nesting.CalculateWeightTare(dto.Plu);
@@ -39,14 +53,14 @@ internal class LabelWeightGenerator(CacheService cacheService)
             arm: new(dto.Line.Number, dto.Line.Name, dto.Line.Address),
             pallet: new(0,string.Empty),
             barcodes: new(barcodeTop, barcodeBottom, barcodeRight),
-            productDt: dto.ProductDt,
-            expirationDt: dto.ExpirationDt,
-
-            kneading: (ushort)dto.Kneading,
 
             bundleCount: (ushort)dto.Nesting.BundleCount,
+
+            kneading: (ushort)dto.Kneading,
             weightNet: weightNet,
-            weightGross: weightNet + weightTare
+            weightGross: weightNet + weightTare,
+            productDt: dto.ProductDt,
+            expirationDt: dto.ExpirationDt
         );
 
         string zpl = ZplBuilder.GenerateZpl(printSettings, data);

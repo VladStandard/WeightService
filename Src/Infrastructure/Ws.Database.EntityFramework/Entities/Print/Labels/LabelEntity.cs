@@ -7,10 +7,8 @@ public sealed class LabelEntity : EfEntityBase
     public Guid? PalletId { get; set; }
     public PalletEntity? Pallet { get; set; }
 
-
     public Guid? PluId { get; set; }
     public PluEntity? Plu { get; set; }
-
 
     public Guid LineId { get; set; }
     public LineEntity Line { get; set; } = null!;

@@ -2,7 +2,6 @@ using Ws.Database.EntityFramework.Shared.Extensions;
 using Ws.Database.EntityFramework.Shared.Interceptors;
 using Ws.Database.EntityFramework.Shared.Models;
 
-
 namespace Ws.Database.EntityFramework;
 
 public class WsDbContext : DbContext

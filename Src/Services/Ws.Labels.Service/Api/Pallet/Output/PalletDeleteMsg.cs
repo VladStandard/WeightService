@@ -9,7 +9,6 @@ public class PalletDeleteWrapperMsg
     public PalletDeleteMsg Status { get; set; } = new();
 }
 
-
 public class PalletDeleteMsg
 {
     [XmlAttribute(AttributeName = "IsSuccess")]

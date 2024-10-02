@@ -284,24 +284,6 @@
     <data name="LabelsPrintingToastDescription" xml:space="preserve">
         <value>Распечатанные этикетки убираются из списка</value>
     </data>
-    <data name="LabelGenExcInvalid" xml:space="preserve">
-        <value>Ошибка валидации этикетки</value>
-    </data>
-    <data name="LabelGenExcBarcodeInvalid" xml:space="preserve">
-        <value>Ошибка генерации штрихкода</value>
-    </data>
-    <data name="LabelGenExcTemplateNotFound" xml:space="preserve">
-        <value>Шаблон не найден</value>
-    </data>
-    <data name="LabelGenExcBarcodeVariableNotFound" xml:space="preserve">
-        <value>Переменные штрихкода не определенны</value>
-    </data>
-    <data name="LabelGenExcStorageMethodNotFound" xml:space="preserve">
-        <value>Способ хранения не установлен</value>
-    </data>
-    <data name="LabelGenExcExchangeFailed" xml:space="preserve">
-        <value>Ошибка интеграции с 1С</value>
-    </data>
     <data name="СolPalletProductDt" xml:space="preserve">
         <value>Дата продукции на паллете</value>
     </data>

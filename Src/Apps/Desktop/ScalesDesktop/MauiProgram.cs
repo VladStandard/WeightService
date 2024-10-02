@@ -3,7 +3,6 @@ using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ScalesDesktop.Source.Shared.Extensions;
-using ScalesDesktop.Source.Shared.Refit;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Shared.Extensions;
 
@@ -16,7 +15,6 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
         builder.SetupLocalizer();
-        builder.Services.AddTransient<HostNameMessageHandler>();
         builder.RegisterRefitClients();
         builder.UseMauiApp<App>().UseFullScreen();
 
@@ -26,9 +24,10 @@ public static class MauiProgram
         builder.Services.AddMauiBlazorWebView();
 
         builder.Services
+            .AddRefitEndpoints<IScalesDesktopAssembly>()
+            .AddDelegatingHandlers<IScalesDesktopAssembly>()
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintingService, PrintingService>()
-            .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);
 
 #if DEBUG

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Mime;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -6,7 +7,11 @@ using Ws.Desktop.Api;
 using Ws.Desktop.Api.App.Shared.Middlewares;
 using Ws.Labels.Service;
 using Ws.Labels.Service.Settings;
+using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
+
+CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
+CultureInfo.DefaultThreadCurrentUICulture = Cultures.Ru;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +28,7 @@ builder.Services
 builder.Services
     .AddEfCore()
     .AddLabelsServices(palychSettings)
+    .AddLocalization()
     .AddHelpers<IDesktopApiAssembly>()
     .AddMiddlewares<IDesktopApiAssembly>()
     .AddApiServices<IDesktopApiAssembly>();
@@ -49,11 +55,19 @@ builder.Services
 
 builder.Services.AddHttpContextAccessor();
 
+CultureInfo[] supportedCultures = [Cultures.Ru, Cultures.En];
+RequestLocalizationOptions localizationOptions = new()
+{
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    DefaultRequestCulture = new(Cultures.En.Name)
+};
 
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseRequestLocalization(localizationOptions);
 app.UseAuthentication();
 app.UseAuthorization();
 

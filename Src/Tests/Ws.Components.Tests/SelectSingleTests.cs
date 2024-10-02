@@ -194,7 +194,6 @@ public class SelectSingleTests : TestContext
         itemDisplayName.Invoke("Item1").Should().Be("ITEM1");
     }
 
-
     [Fact]
     public async Task ShouldHandleNullValueSelection()
     {
