@@ -16,6 +16,7 @@ internal partial class BundleApiService
         {
             DbContext.BulkInsertOrUpdate(bundles, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(BundleEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(BundleEntity.CreateDt)];
             });

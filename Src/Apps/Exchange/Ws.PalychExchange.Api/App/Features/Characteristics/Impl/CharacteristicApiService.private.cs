@@ -79,6 +79,7 @@ internal partial class CharacteristicApiService
         {
             DbContext.BulkInsertOrUpdate(characteristics, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(CharacteristicEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(CharacteristicEntity.CreateDt)];
             });

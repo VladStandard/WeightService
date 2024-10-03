@@ -16,6 +16,7 @@ internal partial class ClipApiService
         {
             DbContext.BulkInsertOrUpdate(clips, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(ClipEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(ClipEntity.CreateDt)];
             });

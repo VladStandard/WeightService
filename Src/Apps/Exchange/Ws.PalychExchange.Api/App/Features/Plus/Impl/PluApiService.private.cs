@@ -51,6 +51,7 @@ internal sealed partial class PluApiService
         {
             DbContext.BulkInsertOrUpdate(plus, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(PluEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(PluEntity.CreateDt), nameof(PluEntity.TemplateId)];
             });
@@ -109,6 +110,7 @@ internal sealed partial class PluApiService
         {
             DbContext.BulkInsertOrUpdate(nestings, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(NestingEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(NestingEntity.CreateDt)];
             });

@@ -41,6 +41,7 @@ internal partial class BrandApiService
         {
             DbContext.BulkInsertOrUpdate(brands, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(BrandEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(BrandEntity.CreateDt)];
             });
@@ -49,7 +50,7 @@ internal partial class BrandApiService
 
             OutputDto.AddSuccess(brands.ConvertAll(i => i.Id));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             transaction.Rollback();
             OutputDto.AddError(brands.ConvertAll(i => i.Id), "Не предвиденная ошибка");
