@@ -29,7 +29,14 @@ public sealed class UserHelper(
 
     public async Task CanUserWorkWithProductionSiteAsync(Guid productionSiteId)
     {
+        if (productionSiteId == DefaultConsts.GuidMax)
+        {
+            bool isDeveloper = await ValidatePolicyAsync(PolicyEnum.Developer);
+            if (isDeveloper) return;
+        }
+
         bool isSenior = await ValidatePolicyAsync(PolicyEnum.SeniorSupport);
+
         if (isSenior && productionSiteId != DefaultConsts.GuidMax) return;
 
         bool canWork =
