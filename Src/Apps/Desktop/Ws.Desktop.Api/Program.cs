@@ -60,7 +60,7 @@ RequestLocalizationOptions localizationOptions = new()
 {
     SupportedCultures = supportedCultures,
     SupportedUICultures = supportedCultures,
-    DefaultRequestCulture = new(Cultures.En.Name)
+    DefaultRequestCulture = new(Cultures.Ru.Name)
 };
 
 WebApplication app = builder.Build();

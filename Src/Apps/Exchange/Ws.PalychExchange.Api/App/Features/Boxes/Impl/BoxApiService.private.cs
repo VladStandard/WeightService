@@ -16,6 +16,7 @@ internal partial class BoxApiService
         {
             DbContext.BulkInsertOrUpdate(boxes, options =>
             {
+                options.UseTempDB = true;
                 options.UpdateByProperties = [nameof(BoxEntity.Id)];
                 options.PropertiesToExcludeOnUpdate = [nameof(BoxEntity.CreateDt)];
             });

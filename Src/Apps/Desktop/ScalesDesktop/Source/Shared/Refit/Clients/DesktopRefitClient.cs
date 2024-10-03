@@ -14,6 +14,7 @@ internal class DesktopRefitClient : IRefitClient
                 ServerCertificateCustomValidationCallback =
                     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             })
-            .AddHttpMessageHandler<HostNameMessageHandler>();
+            .AddHttpMessageHandler<HostNameMessageHandler>()
+            .AddHttpMessageHandler<AcceptLanguageHandler>();
     }
 }
