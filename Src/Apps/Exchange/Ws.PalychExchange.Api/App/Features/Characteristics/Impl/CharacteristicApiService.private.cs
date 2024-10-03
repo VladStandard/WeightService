@@ -107,7 +107,7 @@ internal partial class CharacteristicApiService
         using IDbContextTransaction transaction = DbContext.Database.BeginTransaction();
         try
         {
-            DbContext.BulkDelete(characteristicToDelete);
+            DbContext.BulkDelete(characteristicToDelete, config => config.UseTempDB = true);
             transaction.Commit();
             OutputDto.AddSuccess(deletedUid);
         }

@@ -62,8 +62,8 @@ public static partial class BarcodeVarUtils
             CreateVariable(() => barcodeBuilder.WeightNet, "{0:D5}"),
             CreateVariable(() => barcodeBuilder.BundleCount, "{0:D2}"),
             CreateVariable(() => barcodeBuilder.ExpirationDay, "{0:D3}"),
-            CreateVariable(() => barcodeBuilder.ProductDt, "{0:yyMMdd}"),
-            CreateVariable(() => barcodeBuilder.ExpirationDt, "{0:yyMMdd}")
+            CreateVariable(() => barcodeBuilder.ProductDt, "{0:yyMMdd}", true),
+            CreateVariable(() => barcodeBuilder.ExpirationDt, "{0:yyMMdd}", true)
         ];
     }
 
