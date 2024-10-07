@@ -37,7 +37,7 @@ internal partial class CharacteristicApiService
         dtos.RemoveWhere(dto =>
         {
             if (!existingPairs.Any(uniq =>
-                    dto.Uid == uniq.PluUid &&
+                    dto.PluUid == uniq.PluUid &&
                     dto.BoxUid == uniq.BoxUid &&
                     dto.BundleCount == uniq.BundleCount &&
                     dto.Uid != uniq.Uid
@@ -86,8 +86,9 @@ internal partial class CharacteristicApiService
             transaction.Commit();
             OutputDto.AddSuccess(characteristics.ConvertAll(i => i.Id));
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
             OutputDto.AddError(characteristics.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
@@ -111,8 +112,9 @@ internal partial class CharacteristicApiService
             transaction.Commit();
             OutputDto.AddSuccess(deletedUid);
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             OutputDto.AddError(deletedUid, "Не предвиденная ошибка");
             transaction.Rollback();
         }

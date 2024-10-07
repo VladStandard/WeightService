@@ -22,14 +22,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="LabelGenResources.resx">
+      <EmbeddedResource Update="Localization\LabelGenResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LabelGenResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="LabelGenResources.Designer.cs">
+      <Compile Update="Localization\LabelGenResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>LabelGenResources.resx</DependentUpon>

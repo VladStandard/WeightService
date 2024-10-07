@@ -23,8 +23,9 @@ internal partial class BoxApiService
             transaction.Commit();
             OutputDto.AddSuccess(boxes.ConvertAll(i => i.Id));
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
             OutputDto.AddError(boxes.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }

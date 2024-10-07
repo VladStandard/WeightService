@@ -23,8 +23,9 @@ internal partial class BundleApiService
             transaction.Commit();
             OutputDto.AddSuccess(bundles.ConvertAll(i => i.Id));
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
             OutputDto.AddError(bundles.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }

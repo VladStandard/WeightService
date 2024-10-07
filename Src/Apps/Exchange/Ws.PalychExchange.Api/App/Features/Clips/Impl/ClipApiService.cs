@@ -3,7 +3,7 @@ using Ws.PalychExchange.Api.App.Features.Clips.Dto;
 
 namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;
 
-internal sealed partial class ClipApiService(ClipDtoValidator validator) : BaseService<ClipDto>(validator), IClipService
+internal sealed partial class ClipApiService(ClipDtoValidator validator, ILogger<ClipApiService> logger) : BaseService<ClipDto>(validator), IClipService
 {
     public ResponseDto Load(HashSet<ClipDto> dtos)
     {

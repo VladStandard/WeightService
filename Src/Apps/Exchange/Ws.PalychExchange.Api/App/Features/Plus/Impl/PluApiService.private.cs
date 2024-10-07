@@ -60,8 +60,9 @@ internal sealed partial class PluApiService
             SaveNestings(validDtos);
             OutputDto.AddSuccess(plus.ConvertAll(i => i.Id));
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
             OutputDto.AddError(plus.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
@@ -90,8 +91,9 @@ internal sealed partial class PluApiService
             transaction.Commit();
             OutputDto.AddSuccess(uidToDelete);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             OutputDto.AddError(uidToDelete, "Не предвиденная ошибка");
             transaction.Rollback();
         }
@@ -116,8 +118,9 @@ internal sealed partial class PluApiService
             });
             transaction.Commit();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
         }
     }

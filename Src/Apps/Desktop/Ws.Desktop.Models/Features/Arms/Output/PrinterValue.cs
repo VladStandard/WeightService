@@ -5,7 +5,6 @@ namespace Ws.Desktop.Models.Features.Arms.Output;
 
 public sealed record PrinterValue
 {
-
     [JsonPropertyName("name")]
     public required string Name { get; init; }
 

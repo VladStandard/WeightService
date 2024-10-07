@@ -24,9 +24,9 @@ internal partial class ClipApiService
             transaction.Commit();
             OutputDto.AddSuccess(clips.ConvertAll(i => i.Id));
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            transaction.Rollback();
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             OutputDto.AddError(clips.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }
     }

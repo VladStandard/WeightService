@@ -1,3 +1,4 @@
+@using Android.Provider
 @using Blazor.Heroicons.Outline
 @using Microsoft.Extensions.Localization
 @using ScalesMobile.Source.Features
@@ -22,6 +23,14 @@
         <HomeMenuItem>
           <MagnifyingGlassIcon class="size-5 mr-3" />
           @Localizer["ScanPageTitle"]
+        </HomeMenuItem>
+      </a>
+    </li>
+    <li>
+      <a>
+        <HomeMenuItem>
+          <MagnifyingGlassCircleIcon class="size-5 mr-3" />
+          @Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Settings.Secure.AndroidId)
         </HomeMenuItem>
       </a>
     </li>

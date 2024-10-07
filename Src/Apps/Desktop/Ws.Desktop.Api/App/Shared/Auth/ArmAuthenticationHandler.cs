@@ -25,9 +25,8 @@ public class ArmAuthenticationHandler(
 
         string[] headerValue = authHeader.ToString().Split(' ', 2);
 
-        // Проверка формата заголовка и схемы
         if (headerValue is not [ArmAuthenticationOptions.DefaultScheme, _])
-            return AuthenticateResult.Fail($"Invalid Authorization header format or scheme. " +
+            return AuthenticateResult.Fail("Invalid Authorization header format or scheme. " +
                                            $"Expected: {ArmAuthenticationOptions.DefaultScheme}");
 
         string token = headerValue[1];

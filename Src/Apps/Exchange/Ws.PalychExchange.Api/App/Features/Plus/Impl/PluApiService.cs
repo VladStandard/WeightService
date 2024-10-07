@@ -3,7 +3,7 @@ using Ws.PalychExchange.Api.App.Features.Plus.Dto;
 
 namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
-internal sealed partial class PluApiService(PluDtoValidator validator) : BaseService<PluDto>(validator), IPluService
+internal sealed partial class PluApiService(PluDtoValidator validator, ILogger<PluApiService> logger) : BaseService<PluDto>(validator), IPluService
 {
     public ResponseDto Load(HashSet<PluDto> dtos)
     {

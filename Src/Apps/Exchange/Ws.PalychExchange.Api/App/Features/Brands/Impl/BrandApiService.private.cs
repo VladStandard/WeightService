@@ -50,8 +50,9 @@ internal partial class BrandApiService
 
             OutputDto.AddSuccess(brands.ConvertAll(i => i.Id));
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
+            logger.LogCritical($"{e.StackTrace}: {e.Message}");
             transaction.Rollback();
             OutputDto.AddError(brands.ConvertAll(i => i.Id), "Не предвиденная ошибка");
         }

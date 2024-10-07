@@ -4,7 +4,7 @@ using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl;
 
-internal sealed partial class CharacteristicApiService(GroupedCharacteristicValidator validator) :
+internal sealed partial class CharacteristicApiService(GroupedCharacteristicValidator validator, ILogger<CharacteristicApiService> logger) :
     BaseService<GroupedCharacteristic>(validator), ICharacteristicService
 {
     public ResponseDto Load(HashSet<GroupedCharacteristic> dtos)
