@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Expressions;

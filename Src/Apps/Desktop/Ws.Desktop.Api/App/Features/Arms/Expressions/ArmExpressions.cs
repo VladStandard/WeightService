@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database.Entities.Ref.Lines;
 using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms.Expressions;

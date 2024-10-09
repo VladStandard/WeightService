@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.Entities.Ref1C.Clips;
 
 namespace Ws.PalychExchange.Api.App.Features.Clips.Dto;
 

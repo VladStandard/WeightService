@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.Printers;
+using Ws.Database.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
 

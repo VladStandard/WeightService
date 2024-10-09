@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework.Entities.Print.Labels;
-using Ws.Database.EntityFramework.Entities.Print.Pallets;
+using Ws.Database.Entities.Print.Labels;
+using Ws.Database.Entities.Print.Pallets;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Expressions;

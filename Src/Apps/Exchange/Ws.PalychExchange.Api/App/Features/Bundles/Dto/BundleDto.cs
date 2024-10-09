@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Bundles;
+using Ws.Database.Entities.Ref1C.Bundles;
 
 namespace Ws.PalychExchange.Api.App.Features.Bundles.Dto;
 

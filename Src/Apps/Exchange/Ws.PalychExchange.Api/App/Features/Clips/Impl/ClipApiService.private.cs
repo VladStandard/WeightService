@@ -1,6 +1,6 @@
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
-using Ws.Database.EntityFramework.Entities.Ref1C.Clips;
+using Ws.Database.Entities.Ref1C.Clips;
 using Ws.PalychExchange.Api.App.Features.Clips.Dto;
 
 namespace Ws.PalychExchange.Api.App.Features.Clips.Impl;

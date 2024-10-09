@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
+using Ws.Database;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
 using Ws.Desktop.Api.App.Features.PalletMen.Expressions;
 using Ws.Desktop.Models.Features.PalletMen;

@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;

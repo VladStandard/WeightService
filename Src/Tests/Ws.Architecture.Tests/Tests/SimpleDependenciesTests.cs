@@ -16,7 +16,7 @@ public class SimpleDependenciesTests
     [MemberData(nameof(TestData))]
     public void EntityFramework_Dependency_Must_Be_Private(string file, string filePath)
     {
-        ProjectFileUtils.CheckPrivateProject(filePath, "Ws.Database.EntityFramework")
+        ProjectFileUtils.CheckPrivateProject(filePath, "Ws.Database")
             .Should().BeTrue(Path.GetFileName(file));
     }
 }

@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Common;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Extensions;

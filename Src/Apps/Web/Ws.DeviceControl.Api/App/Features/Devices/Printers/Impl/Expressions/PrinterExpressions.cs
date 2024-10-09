@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
+using Ws.Database.Entities.Ref.Printers;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Expressions;

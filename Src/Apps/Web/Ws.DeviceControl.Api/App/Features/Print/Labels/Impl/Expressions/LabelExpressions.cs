@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Print.Labels;
-using Ws.Database.EntityFramework.Entities.Print.LabelsZpl;
+using Ws.Database.Entities.Print.Labels;
+using Ws.Database.Entities.Print.LabelsZpl;
 using Ws.DeviceControl.Models.Features.Print.Labels;
 
 namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Impl.Expressions;

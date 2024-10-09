@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
-using Ws.Database.EntityFramework;
+using Ws.Database;
 using Ws.Shared.Enums;
 
 namespace Ws.Desktop.Api.App.Shared.Auth;

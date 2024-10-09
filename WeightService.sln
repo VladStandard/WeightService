@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScalesMobile", "Src\Apps\Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceControl", "Src\Apps\Web\DeviceControl\DeviceControl.csproj", "{203EC57D-D5F6-4AF9-ABB9-4CC368029570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Database.EntityFramework", "Src\Infrastructure\Ws.Database.EntityFramework\Ws.Database.EntityFramework.csproj", "{7C9B1A65-B4F8-4359-BA4E-B5B6E57FEFFA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Database", "Src\Infrastructure\Ws.Database\Ws.Database.csproj", "{7C9B1A65-B4F8-4359-BA4E-B5B6E57FEFFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Shared", "Src\Libs\Ws.Shared\Ws.Shared.csproj", "{A0BC603F-BDBE-49B4-9CFE-BE3F3D4D3032}"
 EndProject

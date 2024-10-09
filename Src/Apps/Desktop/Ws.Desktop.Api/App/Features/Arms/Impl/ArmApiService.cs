@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
+using Ws.Database;
+using Ws.Database.Entities.Ref.Lines;
 using Ws.Desktop.Api.App.Features.Arms.Common;
 using Ws.Desktop.Api.App.Features.Arms.Expressions;
 using Ws.Desktop.Models.Features.Arms.Input;

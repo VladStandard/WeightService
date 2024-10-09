@@ -1,7 +1,7 @@
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
-using Ws.Database.EntityFramework.Common;
+using Ws.Database;
+using Ws.Database.Common;
 
 namespace Ws.PalychExchange.Api.App.Common;
 

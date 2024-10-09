@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.Entities.Ref1C.Boxes;
 
 namespace Ws.PalychExchange.Api.App.Features.Boxes.Dto;
 

@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
+using Ws.Database.Entities.Ref.PalletMen;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Expressions;

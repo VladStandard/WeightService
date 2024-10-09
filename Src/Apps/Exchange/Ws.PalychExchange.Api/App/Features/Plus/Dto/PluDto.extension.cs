@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.Entities.Ref1C.Nestings;
+using Ws.Database.Entities.Ref1C.Plus;
 
 namespace Ws.PalychExchange.Api.App.Features.Plus.Dto;
 

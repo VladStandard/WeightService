@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.Database.EntityFramework;
+using Ws.Database;
 using Ws.PalychExchange.Api;
 using Ws.PalychExchange.Api.App.Shared.Extensions;
 using Ws.PalychExchange.Api.App.Shared.Middlewares;

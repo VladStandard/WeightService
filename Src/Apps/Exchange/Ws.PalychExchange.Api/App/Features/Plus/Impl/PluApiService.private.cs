@@ -2,8 +2,8 @@ using EFCore.BulkExtensions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.Entities.Ref1C.Nestings;
+using Ws.Database.Entities.Ref1C.Plus;
 using Ws.PalychExchange.Api.App.Features.Plus.Dto;
 using Ws.Shared.Constants;
 

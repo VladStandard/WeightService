@@ -1,7 +1,7 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.Entities.Ref.Lines;
+using Ws.Database.Entities.Ref.Printers;
+using Ws.Database.Entities.Ref.Warehouses;
+using Ws.Database.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;

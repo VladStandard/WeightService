@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.Entities.Ref1C.Boxes;
 
 namespace Ws.DeviceControl.Api.App.Features.References1C.Boxes.Impl.Expressions;
 

@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref.Printers;
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.Entities.Ref.Lines;
+using Ws.Database.Entities.Ref.Printers;
+using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
 

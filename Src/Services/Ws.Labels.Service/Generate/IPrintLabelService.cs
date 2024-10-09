@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.Entities.Print.Labels;
 using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;

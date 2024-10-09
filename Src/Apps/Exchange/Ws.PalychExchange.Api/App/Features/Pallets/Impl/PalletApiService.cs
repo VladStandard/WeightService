@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework;
-using Ws.Database.EntityFramework.Entities.Print.Pallets;
+using Ws.Database;
+using Ws.Database.Entities.Print.Pallets;
 using Ws.PalychExchange.Api.App.Features.Pallets.Common;
 using Ws.PalychExchange.Api.App.Features.Pallets.Dto;
 

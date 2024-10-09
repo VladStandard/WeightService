@@ -1,6 +1,6 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Characteristics;
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.Entities.Ref1C.Characteristics;
+using Ws.Database.Entities.Ref1C.Nestings;
+using Ws.Database.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.References1C.Plus.Common;
 using Ws.DeviceControl.Api.App.Features.References1C.Plus.Impl.Expressions;
 using Ws.DeviceControl.Models.Features.References1C.Plus.Commands.Update;

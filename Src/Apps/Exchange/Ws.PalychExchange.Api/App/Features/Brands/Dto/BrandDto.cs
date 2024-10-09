@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+using Ws.Database.Entities.Ref1C.Brands;
 
 namespace Ws.PalychExchange.Api.App.Features.Brands.Dto;
 

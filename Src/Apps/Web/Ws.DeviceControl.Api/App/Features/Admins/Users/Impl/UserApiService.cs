@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
-using Ws.Database.EntityFramework.Entities.Ref.Users;
+using Ws.Database.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.Users;
 using Ws.DeviceControl.Api.App.Features.Admins.Users.Common;
 using Ws.DeviceControl.Api.App.Features.Admins.Users.Impl.Expressions;
 using Ws.DeviceControl.Models.Features.Admins.Users.Commands.Update;

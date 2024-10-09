@@ -20,7 +20,7 @@ global using Ws.DeviceControl.Api.App.Shared.Extensions;
 // 5. Modules
 global using Ws.DeviceControl.Models.Auth;
 global using Ws.DeviceControl.Models.Shared;
-global using Ws.Database.EntityFramework;
+global using Ws.Database;
 global using Ws.Shared.Constants;
 global using Ws.Shared.Enums;
 global using Ws.Shared.Extensions;

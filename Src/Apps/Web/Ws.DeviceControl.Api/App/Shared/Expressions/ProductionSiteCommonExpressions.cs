@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.ProductionSites;
 
 namespace Ws.DeviceControl.Api.App.Shared.Expressions;
 

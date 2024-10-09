@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Ws.Database.EntityFramework;
-using Ws.Database.EntityFramework.Entities.Print.Labels;
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref1C.Nestings;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database;
+using Ws.Database.Entities.Print.Labels;
+using Ws.Database.Entities.Ref.Lines;
+using Ws.Database.Entities.Ref1C.Nestings;
+using Ws.Database.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;

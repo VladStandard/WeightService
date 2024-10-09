@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Net.Mime;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.Database.EntityFramework;
+using Ws.Database;
 using Ws.Desktop.Api;
 using Ws.Desktop.Api.App.Shared.Middlewares;
 using Ws.Labels.Service;

@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref.Lines;
-using Ws.Database.EntityFramework.Entities.Ref1C.Plus;
+using Ws.Database.Entities.Ref.Lines;
+using Ws.Database.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;

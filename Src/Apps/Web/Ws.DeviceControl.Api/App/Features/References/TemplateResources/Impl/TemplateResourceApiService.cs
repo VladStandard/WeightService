@@ -1,6 +1,6 @@
 using System.Net;
 using Svg;
-using Ws.Database.EntityFramework.Entities.Zpl.ZplResources;
+using Ws.Database.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extensions;

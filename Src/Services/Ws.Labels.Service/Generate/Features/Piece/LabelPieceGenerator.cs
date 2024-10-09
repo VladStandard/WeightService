@@ -5,7 +5,7 @@ using Ws.Barcodes.Features.Templates.Models;
 using Ws.Barcodes.Features.Templates.Utils;
 using Ws.Barcodes.Features.Templates.Variables;
 using Ws.Barcodes.Shared.Models;
-using Ws.Database.EntityFramework.Entities.Print.Labels;
+using Ws.Database.Entities.Print.Labels;
 using Ws.Labels.Service.Api;
 using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;

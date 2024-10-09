@@ -76,7 +76,7 @@ public class ModificatorsTests
     [Fact]
     public void All_EfMappings_Should_Be_Sealed_And_Internal()
     {
-        TestResult? result = Types.InAssembly(SolutionUtils.FindProjectAssembly("Ws.Database.EntityFramework"))
+        TestResult? result = Types.InAssembly(SolutionUtils.FindProjectAssembly("Ws.Database"))
             .That()
             .AreClasses()
             .And()

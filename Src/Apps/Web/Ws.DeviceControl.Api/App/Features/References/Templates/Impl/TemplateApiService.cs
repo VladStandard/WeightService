@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Zpl.Templates;
+using Ws.Database.Entities.Zpl.Templates;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;

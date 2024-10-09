@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.Users;
+using Ws.Database.Entities.Ref.Users;
 using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users.Impl.Expressions;

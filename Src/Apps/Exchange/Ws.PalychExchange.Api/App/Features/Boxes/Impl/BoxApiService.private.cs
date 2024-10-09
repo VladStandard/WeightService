@@ -1,6 +1,6 @@
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
-using Ws.Database.EntityFramework.Entities.Ref1C.Boxes;
+using Ws.Database.Entities.Ref1C.Boxes;
 using Ws.PalychExchange.Api.App.Features.Boxes.Dto;
 
 namespace Ws.PalychExchange.Api.App.Features.Boxes.Impl;

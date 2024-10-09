@@ -1,6 +1,6 @@
 using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore.Storage;
-using Ws.Database.EntityFramework.Entities.Ref1C.Brands;
+using Ws.Database.Entities.Ref1C.Brands;
 using Ws.PalychExchange.Api.App.Features.Brands.Dto;
 
 namespace Ws.PalychExchange.Api.App.Features.Brands.Impl;

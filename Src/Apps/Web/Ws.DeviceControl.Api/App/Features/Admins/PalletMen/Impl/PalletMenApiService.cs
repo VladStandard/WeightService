@@ -1,5 +1,5 @@
-using Ws.Database.EntityFramework.Entities.Ref.PalletMen;
-using Ws.Database.EntityFramework.Entities.Ref.Warehouses;
+using Ws.Database.Entities.Ref.PalletMen;
+using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Extensions;

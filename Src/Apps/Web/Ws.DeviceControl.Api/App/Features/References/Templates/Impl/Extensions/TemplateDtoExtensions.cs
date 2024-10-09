@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Zpl.Templates;
+using Ws.Database.Entities.Zpl.Templates;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
 

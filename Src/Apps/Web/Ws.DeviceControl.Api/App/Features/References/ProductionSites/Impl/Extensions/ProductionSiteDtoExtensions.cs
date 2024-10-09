@@ -1,4 +1,4 @@
-using Ws.Database.EntityFramework.Entities.Ref.ProductionSites;
+using Ws.Database.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 
