@@ -1,4 +1,5 @@
 using System.Net;
+using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Shared.Helpers;
 
@@ -29,7 +30,7 @@ public sealed class UserHelper(
 
     public async Task CanUserWorkWithProductionSiteAsync(Guid productionSiteId)
     {
-        if (productionSiteId == DefaultConsts.GuidMax)
+        if (productionSiteId == DefaultTypes.GuidMax)
         {
             bool isDeveloper = await ValidatePolicyAsync(PolicyEnum.Developer);
             if (isDeveloper) return;
@@ -37,13 +38,13 @@ public sealed class UserHelper(
 
         bool isSenior = await ValidatePolicyAsync(PolicyEnum.SeniorSupport);
 
-        if (isSenior && productionSiteId != DefaultConsts.GuidMax) return;
+        if (isSenior && productionSiteId != DefaultTypes.GuidMax) return;
 
         bool canWork =
             await dbContext.Users.AnyAsync(i => i.Id == UserId && i.ProductionSite.Id == productionSiteId);
 
         if (!canWork)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = "Пользователь не может работать с выбранной площадкой",
                 StatusCode = HttpStatusCode.Conflict

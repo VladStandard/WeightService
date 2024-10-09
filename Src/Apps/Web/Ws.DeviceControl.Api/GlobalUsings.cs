@@ -21,7 +21,6 @@ global using Ws.DeviceControl.Api.App.Shared.Extensions;
 global using Ws.DeviceControl.Models.Auth;
 global using Ws.DeviceControl.Models.Shared;
 global using Ws.Database.EntityFramework;
-global using Ws.Shared.Api.ApiException;
 global using Ws.Shared.Constants;
 global using Ws.Shared.Enums;
 global using Ws.Shared.Extensions;

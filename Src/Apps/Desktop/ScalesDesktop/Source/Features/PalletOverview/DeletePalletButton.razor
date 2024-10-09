@@ -3,6 +3,7 @@
 @using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models
 @using Ws.Desktop.Models.Features.Pallets.Output
+@using Ws.Shared.Extensions
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @if (PalletState.Value.Pallet != null)
@@ -60,7 +61,7 @@ else
     }
     catch (ApiException ex)
     {
-      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["UnknownError"]));
+      ToastService.ShowError(ex.GetMessage(Localizer["UnknownError"]));
     }
     catch
     {

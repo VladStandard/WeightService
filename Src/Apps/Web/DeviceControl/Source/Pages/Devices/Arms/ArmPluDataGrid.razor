@@ -183,7 +183,7 @@
     }
     catch (ApiException ex)
     {
-      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number)));
+      ToastService.ShowError(ex.GetMessage(string.Format(Localizer["ArmPluRemovedUnsuccessfully"], item.Number)));
     }
   }
 
@@ -197,7 +197,7 @@
     }
     catch (ApiException ex)
     {
-      ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number)));
+      ToastService.ShowError(ex.GetMessage(string.Format(Localizer["ArmPluAddedUnsuccessfully"], item.Number)));
     }
     catch
     {

@@ -8,7 +8,7 @@ using Ws.Barcodes.Shared.Models;
 using Ws.Database.EntityFramework.Entities.Print.Labels;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
 using Ws.Labels.Service.Generate.Services;
-using Ws.Shared.Api.ApiException;
+using Ws.Shared.Exceptions;
 
 namespace Ws.Labels.Service.Generate.Features.Weight;
 
@@ -38,7 +38,7 @@ internal class LabelWeightGenerator(CacheService cacheService, IStringLocalizer<
         }
         catch (Exception ex)
         {
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = localizer["BarcodeInvalid"],
                 ErrorInternalMessage = ex.Message

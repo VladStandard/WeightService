@@ -33,12 +33,11 @@ internal static class PalletExpressions
                         WeightNet = group.Sum(label => label.WeightNet),
                     })
                     .ToHashSet(),
-                PalletMan = new()
-                {
-                    Name = result.Pallet.PalletMan.Name,
-                    Surname = result.Pallet.PalletMan.Surname,
-                    Patronymic = result.Pallet.PalletMan.Patronymic
-                },
+                PalletMan = new(
+                    result.Pallet.PalletMan.Name,
+                    result.Pallet.PalletMan.Surname,
+                    result.Pallet.PalletMan.Patronymic
+                ),
                 WeightTray = result.Pallet.TrayWeight,
                 Barcode = result.Pallet.Barcode,
                 ProdDt = result.Pallet.ProductDt,

@@ -23,4 +23,3 @@ global using ScalesDesktop.Source.Shared.Services.Stores;
 global using Ws.Desktop.Models;
 global using Ws.Shared.Resources;
 global using Ws.Shared.Utils;
-global using Ws.Shared.Api.ApiException;

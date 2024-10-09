@@ -1,3 +1,5 @@
+using Ws.Shared.ValueTypes;
+
 namespace Ws.Desktop.Models.Features.PalletMen;
 
 public sealed record PalletMan
@@ -6,6 +8,7 @@ public sealed record PalletMan
     public required Guid Id { get; init; }
 
     [JsonPropertyName("fio")]
+    [JsonConverter(typeof(FioJsonConverter))]
     public required Fio Fio { get; init; }
 
     [JsonPropertyName("password")]

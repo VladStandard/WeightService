@@ -8,8 +8,8 @@ using Ws.Barcodes.Features.Templates.Utils;
 using Ws.Database.EntityFramework;
 using Ws.Database.EntityFramework.Entities.Zpl.Templates;
 using Ws.Labels.Service.Generate.Utils;
-using Ws.Shared.Api.ApiException;
 using Ws.Shared.Enums;
+using Ws.Shared.Exceptions;
 
 namespace Ws.Labels.Service.Generate.Services;
 
@@ -22,7 +22,7 @@ public partial class CacheService(WsDbContext dbContext, IStringLocalizer<LabelG
     {
         TemplateEntity? temp = dbContext.Templates.Find(templateUid);
         if (temp is null)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = localizer["TemplateNotFound"],
             };

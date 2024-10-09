@@ -11,7 +11,7 @@ public sealed record PrinterCreateDto
 
     [JsonPropertyName("ip")]
     [JsonConverter(typeof(IpAddressJsonConverter))]
-    public IPAddress Ip { get; set; } = DefaultConsts.IpLocal;
+    public IPAddress Ip { get; set; } = DefaultTypes.IpLocal;
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<PrinterTypes>))]

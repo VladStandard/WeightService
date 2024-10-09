@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 
-namespace Ws.Shared.Api.ApiException;
+namespace Ws.Shared.ValueTypes;
 
-public record ApiExceptionClient
+public record ApiFailedResponse
 {
     [JsonPropertyName("localizeMessage")]
     public required string LocalizeMessage { get; init; }

@@ -1,8 +1,8 @@
 using System.Net;
 
-namespace Ws.Shared.Api.ApiException;
+namespace Ws.Shared.Exceptions;
 
-public class ApiExceptionServer : Exception
+public class ApiInternalException : Exception
 {
     public required string ErrorDisplayMessage { get; set; } = string.Empty;
     public string ErrorInternalMessage { get; set; } = string.Empty;

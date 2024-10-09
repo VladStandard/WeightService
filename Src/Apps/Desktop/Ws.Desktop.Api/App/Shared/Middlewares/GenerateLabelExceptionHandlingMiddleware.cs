@@ -1,5 +1,6 @@
 using System.Text.Json;
-using Ws.Shared.Api.ApiException;
+using Ws.Shared.Exceptions;
+using Ws.Shared.ValueTypes;
 
 namespace Ws.Desktop.Api.App.Shared.Middlewares;
 
@@ -11,13 +12,13 @@ public class GenerateLabelExceptionHandlingMiddleware(ILogger<GenerateLabelExcep
         {
             await next(context);
         }
-        catch (ApiExceptionServer e)
+        catch (ApiInternalException e)
         {
             logger.LogWarning(e, "{EMessage}\n{EInternal}", e.ErrorDisplayMessage, e.ErrorInternalMessage);
 
             context.Response.StatusCode = (int)e.StatusCode;
 
-            ApiExceptionClient problem = new()
+            ApiFailedResponse problem = new()
             {
                 LocalizeMessage = e.ErrorDisplayMessage,
             };

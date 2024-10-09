@@ -10,12 +10,7 @@ public static class PalletManExpressions
         {
             Id = palletMan.Id,
             Id1C = palletMan.Uid1C,
-            Fio = new()
-            {
-                Name = palletMan.Name,
-                Surname = palletMan.Surname,
-                Patronymic = palletMan.Patronymic
-            },
+            Fio = new(palletMan.Name, palletMan.Surname, palletMan.Patronymic),
             Password = palletMan.Password,
             Warehouse = new()
             {

@@ -37,8 +37,8 @@ internal sealed partial class PluApiService
     {
         foreach (PluDto i in validDtos)
         {
-            i.ClipUid = i.ClipUid == Guid.Empty ? DefaultConsts.GuidMax : i.ClipUid;
-            i.BundleUid = i.BundleUid == Guid.Empty ? DefaultConsts.GuidMax : i.BundleUid;
+            i.ClipUid = i.ClipUid == Guid.Empty ? DefaultTypes.GuidMax : i.ClipUid;
+            i.BundleUid = i.BundleUid == Guid.Empty ? DefaultTypes.GuidMax : i.BundleUid;
         }
     }
 

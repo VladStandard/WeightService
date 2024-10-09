@@ -1,17 +1,15 @@
+using Ws.Shared.Extensions;
+
 namespace Ws.Shared.ValueTypes;
 
-public record Fio
+public sealed record Fio(string Name, string Surname, string Patronymic)
 {
-    public virtual string Name { get; set; } = string.Empty;
-    public virtual string Surname { get; set; } = string.Empty;
-    public virtual string Patronymic { get; set; } = string.Empty;
+    public string DisplayFullName => $"{Surname} {Name} {Patronymic}".Capitalize();
+    public string DisplayShortName => $"{Surname} {GetInitialChar(Name)}{GetInitialChar(Patronymic)}";
 
-    #region Display
+    #region Private
 
-    public virtual string DisplayFull => $"{Surname} {Name} {Patronymic}";
-    public virtual string DisplayShort =>
-        $"{Surname} {(string.IsNullOrWhiteSpace(Name) ? "" : Name[..1].ToUpper())}." +
-        $"{(string.IsNullOrWhiteSpace(Patronymic) ? "" : Patronymic[..1].ToUpper())}.";
+    private static string GetInitialChar(string s) => string.IsNullOrWhiteSpace(s) ? "" : $"{char.ToUpper(s[0])}.";
 
     #endregion
 }

@@ -53,7 +53,7 @@ public abstract class SectionFormBase<TItem> : FluxorComponent where TItem : IEq
         }
         catch (ApiException ex)
         {
-            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["UnknownError"]));
+            ToastService.ShowError(ex.GetMessage(Localizer["UnknownError"]));
         }
         catch
         {

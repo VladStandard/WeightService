@@ -64,7 +64,7 @@ public abstract class SectionDataGridBase<TItem> : FluxorComponent where TItem :
         }
         catch (ApiException ex)
         {
-            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["ToastDeleteItemError"]));
+            ToastService.ShowError(ex.GetMessage(Localizer["ToastDeleteItemError"]));
         }
         catch
         {

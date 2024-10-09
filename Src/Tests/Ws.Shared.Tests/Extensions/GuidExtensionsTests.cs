@@ -20,7 +20,7 @@ file static class TestCases
     public static IEnumerable<object[]> IsMaxTestCases()
     {
         yield return [new Guid(), false];
-        yield return [DefaultConsts.GuidMax, true];
+        yield return [DefaultTypes.GuidMax, true];
     }
 }
 

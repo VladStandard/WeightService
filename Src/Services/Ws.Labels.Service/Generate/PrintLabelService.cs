@@ -6,7 +6,7 @@ using Ws.Labels.Service.Generate.Features.Piece;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Features.Weight;
 using Ws.Labels.Service.Generate.Features.Weight.Dto;
-using Ws.Shared.Api.ApiException;
+using Ws.Shared.Exceptions;
 
 namespace Ws.Labels.Service.Generate;
 
@@ -29,7 +29,7 @@ internal class PrintLabelService(
         if (ans.Status.IsSuccess)
             return true;
 
-        throw new ApiExceptionServer
+        throw new ApiInternalException
         {
             ErrorDisplayMessage = localizer["ExchangeFailed"],
             ErrorInternalMessage = ans.Status.Message

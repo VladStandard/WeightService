@@ -6,6 +6,7 @@ using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
+using Ws.Shared.Extensions;
 
 namespace ScalesDesktop.Source.Features;
 
@@ -89,7 +90,7 @@ public sealed partial class LabelPrint : FluxorComponent
         }
         catch (ApiException ex)
         {
-            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["UnknownError"]));
+            ToastService.ShowError(ex.GetMessage(Localizer["UnknownError"]));
         }
         catch
         {

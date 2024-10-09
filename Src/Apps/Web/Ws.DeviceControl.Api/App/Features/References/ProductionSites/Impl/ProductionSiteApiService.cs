@@ -6,6 +6,7 @@ using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensio
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
+using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 
@@ -21,7 +22,7 @@ internal sealed class ProductionSiteApiService(
     public async Task<ProxyDto> GetProxyByUser()
     {
         ProxyDto? data = await userHelper.GetUserProductionSiteAsync();
-        if (data == null) throw new ApiExceptionServer
+        if (data == null) throw new ApiInternalException
         {
             ErrorDisplayMessage = "Площадка не установлена",
             StatusCode = HttpStatusCode.NotFound
@@ -37,7 +38,7 @@ internal sealed class ProductionSiteApiService(
             bool developer = await userHelper.ValidatePolicyAsync(PolicyEnum.Developer);
             return await dbContext.ProductionSites
                 .AsNoTracking()
-                .IfWhere(!developer, entity => entity.Id != DefaultConsts.GuidMax)
+                .IfWhere(!developer, entity => entity.Id != DefaultTypes.GuidMax)
                 .Select(ProductionSiteCommonExpressions.ToProxy)
                 .OrderBy(i => i.Name)
                 .ToListAsync();

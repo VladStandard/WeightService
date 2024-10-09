@@ -1,5 +1,6 @@
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
+using Ws.Shared.Extensions;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -57,7 +58,7 @@ public sealed partial class PalletResultStageForm : ComponentBase
         }
         catch (ApiException ex)
         {
-            ToastService.ShowError(ApiExceptionSerialization.GetMessage(ex, Localizer["ToastPalletCreateError"]));
+            ToastService.ShowError(ex.GetMessage(Localizer["ToastPalletCreateError"]));
         }
         catch (Exception)
         {

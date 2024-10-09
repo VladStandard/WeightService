@@ -7,6 +7,7 @@ using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extens
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
+using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;
 
@@ -80,7 +81,7 @@ internal sealed class TemplateResourceApiService(
         }
         catch
         {
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = "zpl error",
                 StatusCode = HttpStatusCode.UnprocessableEntity

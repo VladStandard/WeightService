@@ -11,7 +11,7 @@ using Ws.Labels.Service.Api.Pallet.Input;
 using Ws.Labels.Service.Api.Pallet.Output;
 using Ws.Labels.Service.Generate.Features.Piece.Dto;
 using Ws.Labels.Service.Generate.Services;
-using Ws.Shared.Api.ApiException;
+using Ws.Shared.Exceptions;
 
 namespace Ws.Labels.Service.Generate.Features.Piece;
 
@@ -25,7 +25,7 @@ internal class LabelPieceGenerator(
     public async Task<PalletOutputData> GeneratePiecePallet(GeneratePiecePalletDto dto, int labelCount)
     {
         if (labelCount is > 240 or < 1)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = localizer["ValidationFailed"],
                 ErrorInternalMessage = $"Label count must be between 240 or < 1. But {labelCount}"
@@ -80,7 +80,7 @@ internal class LabelPieceGenerator(
         PalletResponseDto response = await api.CreatePallet(data);
 
         if (response.Successes.Count == 0)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = localizer["ExchangeFailed"],
                 ErrorInternalMessage = response.Errors[0].Message
@@ -116,7 +116,7 @@ internal class LabelPieceGenerator(
         }
         catch (Exception ex)
         {
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = localizer["BarcodeInvalid"],
                 ErrorInternalMessage = ex.Message

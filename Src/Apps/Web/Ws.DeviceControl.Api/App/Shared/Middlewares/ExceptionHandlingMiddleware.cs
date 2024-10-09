@@ -1,4 +1,6 @@
 using System.Text.Json;
+using Ws.Shared.Exceptions;
+using Ws.Shared.ValueTypes;
 
 namespace Ws.DeviceControl.Api.App.Shared.Middlewares;
 
@@ -10,14 +12,14 @@ public class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> lo
         {
             await next(context);
         }
-        catch (ApiExceptionServer e)
+        catch (ApiInternalException e)
         {
             logger.LogWarning(e, "{EMessage}\n{EInternal}",
                 e.ErrorDisplayMessage, e.ErrorInternalMessage);
 
             context.Response.StatusCode = (int)e.StatusCode;
 
-            ApiExceptionClient problem = new()
+            ApiFailedResponse problem = new()
             {
                 LocalizeMessage = e.ErrorDisplayMessage,
             };

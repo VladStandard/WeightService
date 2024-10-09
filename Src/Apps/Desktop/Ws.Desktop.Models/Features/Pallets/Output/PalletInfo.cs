@@ -1,3 +1,5 @@
+using Ws.Shared.ValueTypes;
+
 namespace Ws.Desktop.Models.Features.Pallets.Output;
 
 public sealed record PalletInfo

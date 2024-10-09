@@ -1,5 +1,6 @@
 using System.Net;
 using Microsoft.Data.SqlClient;
+using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 
@@ -9,7 +10,7 @@ internal static class DbContextExtensions
     {
         bool isExist = await dbSet.AnyAsync(predicate);
         if (isExist)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = message,
                 StatusCode = HttpStatusCode.Conflict
@@ -20,7 +21,7 @@ internal static class DbContextExtensions
     {
         bool isExist = await dbSet.AnyAsync(predicate);
         if (!isExist)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = message,
                 StatusCode = HttpStatusCode.Conflict
@@ -35,7 +36,7 @@ internal static class DbContextExtensions
         }
         catch (SqlException)
         {
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = "Запись используются",
                 StatusCode = HttpStatusCode.Conflict
@@ -47,7 +48,7 @@ internal static class DbContextExtensions
     {
         T? entity = await dbSet.FindAsync(id);
         if (entity == null)
-            throw new ApiExceptionServer
+            throw new ApiInternalException
             {
                 ErrorDisplayMessage = message,
                 StatusCode = HttpStatusCode.NotFound

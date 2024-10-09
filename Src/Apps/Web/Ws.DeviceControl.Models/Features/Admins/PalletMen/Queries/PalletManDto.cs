@@ -1,4 +1,4 @@
-using Fio = Ws.Shared.Api.ValueTypes.Fio;
+using Ws.Shared.ValueTypes;
 
 namespace Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
@@ -11,6 +11,7 @@ public sealed record PalletManDto
     public required Guid Id1C { get; init; }
 
     [JsonPropertyName("fio")]
+    [JsonConverter(typeof(FioJsonConverter))]
     public required Fio Fio { get; init; }
 
     [JsonPropertyName("password")]
