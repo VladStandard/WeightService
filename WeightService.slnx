@@ -4,6 +4,7 @@
     <BuildType Name="ReleaseVS" />
     <Platform Name="x64" />
   </Configurations>
+  <Folder Name="Apps" />
   <Folder Name="/Apps/1C/">
     <Project Path="Src\Apps\Exchange\Ws.PalychExchange.Api\Ws.PalychExchange.Api.csproj" Type="Classic C#" />
   </Folder>
@@ -24,6 +25,7 @@
     <Project Path="Src\Apps\Web\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Infrastructure/">
+    <Project Path="Src\Infrastructure\Vms.Database\Vms.Database.csproj" Type="Classic C#" />
     <Project Path="Src\Infrastructure\Ws.Database\Ws.Database.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Libs/">
