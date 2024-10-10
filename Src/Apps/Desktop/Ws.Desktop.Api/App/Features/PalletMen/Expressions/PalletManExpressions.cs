@@ -9,7 +9,7 @@ internal static class PalletManExpressions
         new()
         {
             Id = palletMan.Id,
-            Fio = new(palletMan.Name, palletMan.Surname, palletMan.Patronymic),
+            Fio = new(palletMan.Surname, palletMan.Name, palletMan.Patronymic),
             Password = palletMan.Password
         };
 }

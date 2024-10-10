@@ -20,7 +20,7 @@ public class FioJsonConverter : JsonConverter<Fio>
         string surname = surnameElement.GetString() ?? throw new JsonException("Missing 'surname' property");
         string patronymic = patronymicElement.GetString() ?? throw new JsonException("Missing 'patronymic' property");
 
-        return new(name, surname, patronymic);
+        return new(surname, name, patronymic);
     }
 
     public override void Write(Utf8JsonWriter writer, Fio value, JsonSerializerOptions options)
