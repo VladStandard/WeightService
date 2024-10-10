@@ -10,20 +10,15 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>false</SelfContained>
         <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
-
-        <ApplicationTitle>ScalesMobile</ApplicationTitle>
-        <ApplicationId>ru.vladstandart.scalesmobile</ApplicationId>
-        <ApplicationIdGuid>C663D42A-C3A4-4848-AD9A-D10C23EE4ED1</ApplicationIdGuid>
+        
+        <RootNamespace>ScalesTablet</RootNamespace>
+        <ApplicationTitle>ScalesTablet</ApplicationTitle>
+        <ApplicationId>ru.vladstandart.scalestablet</ApplicationId>
     </PropertyGroup>
 
     <ItemGroup Label="Static assets">
-        <MauiAsset Include="wwwroot\app.css" />
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
         <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
-        <MauiImage Include="Resources\Images\*" />
-        <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
-        <MauiFont Include="Resources\Fonts\*" />
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup Label="Directory.Packages.props">
@@ -32,13 +27,23 @@
     </ItemGroup>
 
     <ItemGroup Label="Packages">
-        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91" />
+        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />
     </ItemGroup>
-
-    <ItemGroup Label="Projects">
+    
+    <ItemGroup>
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
+      <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Source\Layout\NavMenu.razor" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Source\Features\" />
+      <Folder Include="Source\Widgets\" />
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />
@@ -46,5 +51,4 @@
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
-
 </Project>

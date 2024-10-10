@@ -1,0 +1,67 @@
+﻿@page "/"
+@using ScalesTablet.Source.Shared
+@using Blazor.Heroicons.Outline
+
+<div class="size-full flex flex-col justify-between max-w-2xl mx-auto py-6">
+  <div class="w-full">
+    <div class="w-full flex justify-between items-center pb-3">
+      <h2 class="text-lg">Список паллет</h2>
+      <Button OnClick="@ShowCreateDialog">Добавить</Button>
+    </div>
+    <div class="w-full max-h-full bg-background rounded-md border overflow-hidden">
+      <FluentDataGrid
+        TGridItem="PalletItem"
+        Items="@Pallets"
+        RowClass="@(_ => "border-b")"
+        Class="overflow-y-auto size-full [&>.sticky-header]:border-b [&>.sticky-header]:!bg-background [&_fluent-data-grid-cell]:!text-primary"
+        GenerateHeader="GenerateHeaderOption.Sticky"
+        Virtualize
+      >
+        <TemplateColumn Width="1fr" Title="Наименование">
+          <span>Партия</span>
+        </TemplateColumn>
+        <TemplateColumn Width="1fr" Title="Тип">
+          <span>Монопаллета</span>
+        </TemplateColumn>
+        <PropertyColumn
+          Title="Кол-во партий"
+          Property="@(p => p.partia.Count)"
+          Width="1fr"
+        />
+        <TemplateColumn Width="4rem">
+          <Button Size="ButtonSizeType.Icon">
+            <TrashIcon class="size-4"/>
+          </Button>
+        </TemplateColumn>
+        <TemplateColumn Width="4rem">
+          <Button Size="ButtonSizeType.Icon">
+            <PencilIcon class="size-4"/>
+          </Button>
+        </TemplateColumn>
+      </FluentDataGrid>
+    </div>
+  </div>
+  <div class="w-full flex justify-end">
+    <Button>
+      Подтвердить
+    </Button>
+  </div>
+</div>
+
+@code {
+  [Inject] private IDialogService DialogService { get; set; } = default!;
+
+  private IQueryable<PalletItem> Pallets { get; set; } = new EnumerableQuery<PalletItem>([]);
+
+  private async Task ShowCreateDialog()
+  {
+    IDialogReference dialog = await DialogService.ShowDialogAsync<PalletCreateDialog>(new() { PreventDismissOnOverlayClick = true });
+    DialogResult result = await dialog.Result;
+    if (result is { Cancelled: false, Data: PalletItem pallet })
+    {
+      Pallets = Pallets.Append(pallet);
+      StateHasChanged();
+    }
+
+  }
+}
