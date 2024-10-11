@@ -1,0 +1,23 @@
+<Tabs ActiveTabId="@CurrentTab">
+  <Tab Id="@typeof(PluStage).ToString()">
+    <PluStage
+      @bind-Model="@Model"
+      OnCancelAction="@(() => Dialog.CancelAsync())"
+      OnSubmitAction="@(() => CurrentTab = typeof(BatchesStage).ToString())"
+    />
+  </Tab>
+  <Tab Id="@typeof(BatchesStage).ToString()">
+    <BatchesStage
+      Model="@Model"
+      OnCancelAction="@(() => CurrentTab = typeof(PluStage).ToString())"
+      OnSubmitAction="@(() => Dialog.CloseAsync(Model))"
+    />
+  </Tab>
+</Tabs>
+
+@code {
+  [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
+  [Parameter] public Pallet Model { get; set; } = default!;
+
+  private string CurrentTab { get; set; } = typeof(PluStage).ToString();
+}

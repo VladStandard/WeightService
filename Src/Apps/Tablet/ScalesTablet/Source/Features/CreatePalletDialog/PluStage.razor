@@ -1,0 +1,65 @@
+@using vNext.BlazorComponents.FluentValidation
+@using ButtonType = Ws.Components.Source.UI.ButtonType
+
+<EditForm
+  Model="@Model"
+  OnValidSubmit="@OnSubmitAction"
+  class="max-w-md w-full pb-4 pt-6 mx-auto"
+>
+  <FluentValidationValidator Validator="@(new PluStageValidator())" />
+  <div class="w-full space-y-5">
+    <FormFieldWrapper Label="Тип паллеты" HtmlId="pallet-type">
+      <TypeSwitcher
+        @bind-Value="@Model.Mono"
+        @bind-Value:after="OnMonoChanged"
+        HtmlId="pallet-type"
+      />
+      <FieldValidation For="@(() => Model.Mono)" />
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="Номер ПЛУ" HtmlId="pallet-plu">
+      <InputNumberField
+        Value="PluNumber"
+        @oninput="@OnPluInput"
+        Disabled="@(!Model.Mono)"
+        HtmlId="pallet-plu"
+        maxlength="5"
+      />
+      <FieldValidation For="@(() => Model.DefaultPlu)" />
+    </FormFieldWrapper>
+  </div>
+  <div class="flex justify-end gap-2 mt-10">
+    <Button Variant="ButtonVariantType.Outline" OnClick="@OnCancelAction">
+      Отмена
+    </Button>
+    <Button Type="@ButtonType.Submit">
+      Продолжить
+    </Button>
+  </div>
+</EditForm>
+
+@code {
+  [Parameter] public EventCallback OnSubmitAction { get; set; }
+  [Parameter] public EventCallback OnCancelAction { get; set; }
+  [Parameter] public Pallet Model { get; set; } = new();
+  [Parameter] public EventCallback<Pallet> ModelChanged { get; set; }
+
+  private int? PluNumber => int.TryParse(Model.DefaultPlu, out int number) ? number : null;
+
+  private Task OnModelChanged() => ModelChanged.InvokeAsync(Model);
+
+  private async Task OnPluInput(ChangeEventArgs e)
+  {
+    string newPlu = e.Value?.ToString() ?? string.Empty;
+    if (Model.DefaultPlu == newPlu) return;
+    Model.DefaultPlu = newPlu;
+    if (Model.DefaultPlu.Length == 5 && Model.Mono && Model.Batches.Any())
+      Model.Batches.ForEach(batch => batch.Plu = Model.DefaultPlu);
+    await OnModelChanged();
+  }
+
+  private async Task OnMonoChanged()
+  {
+    if (!Model.Mono) Model.DefaultPlu = string.Empty;
+    await OnModelChanged();
+  }
+}

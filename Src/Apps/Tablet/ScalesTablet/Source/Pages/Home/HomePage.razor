@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<div class="size-full flex flex-col justify-between max-w-2xl mx-auto py-6">
+  <div class="w-full flex flex-col max-h-full overflow-hidden">
+    <PalletDataGrid @bind-Value="Pallets" />
+  </div>
+  <div class="w-full flex justify-end pt-3">
+    <Button>
+      Подтвердить
+    </Button>
+  </div>
+</div>
+
+@code {
+  private List<Pallet> Pallets { get; set; } = [];
+}

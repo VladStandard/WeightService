@@ -10,7 +10,7 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
         <SelfContained>false</SelfContained>
         <SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
-        
+
         <RootNamespace>ScalesTablet</RootNamespace>
         <ApplicationTitle>ScalesTablet</ApplicationTitle>
         <ApplicationId>ru.vladstandart.scalestablet</ApplicationId>
@@ -24,25 +24,26 @@
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+        <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
 
     <ItemGroup Label="Packages">
+        <PackageReference Include="DeepCloner" VersionOverride="0.10.4" />
         <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <UpToDateCheckInput Remove="Source\Layout\NavMenu.razor" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <Folder Include="Source\Features\" />
       <Folder Include="Source\Widgets\" />
     </ItemGroup>
 

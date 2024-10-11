@@ -1,0 +1,55 @@
+@using Blazor.Heroicons.Outline
+
+@implements IDialogContentComponent<EventCallback>
+
+<Dialog Class="max-w-lg !p-6">
+  <div class="shrink-0 w-full flex items-center justify-between bg-background">
+    <h3 class="font-semibold">Вы уверены, что хотите удалить паллету?</h3>
+    <Button
+      Variant="ButtonVariantType.Ghost"
+      Size="ButtonSizeType.Icon"
+      OnClick="@(OnCancelAction)"
+    >
+      <XMarkIcon class="size-5"/>
+    </Button>
+  </div>
+  <p class="text-sm text-muted-foreground pt-1">
+    Это действие невозможно отменить. Это приведет к безвозвратному удалению элемента с формы.
+  </p>
+  <div class="flex w-full justify-end gap-2 pt-4">
+    <Button
+      Variant="ButtonVariantType.Outline"
+      OnClick="@(OnCancelAction)"
+    >
+      Отмена
+    </Button>
+    <Button
+      OnClick="@(OnSubmitAction)"
+      Disabled="@IsLoading"
+    >
+      Подтвердить
+    </Button>
+  </div>
+</Dialog>
+
+@code {
+  [CascadingParameter] protected FluentDialog Dialog { get; set; } = default!;
+  [Parameter] public EventCallback Content { get; set; }
+
+  private bool IsLoading { get; set; } = true;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    await Task.Delay(2000);
+    IsLoading = false;
+  }
+
+  private Task OnCancelAction() => Dialog.CancelAsync();
+
+  private async Task OnSubmitAction()
+  {
+    await Content.InvokeAsync();
+    await Dialog.CloseAsync();
+  }
+}

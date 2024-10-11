@@ -1,0 +1,30 @@
+@using ScalesTablet.Source.Shared
+
+@implements IDialogContentComponent<Pallet>
+
+<Dialog Class="max-w-screen-md select-none">
+  <DialogHeader>
+    <Button
+      Variant="ButtonVariantType.Secondary"
+      Class="disabled:!opacity-100"
+      Disabled
+    >
+      Добавление паллеты
+    </Button>
+  </DialogHeader>
+  <div class="flex flex-col w-full max-h-full bg-secondary/90 overflow-y-auto">
+    <CreatePalletForm Model="@Content" />
+  </div>
+</Dialog>
+
+@code {
+  [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
+  [Parameter] public Pallet Content { get; set; } = default!;
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    if (Content.Batches.Any()) return;
+    Content.Batches.Add(new());
+  }
+}
