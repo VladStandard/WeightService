@@ -4,9 +4,9 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database;
 using Ws.Desktop.Api;
+using Ws.Desktop.Api.App.Shared.Labels;
+using Ws.Desktop.Api.App.Shared.Labels.Settings;
 using Ws.Desktop.Api.App.Shared.Middlewares;
-using Ws.Labels.Service;
-using Ws.Labels.Service.Settings;
 using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 

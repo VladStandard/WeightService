@@ -5,11 +5,11 @@ using Ws.Database.Entities.Ref.Lines;
 using Ws.Database.Entities.Ref1C.Nestings;
 using Ws.Database.Entities.Ref1C.Plus;
 using Ws.Desktop.Api.App.Features.Plu.Common;
+using Ws.Desktop.Api.App.Shared.Labels.Generate;
+using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Weight.Dto;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
-using Ws.Labels.Service.Generate;
-using Ws.Labels.Service.Generate.Features.Weight.Dto;
 
 namespace Ws.Desktop.Api.App.Features.Plu.Impl.Weight;
 

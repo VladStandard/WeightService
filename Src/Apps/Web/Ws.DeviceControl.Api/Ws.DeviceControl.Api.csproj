@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup Label="Projects">
+        <ProjectReference Include="..\..\..\Libs\Ws.Barcodes\Ws.Barcodes.csproj" />
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
-        <ProjectReference Include="..\..\..\Services\Ws.Labels.Service\Ws.Labels.Service.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database\Ws.Database.csproj" PrivateAssets="All" />
     </ItemGroup>
@@ -26,10 +26,6 @@
     <ItemGroup>
       <EmbeddedResource Update="App\Shared\Localization\ApplicationResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="App\Shared\Resources\ApplicationResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ApplicationResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="App\Shared\Localization\ApplicationResources.en-US.resx">
@@ -44,11 +40,6 @@
 
     <ItemGroup>
       <Compile Update="App\Shared\Localization\ApplicationResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ApplicationResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="App\Shared\Resources\ApplicationResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ApplicationResources.resx</DependentUpon>
