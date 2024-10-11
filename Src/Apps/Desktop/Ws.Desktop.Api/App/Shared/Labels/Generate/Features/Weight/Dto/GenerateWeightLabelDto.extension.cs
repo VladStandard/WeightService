@@ -1,4 +1,4 @@
-using Ws.Barcodes.Features.Barcodes;
+using Ws.Print.Features.Barcodes;
 
 namespace Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Weight.Dto;
 

@@ -1,4 +1,4 @@
-using Ws.Barcodes.Features.Barcodes.Models;
+using Ws.Print.Features.Barcodes.Models;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 using Ws.Shared.ValueTypes;
 

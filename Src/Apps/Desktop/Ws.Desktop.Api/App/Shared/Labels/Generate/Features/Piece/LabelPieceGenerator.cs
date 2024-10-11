@@ -1,10 +1,10 @@
 using Microsoft.Extensions.Localization;
-using Ws.Barcodes.Features.Barcodes;
-using Ws.Barcodes.Features.Templates;
-using Ws.Barcodes.Features.Templates.Models;
-using Ws.Barcodes.Features.Templates.Utils;
-using Ws.Barcodes.Features.Templates.Variables;
-using Ws.Barcodes.Shared.Models;
+using Ws.Print.Features.Barcodes;
+using Ws.Print.Features.Templates;
+using Ws.Print.Features.Templates.Models;
+using Ws.Print.Features.Templates.Utils;
+using Ws.Print.Features.Templates.Variables;
+using Ws.Print.Shared.Models;
 using Ws.Database.Entities.Print.Labels;
 using Ws.Desktop.Api.App.Shared.Labels.Api;
 using Ws.Desktop.Api.App.Shared.Labels.Api.Pallet.Input;

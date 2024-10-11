@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.OS;
 
 namespace ScalesTablet;
 
@@ -11,6 +10,4 @@ namespace ScalesTablet;
                            ConfigChanges.ScreenLayout |
                            ConfigChanges.SmallestScreenSize |
                            ConfigChanges.Density)]
-public class MainActivity : MauiAppCompatActivity
-{
-}
+public class MainActivity : MauiAppCompatActivity;

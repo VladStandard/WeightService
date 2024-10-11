@@ -38,7 +38,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Database", "Src\Infrastr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{D990EC7C-93A8-A5D7-7DF4-4CADF9F64129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Barcodes", "Src\Libs\Ws.Barcodes\Ws.Barcodes.csproj", "{AA527F5F-3F9B-48FA-AA7A-D1432B73A4DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Print", "Src\Libs\Ws.Print\Ws.Print.csproj", "{AA527F5F-3F9B-48FA-AA7A-D1432B73A4DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Components", "Src\Libs\Ws.Components\Ws.Components.csproj", "{8E2CA7B5-4545-E834-54E9-74F11FC3A63C}"
 EndProject
@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{11ECFD39
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Architecture.Tests", "Src\Tests\Ws.Architecture.Tests\Ws.Architecture.Tests.csproj", "{3352B81C-AF44-402C-A910-D13CCBB47AA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Barcodes.Tests", "Src\Tests\Ws.Barcodes.Tests\Ws.Barcodes.Tests.csproj", "{43005D63-874D-55B8-3119-55556C43B89D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Print.Tests", "Src\Tests\Ws.Print.Tests\Ws.Print.Tests.csproj", "{43005D63-874D-55B8-3119-55556C43B89D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws.Components.Tests", "Src\Tests\Ws.Components.Tests\Ws.Components.Tests.csproj", "{5CDDF8EC-2A40-C98B-D8B1-E75E5375F251}"
 EndProject

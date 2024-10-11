@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Projects">
-        <ProjectReference Include="..\..\..\Libs\Ws.Barcodes\Ws.Barcodes.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Print\Ws.Print.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
