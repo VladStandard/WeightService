@@ -36,12 +36,20 @@ internal sealed class PalletMapConfig : IEntityTypeConfiguration<PalletEntity>
             .WithMany()
             .HasForeignKey("ARM_UID")
             .HasConstraintName($"FK_{SqlTables.Pallets}__ARM")
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         builder.HasOne(e => e.PalletMan)
             .WithMany()
             .HasForeignKey("PALLET_MAN_UID")
             .HasConstraintName($"FK_{SqlTables.Pallets}__PALLET_MAN")
+            .OnDelete(DeleteBehavior.Restrict)
+            .IsRequired();
+
+        builder.HasOne(e => e.Warehouse)
+            .WithMany()
+            .HasForeignKey("WAREHOUSE_UID")
+            .HasConstraintName($"FK_{SqlTables.Pallets}__WAREHOUSE")
             .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 

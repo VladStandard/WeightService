@@ -4,7 +4,6 @@ using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms;
 
-
 [Authorize]
 [ApiController]
 [Route(ApiEndpoints.Arms)]

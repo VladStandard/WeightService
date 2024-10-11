@@ -9,7 +9,7 @@ using Ws.Shared.Enums;
 
 namespace Ws.Desktop.Api.App.Shared.Auth;
 
-file record Arm(Guid Id, ArmType Role);
+file record Arm(Guid Id, ArmType Role, Guid WarehouseId);
 
 public class ArmAuthenticationHandler(
     IOptionsMonitor<ArmAuthenticationOptions> options,
@@ -33,7 +33,7 @@ public class ArmAuthenticationHandler(
 
         Arm? arm = await dbContext.Lines
             .Where(i => i.PcName == token)
-            .Select(i => new Arm(i.Id, i.Type))
+            .Select(i => new Arm(i.Id, i.Type, i.Warehouse.Id))
             .FirstOrDefaultAsync();
 
         if (arm == null)
@@ -42,7 +42,8 @@ public class ArmAuthenticationHandler(
         List<Claim> claims = [
             new(ClaimTypes.Name, token),
             new(ClaimTypes.NameIdentifier, arm.Id.ToString()),
-            new(ClaimTypes.Role, arm.Role.ToString())
+            new(ClaimTypes.Role, arm.Role.ToString()),
+            new(ClaimTypes.StreetAddress, arm.WarehouseId.ToString())
         ];
 
         ClaimsIdentity claimsIdentity = new(claims, Scheme.Name);

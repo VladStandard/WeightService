@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Ws.Database;
 using Ws.Database.Entities.Print.Pallets;
@@ -14,6 +15,7 @@ using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Piece.Dto;
 using Ws.Desktop.Api.App.Shared.Labels.Generate.Shared.Dto;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
+using Ws.Shared.Exceptions;
 using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
@@ -46,21 +48,42 @@ internal sealed class PalletApiService(
         return dbContext.Pallets
             .AsNoTracking()
             .IfWhere(dateCondition, p => p.CreateDt > startTime && p.CreateDt < endTime)
-            .Where(p => p.Arm.Id == userHelper.UserId)
+            .Where(p => p.Warehouse.Id == userHelper.WarehouseId)
             .OrderByDescending(p => p.CreateDt)
             .ToPalletInfo(dbContext.Labels).ToList();
     }
 
     public async Task Delete(Guid id)
     {
-        PalletEntity? pallet = await dbContext.Pallets.FindAsync(id);
-        if (pallet != null)
-        {
-            bool isDelete = pallet.DeletedAt == null;
-            await printLabelService.DeletePallet(pallet.Number, isDelete);
-            pallet.DeletedAt = isDelete ? DateTime.Now : null;
-            await dbContext.SaveChangesAsync();
-        }
+        PalletEntity? pallet = await dbContext.Pallets
+            .Include(i => i.Warehouse)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (pallet == null)
+            throw new ApiInternalException
+            {
+                ErrorDisplayMessage = "Паллета не найдена",
+                StatusCode = HttpStatusCode.NotFound
+            };
+
+        if (pallet == null)
+            throw new ApiInternalException
+            {
+                ErrorDisplayMessage = "Паллета уже отгружена",
+                StatusCode = HttpStatusCode.Conflict
+            };
+
+        if (pallet.Warehouse.Id != userHelper.WarehouseId)
+            throw new ApiInternalException
+            {
+                ErrorDisplayMessage = "Отказано в правах по складу",
+                StatusCode = HttpStatusCode.Conflict
+            };
+
+        bool isDelete = pallet.DeletedAt == null;
+        await printLabelService.DeletePallet(pallet.Number, isDelete);
+        pallet.DeletedAt = isDelete ? DateTime.Now : null;
+        await dbContext.SaveChangesAsync();
     }
 
     public List<PalletInfo> GetByNumber(string number)
@@ -119,6 +142,7 @@ internal sealed class PalletApiService(
             PalletMan = palletMan,
             Counter = palletCounter,
             IsShipped = false,
+            Warehouse = line.Warehouse,
             TrayWeight = dto.WeightTray,
             ProductDt = dto.ProdDt,
             Barcode = $"001460910023{palletCounter:D7}",

@@ -3,7 +3,6 @@ using Ws.Desktop.Models.Features.Arms.Output;
 
 namespace Ws.Desktop.Api.App.Features.Arms.Expressions;
 
-
 internal static class ArmExpressions
 {
     public static Expression<Func<LineEntity, ArmValue>> ToDto => arm =>
@@ -13,7 +12,11 @@ internal static class ArmExpressions
             Counter = (uint)arm.Counter,
             Name = arm.Name,
             PcName = arm.PcName,
-            Warehouse = arm.Warehouse.Name,
+            Warehouse = new()
+            {
+                Id = arm.Warehouse.Id,
+                Name = arm.Warehouse.Name
+            },
             Type = arm.Type,
             Printer = new()
             {

@@ -2,27 +2,33 @@
 @using ScalesDesktop.Source.Shared.Services.Endpoints
 @using ScalesDesktop.Source.Shared.Services.Stores
 @using Ws.Desktop.Models
+@using Ws.Desktop.Models.Features.Arms.Output
 @using Ws.Desktop.Models.Features.Pallets.Output
 @using Ws.Shared.Extensions
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 @if (PalletState.Value.Pallet != null)
 {
-  <Button
-    Variant="@(PalletState.Value.Pallet.DeletedAt == null ? ButtonVariantType.Destructive : ButtonVariantType.Default)"
-    OnClick="@(() => DeletePallet(PalletState.Value.Pallet))"
-  >
-    @if (PalletState.Value.Pallet.DeletedAt == null)
+  <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="query">
+    @if (query.HasData && GetCanDelete(query.Data))
     {
+    <Button
+      Variant="@(PalletState.Value.Pallet.IsDelete == false ? ButtonVariantType.Destructive : ButtonVariantType.Default)"
+      OnClick="@(() => DeletePallet(PalletState.Value.Pallet))"
+    >
+      @if (PalletState.Value.Pallet.IsDelete == false)
+      {
       <TrashIcon class="size-4 mr-2" />
-      @Localizer["BtnDelete"]
-    }
-    else
-    {
+        @Localizer["BtnDelete"]
+      }
+      else
+      {
       <ArrowUturnRightIcon class="size-4 mr-2" />
-      @Localizer["BtnRestore"]
+        @Localizer["BtnRestore"]
+      }
+    </Button>
     }
-  </Button>
+  </UseParameterlessEndpoint>
 }
 else
 {
@@ -41,6 +47,8 @@ else
   [Inject] private IState<PalletState> PalletState { get; set; } = default!;
 
   # endregion
+  private bool GetCanDelete(ArmValue armValue) =>
+    armValue.Warehouse.Id == PalletState.Value.Pallet!.Warehouse.Id && PalletState.Value.Pallet.IsShipped == false;
 
   private async void DeletePallet(PalletInfo pallet)
   {
@@ -48,7 +56,7 @@ else
     {
       await DesktopApi.DeletePallet(pallet.Id);
       PalletEndpoints.PiecePalletsEndpoint.InvalidateAll();
-      if (PalletState.Value.Pallet?.DeletedAt == null)
+      if (PalletState.Value.Pallet?.IsDelete == false)
       {
         Dispatcher.Dispatch(new ResetPalletAction());
         ToastService.ShowSuccess(Localizer["ToastPalletMarkedDeleted"]);

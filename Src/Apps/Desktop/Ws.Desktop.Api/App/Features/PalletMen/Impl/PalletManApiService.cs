@@ -12,13 +12,9 @@ internal sealed class PalletManApiService(WsDbContext dbContext, UserHelper user
 
     public List<PalletMan> GetAll()
     {
-        Guid warehouse = dbContext
-            .Lines.Where(i => i.Id == userHelper.UserId)
-            .Select(i => i.Warehouse.Id).Single();
-
         List<PalletMan> palletMen = dbContext.PalletMen
             .AsNoTracking()
-            .Where(i => i.Warehouse.Id == warehouse)
+            .Where(i => i.Warehouse.Id == userHelper.WarehouseId)
             .Select(PalletManExpressions.ToDto)
             .ToList();
         return palletMen;

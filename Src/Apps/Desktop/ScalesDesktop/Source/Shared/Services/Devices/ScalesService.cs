@@ -32,8 +32,8 @@ public class ScalesService : IScalesService, IDisposable
 
     public void Connect()
     {
+        _dispatcher.Dispatch(new ChangeScalesStatusAction(MassaKStatus.Disabled));
         Scales.Connect();
-        _dispatcher.Dispatch(new ChangeScalesStatusAction(MassaKStatus.Ready));
     }
 
     public void Disconnect()

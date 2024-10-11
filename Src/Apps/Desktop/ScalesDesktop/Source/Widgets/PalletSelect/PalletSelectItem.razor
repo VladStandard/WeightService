@@ -32,7 +32,7 @@
         }
       </div>
       <div class="flex items-center gap-1">
-        @if (Pallet.DeletedAt != null)
+        @if (Pallet.IsDelete)
         {
         <Badge Type="BadgeType.Destructive" Class="!px-1">
           <TrashIcon class="size-4" />

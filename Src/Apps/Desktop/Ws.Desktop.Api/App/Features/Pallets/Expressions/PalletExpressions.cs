@@ -19,7 +19,11 @@ internal static class PalletExpressions
             {
                 Id = result.Pallet.Id,
                 Arm = result.Pallet.Arm.Name,
-                Warehouse = result.Pallet.Arm.Warehouse.Name,
+                Warehouse = new()
+                {
+                    Id = result.Pallet.Warehouse.Id,
+                    Name = result.Pallet.Warehouse.Name
+                },
                 Number = result.Pallet.Number,
                 Plus = result.Labels
                     .GroupBy(label => label.Plu!.Id)

@@ -1,10 +1,10 @@
+using Ws.Desktop.Models.Shared.Models;
 using Ws.Shared.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;
 
 public sealed record ArmValue
 {
-
     [JsonPropertyName("id")]
     public required Guid Id { get; init; }
 
@@ -22,7 +22,7 @@ public sealed record ArmValue
     public required uint Counter { get; init; }
 
     [JsonPropertyName("warehouse")]
-    public required string Warehouse { get; init; }
+    public required ProxyDto Warehouse { get; init; }
 
     [JsonPropertyName("printer")]
     public required PrinterValue Printer { get; init; }

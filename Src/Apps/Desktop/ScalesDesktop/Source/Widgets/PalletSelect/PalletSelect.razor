@@ -139,9 +139,9 @@
 
     filteredPallets = PalletFilter switch
     {
-      PalletFilterType.NotShipped => filteredPallets.Where(x => x is { IsShipped: false, DeletedAt: null }),
-      PalletFilterType.Shipped => filteredPallets.Where(x => x is { IsShipped: true, DeletedAt: null }),
-      PalletFilterType.Deleted => filteredPallets.Where(x => x.DeletedAt != null),
+      PalletFilterType.NotShipped => filteredPallets.Where(x => x is { IsShipped: false, IsDelete: false }),
+      PalletFilterType.Shipped => filteredPallets.Where(x => x is { IsShipped: true, IsDelete: false}),
+      PalletFilterType.Deleted => filteredPallets.Where(x => x.IsDelete),
       _ => filteredPallets
     };
 

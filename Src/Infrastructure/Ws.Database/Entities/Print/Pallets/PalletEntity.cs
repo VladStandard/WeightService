@@ -7,6 +7,7 @@ public class PalletEntity
     #region FK
 
     public LineEntity Arm { get; set; } = new();
+    public WarehouseEntity Warehouse { get; set; } = new();
     public PalletManEntity PalletMan { get; set; } = new();
 
     #endregion

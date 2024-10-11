@@ -1,3 +1,4 @@
+using Ws.Desktop.Models.Shared.Models;
 using Ws.Shared.ValueTypes;
 
 namespace Ws.Desktop.Models.Features.Pallets.Output;
@@ -17,7 +18,7 @@ public sealed record PalletInfo
     public required string Arm { get; init; }
 
     [JsonPropertyName("warehouse")]
-    public required string Warehouse { get; init; }
+    public required ProxyDto Warehouse { get; init; }
 
     [JsonPropertyName("plus")]
     public required HashSet<PluPalletInfo> Plus { get; init; }
@@ -44,6 +45,9 @@ public sealed record PalletInfo
     public required decimal WeightTray { get; init; }
 
     #region JsonIgnore
+
+    [JsonIgnore]
+    public bool IsDelete => DeletedAt != null;
 
     [JsonIgnore]
     public decimal WeightNet => Plus.Sum(i => i.WeightNet);

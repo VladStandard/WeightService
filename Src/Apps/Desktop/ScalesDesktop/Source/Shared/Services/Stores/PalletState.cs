@@ -31,7 +31,7 @@ public class SwitchPalletDeleteFlagReducer : Reducer<PalletState, SwitchPalletDe
     {
         PalletInfo? currentPallet = state.Pallet;
         if (currentPallet == null) return state;
-        DateTime? newDeleteFlag = currentPallet.DeletedAt == null ? DateTime.Now : null;
+        DateTime? newDeleteFlag = !currentPallet.IsDelete ? DateTime.Now : null;
         return state with { Pallet = currentPallet with { DeletedAt = newDeleteFlag } };
     }
 }
