@@ -1,11 +1,14 @@
 @using DeviceControl.Source.Features
-@using DeviceControl.Source.Shared.Api
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Keycloak.Endpoints
+@using DeviceControl.Source.Shared.Api.Keycloak.Models
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Services.Stores
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Admins.Users.Queries
 
 @inherits SectionDataGridBase<UserWithProductionSite>
-@attribute [Route($"{RouteUtils.SectionUsers}")]
+@attribute [Route($"{Urls.Users}")]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 

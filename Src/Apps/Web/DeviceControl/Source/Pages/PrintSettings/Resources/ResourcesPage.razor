@@ -1,9 +1,10 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries
 
 @inherits SectionDataGridBase<TemplateResourceDto>
-@attribute [Route(RouteUtils.SectionResources)]
+@attribute [Route(Urls.Resources)]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
@@ -98,7 +99,7 @@
     await OpenModal<ResourcesCreateDialog>();
 
   protected override async Task OpenItemInNewTab(TemplateResourceDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionResources}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Resources}?id={item.Id}");
 
   protected override Task<TemplateResourceDto> SearchByUidAction(Guid uid) =>
     WebApi.GetResourceByUid(uid);

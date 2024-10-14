@@ -1,4 +1,6 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Helpers
+@using DeviceControl.Source.Shared.Services.Stores
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Create
 @using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries
@@ -18,7 +20,7 @@
     />
 
     <SectionInputWrapper
-      Path="@(FormModel.WarehouseId != Guid.Empty ? RedirectHelper.ToWarehouse(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+      Path="@RedirectHelper.ToWarehouse(FormModel.WarehouseId)"
       Label="@WsDataLocalizer["ColWarehouse"]"
       HtmlFor="pallet-man-warehouse"
     >

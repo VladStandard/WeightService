@@ -1,4 +1,4 @@
-using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Api.Keycloak.Models;
 
 namespace DeviceControl.Source.Pages.Admin.Users;
 

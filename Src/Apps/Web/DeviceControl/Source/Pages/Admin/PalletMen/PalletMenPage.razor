@@ -1,10 +1,12 @@
 @using DeviceControl.Source.Features
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Services.Stores
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries
 
 @inherits SectionDataGridBase<PalletManDto>
-@attribute [Route(RouteUtils.SectionPalletMen)]
+@attribute [Route(Urls.PalletMen)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
@@ -95,7 +97,7 @@
     await OpenModalWithItem<PalletMenUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(PalletManDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionPalletMen}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.PalletMen}?id={item.Id}");
 
   protected override Task<PalletManDto> SearchByUidAction(Guid uid) =>
     WebApi.GetPalletManByUid(uid);

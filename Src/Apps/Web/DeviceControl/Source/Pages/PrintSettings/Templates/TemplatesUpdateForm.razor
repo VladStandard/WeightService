@@ -1,4 +1,6 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Helpers
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Template.Commands.Update
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
@@ -85,7 +87,7 @@
     </UseEndpoint>
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionTemplates}?id={Model.Id}")" />
+    <SectionFormActionShare Path="@($"{Urls.Templates}?id={Model.Id}")" />
     @if (IsAdmin)
     {
       <SectionFormActionReset OnClick="@ResetAction" />

@@ -12,7 +12,6 @@ global using Microsoft.FluentUI.AspNetCore.Components;
 global using FluentValidation;
 
 // 4. Internal
-global using DeviceControl.Source.Shared.Utils;
 global using DeviceControl.Source.Shared.Localization;
 
 // 5. Modules

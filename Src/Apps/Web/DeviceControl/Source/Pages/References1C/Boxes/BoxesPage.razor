@@ -1,8 +1,9 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @inherits SectionDataGridBase<PackageDto>
-@attribute [Route(RouteUtils.SectionBoxes)]
+@attribute [Route(Urls.Boxes)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionBoxes"]</PageTitle>
@@ -72,7 +73,7 @@
     await OpenModalWithItem<BoxesViewDialog>(item);
 
   protected override async Task OpenItemInNewTab(PackageDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionBoxes}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Boxes}?id={item.Id}");
 
   protected override Task<PackageDto> SearchByUidAction(Guid uid) =>
     WebApi.GetBoxByUid(uid);

@@ -1,9 +1,10 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References1C.Brands
 @inherits SectionDataGridBase<BrandDto>
-@attribute [Route(RouteUtils.SectionBrands)]
+@attribute [Route(Urls.Brands)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionBrands"]</PageTitle>
@@ -66,7 +67,7 @@
     await OpenModalWithItem<BrandsViewDialog>(item);
 
   protected override async Task OpenItemInNewTab(BrandDto item)
-    => await OpenLinkInNewTab($"{RouteUtils.SectionBrands}?id={item.Id}");
+    => await OpenLinkInNewTab($"{Urls.Brands}?id={item.Id}");
 
   protected override Task<BrandDto> SearchByUidAction(Guid uid) =>
     WebApi.GetBrandByUid(uid);

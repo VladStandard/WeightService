@@ -1,10 +1,11 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References1C.Brands
 @using Ws.DeviceControl.Models.Features.References1C.Plus.Queries
 @inherits SectionDataGridBase<PluDto>
-@attribute [Route(RouteUtils.SectionPlus)]
+@attribute [Route(Urls.Plus)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionPLU"]</PageTitle>
@@ -154,7 +155,7 @@
     await OpenModalWithItem<PlusUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(PluDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionPlus}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Plus}?id={item.Id}");
 
   protected override Task<PluDto> SearchByUidAction(Guid uid) =>
     WebApi.GetPluByUid(uid);

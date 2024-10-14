@@ -37,7 +37,7 @@ public class WsDbContext : DbContext
         optionsBuilder.UseSqlServer(sqlCfg.GetConnectionString());
         optionsBuilder.AddInterceptors(new ChangeDtInterceptor());
 
-        if (ConfigurationUtil.IsDevelop && sqlCfg.IsShowSql)
+        if (ConfigurationUtils.IsDevelop && sqlCfg.IsShowSql)
             optionsBuilder.UseLoggerFactory(
                 LoggerFactory.Create(builder => builder.AddConsole())
             );

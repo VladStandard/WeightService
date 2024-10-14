@@ -1,10 +1,11 @@
 @using Blazor.Heroicons.Outline
 @using DeviceControl.Source.Features.ThemeSwitcher
+@using DeviceControl.Source.Shared.Constants
 @using WMBlazorOverlayScrollbars.WMBOS
 
 <aside class="flex sticky top-0 flex-col bg-background w-full grow h-screen border-r">
   <div class="flex flex-col items-center border-b shrink-0 justify-center h-14">
-    <a href="@RouteUtils.Home">
+    <a href="@Urls.Home">
       @Localizer["ApplicationName"]
     </a>
     @if (!IsProduction)
@@ -45,7 +46,7 @@
               <span>@User.Identity?.Name</span>
             </div>
           </div>
-          <form method="post" action="@($"{RouteUtils.Authorization}/logout")" class="shrink-0">
+          <form method="post" action="@($"{Urls.Authorization}/logout")" class="shrink-0">
             <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon" Type="@ButtonType.Submit">
               <span class="sr-only">Logout</span>
               <ArrowLeftOnRectangleIcon class="size-5"/>
@@ -56,7 +57,7 @@
       </Authorized>
       <NotAuthorized>
         <div class="flex w-full items-center justify-center">
-          <a href="@($"{RouteUtils.Authorization}/login")">
+          <a href="@($"{Urls.Authorization}/login")">
             <Button Variant="ButtonVariantType.Outline">
               Log in
             </Button>

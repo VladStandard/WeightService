@@ -1,4 +1,5 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update
 @using Ws.DeviceControl.Models.Features.References.Warehouses.Queries
@@ -41,7 +42,7 @@
     </UseParameterlessEndpoint>
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionWarehouses}?id={Model.Id}")" />
+    <SectionFormActionShare Path="@($"{Urls.Warehouses}?id={Model.Id}")" />
     @if (IsAdmin)
     {
       <SectionFormActionReset OnClick="@ResetAction" />

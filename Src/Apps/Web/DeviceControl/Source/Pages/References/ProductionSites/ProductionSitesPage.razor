@@ -1,9 +1,10 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries
 
 @inherits SectionDataGridBase<ProductionSiteDto>
-@attribute [Route(RouteUtils.SectionProductionSites)]
+@attribute [Route(Urls.ProductionSites)]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
@@ -64,7 +65,7 @@
     await OpenModalWithItem<ProductionSitesUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(ProductionSiteDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionProductionSites}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.ProductionSites}?id={item.Id}");
 
   protected override Task<ProductionSiteDto> SearchByUidAction(Guid uid) =>
     WebApi.GetProductionSiteByUid(uid);

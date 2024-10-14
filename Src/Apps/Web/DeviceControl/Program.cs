@@ -1,10 +1,12 @@
+using System.Security.Claims;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using DeviceControl;
 using DeviceControl.Source.App;
-using DeviceControl.Source.Shared.Auth.Extensions;
-using DeviceControl.Source.Shared.Refit;
-using DeviceControl.Source.Shared.Settings;
+using DeviceControl.Source.Shared.Api;
+using DeviceControl.Source.Shared.Auth;
+using DeviceControl.Source.Shared.Auth.Settings;
+using DeviceControl.Source.Shared.Constants;
 using Fluxor;
 using Ws.Shared.Constants;
 
@@ -33,6 +35,13 @@ builder.Services
     .AddFluentUIComponents(c => c.ValidateClassNames = false)
     .ConfigureKeycloakAuthorization(oidcSettings);
 
+builder.Services.AddScoped(s =>
+{
+    IHttpContextAccessor? httpContextAccessor = s.GetService<IHttpContextAccessor>();
+    HttpContext? httpContext = httpContextAccessor?.HttpContext;
+    return httpContext?.User ?? new ClaimsPrincipal();
+});
+
 builder.RegisterRefitClients();
 
 WebApplication app = builder.Build();
@@ -50,6 +59,9 @@ app.UseStaticFiles();
 app.UseAntiforgery();
 app.UseRequestLocalization(Cultures.Ru.Name);
 
-app.MapGroup(RouteUtils.Authorization).MapLoginAndLogout(oidcSettings.Scheme);
+app
+    .MapGroup(Urls.Authorization)
+    .MapLoginAndLogout(oidcSettings.Scheme);
+
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();

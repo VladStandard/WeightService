@@ -1,8 +1,9 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @inherits SectionDataGridBase<PackageDto>
-@attribute [Route(RouteUtils.SectionBundles)]
+@attribute [Route(Urls.Bundles)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionBundles"]</PageTitle>
@@ -70,7 +71,7 @@
     await OpenModalWithItem<BundlesViewDialog>(item);
 
   protected override async Task OpenItemInNewTab(PackageDto item)
-    => await OpenLinkInNewTab($"{RouteUtils.SectionBundles}?id={item.Id}");
+    => await OpenLinkInNewTab($"{Urls.Bundles}?id={item.Id}");
 
   protected override Task<PackageDto> SearchByUidAction(Guid uid) =>
     WebApi.GetBundleByUid(uid);

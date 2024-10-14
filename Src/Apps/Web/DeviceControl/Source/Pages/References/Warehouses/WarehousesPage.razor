@@ -1,9 +1,11 @@
 @using DeviceControl.Source.Features
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Services.Stores
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Warehouses.Queries
 @inherits SectionDataGridBase<WarehouseDto>
-@attribute [Route(RouteUtils.SectionWarehouses)]
+@attribute [Route(Urls.Warehouses)]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
@@ -78,7 +80,7 @@
     await OpenModalWithItem<WarehousesUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(WarehouseDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionWarehouses}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Warehouses}?id={item.Id}");
 
   protected override Task<WarehouseDto> SearchByUidAction(Guid uid) =>
     WebApi.GetWarehouseByUid(uid);

@@ -1,25 +1,8 @@
 ﻿@* SYSTEM *@
-
 @using System.Net.Http
 @using System.Net.Http.Json
 
 @using Microsoft.JSInterop
-
-@* INTERNAL *@
-
-@using DeviceControl.Source.Shared.UI
-@using DeviceControl.Source.Shared.UI.DataGrid
-@using DeviceControl.Source.Shared.UI.DataGrid.Header
-@using DeviceControl.Source.Shared.UI.DataGrid.ContextMenu
-@using DeviceControl.Source.Shared.UI.Form
-@using DeviceControl.Source.Shared.UI.Form.Actions
-@using DeviceControl.Source.Shared.UI.Form.Fields
-
-@using DeviceControl.Source.Shared.Utils
-@using DeviceControl.Source.Shared.Localization;
-@using ButtonType = Ws.Components.Source.UI.ButtonType
-
-@* EXTERNAL *@
 
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Authorization
@@ -29,6 +12,17 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 
+@* INTERNAL *@
+@using DeviceControl.Source.Shared.UI
+@using DeviceControl.Source.Shared.UI.DataGrid
+@using DeviceControl.Source.Shared.UI.DataGrid.Header
+@using DeviceControl.Source.Shared.UI.DataGrid.ContextMenu
+@using DeviceControl.Source.Shared.UI.Form
+@using DeviceControl.Source.Shared.UI.Form.Actions
+@using DeviceControl.Source.Shared.UI.Form.Fields
+@using DeviceControl.Source.Shared.Localization;
+
+@* EXTERNAL *@
 @using SortDirection=Blazorise.SortDirection
 @using Blazorise.Charts
 @using Blazorise.DataGrid
@@ -47,6 +41,7 @@
 @using Ws.Components.Source.UI.Stepper
 @using Ws.Components.Source.UI.Combobox
 @using Ws.Components.Source.Utils
+@using ButtonType = Ws.Components.Source.UI.ButtonType
 
 @using Ws.Shared.Utils
 @using Ws.Shared.Extensions;

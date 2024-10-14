@@ -1,4 +1,6 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Helpers
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References1C.Plus.Commands.Update
 @using Ws.DeviceControl.Models.Features.References1C.Plus.Queries
@@ -42,7 +44,7 @@
     />
 
     <SectionInputWrapper
-      Path="@(FormModel.TemplateId != Guid.Empty ? RedirectHelper.ToTemplate(FormModel.TemplateId, UserPrincipal) : string.Empty)"
+      Path="@RedirectHelper.ToTemplate(FormModel.TemplateId)"
       Label="@WsDataLocalizer["ColTemplate"]"
       HtmlFor="plu-template"
     >
@@ -132,7 +134,7 @@
   </FieldsContent>
 
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionPlus}?id={Model.Id}")" />
+    <SectionFormActionShare Path="@($"{Urls.Plus}?id={Model.Id}")" />
     @if (IsSupport)
     {
       <SectionFormActionReset OnClick="@ResetAction" />

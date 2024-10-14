@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Blazor.Heroicons;
+using DeviceControl.Source.Shared.Constants;
 
 namespace DeviceControl.Source.Widgets.NavMenu;
 
@@ -14,7 +15,7 @@ public sealed partial class NavMenu : ComponentBase
 
     protected override void OnInitialized()
     {
-        IsProduction = !ConfigurationUtil.IsDevelop;
+        IsProduction = !ConfigurationUtils.IsDevelop;
         MenuSections = CreateNavMenus();
     }
 
@@ -29,8 +30,8 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.Support,
             SubItems =
             [
-                new(Localizer["SectionLines"], RouteUtils.SectionLines),
-                new(Localizer["SectionPrinters"], RouteUtils.SectionPrinters)
+                new(Localizer["SectionLines"], Urls.Lines),
+                new(Localizer["SectionPrinters"], Urls.Printers)
             ]
         },
         new()
@@ -39,7 +40,7 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.Clipboard,
             SubItems =
             [
-                new(Localizer["SectionLabels"], RouteUtils.SectionLabels)
+                new(Localizer["SectionLabels"], Urls.Labels)
             ]
         },
         new()
@@ -48,11 +49,11 @@ public sealed partial class NavMenu : ComponentBase
             Icon = HeroiconName.CurrencyEuro,
             SubItems =
             [
-                new(Localizer["SectionPLU"], RouteUtils.SectionPlus),
-                new(Localizer["SectionBoxes"], RouteUtils.SectionBoxes),
-                new(Localizer["SectionClips"], RouteUtils.SectionClips),
-                new(Localizer["SectionBundles"], RouteUtils.SectionBundles),
-                new(Localizer["SectionBrands"], RouteUtils.SectionBrands)
+                new(Localizer["SectionPLU"], Urls.Plus),
+                new(Localizer["SectionBoxes"], Urls.Boxes),
+                new(Localizer["SectionClips"], Urls.Clips),
+                new(Localizer["SectionBundles"], Urls.Bundles),
+                new(Localizer["SectionBrands"], Urls.Brands)
             ]
         },
 
@@ -63,8 +64,8 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.SeniorSupport,
             SubItems =
             [
-                new(Localizer["SectionWarehouses"], RouteUtils.SectionWarehouses),
-                new(Localizer["SectionProductionSites"], RouteUtils.SectionProductionSites)
+                new(Localizer["SectionWarehouses"], Urls.Warehouses),
+                new(Localizer["SectionProductionSites"], Urls.ProductionSites)
             ]
         },
         new()
@@ -74,8 +75,8 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.SeniorSupport,
             SubItems =
             [
-                new(Localizer["SectionTemplates"], RouteUtils.SectionTemplates),
-                new(Localizer["SectionTemplateResources"], RouteUtils.SectionResources),
+                new(Localizer["SectionTemplates"], Urls.Templates),
+                new(Localizer["SectionTemplateResources"], Urls.Resources),
             ]
         },
         new()
@@ -85,8 +86,8 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.Support,
             SubItems =
             [
-                new(Localizer["SectionPalletMen"], RouteUtils.SectionPalletMen, PolicyEnum.Support),
-                new(Localizer["SectionUsers"], RouteUtils.SectionUsers, PolicyEnum.SeniorSupport),
+                new(Localizer["SectionPalletMen"], Urls.PalletMen, PolicyEnum.Support),
+                new(Localizer["SectionUsers"], Urls.Users, PolicyEnum.SeniorSupport),
             ]
         },
         new()
@@ -96,9 +97,9 @@ public sealed partial class NavMenu : ComponentBase
             RequiredClaim = PolicyEnum.Admin,
             SubItems =
             [
-                new(Localizer["SectionMigrations"], RouteUtils.SectionMigrations),
-                new(Localizer["SectionTables"], RouteUtils.SectionTables),
-                new(Localizer["SectionAnalytics"], RouteUtils.SectionAnalytics)
+                new(Localizer["SectionMigrations"], Urls.Migrations),
+                new(Localizer["SectionTables"], Urls.Tables),
+                new(Localizer["SectionAnalytics"], Urls.Analytics)
             ]
         }
     ];

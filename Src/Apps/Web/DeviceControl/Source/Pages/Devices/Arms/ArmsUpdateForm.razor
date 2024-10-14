@@ -1,4 +1,5 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Helpers
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
@@ -71,7 +72,7 @@
       />
 
       <SectionInputWrapper
-        Path="@(FormModel.PrinterId != Guid.Empty ? RedirectHelper.ToPrinter(FormModel.PrinterId, UserPrincipal) : string.Empty)"
+        Path="@RedirectHelper.ToPrinter(FormModel.PrinterId)"
         Label="@WsDataLocalizer["ColPrinter"]"
         HtmlFor="arms-printer"
       >
@@ -109,11 +110,11 @@
       <SectionReadOnlyField
         Label="@WsDataLocalizer["ColProductionSite"]"
         Value="@Model.ProductionSite.Name"
-        Path="@RedirectHelper.ToProductionSite(Model.ProductionSite.Id, UserPrincipal)"
+        Path="@RedirectHelper.ToProductionSite(Model.ProductionSite.Id)"
       />
 
       <SectionInputWrapper
-        Path="@(FormModel.WarehouseId != Guid.Empty ? RedirectHelper.ToWarehouse(FormModel.WarehouseId, UserPrincipal) : string.Empty)"
+        Path="@RedirectHelper.ToWarehouse(FormModel.WarehouseId)"
         Label="@WsDataLocalizer["ColWarehouse"]"
         HtmlFor="arm-warehouse"
       >
@@ -147,7 +148,7 @@
       </SectionInputWrapper>
     </FieldsContent>
     <ActionsContent>
-      <SectionFormActionShare Path="@RedirectHelper.ToArm(Model.Id, UserPrincipal)" />
+      <SectionFormActionShare Path="@RedirectHelper.ToArm(Model.Id)" />
       @if (IsSeniorSupport)
       {
         <SectionFormActionReset OnClick="@ResetAction" />

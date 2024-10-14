@@ -1,11 +1,13 @@
 @using DeviceControl.Source.Features
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Services.Stores
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Printers.Queries
 
 @inherits SectionDataGridBase<PrinterDto>
-@attribute [Route(RouteUtils.SectionPrinters)]
+@attribute [Route(Urls.Printers)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
@@ -105,7 +107,7 @@
     await OpenModalWithItem<PrintersUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(PrinterDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionPrinters}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Printers}?id={item.Id}");
 
   protected override Task<PrinterDto> SearchByUidAction(Guid uid) =>
     WebApi.GetPrinterByUid(uid);

@@ -1,3 +1,4 @@
+@using DeviceControl.Source.Shared.Constants
 @inherits SectionFormBase<PackageDto>
 
 <SectionForm
@@ -18,7 +19,7 @@
     />
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionClips}?id={FormModel.Id}")" />
+    <SectionFormActionShare Path="@($"{Urls.Clips}?id={FormModel.Id}")" />
   </ActionsContent>
 </SectionForm>
 

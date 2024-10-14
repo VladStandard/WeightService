@@ -1,10 +1,12 @@
 @using Blazor.Heroicons.Outline
 @using DeviceControl.Source.Features
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Services.Stores
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Arms.Queries
 @inherits SectionDataGridBase<ArmDto>
-@attribute [Route(RouteUtils.SectionLines)]
+@attribute [Route(Urls.Lines)]
 @attribute [Authorize(Policy = PolicyEnum.Support)]
 @rendermode InteractiveServer
 
@@ -128,7 +130,7 @@
     await OpenModalWithItem<ArmsUpdateDialog>(item);
 
   protected override async Task OpenItemInNewTab(ArmDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionLines}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Lines}?id={item.Id}");
 
   protected override Task<ArmDto> SearchByUidAction(Guid uid) =>
     WebApi.GetArmByUid(uid);

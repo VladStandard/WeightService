@@ -1,3 +1,5 @@
+@using DeviceControl.Source.Shared.Constants
+@using DeviceControl.Source.Shared.Helpers
 @inherits SectionFormBase<Ws.DeviceControl.Models.Features.Print.Labels.LabelDto>
 
 <SectionForm CreateDate="FormModel.CreateDt">
@@ -9,13 +11,13 @@
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColLine"]"
       Value="@FormModel.Arm.Name"
-      Path="@RedirectHelper.ToArm(FormModel.Arm.Id, UserPrincipal)"
+      Path="@RedirectHelper.ToArm(FormModel.Arm.Id)"
     />
 
     <SectionReadOnlyField
       Label="@WsDataLocalizer["ColWarehouse"]"
       Value="@FormModel.Warehouse.Name"
-      Path="@RedirectHelper.ToWarehouse(FormModel.Warehouse.Id, UserPrincipal)"
+      Path="@RedirectHelper.ToWarehouse(FormModel.Warehouse.Id)"
     />
 
     <FormDivider>@WsDataLocalizer["ColPlu"]</FormDivider>
@@ -113,7 +115,7 @@
 
   </FieldsContent>
   <ActionsContent>
-    <SectionFormActionShare Path="@($"{RouteUtils.SectionLabels}?id={FormModel.Id}")" />
+    <SectionFormActionShare Path="@($"{Urls.Labels}?id={FormModel.Id}")" />
   </ActionsContent>
 </SectionForm>
 

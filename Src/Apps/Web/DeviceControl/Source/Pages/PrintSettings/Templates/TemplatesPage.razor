@@ -1,9 +1,10 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.Template.Queries
 
 @inherits SectionDataGridBase<TemplateDto>
-@attribute [Route(RouteUtils.SectionTemplates)]
+@attribute [Route(Urls.Templates)]
 @attribute [Authorize(Policy = PolicyEnum.SeniorSupport)]
 @rendermode InteractiveServer
 
@@ -108,7 +109,7 @@
     await OpenModal<TemplatesCreateDialog>();
 
   protected override async Task OpenItemInNewTab(TemplateDto item) =>
-    await OpenLinkInNewTab($"{RouteUtils.SectionTemplates}?id={item.Id}");
+    await OpenLinkInNewTab($"{Urls.Templates}?id={item.Id}");
 
   private string GetTemplateTypeName(bool isWeight) =>
     isWeight ? WsDataLocalizer["ColTemplateWeight"] : WsDataLocalizer["ColTemplatePiece"];

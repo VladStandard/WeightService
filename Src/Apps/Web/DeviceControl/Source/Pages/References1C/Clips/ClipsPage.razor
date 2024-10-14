@@ -1,8 +1,9 @@
 @using Blazor.Heroicons.Outline
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models
 @inherits SectionDataGridBase<PackageDto>
-@attribute [Route(RouteUtils.SectionClips)]
+@attribute [Route(Urls.Clips)]
 @rendermode InteractiveServer
 
 <PageTitle>DeviceControl - @Localizer["SectionClips"]</PageTitle>
@@ -69,7 +70,7 @@
     await OpenModalWithItem<ClipsViewDialog>(item);
 
   protected override async Task OpenItemInNewTab(PackageDto item)
-    => await OpenLinkInNewTab($"{RouteUtils.SectionClips}?id={item.Id}");
+    => await OpenLinkInNewTab($"{Urls.Clips}?id={item.Id}");
 
   protected override Task<PackageDto> SearchByUidAction(Guid uid) =>
     WebApi.GetClipByUid(uid);

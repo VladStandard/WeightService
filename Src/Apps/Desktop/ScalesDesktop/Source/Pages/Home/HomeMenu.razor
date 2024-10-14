@@ -20,7 +20,7 @@
         @if (query.Data.Type is ArmType.Tablet or ArmType.Universal)
         {
           <li>
-            <a href="@RouteUtils.Labels">
+            <a href="@Routes.Labels">
               <HomeMenuItem>
                 <TagIcon class="size-5 mr-3"/>
                 @WsDataLocalizer["ColLabel"]
@@ -32,7 +32,7 @@
         @if (query.Data.Type is ArmType.Pc or ArmType.Universal)
         {
           <li>
-            <a href="@RouteUtils.Pallet">
+            <a href="@Routes.Pallet">
               <HomeMenuItem>
                 <ClipboardIcon class="size-5 mr-3"/>
                 @WsDataLocalizer["ColPallet"]

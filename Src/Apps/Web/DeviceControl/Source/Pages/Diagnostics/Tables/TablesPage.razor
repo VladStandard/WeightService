@@ -1,7 +1,8 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Constants
 @using Ws.DeviceControl.Models.Features.Database
 
-@attribute [Route($"{RouteUtils.SectionTables}")]
+@attribute [Route($"{Urls.Tables}")]
 @attribute [Authorize(Policy = PolicyEnum.Admin)]
 @rendermode InteractiveServer
 

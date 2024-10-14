@@ -1,4 +1,6 @@
-@using DeviceControl.Source.Shared.Services
+@using DeviceControl.Source.Shared.Api.Web.Endpoints
+@using DeviceControl.Source.Shared.Helpers
+@using DeviceControl.Source.Shared.Services.Stores
 @using TscZebra.Plugin.Abstractions.Enums
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create
@@ -34,6 +36,7 @@
     />
 
     <SectionReadOnlyField
+      Path="@RedirectHelper.ToProductionSite(FormModel.ProductionSiteId)"
       Label="@WsDataLocalizer["ColProductionSite"]"
       Value="@ProductionSiteState.Value.ProductionSite.Name"
       For="@(() => FormModel.ProductionSiteId)"
@@ -46,6 +49,7 @@
 
   [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
   [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
+  [Inject] private RedirectHelper RedirectHelper { get; set; } = default!;
   [Inject] private IState<ProductionSiteState> ProductionSiteState { get; set; } = default!;
   [Inject] private DevicesEndpoints DevicesEndpoints { get; set; } = default!;
   [Inject] private IWebApi WebApi { get; set; } = default!;

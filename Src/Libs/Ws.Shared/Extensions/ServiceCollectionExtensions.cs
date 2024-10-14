@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         where TImplementation : TInterface
         where TMockImplementation : TInterface
     {
-        Type implementationType = useMock && ConfigurationUtil.IsDevelop ? typeof(TMockImplementation) : typeof(TImplementation);
+        Type implementationType = useMock && ConfigurationUtils.IsDevelop ? typeof(TMockImplementation) : typeof(TImplementation);
 
         services.Add(new(typeof(TInterface), implementationType, lifetime));
 

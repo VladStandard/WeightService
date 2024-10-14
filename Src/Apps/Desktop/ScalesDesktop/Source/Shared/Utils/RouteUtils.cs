@@ -1,6 +1,6 @@
 namespace ScalesDesktop.Source.Shared.Utils;
 
-public static class RouteUtils
+public static class Routes
 {
     public const string Labels = "/labels";
     public const string Pallet = "/pallet";

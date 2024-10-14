@@ -19,7 +19,7 @@ public static class MauiProgram
         builder.UseMauiApp<App>().UseFullScreen();
 
         builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtil.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
+            .AddJsonFile($"appsettings.{(ConfigurationUtils.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
 
         builder.Services.AddMauiBlazorWebView();
 

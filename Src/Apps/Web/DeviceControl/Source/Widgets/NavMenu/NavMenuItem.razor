@@ -63,7 +63,7 @@
   protected override void OnInitialized()
   {
     NavigationManager.LocationChanged += HandleLocationChanged;
-    IsProduction = !ConfigurationUtil.IsDevelop;
+    IsProduction = !ConfigurationUtils.IsDevelop;
     IsOpened = GetIsAnyActive();
   }
 

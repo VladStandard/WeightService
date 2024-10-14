@@ -1,3 +1,5 @@
+@using DeviceControl.Source.Shared.Constants
+
 <Router AppAssembly="typeof(Program).Assembly">
   <Found Context="routeData">
     <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
@@ -6,7 +8,7 @@
           @if (context.User.Identity?.IsAuthenticated != true)
           {
           <h3 class="text-lg">You are not authorized</h3>
-          <form method="get" action="@($"{RouteUtils.Authorization}/login")">
+          <form method="get" action="@($"{Urls.Authorization}/login")">
             <Button class="w-64 mt-4" Type="@ButtonType.Submit">
               Log in
             </Button>
@@ -16,7 +18,7 @@
           else
           {
           <h3 class="text-lg">You don't have enough right</h3>
-          <a href="@RouteUtils.Home">
+          <a href="@Urls.Home">
             <Button class="w-64 mt-4">
               Go home
             </Button>
