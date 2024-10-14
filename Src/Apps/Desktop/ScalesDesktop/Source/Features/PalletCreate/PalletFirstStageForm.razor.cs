@@ -1,4 +1,5 @@
 using FluentValidation;
+using Ws.Shared.Extensions;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 
@@ -17,7 +18,7 @@ public sealed partial class PalletFirstStageForm : ComponentBase
     [Parameter] public EventCallback OnCancelAction { get; set; }
 
     private void OnPluSelected() => FormModel.Nesting =
-        FormModel.Plu!.Nestings.Find(x => x.Id == Guid.Empty);
+        FormModel.Plu!.Nestings.Find(x => x.Id.IsEmpty());
 }
 
 public class PalletPluStageFormValidator : AbstractValidator<PalletCreateModel>

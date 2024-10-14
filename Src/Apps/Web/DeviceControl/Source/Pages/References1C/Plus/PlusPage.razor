@@ -38,7 +38,7 @@
                 <TrashIcon class="text-red-600 size-5"/>
               </div>
             }
-            else if (context.Template?.Id == Guid.Empty || context.Template?.Id == null)
+            else if (context.Template?.Id.IsEmpty() == true)
             {
               <div class="w-full flex items-center justify-center">
                 <BookmarkSlashIcon class="text-purple-500 size-5 transition-colors hover:text-purple-700 dark:hover:text-purple-300"/>

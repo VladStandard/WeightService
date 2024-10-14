@@ -6,6 +6,7 @@ using Ws.Database.Entities.Ref1C.Nestings;
 using Ws.Database.Entities.Ref1C.Plus;
 using Ws.PalychExchange.Api.App.Features.Plus.Dto;
 using Ws.Shared.Constants;
+using Ws.Shared.Extensions;
 
 namespace Ws.PalychExchange.Api.App.Features.Plus.Impl;
 
@@ -37,8 +38,8 @@ internal sealed partial class PluApiService
     {
         foreach (PluDto i in validDtos)
         {
-            i.ClipUid = i.ClipUid == Guid.Empty ? DefaultTypes.GuidMax : i.ClipUid;
-            i.BundleUid = i.BundleUid == Guid.Empty ? DefaultTypes.GuidMax : i.BundleUid;
+            i.ClipUid = i.ClipUid.IsEmpty() ? DefaultTypes.GuidMax : i.ClipUid;
+            i.BundleUid = i.BundleUid.IsEmpty() ? DefaultTypes.GuidMax : i.BundleUid;
         }
     }
 

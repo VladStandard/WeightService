@@ -106,7 +106,7 @@ internal sealed class PalletApiService(
 
         NestingForLabel nestingForLabel;
 
-        if (dto.CharacteristicId == Guid.Empty)
+        if (dto.CharacteristicId.IsEmpty())
         {
             NestingEntity data1 = await dbContext.Nestings
                 .Include(i => i.Box)

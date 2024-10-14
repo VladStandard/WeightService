@@ -11,10 +11,9 @@ public sealed class RedirectHelper(IAuthorizationService authorizationService, C
 
     private static string Link(Guid uid, string baseUrl) => Link(uid, baseUrl, true);
 
-    private static string Link(Guid uid, string baseUrl, bool isActive) => !isActive || uid == Guid.Empty ? string.Empty : $"{baseUrl}?id={uid}";
+    private static string Link(Guid uid, string baseUrl, bool isActive) => !isActive || uid.IsEmpty() ? string.Empty : $"{baseUrl}?id={uid}";
 
-    private bool CheckPolicy(string policyName) =>
-        authorizationService.ValidatePolicy(user, policyName);
+    private bool CheckPolicy(string policyName) => authorizationService.ValidatePolicy(user, policyName);
 
     #endregion
 

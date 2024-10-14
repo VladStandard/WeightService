@@ -61,8 +61,8 @@
   {
     if (!IsFirstLoad) return;
     IsFirstLoad = false;
-    if (ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && AllowIsNew) return;
-    if (ProductionSiteState.Value.ProductionSite.Id == Guid.Empty && !AllowIsNew)
+    if (ProductionSiteState.Value.ProductionSite.Id.IsEmpty() && AllowIsNew) return;
+    if (ProductionSiteState.Value.ProductionSite.Id.IsEmpty() && !AllowIsNew)
       Dispatcher.Dispatch(new ChangeProductionSiteAction(userProductionSite));
   }
 

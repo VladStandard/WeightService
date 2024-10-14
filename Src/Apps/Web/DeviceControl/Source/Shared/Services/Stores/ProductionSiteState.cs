@@ -15,7 +15,7 @@ public record ChangeProductionSiteAction(ProxyDto ProductionSite);
 public class ChangeProductionSiteReducer : Reducer<ProductionSiteState, ChangeProductionSiteAction>
 {
     public override ProductionSiteState Reduce(ProductionSiteState state, ChangeProductionSiteAction action) =>
-        state.ProductionSite.Id != Guid.Empty && state.ProductionSite.Equals(action.ProductionSite) ? state : new(action.ProductionSite);
+        !state.ProductionSite.Id.IsEmpty() && state.ProductionSite.Equals(action.ProductionSite) ? state : new(action.ProductionSite);
 }
 
 public record ResetProductionSiteAction;
