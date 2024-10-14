@@ -45,8 +45,10 @@
       />
       <FieldValidation For="@(() => FormModel.Password)" />
     </FormFieldWrapper>
-    <Button Type="@ButtonType.Submit" Class="!mt-4">
-      @Localizer["BtnLogIn"]
-    </Button>
+    <div class="w-full flex justify-end">
+      <Button Type="@ButtonType.Submit" Class="!mt-4">
+        @Localizer["BtnLogIn"]
+      </Button>
+    </div>
   </EditForm>
 </div>

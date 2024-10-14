@@ -87,7 +87,7 @@
     await SetValue(Value);
   }
 
-  private async Task ShowDeleteDialog(Guid itemId) => await DialogService.ShowDialogAsync<DeletePalletDialog>(
+  private Task ShowDeleteDialog(Guid itemId) => DialogService.ShowDialogAsync<DeletePalletDialog>(
     EventCallback.Factory.Create(this, () => DeleteItem(itemId)), new());
 
   private async Task ShowEditDialog(Pallet pallet)

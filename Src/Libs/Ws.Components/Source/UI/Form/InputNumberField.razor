@@ -15,10 +15,12 @@
   Max="@Max"
   Step="@Step"
   AdditionalAttributes="AdditionalAttributes"
+  HideStep="@HideStep"
 />
 
 @code {
   [Parameter] public string? Min { get; set; }
   [Parameter] public string? Max { get; set; }
   [Parameter] public string Step { get; set; } = "1";
+  [Parameter] public bool HideStep { get; set; } = false;
 }

@@ -8,11 +8,10 @@
 >
   <FluentValidationValidator Validator="@(new PluStageValidator())" />
   <div class="w-full space-y-5">
-    <FormFieldWrapper Label="Тип паллеты" HtmlId="pallet-type">
+    <FormFieldWrapper Label="Тип паллеты">
       <TypeSwitcher
         @bind-Value="@Model.Mono"
         @bind-Value:after="OnMonoChanged"
-        HtmlId="pallet-type"
       />
       <FieldValidation For="@(() => Model.Mono)" />
     </FormFieldWrapper>
@@ -22,9 +21,10 @@
         @oninput="@OnPluInput"
         Disabled="@(!Model.Mono)"
         HtmlId="pallet-plu"
+        Placeholder="Введите номер ПЛУ..."
         maxlength="5"
       />
-      <FieldValidation For="@(() => Model.DefaultPlu)" />
+      <FieldValidation For="@(() => Model.DefaultPlu)"/>
     </FormFieldWrapper>
   </div>
   <div class="flex justify-end gap-2 mt-10">

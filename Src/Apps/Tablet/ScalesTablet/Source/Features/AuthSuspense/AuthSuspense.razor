@@ -1,0 +1,53 @@
+@using vNext.BlazorComponents.FluentValidation
+@using ButtonType = Ws.Components.Source.UI.ButtonType
+
+@if (!IsAuth)
+{
+  <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-background w-full">
+    <div class="w-full pb-4 border-b">
+      <h2 class="text-lg font-semibold leading-none tracking-tight">
+        Вход в систему
+      </h2>
+    </div>
+    <EditForm
+      Model="Model"
+      OnValidSubmit="@(() => IsAuth = true)"
+      class="mt-4"
+    >
+      <FluentValidationValidator Validator="@(new AuthModelValidator())" />
+      <FormFieldWrapper Label="Пароль" HtmlId="login-password">
+        <InputNumberField
+          TValue="int?"
+          id="login-password"
+          Value="@Password"
+          @oninput="@PasswordChanged"
+          Placeholder="Введите пароль..."
+          Min="0"
+          Max="9999"
+          HideStep
+        />
+        <FieldValidation For="@(() => Model.Password)" />
+      </FormFieldWrapper>
+      <div class="w-full flex justify-end">
+        <Button Type="@ButtonType.Submit" Class="!mt-4">
+          Войти
+        </Button>
+      </div>
+    </EditForm>
+  </div>
+}
+else
+{
+  @ChildContent
+}
+
+@code {
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+
+  private AuthFormModel Model { get; set; } = new();
+  private bool IsAuth { get; set; } = false;
+
+  private int? Password => int.TryParse(Model.Password, out int number) ? number : null;
+
+  private void PasswordChanged(ChangeEventArgs e) => Model.Password = e.Value?.ToString() ?? string.Empty;
+}
