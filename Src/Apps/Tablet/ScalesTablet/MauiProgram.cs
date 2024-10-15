@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
-using Ws.Shared.Utils;
 
 namespace ScalesTablet;
 
@@ -13,11 +11,9 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
-        builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtils.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
-
         builder.UseMauiApp<App>();
 
+        builder.LoadSettings();
         builder.SetupLocalizer();
         builder.RegisterRefitClients();
         builder.Services.AddMauiBlazorWebView();

@@ -47,4 +47,12 @@
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>
+    
+    <ItemGroup Label="add settings file">
+        <Content Remove="appsettings.$(ConfigurationName).json" />
+        <EmbeddedResource Include="appsettings.$(ConfigurationName).json">
+            <Link>appsettings.json</Link>
+        </EmbeddedResource>
+    </ItemGroup>
+    
 </Project>
