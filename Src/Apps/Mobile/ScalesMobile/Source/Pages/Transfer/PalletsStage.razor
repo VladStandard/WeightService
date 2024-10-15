@@ -1,0 +1,111 @@
+@using Blazor.Heroicons.Outline
+
+@implements IAsyncDisposable
+
+<div class="size-full flex flex-col items-center justify-center">
+  <div class="w-full h-full flex flex-col gap-6 max-w-sm mx-auto">
+    <div class="flex flex-col px-2 py-8 gap-1 items-center">
+      <DocumentTextIcon class="size-14 stroke-1"/>
+      <div class="flex flex-col text-center gap-1">
+        <h2 class="text-lg font-semibold">Отсканируйте штрихкод паллет</h2>
+        <p class="text-xs">
+          Отсканируйте те паллеты, которые необходимо перенести
+        </p>
+        <Button OnClick="@StartScanning">
+          <CameraIcon class="size-4 mr-2"/>
+          <span>Камера</span>
+        </Button>
+      </div>
+    </div>
+    <ul class="size-full items-center flex flex-col gap-2 overflow-y-auto">
+      @foreach (string item in Pallets)
+      {
+      <li class="w-full">
+        <Button
+          OnClick="@(() => DeletePalletItem(item))"
+          Variant="ButtonVariantType.Outline"
+          Class="!w-full">
+          <XMarkIcon class="size-4 mr-2"/>
+          <span>@item</span>
+        </Button>
+      </li>
+      }
+    </ul>
+  </div>
+  <div class="w-full gap-2 flex flex-col shrink-0 py-3 px-2">
+    <Button
+      OnClick="@OnCancelAction"
+      Variant="ButtonVariantType.Outline">
+      Назад
+    </Button>
+    <Button
+      OnClick="@OnSuccessAction"
+      Disabled="@(!Pallets.Any())">
+      Продолжить
+    </Button>
+  </div>
+</div>
+
+@code {
+  [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+
+  [Parameter] public EventCallback OnSuccessAction { get; set; }
+  [Parameter] public EventCallback OnCancelAction { get; set; }
+  [Parameter] public List<string> Pallets { get; set; } = [];
+  [Parameter] public EventCallback<List<string>> PalletsChanged { get; set; }
+
+  private IEnumerable<Label> LabelEntities { get; set; } = [];
+
+  protected override void OnInitialized()
+  {
+    base.OnInitialized();
+    MessagingCenter.Subscribe<ScanPage, string>(this, "ScanCompleted", (sender, result) =>
+    {
+      if (string.IsNullOrWhiteSpace(result) || Pallets.Contains(result)) return;
+      Pallets.Add(result);
+      PalletsChanged.InvokeAsync(Pallets);
+      StateHasChanged();
+    });
+  }
+
+  private async Task StartScanning()
+  {
+    if (Application.Current?.MainPage == null) return;
+    await Application.Current.MainPage.Navigation.PushModalAsync(new ScanPage());
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (!firstRender) return;
+    await JsRuntime.InvokeVoidAsync("subscribeBarcodeEnterEvent", DotNetObjectReference.Create(this), nameof(HandleInputEvent));
+  }
+
+  [JSInvokable]
+  public async Task HandleInputEvent(string inputValue)
+  {
+    if (string.IsNullOrWhiteSpace(inputValue) || Pallets.Contains(inputValue)) return;
+    Pallets.Add(inputValue);
+    await PalletsChanged.InvokeAsync(Pallets);
+    StateHasChanged();
+  }
+
+  private async Task DeletePalletItem(string item)
+  {
+    int index = Pallets.FindIndex(x => x.Equals(item));
+    if (index == -1) return;
+    Pallets.RemoveAt(index);
+    await PalletsChanged.InvokeAsync(Pallets);
+  }
+
+  public async ValueTask DisposeAsync()
+  {
+    try
+    {
+      await JsRuntime.InvokeVoidAsync("unsubscribeBarcodeEnterEvent");
+    }
+    catch
+    {
+      // pass
+    }
+  }
+}
