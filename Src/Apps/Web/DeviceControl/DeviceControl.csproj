@@ -52,7 +52,7 @@
         </EmbeddedResource>
     </ItemGroup>
 
-    <Import Project="..\..\..\.targets\NodePackages.targets" />
+    <Import Project="..\..\..\.targets\.targets" />
 
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />

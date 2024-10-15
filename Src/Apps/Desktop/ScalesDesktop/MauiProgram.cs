@@ -15,9 +15,7 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
-        builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtils.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
-
+        builder.LoadSettings();
         builder.SetupLocalizer();
         builder.RegisterRefitClients();
         builder.UseMauiApp<App>().UseFullScreen();

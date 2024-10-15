@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Ws.Shared.Handlers;
 
@@ -17,5 +18,20 @@ public static class BuilderExtensions
 
         builder.Services.AddLocalization();
         builder.Services.AddTransient<AcceptLanguageHandler>();
+    }
+
+    public static void LoadSettings(this MauiAppBuilder builder)
+    {
+        using Stream? appsettingsStream = Assembly
+            .GetExecutingAssembly()
+            .GetManifestResourceStream("ScalesDesktop.appsettings.json");
+
+        if (appsettingsStream == null) return;
+
+        IConfigurationRoot config = new ConfigurationBuilder()
+            .AddJsonStream(appsettingsStream)
+            .Build();
+
+        builder.Configuration.AddConfiguration(config);
     }
 }
