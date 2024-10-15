@@ -4,6 +4,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
 using Ws.Shared.Utils;
+using BarcodeScanning;
 
 namespace ScalesTablet;
 
@@ -18,6 +19,7 @@ public static class MauiProgram
 
         builder.UseMauiApp<App>();
 
+        builder.UseBarcodeScanning();
         builder.SetupLocalizer();
         builder.RegisterRefitClients();
         builder.Services.AddMauiBlazorWebView();
