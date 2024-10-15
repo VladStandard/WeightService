@@ -11,28 +11,26 @@
   </div>
   <ul class="flex flex-col gap-2">
     <li>
-      <a href="@Routes.Create">
+      <a href="@Routes.Validate">
         <HomeMenuItem>
           <PlusIcon class="size-5 mr-3" />
-          @Localizer["CreatePageTitle"]
+          Валидация
         </HomeMenuItem>
       </a>
     </li>
     <li>
-      <a href="@Routes.Scan">
+      <a href="@Routes.Transfer">
         <HomeMenuItem>
           <MagnifyingGlassIcon class="size-5 mr-3" />
-          @Localizer["ScanPageTitle"]
+          Перенос
         </HomeMenuItem>
       </a>
     </li>
     <li>
-      <a>
-        <HomeMenuItem>
-          <MagnifyingGlassCircleIcon class="size-5 mr-3" />
-          @Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Settings.Secure.AndroidId)
-        </HomeMenuItem>
-      </a>
+      <HomeMenuItem>
+        <MagnifyingGlassCircleIcon class="size-5 mr-3" />
+        @Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Settings.Secure.AndroidId)
+      </HomeMenuItem>
     </li>
     <li>
       <HomeMenuItem OnClick="@ShowCloseAppDialog">

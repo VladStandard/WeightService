@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="BarcodeScanning.Native.Maui" />
         <PackageReference Include="Refit.HttpClientFactory" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
@@ -31,7 +32,7 @@
 
     <ItemGroup Label="Packages">
         <PackageReference Include="DeepCloner" VersionOverride="0.10.4" />
-        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91"/>
+        <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />
     </ItemGroup>

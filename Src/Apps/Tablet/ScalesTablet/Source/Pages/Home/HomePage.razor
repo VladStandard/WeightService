@@ -1,16 +1,5 @@
-﻿@page "/"
+﻿@attribute [Route($"{Urls.Home}")]
 
-<div class="size-full flex flex-col justify-between max-w-2xl mx-auto p-6">
-  <div class="w-full flex flex-col max-h-full overflow-hidden">
-    <PalletDataGrid @bind-Value="Pallets" />
-  </div>
-  <div class="w-full flex justify-end pt-3">
-    <Button>
-      Подтвердить
-    </Button>
-  </div>
+<div class="size-full flex items-center justify-center px-3">
+  <HomeMenu />
 </div>
-
-@code {
-  private List<Pallet> Pallets { get; set; } = [];
-}

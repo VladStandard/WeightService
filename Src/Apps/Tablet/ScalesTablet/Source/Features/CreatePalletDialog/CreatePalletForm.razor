@@ -8,8 +8,15 @@
   </Tab>
   <Tab Id="@typeof(BatchesStage).ToString()">
     <BatchesStage
-      Model="@Model"
+      @bind-Model="@Model"
       OnCancelAction="@(() => CurrentTab = typeof(PluStage).ToString())"
+      OnSubmitAction="@(() => CurrentTab = typeof(ResultStage).ToString())"
+    />
+  </Tab>
+  <Tab Id="@typeof(ResultStage).ToString()">
+    <ResultStage
+      Model="@Model"
+      OnCancelAction="@(() => CurrentTab = typeof(BatchesStage).ToString())"
       OnSubmitAction="@(() => Dialog.CloseAsync(Model))"
     />
   </Tab>
