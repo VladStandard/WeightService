@@ -4,11 +4,11 @@ namespace Ws.Tablet.Models.Features.Plus;
 public class PluDto
 {
     [JsonPropertyName("id")]
-    public required Guid Id { get; init; }
+    public required Guid Id { get; set; }
 
     [JsonPropertyName("number")]
-    public required short Number { get; init; }
+    public required uint Number { get; set; }
 
     [JsonPropertyName("name")]
-    public required string Name { get; init; }
+    public required string Name { get; set; }
 }

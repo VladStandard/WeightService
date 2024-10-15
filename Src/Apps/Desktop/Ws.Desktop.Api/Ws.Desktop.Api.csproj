@@ -14,17 +14,18 @@
         <PackageReference Include="Refit.Xml" VersionOverride="7.2.1" />
         <PackageReference Include="Scriban" VersionOverride="5.10.0" />
     </ItemGroup>
-    
+
     <ItemGroup Label="Projects">
         <ProjectReference Include="..\..\..\Libs\Ws.Print\Ws.Print.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj"/>
         <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
         <ProjectReference Include="..\..\..\Infrastructure\Ws.Database\Ws.Database.csproj" PrivateAssets="All" />
     </ItemGroup>
+
     <ItemGroup>
       <Content Include="zHttp\.profiles\http-client.env.json" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <EmbeddedResource Update="App\Shared\Labels\Localization\LabelGenResources.resx">
             <Generator>ResXFileCodeGenerator</Generator>

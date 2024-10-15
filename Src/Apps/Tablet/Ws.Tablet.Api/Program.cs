@@ -1,45 +1,64 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Globalization;
+using System.Net.Mime;
+using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Ws.Shared.Constants;
+using Ws.Shared.Extensions;
+using Ws.Tablet.Api;
+using Ws.Tablet.Api.App.Shared.Middlewares;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
+CultureInfo.DefaultThreadCurrentUICulture = Cultures.Ru;
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+CultureInfo[] supportedCultures = [Cultures.Ru, Cultures.En];
+RequestLocalizationOptions localizationOptions = new()
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    DefaultRequestCulture = new(Cultures.Ru.Name)
 };
 
-app.MapGet("/weatherforecast", () =>
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddLocalization()
+    .AddHelpers<ITabletApiAssembly>()
+    .AddMiddlewares<ITabletApiAssembly>()
+    .AddApiServices<ITabletApiAssembly>();
+
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddControllers(options =>
     {
-        var forecast = Enumerable.Range(1, 5)
-            .Select(index =>
-                new WeatherForecast
-                (
-                DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                Random.Shared.Next(-20, 55),
-                summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
+        options.Filters.Add(new AllowAnonymousFilter());
+        options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
     })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressConsumesConstraintForFormFileParameters = true;
+        options.SuppressInferBindingSourcesForParameters = true;
+        options.SuppressModelStateInvalidFilter = true;
+        options.SuppressMapClientErrors = true;
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
+builder.Services.AddHttpContextAccessor();
+
+
+
+WebApplication app = builder.Build();
+
+app.UseHttpsRedirection();
+app.MapControllers();
+app.UseRequestLocalization(localizationOptions);
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseMiddleware<GenerateLabelExceptionHandlingMiddleware>();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
