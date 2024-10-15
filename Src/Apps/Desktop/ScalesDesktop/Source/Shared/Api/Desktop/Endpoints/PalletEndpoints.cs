@@ -1,7 +1,7 @@
 using Ws.Desktop.Models.Features.PalletMen;
 using Ws.Desktop.Models.Features.Pallets.Output;
 
-namespace ScalesDesktop.Source.Shared.Services.Endpoints;
+namespace ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 
 public class PalletEndpoints(IDesktopApi desktopApi)
 {

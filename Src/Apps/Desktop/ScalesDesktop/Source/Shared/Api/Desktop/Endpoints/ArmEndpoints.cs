@@ -1,12 +1,12 @@
 using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Desktop.Models.Features.Arms.Output;
 
-namespace ScalesDesktop.Source.Shared.Services.Endpoints;
+namespace ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 
 public class ArmEndpoints(IDesktopApi desktopApi, IPrinterService printerService)
 {
     public ParameterlessEndpoint<ArmValue> ArmEndpoint { get; } = new(
-        desktopApi.GetArmByName,
+        desktopApi.GetCurrentArm,
         options: new()
         {
             DefaultStaleTime = TimeSpan.FromHours(1),

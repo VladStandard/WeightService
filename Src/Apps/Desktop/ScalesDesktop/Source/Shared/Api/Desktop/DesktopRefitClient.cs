@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
+using ScalesDesktop.Source.Shared.Api.Desktop.Handlers;
+using Ws.Shared.Handlers;
 
-namespace ScalesDesktop.Source.Shared.Refit.Clients;
+namespace ScalesDesktop.Source.Shared.Api.Desktop;
 
 internal class DesktopRefitClient : IRefitClient
 {

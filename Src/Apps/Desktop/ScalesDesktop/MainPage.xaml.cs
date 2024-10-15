@@ -1,6 +1,7 @@
 using MauiPageFullScreen;
 using Microsoft.AspNetCore.Components.WebView;
 using Microsoft.Extensions.Configuration;
+using ScalesDesktop.Source.Shared.Extensions;
 
 namespace ScalesDesktop;
 
@@ -11,7 +12,7 @@ public partial class MainPage : ContentPage
     public MainPage(IConfiguration configuration)
     {
         InitializeComponent();
-        _fullScreen = configuration.GetValue<bool>("FullScreenMode");
+        _fullScreen = configuration.GetSection("System").GetValueOrDefault("FullScreenMode", true);
     }
 
     private void Bwv_BlazorWebViewInitialized(object sender, BlazorWebViewInitializedEventArgs e)

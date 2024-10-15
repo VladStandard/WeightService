@@ -1,4 +1,5 @@
 using FluentValidation;
+using ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 using Ws.Desktop.Models.Features.PalletMen;
 using IDispatcher = Fluxor.IDispatcher;
 

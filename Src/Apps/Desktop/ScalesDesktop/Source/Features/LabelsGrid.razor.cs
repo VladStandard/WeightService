@@ -1,5 +1,6 @@
 using Append.Blazor.Printing;
 using Microsoft.AspNetCore.Components.Web.HtmlRendering;
+using ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using TscZebra.Plugin.Abstractions.Enums;
 using Ws.Desktop.Models.Features.Pallets.Output;

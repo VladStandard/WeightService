@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace ScalesDesktop.Source.Shared.Refit;
+namespace ScalesDesktop.Source.Shared.Api.Desktop.Handlers;
 
 public class HostNameMessageHandler : DelegatingHandler
 {

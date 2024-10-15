@@ -1,7 +1,7 @@
 using DeviceControl.Source.Shared.Auth.Handlers;
-using DeviceControl.Source.Shared.Handlers;
 using Refit;
 using Ws.DeviceControl.Models;
+using Ws.Shared.Handlers;
 
 namespace DeviceControl.Source.Shared.Api.Web;
 

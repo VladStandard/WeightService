@@ -2,6 +2,7 @@ using Append.Blazor.Printing;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Extensions;
 using ScalesDesktop.Source.Shared.Services.Devices;
 using Ws.Shared.Extensions;
@@ -14,21 +15,23 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
+        builder.Configuration
+            .AddJsonFile($"appsettings.{(ConfigurationUtils.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
+
         builder.SetupLocalizer();
         builder.RegisterRefitClients();
         builder.UseMauiApp<App>().UseFullScreen();
-
-        builder.Configuration
-            .AddJsonFile($"appsettings.{(ConfigurationUtils.IsDevelop ? "DevelopVS" : "ReleaseVS")}.json");
 
         builder.Services.AddMauiBlazorWebView();
 
         builder.Services
             .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddDelegatingHandlers<IScalesDesktopAssembly>()
-            .AddScoped<HtmlRenderer>()
-            .AddScoped<IPrintingService, PrintingService>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);
+
+        builder.Services
+            .AddScoped<HtmlRenderer>()
+            .AddScoped<IPrintingService, PrintingService>();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
@@ -41,8 +44,9 @@ public static class MauiProgram
             options.ScanAssemblies(typeof(IScalesDesktopAssembly).Assembly);
         });
 
-        bool isPrinterMock = builder.Configuration.GetValue<bool?>("MockPrinter") ?? false;
-        bool isScalesMock = builder.Configuration.GetValue<bool?>("MockScales") ?? false;
+        IConfigurationSection systemSection = builder.Configuration.GetSection("System");
+        bool isScalesMock = systemSection.GetValueOrDefault("MockScales", false);
+        bool isPrinterMock = systemSection.GetValueOrDefault("MockPrinter", false);
 
         builder.Services
             .AddServiceOrMock<IScalesService, ScalesService, MockScalesService>(isScalesMock, ServiceLifetime.Singleton)

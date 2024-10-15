@@ -22,8 +22,10 @@
     </ItemGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Refit.HttpClientFactory" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" />
         <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
 
@@ -35,8 +37,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Ws.Tablet.Models\Ws.Tablet.Models.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
-      <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+      <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />

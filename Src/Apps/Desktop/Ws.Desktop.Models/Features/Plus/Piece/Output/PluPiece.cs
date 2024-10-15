@@ -1,6 +1,5 @@
 namespace Ws.Desktop.Models.Features.Plus.Piece.Output;
 
-
 public record Nesting
 {
     [JsonPropertyName("id")]
@@ -15,7 +14,6 @@ public record Nesting
     [JsonPropertyName("box")]
     public required string Box { get; init; }
 }
-
 
 [Serializable]
 public record PluPiece

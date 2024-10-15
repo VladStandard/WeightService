@@ -1,4 +1,4 @@
-namespace ScalesDesktop.Source.Shared.Refit;
+namespace ScalesTablet.Source.Shared.Api;
 
 internal interface IRefitClient
 {

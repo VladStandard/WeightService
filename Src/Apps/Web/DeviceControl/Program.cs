@@ -9,6 +9,7 @@ using DeviceControl.Source.Shared.Auth.Settings;
 using DeviceControl.Source.Shared.Constants;
 using Fluxor;
 using Ws.Shared.Constants;
+using Ws.Shared.Handlers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,8 @@ OidcSettings oidcSettings = builder.Configuration
 builder.Services
     .AddHelpers<IDeviceControlAssembly>()
     .AddRefitEndpoints<IDeviceControlAssembly>()
-    .AddDelegatingHandlers<IDeviceControlAssembly>();
+    .AddDelegatingHandlers<IDeviceControlAssembly>()
+    .AddTransient<AcceptLanguageHandler>();
 
 builder.Services
     .AddRazorComponents()
@@ -57,6 +59,7 @@ app.UseAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
+
 app.UseRequestLocalization(Cultures.Ru.Name);
 
 app

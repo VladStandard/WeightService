@@ -16,7 +16,6 @@ global using Refit;
 
 // 4. Internal
 global using ScalesDesktop.Source.Shared.Localization;
-global using ScalesDesktop.Source.Shared.Services.Endpoints;
 global using ScalesDesktop.Source.Shared.Services.Stores;
 
 // 5. Modules

@@ -1,7 +1,7 @@
 using Ws.Desktop.Models.Features.Plus.Piece.Output;
 using Ws.Desktop.Models.Features.Plus.Weight.Output;
 
-namespace ScalesDesktop.Source.Shared.Services.Endpoints;
+namespace ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 
 public class PluEndpoints(IDesktopApi desktopApi)
 {

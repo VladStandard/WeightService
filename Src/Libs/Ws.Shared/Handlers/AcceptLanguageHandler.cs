@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace ScalesDesktop.Source.Shared;
+namespace Ws.Shared.Handlers;
 
 public class AcceptLanguageHandler : DelegatingHandler
 {

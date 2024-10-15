@@ -1,5 +1,5 @@
 @using Blazor.Heroicons.Outline
-@using ScalesDesktop.Source.Shared.Services.Endpoints
+@using ScalesDesktop.Source.Shared.Api.Desktop.Endpoints
 
 <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Options="@(new(){ OnFailure = OnFailure })" Context="query">
   @if (query is { HasData: false, IsLoading: false })
