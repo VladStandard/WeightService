@@ -27,6 +27,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="BarcodeScanning.Native.Maui" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
     </ItemGroup>
@@ -39,6 +40,20 @@
 
     <ItemGroup Label="Projects">
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
+      <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiXaml Update="ScanPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="ScanPage.xaml.cs">
+        <DependentUpon>ScanPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />

@@ -1,0 +1,31 @@
+<div class="size-full flex flex-col justify-between">
+  <div class="w-full flex flex-col gap-3 py-6 px-3">
+    <FormFieldWrapper Label="Документ">
+      <InputTextField Value="@Model.DocumentNumber" ReadOnly />
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="Склад">
+      <InputTextField Value="@Model.WarehouseId.ToString()" ReadOnly />
+    </FormFieldWrapper>
+    <FormFieldWrapper Label="Паллеты">
+      <InputTextField Value="@($"{Model.Pallets.Count} шт")" ReadOnly />
+    </FormFieldWrapper>
+  </div>
+  <div class="w-full gap-2 flex flex-col shrink-0 py-3 px-2">
+    <Button
+      OnClick="@OnCancelAction"
+      Variant="ButtonVariantType.Outline"
+    >
+      Назад
+    </Button>
+    <a href="@Routes.Home" class="w-full">
+      <Button Class="!w-full">
+        Подтвердить
+      </Button>
+    </a>
+  </div>
+</div>
+
+@code {
+  [Parameter, EditorRequired] public TransferFormModel Model { get; set; } = default!;
+  [Parameter] public EventCallback OnCancelAction { get; set; }
+}
