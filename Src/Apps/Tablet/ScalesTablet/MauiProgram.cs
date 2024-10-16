@@ -3,6 +3,8 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
 using BarcodeScanning;
+using Fluxor;
+using Ws.Shared.Extensions;
 
 namespace ScalesTablet;
 
@@ -22,6 +24,16 @@ public static class MauiProgram
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
+
+        builder.Services
+            .AddRefitEndpoints<IScalesTabletAssembly>()
+            .AddDelegatingHandlers<IScalesTabletAssembly>();
+
+        builder.Services.AddFluxor(options =>
+        {
+            options.WithLifetime(StoreLifetime.Singleton);
+            options.ScanAssemblies(typeof(IScalesTabletAssembly).Assembly);
+        });
 
         #if DEBUG
 

@@ -1,4 +1,6 @@
 ﻿@using ScalesTablet.Source.Features.AuthSuspense
+@using Fluxor.Blazor.Web
+
 @inherits LayoutComponentBase
 
 <AuthSuspense>
@@ -9,3 +11,4 @@
 
 <FluentDialogProvider />
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
+<StoreInitializer />

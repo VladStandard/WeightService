@@ -1,4 +1,4 @@
-@using Blazor.Heroicons.Outline
+@using ScalesTablet.Source.Features
 
 <div class="flex gap-3 w-full items-center pb-6">
   <input
@@ -10,15 +10,11 @@
     placeholder="Введите номер документа..."
     class="flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
   />
-  <Button
-    OnClick="@StartScanning"
-    Disabled="@Disabled"
+  <CameraBarcodeScanner
     Variant="ButtonVariantType.Outline"
-    Class="!h-10"
-  >
-    <CameraIcon class="size-5 mr-2" />
-    <span>Отсканировать</span>
-  </Button>
+    ValueChanged="@OnScannerSend"
+    Disabled="@Disabled"
+  />
 </div>
 
 @code {
@@ -26,22 +22,11 @@
   [Parameter] public EventCallback<string> ValueChanged { get; set; }
   [Parameter] public bool Disabled { get; set; }
 
-  protected override void OnInitialized()
+  private async Task OnScannerSend(string value)
   {
-    base.OnInitialized();
-    MessagingCenter.Subscribe<ScanPage, string>(this, "ScanCompleted", (sender, result) =>
-    {
-      if (string.IsNullOrWhiteSpace(result)) return;
-      Value = result;
-      ValueChanged.InvokeAsync(Value);
-      StateHasChanged();
-    });
-  }
-
-  private async Task StartScanning()
-  {
-    if (Application.Current?.MainPage == null) return;
-    await Application.Current.MainPage.Navigation.PushModalAsync(new ScanPage());
+    if (value == Value) return;
+    Value = value;
+    await ValueChanged.InvokeAsync(Value);
   }
 
   private async void OnValueChanged(ChangeEventArgs e)

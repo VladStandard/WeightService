@@ -1,6 +1,6 @@
 @using Blazor.Heroicons.Outline
-@using Force.DeepCloner
 @using ScalesTablet.Source.Features.CreatePalletDialog
+@using Ws.Tablet.Models.Features.Pallets.Output
 
 <div class="w-full flex justify-between items-center pb-5 mb-5 border-b">
   <h2 class="font-medium text-xl">Список паллет</h2>
@@ -16,7 +16,7 @@
 <div class="w-full max-h-full flex flex-col">
   <div class="w-full h-9 shrink-0 grid grid-cols-[3rem,1fr,1fr,4rem] rounded-md bg-primary/5">
     <div class="size-full flex text-sm items-center justify-center">№</div>
-    <div class="size-full flex text-sm items-center px-3 uppercase">Тип</div>
+    <div class="size-full flex text-sm items-center px-3 uppercase">Штрихкод</div>
     <div class="size-full flex text-sm items-center px-3 uppercase">Количество</div>
     <div class="size-full flex text-sm items-center px-3 uppercase"></div>
   </div>
@@ -27,21 +27,20 @@
   </div>
   }
   <div class="w-full max-h-full overflow-y-auto divide-y">
-    @foreach ((Pallet item, int index) in Value.Select((value, index) => (value, index)))
+    @foreach ((PalletDto item, int index) in Value.Select((value, index) => (value, index)))
     {
     <div class="w-full h-12 shrink-0 grid grid-cols-[3rem,1fr,1fr,4rem]">
       <div class="size-full flex items-center justify-center">
         @(index + 1)
       </div>
       <div class="size-full flex items-center px-3">
-        @(item.Mono ? "Монопаллета" : "Многопаллета")
+        @item.PalletBarcode
       </div>
       <div class="size-full flex items-center px-3">
         @item.Batches.Count
       </div>
       <div class="size-full flex items-center justify-center">
         <Button
-          OnClick="@(() => ShowViewDialog(item))"
           Variant="ButtonVariantType.Ghost"
           Size="ButtonSizeType.Icon"
         >
@@ -57,47 +56,25 @@
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private IDialogService DialogService { get; set; } = default!;
 
-  [Parameter] public List<Pallet> Value { get; set; } = [];
-  [Parameter] public EventCallback<List<Pallet>> ValueChanged { get; set; }
+  [Parameter] public List<PalletDto> Value { get; set; } = [];
+  [Parameter] public EventCallback<List<PalletDto>> ValueChanged { get; set; }
   [Parameter] public string DocumentNumber { get; set; } = string.Empty;
 
-  private async Task SetValue(List<Pallet> newValue)
+  private async Task SetValue(List<PalletDto> newValue)
   {
     Value = newValue;
     await ValueChanged.InvokeAsync(Value);
   }
 
-  private async Task DeleteItem(Guid itemId)
-  {
-    int index = Value.FindIndex(x => x.Id.Equals(itemId));
-    if (index == -1) return;
-    Value.RemoveAt(index);
-    await SetValue(Value);
-  }
-
-  private async Task ReplaceItem(Pallet pallet)
-  {
-    int index = Value.FindIndex(x => x.Id.Equals(pallet.Id));
-    if (index == -1) return;
-    Value[index] = pallet;
-    await SetValue(Value);
-  }
-
-  private async Task ShowViewDialog(Pallet pallet)
-  {
-    IDialogReference dialog = await DialogService.ShowDialogAsync<CreatePalletDialog>(
-      pallet.DeepClone(), new() { PreventDismissOnOverlayClick = true });
-    DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: Pallet newItem })
-      await ReplaceItem(newItem);
-  }
+  private Task ShowViewDialog(PalletDto pallet) => DialogService.ShowDialogAsync<CreatePalletDialog>(
+      pallet, new() { PreventDismissOnOverlayClick = true });
 
   private async Task ShowCreateDialog()
   {
     IDialogReference dialog = await DialogService.ShowDialogAsync<CreatePalletDialog>(
-      new Pallet { DocumentNumber = DocumentNumber }, new() { PreventDismissOnOverlayClick = true });
+      new PalletCreateModel { DocumentNumber = DocumentNumber }, new() { PreventDismissOnOverlayClick = true });
     DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: Pallet newItem })
+    if (result is { Cancelled: false, Data: PalletDto newItem })
       await SetValue(Value.Append(newItem).ToList());
   }
 }

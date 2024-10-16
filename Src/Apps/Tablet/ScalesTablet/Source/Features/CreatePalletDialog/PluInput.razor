@@ -1,0 +1,73 @@
+@using Blazor.Heroicons.Outline
+@using Phetch.Core
+@using ScalesTablet.Source.Shared.Api.Tablet.Endpoints
+@using Ws.Tablet.Models.Features.Plus
+
+<div class="@Css.Class("h-10 w-full border rounded-md flex px-3 bg-background items-center gap-2", Class)">
+  <input
+    type="text"
+    value="@Plu.Number"
+    @oninput="@OnPluInput"
+    disabled="@Disabled"
+    inputmode="numeric"
+    placeholder="Номер ПЛУ..."
+    maxlength="4"
+    id="@HtmlId"
+    class="size-full bg-inherit placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+  />
+  @if (Plu.Number.Length == 4)
+  {
+    <UseEndpoint
+      Context="query"
+      Endpoint="@PluEndpoints.PluEndpoint"
+      Arg="@PluNumber"
+      Options="@(new() { OnSuccess = OnSuccess })"
+    >
+      @if (query.IsError)
+      {
+        <ExclamationCircleIcon class="size-6 text-destructive" />
+      }
+      else if (query.HasData)
+      {
+        <ExclamationCircleIcon class="size-6 text-green-500" />
+      }
+      else
+      {
+        <ExclamationCircleIcon class="size-6 text-muted-foreground" />
+      }
+    </UseEndpoint>
+  }
+  else
+  {
+    <ExclamationCircleIcon class="size-6 text-muted-foreground" />
+  }
+</div>
+
+@code {
+  [Inject] private PluEndpoints PluEndpoints { get; set; } = default!;
+  [Inject] private IToastService ToastService { get; set; } = default!;
+
+  [Parameter] public PluModel Plu { get; set; } = new();
+  [Parameter] public EventCallback<PluModel> PluChanged { get; set; }
+  [Parameter] public bool Disabled { get; set; }
+  [Parameter] public string Class { get; set; } = default!;
+  [Parameter] public string HtmlId { get; set; } = $"plu-input-{Guid.NewGuid()}";
+
+  private uint PluNumber => uint.TryParse(Plu.Number, out uint result) ? result : default;
+
+  private void OnSuccess(QuerySuccessEventArgs<uint, PluDto> obj)
+  {
+    Plu = Plu with { Id = obj.Result.Id };
+    PluChanged.InvokeAsync(Plu);
+  }
+
+  private async Task OnPluInput(ChangeEventArgs e)
+  {
+    string inputValue = e.Value?.ToString()?.Trim() ?? string.Empty;
+    if (inputValue == Plu.Number) return;
+    inputValue = new(e.Value?.ToString()?.Where(char.IsDigit).ToArray());
+    if (inputValue.Length < 4) Plu.Id = Guid.Empty;
+    Plu.Number = inputValue;
+    await PluChanged.InvokeAsync(Plu);
+  }
+}

@@ -23,6 +23,8 @@
 
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="BarcodeScanning.Native.Maui" />
+        <PackageReference Include="Fluxor.Blazor.Web" />
+        <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="Refit.HttpClientFactory" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
@@ -41,6 +43,10 @@
       <ProjectReference Include="..\Ws.Tablet.Models\Ws.Tablet.Models.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Source\Shared\Models\" />
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />

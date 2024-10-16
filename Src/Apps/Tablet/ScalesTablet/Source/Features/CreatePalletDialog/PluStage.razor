@@ -16,15 +16,14 @@
       <FieldValidation For="@(() => Model.Mono)" />
     </FormFieldWrapper>
     <FormFieldWrapper Label="Номер ПЛУ" HtmlId="pallet-plu">
-      <InputNumberField
-        Value="PluNumber"
-        @oninput="@OnPluInput"
-        Disabled="@(!Model.Mono)"
+      <PluInput
         HtmlId="pallet-plu"
-        Placeholder="Введите номер ПЛУ..."
-        maxlength="5"
+        @bind-Plu="@Model.DefaultPlu"
+        @bind-Plu:after="OnPluChanged"
+        Disabled="@(!Model.Mono)"
       />
-      <FieldValidation For="@(() => Model.DefaultPlu)"/>
+      <FieldValidation For="@(() => Model.DefaultPlu.Id)" />
+      <FieldValidation For="@(() => Model.DefaultPlu.Number)" />
     </FormFieldWrapper>
   </div>
   <div class="flex justify-end gap-2 mt-10">
@@ -40,26 +39,21 @@
 @code {
   [Parameter] public EventCallback OnSubmitAction { get; set; }
   [Parameter] public EventCallback OnCancelAction { get; set; }
-  [Parameter] public Pallet Model { get; set; } = new();
-  [Parameter] public EventCallback<Pallet> ModelChanged { get; set; }
-
-  private int? PluNumber => int.TryParse(Model.DefaultPlu, out int number) ? number : null;
+  [Parameter] public PalletCreateModel Model { get; set; } = new();
+  [Parameter] public EventCallback<PalletCreateModel> ModelChanged { get; set; }
 
   private Task OnModelChanged() => ModelChanged.InvokeAsync(Model);
 
-  private async Task OnPluInput(ChangeEventArgs e)
+  private async Task OnPluChanged()
   {
-    string newPlu = e.Value?.ToString() ?? string.Empty;
-    if (Model.DefaultPlu == newPlu) return;
-    Model.DefaultPlu = newPlu;
-    if (Model.DefaultPlu.Length == 5 && Model.Mono && Model.Batches.Any())
+    if (Model.DefaultPlu.Id != Guid.Empty && Model.Mono && Model.Batches.Any())
       Model.Batches.ForEach(batch => batch.Plu = Model.DefaultPlu);
     await OnModelChanged();
   }
 
   private async Task OnMonoChanged()
   {
-    if (!Model.Mono) Model.DefaultPlu = string.Empty;
+    if (!Model.Mono) Model.DefaultPlu = new();
     await OnModelChanged();
   }
 }

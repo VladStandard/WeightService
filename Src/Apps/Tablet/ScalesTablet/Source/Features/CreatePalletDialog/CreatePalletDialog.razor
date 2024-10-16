@@ -1,4 +1,4 @@
-@implements IDialogContentComponent<Pallet>
+@implements IDialogContentComponent<PalletCreateModel>
 
 <Dialog Class="max-w-screen-md select-none">
   <DialogHeader>
@@ -17,7 +17,7 @@
 
 @code {
   [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
-  [Parameter] public Pallet Content { get; set; } = default!;
+  [Parameter] public PalletCreateModel Content { get; set; } = default!;
 
   protected override void OnInitialized()
   {

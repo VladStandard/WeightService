@@ -1,4 +1,3 @@
-using Ws.Shared.ValueTypes;
 using Ws.Tablet.Api.App.Features.Pallets.Common;
 using Ws.Tablet.Models.Features.Pallets.Input;
 using Ws.Tablet.Models.Features.Pallets.Output;

@@ -19,6 +19,7 @@ public static class BuilderExtensions
 
         builder.Services.AddLocalization();
         builder.Services.AddTransient<AcceptLanguageHandler>();
+
         return builder;
     }
 

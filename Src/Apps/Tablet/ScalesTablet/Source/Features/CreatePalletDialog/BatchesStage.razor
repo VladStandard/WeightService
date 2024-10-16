@@ -23,20 +23,17 @@
         <span>Список пуст</span>
       </div>
     }
-    @foreach ((Batch item, int index) in Model.Batches.Select((value, index) => (value, index)))
+    @foreach ((BatchCreateModel item, int index) in Model.Batches.Select((value, index) => (value, index)))
     {
       <div class="w-full h-12 grid grid-cols-[3rem,1fr,1.5fr,1fr,5rem] divide-x">
         <div class="size-full text-sm font-medium flex items-center justify-center">
           @(index + 1)
         </div>
-        <input
-          @bind-value="@item.Plu"
-          @bind-value:after="@(() => OnItemChanged(item))"
-          class="px-3 bg-background size-full"
-          placeholder="Введите ПЛУ..."
-          disabled="@Model.Mono"
-          inputmode="numeric"
-          maxlength="5"
+        <PluInput
+          @bind-Plu="@item.Plu"
+          @bind-Plu:after="@(() => OnItemChanged(item))"
+          Disabled="@Model.Mono"
+          Class="!rounded-none !border-l-none !border-y-0 !h-full"
         />
         <NumericDateInput @bind-Value="@item.Date" />
         <input
@@ -74,8 +71,8 @@
 
   [Parameter] public EventCallback OnSubmitAction { get; set; }
   [Parameter] public EventCallback OnCancelAction { get; set; }
-  [Parameter] public Pallet Model { get; set; } = new();
-  [Parameter] public EventCallback<Pallet> ModelChanged { get; set; }
+  [Parameter] public PalletCreateModel Model { get; set; } = new();
+  [Parameter] public EventCallback<PalletCreateModel> ModelChanged { get; set; }
 
   private BatchValidator Validator { get; } = new();
 
@@ -83,13 +80,13 @@
 
   private async Task AddItem()
   {
-    Batch newItem = new();
+    BatchCreateModel newItem = new();
     if (Model.Mono) newItem.Plu = Model.DefaultPlu;
     Model.Batches.Add(newItem);
     await OnModelChanged();
   }
 
-  private async Task OnItemChanged(Batch item)
+  private async Task OnItemChanged(BatchCreateModel item)
   {
     int index = Model.Batches.FindIndex(x => x.Id.Equals(item.Id));
     if (index == -1) return;
@@ -126,10 +123,10 @@
     await OnSubmitAction.InvokeAsync();
   }
 
-  private async Task<List<BatchError>> ValidateBatches(List<Batch> batches)
+  private async Task<List<BatchError>> ValidateBatches(List<BatchCreateModel> batches)
   {
     List<BatchError> errorList = [];
-    foreach ((Batch item, int index) in batches.Select((value, index) => (value, index)))
+    foreach ((BatchCreateModel item, int index) in batches.Select((value, index) => (value, index)))
     {
       ValidationResult? result = await Validator.ValidateAsync(item);
       if (result == null || !result.Errors.Any()) continue;

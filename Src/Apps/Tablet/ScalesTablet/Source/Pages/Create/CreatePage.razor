@@ -1,3 +1,5 @@
+@using Ws.Tablet.Models.Features.Pallets.Output
+
 @attribute [Route($"{Urls.Create}")]
 
 <div class="size-full flex flex-col justify-between max-w-screen-md mx-auto p-6">
@@ -15,7 +17,7 @@
 @code {
   [Inject] private IDialogService DialogService { get; set; } = default!;
 
-  private List<Pallet> Pallets { get; set; } = [];
+  private List<PalletDto> Pallets { get; set; } = [];
   private string DocumentNumber { get; set; } = string.Empty;
 
   private Task ShowCreateCompleteDialog() => DialogService.ShowDialogAsync<CompleteCreateDialog>(new());
