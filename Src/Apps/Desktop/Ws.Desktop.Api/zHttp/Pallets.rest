@@ -7,6 +7,7 @@ GET {{url}}/api/arms/27bb9d44-cae9-4a6d-9204-b15500e1258a/pallets/214
 ####
 
 POST {{url}}/api/arms/e899a13c-9bbb-4e60-9023-b15500dfd051/pallets
+Authorization: ArmAuthenticationScheme PC473
 Content-Type: application/json
 
 {

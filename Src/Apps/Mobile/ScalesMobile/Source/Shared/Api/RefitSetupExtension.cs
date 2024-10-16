@@ -1,5 +1,4 @@
 using System.Reflection;
-using ScalesTablet.Source.Shared.Api;
 
 namespace ScalesMobile.Source.Shared.Api;
 

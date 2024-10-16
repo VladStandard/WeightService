@@ -14,8 +14,4 @@
         <Content Include="zHttp\.profiles\http-client.env.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="zHttp\.profiles\http-client.env.json" />
-    </ItemGroup>
-
 </Project>

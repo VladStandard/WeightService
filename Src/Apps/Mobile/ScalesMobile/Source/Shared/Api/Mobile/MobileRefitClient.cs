@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Refit;
 using ScalesMobile.Source.Shared.Extensions;
-using ScalesTablet.Source.Shared.Api;
 using Ws.Mobile.Models;
 using Ws.Shared.Handlers;
 

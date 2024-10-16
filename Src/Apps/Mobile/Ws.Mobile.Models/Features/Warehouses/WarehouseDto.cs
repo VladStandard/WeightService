@@ -11,7 +11,4 @@ public class WarehouseDto
 
     [JsonPropertyName("warehouseName")]
     public required string WarehouseName { get; set; } = string.Empty;
-
-    [JsonPropertyName("warehouseAddress")]
-    public required string WarehouseAddress { get; set; } = string.Empty;
 }

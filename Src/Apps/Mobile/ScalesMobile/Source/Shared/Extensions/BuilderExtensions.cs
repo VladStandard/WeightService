@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using Ws.Shared.Constants;
 using Ws.Shared.Handlers;
 
 namespace ScalesMobile.Source.Shared.Extensions;
@@ -11,11 +12,12 @@ public static class BuilderExtensions
     {
         IConfigurationSection systemSection = builder.Configuration.GetSection("System");
 
-        CultureInfo defaultCulture = new(systemSection.GetValueOrDefault("Language", "ru-RU"));
+        CultureInfo defaultCulture = new(systemSection.GetValueOrDefault("Language", Cultures.Ru.Name));
 
         CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
         CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
+        builder.Services.AddLocalization();
         builder.Services.AddTransient<AcceptLanguageHandler>();
 
         return builder;
@@ -25,7 +27,7 @@ public static class BuilderExtensions
     {
         using Stream? appsettingsStream = Assembly
             .GetExecutingAssembly()
-            .GetManifestResourceStream("ScalesTablet.appsettings.json");
+            .GetManifestResourceStream("ScalesMobile.appsettings.json");
 
         if (appsettingsStream == null) return builder;
 

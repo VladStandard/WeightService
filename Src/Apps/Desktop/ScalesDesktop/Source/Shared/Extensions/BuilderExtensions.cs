@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using Ws.Shared.Constants;
 using Ws.Shared.Handlers;
 
 namespace ScalesDesktop.Source.Shared.Extensions;
@@ -11,7 +12,7 @@ public static class BuilderExtensions
     {
         IConfigurationSection systemSection = builder.Configuration.GetSection("System");
 
-        CultureInfo defaultCulture = new(systemSection.GetValueOrDefault("Language", "ru-RU"));
+        CultureInfo defaultCulture = new(systemSection.GetValueOrDefault("Language", Cultures.Ru.Name));
 
         CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
         CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
