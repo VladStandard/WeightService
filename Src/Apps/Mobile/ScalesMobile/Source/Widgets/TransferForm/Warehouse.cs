@@ -1,4 +1,4 @@
-namespace ScalesMobile.Source.Pages.Transfer;
+namespace ScalesMobile.Source.Widgets.TransferForm;
 
 public record Warehouse
 {

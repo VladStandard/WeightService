@@ -1,43 +1,41 @@
 @using Blazor.Heroicons.Outline
 
-<div class="size-full flex flex-col justify-between max-w-sm mx-auto">
-  <ul class="flex w-full h-full flex-col gap-y-2 py-6 px-3">
-    @foreach (Warehouse item in Warehouses)
-    {
-      <li class="w-full">
-        <button
-          @onclick="@(() => SetWarehouseId(item.Id))"
-          class="h-12 w-full rounded-md border flex items-center gap-2 bg-background px-3"
-        >
-          <div class="size-10 shrink-0 flex items-center justify-center">
-            @if (WarehouseId.Equals(item.Id))
-            {
-              <CheckIcon class="size-6 shrink-0" />
-            }
-            else
-            {
-              <span> </span>
-            }
-          </div>
+<div class="flex flex-col size-full justify-between overflow-hidden py-3 px-2">
+  <div class="size-full flex flex-col py-4 gap-1 overflow-hidden">
+    <h3 class="text-sm font-medium">Выберите склад</h3>
+    <ul class="size-full items-center flex flex-col gap-1 overflow-y-auto">
+      @foreach (Warehouse item in Warehouses)
+      {
+        <li class="w-full">
+          <button
+            @onclick="@(() => SetWarehouseId(item.Id))"
+            class="h-12 w-full rounded-md border flex items-center gap-2 bg-background px-3"
+          >
+            <div class="w-8 shrink-0 flex items-center justify-center">
+              @if (WarehouseId.Equals(item.Id))
+              {
+                <CheckIcon class="size-6 shrink-0" />
+              }
+              else
+              {
+                <span> </span>
+              }
+            </div>
 
-          <div class="flex flex-col w-full text-left">
-            <div class="truncate text-sm">@item.Name</div>
-            <div class="text-muted-foreground text-xs truncate">@item.Address</div>
-          </div>
-        </button>
-      </li>
-    }
-  </ul>
-  <div class="w-full gap-2 flex flex-col shrink-0 py-3 px-2">
-    <Button
-      OnClick="@OnCancelAction"
-      Variant="ButtonVariantType.Outline"
-    >
+            <div class="flex flex-col w-full text-left">
+              <div class="truncate text-sm">@item.Name</div>
+              <div class="text-muted-foreground text-xs truncate">@item.Address</div>
+            </div>
+          </button>
+        </li>
+      }
+    </ul>
+  </div>
+  <div class="shrink-0 w-full flex flex-col gap-2">
+    <Button OnClick="@OnCancelAction" Variant="ButtonVariantType.Outline">
       Назад
     </Button>
-    <Button
-      OnClick="@OnSuccessAction"
-      Disabled="@WarehouseId.Equals(Guid.Empty)">
+    <Button OnClick="@OnSuccessAction" Disabled="@WarehouseId.Equals(Guid.Empty)">
       Продолжить
     </Button>
   </div>

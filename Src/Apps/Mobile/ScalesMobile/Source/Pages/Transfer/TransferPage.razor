@@ -1,57 +1,13 @@
-@using Blazor.Heroicons.Outline
+@using ScalesMobile.Source.Widgets.TransferForm
+@using ScalesMobile.Source.Features
 
 @attribute [Route(Routes.Transfer)]
 
 <div class="size-full flex flex-col">
-  <div class="flex bg-background h-12 items-center shrink-0 w-full px-3 gap-2 border-b">
-    <a href="@Routes.Home">
-      <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon">
-        <ArrowLeftIcon class="size-5"/>
-      </Button>
-    </a>
-    <h2 class="truncate">Перенос паллет</h2>
-  </div>
-  <div class="size-full grow flex flex-col">
-    <Stepper @bind-CurrentIndex="CurrentTabIndex" Class="mt-4">
-      <StepperItem Label="Документ" Disabled />
-      <StepperItem Label="Паллеты" Disabled />
-      <StepperItem Label="Склад" Disabled />
-      <StepperItem Label="Результат" Disabled />
-    </Stepper>
-    @if (CurrentTabIndex == 1)
-    {
-      <DocumentStage
-        @bind-DocumentNumber="@Model.DocumentNumber"
-        OnSuccessAction="@(() => CurrentTabIndex = 2)"
-      />
-    }
-    else if (CurrentTabIndex == 2)
-    {
-      <PalletsStage
-        @bind-Pallets="@Model.Pallets"
-        OnCancelAction="@(() => CurrentTabIndex = 1)"
-        OnSuccessAction="@(() => CurrentTabIndex = 3)"
-      />
-    }
-    else if (CurrentTabIndex == 3)
-    {
-      <WarehouseStage
-        @bind-WarehouseId="@Model.WarehouseId"
-        OnCancelAction="@(() => CurrentTabIndex = 2)"
-        OnSuccessAction="@(() => CurrentTabIndex = 4)"
-      />
-    }
-    else if (CurrentTabIndex == 4)
-    {
-      <ResultStage
-        Model="@Model"
-        OnCancelAction="@(() => CurrentTabIndex = 3)"
-      />
-    }
-  </div>
+  <PageHeader Title="Перенос паллеты" />
+  <TransferForm Model="@Model" />
 </div>
 
 @code {
   private TransferFormModel Model { get; set; } = new();
-  private int CurrentTabIndex { get; set; } = 1;
 }

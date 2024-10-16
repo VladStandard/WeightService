@@ -4,6 +4,8 @@ namespace ScalesMobile;
 
 public partial class ScanPage : ContentPage
 {
+    public event EventHandler<string>? ScanCompleted;
+
     public ScanPage()
     {
         InitializeComponent();
@@ -35,7 +37,7 @@ public partial class ScanPage : ContentPage
     private void CameraView_OnDetectionFinished(object sender, OnDetectionFinishedEventArg e)
     {
         if (e.BarcodeResults.Length == 0) return;
-        MessagingCenter.Send(this, "ScanCompleted", e.BarcodeResults[0].DisplayValue);
+        ScanCompleted?.Invoke(this, e.BarcodeResults[0].DisplayValue);
         Navigation.PopModalAsync();
     }
 }

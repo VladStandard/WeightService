@@ -1,0 +1,14 @@
+@using Blazor.Heroicons.Outline
+
+<div class="flex bg-background h-12 items-center shrink-0 w-full px-3 gap-2 border-b">
+  <a href="@Routes.Home">
+    <Button Variant="ButtonVariantType.Ghost" Size="ButtonSizeType.Icon">
+      <ArrowLeftIcon class="size-4"/>
+    </Button>
+  </a>
+  <h2 class="truncate">@Title</h2>
+</div>
+
+@code {
+  [Parameter] public string Title { get; set; } = string.Empty;
+}
