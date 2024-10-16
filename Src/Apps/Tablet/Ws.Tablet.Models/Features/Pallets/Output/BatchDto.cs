@@ -4,11 +4,11 @@ namespace Ws.Tablet.Models.Features.Pallets.Output;
 public class BatchDto
 {
     [JsonPropertyName("pluName")]
-    public string PluName { get; set; } = string.Empty;
+    public required string PluName { get; set; } = string.Empty;
 
     [JsonPropertyName("date")]
-    public DateTime Date { get; set; }
+    public required DateTime Date { get; set; }
 
     [JsonPropertyName("weight")]
-    public decimal Weight { get; set; }
+    public required decimal Weight { get; set; }
 }

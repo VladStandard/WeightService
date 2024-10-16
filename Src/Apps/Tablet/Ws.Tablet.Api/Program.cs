@@ -1,24 +1,12 @@
-using System.Globalization;
 using System.Net.Mime;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 using Ws.Tablet.Api;
 using Ws.Tablet.Api.App.Shared.Auth;
+using Ws.Tablet.Api.App.Shared.Extensions;
 using Ws.Tablet.Api.App.Shared.Middlewares;
-
-CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
-CultureInfo.DefaultThreadCurrentUICulture = Cultures.Ru;
-
-CultureInfo[] supportedCultures = [Cultures.Ru, Cultures.En];
-RequestLocalizationOptions localizationOptions = new()
-{
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures,
-    DefaultRequestCulture = new(Cultures.Ru.Name)
-};
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -56,13 +44,11 @@ builder.Services
 
 builder.Services.AddHttpContextAccessor();
 
-
-
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.UseRequestLocalization(localizationOptions);
+app.SetupVsLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 

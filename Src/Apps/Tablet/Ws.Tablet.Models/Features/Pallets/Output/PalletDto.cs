@@ -8,22 +8,25 @@ namespace Ws.Tablet.Models.Features.Pallets.Output;
 public class PalletDto
 {
     [JsonPropertyName("documentBarcode")]
-    public string DocumentBarcode { get; set; } = string.Empty;
+    public required string DocumentBarcode { get; set; } = string.Empty;
 
-    [JsonPropertyName("barcode")]
-    public string Barcode { get; set; } = string.Empty;
+    [JsonPropertyName("palletBarcode")]
+    public required string PalletBarcode { get; set; } = string.Empty;
+
+    [JsonPropertyName("zplLabel")]
+    public required string ZplLabel { get; set; } = string.Empty;
 
     [JsonPropertyName("batches")]
-    public List<BatchCreateDto> Batches { get; set; } = [];
+    public required List<BatchDto> Batches { get; set; } = [];
 
     [JsonConverter(typeof(FioJsonConverter))]
-    public Fio User { get; set; } = DefaultTypes.Fio;
+    public required Fio User { get; set; } = DefaultTypes.Fio;
 
     [JsonConverter(typeof(FioJsonConverter))]
-    public Fio WarehouseName { get; set; } = DefaultTypes.Fio;
+    public required string WarehouseName { get; set; } = string.Empty;
 
     [JsonPropertyName("createDt")]
-    public DateTime CreateDt { get; set; }
+    public required DateTime CreateDt { get; set; }
 
     [JsonIgnore]
     public decimal Weight => Batches.Sum(x => x.Weight);

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 
-
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection BaseSetup(this IServiceCollection services)

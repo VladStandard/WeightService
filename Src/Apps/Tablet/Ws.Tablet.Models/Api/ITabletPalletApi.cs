@@ -5,6 +5,6 @@ namespace Ws.Tablet.Models.Api;
 
 public interface ITabletPalletApi
 {
-    [Get("/pallets")]
+    [Post("/pallets")]
     Task<PalletDto> CreatePallet([Body] PalletCreateDto pallet);
 }

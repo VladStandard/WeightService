@@ -1,4 +1,3 @@
-using System.Globalization;
 using Ws.DeviceControl.Api;
 using Ws.DeviceControl.Api.App.Shared.Middlewares;
 using Ws.DeviceControl.Models;
@@ -22,19 +21,11 @@ builder.Services
     .AddHttpContextAccessor()
     .AddEndpointsApiExplorer();
 
-CultureInfo[] supportedCultures = [Cultures.Ru, Cultures.En];
-RequestLocalizationOptions localizationOptions = new()
-{
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures,
-    DefaultRequestCulture = new(Cultures.En.Name)
-};
-
 WebApplication app = builder.Build();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseRequestLocalization(localizationOptions);
+app.SetupVsLocalization();
 
 app.UseHttpsRedirection();
 app.MapControllers();
