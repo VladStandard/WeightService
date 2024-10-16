@@ -22,7 +22,6 @@ public class PalletDto
     [JsonConverter(typeof(FioJsonConverter))]
     public required Fio User { get; set; } = DefaultTypes.Fio;
 
-    [JsonConverter(typeof(FioJsonConverter))]
     public required string WarehouseName { get; set; } = string.Empty;
 
     [JsonPropertyName("createDt")]

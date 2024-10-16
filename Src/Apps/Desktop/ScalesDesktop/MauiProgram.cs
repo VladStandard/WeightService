@@ -15,10 +15,12 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
-        builder.LoadSettings();
-        builder.SetupLocalizer();
-        builder.RegisterRefitClients();
         builder.UseMauiApp<App>().UseFullScreen();
+
+        builder
+            .LoadSettings()
+            .SetupLocalizer()
+            .RegisterRefitClients();
 
         builder.Services.AddMauiBlazorWebView();
 

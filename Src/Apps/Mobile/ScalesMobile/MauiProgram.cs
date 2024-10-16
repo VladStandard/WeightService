@@ -2,6 +2,9 @@ using System.Globalization;
 using BarcodeScanning;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
+using ScalesMobile.Source.Shared.Api;
+using ScalesMobile.Source.Shared.Extensions;
+using ScalesTablet.Source.Shared.Api;
 
 namespace ScalesMobile;
 
@@ -12,18 +15,23 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
         builder.UseMauiApp<App>();
-        builder.UseBarcodeScanning();
+
+        builder
+            .LoadSettings()
+            .SetupLocalizer()
+            .UseBarcodeScanning()
+            .RegisterRefitClients();
+
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
-#if DEBUG
+        #if DEBUG
+
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
-#endif
 
-        const string currentLanguage = "ru-RU";
-        CultureInfo.DefaultThreadCurrentCulture = new(currentLanguage);
-        CultureInfo.DefaultThreadCurrentUICulture = new(currentLanguage);
+        #endif
+
         builder.Services.AddLocalization();
 
         return builder.Build();

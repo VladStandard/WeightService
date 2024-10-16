@@ -14,10 +14,12 @@ public static class MauiProgram
 
         builder.UseMauiApp<App>();
 
-        builder.UseBarcodeScanning();
-        builder.LoadSettings();
-        builder.SetupLocalizer();
-        builder.RegisterRefitClients();
+        builder
+            .LoadSettings()
+            .SetupLocalizer()
+            .UseBarcodeScanning()
+            .RegisterRefitClients();
+
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 

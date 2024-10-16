@@ -1,6 +1,7 @@
 using System.Reflection;
+using ScalesTablet.Source.Shared.Api;
 
-namespace ScalesDesktop.Source.Shared.Api;
+namespace ScalesMobile.Source.Shared.Api;
 
 internal static class RefitSetupExtension
 {

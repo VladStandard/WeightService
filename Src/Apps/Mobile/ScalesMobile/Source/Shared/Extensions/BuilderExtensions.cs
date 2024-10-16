@@ -3,7 +3,7 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Ws.Shared.Handlers;
 
-namespace ScalesDesktop.Source.Shared.Extensions;
+namespace ScalesMobile.Source.Shared.Extensions;
 
 public static class BuilderExtensions
 {
@@ -16,7 +16,6 @@ public static class BuilderExtensions
         CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
         CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
-        builder.Services.AddLocalization();
         builder.Services.AddTransient<AcceptLanguageHandler>();
 
         return builder;
@@ -26,7 +25,7 @@ public static class BuilderExtensions
     {
         using Stream? appsettingsStream = Assembly
             .GetExecutingAssembly()
-            .GetManifestResourceStream("ScalesDesktop.appsettings.json");
+            .GetManifestResourceStream("ScalesTablet.appsettings.json");
 
         if (appsettingsStream == null) return builder;
 

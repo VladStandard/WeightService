@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
+    <ItemGroup Label="Static assets">
+        <MauiIcon Include="Resources\app_icon.svg" />
+        <MauiSplashScreen Include="Resources\organization_icon.svg" Color="#f5f5f6" />
+    </ItemGroup>
+
+    <PropertyGroup Label="Primary">
         <TargetFramework>net8.0-android34.0</TargetFramework>
 
         <OutputType>Exe</OutputType>
@@ -15,11 +20,6 @@
         <ApplicationTitle>ScalesTablet</ApplicationTitle>
         <ApplicationId>ru.vladstandart.scalestablet</ApplicationId>
     </PropertyGroup>
-
-    <ItemGroup Label="Static assets">
-        <MauiIcon Include="Resources\app_icon.svg" />
-        <MauiSplashScreen Include="Resources\organization_icon.svg" Color="#f5f5f6" />
-    </ItemGroup>
 
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="BarcodeScanning.Native.Maui" />
@@ -37,7 +37,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Projects">
       <ProjectReference Include="..\Ws.Tablet.Models\Ws.Tablet.Models.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>

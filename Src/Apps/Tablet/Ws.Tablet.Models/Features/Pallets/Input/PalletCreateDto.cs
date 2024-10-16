@@ -6,6 +6,9 @@ public class PalletCreateDto
     [JsonPropertyName("documentBarcode")]
     public string DocumentBarcode { get; set; } = string.Empty;
 
+    [JsonPropertyName("userId")]
+    public string UserId { get; set; } = string.Empty;
+
     [JsonPropertyName("batches")]
     public List<BatchCreateDto> Batches { get; set; } = [];
 }

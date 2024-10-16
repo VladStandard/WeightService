@@ -4,7 +4,7 @@ namespace ScalesTablet.Source.Shared.Api;
 
 internal static class RefitSetupExtension
 {
-    public static void RegisterRefitClients(this MauiAppBuilder builder)
+    public static MauiAppBuilder RegisterRefitClients(this MauiAppBuilder builder)
     {
         Assembly assembly = Assembly.GetExecutingAssembly();
 
@@ -17,5 +17,7 @@ internal static class RefitSetupExtension
 
         foreach (IRefitClient config in configurations)
             config.Configure(builder);
+
+        return builder;
     }
 }

@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <ItemGroup Label="Directory.Packages.props">
         <PackageReference Include="Refit" />
     </ItemGroup>
@@ -10,4 +11,5 @@
     <ItemGroup Label="Projects">
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
+
 </Project>
