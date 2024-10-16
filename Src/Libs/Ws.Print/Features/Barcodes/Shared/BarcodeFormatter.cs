@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 using Match=System.Text.RegularExpressions.Match;
 
@@ -61,7 +60,7 @@ internal partial class BarcodeFormatter : ICustomFormatter, IFormatProvider
         string numberStr;
 
         if (arg is decimal value)
-            numberStr = value.ToString("00.000", Cultures.Ru).Replace(",", string.Empty);
+            numberStr = new(value.ToString("00.000").Where(char.IsDigit).ToArray());
         else
             numberStr = Convert.ToString(arg) ??
                         throw new FormatException($"Lenght of  {arg.GetType()} not suppoerted for BarcodeFormatter");

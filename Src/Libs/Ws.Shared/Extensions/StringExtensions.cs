@@ -13,12 +13,15 @@ public static class StringExtensions
         {'ъ', "ie"}, {'э', "e"}, {'ю', "iu" }, {'я', "ia"}, {' ', " "}
     };
 
+    [Pure]
     public static bool IsDigitsOnly(this string str)
         => !string.IsNullOrWhiteSpace(str) && str.All(char.IsDigit);
 
+    [Pure]
     public static string Capitalize(this string str)
         => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(str);
 
+    [Pure]
     public static string Transliterate(this string str)
     {
         StringBuilder result = new();

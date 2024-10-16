@@ -5,6 +5,7 @@ namespace Ws.Shared.Extensions;
 
 public static class EnumExtensions
 {
+    [Pure]
     public static string GetDescription(this Enum value)
     {
         FieldInfo? fieldInfo = value.GetType().GetField(value.ToString());

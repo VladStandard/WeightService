@@ -2,8 +2,6 @@
 @using MassaK.Plugin.Abstractions.Enums
 @using ScalesDesktop.Source.Shared.Services.Devices
 @using ScalesDesktop.Source.Shared.Services.Stores
-@using Ws.Shared.Constants
-@using Ws.Shared.Extensions
 @implements IDisposable
 
 <LabelCreateFormFieldItem Label="@WsDataLocalizer["ColNetWeight"]">
@@ -18,7 +16,7 @@
       <span class="w-5 flex justify-center xl:w-6">@Sign</span>
       @foreach (char i in NetWeightAbsStr)
       {
-        <span class="@(i.ToString().IsDigitsOnly() ? "w-5 flex justify-center xl:w-6" : string.Empty)">@i</span>
+        <span class="@(char.IsDigit(i) ? "w-5 flex justify-center xl:w-6" : string.Empty))">@i</span>
       }
       <span>@WsDataLocalizer["MeasureKg"]</span>
     </div>
@@ -58,7 +56,7 @@
 
   private string Sign => Weight >= 0 ? string.Empty : "-";
 
-  private string NetWeightAbsStr => Weight.ToString("0000.000;0000.000", Cultures.Ru);
+  private string NetWeightAbsStr => Weight.ToString("0000.000;0000.000");
 
   public void Dispose()
   {
