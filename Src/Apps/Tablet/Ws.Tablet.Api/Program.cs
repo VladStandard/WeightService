@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Shared.Constants;
 using Ws.Shared.Extensions;
 using Ws.Tablet.Api;
+using Ws.Tablet.Api.App.Shared.Auth;
 using Ws.Tablet.Api.App.Shared.Middlewares;
 
 CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
@@ -31,7 +32,7 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddControllers(options =>
     {
-        options.Filters.Add(new AllowAnonymousFilter());
+        options.Filters.Add(new AuthorizeFilter());
         options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
     })
     .ConfigureApiBehaviorOptions(options =>
@@ -46,6 +47,12 @@ builder.Services
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         options.JsonSerializerOptions.WriteIndented = true;
     });
+
+builder.Services
+    .AddAuthentication(ArmAuthenticationOptions.DefaultScheme)
+    .AddScheme<ArmAuthenticationOptions, ArmAuthenticationHandler>(
+        ArmAuthenticationOptions.DefaultScheme, _ => { }
+    );
 
 builder.Services.AddHttpContextAccessor();
 

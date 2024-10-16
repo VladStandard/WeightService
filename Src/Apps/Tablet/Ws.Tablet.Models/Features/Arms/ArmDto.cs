@@ -10,5 +10,5 @@ public class ArmDto
     public required string Name { get; set; }
 
     [JsonPropertyName("warehouseName")]
-    private string WarehouseName { get; set; } = string.Empty;
+    public required string WarehouseName { get; set; }
 }
