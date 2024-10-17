@@ -1,5 +1,6 @@
 @using Blazor.Heroicons.Outline
 @using Refit
+@using ScalesTablet.Source.Shared.Stores
 @using Ws.Shared.Extensions
 @using Ws.Tablet.Models
 @using Ws.Tablet.Models.Features.Pallets.Input
@@ -73,6 +74,7 @@
 @code {
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private ITabletApi TabletApi { get; set; } = default!;
+  [Inject] private IState<UserState> UserState { get; set; } = default!;
 
   [EditorRequired, Parameter] public PalletCreateModel Model { get; set; } = default!;
   [Parameter] public EventCallback<PalletDto> OnSubmitAction { get; set; }
@@ -85,7 +87,7 @@
   {
     PalletCreateDto createDto = new()
     {
-      UserId = Guid.Empty,
+      UserId = UserState.Value.User?.Id ?? Guid.Empty,
       DocumentBarcode = DocumentNumber,
       Batches = Model.Batches.ConvertAll(BatchMapper.ModelToCreateDto)
     };
@@ -112,6 +114,11 @@
     {
       ToastService.CloseToast(toastId);
       ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
+    }
+    catch
+    {
+      ToastService.CloseToast(toastId);
+      ToastService.ShowError("Неизвестная ошибка");
     }
   }
 }

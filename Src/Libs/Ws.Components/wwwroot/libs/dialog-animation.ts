@@ -1,4 +1,4 @@
-import { ElementWithDialogType } from './types/element-with-dialog-type.ts'
+import { type ElementWithDialogType } from './types/element-with-dialog-type'
 
 const ANIMATION_DURATION = 150
 

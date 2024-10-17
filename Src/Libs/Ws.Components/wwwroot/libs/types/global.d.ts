@@ -1,13 +1,13 @@
-import { DotNetObjectType } from './dotnet-object-type.ts'
-import { ResizableElement } from './resizable-element-type.ts'
+import { type DotNetObjectType } from './dotnet-object-type'
+import { type ElementWithHandler } from './element-with-handler-type'
 
 declare global {
   interface Window {
     animateDialogOpening: (dialogId: string) => Promise<void>
     animateDialogClosing: (dialogId: string) => Promise<void>
     isElementContainsFocusedItem: (element: Element) => boolean
-    subscribeElementResize: (element: ResizableElement) => void
-    unsubscribeElementResize: (element: ResizableElement) => void
+    subscribeElementResize: (element: ElementWithHandler) => void
+    unsubscribeElementResize: (element: ElementWithHandler) => void
     updateElementSize: (element: Element) => void
     switchTheme: (theme: string) => void
     initializeTheme: () => void

@@ -1,4 +1,4 @@
-import { DotNetObjectType } from './types/dotnet-object-type.ts'
+import { type DotNetObjectType } from './types/dotnet-object-type'
 
 let middleMouseEventHandler: ((event: MouseEvent) => void) | undefined
 

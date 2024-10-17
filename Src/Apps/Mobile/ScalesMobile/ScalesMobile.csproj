@@ -22,11 +22,15 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="Fluxor.Blazor.Web" />
+        <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="Refit.HttpClientFactory" />
         <PackageReference Include="BarcodeScanning.Native.Maui" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
         <PackageReference Include="Refit.HttpClientFactory" />
+        <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
 
     <ItemGroup Label="Packages">
@@ -39,6 +43,10 @@
       <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
       <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
       <ProjectReference Include="..\Ws.Mobile.Models\Ws.Mobile.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Source\Features\AuthSuspense\AuthSuspense.razor" />
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />

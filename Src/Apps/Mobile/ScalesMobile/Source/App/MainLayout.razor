@@ -1,8 +1,13 @@
-﻿@inherits LayoutComponentBase
+﻿@using ScalesMobile.Source.Features.AuthSuspense
+@inherits LayoutComponentBase
 
-<div class="w-screen h-screen overflow-hidden text-black bg-secondary/90 overscroll-none">
-  @Body
-</div>
+<AuthSuspense>
+  <div class="w-screen h-screen overflow-hidden text-black overscroll-none">
+    @Body
+  </div>
+</AuthSuspense>
+
 
 <FluentDialogProvider />
 <FluentToastProvider Position="@ToastPosition.TopCenter" />
+<StoreInitializer />

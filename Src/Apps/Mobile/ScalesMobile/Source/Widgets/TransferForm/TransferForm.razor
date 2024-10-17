@@ -23,7 +23,7 @@
   else if (CurrentTabIndex == 3)
   {
     <WarehouseStage
-      @bind-WarehouseId="@Model.WarehouseId"
+      @bind-Warehouse="@Model.Warehouse"
       OnCancelAction="@(() => CurrentTabIndex = 2)"
       OnSuccessAction="@(() => CurrentTabIndex = 4)"
     />
@@ -33,6 +33,7 @@
     <ResultStage
       Model="@Model"
       OnCancelAction="@(() => CurrentTabIndex = 3)"
+      ResetAction="@(() => { Model = new(); CurrentTabIndex = 1; })"
     />
   }
 </div>

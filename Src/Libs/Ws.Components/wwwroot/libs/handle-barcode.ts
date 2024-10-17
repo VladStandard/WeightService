@@ -1,4 +1,4 @@
-import { type DotNetObjectType } from './types/dotnet-object-type.ts'
+import { type DotNetObjectType } from './types/dotnet-object-type'
 
 const TIMEOUT_INTERVAL = 20
 

@@ -1,6 +1,6 @@
-namespace ScalesTablet.Source.Features.AuthSuspense;
-
 using FluentValidation;
+
+namespace ScalesMobile.Source.Features.AuthSuspense;
 
 public class AuthModelValidator : AbstractValidator<AuthFormModel>
 {

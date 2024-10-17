@@ -1,5 +1,5 @@
-import { type DotNetObjectType } from './types/dotnet-object-type.ts'
-import { type ResizableElement } from './types/resizable-element-type.ts'
+import { type DotNetObjectType } from './types/dotnet-object-type'
+import { type ElementWithHandler } from './types/element-with-handler-type'
 
 /**
  * Resizes the element by updating the width of the dropdown based on the width of the button.
@@ -16,17 +16,17 @@ const resizeElement = (element: Element): void => {
 /**
  * Subscribes to element resize events and updates the element's dropdown width based on the button width.
  *
- * @param {ResizableElement | undefined} element - The element to subscribe to resize events for.
+ * @param {ElementWithHandler | undefined} element - The element to subscribe to resize events for.
  * @return {void} This function does not return anything.
  */
-window.subscribeElementResize = (element: ResizableElement | undefined): void => {
+window.subscribeElementResize = (element: ElementWithHandler | undefined): void => {
   if (!element) return
   const resizeHandler = () => {
     resizeElement(element)
   }
   resizeHandler()
   window.addEventListener('resize', resizeHandler)
-  element.resizeHandler = resizeHandler
+  element.handler = resizeHandler
 }
 
 /**
@@ -42,14 +42,14 @@ window.updateElementSize = (element: Element): void => {
 /**
  * Unsubscribes from element resize events and clears the resize handler for the given element.
  *
- * @param {ResizableElement} element - The element to unsubscribe from resize events for.
+ * @param {ElementWithHandler} element - The element to unsubscribe from resize events for.
  * @return {void} This function does not return anything.
  */
-window.unsubscribeElementResize = (element: ResizableElement): void => {
-  const resizeHandler = element.resizeHandler
+window.unsubscribeElementResize = (element: ElementWithHandler): void => {
+  const resizeHandler = element.handler
   if (!resizeHandler) return
   window.removeEventListener('resize', resizeHandler)
-  delete element.resizeHandler
+  delete element.handler
 }
 
 window.getElementWidthById = (id: string): number => {
