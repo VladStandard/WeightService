@@ -69,6 +69,7 @@
   {
     PalletsMoveDto moveDto = TransferMapper.MapToPalletsMoveDto(Model, UserState.Value.User?.Id ?? Guid.Empty);
     string toastId = Guid.NewGuid().ToString();
+    ToastService.ClearAll();
     IsLoading = true;
     StateHasChanged();
 
@@ -85,21 +86,19 @@
 
       await MobileApi.MovePallets(moveDto);
 
-      ToastService.CloseToast(toastId);
-      ToastService.ShowSuccess("Паллета успешно создана");
       IsCompleted = true;
+      ToastService.ShowSuccess("Паллета успешно создана");
     }
     catch (ApiException ex)
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
     }
     catch
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError("Неизвестная ошибка");
     }
 
+    ToastService.CloseToast(toastId);
     IsLoading = false;
     StateHasChanged();
   }
