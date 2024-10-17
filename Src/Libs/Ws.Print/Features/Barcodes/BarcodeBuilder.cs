@@ -1,5 +1,3 @@
-using System.Reflection;
-using System.Text;
 using Ws.Print.Features.Barcodes.Common;
 using Ws.Print.Features.Barcodes.Models;
 using Ws.Print.Shared.Models;
@@ -28,6 +26,7 @@ public record BarcodeBuilder : IBarcodeVariables
 
     #endregion
 
+    [Pure]
     public BarcodeResult Build(List<BarcodeVar> barcodeVars)
     {
         StringBuilder barcodeBuilder = new();

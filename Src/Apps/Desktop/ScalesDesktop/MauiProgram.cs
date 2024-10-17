@@ -33,10 +33,12 @@ public static class MauiProgram
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintingService, PrintingService>();
 
-#if DEBUG
+        #if DEBUG
+
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
-#endif
+
+        #endif
 
         builder.Services.AddFluxor(options =>
         {

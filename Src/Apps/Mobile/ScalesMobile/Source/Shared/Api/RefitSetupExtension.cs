@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace ScalesMobile.Source.Shared.Api;
 
 internal static class RefitSetupExtension

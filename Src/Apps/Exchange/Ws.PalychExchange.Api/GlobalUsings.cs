@@ -2,7 +2,6 @@
 global using System.Xml.Serialization;
 
 // 2. Microsoft
-global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 
 // 3. External

@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Ws.Shared.ValueTypes;
 
 public record ApiFailedResponse

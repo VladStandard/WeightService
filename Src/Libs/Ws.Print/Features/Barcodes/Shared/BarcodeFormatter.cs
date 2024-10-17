@@ -1,8 +1,5 @@
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Text.RegularExpressions;
 using Ws.Shared.Extensions;
-using Match=System.Text.RegularExpressions.Match;
 
 namespace Ws.Print.Features.Barcodes.Shared;
 

@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Shared.ValueTypes;
 
 namespace Ws.Shared.Constants;

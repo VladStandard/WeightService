@@ -1,6 +1,3 @@
-using System.Security.Claims;
-using System.Text.Json;
-
 namespace DeviceControl.Source.Shared.Auth.Shared;
 
 public static class ClaimsMapping

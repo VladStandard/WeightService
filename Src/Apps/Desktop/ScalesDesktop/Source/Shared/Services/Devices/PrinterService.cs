@@ -1,4 +1,3 @@
-using System.Net;
 using TscZebra.Plugin;
 using TscZebra.Plugin.Abstractions;
 using TscZebra.Plugin.Abstractions.Enums;

@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace Ws.Shared.Enums;
 
 public enum ZplResourceType

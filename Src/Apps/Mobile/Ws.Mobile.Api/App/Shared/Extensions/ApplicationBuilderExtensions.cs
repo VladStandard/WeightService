@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Ws.Mobile.Api.App.Shared.Extensions;
 
 internal static class ApplicationBuilderExtensions

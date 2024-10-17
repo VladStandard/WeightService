@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Ws.Shared.Handlers;
 
 public class AcceptLanguageHandler : DelegatingHandler

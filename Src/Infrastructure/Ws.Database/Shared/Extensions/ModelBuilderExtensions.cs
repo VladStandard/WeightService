@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ws.Database.Shared.Converters;

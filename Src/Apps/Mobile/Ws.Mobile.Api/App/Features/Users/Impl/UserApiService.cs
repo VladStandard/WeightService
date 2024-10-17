@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Mobile.Api.App.Features.Users.Common;
 using Ws.Mobile.Models.Features.Users;
 
@@ -15,19 +14,15 @@ internal sealed class UserApiService : IUserService
             { "1234", new()
                 {
                     Id = Guid.NewGuid(),
-                    Fio = new("Александров",
-                    "Даниил",
-                    "Дмитриевич"),
-                    WarehouseName = "Склад птички"
+                    Fio = new("Александров", "Даниил", "Дмитриевич"),
+                    WarehouseName = "Склад № 2"
                 }
             },
             { "4321", new()
                 {
                     Id = Guid.NewGuid(),
-                    Fio = new("Власов",
-                    "Артем",
-                    "Алексеевич"),
-                    WarehouseName = "Склад сосиски"
+                    Fio = new("Власов","Артем", "Алексеевич"),
+                    WarehouseName = "Склад № 3"
                 }
             },
         };
@@ -39,5 +34,4 @@ internal sealed class UserApiService : IUserService
     }
 
     #endregion
-
 }

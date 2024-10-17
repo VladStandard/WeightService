@@ -1,4 +1,3 @@
-using System.Net;
 using Microsoft.Data.SqlClient;
 using Ws.Shared.Exceptions;
 

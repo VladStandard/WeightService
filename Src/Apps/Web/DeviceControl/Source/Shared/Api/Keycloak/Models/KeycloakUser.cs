@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace DeviceControl.Source.Shared.Api.Keycloak.Models;
 
 public sealed record KeycloakUser

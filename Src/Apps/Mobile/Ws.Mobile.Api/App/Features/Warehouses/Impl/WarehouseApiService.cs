@@ -15,37 +15,43 @@ internal sealed class WarehouseApiService : IWarehouseService
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка камешково",
-                WarehouseName = "Склад собаки",
+                WarehouseName = "Склад №1",
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка камешково",
-                WarehouseName = "Склад кошек",
+                WarehouseName = "Склад №2",
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка камешково",
-                WarehouseName = "Склад мамонтов",
+                WarehouseName = "Склад №3",
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка 16",
-                WarehouseName = "Склад болтов",
+                WarehouseName = "Склад №4",
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка 23",
-                WarehouseName = "Склад сосиииисски",
+                WarehouseName = "Склад №5",
             },
             new()
             {
                 Id = Guid.NewGuid(),
                 ProductionSiteName = "Площадка 23",
-                WarehouseName = "Склад саааааааааарделькиииии",
+                WarehouseName = "Склад №6",
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                ProductionSiteName = "Площадка 23",
+                WarehouseName = "Склад №7",
             },
         ];
     }

@@ -1,8 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-using System.Net;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-
 namespace Ws.Shared.Utils;
 
 public static partial class StrUtils

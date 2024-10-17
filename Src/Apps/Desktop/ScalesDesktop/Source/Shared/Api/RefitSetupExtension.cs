@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace ScalesDesktop.Source.Shared.Api;
 
 internal static class RefitSetupExtension

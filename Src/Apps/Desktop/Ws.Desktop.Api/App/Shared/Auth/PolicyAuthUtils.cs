@@ -1,5 +1,3 @@
-using System.Security.Claims;
-
 namespace Ws.Desktop.Api.App.Shared.Auth;
 
 public static class PolicyAuthUtils

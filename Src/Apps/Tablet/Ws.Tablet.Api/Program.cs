@@ -1,5 +1,3 @@
-using System.Net.Mime;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Tablet.Api;
 using Ws.Tablet.Api.App.Shared.Auth;

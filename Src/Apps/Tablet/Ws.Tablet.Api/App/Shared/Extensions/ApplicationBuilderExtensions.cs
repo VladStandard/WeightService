@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Ws.Tablet.Api.App.Shared.Extensions;
 
 internal static class ApplicationBuilderExtensions

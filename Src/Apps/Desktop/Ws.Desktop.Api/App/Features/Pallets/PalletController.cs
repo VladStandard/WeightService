@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Ws.Desktop.Api.App.Features.Pallets.Common;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;

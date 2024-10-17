@@ -1,6 +1,6 @@
 using Ws.PalychExchange.Api.App.Features.Characteristics.Common;
 using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
-using Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
+using GroupedCharacteristicValidator=Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models.GroupedCharacteristicValidator;
 
 namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl;
 

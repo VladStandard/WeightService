@@ -1,7 +1,3 @@
-using System.Net;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
 namespace Ws.Shared.Converters.Json;
 
 public class IpAddressJsonConverter : JsonConverter<IPAddress>

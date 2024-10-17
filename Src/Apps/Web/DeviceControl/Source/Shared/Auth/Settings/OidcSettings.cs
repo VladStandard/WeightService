@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace DeviceControl.Source.Shared.Auth.Settings;
 
 public class OidcSettings

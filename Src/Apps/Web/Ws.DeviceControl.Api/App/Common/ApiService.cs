@@ -1,4 +1,3 @@
-using System.Net;
 using FluentValidation;
 using Ws.Shared.Exceptions;
 

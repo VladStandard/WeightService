@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Tablet.Api.App.Features.Users.Common;
 using Ws.Tablet.Models.Features.Users;
 

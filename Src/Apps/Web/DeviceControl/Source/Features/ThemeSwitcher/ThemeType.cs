@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace DeviceControl.Source.Features.ThemeSwitcher;
 
 public enum ThemeType

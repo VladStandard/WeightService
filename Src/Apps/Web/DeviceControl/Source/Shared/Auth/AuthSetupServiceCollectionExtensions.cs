@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using DeviceControl.Source.Shared.Auth.Settings;
 using DeviceControl.Source.Shared.Auth.Shared;
 using DeviceControl.Source.Shared.Constants;

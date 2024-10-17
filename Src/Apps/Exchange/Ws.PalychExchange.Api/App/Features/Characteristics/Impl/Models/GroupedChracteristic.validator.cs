@@ -1,7 +1,4 @@
-using System.Text.RegularExpressions;
-using Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
-
-namespace Ws.PalychExchange.Api.App.Features.Characteristics.Services.Models;
+namespace Ws.PalychExchange.Api.App.Features.Characteristics.Impl.Models;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 internal sealed partial class GroupedCharacteristicValidator : AbstractValidator<GroupedCharacteristic>

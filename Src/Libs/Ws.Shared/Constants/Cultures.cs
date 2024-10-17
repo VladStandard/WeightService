@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Ws.Shared.Constants;
 
 public static class Cultures

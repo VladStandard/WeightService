@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Ws.DeviceControl.Models.Auth;

@@ -1,4 +1,3 @@
-global using System.Text.Json.Serialization;
 global using FluentValidation;
 global using Microsoft.Extensions.Localization;
 global using Refit;

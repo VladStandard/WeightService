@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Shared.Utils;
 
 namespace Ws.Shared.Tests.Utils;

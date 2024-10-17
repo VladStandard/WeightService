@@ -39,4 +39,23 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup Label="System usings">
+        <Using Include="System.Security.Claims" />
+
+        <Using Include="System.Text" />
+        <Using Include="System.Text.Json" />
+        <Using Include="System.Text.Json.Serialization" />
+        <Using Include="System.Text.RegularExpressions" />
+
+        <Using Include="System.ComponentModel" />
+
+        <Using Include="System.Net" />
+        <Using Include="System.Net.Mime" />
+
+        <Using Include="System.Reflection" />
+        <Using Include="System.Globalization" />
+        <Using Include="System.Diagnostics.Contracts" />
+        <Using Include="System.Diagnostics.CodeAnalysis" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,3 @@
-using System.Globalization;
 using Ws.Shared.Constants;
 
 namespace Ws.Desktop.Api.App.Shared.Extensions;

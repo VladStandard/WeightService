@@ -1,5 +1,3 @@
-using System.Security.Claims;
-
 namespace Ws.Shared.Extensions;
 
 public static class ClaimsPrincipalExtensions

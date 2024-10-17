@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Tablet.Api.App.Features.Plus.Common;
 using Ws.Tablet.Models.Features.Plus;
 
@@ -15,14 +14,26 @@ internal sealed class PluApiService : IPluService
             new()
             {
                 Id = Guid.NewGuid(),
-                Number = 1234,
-                Name = "Сосиска по Китайски"
+                Number = 1111,
+                Name = "Свинина"
             },
             new()
             {
                 Id = Guid.NewGuid(),
-                Number = 4321,
-                Name = "Сарделька по Вьетнамски"
+                Number = 2222,
+                Name = "Курица"
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Number = 3333,
+                Name = "Телятина"
+            },
+            new()
+            {
+                Id = Guid.NewGuid(),
+                Number = 4444,
+                Name = "Говядина"
             },
         ];
 
@@ -34,5 +45,4 @@ internal sealed class PluApiService : IPluService
     }
 
     #endregion
-
 }

@@ -1,4 +1,3 @@
-using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
 
 namespace ScalesDesktop.Source.Shared.Services.Devices;

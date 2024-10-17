@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace Ws.PalychExchange.Api.App.Shared.Middlewares;
 
 public class LoggingMiddleware(ILogger<LoggingMiddleware> logger) : IMiddleware

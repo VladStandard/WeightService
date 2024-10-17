@@ -1,4 +1,3 @@
-using System.Net;
 using TscZebra.Plugin.Abstractions.Enums;
 
 namespace Ws.Desktop.Models.Features.Arms.Output;

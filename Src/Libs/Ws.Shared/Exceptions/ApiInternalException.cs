@@ -1,5 +1,3 @@
-using System.Net;
-
 namespace Ws.Shared.Exceptions;
 
 public class ApiInternalException : Exception

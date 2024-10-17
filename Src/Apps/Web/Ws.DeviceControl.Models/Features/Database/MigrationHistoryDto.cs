@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace Ws.DeviceControl.Models.Features.Database;
 
 [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]

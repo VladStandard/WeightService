@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace DeviceControl.Source.Shared.Api;
 
 internal static class RefitSetupExtension

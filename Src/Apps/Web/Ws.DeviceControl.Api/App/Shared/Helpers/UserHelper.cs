@@ -1,4 +1,3 @@
-using System.Net;
 using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Shared.Helpers;

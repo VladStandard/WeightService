@@ -1,14 +1,13 @@
 using System.Drawing;
-using System.Text.RegularExpressions;
 using BinaryKits.Zpl.Label.Elements;
 using Microsoft.Extensions.Localization;
-using Ws.Print.Features.Barcodes.Models;
-using Ws.Print.Features.Templates.Models;
-using Ws.Print.Features.Templates.Utils;
 using Ws.Database;
 using Ws.Database.Entities.Zpl.Templates;
 using Ws.Desktop.Api.App.Shared.Labels.Generate.Utils;
 using Ws.Desktop.Api.App.Shared.Labels.Localization;
+using Ws.Print.Features.Barcodes.Models;
+using Ws.Print.Features.Templates.Models;
+using Ws.Print.Features.Templates.Utils;
 using Ws.Shared.Enums;
 using Ws.Shared.Exceptions;
 

@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace ScalesDesktop.Source.Widgets.PalletSelect;
 
 public enum PalletFilterType

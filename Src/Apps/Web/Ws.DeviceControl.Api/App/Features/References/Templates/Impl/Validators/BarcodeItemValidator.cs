@@ -1,7 +1,7 @@
 using FluentValidation;
-using Ws.Print.Features.Barcodes.Models;
 using Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
+using Ws.Print.Features.Barcodes.Models;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Validators;
 

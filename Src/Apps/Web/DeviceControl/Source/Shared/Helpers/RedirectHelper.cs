@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using DeviceControl.Source.Shared.Constants;
 using DeviceControl.Source.Shared.Extensions;
 // ReSharper disable once ClassNeverInstantiated.Global

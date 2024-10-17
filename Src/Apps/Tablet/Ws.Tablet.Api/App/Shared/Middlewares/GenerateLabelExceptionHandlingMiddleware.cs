@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace Ws.Tablet.Api.App.Shared.Middlewares;
 
 public class GenerateLabelExceptionHandlingMiddleware(ILogger<GenerateLabelExceptionHandlingMiddleware> logger) : IMiddleware

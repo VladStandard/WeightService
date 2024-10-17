@@ -1,5 +1,5 @@
-using System.Security.Claims;
 using Ws.Shared.Extensions;
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace Ws.Desktop.Api.App.Shared.Helpers;
 

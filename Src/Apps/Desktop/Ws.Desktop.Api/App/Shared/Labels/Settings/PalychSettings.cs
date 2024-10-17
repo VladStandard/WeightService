@@ -1,6 +1,3 @@
-using System.Text;
-using System.Text.Json.Serialization;
-
 namespace Ws.Desktop.Api.App.Shared.Labels.Settings;
 
 public class PalychSettings

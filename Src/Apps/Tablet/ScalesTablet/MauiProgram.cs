@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BarcodeScanning;
+using Fluxor;
+using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
-using BarcodeScanning;
-using Fluxor;
 using Ws.Shared.Extensions;
 
 namespace ScalesTablet;

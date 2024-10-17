@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace Ws.PalychExchange.Api.App.Shared.Utils;
 
 internal static class ValidatorUtils

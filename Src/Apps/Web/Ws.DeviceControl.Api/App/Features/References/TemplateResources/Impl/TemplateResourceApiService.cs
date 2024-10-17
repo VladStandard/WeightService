@@ -1,4 +1,3 @@
-using System.Net;
 using Svg;
 using Ws.Database.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;

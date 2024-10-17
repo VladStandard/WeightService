@@ -1,6 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using System.Text.RegularExpressions;
 using Ws.Print.Features.Barcodes.Models;
 using BarcodeFormatter=Ws.Print.Features.Barcodes.Shared.BarcodeFormatter;
 
@@ -35,6 +33,7 @@ public static partial class BarcodeVarUtils
     [GeneratedRegex(@"^(?=.*\d)([0-9#]*\([0-9#]+\)[0-9#]*|[0-9#]+)$")]
     private static partial Regex AllowedChars();
 
+    [Pure]
     private static List<BarcodeVarInfo> GenerateVariablesInfo()
     {
         BarcodeBuilder barcodeBuilder = new()
@@ -67,6 +66,7 @@ public static partial class BarcodeVarUtils
         ];
     }
 
+    [Pure]
     private static BarcodeVarInfo CreateVariable<T>(Expression<Func<T>> propertyExpression, string mask, bool isRepeatable = false)
     {
         List<Type> typesWhiteList = [typeof(uint), typeof(ushort), typeof(string), typeof(decimal), typeof(DateTime)];

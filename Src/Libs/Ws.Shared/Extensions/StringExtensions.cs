@@ -1,6 +1,3 @@
-using System.Globalization;
-using System.Text;
-
 namespace Ws.Shared.Extensions;
 
 public static class StringExtensions
