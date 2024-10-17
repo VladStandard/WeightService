@@ -1,5 +1,4 @@
 using System.Net;
-using Ws.Shared.Exceptions;
 using Ws.Tablet.Api.App.Features.Users.Common;
 using Ws.Tablet.Models.Features.Users;
 
@@ -24,5 +23,4 @@ internal sealed class UserApiService : IUserService
     }
 
     #endregion
-
 }

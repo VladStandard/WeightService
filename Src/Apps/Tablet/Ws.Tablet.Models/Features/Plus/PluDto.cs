@@ -1,7 +1,6 @@
 namespace Ws.Tablet.Models.Features.Plus;
 
-[Serializable]
-public class PluDto
+public sealed class PluDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

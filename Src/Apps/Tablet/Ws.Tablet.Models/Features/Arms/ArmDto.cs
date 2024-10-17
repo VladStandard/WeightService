@@ -1,7 +1,6 @@
 namespace Ws.Tablet.Models.Features.Arms;
 
-[Serializable]
-public class ArmDto
+public sealed class ArmDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

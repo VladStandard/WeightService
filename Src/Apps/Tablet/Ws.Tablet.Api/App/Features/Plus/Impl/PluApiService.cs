@@ -1,5 +1,4 @@
 using System.Net;
-using Ws.Shared.Exceptions;
 using Ws.Tablet.Api.App.Features.Plus.Common;
 using Ws.Tablet.Models.Features.Plus;
 

@@ -1,7 +1,6 @@
 using System.Globalization;
-using Ws.Shared.Constants;
 
-namespace Ws.Tablet.Api.App.Shared.Extensions;
+namespace Ws.Mobile.Api.App.Shared.Extensions;
 
 internal static class ApplicationBuilderExtensions
 {

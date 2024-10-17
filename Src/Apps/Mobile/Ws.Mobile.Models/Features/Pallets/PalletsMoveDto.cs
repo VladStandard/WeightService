@@ -1,7 +1,6 @@
 namespace Ws.Mobile.Models.Features.Pallets;
 
-[Serializable]
-public class PalletsMoveDto
+public sealed class PalletsMoveDto
 {
     [JsonPropertyName("documentBarcode")]
     public string DocumentBarcode { get; set; } = string.Empty;

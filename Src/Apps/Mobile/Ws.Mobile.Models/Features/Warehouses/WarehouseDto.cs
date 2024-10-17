@@ -1,7 +1,6 @@
 namespace Ws.Mobile.Models.Features.Warehouses;
 
-[Serializable]
-public class WarehouseDto
+public sealed class WarehouseDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; set; }

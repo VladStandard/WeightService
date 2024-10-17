@@ -1,7 +1,6 @@
 using System.Net;
 using Ws.Mobile.Api.App.Features.Users.Common;
 using Ws.Mobile.Models.Features.Users;
-using Ws.Shared.Exceptions;
 
 namespace Ws.Mobile.Api.App.Features.Users.Impl;
 

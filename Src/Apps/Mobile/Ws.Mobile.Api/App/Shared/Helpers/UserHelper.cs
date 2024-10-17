@@ -1,7 +1,6 @@
 using System.Security.Claims;
-using Ws.Shared.Extensions;
 
-namespace Ws.Tablet.Api.App.Shared.Helpers;
+namespace Ws.Mobile.Api.App.Shared.Helpers;
 
 public sealed class UserHelper(IHttpContextAccessor httpContextAccessor)
 {

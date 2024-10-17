@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
 using Ws.Tablet.Api.App.Features.Pallets.Common;
-using Ws.Tablet.Api.App.Shared;
 using Ws.Tablet.Models.Features.Pallets.Input;
 using Ws.Tablet.Models.Features.Pallets.Output;
 

@@ -1,6 +1,6 @@
 namespace Ws.Desktop.Models.Shared.Models;
 
-public class ProxyDto
+public sealed class ProxyDto
 {
     [JsonPropertyName("id")]
     public required Guid Id { get; init; }

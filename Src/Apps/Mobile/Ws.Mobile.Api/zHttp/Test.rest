@@ -1,4 +1,4 @@
-GET {{url}}/users?code=4321
+GET {{url}}/warehouses
 
 ###
 GET {{url}}/plus?number=4321

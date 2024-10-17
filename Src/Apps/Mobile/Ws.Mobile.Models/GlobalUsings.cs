@@ -11,4 +11,6 @@ global using Refit;
 // pass
 
 // 5. Modules
+global using Ws.Shared.Constants;
+global using Ws.Shared.ValueTypes;
 global using Ws.Shared.Converters.Json;

@@ -1,11 +1,6 @@
-using Ws.Shared.Constants;
-using Ws.Shared.ValueTypes;
-using Ws.Tablet.Models.Features.Pallets.Input;
-
 namespace Ws.Tablet.Models.Features.Pallets.Output;
 
-[Serializable]
-public class PalletDto
+public sealed class PalletDto
 {
     [JsonPropertyName("documentBarcode")]
     public required string DocumentBarcode { get; set; } = string.Empty;

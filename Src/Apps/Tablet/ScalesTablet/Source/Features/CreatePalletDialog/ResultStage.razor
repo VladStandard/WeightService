@@ -85,7 +85,7 @@
   {
     PalletCreateDto createDto = new()
     {
-      UserId = string.Empty,
+      UserId = Guid.Empty,
       DocumentBarcode = DocumentNumber,
       Batches = Model.Batches.ConvertAll(BatchMapper.ModelToCreateDto)
     };

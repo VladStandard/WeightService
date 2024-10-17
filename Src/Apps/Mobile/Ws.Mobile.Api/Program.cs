@@ -1,11 +1,9 @@
 using System.Net.Mime;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Mobile.Api;
-using Ws.Shared.Extensions;
-using Ws.Tablet.Api.App.Shared.Extensions;
-using Ws.Tablet.Api.App.Shared.Middlewares;
+using Ws.Mobile.Api.App.Shared.Extensions;
+using Ws.Mobile.Api.App.Shared.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +17,7 @@ builder.Services
     .AddEndpointsApiExplorer()
     .AddControllers(options =>
     {
-        options.Filters.Add(new AuthorizeFilter());
+        options.Filters.Add(new AllowAnonymousFilter());
         options.Filters.Add(new ConsumesAttribute(MediaTypeNames.Application.Json));
     })
     .ConfigureApiBehaviorOptions(options =>

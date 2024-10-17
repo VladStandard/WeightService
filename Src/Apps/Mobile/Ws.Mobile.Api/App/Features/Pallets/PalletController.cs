@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
 using Ws.Mobile.Api.App.Features.Pallets.Common;
-using Ws.Mobile.Api.App.Shared;
 using Ws.Mobile.Models.Features.Pallets;
 
 namespace Ws.Mobile.Api.App.Features.Pallets;

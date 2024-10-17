@@ -1,13 +1,12 @@
 namespace Ws.Tablet.Models.Features.Pallets.Input;
 
-[Serializable]
-public class PalletCreateDto
+public sealed class PalletCreateDto
 {
     [JsonPropertyName("documentBarcode")]
     public string DocumentBarcode { get; set; } = string.Empty;
 
     [JsonPropertyName("userId")]
-    public string UserId { get; set; } = string.Empty;
+    public Guid UserId { get; set; }
 
     [JsonPropertyName("batches")]
     public List<BatchCreateDto> Batches { get; set; } = [];

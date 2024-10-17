@@ -1,8 +1,6 @@
 using System.Text.Json;
-using Ws.Shared.Exceptions;
-using Ws.Shared.ValueTypes;
 
-namespace Ws.Tablet.Api.App.Shared.Middlewares;
+namespace Ws.Mobile.Api.App.Shared.Middlewares;
 
 public class GenerateLabelExceptionHandlingMiddleware(ILogger<GenerateLabelExceptionHandlingMiddleware> logger) : IMiddleware
 {

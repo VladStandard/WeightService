@@ -1,10 +1,6 @@
-using Ws.Shared.Constants;
-using Ws.Shared.ValueTypes;
-
 namespace Ws.Tablet.Models.Features.Users;
 
-[Serializable]
-public class UserDto
+public sealed class UserDto
 {
     [JsonPropertyName("id")]
     public Guid Id { get; set; }

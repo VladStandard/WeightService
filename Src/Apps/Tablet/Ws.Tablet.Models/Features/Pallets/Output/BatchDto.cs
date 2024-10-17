@@ -1,7 +1,6 @@
 namespace Ws.Tablet.Models.Features.Pallets.Output;
 
-[Serializable]
-public class BatchDto
+public sealed class BatchDto
 {
     [JsonPropertyName("pluName")]
     public required string PluName { get; set; } = string.Empty;

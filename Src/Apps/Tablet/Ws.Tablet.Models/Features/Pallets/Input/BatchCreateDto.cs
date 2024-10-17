@@ -1,7 +1,6 @@
 namespace Ws.Tablet.Models.Features.Pallets.Input;
 
-[Serializable]
-public class BatchCreateDto
+public sealed class BatchCreateDto
 {
     [JsonPropertyName("pluId")]
     public Guid PluId { get; set; }
