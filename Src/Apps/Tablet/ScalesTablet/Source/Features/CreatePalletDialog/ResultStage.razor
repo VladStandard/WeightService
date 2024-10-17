@@ -55,10 +55,10 @@
   <div class="flex justify-end gap-2 mt-8">
     @if (FinalDto == null)
     {
-      <Button Variant="ButtonVariantType.Outline" OnClick="@OnCancelAction">
+      <Button Variant="ButtonVariantType.Outline" Disabled="@IsLoading" OnClick="@OnCancelAction">
         Назад
       </Button>
-      <Button OnClick="@OnSubmit">
+      <Button OnClick="@OnSubmit" Disabled="@IsLoading">
         Подтвердить
       </Button>
     }
@@ -82,6 +82,7 @@
   [Parameter] public string DocumentNumber { get; set; } = string.Empty;
 
   private PalletDto? FinalDto { get; set; }
+  private bool IsLoading { get; set; }
 
   private async Task OnSubmit()
   {
@@ -92,6 +93,9 @@
       Batches = Model.Batches.ConvertAll(BatchMapper.ModelToCreateDto)
     };
     string toastId = Guid.NewGuid().ToString();
+    ToastService.ClearAll();
+    IsLoading = true;
+    StateHasChanged();
 
     try
     {
@@ -104,21 +108,20 @@
         Content = new() { Details = "Идет процесс создания паллеты" }
       });
 
-      PalletDto dto = await TabletApi.CreatePallet(createDto);
-
-      ToastService.CloseToast(toastId);
+      FinalDto = await TabletApi.CreatePallet(createDto);
       ToastService.ShowSuccess("Паллета успешно создана");
-      FinalDto = dto;
     }
     catch (ApiException ex)
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
     }
     catch
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError("Неизвестная ошибка");
     }
+
+    ToastService.CloseToast(toastId);
+    IsLoading = false;
+    StateHasChanged();
   }
 }

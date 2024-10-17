@@ -6,7 +6,7 @@
   inputmode="numeric"
   id="@HtmlId"
   @attributes="AdditionalAttributes"
-  @bind="Value"
+  @bind-value="InputValue"
   class="@Css.Class("flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm",
            "placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50", Class)"
   disabled="@Disabled"
@@ -19,16 +19,29 @@
 />
 
 @code {
-  [Parameter] public TValue? Min { get; set; }
-  [Parameter] public TValue? Max { get; set; }
+  [Parameter] public string? Min { get; set; }
+  [Parameter] public string? Max { get; set; }
   [Parameter] public string Step { get; set; } = "1";
+  [Parameter] public System.Globalization.CultureInfo Culture { get; set; } = System.Globalization.CultureInfo.InvariantCulture;
 
   private string InputValue
   {
-    get => Value?.ToString() ?? string.Empty;
+    get
+    {
+      if (Value is IFormattable formattable)
+        return formattable.ToString(null, Culture);
+      return Value?.ToString() ?? string.Empty;
+    }
     set
     {
       if (!TryConvertValue(value, out TValue result)) return;
+
+      if (!string.IsNullOrWhiteSpace(Min) && TryConvertValue(Min, out TValue minValue) && Comparer<TValue>.Default.Compare(result, minValue) < 0)
+        result = minValue;
+
+      if (!string.IsNullOrWhiteSpace(Max) && TryConvertValue(Max, out TValue maxValue) && Comparer<TValue>.Default.Compare(result, maxValue) > 0)
+        result = maxValue;
+
       Value = result;
       ValueChanged.InvokeAsync(Value);
     }
@@ -38,7 +51,7 @@
   {
     try
     {
-      result = (TValue)Convert.ChangeType(value, typeof(TValue));
+      result = (TValue)Convert.ChangeType(value, typeof(TValue), Culture);
       return true;
     }
     catch

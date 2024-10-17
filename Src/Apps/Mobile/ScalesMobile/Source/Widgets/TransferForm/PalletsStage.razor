@@ -1,5 +1,6 @@
 @using Blazor.Heroicons.Outline
 @using ScalesMobile.Source.Features
+@using Ws.Shared.Utils
 
 <InternalBarcodeScanner ValueChanged="@AddNewPallet" />
 
@@ -18,7 +19,7 @@
     <div class="size-full flex flex-col py-4 gap-1 overflow-hidden">
       <h3 class="text-sm font-medium">Штрихкода паллет</h3>
       <ul class="size-full items-center flex flex-col gap-1 overflow-y-auto">
-        @foreach (string item in Pallets)
+        @foreach (string item in Pallets.ToArray().Reverse())
         {
           <li class="w-full">
             <button
@@ -38,7 +39,10 @@
     <Button OnClick="@OnCancelAction" Variant="ButtonVariantType.Outline">
       Назад
     </Button>
-    <CameraBarcodeScanner Variant="ButtonVariantType.Outline" ValueChanged="@AddNewPallet"/>
+    @if (ConfigurationUtils.IsDevelop)
+    {
+      <CameraBarcodeScanner Variant="ButtonVariantType.Outline" ValueChanged="@AddNewPallet"/>
+    }
     <Button OnClick="@OnSuccessAction" Disabled="@(!Pallets.Any())">
       Продолжить
     </Button>

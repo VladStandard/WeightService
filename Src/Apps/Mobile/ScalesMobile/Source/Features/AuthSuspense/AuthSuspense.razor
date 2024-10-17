@@ -32,7 +32,7 @@
         <FieldValidation For="@(() => Model.Password)" />
       </FormFieldWrapper>
       <div class="w-full flex justify-end">
-        <Button Type="@ButtonType.Submit" Class="!mt-4">
+        <Button Type="@ButtonType.Submit" Disabled="@IsLoading" Class="!mt-4">
           Войти
         </Button>
       </div>
@@ -53,6 +53,7 @@ else
   [Parameter] public RenderFragment? ChildContent { get; set; }
 
   private ElementReference CustomInput { get; set; } = default!;
+  private bool IsLoading { get; set; }
 
   private void HandleKeyDown(KeyboardEventArgs e)
   {
@@ -73,6 +74,9 @@ else
   {
     ushort.TryParse(Model.Password, out ushort parsedPassword);
     string toastId = Guid.NewGuid().ToString();
+    ToastService.ClearAll();
+    IsLoading = true;
+    StateHasChanged();
 
     try
     {
@@ -87,19 +91,19 @@ else
 
       UserDto dto = await MobileApi.GetUserByCode(parsedPassword);
 
-      ToastService.CloseToast(toastId);
-      ToastService.ShowSuccess("Вы успешно авторизовались");
       Dispatcher.Dispatch(new ChangeUserAction(dto));
     }
     catch (ApiException ex)
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
     }
-    catch
+    catch (Exception ex)
     {
-      ToastService.CloseToast(toastId);
-      ToastService.ShowError("Неизвестная ошибка");
+      ToastService.ShowError(ex.Message);
     }
+
+    ToastService.CloseToast(toastId);
+    IsLoading = false;
+    StateHasChanged();
   }
 }

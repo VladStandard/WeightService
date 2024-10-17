@@ -34,7 +34,7 @@
         <FieldValidation For="@(() => Model.Password)" />
       </FormFieldWrapper>
       <div class="w-full flex justify-end">
-        <Button Type="@ButtonType.Submit" Class="!mt-4">
+        <Button Type="@ButtonType.Submit" Disabled="@IsLoading" Class="!mt-4">
           Войти
         </Button>
       </div>
@@ -63,11 +63,15 @@ else
   }
 
   private AuthFormModel Model { get; set; } = new();
+  private bool IsLoading { get; set; }
 
   private async Task OnValidSubmit()
   {
     ushort.TryParse(Model.Password, out ushort parsedPassword);
     string toastId = Guid.NewGuid().ToString();
+    ToastService.ClearAll();
+    IsLoading = true;
+    StateHasChanged();
 
     try
     {
@@ -82,19 +86,19 @@ else
 
       UserDto dto = await TabletApi.GetUserByCode(parsedPassword);
 
-      ToastService.CloseToast(toastId);
-      ToastService.ShowSuccess("Вы успешно авторизовались");
       Dispatcher.Dispatch(new ChangeUserAction(dto));
     }
     catch (ApiException ex)
     {
-      ToastService.CloseToast(toastId);
       ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
     }
-    catch
+    catch (Exception ex)
     {
-      ToastService.CloseToast(toastId);
-      ToastService.ShowError("Неизвестная ошибка");
+      ToastService.ShowError(ex.Message);
     }
+
+    IsLoading = false;
+    ToastService.CloseToast(toastId);
+    StateHasChanged();
   }
 }

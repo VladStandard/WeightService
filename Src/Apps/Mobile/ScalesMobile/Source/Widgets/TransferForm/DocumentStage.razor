@@ -1,5 +1,6 @@
 @using Blazor.Heroicons.Outline
 @using ScalesMobile.Source.Features
+@using Ws.Shared.Utils
 
 <InternalBarcodeScanner ValueChanged="@SetDocumentNumber" />
 
@@ -20,7 +21,10 @@
     }
   </div>
   <div class="shrink-0 w-full flex flex-col gap-2">
-    <CameraBarcodeScanner Variant="ButtonVariantType.Outline" ValueChanged="@SetDocumentNumber"/>
+    @if (ConfigurationUtils.IsDevelop)
+    {
+      <CameraBarcodeScanner Variant="ButtonVariantType.Outline" ValueChanged="@SetDocumentNumber"/>
+    }
     <Button OnClick="@OnSuccessAction" Disabled="@string.IsNullOrWhiteSpace(DocumentNumber)">
       Продолжить
     </Button>
