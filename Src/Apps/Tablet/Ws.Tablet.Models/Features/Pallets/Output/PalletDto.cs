@@ -22,6 +22,10 @@ public sealed class PalletDto
     [JsonPropertyName("createDt")]
     public required DateTime CreateDt { get; set; }
 
+    public string Number { get; set; } = string.Empty;
+
+    public decimal WeightBrutto { get; set; } = decimal.Zero;
+
     [JsonIgnore]
     public decimal Weight => Batches.Sum(x => x.Weight);
 }

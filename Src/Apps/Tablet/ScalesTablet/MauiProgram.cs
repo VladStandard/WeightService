@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
+using Microsoft.AspNetCore.Components.Web;
+using ScalesTablet.Source.Shared;
 using Ws.Shared.Extensions;
 
 namespace ScalesTablet;
@@ -34,6 +36,10 @@ public static class MauiProgram
             options.WithLifetime(StoreLifetime.Singleton);
             options.ScanAssemblies(typeof(IScalesTabletAssembly).Assembly);
         });
+
+        builder.Services
+            .AddScoped<HtmlRenderer>()
+            .AddScoped<IPrintService, PrintService>();
 
         #if DEBUG
 
