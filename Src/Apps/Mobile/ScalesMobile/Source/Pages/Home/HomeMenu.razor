@@ -1,4 +1,3 @@
-@using Android.Provider
 @using Blazor.Heroicons.Outline
 @using Microsoft.Extensions.Localization
 @using ScalesMobile.Source.Features
@@ -27,18 +26,13 @@
       </a>
     </li>
     <li>
-      <HomeMenuItem>
-        <MagnifyingGlassCircleIcon class="size-5 mr-3" />
-        @Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Settings.Secure.AndroidId)
-      </HomeMenuItem>
-    </li>
-    <li>
       <HomeMenuItem OnClick="@ShowCloseAppDialog">
         <ArrowRightStartOnRectangleIcon class="size-5 mr-3" />
         @Localizer["BtnExit"]
       </HomeMenuItem>
     </li>
   </ul>
+  <ArmControl />
 </div>
 
 @code {
