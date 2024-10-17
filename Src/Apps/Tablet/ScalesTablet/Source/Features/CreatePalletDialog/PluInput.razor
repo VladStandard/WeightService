@@ -23,17 +23,27 @@
       Arg="@PluNumber"
       Options="@(new() { OnSuccess = OnSuccess })"
     >
-      @if (query.IsError)
+      <ExclamationCircleIcon
+        id="@TooltipAnchor"
+        class="@Css.Class("size-6", query.IsLoading ? "text-muted-foreground" : query.HasData ? "text-green-500" : "text-destructive")"
+      />
+      @if (query.IsLoading)
       {
-        <ExclamationCircleIcon class="size-6 text-destructive" />
+        <Tooltip Anchor="@TooltipAnchor">
+          <span>"Загрузка информации..."</span>
+        </Tooltip>
       }
       else if (query.HasData)
       {
-        <ExclamationCircleIcon class="size-6 text-green-500" />
+        <Tooltip Anchor="@TooltipAnchor">
+          <span>@query.Data.Name</span>
+        </Tooltip>
       }
       else
       {
-        <ExclamationCircleIcon class="size-6 text-muted-foreground" />
+        <Tooltip Anchor="@TooltipAnchor">
+          <span>Ошибка ПЛУ!</span>
+        </Tooltip>
       }
     </UseEndpoint>
   }
@@ -52,6 +62,8 @@
   [Parameter] public bool Disabled { get; set; }
   [Parameter] public string Class { get; set; } = default!;
   [Parameter] public string HtmlId { get; set; } = $"plu-input-{Guid.NewGuid()}";
+
+  private string TooltipAnchor { get; } = $"plu-anchor-{Guid.NewGuid()}";
 
   private uint PluNumber => uint.TryParse(Plu.Number, out uint result) ? result : default;
 
