@@ -28,6 +28,7 @@
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
         <PackageReference Include="System.Configuration.ConfigurationManager" />
+        <PackageReference Include="TscZebra.Plugin" />
         <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
 
@@ -52,10 +53,6 @@
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />
     <Import Project="..\..\..\.targets\AppSettingsForMaui.targets" />
-
-    <ItemGroup Label="Shared blazor imports">
-        <Content Include="..\..\..\Libs\Ws.Components\Shared\_Imports.razor" Link="_Imports.razor" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
 
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />

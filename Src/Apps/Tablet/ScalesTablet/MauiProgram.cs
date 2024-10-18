@@ -6,6 +6,7 @@ using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using ScalesTablet.Source.Shared;
+using ScalesTablet.Source.Shared.Services;
 using Ws.Shared.Extensions;
 
 namespace ScalesTablet;
@@ -40,6 +41,8 @@ public static class MauiProgram
         builder.Services
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintService, PrintService>();
+
+        builder.Services.AddSingleton<IPrinterService, PrinterService>();
 
         #if DEBUG
 

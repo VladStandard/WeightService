@@ -11,9 +11,9 @@
     <span style="font-size: 3.7rem; font-weight: 600;">@Pallet.CreateDt.ToString("dd.MM.yyyy")</span>
   </div>
   <div style="width: 100%;display: inline-grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
-    <span style="align-self: center;">@WsDataLocalizer["ColGrossWeight"]</span>
+    <span style="align-self: center;">@WsDataLocalizer["ColWeight"]</span>
     <div style="width: 100%; border: 1px black solid; align-self: center; padding: 0.3rem; border-bottom: none; box-sizing: border-box;">
-      @Pallet.Weight.ToString(CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]
+      @Pallet.Weight.ToString("F3", CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]
     </div>
     <span style="align-self: center;">@WsDataLocalizer["ColWarehouse"]</span>
     <div style="width: 100%; border: 1px black solid; align-self: center; padding: 0.3rem; border-bottom: none; box-sizing: border-box;">
@@ -37,13 +37,13 @@
     {
       <tr>
         <td style="border: 1px black solid; padding: 0.2rem; font-weight: 600; font-size: 2.5rem;">@batch.PluName</td>
-        <td style="border: 1px black solid; padding: 0.2rem;">@batch.Weight.ToString(CultureInfo.InvariantCulture)</td>
+        <td style="border: 1px black solid; padding: 0.2rem;">@batch.Weight.ToString("F3", CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]</td>
         <td style="border: 1px black solid; padding: 0.2rem;">@batch.Date.ToString("dd.MM.yyyy")</td>
       </tr>
     }
     <tr style="font-weight: 600;">
       <td style="border: 1px black solid; padding: 0.2rem;">@WsDataLocalizer["ColTotal"]</td>
-      <td style="border: 1px black solid; padding: 0.2rem;">@Pallet.Batches.Sum(x => x.Weight).ToString(CultureInfo.InvariantCulture)</td>
+      <td style="border: 1px black solid; padding: 0.2rem;">@Pallet.Weight.ToString("F3", CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]</td>
       <td style="border: 1px black solid; padding: 0.2rem;"></td>
     </tr>
     </tbody>

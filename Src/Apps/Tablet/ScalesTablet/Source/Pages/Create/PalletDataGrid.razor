@@ -43,6 +43,7 @@
         <Button
           Variant="ButtonVariantType.Ghost"
           Size="ButtonSizeType.Icon"
+          OnClick="@(() => ShowViewDialog(item))"
         >
           <EyeIcon class="size-5" />
         </Button>
@@ -66,15 +67,14 @@
     await ValueChanged.InvokeAsync(Value);
   }
 
-  private Task ShowViewDialog(PalletDto pallet) => DialogService.ShowDialogAsync<CreatePalletDialog>(
-      pallet, new() { PreventDismissOnOverlayClick = true });
+  private Task ShowViewDialog(PalletDto pallet) => DialogService.ShowDialogAsync<ViewPalletDialog>(pallet, new());
 
-  private async Task ShowCreateDialog()
-  {
-    IDialogReference dialog = await DialogService.ShowDialogAsync<CreatePalletDialog>(
-      new PalletCreateModel { DocumentNumber = DocumentNumber }, new() { PreventDismissOnOverlayClick = true });
-    DialogResult result = await dialog.Result;
-    if (result is { Cancelled: false, Data: PalletDto newItem })
-      await SetValue(Value.Append(newItem).ToList());
-  }
+  private Task ShowCreateDialog() =>
+    DialogService.ShowDialogAsync<CreatePalletDialog>(
+      new CreateDialogProps
+      {
+        DocumentNumber = DocumentNumber,
+        OnPalletCreated = EventCallback.Factory.Create<PalletDto>(this, value => SetValue(Value.Append(value).ToList()))
+      },
+      new() { PreventDismissOnOverlayClick = true });
 }
