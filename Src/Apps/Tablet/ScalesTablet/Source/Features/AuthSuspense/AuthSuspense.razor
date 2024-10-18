@@ -23,6 +23,7 @@
       <FormFieldWrapper Label="Пароль" HtmlId="login-password">
         <InputTextField
           id="login-password"
+          Type="TextInputType.Password"
           Value="@Model.Password"
           @oninput="@OnPasswordInput"
           Placeholder="Введите пароль..."

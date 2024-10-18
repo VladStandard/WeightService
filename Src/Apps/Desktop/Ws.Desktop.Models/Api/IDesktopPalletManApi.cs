@@ -7,7 +7,7 @@ public interface IDesktopPalletManApi
     #region Queries
 
     [Get("/pallet-men")]
-    Task<PalletMan> GetPalletMenByArm(string code);
+    Task<PalletMan> GetPalletManByCode(string code);
 
     #endregion
 }

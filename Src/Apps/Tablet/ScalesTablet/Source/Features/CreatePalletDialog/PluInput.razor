@@ -3,7 +3,7 @@
 @using ScalesTablet.Source.Shared.Api.Tablet.Endpoints
 @using Ws.Tablet.Models.Features.Plus
 
-<div class="@Css.Class("h-10 w-full border rounded-md flex px-3 bg-background items-center gap-2", Class)">
+<div class="@Css.Class("h-10 w-full border rounded-md flex px-3 bg-background items-center gap-2", Disabled ? "opacity-50 cursor-not-allowed" : "", Class)">
   <input
     type="text"
     value="@Plu.Number"
@@ -13,7 +13,7 @@
     placeholder="Номер ПЛУ..."
     maxlength="4"
     id="@HtmlId"
-    class="size-full bg-inherit placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+    class="size-full text-sm bg-inherit placeholder:text-muted-foreground focus-visible:outline-none"
   />
   @if (Plu.Number.Length == 4)
   {

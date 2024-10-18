@@ -1,6 +1,6 @@
 using FluentValidation;
-using ScalesDesktop.Source.Shared.Api.Desktop.Endpoints;
 using Ws.Desktop.Models.Features.PalletMen;
+using Ws.Shared.Extensions;
 using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Features;
@@ -13,29 +13,61 @@ public sealed partial class PalletManForm : ComponentBase
     [Inject] private IDispatcher Dispatcher { get; set; } = default!;
     [Inject] private IStringLocalizer<ApplicationResources> Localizer { get; set; } = default!;
     [Inject] private IStringLocalizer<WsDataResources> WsDataLocalizer { get; set; } = default!;
-    [Inject] private PalletEndpoints PalletEndpoints { get; set; } = default!;
+    [Inject] private IToastService ToastService { get; set; } = default!;
+    [Inject] private IDesktopApi DesktopApi { get; set; } = default!;
 
     # endregion
 
-    [SupplyParameterFromForm] private PalletManFormModel FormModel { get; set; } = new();
+    private PalletManFormModel Model { get; set; } = new();
 
-    private void OnSubmit() => Dispatcher.Dispatch(new ChangePalletManAction(FormModel.User!));
+    private bool IsLoading { get; set; }
+
+    private async Task OnValidSubmit()
+    {
+        string toastId = Guid.NewGuid().ToString();
+        ToastService.ClearAll();
+        IsLoading = true;
+        StateHasChanged();
+
+        try
+        {
+            ToastService.ShowProgressToast(new()
+            {
+                Id = toastId,
+                Intent = ToastIntent.Progress,
+                Title = "Процесс авторизации",
+                Timeout = null,
+                Content = new() { Details = "Подождите пока мы не проверим пользователя по данному коду" }
+            });
+
+            PalletMan dto = await DesktopApi.GetPalletManByCode(Model.Password);
+
+            Dispatcher.Dispatch(new ChangePalletManAction(dto));
+        }
+        catch (ApiException ex)
+        {
+            ToastService.ShowError(ex.GetMessage("Неизвестная ошибка"));
+        }
+        catch (Exception ex)
+        {
+            ToastService.ShowError(ex.Message);
+        }
+
+        IsLoading = false;
+        ToastService.CloseToast(toastId);
+        StateHasChanged();
+    }
 }
 
-public class PalletManFormModel
+public record PalletManFormModel
 {
-    public PalletMan? User { get; set; }
     public string Password { get; set; } = string.Empty;
 }
 
 public class PalletManFormValidator : AbstractValidator<PalletManFormModel>
 {
-    public PalletManFormValidator(IStringLocalizer<ApplicationResources> localizer, IStringLocalizer<WsDataResources> wsDataLocalizer)
+    public PalletManFormValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
-        RuleFor(item => item.User).NotNull().WithName(wsDataLocalizer["ColUser"]);
         RuleFor(item => item.Password).NotNull().Length(4).WithName(wsDataLocalizer["ColPassword"]);
-        RuleFor(item => item.Password)
-            .Must((item, password) => item.User != null && password == item.User.Password)
-            .WithMessage(localizer["PalletManFormInvalidPassword"]);
     }
 }
