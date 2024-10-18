@@ -1,5 +1,7 @@
 @using Blazor.Heroicons.Outline
+@using Microsoft.AspNetCore.Components.Web.HtmlRendering
 @using Refit
+@using ScalesTablet.Source.Shared
 @using ScalesTablet.Source.Shared.Stores
 @using Ws.Tablet.Models
 @using Ws.Tablet.Models.Features.Pallets.Input
@@ -49,7 +51,17 @@
       </ValueContext>
     </ResultBlockItem>
   </div>
-
+  @if (FinalDto != null)
+  {
+    <div class="max-w-xs flex flex-col gap-2 mx-auto my-4">
+      <Button OnClick="@(() => PrintPalletCard(FinalDto))">
+        Печать документа
+      </Button>
+      <Button Disabled>
+        Печать этикеток
+      </Button>
+    </div>
+  }
   <div class="flex justify-end gap-2 mt-8">
     @if (FinalDto == null)
     {
@@ -73,6 +85,8 @@
   [Inject] private IToastService ToastService { get; set; } = default!;
   [Inject] private ITabletApi TabletApi { get; set; } = default!;
   [Inject] private IState<UserState> UserState { get; set; } = default!;
+  [Inject] private IPrintService PrintService { get; set; } = default!;
+  [Inject] private HtmlRenderer HtmlRenderer { get; set; } = default!;
 
   [EditorRequired, Parameter] public PalletCreateModel Model { get; set; } = default!;
   [Parameter] public EventCallback<PalletDto> OnSubmitAction { get; set; }
@@ -121,5 +135,19 @@
     ToastService.CloseToast(toastId);
     IsLoading = false;
     StateHasChanged();
+  }
+
+  private Task PrintPalletCard(PalletDto dto)
+  {
+    return HtmlRenderer.Dispatcher.InvokeAsync(async () =>
+    {
+      Dictionary<string, object?> parameters = new()
+      {
+        { nameof(PalletDocument.Pallet), dto }
+      };
+
+      HtmlRootComponent output = await HtmlRenderer.RenderComponentAsync<PalletDocument>(ParameterView.FromDictionary(parameters));
+      PrintService.Print(output.ToHtmlString());
+    });
   }
 }
