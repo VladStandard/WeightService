@@ -10,4 +10,7 @@ public sealed class BatchDto
 
     [JsonPropertyName("weight")]
     public required decimal Weight { get; set; }
+
+    [JsonPropertyName("number")]
+    public required uint Number { get; set; }
 }

@@ -1,10 +1,8 @@
-@using System.Globalization
+@using BarcodeStandard
 @using Microsoft.Extensions.Localization
 @using SkiaSharp
-@using BarcodeStandard
-@using Type = BarcodeStandard.Type;
-@using Ws.Shared.Resources
 @using Ws.Tablet.Models.Features.Pallets.Output
+@using Type=BarcodeStandard.Type
 
 <div style="width: 100%; display: flex; flex-direction: column; gap: 1.2rem; font-family: Arial,serif; padding: 1rem; box-sizing: border-box;">
   <span style="font-weight: 600; font-size: 1.5rem; text-align: center;">@WsDataLocalizer["ColPalletCard"] №@Pallet.Number</span>
@@ -15,7 +13,7 @@
   <div style="width: 100%;display: inline-grid; grid-template-columns: repeat(2, minmax(0, 1fr));">
     <span style="align-self: center;">@WsDataLocalizer["ColGrossWeight"]</span>
     <div style="width: 100%; border: 1px black solid; align-self: center; padding: 0.3rem; border-bottom: none; box-sizing: border-box;">
-      @Pallet.WeightBrutto.ToString(CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]
+      @Pallet.Weight.ToString(CultureInfo.InvariantCulture) @WsDataLocalizer["MeasureKg"]
     </div>
     <span style="align-self: center;">@WsDataLocalizer["ColWarehouse"]</span>
     <div style="width: 100%; border: 1px black solid; align-self: center; padding: 0.3rem; border-bottom: none; box-sizing: border-box;">
