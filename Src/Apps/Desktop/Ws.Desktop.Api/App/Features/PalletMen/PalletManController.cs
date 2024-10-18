@@ -11,7 +11,7 @@ public sealed class PalletManController(IPalletManService palletManService)
     #region Queries
 
     [HttpGet]
-    public List<PalletMan> GetAllByArm() => palletManService.GetAll();
+    public PalletMan GetPalletManByArm([FromQuery(Name = "code")] string code) => palletManService.GetByCode(code);
 
     #endregion
 }

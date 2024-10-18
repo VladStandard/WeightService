@@ -3,6 +3,7 @@ using Ws.Database;
 using Ws.Desktop.Api.App.Features.PalletMen.Common;
 using Ws.Desktop.Api.App.Features.PalletMen.Expressions;
 using Ws.Desktop.Models.Features.PalletMen;
+using Ws.Shared.Exceptions;
 
 namespace Ws.Desktop.Api.App.Features.PalletMen.Impl;
 
@@ -10,14 +11,16 @@ internal sealed class PalletManApiService(WsDbContext dbContext, UserHelper user
 {
     #region Queries
 
-    public List<PalletMan> GetAll()
+    public PalletMan GetByCode(string code)
     {
-        List<PalletMan> palletMen = dbContext.PalletMen
+        return dbContext.PalletMen
             .AsNoTracking()
             .Where(i => i.Warehouse.Id == userHelper.WarehouseId)
-            .Select(PalletManExpressions.ToDto)
-            .ToList();
-        return palletMen;
+            .Select(PalletManExpressions.ToDto).FirstOrDefault() ?? throw new ApiInternalException
+        {
+            ErrorDisplayMessage = "Пользователь не найден",
+            StatusCode = HttpStatusCode.NotFound
+        };
     }
 
     #endregion
