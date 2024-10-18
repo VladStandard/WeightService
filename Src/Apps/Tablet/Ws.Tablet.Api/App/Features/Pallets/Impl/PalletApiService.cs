@@ -33,9 +33,7 @@ internal sealed class PalletApiService : IPalletService
             PalletBarcode = "123456789",
             ZplLabel = "^XA ^CI28 ^LH0,0 ^FWB\n^FX 945 dots x 1182 dots\n\n^FX Основной шк - GS-1 Expanded Stack\n^FT800,1070 ^BRB,6,9,1,100,4\n^FD010800439500018017230215^FS\n\n^PQ4,0,1,Y\n\n^XZ",
             Batches = batches,
-            User = new("Семенов",
-            "Павел",
-            "Анатольевич"),
+            User = new("Семенов", "Павел", "Анатольевич"),
             WarehouseName = "Склад № 1",
             CreateDt = DateTime.Now,
             Number = "21233131"
