@@ -45,8 +45,8 @@
       <ProjectReference Include="..\Ws.Mobile.Models\Ws.Mobile.Models.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <AdditionalFiles Include="Source\Features\AuthSuspense\AuthSuspense.razor" />
+    <ItemGroup Label="Shared blazor imports">
+        <Content Include="..\..\..\Libs\Ws.Components\Shared\_Imports.razor" Link="_Imports.razor" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />

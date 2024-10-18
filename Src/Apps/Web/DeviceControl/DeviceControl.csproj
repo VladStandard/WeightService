@@ -54,6 +54,10 @@
 
     <Import Project="..\..\..\.targets\NodePackages.targets" />
 
+    <ItemGroup Label="Shared blazor imports">
+        <Content Include="..\..\..\Libs\Ws.Components\Shared\_Imports.razor" Link="_Imports.razor" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm run build" />
     </Target>

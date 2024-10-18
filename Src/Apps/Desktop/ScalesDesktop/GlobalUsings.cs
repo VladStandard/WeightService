@@ -8,7 +8,7 @@ global using Microsoft.Extensions.Localization;
 global using Microsoft.FluentUI.AspNetCore.Components;
 global using Microsoft.JSInterop;
 
-// 3. External
+// 3. Libs
 global using Fluxor;
 global using Fluxor.Blazor.Web.Components;
 global using Phetch.Core;

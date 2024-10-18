@@ -35,6 +35,10 @@
       <TypeScriptCompile Include="wwwroot\libs\types\resizable-element-type.ts" />
     </ItemGroup>
 
+    <ItemGroup>
+      <UpToDateCheckInput Remove="SharedImports\_Imports.razor" />
+    </ItemGroup>
+
     <Import Project="..\..\.targets\NodePackages.targets" />
 
     <Target Name="StaticsBuild" BeforeTargets="PreBuildEvent">
