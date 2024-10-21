@@ -1,4 +1,4 @@
-using Ws.Shared.Converters.Json;
+using Ws.Shared.Converters;
 
 namespace Ws.Tablet.Models.Features.Users;
 

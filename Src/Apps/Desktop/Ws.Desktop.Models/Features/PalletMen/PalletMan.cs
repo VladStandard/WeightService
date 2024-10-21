@@ -1,4 +1,4 @@
-using Ws.Shared.Converters.Json;
+using Ws.Shared.Converters;
 
 namespace Ws.Desktop.Models.Features.PalletMen;
 

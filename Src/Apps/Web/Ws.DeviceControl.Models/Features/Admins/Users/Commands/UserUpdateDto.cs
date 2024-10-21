@@ -1,5 +1,10 @@
+namespace Ws.DeviceControl.Models.Features.Admins.Users.Commands;
 
-namespace Ws.DeviceControl.Models.Features.Admins.Users.Commands.Update;
+public sealed record UserUpdateDto
+{
+    [JsonPropertyName("productionSiteId")]
+    public Guid ProductionSiteId { get; set; }
+}
 
 public sealed class UserUpdateValidator : AbstractValidator<UserUpdateDto>
 {

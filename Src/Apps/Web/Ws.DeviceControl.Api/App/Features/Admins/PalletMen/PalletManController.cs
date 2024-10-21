@@ -1,6 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
-using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Create;
-using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Update;
+using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen;

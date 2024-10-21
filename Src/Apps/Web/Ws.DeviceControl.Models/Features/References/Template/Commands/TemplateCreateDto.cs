@@ -1,12 +1,32 @@
-namespace Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
+namespace Ws.DeviceControl.Models.Features.References.Template.Commands;
+
+public sealed record TemplateCreateDto
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("width")]
+    public short Width { get; set; }
+
+    [JsonPropertyName("height")]
+    public short Height { get; set; }
+
+    [JsonPropertyName("rotate")]
+    public short Rotate { get; set; }
+
+    [JsonPropertyName("body")]
+    public string Body { get; set; } = string.Empty;
+
+    [JsonPropertyName("isWeight")]
+    public bool IsWeight { get; set; }
+}
 
 public sealed class TemplateCreateValidator : AbstractValidator<TemplateCreateDto>
 {
     public TemplateCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
         RuleFor(item => item.Name)
-            .NotEmpty()
-            .MaximumLength(64)
+            .NotEmpty().MaximumLength(64)
             .WithName(wsDataLocalizer["ColName"]);
 
         RuleFor(item => item.Width)
@@ -22,7 +42,7 @@ public sealed class TemplateCreateValidator : AbstractValidator<TemplateCreateDt
             .WithName(wsDataLocalizer["ColRotation"]);
 
         RuleFor(item => item.Body)
-            .NotEmpty()
-            .MaximumLength(8000).WithName(wsDataLocalizer["ColTemplate"]);
+            .NotEmpty().MaximumLength(8000)
+            .WithName(wsDataLocalizer["ColTemplate"]);
     }
 }

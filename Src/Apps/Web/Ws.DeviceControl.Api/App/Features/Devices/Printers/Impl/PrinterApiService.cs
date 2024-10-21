@@ -3,8 +3,7 @@ using Ws.Database.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Extensions;
-using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
-using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Printers.Commands;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl;

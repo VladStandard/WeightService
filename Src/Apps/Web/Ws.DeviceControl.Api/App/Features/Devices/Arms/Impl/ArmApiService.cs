@@ -5,8 +5,7 @@ using Ws.Database.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
-using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
-using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Commands;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;

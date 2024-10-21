@@ -59,7 +59,7 @@
     </ItemGroup>
 
     <ItemGroup Label="BF">
-        <PackageReference Include="BF.Utilities" VersionOverride="1.0.0" PrivateAssets="all"/>
+        <PackageReference Include="BF.Utilities" VersionOverride="1.0.0" />
 
         <Using Include="BF.Utilities.Utils" />
         <Using Include="BF.Utilities.Exceptions" />

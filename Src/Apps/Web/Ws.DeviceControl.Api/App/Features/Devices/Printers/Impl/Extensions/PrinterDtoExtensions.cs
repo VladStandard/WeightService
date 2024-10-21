@@ -1,7 +1,6 @@
 using Ws.Database.Entities.Ref.Printers;
 using Ws.Database.Entities.Ref.ProductionSites;
-using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
-using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Printers.Commands;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Printers.Impl.Extensions;
 

@@ -1,6 +1,4 @@
-using BF.Utilities.ValueTypes;
-
-namespace Ws.Shared.Converters.Json;
+namespace Ws.Shared.Converters;
 
 public class FioJsonConverter : JsonConverter<Fio>
 {

@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 
 namespace Ws.DeviceControl.Models.Features.References.TemplateResources;

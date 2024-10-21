@@ -3,8 +3,7 @@ using Ws.Database.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extensions;
-using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Create;
-using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;

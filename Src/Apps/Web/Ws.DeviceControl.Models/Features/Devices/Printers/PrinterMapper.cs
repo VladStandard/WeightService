@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Printers.Commands;
 using Ws.DeviceControl.Models.Features.Devices.Printers.Queries;
 
 namespace Ws.DeviceControl.Models.Features.Devices.Printers;

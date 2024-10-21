@@ -1,5 +1,4 @@
-using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Create;
-using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Common;

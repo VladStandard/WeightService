@@ -1,5 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.Admins.Users.Common;
-using Ws.DeviceControl.Models.Features.Admins.Users.Commands.Update;
+using Ws.DeviceControl.Models.Features.Admins.Users.Commands;
 using Ws.DeviceControl.Models.Features.Admins.Users.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.Users;

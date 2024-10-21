@@ -3,8 +3,7 @@ using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Common;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Extensions;
-using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Create;
-using Ws.DeviceControl.Models.Features.References.Warehouses.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Warehouses.Commands;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl;

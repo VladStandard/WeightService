@@ -1,6 +1,5 @@
 using Ws.Database.Entities.Zpl.Templates;
-using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
-using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Template.Commands;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl.Extensions;
 

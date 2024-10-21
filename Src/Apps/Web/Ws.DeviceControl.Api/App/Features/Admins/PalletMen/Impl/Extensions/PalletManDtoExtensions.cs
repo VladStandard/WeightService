@@ -1,7 +1,6 @@
 using Ws.Database.Entities.Ref.PalletMen;
 using Ws.Database.Entities.Ref.Warehouses;
-using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Create;
-using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands.Update;
+using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Extensions;
 

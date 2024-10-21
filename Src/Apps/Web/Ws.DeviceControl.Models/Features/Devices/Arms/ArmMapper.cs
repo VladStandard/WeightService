@@ -1,4 +1,4 @@
-using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Commands;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Models.Features.Devices.Arms;

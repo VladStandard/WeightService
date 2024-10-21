@@ -1,8 +1,7 @@
 using Ws.Database.Entities.Ref.Lines;
 using Ws.Database.Entities.Ref.Printers;
 using Ws.Database.Entities.Ref.Warehouses;
-using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Create;
-using Ws.DeviceControl.Models.Features.Devices.Arms.Commands.Update;
+using Ws.DeviceControl.Models.Features.Devices.Arms.Commands;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
 

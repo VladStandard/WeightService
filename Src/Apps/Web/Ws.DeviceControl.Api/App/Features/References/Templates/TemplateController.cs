@@ -1,6 +1,5 @@
 using Ws.DeviceControl.Api.App.Features.References.Templates.Common;
-using Ws.DeviceControl.Models.Features.References.Template.Commands.Create;
-using Ws.DeviceControl.Models.Features.References.Template.Commands.Update;
+using Ws.DeviceControl.Models.Features.References.Template.Commands;
 using Ws.DeviceControl.Models.Features.References.Template.Queries;
 using Ws.DeviceControl.Models.Features.References.Template.Universal;
 
