@@ -1,5 +1,3 @@
-using Ws.Shared.Constants;
-
 namespace Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
 
 public class PrinterCreateValidator : AbstractValidator<PrinterCreateDto>

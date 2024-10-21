@@ -1,6 +1,6 @@
+using BF.Utilities.Handlers;
 using Microsoft.Extensions.Configuration;
 using Ws.Shared.Constants;
-using Ws.Shared.Handlers;
 
 namespace ScalesTablet.Source.Shared.Extensions;
 

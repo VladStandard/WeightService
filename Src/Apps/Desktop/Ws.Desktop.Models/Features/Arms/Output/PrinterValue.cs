@@ -8,7 +8,7 @@ public sealed record PrinterValue
     public required string Name { get; init; }
 
     [JsonPropertyName("ip")]
-    [JsonConverter(typeof(IpAddressJsonConverter))]
+    [JsonConverter(typeof(IpV4AddressJsonConverter))]
     public required IPAddress Ip { get; init; }
 
     [JsonPropertyName("type")]

@@ -1,4 +1,3 @@
-using Ws.Shared.Exceptions;
 using Ws.Shared.ValueTypes;
 
 namespace Ws.DeviceControl.Api.App.Shared.Middlewares;

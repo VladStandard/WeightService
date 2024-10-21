@@ -5,7 +5,6 @@ using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensio
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Create;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands.Update;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
-using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 

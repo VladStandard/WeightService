@@ -33,5 +33,5 @@ public class References1CEndpoints(IWebApi webApi)
         options: new() { DefaultStaleTime = TimeSpan.FromMinutes(1) });
 
     public void UpdatePlu(PluDto plu) => PlusEndpoint.UpdateQueryData(new(),
-        query => query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(plu, p => p.Id == plu.Id).ToArray());
+        query => query.Data == null ? query.Data! : query.Data.ReplaceItemBy(plu, p => p.Id == plu.Id).ToArray());
 }

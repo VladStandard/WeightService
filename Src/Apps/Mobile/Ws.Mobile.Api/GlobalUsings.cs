@@ -12,5 +12,4 @@ global using  Ws.Mobile.Api.App.Shared;
 // 5. Modules
 global using Ws.Shared.Constants;
 global using Ws.Shared.Extensions;
-global using Ws.Shared.Exceptions;
 global using Ws.Shared.ValueTypes;

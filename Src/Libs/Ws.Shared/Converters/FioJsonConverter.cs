@@ -1,4 +1,4 @@
-using Ws.Shared.ValueTypes;
+using BF.Utilities.ValueTypes;
 
 namespace Ws.Shared.Converters.Json;
 

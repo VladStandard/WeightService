@@ -1,5 +1,4 @@
 using Microsoft.Data.SqlClient;
-using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Shared.Extensions;
 

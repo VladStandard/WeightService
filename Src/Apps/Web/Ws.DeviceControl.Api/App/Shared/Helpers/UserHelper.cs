@@ -1,5 +1,3 @@
-using Ws.Shared.Exceptions;
-
 namespace Ws.DeviceControl.Api.App.Shared.Helpers;
 
 public sealed class UserHelper(

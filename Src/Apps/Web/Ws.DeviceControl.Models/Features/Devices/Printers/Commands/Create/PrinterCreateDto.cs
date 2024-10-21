@@ -1,5 +1,4 @@
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Shared.Constants;
 
 namespace Ws.DeviceControl.Models.Features.Devices.Printers.Commands.Create;
 
@@ -9,7 +8,7 @@ public sealed record PrinterCreateDto
     public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("ip")]
-    [JsonConverter(typeof(IpAddressJsonConverter))]
+    [JsonConverter(typeof(IpV4AddressJsonConverter))]
     public IPAddress Ip { get; set; } = DefaultTypes.IpLocal;
 
     [JsonPropertyName("type")]

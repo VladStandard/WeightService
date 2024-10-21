@@ -3,7 +3,6 @@ using TscZebra.Plugin;
 using TscZebra.Plugin.Abstractions;
 using TscZebra.Plugin.Abstractions.Enums;
 using TscZebra.Plugin.Abstractions.Exceptions;
-using Ws.Shared.Constants;
 using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesTablet.Source.Shared.Services;

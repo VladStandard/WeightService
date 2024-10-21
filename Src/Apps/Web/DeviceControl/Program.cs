@@ -1,3 +1,4 @@
+using BF.Utilities.Handlers;
 using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using DeviceControl;
@@ -8,7 +9,6 @@ using DeviceControl.Source.Shared.Auth.Settings;
 using DeviceControl.Source.Shared.Constants;
 using Fluxor;
 using Ws.Shared.Constants;
-using Ws.Shared.Handlers;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

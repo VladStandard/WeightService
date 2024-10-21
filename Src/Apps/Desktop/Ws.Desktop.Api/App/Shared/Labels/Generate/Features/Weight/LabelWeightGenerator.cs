@@ -9,7 +9,6 @@ using Ws.Print.Features.Templates.Models;
 using Ws.Print.Features.Templates.Utils;
 using Ws.Print.Features.Templates.Variables;
 using Ws.Print.Shared.Models;
-using Ws.Shared.Exceptions;
 
 namespace Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Weight;
 

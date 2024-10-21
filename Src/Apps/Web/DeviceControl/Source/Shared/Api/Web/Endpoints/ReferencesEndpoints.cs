@@ -24,7 +24,7 @@ public class ReferencesEndpoints(IWebApi webApi)
     public void UpdateProductionSite(ProductionSiteDto productionSite)
     {
         ProductionSitesEndpoint.UpdateQueryData(new(), query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(productionSite, p => p.Id == productionSite.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(productionSite, p => p.Id == productionSite.Id).ToArray());
         UpdateProxyProductionSite(new() { Id = productionSite.Id, Name = productionSite.Name });
     }
 
@@ -53,7 +53,7 @@ public class ReferencesEndpoints(IWebApi webApi)
 
     public void UpdateProxyProductionSite(ProxyDto productionSite) =>
         ProxyProductionSiteEndpoint.UpdateQueryData(new(), query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(productionSite, p => p.Id == productionSite.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(productionSite, p => p.Id == productionSite.Id).ToArray());
 
     public void DeleteProxyProductionSite(Guid productionSiteId) =>
         ProxyProductionSiteEndpoint.UpdateQueryData(new(), query =>
@@ -77,7 +77,7 @@ public class ReferencesEndpoints(IWebApi webApi)
     public void UpdateWarehouse(Guid productionSiteId, WarehouseDto warehouse)
     {
         WarehousesEndpoint.UpdateQueryData(productionSiteId, query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(warehouse, p => p.Id == warehouse.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(warehouse, p => p.Id == warehouse.Id).ToArray());
         UpdateProxyWarehouse(productionSiteId, new() { Id = warehouse.Id, Name = warehouse.Name });
     }
 
@@ -102,7 +102,7 @@ public class ReferencesEndpoints(IWebApi webApi)
 
     public void UpdateProxyWarehouse(Guid productionSiteId, ProxyDto warehouse) =>
         ProxyWarehousesEndpoint.UpdateQueryData(productionSiteId, query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(warehouse, p => p.Id == warehouse.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(warehouse, p => p.Id == warehouse.Id).ToArray());
 
     public void DeleteProxyWarehouse(Guid productionSiteId, Guid warehouseId) =>
         ProxyWarehousesEndpoint.UpdateQueryData(productionSiteId, query =>

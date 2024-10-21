@@ -1,3 +1,5 @@
+using Ws.Shared.Converters.Json;
+
 namespace Ws.Tablet.Models.Features.Pallets.Output;
 
 public sealed class PalletDto

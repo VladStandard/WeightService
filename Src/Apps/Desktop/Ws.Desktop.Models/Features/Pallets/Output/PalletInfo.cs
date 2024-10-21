@@ -1,5 +1,4 @@
 using Ws.Desktop.Models.Shared.Models;
-using Ws.Shared.ValueTypes;
 
 namespace Ws.Desktop.Models.Features.Pallets.Output;
 

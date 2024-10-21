@@ -7,7 +7,6 @@ using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Piece.Dto;
 using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Weight;
 using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Weight.Dto;
 using Ws.Desktop.Api.App.Shared.Labels.Localization;
-using Ws.Shared.Exceptions;
 
 namespace Ws.Desktop.Api.App.Shared.Labels.Generate;
 

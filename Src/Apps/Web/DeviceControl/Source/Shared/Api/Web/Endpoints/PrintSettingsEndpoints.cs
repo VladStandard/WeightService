@@ -26,7 +26,7 @@ public class PrintSettingsEndpoints(IWebApi webApi)
     public void UpdateTemplate(TemplateDto template, string body)
     {
         TemplatesEndpoint.UpdateQueryData(new(), query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(template, p => p.Id == template.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(template, p => p.Id == template.Id).ToArray());
         UpdateProxyTemplate(template.IsWeight, new() { Id = template.Id, Name = template.Name });
         UpdateTemplateBody(template.Id, body);
     }
@@ -53,7 +53,7 @@ public class PrintSettingsEndpoints(IWebApi webApi)
 
     public void UpdateProxyTemplate(bool isWeight, ProxyDto proxyTemplate) =>
         ProxyTemplatesEndpoint.UpdateQueryData(isWeight, query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(proxyTemplate, p => p.Id == proxyTemplate.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(proxyTemplate, p => p.Id == proxyTemplate.Id).ToArray());
 
     public void DeleteProxyTemplate(bool isWeight, Guid proxyTemplateId) =>
         ProxyTemplatesEndpoint.UpdateQueryData(isWeight, query =>
@@ -94,7 +94,7 @@ public class PrintSettingsEndpoints(IWebApi webApi)
     public void UpdateResource(TemplateResourceDto resource, string body)
     {
         ResourcesEndpoint.UpdateQueryData(new(), query =>
-            query.Data == null ? query.Data! : query.Data.ReplaceItemByKey(resource, p => p.Id == resource.Id).ToArray());
+            query.Data == null ? query.Data! : query.Data.ReplaceItemBy(resource, p => p.Id == resource.Id).ToArray());
         UpdateResourceBody(resource.Id, body);
     }
 

@@ -1,6 +1,6 @@
+using BF.Utilities.Handlers;
 using Microsoft.Extensions.Configuration;
 using Ws.Shared.Constants;
-using Ws.Shared.Handlers;
 
 namespace ScalesDesktop.Source.Shared.Extensions;
 

@@ -1,5 +1,4 @@
 using FluentValidation;
-using Ws.Shared.Exceptions;
 
 namespace Ws.DeviceControl.Api.App.Common;
 

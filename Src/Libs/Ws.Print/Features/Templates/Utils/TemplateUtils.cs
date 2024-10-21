@@ -1,5 +1,3 @@
-using Ws.Shared.Extensions;
-
 namespace Ws.Print.Features.Templates.Utils;
 
 public static partial class TemplateUtils

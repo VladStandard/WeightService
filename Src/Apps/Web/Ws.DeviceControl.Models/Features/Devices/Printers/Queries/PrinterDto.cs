@@ -14,7 +14,7 @@ public record PrinterDto
     public required ProxyDto ProductionSite { get; set; }
 
     [JsonPropertyName("ip")]
-    [JsonConverter(typeof(IpAddressJsonConverter))]
+    [JsonConverter(typeof(IpV4AddressJsonConverter))]
     public required IPAddress Ip { get; set; }
 
     [JsonPropertyName("type")]

@@ -1,6 +1,6 @@
+using BF.Utilities.Handlers;
 using Microsoft.Extensions.Configuration;
 using ScalesDesktop.Source.Shared.Api.Desktop.Handlers;
-using Ws.Shared.Handlers;
 
 namespace ScalesDesktop.Source.Shared.Api.Desktop;
 

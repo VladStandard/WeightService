@@ -14,8 +14,6 @@ using Ws.Desktop.Api.App.Shared.Labels.Generate.Features.Piece.Dto;
 using Ws.Desktop.Api.App.Shared.Labels.Generate.Shared.Dto;
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Shared.Exceptions;
-using Ws.Shared.Extensions;
 
 namespace Ws.Desktop.Api.App.Features.Pallets.Impl;
 

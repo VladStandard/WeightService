@@ -1,5 +1,4 @@
 using Refit;
-using Ws.Shared.Utils;
 using Ws.Shared.ValueTypes;
 
 namespace Ws.Shared.Extensions;

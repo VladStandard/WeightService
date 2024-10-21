@@ -1,3 +1,5 @@
+using Ws.Shared.Converters.Json;
+
 namespace Ws.Tablet.Models.Features.Users;
 
 public sealed class UserDto

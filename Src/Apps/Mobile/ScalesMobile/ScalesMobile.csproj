@@ -25,7 +25,6 @@
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />
         <PackageReference Include="Phetch.Blazor" />
-        <PackageReference Include="Refit.HttpClientFactory" />
         <PackageReference Include="BarcodeScanning.Native.Maui" />
         <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />

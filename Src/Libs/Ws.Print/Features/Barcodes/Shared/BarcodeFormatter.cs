@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using Ws.Shared.Extensions;
 
 namespace Ws.Print.Features.Barcodes.Shared;
 

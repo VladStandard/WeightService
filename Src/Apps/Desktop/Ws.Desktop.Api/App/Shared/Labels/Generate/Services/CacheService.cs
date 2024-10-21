@@ -9,7 +9,6 @@ using Ws.Print.Features.Barcodes.Models;
 using Ws.Print.Features.Templates.Models;
 using Ws.Print.Features.Templates.Utils;
 using Ws.Shared.Enums;
-using Ws.Shared.Exceptions;
 
 namespace Ws.Desktop.Api.App.Shared.Labels.Generate.Services;
 
