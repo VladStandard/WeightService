@@ -4,12 +4,12 @@
 @inherits Fluxor.Blazor.Web.Components.FluxorComponent
 
 <div class="flex justify-between items-center w-full overflow-hidden">
-    <div class="size-14 shrink-0 rounded-full flex items-center justify-center bg-secondary">
-      <DeviceTabletIcon class="size-8 rotate-[270deg]"/>
+    <div class="size-[3.25rem] p-3 border shrink-0 rounded-full flex items-center justify-center bg-secondary">
+      <DeviceTabletIcon class="size-full rotate-[270deg]"/>
     </div>
     <div class="flex w-full flex-col px-3 justify-start overflow-hidden">
       <span class="font-medium truncate">@UserState.Value.User?.Fio.DisplayShortName</span>
-      <span class="truncate text-sm">@UserState.Value.User?.WarehouseName</span>
+      <span class="truncate text-muted-foreground text-sm">@UserState.Value.User?.WarehouseName</span>
     </div>
 </div>
 

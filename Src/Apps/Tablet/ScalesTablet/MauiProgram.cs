@@ -1,10 +1,12 @@
 ﻿using BarcodeScanning;
+using Blazor.QrCodeGen;
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Extensions;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 using ScalesTablet.Source.Shared;
 using ScalesTablet.Source.Shared.Services;
 using Ws.Shared.Extensions;
@@ -41,6 +43,8 @@ public static class MauiProgram
         builder.Services
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintService, PrintService>();
+
+        builder.Services.AddTransient(sp => new ModuleCreator(sp.GetService<IJSRuntime>()!));
 
         builder.Services.AddSingleton<IPrinterService, PrinterService>();
 

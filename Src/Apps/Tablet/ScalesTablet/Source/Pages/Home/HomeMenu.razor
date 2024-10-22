@@ -1,40 +1,29 @@
-@using Android.Provider
 @using Blazor.Heroicons.Outline
+@using ScalesTablet.Source.Features
+@using Ws.Components.Source.UI.AppMenu
 
-<div class="bg-background max-w-lg shadow-sm w-full rounded-xl overflow-hidden p-6 border flex gap-6 flex-col">
-  <div class="w-full flex flex-col gap-6">
-    <div class="flex flex-col space-y-1 text-center">
-      <h2 class="text-2xl font-semibold">Весовой пост (Планшет)</h2>
-      <p class="text-sm text-muted-foreground">Выберите нужный пункт меню</p>
-    </div>
-    <ul class="flex flex-col gap-2">
-      <li>
-        <a href="@Urls.Create">
-          <HomeMenuItem>
-            <PlusIcon class="size-5 mr-3" />
-            Создание
-          </HomeMenuItem>
-        </a>
-      </li>
-      <li>
-        <HomeMenuItem>
-          <MagnifyingGlassCircleIcon class="size-5 mr-3" />
-          @Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Settings.Secure.AndroidId)
-        </HomeMenuItem>
-      </li>
-      <li>
-        <HomeMenuItem OnClick="@ShowCloseAppDialog">
-          <ArrowRightStartOnRectangleIcon class="size-5 mr-3" />
-          Выход
-        </HomeMenuItem>
-      </li>
-    </ul>
-    <ArmControl />
-  </div>
-</div>
+<AppMenu>
+  <AppMenuItem Title="Паллета" Description="Формирование паллеты сырья" Link="@Urls.Create">
+    <IconContent>
+      <PlusIcon class="size-full" />
+    </IconContent>
+  </AppMenuItem>
+  <AppMenuItem Title="Информация" Description="QR код с данными устройства" OnClick="@ShowQrUserDialog">
+    <IconContent>
+      <QrCodeIcon class="size-full" />
+    </IconContent>
+  </AppMenuItem>
+  <AppMenuItem Title="Выход" Description="Завершение текущей сессии" OnClick="@ShowCloseAppDialog">
+    <IconContent>
+      <ArrowRightStartOnRectangleIcon class="size-full" />
+    </IconContent>
+  </AppMenuItem>
+</AppMenu>
 
 @code {
   [Inject] private IDialogService DialogService { get; set; } = default!;
 
   private async Task ShowCloseAppDialog() => await DialogService.ShowDialogAsync<CloseAppDialog>(new());
+
+  private async Task ShowQrUserDialog() => await DialogService.ShowDialogAsync<QrUserDialog>(new());
 }
