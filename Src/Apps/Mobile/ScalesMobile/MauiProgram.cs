@@ -1,7 +1,9 @@
 using BarcodeScanning;
+using Blazor.QrCodeGen;
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ScalesMobile.Source.Shared.Api;
 using Ws.Shared.Web.Extensions;
 
@@ -33,6 +35,8 @@ public static class MauiProgram
             options.WithLifetime(StoreLifetime.Singleton);
             options.ScanAssemblies(typeof(IScalesMobileAssembly).Assembly);
         });
+
+        builder.Services.AddTransient(sp => new ModuleCreator(sp.GetService<IJSRuntime>()!));
 
         #if DEBUG
 

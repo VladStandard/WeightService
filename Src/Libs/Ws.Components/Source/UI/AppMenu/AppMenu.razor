@@ -1,0 +1,8 @@
+<ul class="@Css.Class("grid grid-cols-1 mx-auto divide-y overflow-hidden px-3 bg-background border rounded-md", Class)">
+  @ChildContent
+</ul>
+
+@code {
+  [Parameter] public string Class { get; set; } = string.Empty;
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+}
