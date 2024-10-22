@@ -9,10 +9,6 @@
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" VersionOverride="4.10.2" />
     </ItemGroup>
 
-    <ItemGroup Label="Projects">
-      <ProjectReference Include="..\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
-    </ItemGroup>
-
     <ItemGroup>
       <Content Remove="tsconfig.json" />
       <None Include="tsconfig.json">

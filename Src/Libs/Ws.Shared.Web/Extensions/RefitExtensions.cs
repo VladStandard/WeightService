@@ -1,7 +1,7 @@
 using Refit;
-using Ws.Shared.ValueTypes;
+using Ws.Shared.Web.ValueTypes;
 
-namespace Ws.Shared.Extensions;
+namespace Ws.Shared.Web.Extensions;
 
 public static class RefitExtensions
 {

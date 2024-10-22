@@ -3,8 +3,7 @@ using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using ScalesMobile.Source.Shared.Api;
-using ScalesMobile.Source.Shared.Extensions;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesMobile;
 
@@ -15,10 +14,9 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
 
         builder.UseMauiApp<App>();
+        builder.Configuration.LoadAppSettings<IScalesMobileAssembly>();
 
         builder
-            .LoadSettings()
-            .SetupLocalizer()
             .UseBarcodeScanning()
             .RegisterRefitClients();
 
@@ -26,6 +24,7 @@ public static class MauiProgram
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
         builder.Services
+            .SetupMauiLocalizer(builder.Configuration)
             .AddRefitEndpoints<IScalesMobileAssembly>()
             .AddDelegatingHandlers<IScalesMobileAssembly>();
 

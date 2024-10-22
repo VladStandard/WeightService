@@ -30,10 +30,4 @@
     <data name="errorNotFoundByField" xml:space="preserve">
         <value>{0} is not found</value>
     </data>
-    <data name="errorUnknown" xml:space="preserve">
-        <value>Unknown error</value>
-    </data>
-    <data name="errorUnknownByField" xml:space="preserve">
-        <value>Unknown error with {0} field</value>
-    </data>
 </root>

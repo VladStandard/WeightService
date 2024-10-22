@@ -7,7 +7,7 @@ using TscZebra.Plugin.Abstractions.Exceptions;
 using Ws.Desktop.Models.Features.Arms.Output;
 using Ws.Desktop.Models.Features.Labels.Input;
 using Ws.Desktop.Models.Features.Labels.Output;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesDesktop.Source.Features;
 

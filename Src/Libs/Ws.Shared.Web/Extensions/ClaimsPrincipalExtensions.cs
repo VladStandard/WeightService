@@ -1,4 +1,4 @@
-namespace Ws.Shared.Extensions;
+namespace Ws.Shared.Web.Extensions;
 
 public static class ClaimsPrincipalExtensions
 {

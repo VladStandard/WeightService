@@ -1,18 +1,19 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Ws.Shared.Web.Extensions;
 using Ws.Tablet.Api;
 using Ws.Tablet.Api.App.Shared.Auth;
-using Ws.Tablet.Api.App.Shared.Extensions;
 using Ws.Tablet.Api.App.Shared.Middlewares;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddLocalization()
     .AddHelpers<ITabletApiAssembly>()
     .AddMiddlewares<ITabletApiAssembly>()
     .AddApiServices<ITabletApiAssembly>();
 
 builder.Services
+    .AddLocalization()
+    .AddHttpContextAccessor()
     .AddEndpointsApiExplorer()
     .AddControllers(options =>
     {
@@ -38,13 +39,11 @@ builder.Services
         ArmAuthenticationOptions.DefaultScheme, _ => { }
     );
 
-builder.Services.AddHttpContextAccessor();
-
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.SetupVsLocalization();
+app.UseApiLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 

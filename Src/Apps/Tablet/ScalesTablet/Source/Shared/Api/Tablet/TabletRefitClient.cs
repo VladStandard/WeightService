@@ -1,7 +1,7 @@
 using BF.Utilities.Handlers;
 using Microsoft.Extensions.Configuration;
 using Refit;
-using ScalesTablet.Source.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 using Ws.Tablet.Models;
 
 namespace ScalesTablet.Source.Shared.Api.Tablet;

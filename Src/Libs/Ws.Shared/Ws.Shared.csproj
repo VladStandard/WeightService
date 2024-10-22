@@ -1,11 +1,1 @@
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    </PropertyGroup>
-
-    <ItemGroup Label="Directory.Packages.props">
-        <PackageReference Include="Refit" PrivateAssets="all" />
-        <PackageReference Include="Scrutor" PrivateAssets="all" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" PrivateAssets="All" />
-    </ItemGroup>
-</Project>
+<Project Sdk="Microsoft.NET.Sdk" />

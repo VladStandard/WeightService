@@ -28,7 +28,7 @@
         <ProjectReference Include="..\..\..\Libs\Ws.Print\Ws.Print.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
         <ProjectReference Include="..\Ws.DeviceControl.Models\Ws.DeviceControl.Models.csproj" />
-        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared.Web\Ws.Shared.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,6 +1,6 @@
 using FluentValidation;
 using Ws.Desktop.Models.Features.PalletMen;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 using IDispatcher = Fluxor.IDispatcher;
 
 namespace ScalesDesktop.Source.Features;

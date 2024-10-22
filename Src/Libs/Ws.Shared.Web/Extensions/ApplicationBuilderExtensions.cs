@@ -1,8 +1,11 @@
-namespace Ws.DeviceControl.Api.App.Shared.Extensions;
+using Microsoft.AspNetCore.Builder;
+using Ws.Shared.Constants;
 
-internal static class ApplicationBuilderExtensions
+namespace Ws.Shared.Web.Extensions;
+
+public static class ApplicationBuilderExtensions
 {
-    public static IApplicationBuilder SetupVsLocalization(this IApplicationBuilder app)
+    public static void UseApiLocalization(this IApplicationBuilder app)
     {
         CultureInfo.DefaultThreadCurrentCulture = Cultures.Ru;
         CultureInfo.DefaultThreadCurrentUICulture = Cultures.Ru;
@@ -16,6 +19,5 @@ internal static class ApplicationBuilderExtensions
         };
 
         app.UseRequestLocalization(localizationOptions);
-        return app;
     }
 }

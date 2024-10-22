@@ -1,15 +1,15 @@
+// ReSharper disable ClassNeverInstantiated.Global
 namespace Ws.DeviceControl.Api.App.Shared.Helpers;
 
 public sealed class UserHelper(
-    IHttpContextAccessor httpContextAccessor,
+    ClaimsPrincipal user,
     IAuthorizationService authorizationService,
     WsDbContext dbContext)
 {
     #region Private
 
-    private Guid UserId => Guid.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out Guid result)
+    private Guid UserId => Guid.TryParse(user.FindFirst(ClaimTypes.NameIdentifier)?.Value, out Guid result)
         ? result : Guid.Empty;
-    private ClaimsPrincipal User => httpContextAccessor.HttpContext!.User;
 
     #endregion
 
@@ -23,7 +23,7 @@ public sealed class UserHelper(
             .FirstOrDefaultAsync();
 
     public async Task<bool> ValidatePolicyAsync(string policy) =>
-        (await authorizationService.AuthorizeAsync(User, policy)).Succeeded;
+        (await authorizationService.AuthorizeAsync(user, policy)).Succeeded;
 
     public async Task CanUserWorkWithProductionSiteAsync(Guid productionSiteId)
     {

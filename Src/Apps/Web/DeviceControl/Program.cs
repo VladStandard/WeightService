@@ -3,11 +3,11 @@ using Blazorise;
 using Blazorise.Icons.FontAwesome;
 using DeviceControl;
 using DeviceControl.Source.App;
-using DeviceControl.Source.Shared.Api;
 using DeviceControl.Source.Shared.Auth;
 using DeviceControl.Source.Shared.Auth.Settings;
 using DeviceControl.Source.Shared.Constants;
 using Fluxor;
+using Ws.Shared.Web.Extensions;
 using Ws.Shared.Constants;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -16,6 +16,7 @@ OidcSettings oidcSettings = builder.Configuration
     .GetSection("Oidc").Get<OidcSettings>() ?? throw new NullReferenceException();
 
 builder.Services
+    .AddUserClaims()
     .AddHelpers<IDeviceControlAssembly>()
     .AddRefitEndpoints<IDeviceControlAssembly>()
     .AddDelegatingHandlers<IDeviceControlAssembly>()
@@ -35,15 +36,6 @@ builder.Services
     .AddFluxor(c => c.ScanAssemblies(typeof(IDeviceControlAssembly).Assembly))
     .AddFluentUIComponents(c => c.ValidateClassNames = false)
     .ConfigureKeycloakAuthorization(oidcSettings);
-
-builder.Services.AddScoped(s =>
-{
-    IHttpContextAccessor? httpContextAccessor = s.GetService<IHttpContextAccessor>();
-    HttpContext? httpContext = httpContextAccessor?.HttpContext;
-    return httpContext?.User ?? new ClaimsPrincipal();
-});
-
-builder.RegisterRefitClients();
 
 WebApplication app = builder.Build();
 

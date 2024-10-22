@@ -2,6 +2,7 @@ using Fluxor.Blazor.Web.Components;
 using Microsoft.JSInterop;
 using Phetch.Core;
 using Refit;
+using Ws.Shared.Web.Extensions;
 
 namespace DeviceControl.Source.Shared.UI.DataGrid;
 

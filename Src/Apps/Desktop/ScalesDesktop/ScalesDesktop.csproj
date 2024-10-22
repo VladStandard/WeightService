@@ -26,7 +26,6 @@
         <EnableDefaultCssItems>false</EnableDefaultCssItems>
     </PropertyGroup>
 
-
     <PropertyGroup Label="appInstaller/Msix">
         <ApplicationTitle>Весовой пост</ApplicationTitle>
         <ApplicationId>ru.vladstandart.ScalesDesktop</ApplicationId>
@@ -52,7 +51,6 @@
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />
         <PackageReference Include="Refit.HttpClientFactory" />
-        <PackageReference Include="Microsoft.Extensions.Localization" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
         <PackageReference Include="vNext.BlazorComponents.FluentValidation" />
     </ItemGroup>
@@ -73,7 +71,7 @@
     <ItemGroup Label="Projects">
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj" />
         <ProjectReference Include="..\..\..\Libs\Ws.Components\Ws.Components.csproj" />
-        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared.Web\Ws.Shared.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup Label="Publish scrtipts">

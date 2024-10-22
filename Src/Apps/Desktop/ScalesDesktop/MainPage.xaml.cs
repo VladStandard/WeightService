@@ -1,7 +1,7 @@
 using MauiPageFullScreen;
 using Microsoft.AspNetCore.Components.WebView;
 using Microsoft.Extensions.Configuration;
-using ScalesDesktop.Source.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesDesktop;
 

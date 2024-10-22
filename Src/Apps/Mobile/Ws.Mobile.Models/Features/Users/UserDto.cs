@@ -1,4 +1,4 @@
-using Ws.Shared.Converters;
+using Ws.Shared.Json.Converters;
 
 namespace Ws.Mobile.Models.Features.Users;
 

@@ -22,8 +22,4 @@
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-
-    <ItemGroup Label="Projects">
-        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
-    </ItemGroup>
 </Project>

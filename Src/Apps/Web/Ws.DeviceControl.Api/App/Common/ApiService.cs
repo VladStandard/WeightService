@@ -10,7 +10,7 @@ public abstract class ApiService
         if (!result.IsValid)
             throw new ApiInternalException
             {
-                ErrorDisplayMessage = result.Errors.FirstOrDefault()?.ToString() ?? string.Empty,
+                ErrorDisplayMessage = result.Errors[0].ToString(),
                 StatusCode = HttpStatusCode.UnprocessableEntity
             };
     }

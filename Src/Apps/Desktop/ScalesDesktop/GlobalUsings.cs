@@ -4,9 +4,9 @@
 // 2. Microsoft
 global using Microsoft.AspNetCore.Components;
 global using Microsoft.AspNetCore.Components.Web;
-global using Microsoft.Extensions.Localization;
 global using Microsoft.FluentUI.AspNetCore.Components;
 global using Microsoft.JSInterop;
+global using Microsoft.Extensions.Localization;
 
 // 3. Libs
 global using Fluxor;

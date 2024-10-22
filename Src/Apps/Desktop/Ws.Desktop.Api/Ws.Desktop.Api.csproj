@@ -18,8 +18,9 @@
     <ItemGroup Label="Projects">
         <ProjectReference Include="..\..\..\Libs\Ws.Print\Ws.Print.csproj" />
         <ProjectReference Include="..\Ws.Desktop.Models\Ws.Desktop.Models.csproj"/>
-        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
-        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database\Ws.Database.csproj" PrivateAssets="All" />
+        
+        <ProjectReference Include="..\..\..\Infrastructure\Ws.Database\Ws.Database.csproj" />
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared.Web\Ws.Shared.Web.csproj" />
     </ItemGroup>
 
     <ItemGroup>

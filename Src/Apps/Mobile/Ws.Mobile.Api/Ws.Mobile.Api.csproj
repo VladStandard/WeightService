@@ -6,8 +6,8 @@
     </ItemGroup>
 
     <ItemGroup Label="Projects">
+        <ProjectReference Include="..\..\..\Libs\Ws.Shared.Web\Ws.Shared.Web.csproj" />
         <ProjectReference Include="..\Ws.Mobile.Models\Ws.Mobile.Models.csproj"/>
-        <ProjectReference Include="..\..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
     </ItemGroup>
 
     <ItemGroup>

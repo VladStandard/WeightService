@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database;
 using Ws.Desktop.Api;
-using Ws.Desktop.Api.App.Shared.Extensions;
 using Ws.Desktop.Api.App.Shared.Labels;
 using Ws.Desktop.Api.App.Shared.Labels.Settings;
 using Ws.Desktop.Api.App.Shared.Middlewares;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +12,7 @@ PalychSettings palychSettings = builder.Configuration
     .GetSection("Palych").Get<PalychSettings>() ?? throw new NullReferenceException();
 
 builder.Services
+    .AddLocalization()
     .AddAuthorization(PolicyAuthUtils.RegisterAuthorization)
     .AddAuthentication(ArmAuthenticationOptions.DefaultScheme)
     .AddScheme<ArmAuthenticationOptions, ArmAuthenticationHandler>(
@@ -22,7 +22,6 @@ builder.Services
 builder.Services
     .AddEfCore()
     .AddLabelsServices(palychSettings)
-    .AddLocalization()
     .AddHelpers<IDesktopApiAssembly>()
     .AddMiddlewares<IDesktopApiAssembly>()
     .AddApiServices<IDesktopApiAssembly>();
@@ -53,7 +52,7 @@ WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.SetupVsLocalization();
+app.UseApiLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -74,8 +74,9 @@ internal sealed class ArmApiService(
         await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorHelper.Localize(ErrorType.Unique, "Number"));
         await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, errorHelper.Localize(ErrorType.Unique, "PcName"));
 
-        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
+        WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
+
         LineEntity entity = dto.ToEntity(warehouse, printer);
 
         await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
@@ -94,9 +95,9 @@ internal sealed class ArmApiService(
         await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Number"));
         await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, errorHelper.Localize(ErrorType.Unique, "PcName"));
 
+        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
-        LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
 
         await userHelper.CanUserWorkWithProductionSiteAsync(warehouse.ProductionSiteId);
 

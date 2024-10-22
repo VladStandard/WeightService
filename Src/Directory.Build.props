@@ -40,6 +40,9 @@
     </ItemGroup>
 
     <ItemGroup Label="System usings">
+        <Using Include="System" />
+        <Using Include="System.Collections.Generic" />
+
         <Using Include="System.Security.Claims" />
 
         <Using Include="System.Text" />
@@ -56,6 +59,14 @@
         <Using Include="System.Globalization" />
         <Using Include="System.Diagnostics.Contracts" />
         <Using Include="System.Diagnostics.CodeAnalysis" />
+    </ItemGroup>
+
+    <ItemGroup Label="Ws.Shared">
+        <ProjectReference
+            Include="$(MSBuildThisFileDirectory)\Libs\Ws.Shared\Ws.Shared.csproj"
+            Condition="'$(MSBuildProjectName)' != 'Ws.Shared'"
+            PrivateAssets="All"
+            />
     </ItemGroup>
 
     <ItemGroup Label="BF">

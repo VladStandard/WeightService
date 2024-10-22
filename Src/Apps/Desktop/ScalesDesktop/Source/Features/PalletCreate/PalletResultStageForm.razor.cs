@@ -1,6 +1,6 @@
 using Ws.Desktop.Models.Features.Pallets.Input;
 using Ws.Desktop.Models.Features.Pallets.Output;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesDesktop.Source.Features.PalletCreate;
 

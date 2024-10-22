@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Database;
 using Ws.PalychExchange.Api;
-using Ws.PalychExchange.Api.App.Shared.Extensions;
 using Ws.PalychExchange.Api.App.Shared.Middlewares;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,7 @@ builder.Services
 
 builder.Services
     .AddEfCore()
-    .AddValidators()
+    .AddValidators<IPalychExchangeAssembly>()
     .AddMiddlewares<IPalychExchangeAssembly>()
     .AddApiServices<IPalychExchangeAssembly>();
 

@@ -1,4 +1,4 @@
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 // ReSharper disable ClassNeverInstantiated.Global
 
 namespace Ws.Desktop.Api.App.Shared.Helpers;

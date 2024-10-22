@@ -94,23 +94,5 @@ namespace Ws.DeviceControl.Api.App.Shared.Localization {
                 return ResourceManager.GetString("errorUniqueByField", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string errorUnknown {
-            get {
-                return ResourceManager.GetString("errorUnknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string errorUnknownByField {
-            get {
-                return ResourceManager.GetString("errorUnknownByField", resourceCulture);
-            }
-        }
     }
 }

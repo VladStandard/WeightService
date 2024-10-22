@@ -69,7 +69,7 @@ namespace Ws.DeviceControl.Api.App.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сущность {0} не найдена.
+        ///   Looks up a localized string similar to {0} не найден(а).
         /// </summary>
         public static string errorNotFoundByField {
             get {
@@ -87,29 +87,11 @@ namespace Ws.DeviceControl.Api.App.Shared.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка уникальности поля {0}.
+        ///   Looks up a localized string similar to Ошибка уникальности: {0}.
         /// </summary>
         public static string errorUniqueByField {
             get {
                 return ResourceManager.GetString("errorUniqueByField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Неизвестная ошибка.
-        /// </summary>
-        public static string errorUnknown {
-            get {
-                return ResourceManager.GetString("errorUnknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Неизвестная ошибка с полем {0}.
-        /// </summary>
-        public static string errorUnknownByField {
-            get {
-                return ResourceManager.GetString("errorUnknownByField", resourceCulture);
             }
         }
     }

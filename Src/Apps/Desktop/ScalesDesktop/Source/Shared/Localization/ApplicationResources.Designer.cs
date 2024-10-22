@@ -935,15 +935,6 @@ namespace ScalesDesktop.Source.Shared.Localization {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        public static string UnknownError {
-            get {
-                return ResourceManager.GetString("UnknownError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
         public static string UserSelectEmptyPlaceholder {
             get {
                 return ResourceManager.GetString("UserSelectEmptyPlaceholder", resourceCulture);

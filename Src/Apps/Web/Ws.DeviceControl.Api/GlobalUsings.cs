@@ -23,4 +23,3 @@ global using Ws.DeviceControl.Models.Shared;
 global using Ws.Database;
 global using Ws.Shared.Constants;
 global using Ws.Shared.Enums;
-global using Ws.Shared.Extensions;

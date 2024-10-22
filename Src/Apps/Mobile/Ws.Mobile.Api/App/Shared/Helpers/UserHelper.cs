@@ -1,3 +1,5 @@
+using Ws.Shared.Web.Extensions;
+
 namespace Ws.Mobile.Api.App.Shared.Helpers;
 
 public sealed class UserHelper(IHttpContextAccessor httpContextAccessor)

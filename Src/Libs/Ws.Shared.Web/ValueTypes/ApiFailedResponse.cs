@@ -1,4 +1,4 @@
-namespace Ws.Shared.ValueTypes;
+namespace Ws.Shared.Web.ValueTypes;
 
 public record ApiFailedResponse
 {

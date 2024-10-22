@@ -20,10 +20,6 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup Label="Projects">
-        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" PrivateAssets="All"/>
-    </ItemGroup>
-
     <ItemGroup Label="Need folders">
         <Folder Include="Migrations\"/>
     </ItemGroup>

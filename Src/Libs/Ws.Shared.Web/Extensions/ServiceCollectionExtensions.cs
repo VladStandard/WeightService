@@ -1,21 +1,37 @@
+using BF.Utilities.Handlers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Ws.Shared.Utils;
+using Ws.Shared.Constants;
 
-namespace Ws.Shared.Extensions;
+namespace Ws.Shared.Web.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddServiceOrMock<TInterface, TImplementation, TMockImplementation>(
-        this IServiceCollection services,
-        bool useMock,
-        ServiceLifetime lifetime = ServiceLifetime.Scoped)
-        where TInterface : class
-        where TImplementation : TInterface
-        where TMockImplementation : TInterface
+    public static IServiceCollection SetupMauiLocalizer(this IServiceCollection services, ConfigurationManager config)
     {
-        Type implementationType = useMock && ConfigurationUtils.IsDevelop ? typeof(TMockImplementation) : typeof(TImplementation);
+        CultureInfo defaultCulture = new(
+        config.GetSection("System")
+            .GetValueOrDefault("Language", Cultures.Ru.Name)
+        );
 
-        services.Add(new(typeof(TInterface), implementationType, lifetime));
+        CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+        CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
+        services.AddLocalization();
+        services.AddTransient<AcceptLanguageHandler>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddUserClaims(this IServiceCollection services)
+    {
+        services.AddScoped(s =>
+        {
+            IHttpContextAccessor? httpContextAccessor = s.GetService<IHttpContextAccessor>();
+            HttpContext? httpContext = httpContextAccessor?.HttpContext;
+            return httpContext?.User ?? new ClaimsPrincipal();
+        });
 
         return services;
     }

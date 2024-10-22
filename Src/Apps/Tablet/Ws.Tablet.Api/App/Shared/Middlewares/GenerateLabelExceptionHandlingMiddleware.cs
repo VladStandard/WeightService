@@ -1,3 +1,5 @@
+using Ws.Shared.Web.ValueTypes;
+
 namespace Ws.Tablet.Api.App.Shared.Middlewares;
 
 public class GenerateLabelExceptionHandlingMiddleware(ILogger<GenerateLabelExceptionHandlingMiddleware> logger) : IMiddleware

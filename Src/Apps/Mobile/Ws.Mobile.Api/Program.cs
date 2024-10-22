@@ -1,17 +1,18 @@
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Ws.Mobile.Api;
-using Ws.Mobile.Api.App.Shared.Extensions;
 using Ws.Mobile.Api.App.Shared.Middlewares;
+using Ws.Shared.Web.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddLocalization()
     .AddHelpers<IMobileApiAssembly>()
     .AddMiddlewares<IMobileApiAssembly>()
     .AddApiServices<IMobileApiAssembly>();
 
 builder.Services
+    .AddLocalization()
+    .AddHttpContextAccessor()
     .AddEndpointsApiExplorer()
     .AddControllers(options =>
     {
@@ -31,13 +32,11 @@ builder.Services
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-builder.Services.AddHttpContextAccessor();
-
 WebApplication app = builder.Build();
 
 app.UseHttpsRedirection();
 app.MapControllers();
-app.SetupVsLocalization();
+app.UseApiLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 

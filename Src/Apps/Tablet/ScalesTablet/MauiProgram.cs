@@ -2,12 +2,11 @@
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
-using ScalesTablet.Source.Shared.Api;
-using ScalesTablet.Source.Shared.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using ScalesTablet.Source.Shared;
+using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Services;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesTablet;
 
@@ -16,12 +15,11 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
+        builder.Configuration.LoadAppSettings<IScalesTabletAssembly>();
 
         builder.UseMauiApp<App>();
 
         builder
-            .LoadSettings()
-            .SetupLocalizer()
             .UseBarcodeScanning()
             .RegisterRefitClients();
 
@@ -29,6 +27,7 @@ public static class MauiProgram
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
 
         builder.Services
+            .SetupMauiLocalizer(builder.Configuration)
             .AddRefitEndpoints<IScalesTabletAssembly>()
             .AddDelegatingHandlers<IScalesTabletAssembly>();
 
@@ -40,9 +39,8 @@ public static class MauiProgram
 
         builder.Services
             .AddScoped<HtmlRenderer>()
-            .AddScoped<IPrintService, PrintService>();
-
-        builder.Services.AddSingleton<IPrinterService, PrinterService>();
+            .AddScoped<IPrintService, PrintService>()
+            .AddSingleton<IPrinterService, PrinterService>();
 
         #if DEBUG
 

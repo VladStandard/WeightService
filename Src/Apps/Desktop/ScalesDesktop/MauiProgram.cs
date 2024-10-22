@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using ScalesDesktop.Source.Shared.Api;
 using ScalesDesktop.Source.Shared.Extensions;
 using ScalesDesktop.Source.Shared.Services.Devices;
-using Ws.Shared.Extensions;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesDesktop;
 
@@ -14,17 +14,17 @@ public static class MauiProgram
     public static MauiAppBuilder CreateMauiApp()
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
-
-        builder.UseMauiApp<App>().UseFullScreen();
+        builder.Configuration.LoadAppSettings<IScalesDesktopAssembly>();
 
         builder
-            .LoadSettings()
-            .SetupLocalizer()
+            .UseMauiApp<App>()
+            .UseFullScreen()
             .RegisterRefitClients();
 
         builder.Services.AddMauiBlazorWebView();
 
         builder.Services
+            .SetupMauiLocalizer(builder.Configuration)
             .AddRefitEndpoints<IScalesDesktopAssembly>()
             .AddDelegatingHandlers<IScalesDesktopAssembly>()
             .AddFluentUIComponents(c => c.ValidateClassNames = false);

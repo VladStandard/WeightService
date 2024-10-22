@@ -1,5 +1,4 @@
 using TscZebra.Plugin.Abstractions.Enums;
-using Ws.Shared.Constants;
 
 namespace Ws.Database.Entities.Ref.Printers;
 

@@ -1,8 +1,8 @@
 using BF.Utilities.Handlers;
 using Microsoft.Extensions.Configuration;
 using Refit;
-using ScalesMobile.Source.Shared.Extensions;
 using Ws.Mobile.Models;
+using Ws.Shared.Web.Extensions;
 
 namespace ScalesMobile.Source.Shared.Api.Mobile;
 

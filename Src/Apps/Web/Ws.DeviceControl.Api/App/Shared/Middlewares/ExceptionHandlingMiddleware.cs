@@ -1,4 +1,4 @@
-using Ws.Shared.ValueTypes;
+using Ws.Shared.Web.ValueTypes;
 
 namespace Ws.DeviceControl.Api.App.Shared.Middlewares;
 

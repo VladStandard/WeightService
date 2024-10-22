@@ -27,6 +27,5 @@
 
     <ItemGroup Label="Projects">
         <ProjectReference Include="..\..\Libs\Ws.Components\Ws.Components.csproj" />
-        <ProjectReference Include="..\..\Libs\Ws.Shared\Ws.Shared.csproj" />
     </ItemGroup>
 </Project>

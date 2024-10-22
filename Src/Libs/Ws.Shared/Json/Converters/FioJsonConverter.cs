@@ -1,4 +1,4 @@
-namespace Ws.Shared.Converters;
+namespace Ws.Shared.Json.Converters;
 
 public class FioJsonConverter : JsonConverter<Fio>
 {
