@@ -3,7 +3,7 @@
 
 @if (Plu == null)
 {
-  <div class="size-full flex items-center border justify-center bg-secondary/[.6] rounded-md overflow-hidden p-4">
+  <div class="size-full flex items-center border justify-center rounded-md overflow-hidden p-4">
     <div class="flex flex-col text-center">
       <h3 class="font-medium xl:text-lg">@Localizer["PluDescriptionNoDataTitle"]</h3>
       <h4 class="text-muted-foreground text-sm xl:text-base">
@@ -14,7 +14,7 @@
 }
 else
 {
-  <div class="grid grow w-full overflow-hidden border rounded-md bg-secondary/[.6] px-4 py-4 grid-cols-[auto_1fr] gap-y-2 gap-x-4 xl:text-lg">
+  <div class="grid grow w-full overflow-hidden border rounded-md px-4 py-4 grid-cols-[auto_1fr] gap-y-2 gap-x-4 xl:text-lg">
     <div class="flex items-start">
       <div class="flex items-center text-muted-foreground">
         <MagnifyingGlassIcon class="size-4 mr-1"/>

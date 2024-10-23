@@ -1,10 +1,9 @@
 ﻿using BarcodeScanning;
-using Blazor.QrCodeGen;
+using CommunityToolkit.Maui;
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 using ScalesTablet.Source.Shared;
 using ScalesTablet.Source.Shared.Api;
 using ScalesTablet.Source.Shared.Services;
@@ -19,11 +18,9 @@ public static class MauiProgram
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder.Configuration.LoadAppSettings<IScalesTabletAssembly>();
 
-        builder.UseMauiApp<App>();
+        builder.UseMauiApp<App>().UseMauiCommunityToolkit();
 
-        builder
-            .UseBarcodeScanning()
-            .RegisterRefitClients();
+        builder.RegisterRefitClients();
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
@@ -42,13 +39,13 @@ public static class MauiProgram
         builder.Services
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintService, PrintService>()
-            .AddSingleton<IPrinterService, PrinterService>()
-			.AddTransient(sp => new ModuleCreator(sp.GetService<IJSRuntime>()!));
+            .AddSingleton<IPrinterService, PrinterService>();
 
         #if DEBUG
 
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
+        builder.UseBarcodeScanning();
 
         #endif
 

@@ -1,5 +1,4 @@
 using Append.Blazor.Printing;
-using Blazor.QrCodeGen;
 using MauiPageFullScreen;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -33,8 +32,6 @@ public static class MauiProgram
         builder.Services
             .AddScoped<HtmlRenderer>()
             .AddScoped<IPrintingService, PrintingService>();
-
-        builder.Services.AddTransient(sp => new ModuleCreator(sp.GetService<IJSRuntime>()!));
 
         #if DEBUG
 

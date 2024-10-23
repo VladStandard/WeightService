@@ -6,12 +6,12 @@
     @if (ParentStepper.ItemsCount > Index)
       {
         <div class="absolute inset-0 flex items-center" aria-hidden="true">
-          <div class="@Css.Class("h-0.5 w-full transition-colors", ParentStepper.CurrentIndex > Index ? "bg-primary" : "bg-border")"></div>
+          <div class="@Css.Class("h-px w-full transition-colors", ParentStepper.CurrentIndex > Index ? "bg-primary/70" : "bg-border")"></div>
         </div>
       }
     <button
       @onclick="@(() => ParentStepper.SetCurrentIndex(Index))"
-      class="@Css.Class("relative border transition-colors flex size-8 items-center justify-center rounded-full", ParentStepper.CurrentIndex == Index ? "border-primary border-2 bg-background" : ParentStepper.CurrentIndex > Index ? "border-primary border-2 bg-primary" : "bg-background")"
+      class="@Css.Class("relative border transition-colors flex size-8 items-center justify-center rounded-full", ParentStepper.CurrentIndex == Index ? "border-primary/70 border-2 bg-background" : ParentStepper.CurrentIndex > Index ? "border-primary border-2 bg-primary" : "bg-background")"
       disabled="@Disabled"
     >
       @if (ParentStepper.CurrentIndex == Index)

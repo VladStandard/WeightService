@@ -12,7 +12,7 @@
     }
     else
     {
-      <div class="size-[3.25rem] p-3 border shrink-0 rounded-full flex items-center justify-center bg-secondary">
+      <div class="size-[3.25rem] p-3 border shrink-0 rounded-full flex items-center justify-center bg-background">
         <DeviceTabletIcon class="size-full rotate-[270deg]"/>
       </div>
     }
@@ -29,9 +29,9 @@
       }
     </div>
     <Button
-      Class="shrink-0 border"
+      Class="shrink-0"
       OnClick="@(() => query.RefetchAsync())"
-      Variant="ButtonVariantType.Secondary"
+      Variant="ButtonVariantType.Outline"
       Size="ButtonSizeType.Small"
       Disabled="@query.IsFetching"
     >

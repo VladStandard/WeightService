@@ -1,6 +1,5 @@
 @using Blazor.Heroicons.Outline
 @using ScalesDesktop.Source.Shared.Extensions
-@using Blazor.QrCodeGen
 
 @implements IDialogContentComponent
 
@@ -15,12 +14,8 @@
       <XMarkIcon class="size-5"/>
     </Button>
   </div>
-  <div class="w-full flex my-6 justify-center">
-    <QrCode
-      Text="@DeviceInfo()"
-      Size="256"
-      Options="@(new QrCodeOptions() { Size = 1024 })"
-    />
+  <div class="w-full flex justify-center">
+    <QRCode Value="@DeviceInfo()"/>
   </div>
   <div class="flex w-full justify-end gap-2 pt-4">
     <Button OnClick="@CloseDialog">
@@ -51,7 +46,8 @@
           { "Mac", networkInfo.Mac.Format('-') },
           { "Type", networkInfo.Type },
         }},
-      }
+      },
+    new JsonSerializerOptions { WriteIndented = true }
     );
   }
 }

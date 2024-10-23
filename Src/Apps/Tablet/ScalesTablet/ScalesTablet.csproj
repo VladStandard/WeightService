@@ -23,7 +23,8 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
-        <PackageReference Include="Blazor.QrCodeGen" />
+        <PackageReference Include="CommunityToolkit.Maui" />
+        <PackageReference Include="QRCoder" />
         <PackageReference Include="TscZebra.Plugin" />
         <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="Fluxor.Blazor.Web" />
@@ -35,7 +36,6 @@
 
     <ItemGroup Label="Packages">
         <PackageReference Include="BarcodeLib" VersionOverride="3.1.4"/>
-        <PackageReference Include="DeepCloner" VersionOverride="0.10.4" />
         <PackageReference Include="Microsoft.Maui.Controls" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" VersionOverride="8.0.91" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" VersionOverride="8.0.91" />

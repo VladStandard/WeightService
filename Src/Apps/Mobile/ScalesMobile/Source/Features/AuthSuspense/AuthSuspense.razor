@@ -8,33 +8,35 @@
 
 @if (UserState.Value.User == null)
 {
-  <div class="rounded-lg overflow-hidden max-w-sm p-6 border shadow-sm bg-background w-full">
-    <div class="w-full pb-4 border-b">
-      <h2 class="text-lg font-semibold leading-none tracking-tight">
-        Вход в систему
-      </h2>
-    </div>
-    <EditForm
-      Model="Model"
-      OnValidSubmit="@OnValidSubmit"
-      class="mt-4"
-    >
-      <FluentValidationValidator Validator="@(new AuthModelValidator())" />
-      <FormFieldWrapper Label="Пароль" HtmlId="login-password">
-        <NumericInputNoVirtual
-          @bind-Value="@Model.Password"
-          Placeholder="Введите пароль..."
-          MaxLength="4"
-          HtmlId="login-password"
-        />
-        <FieldValidation For="@(() => Model.Password)" />
-      </FormFieldWrapper>
-      <div class="w-full flex justify-end">
-        <Button Type="@ButtonType.Submit" Disabled="@IsLoading" Class="!mt-4">
-          Войти
-        </Button>
+  <div class="p-4 max-w-xs size-full flex items-center justify-center">
+    <div class="rounded-lg overflow-hidden p-6 border shadow-sm bg-background w-full">
+      <div class="w-full pb-4 border-b">
+        <h2 class="text-lg font-semibold leading-none tracking-tight">
+          Вход в систему
+        </h2>
       </div>
-    </EditForm>
+      <EditForm
+        Model="Model"
+        OnValidSubmit="@OnValidSubmit"
+        class="mt-4"
+      >
+        <FluentValidationValidator Validator="@(new AuthModelValidator())" />
+        <FormFieldWrapper Label="Пароль" HtmlId="login-password">
+          <NumericInputNoVirtual
+            @bind-Value="@Model.Password"
+            Placeholder="Введите пароль..."
+            MaxLength="4"
+            HtmlId="login-password"
+          />
+          <FieldValidation For="@(() => Model.Password)" />
+        </FormFieldWrapper>
+        <div class="w-full flex justify-end">
+          <Button Type="@ButtonType.Submit" Disabled="@IsLoading" Class="!mt-4">
+            Войти
+          </Button>
+        </div>
+      </EditForm>
+    </div>
   </div>
 }
 else
