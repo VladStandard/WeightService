@@ -40,6 +40,12 @@
     }
   </UseParameterlessEndpoint>
 
+  <AppMenuItem Title="Информация" Description="QR код с данными устройства" OnClick="@ShowQrUserDialog">
+    <IconContent>
+      <QrCodeIcon class="size-full" />
+    </IconContent>
+  </AppMenuItem>
+
   <AppMenuItem Description="Завершение текущего сеанса" Title="@Localizer["BtnExit"]" OnClick="@ShowCloseAppDialog">
     <IconContent>
       <ArrowLeftOnRectangleIcon class="size-full" />
@@ -59,4 +65,6 @@
   # endregion
 
   private async Task ShowCloseAppDialog() => await DialogService.ShowDialogAsync<CloseAppDialog>(new());
+
+  private async Task ShowQrUserDialog() => await DialogService.ShowDialogAsync<QrUserDialog>(new());
 }

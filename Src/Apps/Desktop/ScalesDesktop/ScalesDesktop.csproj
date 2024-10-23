@@ -47,6 +47,7 @@
     </PropertyGroup>
 
     <ItemGroup Label="Directory.Packages.props">
+        <PackageReference Include="Blazor.QrCodeGen" />
         <PackageReference Include="Phetch.Blazor" />
         <PackageReference Include="FluentValidation" />
         <PackageReference Include="Fluxor.Blazor.Web" />
