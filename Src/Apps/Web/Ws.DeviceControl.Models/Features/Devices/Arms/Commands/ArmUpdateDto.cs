@@ -15,8 +15,8 @@ public sealed record ArmUpdateDto
     [JsonPropertyName("counter")]
     public int Counter { get; set; }
 
-    [JsonPropertyName("pc")]
-    public string PcName { get; set; } = string.Empty;
+    [JsonPropertyName("systemKey")]
+    public Guid SystemKey { get; set; }
 
     [JsonPropertyName("printerId")]
     public Guid PrinterId { get; set; }
@@ -37,9 +37,9 @@ public sealed class ArmUpdateValidator : AbstractValidator<ArmUpdateDto>
             .GreaterThan(10000).LessThan(100000)
             .WithName(wsDataLocalizer["ColNumber"]);
 
-        RuleFor(item => item.PcName)
-            .NotEmpty().MaximumLength(32).Matches("^[A-Z0-9-]*$")
-            .WithName(wsDataLocalizer["ColPcName"]);
+        RuleFor(item => item.SystemKey)
+            .NotEmpty()
+            .WithName(wsDataLocalizer["ColSystemKey"]);
 
         RuleFor(item => item.Counter)
             .GreaterThanOrEqualTo(0).LessThanOrEqualTo(1000000)

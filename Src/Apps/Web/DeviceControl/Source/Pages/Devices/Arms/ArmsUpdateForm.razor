@@ -9,7 +9,7 @@
   Endpoint="ReferencesEndpoints.ProxyUserProductionSiteEndpoint"
   Context="userProductionSiteQuery"
 >
-  @{ bool isOnlyView = !((IsSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id) || IsSeniorSupport); }
+  @{ bool isOnlyView = !(IsSupport && Model.ProductionSite.Id == userProductionSiteQuery.Data?.Id || IsSeniorSupport); }
   <SectionForm
     FormModel="@FormModel"
     ChangeDate="@Model.ChangeDt"
@@ -63,12 +63,11 @@
 
       <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
 
-      <SectionTextField
-        Label="@WsDataLocalizer["ColPcName"]"
-        @bind-Value="@FormModel.PcName"
-        For="@(() => FormModel.PcName)"
+      <SectionGuidField
+        Label="@WsDataLocalizer["ColSystemKey"]"
+        @bind-Value="@FormModel.SystemKey"
+        For="@(() => FormModel.SystemKey)"
         Disabled="@isOnlyView"
-        MaxLength="16"
       />
 
       <SectionInputWrapper

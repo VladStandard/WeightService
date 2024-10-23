@@ -28,10 +28,11 @@ public class ArmAuthenticationHandler(
             return AuthenticateResult.Fail("Invalid Authorization header format or scheme. " +
                                            $"Expected: {ArmAuthenticationOptions.DefaultScheme}");
 
-        string token = headerValue[1];
+        if (!Guid.TryParse(headerValue[1], out Guid systemKey))
+            return AuthenticateResult.Fail($"Invalid value in header: {Options.TokenHeaderName}");
 
         Arm? arm = await dbContext.Lines
-            .Where(i => i.PcName == token)
+            .Where(i => i.SystemKey == systemKey)
             .Select(i => new Arm(i.Id, i.Type, i.Warehouse.Id))
             .FirstOrDefaultAsync();
 
@@ -39,7 +40,6 @@ public class ArmAuthenticationHandler(
             return AuthenticateResult.Fail($"Invalid value in header: {Options.TokenHeaderName}");
 
         List<Claim> claims = [
-            new(ClaimTypes.Name, token),
             new(ClaimTypes.NameIdentifier, arm.Id.ToString()),
             new(ClaimTypes.Role, arm.Role.ToString()),
             new(ClaimTypes.StreetAddress, arm.WarehouseId.ToString())

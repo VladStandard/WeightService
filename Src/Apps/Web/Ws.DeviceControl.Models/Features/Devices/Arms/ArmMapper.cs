@@ -13,7 +13,7 @@ public static class ArmMapper
             Type = item.Type,
             Number = item.Number,
             Counter = item.Counter,
-            PcName = item.PcName,
+            SystemKey = item.SystemKey,
             PrinterId = item.Printer.Id,
             WarehouseId = item.Warehouse.Id
         };

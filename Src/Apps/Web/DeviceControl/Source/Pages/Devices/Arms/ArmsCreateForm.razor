@@ -52,10 +52,10 @@
 
     <FormDivider>@WsDataLocalizer["ColDevice"]</FormDivider>
 
-    <SectionTextField
-      Label="@WsDataLocalizer["ColPcName"]"
-      @bind-Value="@FormModel.PcName"
-      For="@(() => FormModel.PcName)"
+    <SectionGuidField
+      Label="@WsDataLocalizer["ColSystemKey"]"
+      @bind-Value="@FormModel.SystemKey"
+      For="@(() => FormModel.SystemKey)"
       MaxLength="16"
     />
 

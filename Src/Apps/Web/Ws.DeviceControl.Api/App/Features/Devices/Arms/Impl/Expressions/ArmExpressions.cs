@@ -15,7 +15,7 @@ public static class ArmExpressions
             Type = arm.Type,
             Number = arm.Number,
             Counter = arm.Counter,
-            PcName = arm.PcName,
+            SystemKey = arm.SystemKey,
             Printer = new()
             {
                 Id = arm.Printer.Id,

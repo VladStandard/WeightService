@@ -11,7 +11,7 @@ internal static class ArmExpressions
             Id = arm.Id,
             Counter = (uint)arm.Counter,
             Name = arm.Name,
-            PcName = arm.PcName,
+            SystemKey = arm.SystemKey,
             Warehouse = new()
             {
                 Id = arm.Warehouse.Id,

@@ -15,8 +15,8 @@ public sealed record ArmValue
     [JsonConverter(typeof(EnumJsonConverter<ArmType>))]
     public required ArmType Type { get; init; }
 
-    [JsonPropertyName("pcName")]
-    public required string PcName { get; init; }
+    [JsonPropertyName("systemKey")]
+    public required Guid SystemKey { get; init; }
 
     [JsonPropertyName("counter")]
     public required uint Counter { get; init; }

@@ -12,8 +12,8 @@ public sealed record ArmCreateDto
     [JsonPropertyName("number")]
     public int Number { get; set; } = new Random().Next(10001, 100000);
 
-    [JsonPropertyName("pc")]
-    public string PcName { get; set; } = string.Empty;
+    [JsonPropertyName("systemKey")]
+    public Guid SystemKey { get; set; }
 
     [JsonPropertyName("printerId")]
     public Guid PrinterId { get; set; }
@@ -34,9 +34,8 @@ public sealed class ArmCreateValidator : AbstractValidator<ArmCreateDto>
             .GreaterThan(10000).LessThan(100000)
             .WithName(wsDataLocalizer["ColNumber"]);
 
-        RuleFor(item => item.PcName)
-            .NotEmpty().MaximumLength(32).Matches("^[A-Z0-9-]*$")
-            .WithName(wsDataLocalizer["ColPcName"]);
+        RuleFor(item => item.SystemKey)
+            .NotEmpty().WithName(wsDataLocalizer["ColSystemKey"]);
 
         RuleFor(item => item.Type).IsInEnum().WithName(wsDataLocalizer["ColType"]);
         RuleFor(item => item.PrinterId).NotEmpty().WithName(wsDataLocalizer["ColPrinter"]);

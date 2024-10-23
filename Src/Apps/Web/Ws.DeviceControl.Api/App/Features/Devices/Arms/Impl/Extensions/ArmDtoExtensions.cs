@@ -13,7 +13,7 @@ internal static class ArmDtoExtensions
         {
             Name = dto.Name,
             Number = dto.Number,
-            PcName = dto.PcName,
+            SystemKey = dto.SystemKey,
             Type = dto.Type,
             Printer = printer,
             Warehouse = warehouse,
@@ -27,7 +27,7 @@ internal static class ArmDtoExtensions
         entity.Type = dto.Type;
         entity.Printer = printer;
         entity.Number = dto.Number;
-        entity.PcName = dto.PcName;
+        entity.SystemKey = dto.SystemKey;
         entity.Counter = dto.Counter;
         entity.Warehouse = warehouse;
     }

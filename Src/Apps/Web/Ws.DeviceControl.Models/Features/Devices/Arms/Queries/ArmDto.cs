@@ -21,8 +21,8 @@ public sealed record ArmDto
     [JsonPropertyName("counter")]
     public required int Counter { get; set; }
 
-    [JsonPropertyName("pc")]
-    public required string PcName { get; set; }
+    [JsonPropertyName("systemKey")]
+    public required Guid SystemKey { get; set; }
 
     [JsonPropertyName("printer")]
     public required ProxyDto Printer { get; set; }

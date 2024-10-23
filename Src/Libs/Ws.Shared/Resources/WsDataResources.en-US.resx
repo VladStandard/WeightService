@@ -108,8 +108,8 @@
     <data name="ColNumber" xml:space="preserve">
         <value>Number</value>
     </data>
-    <data name="ColPcName" xml:space="preserve">
-        <value>PC name</value>
+    <data name="ColSystemKey" xml:space="preserve">
+        <value>System key</value>
     </data>
     <data name="ColPlu" xml:space="preserve">
         <value>PLU</value>

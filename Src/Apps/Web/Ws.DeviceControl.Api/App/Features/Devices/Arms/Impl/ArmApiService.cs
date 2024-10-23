@@ -72,7 +72,7 @@ internal sealed class ArmApiService(
         await ValidateAsync(dto, createValidator);
         await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, errorHelper.Localize(ErrorType.Unique, "Name"));
         await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorHelper.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName, errorHelper.Localize(ErrorType.Unique, "PcName"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.SystemKey == dto.SystemKey, errorHelper.Localize(ErrorType.Unique, "SystemKey"));
 
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
@@ -93,7 +93,7 @@ internal sealed class ArmApiService(
         await ValidateAsync(dto, updateValidator);
         await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Name"));
         await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.PcName == dto.PcName && i.Id != id, errorHelper.Localize(ErrorType.Unique, "PcName"));
+        await dbContext.Lines.ThrowIfExistAsync(i => i.SystemKey == dto.SystemKey && i.Id != id, errorHelper.Localize(ErrorType.Unique, "SystemKey"));
 
         LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));

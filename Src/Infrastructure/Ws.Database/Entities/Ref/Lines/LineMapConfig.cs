@@ -12,8 +12,8 @@ internal sealed class LineMapConfig : IEntityTypeConfiguration<LineEntity>
             .HasDatabaseName($"UQ_{SqlTables.Arms}__NAME")
             .IsUnique();
 
-        builder.HasIndex(e => e.PcName)
-            .HasDatabaseName($"UQ_{SqlTables.Arms}__PC_NAME")
+        builder.HasIndex(e => e.SystemKey)
+            .HasDatabaseName($"UQ_{SqlTables.Arms}__SYSTEM_KEY")
             .IsUnique();
 
         builder.HasIndex(e => e.Number)
@@ -63,9 +63,8 @@ internal sealed class LineMapConfig : IEntityTypeConfiguration<LineEntity>
             .HasColumnType("varchar(32)")
             .IsRequired();
 
-        builder.Property(e => e.PcName)
-            .HasColumnName("PC_NAME")
-            .HasColumnType("varchar(32)")
+        builder.Property(e => e.SystemKey)
+            .HasColumnName("SYSTEM_KEY")
             .IsRequired();
 
         builder.Property(e => e.Counter)

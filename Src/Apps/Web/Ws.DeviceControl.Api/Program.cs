@@ -1,5 +1,6 @@
 using Ws.DeviceControl.Api;
 using Ws.DeviceControl.Api.App.Shared.Middlewares;
+using Ws.DeviceControl.Models;
 using Ws.Shared.Web.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -13,10 +14,11 @@ builder.Services
 builder.Services
     .BaseSetup()
     .AddUserClaims()
-    .AddApiServices<IDeviceControlApiAssembly>()
     .AddHelpers<IDeviceControlApiAssembly>()
     .AddValidators<IDeviceControlApiAssembly>()
+    .AddApiServices<IDeviceControlApiAssembly>()
     .AddMiddlewares<IDeviceControlApiAssembly>()
+    .AddValidators<IDeviceControlModelsAssembly>()
     .AddAuth(builder.Configuration);
 
 WebApplication app = builder.Build();

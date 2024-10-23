@@ -449,9 +449,9 @@ namespace Ws.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Имя ПК.
         /// </summary>
-        public static string ColPcName {
+        public static string ColSystemKey {
             get {
-                return ResourceManager.GetString("ColPcName", resourceCulture);
+                return ResourceManager.GetString("ColSystemKey", resourceCulture);
             }
         }
 

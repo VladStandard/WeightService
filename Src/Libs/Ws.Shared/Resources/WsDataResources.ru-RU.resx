@@ -108,8 +108,8 @@
     <data name="ColNumber" xml:space="preserve">
         <value>Номер</value>
     </data>
-    <data name="ColPcName" xml:space="preserve">
-        <value>Имя ПК</value>
+    <data name="ColSystemKey" xml:space="preserve">
+        <value>Ключ системы</value>
     </data>
     <data name="ColPlu" xml:space="preserve">
         <value>ПЛУ</value>
