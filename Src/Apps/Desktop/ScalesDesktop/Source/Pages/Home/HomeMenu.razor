@@ -3,11 +3,7 @@
 
 <AppMenu>
   <UseParameterlessEndpoint Endpoint="@ArmEndpoints.ArmEndpoint" Context="query">
-    @if (!query.HasData)
-    {
-      <AppMenuItemStub />
-    }
-    else
+    @if (query.HasData)
     {
       @if (query.Data.Type is ArmType.Tablet or ArmType.Universal)
       {

@@ -74,6 +74,17 @@
             Width="20%"
           />
           <DataGridColumn
+            Caption="@WsDataLocalizer["ColPrinter"]"
+            Field="Printer.Name"
+            Width="20%"
+          />
+          <DataGridColumn
+            Caption="@WsDataLocalizer["ColWarehouse"]"
+            Field="@($"{nameof(ArmDto.Warehouse)}.{nameof(ProxyDto.Name)}")"
+            Width="20%"
+          >
+          </DataGridColumn>
+          <DataGridColumn
             Caption="@WsDataLocalizer["ColProductionSite"]"
             Field="@($"{nameof(ArmDto.ProductionSite)}.{nameof(ProxyDto.Name)}")"
             Width="20%"
@@ -83,22 +94,6 @@
               <ProductionSiteSelect />
             </FilterTemplate>
           </DataGridColumn>
-          <DataGridColumn
-            Caption="@WsDataLocalizer["ColSystemKey"]"
-            Field="@nameof(ArmDto.SystemKey)"
-            Width="15%"
-          />
-          <DataGridColumn
-            Caption="@WsDataLocalizer["ColPrinter"]"
-            Field="Printer.Name"
-            Width="15%"
-          />
-          <DataGridColumn
-            Caption="@WsDataLocalizer["ColCounter"]"
-            Field="@nameof(ArmDto.Counter)"
-            Width="15%"
-            Filterable="false"
-          />
         </ColumnsContent>
         <ContextMenuContent>
           <DataGridActionViewItem OnClick="@(() => ContextFuncWrapper(context.Item, context.CloseContextMenu, item => OpenUpdateFormModal(item)))" />
