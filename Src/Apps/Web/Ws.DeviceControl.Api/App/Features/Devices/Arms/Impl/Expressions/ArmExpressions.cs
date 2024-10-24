@@ -1,5 +1,7 @@
 using Ws.Database.Entities.Ref.Lines;
 using Ws.Database.Entities.Ref1C.Plus;
+using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Models;
+using Ws.DeviceControl.Api.App.Shared.Validators.Api.Models;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
@@ -45,4 +47,11 @@ public static class ArmExpressions
             Brand = plu.Brand.Name,
             IsActive = plusId.Contains(plu.Id)
         };
+
+    public static List<PredicateField<LineEntity>> GetUqPredicates(UqArmProperties uqArmProperties) =>
+    [
+        new(i => i.Name == uqArmProperties.Name, "Name"),
+        new(i => i.Number == uqArmProperties.Number, "Number"),
+        new(i => i.SystemKey == uqArmProperties.SystemKey, "SystemKey"),
+    ];
 }
