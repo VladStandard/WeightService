@@ -1,8 +1,8 @@
 @using Blazor.Heroicons.Outline
 
-<Button Size="ButtonSizeType.Icon" OnClick="@OnClick" Disabled="@IsLoading">
-  <ArrowPathIcon class="size-5" />
-  <span class="sr-only">Reload</span>
+<Button Size="ButtonSizeType.Small" Variant="ButtonVariantType.Secondary" OnClick="@OnClick" Disabled="@IsLoading">
+  <ArrowPathIcon class="size-4 mr-2" />
+  Обновить
 </Button>
 
 @code {

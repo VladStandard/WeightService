@@ -21,6 +21,7 @@ public static class MauiProgram
         builder.UseMauiApp<App>().UseMauiCommunityToolkit();
 
         builder.RegisterRefitClients();
+        builder.UseBarcodeScanning();
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddFluentUIComponents(c => c.ValidateClassNames = false);
@@ -45,7 +46,6 @@ public static class MauiProgram
 
         builder.Services.AddBlazorWebViewDeveloperTools();
         builder.Logging.AddDebug();
-        builder.UseBarcodeScanning();
 
         #endif
 

@@ -10,7 +10,7 @@
 @rendermode InteractiveServer
 
 <UseEndpoint Endpoint="@DevicesEndpoints.ArmPluEndpoint" Arg="Arm.Id" Options="@(DefaultEndpointOptions)" Context="plusQuery">
-  <PageHeader Class="!static">
+  <FormDataGridHeader>
     <span>@Localizer["SectionLinePLU"]</span>
     <DataGridItemsSelected
       Count="@(plusQuery.Data?.Length ?? 0)"
@@ -18,7 +18,7 @@
       IsLoading="plusQuery.IsLoading"
     />
     <DataGridActionReload OnClick="@plusQuery.RefetchAsync" IsLoading="plusQuery.IsFetching"/>
-  </PageHeader>
+  </FormDataGridHeader>
   <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
     <DataGridContainer
       TItem="PluArmDto"
