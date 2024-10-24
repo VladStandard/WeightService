@@ -7,7 +7,7 @@ namespace Ws.DeviceControl.Api.App.Features.Print.Labels.Impl;
 
 internal sealed class LabelApiService(
     WsDbContext dbContext
-    ) : ApiService, ILabelService
+    ) : ILabelService
 {
     #region Queries
 

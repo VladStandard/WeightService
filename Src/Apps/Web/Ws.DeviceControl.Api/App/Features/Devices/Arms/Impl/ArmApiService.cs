@@ -17,7 +17,7 @@ internal sealed class ArmApiService(
     ArmUpdateApiValidator updateValidator,
     UserHelper userHelper,
     ErrorHelper errorHelper
-    ) : ApiService, IArmService
+    ) : IArmService
 {
     #region Queries
 

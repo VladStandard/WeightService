@@ -3,9 +3,9 @@ using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extensions;
 
-internal static class TemplateResourceDtoExtensions
+internal static class ZplResourceDtoExtensions
 {
-    public static ZplResourceEntity ToEntity(this TemplateResourceCreateDto dto)
+    public static ZplResourceEntity ToEntity(this ZplResourceCreateDto dto)
     {
         return new()
         {
@@ -15,10 +15,9 @@ internal static class TemplateResourceDtoExtensions
         };
     }
 
-    public static void UpdateEntity(this TemplateResourceUpdateDto dto, ZplResourceEntity entity)
+    public static void UpdateEntity(this ZplResourceUpdateDto dto, ZplResourceEntity entity)
     {
         entity.Name = dto.Name;
         entity.Zpl = dto.Body;
-        entity.Type = dto.Type;
     }
 }

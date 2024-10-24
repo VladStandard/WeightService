@@ -24,10 +24,10 @@ public interface IWebTemplateResourceApi
     Task DeleteResource(Guid id);
 
     [Post("/template-resources")]
-    Task<TemplateResourceDto> CreateResource([Body] TemplateResourceCreateDto createDto);
+    Task<TemplateResourceDto> CreateResource([Body] ZplResourceCreateDto createDto);
 
     [Put("/template-resources/{id}")]
-    Task<TemplateResourceDto> UpdateResource(Guid id, [Body] TemplateResourceUpdateDto updateDto);
+    Task<TemplateResourceDto> UpdateResource(Guid id, [Body] ZplResourceUpdateDto updateDto);
 
     #endregion
 }

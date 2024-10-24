@@ -18,7 +18,6 @@ builder.Services
     .AddValidators<IDeviceControlApiAssembly>()
     .AddApiServices<IDeviceControlApiAssembly>()
     .AddMiddlewares<IDeviceControlApiAssembly>()
-    .AddValidators<IDeviceControlModelsAssembly>()
     .AddAuth(builder.Configuration);
 
 WebApplication app = builder.Build();

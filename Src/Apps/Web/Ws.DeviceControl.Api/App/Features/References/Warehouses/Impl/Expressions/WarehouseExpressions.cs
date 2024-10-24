@@ -1,4 +1,6 @@
 using Ws.Database.Entities.Ref.Warehouses;
+using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Models;
+using Ws.DeviceControl.Api.App.Shared.Validators.Api.Models;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Expressions;
@@ -26,4 +28,10 @@ public static class WarehouseExpressions
             Id = warehouse.Id,
             Name = warehouse.Name,
         };
+
+    public static List<PredicateField<WarehouseEntity>> GetUqPredicates(UqWarehousesProperties uqWarehouseProperties) =>
+    [
+        new(i => i.Name == uqWarehouseProperties.Name, "Name"),
+        new(i => i.Uid1C == uqWarehouseProperties.Uid1C, ""),
+    ];
 }

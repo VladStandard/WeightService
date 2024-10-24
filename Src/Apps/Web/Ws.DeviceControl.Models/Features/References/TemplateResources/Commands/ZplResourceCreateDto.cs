@@ -1,21 +1,21 @@
 namespace Ws.DeviceControl.Models.Features.References.TemplateResources.Commands;
 
-public sealed record TemplateResourceUpdateDto
+public sealed record ZplResourceCreateDto
 {
     [JsonPropertyName("name")]
-    public required string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [JsonPropertyName("body")]
-    public required string Body { get; set; }
+    public string Body { get; set; } = string.Empty;
 
     [JsonPropertyName("type")]
     [JsonConverter(typeof(EnumJsonConverter<ZplResourceType>))]
-    public required ZplResourceType Type { get; set; }
+    public ZplResourceType Type { get; set; }
 }
 
-public sealed class TemplateResourceUpdateValidator : AbstractValidator<TemplateResourceUpdateDto>
+public sealed class ZplResourceCreateValidator : AbstractValidator<ZplResourceCreateDto>
 {
-    public TemplateResourceUpdateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
+    public ZplResourceCreateValidator(IStringLocalizer<WsDataResources> wsDataLocalizer)
     {
         RuleFor(item => item.Name)
             .NotEmpty().MaximumLength(64)

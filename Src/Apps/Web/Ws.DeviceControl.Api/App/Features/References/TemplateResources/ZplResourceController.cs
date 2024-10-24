@@ -6,21 +6,21 @@ namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources;
 
 [ApiController]
 [Route(ApiEndpoints.TemplateResources)]
-public sealed class TemplateResourceController(ITemplateResourceService templateResourceService)
+public sealed class ZplResourceController(IZplResourceService zplResourceService)
 {
     #region Queries
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet]
-    public Task<List<TemplateResourceDto>> GetAll() => templateResourceService.GetAllAsync();
+    public Task<List<TemplateResourceDto>> GetAll() => zplResourceService.GetAllAsync();
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}")]
-    public Task<TemplateResourceDto> GetById([FromRoute] Guid id) => templateResourceService.GetByIdAsync(id);
+    public Task<TemplateResourceDto> GetById([FromRoute] Guid id) => zplResourceService.GetByIdAsync(id);
 
     [Authorize(PolicyEnum.SeniorSupport)]
     [HttpGet("{id:guid}/body")]
-    public Task<TemplateResourceBodyDto> GetBodyById([FromRoute] Guid id) => templateResourceService.GetBodyByIdAsync(id);
+    public Task<TemplateResourceBodyDto> GetBodyById([FromRoute] Guid id) => zplResourceService.GetBodyByIdAsync(id);
 
     #endregion
 
@@ -28,17 +28,17 @@ public sealed class TemplateResourceController(ITemplateResourceService template
 
     [Authorize(PolicyEnum.Admin)]
     [HttpPost]
-    public Task<TemplateResourceDto> Create([FromBody] TemplateResourceCreateDto dto) =>
-        templateResourceService.CreateAsync(dto);
+    public Task<TemplateResourceDto> Create([FromBody] ZplResourceCreateDto dto) =>
+        zplResourceService.CreateAsync(dto);
 
     [Authorize(PolicyEnum.Admin)]
     [HttpPut("{id:guid}")]
-    public Task<TemplateResourceDto> Update([FromRoute] Guid id, [FromBody] TemplateResourceUpdateDto dto) =>
-        templateResourceService.UpdateAsync(id, dto);
+    public Task<TemplateResourceDto> Update([FromRoute] Guid id, [FromBody] ZplResourceUpdateDto dto) =>
+        zplResourceService.UpdateAsync(id, dto);
 
     [Authorize(PolicyEnum.Admin)]
     [HttpDelete("{id:guid}")]
-    public Task Delete([FromRoute] Guid id) => templateResourceService.DeleteAsync(id);
+    public Task Delete([FromRoute] Guid id) => zplResourceService.DeleteAsync(id);
 
     #endregion
 }

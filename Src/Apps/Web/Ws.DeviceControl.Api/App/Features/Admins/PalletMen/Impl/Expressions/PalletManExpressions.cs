@@ -1,4 +1,6 @@
 using Ws.Database.Entities.Ref.PalletMen;
+using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Models;
+using Ws.DeviceControl.Api.App.Shared.Validators.Api.Models;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Expressions;
@@ -25,4 +27,16 @@ public static class PalletManExpressions
             CreateDt = palletMan.CreateDt,
             ChangeDt = palletMan.ChangeDt
         };
+
+    public static List<PredicateField<PalletManEntity>> GetUqPredicates(UqPalletManProperties uqManProperties) =>
+    [
+        new(i =>
+            i.Name == uqManProperties.Fio.Name &&
+            i.Surname == uqManProperties.Fio.Surname &&
+            i.Patronymic == uqManProperties.Fio.Patronymic,
+        ""),
+
+        new(i => i.Uid1C == uqManProperties.Id1C, ""),
+        new(i => i.Password == uqManProperties.Password, ""),
+    ];
 }

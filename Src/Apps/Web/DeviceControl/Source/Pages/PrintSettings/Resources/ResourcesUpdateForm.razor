@@ -4,13 +4,13 @@
 @using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands
 @using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries
 
-@inherits SectionFormBase<TemplateResourceUpdateDto>
+@inherits SectionFormBase<ZplResourceUpdateDto>
 
 <SectionForm
   FormModel="@FormModel"
   ChangeDate="@Model.ChangeDt"
   CreateDate="@Model.CreateDt"
-  Validator="@(new TemplateResourceCreateValidator(WsDataLocalizer))"
+  Validator="@(new ZplResourceCreateValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@UpdateItem"
 >
@@ -24,14 +24,10 @@
       Disabled="@(!IsAdmin)"
     />
 
-    <SectionSelectSingleField
-      TItem="ZplResourceType"
+    <SectionTextField
       Label="@WsDataLocalizer["ColType"]"
-      Items="ZplResourceTypes"
-      @bind-Value="@FormModel.Type"
-      ItemDisplayName="item => Localizer[item.GetDescription()]"
-      For="@(() => FormModel.Type)"
-      Disabled="@(!IsAdmin)"
+      @Value="@Localizer[Model.Type.GetDescription()]"
+      Disabled
     />
 
     <UseEndpoint
@@ -66,7 +62,7 @@
       <SectionFormActionReset OnClick="@ResetAction" />
       <SectionFormActionDelete OnClick="@DeleteItem" />
     }
-    @if (FormModel.Type == ZplResourceType.Sign)
+    @if (Model.Type == ZplResourceType.Sign)
     {
       <div class="w-full h-32 p-2 flex items-center rounded-md justify-center select-none overflow-hidden border bg-background [&>svg]:fill-primary">
         <UseEndpoint
@@ -110,7 +106,7 @@
     IsAdmin = (await AuthorizationService.AuthorizeAsync(UserPrincipal, PolicyEnum.Admin)).Succeeded;
   }
 
-  protected override async Task UpdateItemAction(TemplateResourceUpdateDto item)
+  protected override async Task UpdateItemAction(ZplResourceUpdateDto item)
   {
     TemplateResourceDto dto = await WebApi.UpdateResource(Model.Id, item);
     PrintSettingsEndpoints.UpdateResource(dto, item.Body);

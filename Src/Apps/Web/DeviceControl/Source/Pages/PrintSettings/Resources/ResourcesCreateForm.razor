@@ -2,11 +2,11 @@
 @using Ws.DeviceControl.Models
 @using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands
 @using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries
-@inherits SectionFormBase<TemplateResourceCreateDto>
+@inherits SectionFormBase<ZplResourceCreateDto>
 
 <SectionForm
   FormModel="@FormModel"
-  Validator="@(new TemplateResourceCreateValidator(WsDataLocalizer))"
+  Validator="@(new ZplResourceCreateValidator(WsDataLocalizer))"
   OnCancelAction="@OnCancelAction"
   OnSubmitAction="@CreateItem"
 >
@@ -46,7 +46,7 @@
 
   private IList<ZplResourceType> ZplResourceTypes { get; set; } = Enum.GetValues(typeof(ZplResourceType)).Cast<ZplResourceType>().ToList();
 
-  protected override async Task CreateItemAction(TemplateResourceCreateDto item)
+  protected override async Task CreateItemAction(ZplResourceCreateDto item)
   {
     TemplateResourceDto dto = await WebApi.CreateResource(item);
     PrintSettingsEndpoints.AddResource(dto, item.Body);

@@ -11,10 +11,9 @@ namespace Ws.DeviceControl.Api.App.Features.References.Templates.Impl;
 
 internal sealed class TemplateApiService(
     WsDbContext dbContext,
-    TemplateUpdateValidator updateValidator,
-    BarcodeItemWrapperValidator barcodeItemWrapperValidator,
-    TemplateCreateValidator createValidator
-    ) : ApiService, ITemplateService
+    TemplateUpdateApiValidator updateValidator,
+    TemplateCreateApiValidator createValidator
+    ) : ITemplateService
 {
     #region Queries
 
@@ -63,12 +62,9 @@ internal sealed class TemplateApiService(
 
     public async Task<TemplateDto> UpdateAsync(Guid id, TemplateUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
+        await updateValidator.ValidateAsync(dbContext.Templates, dto, id);
 
         TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
-
-        await dbContext.Templates.ThrowIfExistAsync(
-            i => i.Name == dto.Name && i.IsWeight == entity.IsWeight && i.Id != id, "Ошибка уникальности");
 
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
@@ -78,8 +74,7 @@ internal sealed class TemplateApiService(
 
     public async Task<TemplateDto> CreateAsync(TemplateCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
-        await dbContext.Templates.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await createValidator.ValidateAsync(dbContext.Templates, dto);
 
         TemplateEntity entity = dto.ToEntity();
 
@@ -93,7 +88,14 @@ internal sealed class TemplateApiService(
 
     public async Task<BarcodeItemWrapper> UpdateBarcodeTemplates(Guid id, BarcodeItemWrapper barcodes)
     {
-        await barcodeItemWrapperValidator.ValidateAsync(barcodes);
+        ValidationResult result = await new BarcodeItemWrapperValidator().ValidateAsync(barcodes);
+
+        if (!result.IsValid)
+            throw new ApiInternalException
+            {
+                ErrorDisplayMessage = "Ошибка в шк",
+                StatusCode = HttpStatusCode.UnprocessableEntity
+            };
 
         TemplateEntity entity = await dbContext.Templates.SafeGetById(id, "Не найдено");
 

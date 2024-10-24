@@ -3,6 +3,7 @@ using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Common;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl.Validators;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Commands;
 using Ws.DeviceControl.Models.Features.Admins.PalletMen.Queries;
 
@@ -11,9 +12,9 @@ namespace Ws.DeviceControl.Api.App.Features.Admins.PalletMen.Impl;
 internal sealed class PalletManApiService(
     UserHelper userHelper,
     WsDbContext dbContext,
-    PalletManCreateValidator createValidator,
-    PalletManUpdateValidator updateValidator
-    ) : ApiService, IPalletManService
+    PalletManCreateApiValidator createValidator,
+    PalletManUpdateApiValidator updateValidator
+    ) : IPalletManService
 {
     #region Queries
 
@@ -29,8 +30,7 @@ internal sealed class PalletManApiService(
     public async Task<PalletManDto> GetByIdAsync(Guid id)
     {
         PalletManEntity palletMan = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
-        await LoadDefaultForeignKeysAsync(palletMan);
-        return PalletManExpressions.ToDto.Compile().Invoke(palletMan);
+        return await GetPalletManDtoDto(palletMan);
     }
 
     #endregion
@@ -39,7 +39,8 @@ internal sealed class PalletManApiService(
 
     public async Task<PalletManDto> CreateAsync(PalletManCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
+        await createValidator.ValidateAsync(dbContext.PalletMen, dto);
+
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic, "Ошибка уникальности");
         await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
@@ -51,15 +52,12 @@ internal sealed class PalletManApiService(
         await dbContext.PalletMen.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return PalletManExpressions.ToDto.Compile().Invoke(entity);
+        return await GetPalletManDtoDto(entity);
     }
 
     public async Task<PalletManDto> UpdateAsync(Guid id, PalletManUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
-        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Name == dto.Name && i.Surname == dto.Surname && i.Patronymic == dto.Patronymic && i.Id != id, "Ошибка уникальности");
-        await dbContext.PalletMen.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
+        await updateValidator.ValidateAsync(dbContext.PalletMen, dto, id);
 
         PalletManEntity entity = await dbContext.PalletMen.SafeGetById(id, "Не найдено");
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, "Не найдено");
@@ -68,8 +66,7 @@ internal sealed class PalletManApiService(
         dto.UpdateEntity(entity, warehouse);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return PalletManExpressions.ToDto.Compile().Invoke(entity);
+        return await GetPalletManDtoDto(entity);
     }
 
     public Task DeleteAsync(Guid id) => dbContext.PalletMen.SafeDeleteAsync(i => i.Id == id);
@@ -78,10 +75,12 @@ internal sealed class PalletManApiService(
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(PalletManEntity entity)
+    private async Task<PalletManDto> GetPalletManDtoDto(PalletManEntity palletMan)
     {
-        await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
-        await dbContext.Entry(entity.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
+        await dbContext.Entry(palletMan).Reference(e => e.Warehouse).LoadAsync();
+        await dbContext.Entry(palletMan.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
+
+        return PalletManExpressions.ToDto.Compile().Invoke(palletMan);
     }
 
     #endregion

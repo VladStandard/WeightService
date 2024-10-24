@@ -2,6 +2,7 @@ using Ws.Database.Entities.Ref.ProductionSites;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Common;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl.Validators;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Commands;
 using Ws.DeviceControl.Models.Features.References.ProductionSites.Queries;
 
@@ -10,9 +11,9 @@ namespace Ws.DeviceControl.Api.App.Features.References.ProductionSites.Impl;
 internal sealed class ProductionSiteApiService(
     WsDbContext dbContext,
     UserHelper userHelper,
-    ProductionSiteCreateValidator createValidator,
-    ProductionSiteUpdateValidator updateValidator
-    ) : ApiService, IProductionSiteService
+    ProductionSiteCreateApiValidator createValidator,
+    ProductionSiteUpdateApiValidator updateValidator
+    ) : IProductionSiteService
 {
     #region Queries
 
@@ -58,8 +59,7 @@ internal sealed class ProductionSiteApiService(
 
     public async Task<ProductionSiteDto> CreateAsync(ProductionSiteCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
-        await dbContext.ProductionSites.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
+        await createValidator.ValidateAsync(dbContext.ProductionSites, dto);
 
         ProductionSiteEntity entity = dto.ToEntity();
 
@@ -71,8 +71,7 @@ internal sealed class ProductionSiteApiService(
 
     public async Task<ProductionSiteDto> UpdateAsync(Guid id, ProductionSiteUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
-        await dbContext.ProductionSites.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await updateValidator.ValidateAsync(dbContext.ProductionSites, dto, id);
 
         ProductionSiteEntity entity = await dbContext.ProductionSites.SafeGetById(id, "Не найдено");
         dto.UpdateEntity(entity);

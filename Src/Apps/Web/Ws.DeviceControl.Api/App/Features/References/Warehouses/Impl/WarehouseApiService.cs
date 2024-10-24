@@ -3,6 +3,7 @@ using Ws.Database.Entities.Ref.Warehouses;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Common;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl.Validators;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Commands;
 using Ws.DeviceControl.Models.Features.References.Warehouses.Queries;
 
@@ -11,9 +12,9 @@ namespace Ws.DeviceControl.Api.App.Features.References.Warehouses.Impl;
 internal sealed class WarehouseApiService(
     WsDbContext dbContext,
     UserHelper userHelper,
-    WarehouseCreateValidator createValidator,
-    WarehouseUpdateValidator updateValidator
-    ) : ApiService, IWarehouseService
+    WarehouseCreateApiValidator createValidator,
+    WarehouseUpdateApiValidator updateValidator
+    ) : IWarehouseService
 {
     #region Queries
 
@@ -39,8 +40,7 @@ internal sealed class WarehouseApiService(
     public async Task<WarehouseDto> GetByIdAsync(Guid id)
     {
         WarehouseEntity entity = await dbContext.Warehouses.SafeGetById(id, "Не найдено");
-        await LoadDefaultForeignKeysAsync(entity);
-        return WarehouseExpressions.ToDto.Compile().Invoke(entity);
+        return await GetWarehouseDto(entity);
     }
 
     #endregion
@@ -49,7 +49,7 @@ internal sealed class WarehouseApiService(
 
     public async Task<WarehouseDto> CreateAsync(WarehouseCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
+        await createValidator.ValidateAsync(dbContext.Warehouses, dto);
 
         await dbContext.Warehouses.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
         await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
@@ -61,15 +61,12 @@ internal sealed class WarehouseApiService(
         await dbContext.Warehouses.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return WarehouseExpressions.ToDto.Compile().Invoke(entity);
+        return await GetWarehouseDto(entity);
     }
 
     public async Task<WarehouseDto> UpdateAsync(Guid id, WarehouseUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
-        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
-        await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C && i.Id != id, "Ошибка уникальности");
+        await updateValidator.ValidateAsync(dbContext.Warehouses, dto, id);
 
         WarehouseEntity entity = await dbContext.Warehouses.SafeGetById(id, "Не найдено");
         await userHelper.CanUserWorkWithProductionSiteAsync(entity.ProductionSiteId);
@@ -77,8 +74,7 @@ internal sealed class WarehouseApiService(
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return WarehouseExpressions.ToDto.Compile().Invoke(entity);
+        return await GetWarehouseDto(entity);
     }
 
     public Task DeleteAsync(Guid id) => dbContext.Warehouses.SafeDeleteAsync(i => i.Id == id);
@@ -87,9 +83,10 @@ internal sealed class WarehouseApiService(
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(WarehouseEntity entity)
+    private async Task<WarehouseDto> GetWarehouseDto(WarehouseEntity entity)
     {
         await dbContext.Entry(entity).Reference(e => e.ProductionSite).LoadAsync();
+        return WarehouseExpressions.ToDto.Compile().Invoke(entity);
     }
 
     #endregion

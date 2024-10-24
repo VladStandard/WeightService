@@ -3,24 +3,25 @@ using Ws.Database.Entities.Zpl.ZplResources;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Common;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl.Validators;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Commands;
 using Ws.DeviceControl.Models.Features.References.TemplateResources.Queries;
 
 namespace Ws.DeviceControl.Api.App.Features.References.TemplateResources.Impl;
 
-internal sealed class TemplateResourceApiService(
+internal sealed class ZplResourceApiService(
     WsDbContext dbContext,
-    TemplateResourceUpdateValidator updateValidator,
-    TemplateResourceCreateValidator createValidator
-    ) : ApiService, ITemplateResourceService
+    ZplResourceUpdateApiValidator updateValidator,
+    ZplResourceCreateApiValidator createValidator
+    ) : IZplResourceService
 {
     #region Queries
 
     public async Task<TemplateResourceDto> GetByIdAsync(Guid id) =>
-        TemplateResourceExpressions.ToDto.Compile().Invoke(await dbContext.ZplResources.SafeGetById(id, "Не найдено"));
+        ZplResourceExpressions.ToDto.Compile().Invoke(await dbContext.ZplResources.SafeGetById(id, "Не найдено"));
 
     public Task<List<TemplateResourceDto>> GetAllAsync() => dbContext.ZplResources
-        .AsNoTracking().Select(TemplateResourceExpressions.ToDto)
+        .AsNoTracking().Select(ZplResourceExpressions.ToDto)
         .OrderBy(i => i.Type)
         .ThenBy(i => i.Name)
         .ToListAsync();
@@ -38,31 +39,32 @@ internal sealed class TemplateResourceApiService(
 
     #region Commands
 
-    public async Task<TemplateResourceDto> UpdateAsync(Guid id, TemplateResourceUpdateDto dto)
+    public async Task<TemplateResourceDto> UpdateAsync(Guid id, ZplResourceUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
-        ValidateSvg(dto.Body, dto.Type);
-        await dbContext.ZplResources.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, "Ошибка уникальности");
+        await updateValidator.ValidateAsync(dbContext.ZplResources, dto, id);
 
         ZplResourceEntity entity = await dbContext.ZplResources.SafeGetById(id, "Не найдено");
+
+        ValidateSvg(dto.Body, entity.Type);
+
         dto.UpdateEntity(entity);
         await dbContext.SaveChangesAsync();
 
-        return TemplateResourceExpressions.ToDto.Compile().Invoke(entity);
+        return ZplResourceExpressions.ToDto.Compile().Invoke(entity);
     }
 
-    public async Task<TemplateResourceDto> CreateAsync(TemplateResourceCreateDto dto)
+    public async Task<TemplateResourceDto> CreateAsync(ZplResourceCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
+        await createValidator.ValidateAsync(dbContext.ZplResources, dto);
+
         ValidateSvg(dto.Body, dto.Type);
-        await dbContext.ZplResources.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
 
         ZplResourceEntity entity = dto.ToEntity();
 
         await dbContext.ZplResources.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-        return TemplateResourceExpressions.ToDto.Compile().Invoke(entity);
+        return ZplResourceExpressions.ToDto.Compile().Invoke(entity);
     }
 
     public Task DeleteAsync(Guid id) => dbContext.ZplResources.SafeDeleteAsync(i => i.Id == id);

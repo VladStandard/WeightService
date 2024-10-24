@@ -12,10 +12,12 @@ public abstract class ApiUpdateValidator<TEntity, TDto, TId>(ErrorHelper errorHe
     protected async Task ValidatePredicatesAsync(DbSet<TEntity> dbSet, List<PredicateField<TEntity>> predicates,
         PredicateField<TEntity> idPredicate)
     {
+        idPredicate.Predicate.Not();
+
         foreach (PredicateField<TEntity> predicate in predicates)
         {
-            Expression<Func<TEntity, bool>> expandedPredicate = idPredicate != null ?
-                predicate.Predicate.And(idPredicate.Predicate.Not()) : predicate.Predicate;
+            Expression<Func<TEntity, bool>> expandedPredicate =
+                predicate.Predicate.And(idPredicate.Predicate);
 
             bool isExist = await dbSet.AsExpandable().AnyAsync(expandedPredicate);
 

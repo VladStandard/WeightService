@@ -5,13 +5,12 @@ namespace Ws.DeviceControl.Models.Features.References.TemplateResources;
 
 public static class TemplateResourceMapper
 {
-    public static TemplateResourceUpdateDto DtoToUpdateDto(TemplateResourceDto item)
+    public static ZplResourceUpdateDto DtoToUpdateDto(TemplateResourceDto item)
     {
         return new()
         {
             Name = item.Name,
-            Body = string.Empty,
-            Type = item.Type
+            Body = string.Empty
         };
     }
 }
