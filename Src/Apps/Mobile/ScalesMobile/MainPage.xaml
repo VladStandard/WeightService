@@ -2,9 +2,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ScalesMobile"
-             x:Class="ScalesMobile.MainPage"
-             BackgroundColor="{DynamicResource PageBackgroundColor}"
-             >
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:droid="clr-namespace:CommunityToolkit.Maui.PlatformConfiguration.AndroidSpecific;assembly=CommunityToolkit.Maui"
+             droid:NavigationBar.Color="#f4f4f5"
+             droid:NavigationBar.Style="DarkContent"
+             x:Class="ScalesMobile.MainPage">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="#f4f4f5" StatusBarStyle="DarkContent" />
+    </ContentPage.Behaviors>
 
     <BlazorWebView x:Name="blazorWebView" HostPage="wwwroot/index.html">
         <BlazorWebView.RootComponents>

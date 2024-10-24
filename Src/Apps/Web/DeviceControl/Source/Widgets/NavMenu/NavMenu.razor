@@ -4,21 +4,22 @@
 @using WMBlazorOverlayScrollbars.WMBOS
 
 <aside class="flex sticky top-0 flex-col bg-background w-full grow h-screen border-r">
-  <div class="flex flex-col items-center border-b shrink-0 justify-center h-14">
-    <a href="@Urls.Home">
-      @Localizer["ApplicationName"]
+  <div class="flex flex-col items-center shrink-0 justify-center pt-4 pb-2">
+    <a class="flex gap-1 scale-[0.8]" href="@Urls.Home">
+      <AdminLogo Class="size-7" />
+      <h2 class="text-2xl pt-px tracking-[.25rem]">DMIN</h2>
+      @if (!IsProduction)
+      {
+        <Badge Class="ml-1 mb-0.5" Type="BadgeType.Secondary">
+          DEV
+        </Badge>
+      }
     </a>
-    @if (!IsProduction)
-    {
-      <span class="text-xs text-muted-foreground">
-        @Localizer["NavMenuDeveloperVersion"]
-      </span>
-    }
   </div>
   <div class="size-full [&>.WMBOS]:h-full [&>.WMBOS>.os-theme-dark.os-host-transition>.os-scrollbar>.os-scrollbar-track>.os-scrollbar-handle]:!bg-primary/[.2] [&>.WMBOS>.os-theme-dark.os-host-transition>.os-scrollbar>.os-scrollbar-track>.os-scrollbar-handle:hover]:!bg-primary/[.3]">
     <BlazorOverlayScrollbars CssClass="h-full">
       <BlazorOverlayScrollbarsContent>
-        <ul class="flex select-none w-full my-2 flex-col px-3">
+        <ul class="flex select-none w-full mb-2 flex-col px-3">
           @foreach (MenuSection menu in MenuSections)
           {
             <NavMenuItem
@@ -33,17 +34,17 @@
       <BlazorOverlayScrollbarsLoading><span class="hidden"/></BlazorOverlayScrollbarsLoading>
     </BlazorOverlayScrollbars>
   </div>
-  <div class="h-12 px-3 border-t flex items-center text-muted-foreground w-full shrink-0">
+  <div class="h-16 px-4 flex items-center w-full shrink-0">
     <AuthorizeView>
       <Authorized>
         <div class="flex w-full items-center overflow-hidden justify-between">
-          <div class="flex items-center gap-2 overflow-hidden w-full">
-            <div class="size-9 rounded-full overflow-hidden flex items-center justify-center bg-secondary shrink-0">
-              <UserIcon class="size-5" />
+          <div class="flex items-center gap-3 overflow-hidden w-full">
+            <div class="size-10 p-2.5 rounded-full overflow-hidden flex items-center justify-center bg-secondary shrink-0">
+              <UserIcon class="size-full" />
             </div>
-            <div class="flex flex-col w-full text-xs truncate">
-              <span>@GetUserShortName()</span>
-              <span>@User.Identity?.Name</span>
+            <div class="flex flex-col w-full overflow-hidden">
+              <span class="text-sm truncate">@GetUserShortName()</span>
+              <span class="text-xs text-muted-foreground truncate">@User.Identity?.Name</span>
             </div>
           </div>
           <form method="post" action="@($"{Urls.Authorization}/logout")" class="shrink-0">

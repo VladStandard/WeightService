@@ -5,11 +5,11 @@
 @rendermode InteractiveServer
 
 <UseEndpoint Endpoint="@References1CEndpoints.CharacteristicsEndpoint" Arg="Plu.Id" Options="@(DefaultEndpointOptions)" Context="characteristicsQuery">
-  <PageHeader Class="!static">
+  <FormDataGridHeader>
     <span>@Localizer["SectionPluCharacteristics"]</span>
     <DataGridItemsCounter ItemsCount="@(characteristicsQuery.Data?.Length ?? 0)" IsLoading="characteristicsQuery.IsLoading"/>
     <DataGridActionReload OnClick="@characteristicsQuery.RefetchAsync" IsLoading="characteristicsQuery.IsFetching"/>
-  </PageHeader>
+  </FormDataGridHeader>
   <DataGridWrapper Class="bg-secondary/[.3] dark:bg-inherit">
     <DataGridContainer
       TItem="CharacteristicDto"
