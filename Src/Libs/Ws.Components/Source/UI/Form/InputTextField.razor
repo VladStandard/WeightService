@@ -5,6 +5,7 @@
   type="@HtmlType"
   @attributes="AdditionalAttributes"
   @bind="Value"
+  @onblur="OnBlur"
   @bind:after="OnValueChanged"
   class="@Css.Class("flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm",
            "placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50", Class)"
@@ -17,13 +18,11 @@
 @code {
   [Parameter] public TextInputType Type { get; set; } = TextInputType.Text;
 
-  private string HtmlType => Type switch
+  private async Task OnBlur()
   {
-    TextInputType.Password => "password",
-    TextInputType.Url => "url",
-    TextInputType.Email => "email",
-    TextInputType.Telephone => "tel",
-    TextInputType.Search => "search",
-    _ => "text"
-  };
+    Value = Value?.Trim();
+    await ValueChanged.InvokeAsync(Value);
+  }
+
+  private string HtmlType => Type.GetDescription();
 }

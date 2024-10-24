@@ -5,6 +5,7 @@ using Ws.Database.Entities.Ref1C.Plus;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Common;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Expressions;
 using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Extensions;
+using Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl.Validators;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Commands;
 using Ws.DeviceControl.Models.Features.Devices.Arms.Queries;
 
@@ -12,8 +13,8 @@ namespace Ws.DeviceControl.Api.App.Features.Devices.Arms.Impl;
 
 internal sealed class ArmApiService(
     WsDbContext dbContext,
-    ArmCreateValidator createValidator,
-    ArmUpdateValidator updateValidator,
+    ArmCreateApiValidator createValidator,
+    ArmUpdateApiValidator updateValidator,
     UserHelper userHelper,
     ErrorHelper errorHelper
     ) : ApiService, IArmService
@@ -33,8 +34,7 @@ internal sealed class ArmApiService(
     public async Task<ArmDto> GetByIdAsync(Guid id)
     {
         LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
-        await LoadDefaultForeignKeysAsync(entity);
-        return ArmExpressions.ToDto.Compile().Invoke(entity);
+        return await GetArmDto(entity);
     }
 
     public async Task<List<PluArmDto>> GetArmPlus(Guid id)
@@ -69,10 +69,7 @@ internal sealed class ArmApiService(
 
     public async Task<ArmDto> CreateAsync(ArmCreateDto dto)
     {
-        await ValidateAsync(dto, createValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name, errorHelper.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number, errorHelper.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.SystemKey == dto.SystemKey, errorHelper.Localize(ErrorType.Unique, "SystemKey"));
+        await createValidator.ValidateAsync(dbContext.Lines, dto);
 
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
         WarehouseEntity warehouse = await dbContext.Warehouses.SafeGetById(dto.WarehouseId, errorHelper.Localize(ErrorType.NotFound, "Warehouse"));
@@ -84,16 +81,12 @@ internal sealed class ArmApiService(
         await dbContext.Lines.AddAsync(entity);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return ArmExpressions.ToDto.Compile().Invoke(entity);
+        return await GetArmDto(entity);
     }
 
     public async Task<ArmDto> UpdateAsync(Guid id, ArmUpdateDto dto)
     {
-        await ValidateAsync(dto, updateValidator);
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Name == dto.Name && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Name"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.Number == dto.Number && i.Id != id, errorHelper.Localize(ErrorType.Unique, "Number"));
-        await dbContext.Lines.ThrowIfExistAsync(i => i.SystemKey == dto.SystemKey && i.Id != id, errorHelper.Localize(ErrorType.Unique, "SystemKey"));
+        await updateValidator.ValidateAsync(dbContext.Lines, dto, id);
 
         LineEntity entity = await dbContext.Lines.SafeGetById(id, errorHelper.Localize(ErrorType.NotFound, "Line"));
         PrinterEntity printer = await dbContext.Printers.SafeGetById(dto.PrinterId, errorHelper.Localize(ErrorType.NotFound, "Printer"));
@@ -104,8 +97,7 @@ internal sealed class ArmApiService(
         dto.UpdateEntity(entity, printer, warehouse);
         await dbContext.SaveChangesAsync();
 
-        await LoadDefaultForeignKeysAsync(entity);
-        return ArmExpressions.ToDto.Compile().Invoke(entity);
+        return await GetArmDto(entity);
     }
 
     public async Task DeletePluAsync(Guid armId, Guid pluId)
@@ -143,11 +135,13 @@ internal sealed class ArmApiService(
 
     #region Private
 
-    private async Task LoadDefaultForeignKeysAsync(LineEntity entity)
+    private async Task<ArmDto> GetArmDto(LineEntity entity)
     {
         await dbContext.Entry(entity).Reference(e => e.Printer).LoadAsync();
         await dbContext.Entry(entity).Reference(e => e.Warehouse).LoadAsync();
         await dbContext.Entry(entity.Warehouse).Reference(e => e.ProductionSite).LoadAsync();
+
+        return ArmExpressions.ToDto.Compile().Invoke(entity);
     }
 
     #endregion

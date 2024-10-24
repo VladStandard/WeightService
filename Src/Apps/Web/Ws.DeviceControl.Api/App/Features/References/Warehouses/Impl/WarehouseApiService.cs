@@ -50,6 +50,7 @@ internal sealed class WarehouseApiService(
     public async Task<WarehouseDto> CreateAsync(WarehouseCreateDto dto)
     {
         await ValidateAsync(dto, createValidator);
+
         await dbContext.Warehouses.ThrowIfExistAsync(i => i.Name == dto.Name, "Ошибка уникальности");
         await dbContext.Warehouses.ThrowIfExistAsync(i => i.Uid1C == dto.Id1C, "Ошибка уникальности");
 
